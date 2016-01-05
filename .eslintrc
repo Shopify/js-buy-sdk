@@ -1,0 +1,8 @@
+{
+  "extends": "nightmare-mode",
+  "parser": 'babel-eslint',
+  "rules": {
+    "func-name": false,
+    "no-restricted-syntax": false
+  }
+}

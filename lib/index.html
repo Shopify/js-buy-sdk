@@ -1,0 +1,21 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Buy Button SDK: Tests</title>
+  <link rel="stylesheet" href="/vendor/qunit.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="/vendor/qunit.js"></script>
+  <script src="/buy-button-sdk/main.js"></script>
+  <script src="/buy-button-sdk/tests.js"></script>
+  <script>
+    Object.keys(require.entries).filter(function(name) {
+      return !!name.match(/-test$/);
+    }).forEach(function(name) {
+      require(name); 
+    });
+  </script>
+</body>
+</html>
