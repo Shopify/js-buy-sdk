@@ -2,7 +2,7 @@
   "extends": "nightmare-mode",
   "parser": 'babel-eslint',
   "rules": {
-    "func-name": false,
-    "no-restricted-syntax": false
+    "func-name": 0,
+    "no-restricted-syntax": 0
   }
 }
