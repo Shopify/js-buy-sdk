@@ -4,7 +4,7 @@ const concat = require('broccoli-concat');
 const staticCompiler = require('broccoli-static-compiler');
 const mergeTrees = require('broccoli-merge-trees');
 const babelTranspiler = require('broccoli-babel-transpiler');
-const amdNameResolver = require('amd-name-resolver'); 
+const amdNameResolver = require('amd-name-resolver');
 const path = require('path');
 const pkg = require('./package.json');
 
@@ -12,79 +12,69 @@ const libSrc = 'lib';
 const testSrc = 'tests';
 const shimSrc = 'shims';
 
-const indexHtml = staticCompiler(libSrc, {
-  srcDir: '.',
-  files: ['index.html'],
-  destDir: '.'
-});
 
-function generateModuleIdFunc(prefix) {
-  return function (name) {
-    return `${prefix}/${name}`;
-  }
-}
-
-// Shims
-
-const shims = babelTranspiler(shimSrc, {
-  moduleIds: true,
-  modules: 'amdStrict',
-  resolveModuleSource: amdNameResolver
-});
-
-// loader
-
-function loaderTree() {
-  const loaderDir = path.dirname(require.resolve('loader.js'));
-
-  return funnel(loaderDir, {
-    include: ['loader.js'],
+function htmlTree(htmlRoot) {
+  return staticCompiler(htmlRoot, {
+    srcDir: '.',
+    files: ['index.html'],
     destDir: '.'
   });
 }
 
-// Code
-
-const js = babelTranspiler(libSrc, {
-  moduleRoot: pkg.name,
-  moduleIds: true,
-  modules: 'amdStrict',
-  resolveModuleSource: amdNameResolver
-});
-
-const concatenatedJs = concat(mergeTrees([loaderTree(), js]), {
-  inputFiles: ['**/*.js'],
-  outputFile: `${pkg.name}/main.js`
-});
-
-// Tests
-
-function qunitTree() {
-  const qunitDir = path.dirname(require.resolve('qunitjs'));
-
-  return funnel(qunitDir, {
-    include: ['qunit.*'],
-    destDir: 'vendor'
+function shimTree(shimRoot) {
+  return babelTranspiler(shimRoot, {
+    moduleIds: true,
+    modules: 'amdStrict',
+    resolveModuleSource: amdNameResolver
   });
 }
 
-const testJs = babelTranspiler(testSrc, {
-  moduleRoot: `${pkg.name}/tests`,
-  moduleIds: true,
-  modules: 'amdStrict',
-  resolveModuleSource: amdNameResolver
-});
 
-const testShims = funnel(shims, {
-  include: ['qunit.js'],
-  destDir: '.'
-});
+function libraryTree(libRoot) {
+  const loaderDir = path.dirname(require.resolve('loader.js'));
+  const loaderJs = funnel(loaderDir, {
+    include: ['loader.js'],
+    destDir: '.'
+  });
 
-const concatenatedTestJs = concat(mergeTrees([testJs, testShims]), {
-  inputFiles: ['**/*.js'],
-  outputFile: `${pkg.name}/tests.js`
-});
+  const js = babelTranspiler(libRoot, {
+    moduleRoot: pkg.name,
+    moduleIds: true,
+    modules: 'amdStrict',
+    resolveModuleSource: amdNameResolver
+  });
 
+  return concat(mergeTrees([loaderJs, js]), {
+    inputFiles: ['**/*.js'],
+    outputFile: `${pkg.name}/main.js`
+  });
+}
 
-// The end
-module.exports = mergeTrees([qunitTree(), concatenatedJs, concatenatedTestJs, indexHtml]);
+function testTree(testRoot) {
+  const qunitDir = path.dirname(require.resolve('qunitjs'));
+  const qunitJs = funnel(qunitDir, {
+    include: ['qunit.*'],
+    destDir: 'vendor'
+  });
+
+  const testShims = funnel(shimTree(shimSrc), {
+    include: ['qunit.js'],
+    destDir: '.'
+  });
+
+  const js = babelTranspiler(testRoot, {
+    moduleRoot: `${pkg.name}/tests`,
+    moduleIds: true,
+    modules: 'amdStrict',
+    resolveModuleSource: amdNameResolver
+  });
+
+  const concatenatedTests = concat(mergeTrees([js, testShims]), {
+    inputFiles: ['**/*.js'],
+    outputFile: `${pkg.name}/tests.js`
+  });
+
+  return mergeTrees([qunitJs, concatenatedTests]);
+}
+
+module.exports = mergeTrees([htmlTree(libSrc), libraryTree(libSrc), testTree(testSrc)]);
