@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "amd-name-resolver": "0.0.2",
+    "babel-eslint": "4.1.6",
     "broccoli": "0.16.9",
     "broccoli-asset-rev": "2.4.1",
     "broccoli-babel-transpiler": "5.5.0",
@@ -18,8 +19,10 @@
     "broccoli-funnel": "1.0.1",
     "broccoli-lint-eslint": "1.1.1",
     "broccoli-merge-trees": "1.1.1",
+    "broccoli-sane-watcher": "1.1.4",
     "broccoli-static-compiler": "0.2.2",
     "eslint-config-nightmare-mode": "0.3.0",
+    "js-string-escape": "^1.0.0",
     "loader.js": "3.5.0",
     "qunitjs": "1.20.0"
   }
