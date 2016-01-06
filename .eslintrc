@@ -2,7 +2,10 @@
   "extends": "nightmare-mode",
   "parser": 'babel-eslint',
   "rules": {
-    "func-name": 0,
-    "no-restricted-syntax": 0
+    "func-names": 0,
+    "no-restricted-syntax": 0,
+    "arrow-spacing": [2, { "before": true, "after": true }],
+    "object-curly-spacing": [2, "always"],
+    "prefer-arrow-callback": 0
   }
 }
