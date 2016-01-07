@@ -1,0 +1,7 @@
+machine:
+  node: 5.1.0
+test:
+  override:
+    - npm run test-ci
+    - mkdir -p $CIRCLE_TEST_REPORTS/xunit
+    - mv tests.xml $CIRCLE_TEST_REPORTS/xunit/tests.xml
