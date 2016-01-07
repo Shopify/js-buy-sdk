@@ -1,4 +1,4 @@
-import { test, module } from '/qunit';
+import { test, module } from 'qunit';
 
 module('some module');
 

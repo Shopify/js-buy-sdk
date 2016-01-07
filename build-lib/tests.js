@@ -11,6 +11,7 @@ const pkg = require('../package.json');
 
 const testRoot = 'tests';
 const libRoot = 'lib';
+const shimRoot = 'shims';
 
 const html = funnel(testRoot, {
   include: ['index.html'],
@@ -22,7 +23,7 @@ const rawTestJs = funnel(testRoot, {
   destDir: '.'
 });
 
-const linterTests = lintedTree(mergeTrees([libRoot, rawTestJs]));
+const linterTests = lintedTree(mergeTrees([libRoot, rawTestJs, shimRoot]));
 
 const tests = babelTranspiler(mergeTrees([rawTestJs, linterTests]), {
   moduleRoot: `${pkg.name}/tests`,

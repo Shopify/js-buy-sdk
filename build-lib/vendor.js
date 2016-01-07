@@ -6,7 +6,6 @@ const concat = require('broccoli-concat');
 const mergeTrees = require('broccoli-merge-trees');
 const babelTranspiler = require('broccoli-babel-transpiler');
 const amdNameResolver = require('amd-name-resolver');
-const lintedTree = require('./linted-tree');
 const path = require('path');
 
 const vendorTrees = [];
@@ -28,10 +27,10 @@ const vendorTrees = [];
 
 const shimRoot = 'shims';
 
-vendorTrees.push(babelTranspiler(mergeTrees([shimRoot, lintedTree(shimRoot)]), {
+vendorTrees.push(babelTranspiler(shimRoot, {
   getModuleId: function (name) {
     // Trim leading slash
-    return name.slice(1);
+    return name;
   },
   moduleIds: true,
   modules: 'amdStrict',
