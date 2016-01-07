@@ -9,15 +9,26 @@ const amdNameResolver = require('amd-name-resolver');
 const lintedTree = require('./linted-tree');
 const path = require('path');
 
-const loaderDir = path.dirname(require.resolve('loader.js'));
-const loader = funnel(loaderDir, {
-  include: ['loader.js'],
-  destDir: '.'
+const vendorTrees = [];
+
+[
+  'node_modules/loader.js/loader.js',
+  'node_modules/route-recognizer/dist/route-recognizer.js',
+  'node_modules/fake-xml-http-request/fake_xml_http_request.js',
+  'node_modules/pretender/pretender.js'
+].forEach(function (fullPath) {
+  const dirname = path.dirname(fullPath);
+  const basename = path.basename(fullPath);
+
+  vendorTrees.push(funnel(dirname, {
+    include: [basename],
+    destDir: '.'
+  }));
 });
 
 const shimRoot = 'shims';
 
-const shims = babelTranspiler(mergeTrees([shimRoot, lintedTree(shimRoot)]), {
+vendorTrees.push(babelTranspiler(mergeTrees([shimRoot, lintedTree(shimRoot)]), {
   getModuleId: function (name) {
     // Trim leading slash
     return name.slice(1);
@@ -25,9 +36,9 @@ const shims = babelTranspiler(mergeTrees([shimRoot, lintedTree(shimRoot)]), {
   moduleIds: true,
   modules: 'amdStrict',
   resolveModuleSource: amdNameResolver
-});
+}));
 
-const vendor = concat(mergeTrees([loader, shims]), {
+const vendor = concat(mergeTrees(vendorTrees), {
   inputFiles: ['**/*.js'],
   outputFile: 'vendor.js'
 });
