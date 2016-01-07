@@ -11,3 +11,5 @@ tmp
 
 # Build artifacts
 dist
+.dist-test
+tests.xml
