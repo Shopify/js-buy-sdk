@@ -1,5 +1,6 @@
 machine:
-  node: 5.1.0
+  node:
+    version: 5.1.0
 test:
   override:
     - npm run test-ci
