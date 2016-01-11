@@ -14,14 +14,16 @@ const vendorTrees = [];
   'node_modules/loader.js/loader.js',
   'node_modules/route-recognizer/dist/route-recognizer.js',
   'node_modules/fake-xml-http-request/fake_xml_http_request.js',
-  'node_modules/pretender/pretender.js'
+  'node_modules/pretender/pretender.js',
+  'node_modules/rsvp/dist/rsvp.js',
+  'node_modules/whatwg-fetch/fetch.js'
 ].forEach(function (fullPath) {
   const dirname = path.dirname(fullPath);
   const basename = path.basename(fullPath);
 
   vendorTrees.push(funnel(dirname, {
     include: [basename],
-    destDir: '.'
+    destDir: 'vendor'
   }));
 });
 
@@ -38,6 +40,9 @@ vendorTrees.push(babelTranspiler(shimRoot, {
 }));
 
 const vendor = concat(mergeTrees(vendorTrees), {
+  header: ';window.fetch = null;',
+  headerFiles: ['vendor/loader.js', 'vendor/route-recognizer.js'],
+  footer: ';window.Promise = require("rsvp").Promise;',
   inputFiles: ['**/*.js'],
   outputFile: 'vendor.js'
 });

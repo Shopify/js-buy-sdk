@@ -30,6 +30,8 @@
     "loader.js": "3.5.0",
     "pretender": "0.10.1",
     "qunitjs": "1.20.0",
-    "testem": "0.9.11"
+    "rsvp": "3.1.0",
+    "testem": "0.9.11",
+    "whatwg-fetch": "^0.10.1"
   }
 }
