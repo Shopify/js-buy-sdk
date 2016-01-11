@@ -160,7 +160,7 @@ test('it forwards the original response', function (assert) {
   });
 
   ajax('get', path).then(result => {
-    assert.ok(result.response instanceof Response);
+    assert.ok(result.originalResponse instanceof Response);
     done();
   }).catch(error => {
     window.console.error(error);
