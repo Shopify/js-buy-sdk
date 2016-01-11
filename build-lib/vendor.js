@@ -2,7 +2,6 @@
 
 const funnel = require('broccoli-funnel');
 const concat = require('broccoli-concat');
-// const staticCompiler = require('broccoli-static-compiler');
 const mergeTrees = require('broccoli-merge-trees');
 const babelTranspiler = require('broccoli-babel-transpiler');
 const amdNameResolver = require('amd-name-resolver');
