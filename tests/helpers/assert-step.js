@@ -5,6 +5,6 @@ export function resetStep() {
 }
 
 export function step(expectedValue, description, assert) {
-  assert.equal(counter, expectedValue, `Step ${expectedValue}: description`);
+  assert.equal(counter, expectedValue, `Step ${expectedValue}: ${description}`);
   counter++;
 }
