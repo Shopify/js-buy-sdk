@@ -23,9 +23,70 @@ Or ...
 
 For circle
 
-# Build it!
+## Build it!
 
     $ npm build
 
 Your artifacts are in `dist`
 
+# API Examples
+
+## Configuration and initialization
+
+```javascript
+SH.init({
+  myShopifyDomain: 'my-fancy-shop', // as in my-fancy-shop.myshopify.com
+  apiKey: 'abc123def456fffeee777', // found in the buy-button 'integrations' tab
+  channelId: '12345', // Also on the integrations tab
+});
+```
+
+## Fetching products
+
+```javascript
+// fetch all products
+
+SH.dataStore.fetchAll('products').then(myProducts => {
+  console.log(`I have ${myProducts.length} products in my shop`);
+
+  const firstProduct = myProducts[0];
+
+  console.log('Raw product json', firstProduct.attrs);
+  console.log('Computed product values (like localized strings, etc,)', firstProduct);
+
+  myProduct.addToCart(1);
+});
+
+// fetch one product
+
+SH.dataStore.fetchOne('products', 12345).then(theProduct => {
+  // Do stuff with the product you fetched
+});
+
+// fetch products from a query
+
+SH.dataStore.fetchQuery('products', { product_ids: [1, 2, 3] }).then(someProducts => {
+  // Do stuff with the products you fetched
+});
+```
+## Working with the data store
+
+The data store is your interface to the remote API, as well as model instantion.
+You should never have to do something like `product = new Product`. The data
+store takes care of all the heavy lifting. It also retains a reference to
+everything you've ever fetched, so you can fetch everything once, up front, and
+then peek inside the data store and use those values again later down the road.
+
+```javascript
+SH.dataStore.fetchAll('products').then(myProducts => {
+  // do some stuff
+});
+
+// Do some other stuff. Time passes. Users muck about.
+
+const someProduct = SH.dataStore.peekAll('products').find(product => {
+  return product.product_id === 123;
+});
+
+someProduct.addToCart();
+```
