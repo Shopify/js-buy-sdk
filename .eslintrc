@@ -2,9 +2,10 @@
   "extends": "nightmare-mode/browser",
   "parser": 'babel-eslint',
   "rules": {
+    "arrow-spacing": [2, { "before": true, "after": true }],
+    "camelcase": [2, { "properties": "never" }],
     "func-names": 0,
     "no-restricted-syntax": 0,
-    "arrow-spacing": [2, { "before": true, "after": true }],
     "object-curly-spacing": [2, "always"],
     "prefer-arrow-callback": 0,
     "prefer-reflect": 0
