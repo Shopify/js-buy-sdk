@@ -69,6 +69,7 @@ SH.dataStore.fetchQuery('products', { product_ids: [1, 2, 3] }).then(someProduct
   // Do stuff with the products you fetched
 });
 ```
+
 ## Working with the data store
 
 The data store is your interface to the remote API, as well as model instantion.
@@ -89,4 +90,24 @@ const someProduct = SH.dataStore.peekAll('products').find(product => {
 });
 
 someProduct.addToCart();
+```
+
+## Working with collections
+
+Collections represent groups of products. A product can exist in multiple
+groups, and a collection can contain many products.
+
+```javascript
+// fetching a collection
+SH.dataStore.fetchQuery('collection', { handle: 'awesome-shirts' }).then(results => {
+  const awesomeShirts = results[0];
+
+  // There are two ways to fetch the products for a collection. Both return
+  // another promise.
+  return awesomeShirts.fetchProducts();
+  // OR ...
+  return SH.dataStore.fetchQuery('products', { collection_id: awesomeShirts.attrs.id });
+}).then(collectionsProducts => {
+  // do stuff with your awesome shirts :)
+});
 ```
