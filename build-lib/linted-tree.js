@@ -14,13 +14,13 @@ function renderErrors(errors) {
   }).join('\n');
 }
 
-module.exports = function (tree) {
-  return esLint(tree, {
+module.exports = function (basePath) {
+  return esLint(basePath, {
     testGenerator: function (relativePath, errors) {
       const pass = !errors || errors.length === 0;
 
       return `import { module, test } from 'qunit';
-        module('ESLint - ${path.dirname(relativePath)}');
+        module('ESLint - ${basePath}/${path.dirname(relativePath)}');
         test('${relativePath} should pass ESLint', function(assert) {
           assert.ok(${pass}, '${relativePath} should pass ESLint. ${jsStringEscape(renderErrors(errors))}');
         });

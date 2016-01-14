@@ -23,7 +23,9 @@ const rawTestJs = funnel(testRoot, {
   destDir: '.'
 });
 
-const linterTests = lintedTree(mergeTrees([libRoot, rawTestJs, shimRoot]));
+const linterTests = mergeTrees([
+  lintedTree(libRoot), lintedTree(rawTestJs), lintedTree(shimRoot)
+]);
 
 const tests = babelTranspiler(mergeTrees([rawTestJs, linterTests]), {
   moduleRoot: `${pkg.name}/tests`,
