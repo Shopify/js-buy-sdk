@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import ProductAdapter from 'buy-button-sdk/adapters/product-adapter';
+import { Promise } from 'rsvp';
 
 let adapter;
 
@@ -9,6 +10,11 @@ const baseUrl = `https://${myShopifyDomain}.myshopify.com/api/channels/${channel
 const apiKey = 'abc123def456ghi';
 const base64ApiKey = btoa(apiKey);
 
+function resolvingPromise() {
+  return new Promise(function (resolve) {
+    resolve({});
+  });
+}
 
 module('Unit | ProductAdapter', {
   setup() {
@@ -81,6 +87,7 @@ test('it sends a GET, the correct url, and auth headers for fetchCollection to #
     assert.equal(method, 'get');
     assert.equal(url, `${baseUrl}/product_publications.json`);
     assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    return resolvingPromise();
   };
 
   adapter.fetchCollection();
@@ -99,6 +106,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
     assert.equal(method, 'get');
     assert.equal(url, `${baseUrl}/product_publications.json?product_ids=${id}`);
     assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    return resolvingPromise();
   };
 
   adapter.fetchSingle(id);
@@ -119,6 +127,7 @@ test('it sends a GET, the correct url, and auth headers for fetchCollection with
     assert.equal(method, 'get');
     assert.equal(url, `${baseUrl}/product_publications.json?product_ids=${encodeURIComponent(ids.join(','))}&page=${page}`);
     assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    return resolvingPromise();
   };
 
   adapter.fetchCollection({ product_ids: ids, page });
