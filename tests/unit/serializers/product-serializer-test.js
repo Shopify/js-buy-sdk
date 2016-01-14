@@ -94,3 +94,24 @@ test('it attaches a reference to the serializer on the model', function (assert)
 
   assert.deepEqual(model.serializer, serializer);
 });
+
+test('it attaches a reference of the passed dataStore to the model on #serializeSingle', function (assert) {
+  assert.expect(1);
+
+  const dataStore = 'some-data-store';
+
+  const model = serializer.serializeSingle(singleProductFixture, dataStore);
+
+  assert.equal(model.dataStore, dataStore);
+});
+
+test('it attaches a reference of the passed dataStore to every model on #serializeCollection', function (assert) {
+  assert.expect(2);
+
+  const dataStore = 'some-data-store';
+
+  const models = serializer.serializeCollection(multipleProductsFixture, dataStore);
+
+  assert.deepEqual(models[0].dataStore, dataStore);
+  assert.deepEqual(models[1].dataStore, dataStore);
+});

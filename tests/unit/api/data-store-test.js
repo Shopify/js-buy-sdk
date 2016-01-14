@@ -104,6 +104,8 @@ test('it inits a type\'s adapter with the config during fetchQuery', function (a
 test('it inits a type\'s serializer with the config during fetchAll', function (assert) {
   assert.expect(1);
 
+  const done = assert.async();
+
   dataStore.adapters = {
     products: FakeAdapter
   };
@@ -111,15 +113,21 @@ test('it inits a type\'s serializer with the config during fetchAll', function (
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
+      done();
     }
   };
 
-  dataStore.fetchAll('products');
+  dataStore.fetchAll('products').catch(() => {
+    assert.ok(false, 'should not reject');
+    done();
+  });
 });
 
 test('it inits a type\'s serializer with the config during fetchOne', function (assert) {
   assert.expect(1);
 
+  const done = assert.async();
+
   dataStore.adapters = {
     products: FakeAdapter
   };
@@ -127,15 +135,21 @@ test('it inits a type\'s serializer with the config during fetchOne', function (
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
+      done();
     }
   };
 
-  dataStore.fetchOne('products', 1);
+  dataStore.fetchOne('products', 1).catch(() => {
+    assert.ok(false, 'should not reject');
+    done();
+  });
 });
 
 test('it inits a type\'s serializer with the config during fetchQuery', function (assert) {
   assert.expect(1);
 
+  const done = assert.async();
+
   dataStore.adapters = {
     products: FakeAdapter
   };
@@ -143,10 +157,14 @@ test('it inits a type\'s serializer with the config during fetchQuery', function
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
+      done();
     }
   };
 
-  dataStore.fetchQuery('products', { product_ids: [1, 2, 3] });
+  dataStore.fetchQuery('products', { product_ids: [1, 2, 3] }).catch(() => {
+    assert.ok(false, 'should not reject');
+    done();
+  });
 });
 
 test('it chains the result of the adapter\'s fetchCollection through the type\'s serializer on #fetchAll', function (assert) {
@@ -154,8 +172,8 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   const done = assert.async();
 
-  const rawModel = 'some-object';
-  const serializedModel = 'serialized-model';
+  const rawModel = { props: 'some-object' };
+  const serializedModel = [{ attrs: 'serialized-model' }];
 
   dataStore.adapters = {
     products: function () {
@@ -197,8 +215,8 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
 
   const done = assert.async();
 
-  const rawModel = 'some-object';
-  const serializedModel = 'serialized-model';
+  const rawModel = { props: 'some-object' };
+  const serializedModel = { attrs: 'serialized-model' };
   const id = 1;
 
   dataStore.adapters = {
@@ -242,9 +260,9 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   const done = assert.async();
 
-  const rawModel = 'some-object';
-  const serializedModel = 'serialized-model';
-  const query = 'some-query';
+  const rawModel = { props: 'some-object' };
+  const serializedModel = { attrs: 'serialized-model' };
+  const query = { q: 'some-query' };
 
   dataStore.adapters = {
     products: function () {
@@ -277,6 +295,39 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
     done();
   }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it passes a data store reference to the serializer', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  dataStore.adapters = {
+    products: FakeAdapter
+  };
+
+  dataStore.serializers = {
+    products: function () {
+      this.serializeSingle = function (results, dataStoreRef) {
+        assert.equal(dataStoreRef, dataStore, 'data store reference to #serializeSingle');
+        return {};
+      };
+      this.serializeCollection = function (results, dataStoreRef) {
+        assert.equal(dataStoreRef, dataStore, 'data store reference to #serializeCollection');
+        done();
+        return [{}];
+      };
+    }
+  };
+
+  dataStore.fetchOne('products', 1).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+  dataStore.fetchAll('products').catch(() => {
     assert.ok(false, 'promise should not reject');
     done();
   });
