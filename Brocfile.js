@@ -1,12 +1,22 @@
 /* global require, module */
 
+const env = require('broccoli-env').getEnv();
+
 const mergeTrees = require('broccoli-merge-trees');
 
-const vendor = require('./build-lib/vendor');
-const lib = require('./build-lib/lib');
-const tests = require('./build-lib/tests');
+const pathConfig = {
+  lib: './lib',
+  shims: './shims',
+  tests: './tests'
+};
 
-module.exports = mergeTrees([vendor, lib, tests]);
+const trees = [];
+
+trees.push(require('./build-lib/lib')(pathConfig, env));
+if (env !== 'production') {
+  trees.push(require('./build-lib/testing')(pathConfig, env));
+}
+module.exports = mergeTrees(trees);
 
 /*
 const Watcher = require('broccoli/lib/watcher');
