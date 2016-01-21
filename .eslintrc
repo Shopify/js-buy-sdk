@@ -5,6 +5,7 @@
     "arrow-spacing": [2, { "before": true, "after": true }],
     "camelcase": [2, { "properties": "never" }],
     "func-names": 0,
+    "global-require": 0,
     "no-restricted-syntax": 0,
     "object-curly-spacing": [2, "always"],
     "prefer-arrow-callback": 0,
