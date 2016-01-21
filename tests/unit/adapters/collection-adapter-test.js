@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import CollectionAdapter from 'buy-button-sdk/adapters/collection-adapter';
-import { Promise } from 'rsvp';
+import Promise from 'promise';
 
 let adapter;
 

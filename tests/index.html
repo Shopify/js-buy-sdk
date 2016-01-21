@@ -2,16 +2,18 @@
 <head>
   <meta charset="utf-8">
   <title>Buy Button SDK: Tests</title>
-  <link rel="stylesheet" href="/vendor/qunit.css">
+  <link rel="stylesheet" href="/qunit.css">
+  <script src="/qunit.js"></script>
+  <script src="/testem.js"></script>
 </head>
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
-  <script src="/vendor/qunit.js"></script>
-  <script src="/testem.js"></script>
-  <script src="/vendor.js"></script>
-  <script src="/buy-button-sdk/main.js"></script>
-  <script src="/buy-button-sdk/tests.js"></script>
+
+  <script src="/buy-button-sdk.amd.js"></script>
+  <script src="/sdk-testing.js"></script>
+  <script src="/polyfills.js"></script>
+  <script src="/tests.js"></script>
   <script>
     Object.keys(require.entries).filter(function(name) {
       return !!name.match(/-test$/);

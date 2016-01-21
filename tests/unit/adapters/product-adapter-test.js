@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import ProductAdapter from 'buy-button-sdk/adapters/product-adapter';
-import { Promise } from 'rsvp';
+import Promise from 'promise';
 
 let adapter;
 

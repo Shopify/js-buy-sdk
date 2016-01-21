@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
 import DataStore from 'buy-button-sdk/data-store';
 import Config from 'buy-button-sdk/config';
-import { Promise } from 'rsvp';
+import Promise from 'promise';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',

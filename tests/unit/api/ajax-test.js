@@ -21,7 +21,7 @@ module('Unit | Ajax', {
 
 
 test('it returns a promise', function (assert) {
-  assert.expect(4);
+  assert.expect(3);
 
   pretender.get(path, function () {
     // NO-OP
@@ -33,7 +33,6 @@ test('it returns a promise', function (assert) {
   assert.equal(typeof result, 'object');
   assert.equal(typeof result.then, 'function');
   assert.equal(typeof result.catch, 'function');
-  assert.equal(typeof result.finally, 'function');
 });
 
 test('it respects request types', function (assert) {
