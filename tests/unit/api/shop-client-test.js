@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
-import DataStore from 'buy-button-sdk/data-store';
+import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Promise from 'promise';
 
@@ -12,7 +12,7 @@ const configAttrs = {
 
 const config = new Config(configAttrs);
 
-let dataStore;
+let shopClient;
 
 function FakeAdapter() {
   this.fetchCollection = function () {
@@ -36,13 +36,13 @@ function FakeSerializer() {
   };
 }
 
-module('Unit | DataStore', {
+module('Unit | ShopClient', {
   setup() {
-    dataStore = new DataStore(config);
+    shopClient = new ShopClient(config);
     resetStep();
   },
   teardown() {
-    dataStore = null;
+    shopClient = null;
   }
 });
 
@@ -50,55 +50,55 @@ module('Unit | DataStore', {
 test('it retains a reference to the passed config.', function (assert) {
   assert.expect(1);
 
-  assert.equal(dataStore.config, config);
+  assert.equal(shopClient.config, config);
 });
 
 test('it inits a type\'s adapter with the config during fetchAll', function (assert) {
   assert.expect(1);
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeAdapter.apply(this, arguments);
     }
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: FakeSerializer
   };
 
-  dataStore.fetchAll('products');
+  shopClient.fetchAll('products');
 });
 
 test('it inits a type\'s adapter with the config during fetchOne', function (assert) {
   assert.expect(1);
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeAdapter.apply(this, arguments);
     }
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: FakeSerializer
   };
 
-  dataStore.fetchOne('products', 1);
+  shopClient.fetchOne('products', 1);
 });
 
 test('it inits a type\'s adapter with the config during fetchQuery', function (assert) {
   assert.expect(1);
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeAdapter.apply(this, arguments);
     }
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: FakeSerializer
   };
 
-  dataStore.fetchQuery('products', { product_ids: [1, 2, 3] });
+  shopClient.fetchQuery('products', { product_ids: [1, 2, 3] });
 });
 
 test('it inits a type\'s serializer with the config during fetchAll', function (assert) {
@@ -106,10 +106,10 @@ test('it inits a type\'s serializer with the config during fetchAll', function (
 
   const done = assert.async();
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: FakeAdapter
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
@@ -117,7 +117,7 @@ test('it inits a type\'s serializer with the config during fetchAll', function (
     }
   };
 
-  dataStore.fetchAll('products').catch(() => {
+  shopClient.fetchAll('products').catch(() => {
     assert.ok(false, 'should not reject');
     done();
   });
@@ -128,10 +128,10 @@ test('it inits a type\'s serializer with the config during fetchOne', function (
 
   const done = assert.async();
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: FakeAdapter
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
@@ -139,7 +139,7 @@ test('it inits a type\'s serializer with the config during fetchOne', function (
     }
   };
 
-  dataStore.fetchOne('products', 1).catch(() => {
+  shopClient.fetchOne('products', 1).catch(() => {
     assert.ok(false, 'should not reject');
     done();
   });
@@ -150,10 +150,10 @@ test('it inits a type\'s serializer with the config during fetchQuery', function
 
   const done = assert.async();
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: FakeAdapter
   };
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
@@ -161,7 +161,7 @@ test('it inits a type\'s serializer with the config during fetchQuery', function
     }
   };
 
-  dataStore.fetchQuery('products', { product_ids: [1, 2, 3] }).catch(() => {
+  shopClient.fetchQuery('products', { product_ids: [1, 2, 3] }).catch(() => {
     assert.ok(false, 'should not reject');
     done();
   });
@@ -175,7 +175,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
   const rawModel = { props: 'some-object' };
   const serializedModel = [{ attrs: 'serialized-model' }];
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function () {
       this.fetchCollection = function () {
         step(1, 'calls fetchAll on the adapter', assert);
@@ -187,7 +187,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
     }
   };
 
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function () {
       this.serializeCollection = function (results) {
         step(2, 'calls serializeCollection', assert);
@@ -199,7 +199,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
     }
   };
 
-  dataStore.fetchAll('products').then(products => {
+  shopClient.fetchAll('products').then(products => {
     step(3, 'resolves after fetch and serialize', assert);
     assert.equal(products, serializedModel);
 
@@ -219,7 +219,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
   const serializedModel = { attrs: 'serialized-model' };
   const id = 1;
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function () {
       this.fetchSingle = function (localId) {
         step(1, 'calls fetchSingle on the adapter', assert);
@@ -232,7 +232,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
     }
   };
 
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function () {
       this.serializeSingle = function (results) {
         step(2, 'calls serializeSingle', assert);
@@ -244,7 +244,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
     }
   };
 
-  dataStore.fetchOne('products', 1).then(product => {
+  shopClient.fetchOne('products', 1).then(product => {
     step(3, 'resolves after fetch and serialize', assert);
     assert.equal(product, serializedModel);
 
@@ -264,7 +264,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
   const serializedModel = { attrs: 'serialized-model' };
   const query = { q: 'some-query' };
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: function () {
       this.fetchCollection = function (localQuery) {
         step(1, 'calls fetchAll on the adapter', assert);
@@ -277,7 +277,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
     }
   };
 
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function () {
       this.serializeCollection = function (results) {
         step(2, 'calls serializeCollection', assert);
@@ -289,7 +289,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
     }
   };
 
-  dataStore.fetchQuery('products', query).then(products => {
+  shopClient.fetchQuery('products', query).then(products => {
     step(3, 'resolves after fetch and serialize', assert);
     assert.equal(products, serializedModel);
 
@@ -300,34 +300,34 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
   });
 });
 
-test('it passes a data store reference to the serializer', function (assert) {
+test('it passes a shop client reference to the serializer', function (assert) {
   assert.expect(2);
 
   const done = assert.async();
 
-  dataStore.adapters = {
+  shopClient.adapters = {
     products: FakeAdapter
   };
 
-  dataStore.serializers = {
+  shopClient.serializers = {
     products: function () {
-      this.serializeSingle = function (results, dataStoreRef) {
-        assert.equal(dataStoreRef, dataStore, 'data store reference to #serializeSingle');
+      this.serializeSingle = function (results, shopClientRef) {
+        assert.equal(shopClientRef, shopClient, 'shop client reference to #serializeSingle');
         return {};
       };
-      this.serializeCollection = function (results, dataStoreRef) {
-        assert.equal(dataStoreRef, dataStore, 'data store reference to #serializeCollection');
+      this.serializeCollection = function (results, shopClientRef) {
+        assert.equal(shopClientRef, shopClient, 'shop client reference to #serializeCollection');
         done();
         return [{}];
       };
     }
   };
 
-  dataStore.fetchOne('products', 1).catch(() => {
+  shopClient.fetchOne('products', 1).catch(() => {
     assert.ok(false, 'promise should not reject');
     done();
   });
-  dataStore.fetchAll('products').catch(() => {
+  shopClient.fetchAll('products').catch(() => {
     assert.ok(false, 'promise should not reject');
     done();
   });

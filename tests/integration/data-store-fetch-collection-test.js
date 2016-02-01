@@ -1,6 +1,6 @@
 
 import { module, test } from 'qunit';
-import DataStore from 'buy-button-sdk/data-store';
+import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Pretender from 'pretender';
 
@@ -36,22 +36,22 @@ const collectionsFixture = {
   ]
 };
 
-let dataStore;
+let shopClient;
 let pretender;
 
-module('Integration | DataStore#fetch* for collections', {
+module('Integration | ShopClient#fetch* for collections', {
   setup() {
-    dataStore = new DataStore(config);
+    shopClient = new ShopClient(config);
     pretender = new Pretender();
   },
   teardown() {
-    dataStore = null;
+    shopClient = null;
     pretender.shutdown();
   }
 });
 
 
-test('it resolves with an array of collections on DataStore#fetchAll', function (assert) {
+test('it resolves with an array of collections on ShopClient#fetchAll', function (assert) {
   assert.expect(4);
 
   const done = assert.async();
@@ -60,11 +60,11 @@ test('it resolves with an array of collections on DataStore#fetchAll', function 
     return [200, {}, JSON.stringify(collectionsFixture)];
   });
 
-  dataStore.fetchAll('collections').then(collections => {
+  shopClient.fetchAll('collections').then(collections => {
     assert.ok(Array.isArray(collections), 'collections is an array');
     assert.equal(collections.length, 1, 'there is one collection in the array');
     assert.deepEqual(collections[0].attrs, collectionsFixture.collection_publications[0]);
-    assert.equal(collections[0].dataStore, dataStore, 'collection knows its owner (the data store)');
+    assert.equal(collections[0].shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -73,7 +73,7 @@ test('it resolves with an array of collections on DataStore#fetchAll', function 
 });
 
 
-test('it resolves with a single collection on DataStore#fetchOne', function (assert) {
+test('it resolves with a single collection on ShopClient#fetchOne', function (assert) {
   assert.expect(4);
 
   const done = assert.async();
@@ -86,10 +86,10 @@ test('it resolves with a single collection on DataStore#fetchOne', function (ass
     return [200, {}, JSON.stringify(collectionsFixture)];
   });
 
-  dataStore.fetchOne('collections', id).then(collection => {
+  shopClient.fetchOne('collections', id).then(collection => {
     assert.notOk(Array.isArray(collection), 'collections is not an array');
     assert.deepEqual(collection.attrs, collectionsFixture.collection_publications[0]);
-    assert.equal(collection.dataStore, dataStore, 'collection knows its owner (the data store)');
+    assert.equal(collection.shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -97,7 +97,7 @@ test('it resolves with a single collection on DataStore#fetchOne', function (ass
   });
 });
 
-test('it resolves with a collection of collections on DataStore#fetchQuery', function (assert) {
+test('it resolves with a collection of collections on ShopClient#fetchQuery', function (assert) {
   assert.expect(5);
 
   const done = assert.async();
@@ -110,11 +110,11 @@ test('it resolves with a collection of collections on DataStore#fetchQuery', fun
     return [200, {}, JSON.stringify(collectionsFixture)];
   });
 
-  dataStore.fetchQuery('collections', { collection_id: id }).then(collections => {
+  shopClient.fetchQuery('collections', { collection_id: id }).then(collections => {
     assert.ok(Array.isArray(collections), 'collections is an array');
     assert.equal(collections.length, 1, 'there is one collection in the array');
     assert.deepEqual(collections[0].attrs, collectionsFixture.collection_publications[0]);
-    assert.equal(collections[0].dataStore, dataStore, 'collection knows its owner (the data store)');
+    assert.equal(collections[0].shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');

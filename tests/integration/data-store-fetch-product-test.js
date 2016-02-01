@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import DataStore from 'buy-button-sdk/data-store';
+import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Pretender from 'pretender';
 
@@ -44,22 +44,22 @@ const productsFixture = {
   ]
 };
 
-let dataStore;
+let shopClient;
 let pretender;
 
-module('Integration | DataStore#fetch* for products', {
+module('Integration | ShopClient#fetch* for products', {
   setup() {
-    dataStore = new DataStore(config);
+    shopClient = new ShopClient(config);
     pretender = new Pretender();
   },
   teardown() {
-    dataStore = null;
+    shopClient = null;
     pretender.shutdown();
   }
 });
 
 
-test('it resolves with an array of products on DataStore#fetchAll', function (assert) {
+test('it resolves with an array of products on ShopClient#fetchAll', function (assert) {
   assert.expect(4);
 
   const done = assert.async();
@@ -68,11 +68,11 @@ test('it resolves with an array of products on DataStore#fetchAll', function (as
     return [200, {}, JSON.stringify(productsFixture)];
   });
 
-  dataStore.fetchAll('products').then(products => {
+  shopClient.fetchAll('products').then(products => {
     assert.ok(Array.isArray(products), 'products is an array');
     assert.equal(products.length, 1, 'there is one product in the array');
     assert.deepEqual(products[0].attrs, productsFixture.product_publications[0]);
-    assert.equal(products[0].dataStore, dataStore, 'product knows its owner (the data store)');
+    assert.equal(products[0].shopClient, shopClient, 'product knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -81,7 +81,7 @@ test('it resolves with an array of products on DataStore#fetchAll', function (as
 });
 
 
-test('it resolves with a single product on DataStore#fetchOne', function (assert) {
+test('it resolves with a single product on ShopClient#fetchOne', function (assert) {
   assert.expect(4);
 
   const done = assert.async();
@@ -94,10 +94,10 @@ test('it resolves with a single product on DataStore#fetchOne', function (assert
     return [200, {}, JSON.stringify(productsFixture)];
   });
 
-  dataStore.fetchOne('products', id).then(product => {
+  shopClient.fetchOne('products', id).then(product => {
     assert.notOk(Array.isArray(product), 'products is not an array');
     assert.deepEqual(product.attrs, productsFixture.product_publications[0]);
-    assert.equal(product.dataStore, dataStore, 'product knows its owner (the data store)');
+    assert.equal(product.shopClient, shopClient, 'product knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -105,7 +105,7 @@ test('it resolves with a single product on DataStore#fetchOne', function (assert
   });
 });
 
-test('it resolves with a collection of products on DataStore#fetchQuery', function (assert) {
+test('it resolves with a collection of products on ShopClient#fetchQuery', function (assert) {
   assert.expect(5);
 
   const done = assert.async();
@@ -118,11 +118,11 @@ test('it resolves with a collection of products on DataStore#fetchQuery', functi
     return [200, {}, JSON.stringify(productsFixture)];
   });
 
-  dataStore.fetchQuery('products', { collection_id: id }).then(products => {
+  shopClient.fetchQuery('products', { collection_id: id }).then(products => {
     assert.ok(Array.isArray(products), 'products is an array');
     assert.equal(products.length, 1, 'there is one product in the array');
     assert.deepEqual(products[0].attrs, productsFixture.product_publications[0]);
-    assert.equal(products[0].dataStore, dataStore, 'product knows its owner (the data store)');
+    assert.equal(products[0].shopClient, shopClient, 'product knows its owner (the shop client)');
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');

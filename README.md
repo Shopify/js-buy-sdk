@@ -46,7 +46,7 @@ SH.init({
 ```javascript
 // fetch all products
 
-SH.dataStore.fetchAll('products').then(myProducts => {
+SH.shopClient.fetchAll('products').then(myProducts => {
   console.log(`I have ${myProducts.length} products in my shop`);
 
   const firstProduct = myProducts[0];
@@ -59,33 +59,33 @@ SH.dataStore.fetchAll('products').then(myProducts => {
 
 // fetch one product
 
-SH.dataStore.fetchOne('products', 12345).then(theProduct => {
+SH.shopClient.fetchOne('products', 12345).then(theProduct => {
   // Do stuff with the product you fetched
 });
 
 // fetch products from a query
 
-SH.dataStore.fetchQuery('products', { product_ids: [1, 2, 3] }).then(someProducts => {
+SH.shopClient.fetchQuery('products', { product_ids: [1, 2, 3] }).then(someProducts => {
   // Do stuff with the products you fetched
 });
 ```
 
-## Working with the data store
+## Working with the shop client
 
-The data store is your interface to the remote API, as well as model instantion.
+The shop client is your interface to the remote API, as well as model instantion.
 You should never have to do something like `product = new Product`. The data
 store takes care of all the heavy lifting. It also retains a reference to
 everything you've ever fetched, so you can fetch everything once, up front, and
-then peek inside the data store and use those values again later down the road.
+then peek inside the shop client and use those values again later down the road.
 
 ```javascript
-SH.dataStore.fetchAll('products').then(myProducts => {
+SH.shopClient.fetchAll('products').then(myProducts => {
   // do some stuff
 });
 
 // Do some other stuff. Time passes. Users muck about.
 
-const someProduct = SH.dataStore.peekAll('products').find(product => {
+const someProduct = SH.shopClient.peekAll('products').find(product => {
   return product.product_id === 123;
 });
 
@@ -99,14 +99,14 @@ groups, and a collection can contain many products.
 
 ```javascript
 // fetching a collection
-SH.dataStore.fetchQuery('collection', { handle: 'awesome-shirts' }).then(results => {
+SH.shopClient.fetchQuery('collection', { handle: 'awesome-shirts' }).then(results => {
   const awesomeShirts = results[0];
 
   // There are two ways to fetch the products for a collection. Both return
   // another promise.
   return awesomeShirts.fetchProducts();
   // OR ...
-  return SH.dataStore.fetchQuery('products', { collection_id: awesomeShirts.attrs.id });
+  return SH.shopClient.fetchQuery('products', { collection_id: awesomeShirts.attrs.id });
 }).then(collectionsProducts => {
   // do stuff with your awesome shirts :)
 });
