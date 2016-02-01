@@ -16,7 +16,7 @@ trees.push(require('./build-lib/lib')(pathConfig, env));
 if (env !== 'production') {
   trees.push(require('./build-lib/testing')(pathConfig, env));
 }
-module.exports = mergeTrees(trees);
+module.exports = mergeTrees(trees, { annotation: true });
 
 /*
 const Watcher = require('broccoli/lib/watcher');
