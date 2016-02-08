@@ -40,7 +40,7 @@ test('it attaches static attributes to the constructor', function (assert) {
     constructor: FakeConstructor,
 
     static: {
-      someStaticAttr: { value: staticAttr }
+      someStaticAttr: staticAttr
     }
   });
 
@@ -106,16 +106,14 @@ test('it inherits props and methods from the parent', function (assert) {
       step(2, 'it calls the parent constructor', assert);
     },
 
-    invertedProp: {
-      get() {
-        step(4, 'it calls the parents getter', assert);
-        return this.shadowingInvertedProp;
-      },
-      set(value) {
-        step(3, 'it calls the parents setter', assert);
-        this.shadowingSomeProp = !value;
-        return this.shadowingInvertedProp;
-      }
+    get invertedProp() {
+      step(4, 'it calls the parents getter', assert);
+      return this.shadowingInvertedProp;
+    },
+    set invertedProp(value) {
+      step(3, 'it calls the parents setter', assert);
+      this.shadowingSomeProp = !value;
+      return this.shadowingInvertedProp;
     },
 
     sideEffects() {
