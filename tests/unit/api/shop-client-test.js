@@ -332,3 +332,59 @@ test('it passes a shop client reference to the serializer', function (assert) {
     done();
   });
 });
+
+test('it forwards "fetchAllNouns" to "fetchAll(\'nouns\')"', function (assert) {
+  assert.expect(2);
+
+  shopClient.fetchAll = function (type) {
+    assert.equal(type, 'products');
+  };
+
+  shopClient.fetchAllProducts();
+
+  shopClient.fetchAll = function (type) {
+    assert.equal(type, 'collections');
+  };
+
+  shopClient.fetchAllCollections();
+});
+
+test('it forwards "fetchOneNoun" to "fetchOne(\'nouns\', ...)"', function (assert) {
+  assert.expect(4);
+
+  const fetchedId = 1;
+
+  shopClient.fetchOne = function (type, id) {
+    assert.equal(type, 'products');
+    assert.equal(id, fetchedId);
+  };
+
+  shopClient.fetchOneProduct(fetchedId);
+
+  shopClient.fetchOne = function (type, id) {
+    assert.equal(type, 'collections');
+    assert.equal(id, fetchedId);
+  };
+
+  shopClient.fetchOneCollection(fetchedId);
+});
+
+test('it forwards "fetchQueryNouns" to "fetchQuery(\'nouns\', ...)"', function (assert) {
+  assert.expect(4);
+
+  const fetchedQuery = { page: 1 };
+
+  shopClient.fetchQuery = function (type, query) {
+    assert.equal(type, 'products');
+    assert.deepEqual(query, fetchedQuery);
+  };
+
+  shopClient.fetchQueryProducts(fetchedQuery);
+
+  shopClient.fetchQuery = function (type, query) {
+    assert.equal(type, 'collections');
+    assert.equal(query, fetchedQuery);
+  };
+
+  shopClient.fetchQueryCollections(fetchedQuery);
+});
