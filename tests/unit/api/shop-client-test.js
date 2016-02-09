@@ -28,10 +28,10 @@ function FakeAdapter() {
 }
 
 function FakeSerializer() {
-  this.serializeSingle = function () {
+  this.deserializeSingle = function () {
     return {};
   };
-  this.serializeCollection = function () {
+  this.deserializeCollection = function () {
     return [{}];
   };
 }
@@ -189,8 +189,8 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.serializeCollection = function (results) {
-        step(2, 'calls serializeCollection', assert);
+      this.deserializeCollection = function (results) {
+        step(2, 'calls deserializeCollection', assert);
 
         assert.equal(results, rawModel);
 
@@ -234,8 +234,8 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
 
   shopClient.serializers = {
     products: function () {
-      this.serializeSingle = function (results) {
-        step(2, 'calls serializeSingle', assert);
+      this.deserializeSingle = function (results) {
+        step(2, 'calls deserializeSingle', assert);
 
         assert.equal(results, rawModel);
 
@@ -279,8 +279,8 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.serializeCollection = function (results) {
-        step(2, 'calls serializeCollection', assert);
+      this.deserializeCollection = function (results) {
+        step(2, 'calls deserializeCollection', assert);
 
         assert.equal(results, rawModel);
 
@@ -311,16 +311,16 @@ test('it passes references to adapter, serializer, and client to the serializer'
 
   shopClient.serializers = {
     products: function () {
-      this.serializeSingle = function (results, metaAttrs) {
-        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #serializeSingle');
-        assert.equal(metaAttrs.serializer, this, 'serializer reference to #serializeSingle');
-        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #serializeSingle');
+      this.deserializeSingle = function (results, metaAttrs) {
+        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeSingle');
+        assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeSingle');
+        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeSingle');
         return {};
       };
-      this.serializeCollection = function (results, metaAttrs) {
-        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #serializeCollection');
-        assert.equal(metaAttrs.serializer, this, 'serializer reference to #serializeCollection');
-        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #serializeCollection');
+      this.deserializeCollection = function (results, metaAttrs) {
+        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeCollection');
+        assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeCollection');
+        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeCollection');
         done();
         return [{}];
       };

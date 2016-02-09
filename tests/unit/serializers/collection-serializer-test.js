@@ -55,7 +55,7 @@ const multipleCollectionsFixture = {
 test('it transforms a single item payload into a collection object.', function (assert) {
   assert.expect(2);
 
-  const model = serializer.serializeSingle(singleCollectionFixture);
+  const model = serializer.deserializeSingle(singleCollectionFixture);
 
   assert.notOk(Array.isArray(model), 'should not be an array');
   assert.deepEqual(model.attrs, singleCollectionFixture.collection_publications[0]);
@@ -64,7 +64,7 @@ test('it transforms a single item payload into a collection object.', function (
 test('it transforms a collection payload into a list of collection objects.', function (assert) {
   assert.expect(4);
 
-  const models = serializer.serializeCollection(multipleCollectionsFixture);
+  const models = serializer.deserializeCollection(multipleCollectionsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
@@ -72,39 +72,39 @@ test('it transforms a collection payload into a list of collection objects.', fu
   assert.deepEqual(models[1].attrs, multipleCollectionsFixture.collection_publications[1]);
 });
 
-test('it attaches a reference of the passed serializer to the model on #serializeSingle', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeSingle', function (assert) {
   assert.expect(1);
 
-  const model = serializer.serializeSingle(singleCollectionFixture, { serializer });
+  const model = serializer.deserializeSingle(singleCollectionFixture, { serializer });
 
   assert.deepEqual(model.serializer, serializer);
 });
 
-test('it attaches a reference of the passed serializer to the model on #serializeCollection', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeCollection', function (assert) {
   assert.expect(2);
 
-  const models = serializer.serializeCollection(multipleCollectionsFixture, { serializer });
+  const models = serializer.deserializeCollection(multipleCollectionsFixture, { serializer });
 
   assert.deepEqual(models[0].serializer, serializer);
   assert.deepEqual(models[1].serializer, serializer);
 });
 
-test('it attaches a reference of the passed shopClient to the model on #serializeSingle', function (assert) {
+test('it attaches a reference of the passed shopClient to the model on #deserializeSingle', function (assert) {
   assert.expect(1);
 
   const shopClient = 'some-shop-client';
 
-  const model = serializer.serializeSingle(singleCollectionFixture, { shopClient });
+  const model = serializer.deserializeSingle(singleCollectionFixture, { shopClient });
 
   assert.equal(model.shopClient, shopClient);
 });
 
-test('it attaches a reference of the passed shopClient to every model on #serializeCollection', function (assert) {
+test('it attaches a reference of the passed shopClient to every model on #deserializeCollection', function (assert) {
   assert.expect(2);
 
   const shopClient = 'some-shop-client';
 
-  const models = serializer.serializeCollection(multipleCollectionsFixture, { shopClient });
+  const models = serializer.deserializeCollection(multipleCollectionsFixture, { shopClient });
 
   assert.deepEqual(models[0].shopClient, shopClient);
   assert.deepEqual(models[1].shopClient, shopClient);

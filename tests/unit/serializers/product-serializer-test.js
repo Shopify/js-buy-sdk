@@ -70,7 +70,7 @@ const multipleProductsFixture = {
 test('it transforms a single item payload into a product object.', function (assert) {
   assert.expect(2);
 
-  const model = serializer.serializeSingle(singleProductFixture);
+  const model = serializer.deserializeSingle(singleProductFixture);
 
   assert.notOk(Array.isArray(model), 'should not be an array');
   assert.deepEqual(model.attrs, singleProductFixture.product_publications[0]);
@@ -79,7 +79,7 @@ test('it transforms a single item payload into a product object.', function (ass
 test('it transforms a collection payload into a list of product objects.', function (assert) {
   assert.expect(4);
 
-  const models = serializer.serializeCollection(multipleProductsFixture);
+  const models = serializer.deserializeCollection(multipleProductsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
@@ -87,39 +87,39 @@ test('it transforms a collection payload into a list of product objects.', funct
   assert.deepEqual(models[1].attrs, multipleProductsFixture.product_publications[1]);
 });
 
-test('it attaches a reference of the passed serializer to the model on #serializeSingle', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeSingle', function (assert) {
   assert.expect(1);
 
-  const model = serializer.serializeSingle(singleProductFixture, { serializer });
+  const model = serializer.deserializeSingle(singleProductFixture, { serializer });
 
   assert.deepEqual(model.serializer, serializer);
 });
 
-test('it attaches a reference of the passed serializer to the model on #serializeCollection', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeCollection', function (assert) {
   assert.expect(2);
 
-  const models = serializer.serializeCollection(multipleProductsFixture, { serializer });
+  const models = serializer.deserializeCollection(multipleProductsFixture, { serializer });
 
   assert.deepEqual(models[0].serializer, serializer);
   assert.deepEqual(models[1].serializer, serializer);
 });
 
-test('it attaches a reference of the passed shopClient to the model on #serializeSingle', function (assert) {
+test('it attaches a reference of the passed shopClient to the model on #deserializeSingle', function (assert) {
   assert.expect(1);
 
   const shopClient = 'some-shop-client';
 
-  const model = serializer.serializeSingle(singleProductFixture, { shopClient });
+  const model = serializer.deserializeSingle(singleProductFixture, { shopClient });
 
   assert.equal(model.shopClient, shopClient);
 });
 
-test('it attaches a reference of the passed shopClient to every model on #serializeCollection', function (assert) {
+test('it attaches a reference of the passed shopClient to every model on #deserializeCollection', function (assert) {
   assert.expect(2);
 
   const shopClient = 'some-shop-client';
 
-  const models = serializer.serializeCollection(multipleProductsFixture, { shopClient });
+  const models = serializer.deserializeCollection(multipleProductsFixture, { shopClient });
 
   assert.deepEqual(models[0].shopClient, shopClient);
   assert.deepEqual(models[1].shopClient, shopClient);
