@@ -15,7 +15,7 @@ const config = new Config(configAttrs);
 let shopClient;
 
 function FakeAdapter() {
-  this.fetchCollection = function () {
+  this.fetchMultiple = function () {
     return new Promise(function (resolve) {
       resolve({});
     });
@@ -31,7 +31,7 @@ function FakeSerializer() {
   this.deserializeSingle = function () {
     return {};
   };
-  this.deserializeCollection = function () {
+  this.deserializeMultiple = function () {
     return [{}];
   };
 }
@@ -167,7 +167,7 @@ test('it inits a type\'s serializer with the config during fetchQuery', function
   });
 });
 
-test('it chains the result of the adapter\'s fetchCollection through the type\'s serializer on #fetchAll', function (assert) {
+test('it chains the result of the adapter\'s fetchMultiple through the type\'s serializer on #fetchAll', function (assert) {
   assert.expect(5);
 
   const done = assert.async();
@@ -177,7 +177,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.adapters = {
     products: function () {
-      this.fetchCollection = function () {
+      this.fetchMultiple = function () {
         step(1, 'calls fetchAll on the adapter', assert);
 
         return new Promise(function (resolve) {
@@ -189,8 +189,8 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeCollection = function (type, results) {
-        step(2, 'calls deserializeCollection', assert);
+      this.deserializeMultiple = function (type, results) {
+        step(2, 'calls deserializeMultiple', assert);
 
         assert.equal(results, rawModel);
 
@@ -255,7 +255,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
   });
 });
 
-test('it chains the result of the adapter\'s fetchCollection through the type\'s serializer on #fetchQuery', function (assert) {
+test('it chains the result of the adapter\'s fetchMultiple through the type\'s serializer on #fetchQuery', function (assert) {
   assert.expect(6);
 
   const done = assert.async();
@@ -266,7 +266,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.adapters = {
     products: function () {
-      this.fetchCollection = function (localQuery) {
+      this.fetchMultiple = function (localQuery) {
         step(1, 'calls fetchAll on the adapter', assert);
         assert.equal(localQuery, query);
 
@@ -279,8 +279,8 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeCollection = function (type, results) {
-        step(2, 'calls deserializeCollection', assert);
+      this.deserializeMultiple = function (type, results) {
+        step(2, 'calls deserializeMultiple', assert);
 
         assert.equal(results, rawModel);
 
@@ -317,10 +317,10 @@ test('it passes references to adapter, serializer, and client to the serializer'
         assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeSingle');
         return {};
       };
-      this.deserializeCollection = function (type, results, metaAttrs) {
-        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeCollection');
-        assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeCollection');
-        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeCollection');
+      this.deserializeMultiple = function (type, results, metaAttrs) {
+        assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeMultiple');
+        assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeMultiple');
+        assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeMultiple');
         done();
         return [{}];
       };

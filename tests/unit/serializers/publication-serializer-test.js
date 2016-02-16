@@ -130,7 +130,7 @@ test('it transforms a single item payload into a product object.', function (ass
 test('it transforms a collection payload into a list of product objects.', function (assert) {
   assert.expect(4);
 
-  const models = serializer.deserializeCollection('products', multipleProductsFixture);
+  const models = serializer.deserializeMultiple('products', multipleProductsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
@@ -146,10 +146,10 @@ test('it attaches a reference of the passed serializer to the model on #deserial
   assert.deepEqual(model.serializer, serializer);
 });
 
-test('it attaches a reference of the passed serializer to the model on #deserializeCollection', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeMultiple', function (assert) {
   assert.expect(2);
 
-  const models = serializer.deserializeCollection('products', multipleProductsFixture, { serializer });
+  const models = serializer.deserializeMultiple('products', multipleProductsFixture, { serializer });
 
   assert.deepEqual(models[0].serializer, serializer);
   assert.deepEqual(models[1].serializer, serializer);
@@ -165,12 +165,12 @@ test('it attaches a reference of the passed shopClient to the model on #deserial
   assert.equal(model.shopClient, shopClient);
 });
 
-test('it attaches a reference of the passed shopClient to every model on #deserializeCollection', function (assert) {
+test('it attaches a reference of the passed shopClient to every model on #deserializeMultiple', function (assert) {
   assert.expect(2);
 
   const shopClient = 'some-shop-client';
 
-  const models = serializer.deserializeCollection('products', multipleProductsFixture, { shopClient });
+  const models = serializer.deserializeMultiple('products', multipleProductsFixture, { shopClient });
 
   assert.deepEqual(models[0].shopClient, shopClient);
   assert.deepEqual(models[1].shopClient, shopClient);
@@ -188,7 +188,7 @@ test('it transforms a single item payload into a collection object.', function (
 test('it transforms a collection payload into a list of collection objects.', function (assert) {
   assert.expect(4);
 
-  const models = serializer.deserializeCollection('collections', multipleCollectionsFixture);
+  const models = serializer.deserializeMultiple('collections', multipleCollectionsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
@@ -204,10 +204,10 @@ test('it attaches a reference of the passed serializer to the model on #deserial
   assert.deepEqual(model.serializer, serializer);
 });
 
-test('it attaches a reference of the passed serializer to the model on #deserializeCollection', function (assert) {
+test('it attaches a reference of the passed serializer to the model on #deserializeMultiple', function (assert) {
   assert.expect(2);
 
-  const models = serializer.deserializeCollection('collections', multipleCollectionsFixture, { serializer });
+  const models = serializer.deserializeMultiple('collections', multipleCollectionsFixture, { serializer });
 
   assert.deepEqual(models[0].serializer, serializer);
   assert.deepEqual(models[1].serializer, serializer);
@@ -223,12 +223,12 @@ test('it attaches a reference of the passed shopClient to the model on #deserial
   assert.equal(model.shopClient, shopClient);
 });
 
-test('it attaches a reference of the passed shopClient to every model on #deserializeCollection', function (assert) {
+test('it attaches a reference of the passed shopClient to every model on #deserializeMultiple', function (assert) {
   assert.expect(2);
 
   const shopClient = 'some-shop-client';
 
-  const models = serializer.deserializeCollection('collections', multipleCollectionsFixture, { shopClient });
+  const models = serializer.deserializeMultiple('collections', multipleCollectionsFixture, { shopClient });
 
   assert.deepEqual(models[0].shopClient, shopClient);
   assert.deepEqual(models[1].shopClient, shopClient);

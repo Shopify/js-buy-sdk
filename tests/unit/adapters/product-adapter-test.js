@@ -76,7 +76,7 @@ test('it builds the url for a query', function (assert) {
   assert.equal(adapter.buildUrl('collection', { product_ids: ids, page }), expectedUrl);
 });
 
-test('it sends a GET, the correct url, and auth headers for fetchCollection to #ajax', function (assert) {
+test('it sends a GET, the correct url, and auth headers for fetchMultiple to #ajax', function (assert) {
   assert.expect(3);
 
   adapter.config = {
@@ -90,7 +90,7 @@ test('it sends a GET, the correct url, and auth headers for fetchCollection to #
     return resolvingPromise();
   };
 
-  adapter.fetchCollection();
+  adapter.fetchMultiple();
 });
 
 test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax', function (assert) {
@@ -112,7 +112,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
   adapter.fetchSingle(id);
 });
 
-test('it sends a GET, the correct url, and auth headers for fetchCollection with query to #ajax', function (assert) {
+test('it sends a GET, the correct url, and auth headers for fetchMultiple with query to #ajax', function (assert) {
   assert.expect(3);
 
   const ids = [123, 456, 789];
@@ -130,5 +130,5 @@ test('it sends a GET, the correct url, and auth headers for fetchCollection with
     return resolvingPromise();
   };
 
-  adapter.fetchCollection({ product_ids: ids, page });
+  adapter.fetchMultiple({ product_ids: ids, page });
 });
