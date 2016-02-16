@@ -189,7 +189,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeCollection = function (results) {
+      this.deserializeCollection = function (type, results) {
         step(2, 'calls deserializeCollection', assert);
 
         assert.equal(results, rawModel);
@@ -234,7 +234,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeSingle = function (results) {
+      this.deserializeSingle = function (type, results) {
         step(2, 'calls deserializeSingle', assert);
 
         assert.equal(results, rawModel);
@@ -279,7 +279,7 @@ test('it chains the result of the adapter\'s fetchCollection through the type\'s
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeCollection = function (results) {
+      this.deserializeCollection = function (type, results) {
         step(2, 'calls deserializeCollection', assert);
 
         assert.equal(results, rawModel);
@@ -311,13 +311,13 @@ test('it passes references to adapter, serializer, and client to the serializer'
 
   shopClient.serializers = {
     products: function () {
-      this.deserializeSingle = function (results, metaAttrs) {
+      this.deserializeSingle = function (type, results, metaAttrs) {
         assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeSingle');
         assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeSingle');
         assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeSingle');
         return {};
       };
-      this.deserializeCollection = function (results, metaAttrs) {
+      this.deserializeCollection = function (type, results, metaAttrs) {
         assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeCollection');
         assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeCollection');
         assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeCollection');
