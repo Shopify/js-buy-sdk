@@ -211,7 +211,7 @@ test('it chains the result of the adapter\'s fetchMultiple through the type\'s s
 });
 
 test('it chains the result of the adapter\'s fetchSingle through the type\'s serializer on #fetchOne', function (assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   const done = assert.async();
 
@@ -221,8 +221,9 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
 
   shopClient.adapters = {
     products: function () {
-      this.fetchSingle = function (localId) {
+      this.fetchSingle = function (type, localId) {
         step(1, 'calls fetchSingle on the adapter', assert);
+        assert.equal(type, 'products');
         assert.equal(localId, id);
 
         return new Promise(function (resolve) {
@@ -256,7 +257,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
 });
 
 test('it chains the result of the adapter\'s fetchMultiple through the type\'s serializer on #fetchQuery', function (assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   const done = assert.async();
 
@@ -266,8 +267,9 @@ test('it chains the result of the adapter\'s fetchMultiple through the type\'s s
 
   shopClient.adapters = {
     products: function () {
-      this.fetchMultiple = function (localQuery) {
+      this.fetchMultiple = function (type, localQuery) {
         step(1, 'calls fetchAll on the adapter', assert);
+        assert.equal(type, 'products');
         assert.equal(localQuery, query);
 
         return new Promise(function (resolve) {
