@@ -14,7 +14,7 @@
   "license": "MIT",
   "devDependencies": {
     "amd-name-resolver": "0.0.2",
-    "babel-eslint": "4.1.6",
+    "babel-eslint": "5.0.0",
     "broccoli": "0.16.9",
     "broccoli-asset-rev": "2.4.1",
     "broccoli-babel-transpiler": "5.5.0",
@@ -27,6 +27,7 @@
     "broccoli-sane-watcher": "1.1.4",
     "broccoli-static-compiler": "0.2.2",
     "broccoli-uglify-sourcemap": "1.1.1",
+    "escope": "3.3.0",
     "eslint-config-nightmare-mode": "0.3.0",
     "js-string-escape": "1.0.0",
     "loader.js": "3.5.0",
@@ -34,6 +35,6 @@
     "qunitjs": "1.20.0",
     "rsvp": "3.1.0",
     "testem": "0.9.11",
-    "whatwg-fetch": "^0.10.1"
+    "whatwg-fetch": "0.10.1"
   }
 }

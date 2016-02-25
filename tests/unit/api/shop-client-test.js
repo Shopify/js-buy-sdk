@@ -553,7 +553,7 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
     step(4, 'resolves update with the deserialized model', assert);
     assert.equal(localUpdatedModel, updatedModel);
     done();
-  }).catch(e => {
+  }).catch(() => {
     assert.ok(false);
     done();
   });
