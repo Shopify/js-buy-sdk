@@ -3,6 +3,7 @@ import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
 import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Promise from 'promise';
+import CheckoutModel from 'buy-button-sdk/models/checkout-model';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
@@ -25,6 +26,16 @@ function FakeAdapter() {
       resolve({});
     });
   };
+  this.create = function () {
+    return new Promise(function (resolve) {
+      resolve({});
+    });
+  };
+  this.update = function () {
+    return new Promise(function (resolve) {
+      resolve({});
+    });
+  };
 }
 
 function FakeSerializer() {
@@ -33,6 +44,9 @@ function FakeSerializer() {
   };
   this.deserializeMultiple = function () {
     return [{}];
+  };
+  this.serialize = function () {
+    return {};
   };
 }
 
@@ -393,4 +407,154 @@ test('it forwards "fetchQueryNouns" to "fetchQuery(\'nouns\', ...)"', function (
   };
 
   shopClient.fetchQueryCollections(fetchedQuery);
+});
+
+test('it inits a type\'s adapter with the config during #create', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  shopClient.adapters = {
+    checkouts: function (localConfig) {
+      assert.equal(localConfig, config);
+      FakeAdapter.apply(this, arguments);
+    }
+  };
+  shopClient.serializers = {
+    checkouts: FakeSerializer
+  };
+
+  shopClient.create('checkouts').then(() => {
+    assert.ok(true, 'it resolves the promise');
+    done();
+  }).catch(() => {
+    assert.ok(false);
+    done();
+  });
+});
+
+test('it inits a type\'s serializer with the config during #create', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  shopClient.adapters = {
+    checkouts: FakeAdapter
+  };
+
+  shopClient.serializers = {
+    checkouts: function (localConfig) {
+      assert.equal(localConfig, config);
+      FakeSerializer.apply(this, arguments);
+    }
+  };
+
+  shopClient.create('checkouts').then(() => {
+    assert.ok(true);
+    done();
+  }).catch(() => {
+    assert.ok(false);
+    done();
+  });
+});
+
+test('it chains the result of the adapter\'s create through the type\'s serializer on #create', function (assert) {
+  assert.expect(6);
+
+  const done = assert.async();
+
+  const inputAttrs = { someProps: 'prop' };
+  const rawModel = { props: 'some-object' };
+  const serializedModel = { attrs: 'serialized-model' };
+
+  shopClient.adapters = {
+    checkouts: function () {
+      this.create = function (type, attrs) {
+        step(1, 'calls create on the adapter', assert);
+
+        assert.equal(attrs, inputAttrs);
+
+        return new Promise(function (resolve) {
+          resolve(rawModel);
+        });
+      };
+    }
+  };
+
+  shopClient.serializers = {
+    checkouts: function () {
+      this.deserializeSingle = function (type, results) {
+        step(2, 'calls deserializeSingle', assert);
+
+        assert.equal(results, rawModel);
+
+        return serializedModel;
+      };
+    }
+  };
+
+  shopClient.create('checkouts', inputAttrs).then(products => {
+    step(3, 'resolves after fetch and serialize', assert);
+    assert.equal(products, serializedModel);
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it utilizes the model\'s adapter and serializer during #update', function (assert) {
+  assert.expect(9);
+
+  const done = assert.async();
+  const serializedModel = { serializedProps: 'some-values' };
+  const updatedPayload = { rawUpdatedProps: 'updated-values' };
+  const updatedModel = { updatedProps: 'updated-values' };
+  const model = new CheckoutModel({
+    token: 'abc123',
+    someProp: 'some-prop'
+  }, {
+    shopClient,
+    adapter: {
+      update(type, id, payload) {
+        step(2, 'calls update on the models adapter', assert);
+        assert.equal(id, model.attrs.token, 'client extracts the token');
+        assert.equal(payload, serializedModel);
+
+        return new Promise(function (resolve) {
+          resolve(updatedPayload);
+        });
+      },
+      idKeyForType() {
+        return 'token';
+      }
+    },
+    serializer: {
+      serialize(type, localModel) {
+        step(1, 'calls serialize on the models serializer', assert);
+        assert.equal(localModel, model, 'serializer recieves model');
+
+        return serializedModel;
+      },
+      deserializeSingle(type, singlePayload) {
+        step(3, 'calls deserializeSingle with the result of adapter#update', assert);
+        assert.equal(singlePayload, updatedPayload);
+
+        return updatedModel;
+      }
+    }
+  });
+
+  // shopClient.adapters = { checkouts: FakeAdapter };
+  // shopClient.serializers = { products: FakeSerializer };
+
+  shopClient.update('checkouts', model).then(localUpdatedModel => {
+    step(4, 'resolves update with the deserialized model', assert);
+    assert.equal(localUpdatedModel, updatedModel);
+    done();
+  }).catch(e => {
+    assert.ok(false);
+    done();
+  });
 });
