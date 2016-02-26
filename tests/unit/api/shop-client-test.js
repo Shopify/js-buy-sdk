@@ -83,7 +83,7 @@ test('it inits a type\'s adapter with the config during fetchAll', function (ass
   shopClient.fetchAll('products');
 });
 
-test('it inits a type\'s adapter with the config during fetchOne', function (assert) {
+test('it inits a type\'s adapter with the config during fetch', function (assert) {
   assert.expect(1);
 
   shopClient.adapters = {
@@ -96,7 +96,7 @@ test('it inits a type\'s adapter with the config during fetchOne', function (ass
     products: FakeSerializer
   };
 
-  shopClient.fetchOne('products', 1);
+  shopClient.fetch('products', 1);
 });
 
 test('it inits a type\'s adapter with the config during fetchQuery', function (assert) {
@@ -137,7 +137,7 @@ test('it inits a type\'s serializer with the config during fetchAll', function (
   });
 });
 
-test('it inits a type\'s serializer with the config during fetchOne', function (assert) {
+test('it inits a type\'s serializer with the config during fetch', function (assert) {
   assert.expect(1);
 
   const done = assert.async();
@@ -153,7 +153,7 @@ test('it inits a type\'s serializer with the config during fetchOne', function (
     }
   };
 
-  shopClient.fetchOne('products', 1).catch(() => {
+  shopClient.fetch('products', 1).catch(() => {
     assert.ok(false, 'should not reject');
     done();
   });
@@ -224,7 +224,7 @@ test('it chains the result of the adapter\'s fetchMultiple through the type\'s s
   });
 });
 
-test('it chains the result of the adapter\'s fetchSingle through the type\'s serializer on #fetchOne', function (assert) {
+test('it chains the result of the adapter\'s fetchSingle through the type\'s serializer on #fetch', function (assert) {
   assert.expect(7);
 
   const done = assert.async();
@@ -259,7 +259,7 @@ test('it chains the result of the adapter\'s fetchSingle through the type\'s ser
     }
   };
 
-  shopClient.fetchOne('products', 1).then(product => {
+  shopClient.fetch('products', 1).then(product => {
     step(3, 'resolves after fetch and serialize', assert);
     assert.equal(product, serializedModel);
 
@@ -343,7 +343,7 @@ test('it passes references to adapter, serializer, and client to the serializer'
     }
   };
 
-  shopClient.fetchOne('products', 1).catch(() => {
+  shopClient.fetch('products', 1).catch(() => {
     assert.ok(false, 'promise should not reject');
     done();
   });
@@ -369,24 +369,24 @@ test('it forwards "fetchAllNouns" to "fetchAll(\'nouns\')"', function (assert) {
   shopClient.fetchAllCollections();
 });
 
-test('it forwards "fetchOneNoun" to "fetchOne(\'nouns\', ...)"', function (assert) {
+test('it forwards "fetchNoun" to "fetch(\'nouns\', ...)"', function (assert) {
   assert.expect(4);
 
   const fetchedId = 1;
 
-  shopClient.fetchOne = function (type, id) {
+  shopClient.fetch = function (type, id) {
     assert.equal(type, 'products');
     assert.equal(id, fetchedId);
   };
 
-  shopClient.fetchOneProduct(fetchedId);
+  shopClient.fetchProduct(fetchedId);
 
-  shopClient.fetchOne = function (type, id) {
+  shopClient.fetch = function (type, id) {
     assert.equal(type, 'collections');
     assert.equal(id, fetchedId);
   };
 
-  shopClient.fetchOneCollection(fetchedId);
+  shopClient.fetchCollection(fetchedId);
 });
 
 test('it forwards "fetchQueryNouns" to "fetchQuery(\'nouns\', ...)"', function (assert) {

@@ -59,7 +59,7 @@ SH.shopClient.fetchAll('products').then(myProducts => {
 
 // fetch one product
 
-SH.shopClient.fetchOne('products', 12345).then(theProduct => {
+SH.shopClient.fetch('products', 12345).then(theProduct => {
   // Do stuff with the product you fetched
 });
 

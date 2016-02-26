@@ -73,7 +73,7 @@ test('it resolves with an array of collections on ShopClient#fetchAll', function
 });
 
 
-test('it resolves with a single collection on ShopClient#fetchOne', function (assert) {
+test('it resolves with a single collection on ShopClient#fetch', function (assert) {
   assert.expect(4);
 
   const done = assert.async();
@@ -86,7 +86,7 @@ test('it resolves with a single collection on ShopClient#fetchOne', function (as
     return [200, {}, JSON.stringify(collectionsFixture)];
   });
 
-  shopClient.fetchOne('collections', id).then(collection => {
+  shopClient.fetch('collections', id).then(collection => {
     assert.notOk(Array.isArray(collection), 'collections is not an array');
     assert.deepEqual(collection.attrs, collectionsFixture.collection_publications[0]);
     assert.equal(collection.shopClient, shopClient, 'collection knows its owner (the shop client)');
