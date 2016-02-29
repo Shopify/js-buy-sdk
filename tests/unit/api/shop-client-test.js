@@ -546,9 +546,6 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
     }
   });
 
-  // shopClient.adapters = { checkouts: FakeAdapter };
-  // shopClient.serializers = { products: FakeSerializer };
-
   shopClient.update('checkouts', model).then(localUpdatedModel => {
     step(4, 'resolves update with the deserialized model', assert);
     assert.equal(localUpdatedModel, updatedModel);
