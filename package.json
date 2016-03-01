@@ -8,7 +8,9 @@
     "start": "broccoli serve",
     "test": "rm -rf .dist-test && broccoli build .dist-test && testem ci",
     "test-ci": "rm -rf .dist-test && broccoli build .dist-test && testem ci -R xunit > tests.xml",
-    "build": "BROCCOLI_ENV=production broccoli build dist"
+    "build": "BROCCOLI_ENV=production broccoli build dist",
+    "doc": "yuidoc",
+    "doc-server": "yuidoc --server 5000"
   },
   "author": "Mina Smart",
   "license": "MIT",
@@ -35,6 +37,7 @@
     "qunitjs": "1.20.0",
     "rsvp": "3.1.0",
     "testem": "0.9.11",
-    "whatwg-fetch": "0.10.1"
+    "whatwg-fetch": "0.10.1",
+    "yuidocjs": "0.10.0"
   }
 }

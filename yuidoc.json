@@ -1,0 +1,13 @@
+{
+  "name": "Shopify's JS Buy SDK",
+  "version": "0.0.1",
+  "options": {
+    "linkNatives": true,
+    "paths": "./lib",
+    "outdir": "./doc",
+    "ignorePaths": [
+      "node_modules",
+      "tests"
+    ]
+  }
+}
