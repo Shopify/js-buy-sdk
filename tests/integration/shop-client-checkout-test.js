@@ -3,8 +3,6 @@ import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
 import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Pretender from 'pretender';
-import CheckoutModel from 'buy-button-sdk/models/checkout-model';
-import assign from 'buy-button-sdk/metal/assign';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
