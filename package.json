@@ -15,7 +15,7 @@
   },
   "author": "Mina Smart",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "amd-name-resolver": "0.0.2",
     "babel-eslint": "5.0.0",
     "broccoli": "0.16.9",
