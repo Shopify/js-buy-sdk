@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -x
+
+export PATH=$(npm bin):$PATH
+
+export BROCCOLI_ENV=production
+
+if [ -d dist ]; then
+  rm -rf dist
+fi
+
+broccoli build dist

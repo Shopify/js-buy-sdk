@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -x
+
+export PATH=$(npm bin):$PATH
+
+
+if [ -d .dist-test ]; then
+  rm -rf .dist-test
+fi
+
+broccoli build .dist-test
+
+testem ci

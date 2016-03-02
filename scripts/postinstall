@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -x
+
+export PATH=$(npm bin):$PATH
+
+npm run build
+
+if [ -d lib ]; then
+  rm -rf lib
+fi
+
+mv dist/node-lib lib
