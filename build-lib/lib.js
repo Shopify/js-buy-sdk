@@ -30,6 +30,15 @@ module.exports = function (pathConfig, env) {
   const polyfillTree = polyfills(env);
   const loaderTree = loader();
 
+  const globalsOutput = concat(mergeTrees([amdTree, loaderTree]), {
+    header: ';(function () {',
+    headerFiles: ['loader.js'],
+    inputFiles: ['**/*.js'],
+    footer: `window.ShopifyBuy = require('buy-button-sdk/shopify').default;
+    }());`,
+    outputFile: `${pkg.name}.globals.js`
+  });
+
   if (env === 'production') {
     const amdOutput = concat(amdTree, {
       inputFiles: ['**/*.js'],
@@ -40,15 +49,6 @@ module.exports = function (pathConfig, env) {
       headerFiles: ['polyfills.js'],
       inputFiles: `${pkg.name}.amd.js`,
       outputFile: `${pkg.name}.polyfilled.amd.js`
-    });
-
-    const globalsOutput = concat(mergeTrees([amdTree, loaderTree]), {
-      header: ';(function () {',
-      headerFiles: ['loader.js'],
-      inputFiles: ['**/*.js'],
-      footer: `window.ShopifyBuy = require('buy-button-sdk/shopify-buy').default;
-      }());`,
-      outputFile: `${pkg.name}.globals.js`
     });
 
     const polyFilledGlobalsOutput = concat(mergeTrees([globalsOutput, polyfillTree]), {
@@ -90,7 +90,7 @@ module.exports = function (pathConfig, env) {
       outputFile: `${pkg.name}.amd.js`
     });
 
-    tree = mergeTrees([amdOutput, polyfillTree]);
+    tree = mergeTrees([amdOutput, polyfillTree, globalsOutput]);
   }
 
   return tree;

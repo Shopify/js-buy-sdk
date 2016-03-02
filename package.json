@@ -10,6 +10,7 @@
     "doc-server": "yuidoc --server 5000",
     "postinstall": "./scripts/postinstall",
     "start": "broccoli serve",
+    "examples": "env EXAMPLES=1 broccoli serve",
     "test": "./scripts/test",
     "test-ci": "./scripts/ci"
   },
@@ -40,5 +41,8 @@
     "testem": "0.9.11",
     "whatwg-fetch": "0.10.1",
     "yuidocjs": "0.10.0"
+  },
+  "devDependencies": {
+    "broccoli-sass": "0.7.0"
   }
 }
