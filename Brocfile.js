@@ -5,7 +5,7 @@ const env = require('broccoli-env').getEnv();
 const mergeTrees = require('broccoli-merge-trees');
 
 const pathConfig = {
-  lib: './lib',
+  lib: './src',
   shims: './shims',
   tests: './tests'
 };

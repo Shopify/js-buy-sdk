@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "options": {
     "linkNatives": true,
-    "paths": "./lib",
+    "paths": "./src",
     "outdir": "./doc",
     "ignorePaths": [
       "node_modules",
