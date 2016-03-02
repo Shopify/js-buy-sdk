@@ -1,6 +1,6 @@
 import Config from './config';
 import ShopClient from './shop-client';
-import CoreObject from './metal/core-object';
+import './isomorphic-fetch';
 
 /**
  * @module js-buy-sdk
@@ -12,7 +12,7 @@ import CoreObject from './metal/core-object';
  * @class ShopifyBuy
  * @static
  */
-const Shopify = new CoreObject({
+const Shopify = {
   ShopClient,
   Config,
 
@@ -41,10 +41,10 @@ const Shopify = new CoreObject({
    * @return {ShopClient} a client for the shop using your api credentials.
    */
   buildClient(configAttrs = {}) {
-    const config = new Config(configAttrs);
+    const config = new this.Config(configAttrs);
 
-    return new ShopClient(config);
+    return new this.ShopClient(config);
   }
-});
+};
 
 export default Shopify;

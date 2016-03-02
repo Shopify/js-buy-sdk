@@ -2,8 +2,6 @@ import { module, test } from 'qunit';
 import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
 import ajax from 'buy-button-sdk/ajax';
 import Pretender from 'pretender';
-import { Response } from 'fetch';
-
 
 let pretender;
 const path = '/some-path';
