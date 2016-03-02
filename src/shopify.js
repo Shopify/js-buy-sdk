@@ -1,6 +1,7 @@
 import Config from './config';
 import ShopClient from './shop-client';
 import './isomorphic-fetch';
+import './isomorphic-btoa';
 
 /**
  * @module js-buy-sdk
