@@ -4,7 +4,6 @@ set -x
 
 export PATH=$(npm bin):$PATH
 
-npm install
 npm run build
 
 if [ -d lib ]; then
