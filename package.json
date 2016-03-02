@@ -2,9 +2,10 @@
   "name": "buy-button-sdk",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/sdk.js",
+  "main": "dist/node-lib/shopify.js",
   "repository": "git@github.com:Shopify/buy-button-sdk.git",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "broccoli serve",
     "test": "rm -rf .dist-test && broccoli build .dist-test && testem ci",
     "test-ci": "rm -rf .dist-test && broccoli build .dist-test && testem ci -R xunit > tests.xml",

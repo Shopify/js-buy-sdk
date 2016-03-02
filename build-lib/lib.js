@@ -69,13 +69,19 @@ module.exports = function (pathConfig, env) {
       outputFile: `${pkg.name}.polyfilled.common.js`
     });
 
+    const nodeLibOutput = funnel(commonTree, {
+      srcDir: '.',
+      destDir: './node-lib'
+    });
+
     tree = mergeTrees([
       amdOutput,
       polyFilledAmdOutput,
       globalsOutput,
       polyFilledGlobalsOutput,
       commonOutput,
-      polyFilledCommonOutput
+      polyFilledCommonOutput,
+      nodeLibOutput
     ]);
   } else {
     const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
