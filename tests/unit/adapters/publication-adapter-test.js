@@ -39,7 +39,8 @@ test('it builds auth headers using the base64 encoded api key', function (assert
   adapter.config = { apiKey };
 
   assert.deepEqual(adapter.headers, {
-    Authorization: `Basic ${base64ApiKey}`
+    Authorization: `Basic ${base64ApiKey}`,
+    'Content-Type': 'application/json'
   });
 });
 
@@ -84,9 +85,12 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple to #aj
   };
 
   adapter.ajax = function (method, url, opts) {
-    assert.equal(method, 'get');
+    assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_publications.json`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise();
   };
 
@@ -103,9 +107,12 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
   };
 
   adapter.ajax = function (method, url, opts) {
-    assert.equal(method, 'get');
+    assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_publications.json?collection_ids=${id}`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise();
   };
 
@@ -124,9 +131,12 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple with q
 
   adapter.ajax = function (method, url, opts) {
     // Should resolve with a promise
-    assert.equal(method, 'get');
+    assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_publications.json?collection_ids=${encodeURIComponent(ids.join(','))}&page=${page}`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise();
   };
 

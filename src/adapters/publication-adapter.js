@@ -21,7 +21,8 @@ const PublicationAdapter = CoreObject.extend({
 
   get headers() {
     return {
-      Authorization: `Basic ${this.base64ApiKey}`
+      Authorization: `Basic ${this.base64ApiKey}`,
+      'Content-Type': 'application/json'
     };
   },
 
@@ -79,7 +80,7 @@ const PublicationAdapter = CoreObject.extend({
   fetchMultiple(/* type, [query] */) {
     const url = this.buildUrl('multiple', ...arguments);
 
-    return this.ajax('get', url, { headers: this.headers }).then(response => {
+    return this.ajax('GET', url, { headers: this.headers }).then(response => {
       return response.json;
     });
   },
@@ -87,7 +88,7 @@ const PublicationAdapter = CoreObject.extend({
   fetchSingle(/* type, id */) {
     const url = this.buildUrl('single', ...arguments);
 
-    return this.ajax('get', url, { headers: this.headers }).then(response => {
+    return this.ajax('GET', url, { headers: this.headers }).then(response => {
       return response.json;
     });
   }

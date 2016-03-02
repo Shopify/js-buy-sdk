@@ -1,4 +1,5 @@
 import CoreObject from '../metal/core-object';
+import assign from '../metal/assign';
 import CheckoutModel from '../models/checkout-model';
 
 const CheckoutSerializer = CoreObject.extend({
@@ -29,8 +30,20 @@ const CheckoutSerializer = CoreObject.extend({
   serialize(type, model) {
     const root = this.rootKeyForType(type);
     const payload = {};
+    const attrs = assign({}, model.attrs);
 
-    payload[root] = model.attrs;
+    payload[root] = attrs;
+
+    delete attrs.attributes;
+
+    let value;
+
+    Object.keys(attrs).forEach(key => {
+      value = attrs[key];
+      if (value === null || (typeof value === 'string' && value.length === 0)) {
+        delete attrs[key];
+      }
+    });
 
     return payload;
   }

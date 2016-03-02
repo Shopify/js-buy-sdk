@@ -20,7 +20,8 @@ const CheckoutAdapter = CoreObject.extend({
 
   get headers() {
     return {
-      Authorization: `Basic ${this.base64ApiKey}`
+      Authorization: `Basic ${this.base64ApiKey}`,
+      'Content-Type': 'application/json'
     };
   },
 
@@ -61,7 +62,7 @@ const CheckoutAdapter = CoreObject.extend({
   fetchSingle(/* type, id */) {
     const url = this.buildUrl('single', ...arguments);
 
-    return this.ajax('get', url, { headers: this.headers }).then(response => {
+    return this.ajax('GET', url, { headers: this.headers }).then(response => {
       return response.json;
     });
   },
@@ -69,7 +70,7 @@ const CheckoutAdapter = CoreObject.extend({
   create(type, payload) {
     const url = this.buildUrl('multiple', type);
 
-    return this.ajax('post', url, { headers: this.headers, body: JSON.stringify(payload) }).then(response => {
+    return this.ajax('POST', url, { headers: this.headers, body: JSON.stringify(payload) }).then(response => {
       return response.json;
     });
   },
@@ -77,7 +78,7 @@ const CheckoutAdapter = CoreObject.extend({
   update(type, id, payload) {
     const url = this.buildUrl('single', type, id);
 
-    return this.ajax('patch', url, { headers: this.headers, body: JSON.stringify(payload) }).then(response => {
+    return this.ajax('PATCH', url, { headers: this.headers, body: JSON.stringify(payload) }).then(response => {
       return response.json;
     });
   }

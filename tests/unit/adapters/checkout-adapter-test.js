@@ -39,7 +39,8 @@ test('it builds auth headers using the base64 encoded api key', function (assert
   adapter.config = { apiKey };
 
   assert.deepEqual(adapter.headers, {
-    Authorization: `Basic ${base64ApiKey}`
+    Authorization: `Basic ${base64ApiKey}`,
+    'Content-Type': 'application/json'
   });
 });
 
@@ -81,9 +82,12 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
   adapter.config = { myShopifyDomain, apiKey };
 
   adapter.ajax = function (method, url, opts) {
-    assert.equal(method, 'get');
+    assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/checkouts/${token}.json`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise();
   };
 
@@ -100,9 +104,12 @@ test('it sends a POST, the correct url, and auth headers to #ajax on #create', f
   adapter.config = { myShopifyDomain, apiKey };
 
   adapter.ajax = function (method, url, opts) {
-    assert.equal(method, 'post');
+    assert.equal(method, 'POST');
     assert.equal(url, `${baseUrl}/checkouts.json`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise({ json: checkoutJson });
   };
 
@@ -127,9 +134,12 @@ test('it sends a PATCH, the correct url, and auth headers to #ajax on #update', 
   adapter.config = { myShopifyDomain, apiKey };
 
   adapter.ajax = function (method, url, opts) {
-    assert.equal(method, 'patch');
+    assert.equal(method, 'PATCH');
     assert.equal(url, `${baseUrl}/checkouts/${id}.json`);
-    assert.deepEqual(opts.headers, { Authorization: `Basic ${base64ApiKey}` });
+    assert.deepEqual(opts.headers, {
+      Authorization: `Basic ${base64ApiKey}`,
+      'Content-Type': 'application/json'
+    });
     return resolvingPromise({ json: serverResponse });
   };
 
