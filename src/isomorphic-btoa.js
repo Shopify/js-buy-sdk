@@ -1,6 +1,12 @@
 /* global global, require, Buffer */
 
-const globalNamespace = global || window;
+let globalNamespace;
+
+if (typeof global === 'undefined') {
+  globalNamespace = window;
+} else {
+  globalNamespace = global;
+}
 
 const btoa = globalNamespace.btoa;
 
