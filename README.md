@@ -1,5 +1,5 @@
 # Buy button SDK prototyping
-[![Circle CI](https://circleci.com/gh/Shopify/buy-button-sdk.png?circle-token=ca84774a88598f639b174d498c219163e04adbb2)](https://circleci.com/gh/Shopify/buy-button-sdk)
+[![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk)
 
 
 **NOTE:** Real documentation coming later.
