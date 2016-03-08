@@ -10,11 +10,13 @@
 </head>
 <body>
 
-  <div id="buy-button-1">
+  <div class="product" id="buy-button-1">
     <img class="variant-image">
     <h1 class="product-title"></h1>
     <h2 class="variant-title"></h2>
-    <button class="buy-button">Buy Stuff</button>
+    <h2 class="variant-price"></h2>
+    <div class="variant-selectors"></div>
+    <button class="buy-button">Add To Cart</button>
   </div>
 
   <!-- .cart begin -->
@@ -33,23 +35,7 @@
     <!-- .cart-form begin // cart body -->
     <div class="cart-form">
       <div class="cart-item-container cart-section">
-        <div class="cart-item">
-          <div class="cart-item__img"></div>
-          <div class="cart-item__content">
-            <div class="cart-item__content-row">
-              <div class="cart-item__variant-title">Blue / Large</div>
-              <span>POP! TV: Game Of Thrones - Daenerys Targaryen</span>
-            </div>
-            <div class="cart-item__content-row">
-              <div class="cart-item__quantity-container">
-                <button class="btn--seamless quantity-decrement" type="button"><span>-</span><span class="visuallyhidden">Decrement</span></button>
-                <input class="cart-item__quantity" type="number" min="0" name="updates[]" id="updates_14459779782" value="12" aria-label="Quantity">
-                <button class="btn--seamless quantity-increment" type="button"><span>+</span><span class="visuallyhidden">Increment</span></button>
-              </div>
-              <span class="cart-item__price">$17.99</span>
-            </div>
-          </div>
-        </div>
+
       </div>
 
       <!-- .cart-bottom begin -->
@@ -58,7 +44,7 @@
           <div class="type--caps cart-info__total cart-info__small">Total</div>
           <div class="cart-info__pricing">
             <span class="cart-info__small cart-info__total">CAD</span>
-            <span class="pricing pricing--no-padding">$17.99</span>
+            <span class="pricing pricing--no-padding"></span>
           </div>
         </div>
         <div class="cart-actions-container cart-section type--center">
@@ -73,6 +59,27 @@
 
   </div>
   <!-- .cart end -->
+
+
+  <script id="cart-item-template" type="text/template">
+    <div class="cart-item">
+      <div class="cart-item__img"></div>
+      <div class="cart-item__content">
+        <div class="cart-item__content-row">
+          <div class="cart-item__variant-title"></div>
+          <span class="cart-item__title"></span>
+        </div>
+        <div class="cart-item__content-row">
+          <div class="cart-item__quantity-container">
+            <button class="btn--seamless quantity-decrement" type="button"><span>-</span><span class="visuallyhidden">Decrement</span></button>
+            <input class="cart-item__quantity" type="number" min="0" aria-label="Quantity">
+            <button class="btn--seamless quantity-increment" type="button"><span>+</span><span class="visuallyhidden">Increment</span></button>
+          </div>
+          <span class="cart-item__price"></span>
+        </div>
+      </div>
+    </div>
+  </script>
 
 </body>
 </html>
