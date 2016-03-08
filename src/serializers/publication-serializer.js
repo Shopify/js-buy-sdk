@@ -1,5 +1,6 @@
 import CoreObject from '../metal/core-object';
 import BaseModel from '../models/base-model';
+import ProductModel from '../models/product-model';
 
 const PublicationSerializer = CoreObject.extend({
   constructor() {
@@ -9,8 +10,13 @@ const PublicationSerializer = CoreObject.extend({
     return `${type.slice(0, -1)}_publications`;
   },
 
-  modelForType(/* type */) {
-    return BaseModel;
+  models: {
+    collections: BaseModel,
+    products: ProductModel
+  },
+
+  modelForType(type) {
+    return this.models[type];
   },
 
   deserializeSingle(type, singlePayload, metaAttrs) {

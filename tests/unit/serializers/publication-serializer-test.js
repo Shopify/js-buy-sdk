@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import PublicationSerializer from 'buy-button-sdk/serializers/publication-serializer';
 import BaseModel from 'buy-button-sdk/models/base-model';
+import ProductModel from 'buy-button-sdk/models/product-model';
 
 let serializer;
 
@@ -112,10 +113,11 @@ test('it discovers the root key from the type', function (assert) {
   assert.equal(serializer.rootKeyForType('collections'), 'collection_publications');
 });
 
-test('it returns BaseModel for any type', function (assert) {
-  assert.expect(1);
+test('it returns the correct model for a type', function (assert) {
+  assert.expect(2);
 
-  assert.equal(serializer.modelForType('whatever'), BaseModel);
+  assert.equal(serializer.modelForType('products'), ProductModel);
+  assert.equal(serializer.modelForType('collections'), BaseModel);
 });
 
 test('it transforms a single item payload into a product object.', function (assert) {
