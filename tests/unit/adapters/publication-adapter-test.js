@@ -91,6 +91,7 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple to #aj
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise();
   };
 
@@ -113,6 +114,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise();
   };
 
@@ -137,6 +139,7 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple with q
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise();
   };
 

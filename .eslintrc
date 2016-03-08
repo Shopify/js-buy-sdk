@@ -6,10 +6,16 @@
     "camelcase": [2, { "properties": "never" }],
     "func-names": 0,
     "global-require": 0,
+    "newline-per-chained-call": 0,
+    "no-empty-function": 0,
     "no-invalid-this": 0,
+    "no-magic-numbers": 0,
+    "no-negated-condition": 0,
     "no-restricted-syntax": 0,
+    "no-underscore-dangle": [2, { "allowAfterThis": true }],
     "object-curly-spacing": [2, "always"],
     "prefer-arrow-callback": 0,
+    "prefer-rest-params": 0,
     "prefer-reflect": 0
   }
 }

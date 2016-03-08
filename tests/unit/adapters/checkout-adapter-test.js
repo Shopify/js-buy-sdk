@@ -88,6 +88,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise();
   };
 
@@ -110,6 +111,7 @@ test('it sends a POST, the correct url, and auth headers to #ajax on #create', f
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise({ json: checkoutJson });
   };
 
@@ -140,6 +142,7 @@ test('it sends a PATCH, the correct url, and auth headers to #ajax on #update', 
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
+
     return resolvingPromise({ json: serverResponse });
   };
 

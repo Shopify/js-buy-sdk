@@ -23,12 +23,10 @@ function wrap(func, superFunc) {
 
 function defineProperties(names, proto, destination) {
   const parentProto = Object.getPrototypeOf(destination);
-  let descriptor;
-  let parentDescriptor;
 
   names.forEach(function (name) {
-    descriptor = Object.getOwnPropertyDescriptor(proto, name);
-    parentDescriptor = parentProto.hasOwnProperty(name) && Object.getOwnPropertyDescriptor(parentProto, name);
+    const descriptor = Object.getOwnPropertyDescriptor(proto, name);
+    const parentDescriptor = parentProto.hasOwnProperty(name) && Object.getOwnPropertyDescriptor(parentProto, name);
 
     if (typeof parentDescriptor.value === 'function' && typeof descriptor.value === 'function') {
       const wrappedFunction = wrap(descriptor.value, parentDescriptor.value);

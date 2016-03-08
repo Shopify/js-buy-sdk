@@ -22,10 +22,8 @@ if (!Array.prototype.includes) {
       }
     }
 
-    let currentElement;
-
     while (index < length) {
-      currentElement = ObjectifiedArray[index];
+      const currentElement = ObjectifiedArray[index];
 
       /* eslint no-self-compare:0 */
       if (searchElement === currentElement ||
@@ -34,6 +32,7 @@ if (!Array.prototype.includes) {
       }
       index++;
     }
+
     return false;
   };
 } else {
