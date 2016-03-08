@@ -108,11 +108,13 @@ test('it inherits props and methods from the parent', function (assert) {
 
     get invertedProp() {
       step(4, 'it calls the parents getter', assert);
+
       return this.shadowingInvertedProp;
     },
     set invertedProp(value) {
       step(3, 'it calls the parents setter', assert);
       this.shadowingSomeProp = !value;
+
       return this.shadowingInvertedProp;
     },
 

@@ -331,6 +331,7 @@ test('it passes references to adapter, serializer, and client to the serializer'
         assert.equal(metaAttrs.shopClient, shopClient, 'client reference to #deserializeSingle');
         assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeSingle');
         assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeSingle');
+
         return {};
       };
       this.deserializeMultiple = function (type, results, metaAttrs) {
@@ -338,6 +339,7 @@ test('it passes references to adapter, serializer, and client to the serializer'
         assert.equal(metaAttrs.serializer, this, 'serializer reference to #deserializeMultiple');
         assert.ok(FakeAdapter.prototype.isPrototypeOf(metaAttrs.adapter), 'adapter reference to #deserializeMultiple');
         done();
+
         return [{}];
       };
     }

@@ -36,10 +36,9 @@ const CheckoutSerializer = CoreObject.extend({
 
     delete attrs.attributes;
 
-    let value;
-
     Object.keys(attrs).forEach(key => {
-      value = attrs[key];
+      const value = attrs[key];
+
       if (value === null || (typeof value === 'string' && value.length === 0)) {
         delete attrs[key];
       }
