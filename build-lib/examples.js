@@ -12,7 +12,9 @@ module.exports = function (pathConfig) {
     destDir: 'examples'
   });
 
-  const css = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css');
+  const cartCss = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css');
+  const skullyCartCss = sass(['examples/skully-cart/styles'], 'styles.scss', 'examples/skully-cart/index.css');
 
-  return mergeTrees([staticFiles, css]);
+
+  return mergeTrees([staticFiles, cartCss, skullyCartCss]);
 };
