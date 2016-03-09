@@ -1,0 +1,598 @@
+{
+    "project": {
+        "name": "Shopify's JS Buy SDK",
+        "version": "0.0.1"
+    },
+    "files": {
+        "src/config.js": {
+            "name": "src/config.js",
+            "modules": {
+                "config": 1
+            },
+            "classes": {
+                "Config": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/shop-client.js": {
+            "name": "src/shop-client.js",
+            "modules": {
+                "shop-client": 1
+            },
+            "classes": {
+                "ShopClient": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/shopify.js": {
+            "name": "src/shopify.js",
+            "modules": {
+                "shopify": 1
+            },
+            "classes": {
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "js-buy-sdk": {
+            "name": "js-buy-sdk",
+            "submodules": {
+                "config": 1,
+                "shop-client": 1,
+                "shopify": 1
+            },
+            "classes": {
+                "Config": 1,
+                "ShopClient": 1,
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "namespaces": {},
+            "file": "src/shopify.js",
+            "line": 11
+        },
+        "config": {
+            "name": "config",
+            "submodules": {},
+            "classes": {
+                "Config": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "js-buy-sdk",
+            "namespace": "",
+            "file": "src/config.js",
+            "line": 9
+        },
+        "shop-client": {
+            "name": "shop-client",
+            "submodules": {},
+            "classes": {
+                "ShopClient": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "js-buy-sdk",
+            "namespace": "",
+            "file": "src/shop-client.js",
+            "line": 38
+        },
+        "shopify": {
+            "name": "shopify",
+            "submodules": {},
+            "classes": {
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "js-buy-sdk",
+            "namespace": "",
+            "file": "src/shopify.js",
+            "line": 11,
+            "description": "This namespace contains all globally accessible classes"
+        }
+    },
+    "classes": {
+        "Config": {
+            "name": "Config",
+            "shortname": "Config",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "submodule": "config",
+            "namespace": "",
+            "file": "src/config.js",
+            "line": 9,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "A hash of required config data.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "apiKey",
+                            "description": "Your api client's public token",
+                            "type": "String"
+                        },
+                        {
+                            "name": "channelId",
+                            "description": "The channel from which to read\npublications. Visit `<your-shops-domain>/admin/channels.json` while\nauthenticated to see a list of available channels.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "myShopifyDomain",
+                            "description": "You shop's `myshopify.com` domain.",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ]
+        },
+        "ShopClient": {
+            "name": "ShopClient",
+            "shortname": "ShopClient",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "submodule": "shop-client",
+            "namespace": "",
+            "file": "src/shop-client.js",
+            "line": 38,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "Config data to be used throughout all API\ninteraction",
+                    "type": "Config",
+                    "optional": true
+                }
+            ]
+        },
+        "ShopifyBuy": {
+            "name": "ShopifyBuy",
+            "shortname": "ShopifyBuy",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "submodule": "shopify",
+            "namespace": "",
+            "file": "src/shopify.js",
+            "line": 11,
+            "description": "This namespace contains all globally accessible classes",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/config.js",
+            "line": 29,
+            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
+            "itemtype": "attribute",
+            "name": "requiredProperties",
+            "default": "['apiKey', 'channelId', 'myShopifyDomain']",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Config",
+            "module": "js-buy-sdk",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 44,
+            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
+            "itemtype": "attribute",
+            "name": "apiKey",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "js-buy-sdk",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 54,
+            "itemtype": "attribute",
+            "name": "channelId",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "js-buy-sdk",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 62,
+            "itemtype": "attribute",
+            "name": "myShopifyDomain",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "js-buy-sdk",
+            "submodule": "config"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 79,
+            "description": "Fetch all of a `type`, returning a promise.\n\n```javascript\nclient.fetchAll('products').then(products => {\n  // do things with products\n});\n```",
+            "itemtype": "method",
+            "name": "fetchAll",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with an array of `type`",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 101,
+            "description": "Fetch one of a `type`, returning a promise.\n\n```javascript\nclient.fetch('products', 123).then(product => {\n  // do things with the product\n});\n```",
+            "itemtype": "method",
+            "name": "fetch",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type` expressed as a `BaseModel`.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 125,
+            "description": "Fetch many of a `type`, that match `query`\n\n```javascript\nclient.fetchQuery('products', { collection_id: 456 }).then(products => {\n  // do things with the products\n});\n```",
+            "itemtype": "method",
+            "name": "fetchQuery",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with an array of `type`.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 148,
+            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('checkouts', { line_items: [ ... ] }).then(checkout => {\n  // do things with the checkout.\n});\n```",
+            "itemtype": "method",
+            "name": "create",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "attrs",
+                    "description": "attributes to send to the server for creation.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type`",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 172,
+            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('checkouts', { line_items: [ ... ] }).then(checkout => {\n  // do things with the checkout.\n});\n```",
+            "itemtype": "method",
+            "name": "update",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "updatedModel",
+                    "description": "The model that represents new state to\nto persist to the server.",
+                    "type": "BaseModel"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type`",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 202,
+            "description": "Proxy to serializer's deserialize.",
+            "itemtype": "method",
+            "name": "deserialize",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "payload",
+                    "description": "The raw payload returned by the adapter.",
+                    "type": "Object"
+                },
+                {
+                    "name": "adapter",
+                    "description": "The adapter that yielded the payload.",
+                    "type": "BaseAdapter"
+                },
+                {
+                    "name": "opts",
+                    "description": "Options that determine which deserialization method to\nuse.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "multiple",
+                            "description": "true when the payload represents multiple\nmodels",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "single",
+                            "description": "true when the payload represents one model.",
+                            "type": "Boolean"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "an instance of `type` reified into a model.",
+                "type": "BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 231,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('products');\n```",
+            "itemtype": "method",
+            "name": "fetchAllProducts",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "The product models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 245,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('collections');\n```",
+            "itemtype": "method",
+            "name": "fetchAllCollections",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "The collection models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 259,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('products', 123);\n```",
+            "itemtype": "method",
+            "name": "fetchProduct",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "The product model.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 274,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('collections', 123);\n```",
+            "itemtype": "method",
+            "name": "fetchCollection",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "The collection model.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 289,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('products', { query: 'options' });\n```",
+            "itemtype": "method",
+            "name": "fetchQueryProducts",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The product models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 304,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('collections', { query: 'options' });\n```",
+            "itemtype": "method",
+            "name": "fetchQueryCollections",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "The collection models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "js-buy-sdk",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shopify.js",
+            "line": 20,
+            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  apiKey: 'abc123',\n  channelId: 123456,\n  myShopifyDomain: 'myshop'\n});\n```",
+            "itemtype": "method",
+            "name": "buildClient",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "configAttrs",
+                    "description": "A hash of required config data.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "apiKey",
+                            "description": "Your api client's public token.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "channelId",
+                            "description": "The channel from which to read\npublications. Visit `<your-shops-domain>/admin/channels.json` while\nauthenticated to see a list of available channels.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "myShopifyDomain",
+                            "description": "You shop's `myshopify.com`\ndomain.",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "a client for the shop using your api credentials.",
+                "type": "ShopClient"
+            },
+            "class": "ShopifyBuy",
+            "module": "js-buy-sdk",
+            "submodule": "shopify"
+        }
+    ],
+    "warnings": []
+}
