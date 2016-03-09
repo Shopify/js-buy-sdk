@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  background: #30373B;
+  width: 330px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 60px 40px;
+
+  h1 {
+  }
+
+  h1 a {
+    color: #fff;
+  }
+}
