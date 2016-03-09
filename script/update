@@ -1,0 +1,9 @@
+git checkout master src
+yuidoc -t ./yuidoc/theme
+rm -rf src
+
+for file in api/**/*.html
+do
+  echo "---\r\nlayout: default\r\n---\r\n\r\n\n$(cat $file)" > $file
+done
+echo "---\r\nlayout: default\r\n---\r\n\r\n\n$(cat api/index.html)" > api/index.html 
