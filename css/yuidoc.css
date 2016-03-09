@@ -18,24 +18,6 @@ Here's a quick lookup table:
 20px - 153.846%
 */
 
-html {
-    background: #fff;
-    color: #333;
-    overflow-y: scroll;
-}
-
-body {
-    /*font: 13px/1.4 'Lucida Grande', 'Lucida Sans Unicode', 'DejaVu Sans', 'Bitstream Vera Sans', 'Helvetica', 'Arial', sans-serif;*/
-    font: 13px/1.4 'Helvetica', 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* -- Links ----------------------------------------------------------------- */
-a {
-    color: #356de4;
-    text-decoration: none;
-}
 
 .hidden {
     display: none;
@@ -53,44 +35,6 @@ a:hover { text-decoration: underline; }
 }
 
 .jump:focus { left: 40%; }
-
-/* -- Paragraphs ------------------------------------------------------------ */
-p { margin: 1.3em 0; }
-dd p, td p { margin-bottom: 0; }
-dd p:first-child, td p:first-child { margin-top: 0; }
-
-/* -- Headings -------------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6 {
-    color: #D98527;/*was #f80*/
-    font-family: 'Trebuchet MS', sans-serif;
-    font-weight: bold;
-    line-height: 1.1;
-    margin: 1.1em 0 0.5em;
-}
-
-h1 {
-    font-size: 184.6%;
-    color: #30418C;
-    margin: 0.75em 0 0.5em;
-}
-
-h2 {
-    font-size: 153.846%;
-    color: #E48A2B;
-}
-
-h3 { font-size: 138.462%; }
-
-h4 {
-    border-bottom: 1px solid #DBDFEA;
-    color: #E48A2B;
-    font-size: 115.385%;
-    font-weight: normal;
-    padding-bottom: 2px;
-}
-
-h5, h6 { font-size: 107.692%; }
-
 /* -- Code and examples ----------------------------------------------------- */
 code, kbd, pre, samp {
     font-family: Menlo, Monaco, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Courier New', Courier, monospace;
@@ -182,22 +126,6 @@ th {
 }
 
 
-/* -- Layout and Content ---------------------------------------------------- */
-#doc {
-    margin: auto;
-    min-width: 1024px;
-}
-
-.content { padding: 0 20px 0 25px; }
-
-.sidebar {
-    padding: 0 15px 0 10px;
-}
-#bd {
-    padding: 7px 0 130px;
-    position: relative;
-    width: 99%;
-}
 
 /* -- Table of Contents ----------------------------------------------------- */
 
@@ -718,13 +646,6 @@ kbd .cmd { font-family: Monaco, Helvetica; }
     list-style: decimal;
 }
 
-/* -- API options ----------------------------------------------------------- */
-#api-options {
-    font-size: 11px;
-    margin-top: 2.2em;
-    position: absolute;
-    right: 1.5em;
-}
 
 /*#api-options label { margin-right: 0.6em; }*/
 
