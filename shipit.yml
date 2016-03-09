@@ -1,5 +1,5 @@
 deploy:
   override:
-    - bundle exec ejson decrypt config/secrets.ejson > config/secrets.json
-    - bundle exec rake upload
+    - ejson decrypt config/secrets.ejson > config/secrets.json
+    - upload-script
 
