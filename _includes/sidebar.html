@@ -1,7 +1,13 @@
 <h1 class="docs-title"><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
-
-{% for my_page in site.pages %}
-  {% if my_page.title %}
-  <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
-  {% endif %}
-{% endfor %}
+{{site.baseurl}}
+<ul class="docs-pages">
+  <li>
+    <a class="docs-pages__link" href="{{ '/' | prepend: site.baseurl }}">Getting started</a>
+  </li>
+  <li>
+    <a class="docs-pages__link" href="{{ '/examples' | prepend: site.baseurl }}">Examples</a>
+  </li>
+  <li>
+    <a class="docs-pages__link" href="{{ '/api' | prepend: site.baseurl }}">Reference</a>
+  </li>
+</ul>

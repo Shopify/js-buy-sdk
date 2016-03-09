@@ -310,7 +310,6 @@ specific tabview, see the other sections below.
 }
 
 .apidocs .tabview.yui3-tabview-content { visibility: visible; }
-.apidocs .tabview .yui3-tabview-panel { background: #fff; }
 
 /* -- Generic Content Styles ------------------------------------------------ */
 
@@ -380,10 +379,6 @@ h2, h3, h4, h5, h6 {
 
 /* Loading spinners. */
 #bd.loading .apidocs,
-#api-list.loading .yui3-tabview-panel {
-    background: #fff url(../img/spinner.gif) no-repeat center 70px;
-    min-height: 150px;
-}
 
 #bd.loading .apidocs .content,
 #api-list.loading .yui3-tabview-panel .apis {
@@ -617,11 +612,6 @@ kbd .cmd { font-family: Monaco, Helvetica; }
 /* -- Sidebar TabView ------------------------------------------------------- */
 #api-tabview { margin-top: 0.6em; }
 
-#api-tabview-filter,
-#api-tabview-panel {
-    border: 1px solid #dfdfdf;
-}
-
 #api-tabview-filter {
     border-bottom: none;
     border-top: none;
@@ -648,12 +638,6 @@ kbd .cmd { font-family: Monaco, Helvetica; }
 
 
 /*#api-options label { margin-right: 0.6em; }*/
-
-/* -- API list -------------------------------------------------------------- */
-#api-list {
-    margin-top: 1.5em;
-    *zoom: 1;
-}
 
 .apis {
     font-size: 12px;
