@@ -1,30 +1,144 @@
-* {
-  box-sizing: border-box;
-}
+  body {
+    font-family: 'Lato', Helvetica, sans-serif;
+    background: #f2f7fa;
+    color: #666;
+  }
+  a {
+    color: #666;
+  }
+  input {
+    border: 2px solid #666;
+    color: #666;
+    border-radius: 2px;
+    outline: none;
+    font-size: 16px;
+    padding: 0.5em;
+  }
 
-html,
-body {
-  height: 100%;
-}
+  .left {
+    overflow: scroll;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background: #31373d;
+    border-right: 1px solid #272c30;
+    padding-left: 30px;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    padding-right: 30px;
+    width: 300px;
+    color: #888;
 
-.wrapper {
-  position: relative;
-  height: 100%;
-}
-
-.sidebar {
-  height: 100%;
-  background: #30373B;
-  width: 330px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 60px 40px;
-
+    a {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  .left h1 {
+    font-weight: 300;
+    color: #bbb;
+  }
+  .left pre {
+    margin-top: 30px;
+    background: #272c30;
+    border-color: #252a2c;
+  }
+  .right {
+    position: absolute;
+    left: 388px;
+    right: 0;
+    top: 15px;
+    padding-bottom: 80px;
+  }
+  .left h1:first-child, .right h2:first-child {
+    margin-top: 0;
+  }
+  h1, h2 {
+    color: #555;
+    margin-top: 1.5em;
+  }
   h1 {
+    color: #444;
+  }
+  pre, code {
+    font-family: Menlo,"DejaVu Sans Mono","Bitstream Vera Sans Mono",Consolas,Monaco,"Courier New",monospace;
+    background: #fff;
+    font-size: 12px;
+    line-height: 1em;
+    border-radius: 2px;
+    border: 1px solid #ecf0f3;
+  }
+  code {
+    display: inline-block;
+    padding: 4px;
+    position: relative;
+    top: -1px;
+  }
+  pre {
+    word-wrap: break-word;
+    line-height: 1.6em;
+    white-space: pre-wrap;
+    padding: 14px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  p {
+    max-width: 600px;
+    padding-right: 20px;
+    line-height: 1.5em;
   }
 
-  h1 a {
-    color: #fff;
+  .prepend-pre {
+    position: relative;
   }
+
+  .prepend-pre:before {
+    content: " ";
+    position: absolute;
+    left: -10px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #e2e7ea;
+  }
+
+h1, h2 {
+  margin-top: 0;
+}
+
+
+.docs-header {
+  list-style: none;
+  border-bottom: 1px solid #c0c0c0;
+  padding-bottom: 10px;
+
+  ul {
+    margin: 0;
+  }
+
+  li {
+    display: inline-block;
+    padding-right: 20px;
+  }
+
+  a {
+    color: #7c7c7c;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  img {
+    width: 32px;
+  }
+}
+
+.docs-content {
+  padding-top: 20px;
+}
+
+.docs-pages {
+  margin: 0;
+  list-style: none;
 }
