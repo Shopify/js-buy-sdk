@@ -4,7 +4,7 @@
   "options": {
     "linkNatives": true,
     "paths": "./src",
-    "outdir": "./doc",
+    "outdir": "./api",
     "ignorePaths": [
       "node_modules",
       "tests"

@@ -6,7 +6,6 @@ var Lang   = Y.Lang,
     APIList = Y.namespace('APIList'),
 
     classesNode    = Y.one('#api-classes'),
-    elementsNode   = Y.one('#api-elements'),
     inputNode      = Y.one('#api-filter'),
     modulesNode    = Y.one('#api-modules'),
     tabviewNode    = Y.one('#api-tabview'),
@@ -98,9 +97,7 @@ tabview.get('panelNode').all('a').each(function (link) {
 
 // -- Private Functions --------------------------------------------------------
 function getFilterResultNode() {
-    var queryType = filter.get('queryType');
-    return queryType === 'classes' ? classesNode
-            : queryType === 'elements' ? elementsNode : modulesNode;
+    return filter.get('queryType') === 'classes' ? classesNode : modulesNode;
 }
 
 // -- Event Handlers -----------------------------------------------------------
@@ -108,7 +105,7 @@ function onFilterResults(e) {
     var frag         = Y.one(Y.config.doc.createDocumentFragment()),
         resultNode   = getFilterResultNode(),
         typePlural   = filter.get('queryType'),
-        typeSingular = typePlural === 'classes' ? 'class' : typePlural === 'elements' ? 'element' : 'module';
+        typeSingular = typePlural === 'classes' ? 'class' : 'module';
 
     if (e.results.length) {
         YArray.each(e.results, function (result) {
@@ -184,7 +181,6 @@ function onTabSelectionChange(e) {
     };
 
     switch (name) {
-    case 'elements':// fallthru
     case 'classes': // fallthru
     case 'modules':
         filter.setAttrs({

@@ -48,7 +48,6 @@
                 "shop-client": 1,
                 "shopify": 1
             },
-            "elements": {},
             "classes": {
                 "Config": 1,
                 "ShopClient": 1,
@@ -64,7 +63,6 @@
         "config": {
             "name": "config",
             "submodules": {},
-            "elements": {},
             "classes": {
                 "Config": 1
             },
@@ -79,7 +77,6 @@
         "shop-client": {
             "name": "shop-client",
             "submodules": {},
-            "elements": {},
             "classes": {
                 "ShopClient": 1
             },
@@ -94,7 +91,6 @@
         "shopify": {
             "name": "shopify",
             "submodules": {},
-            "elements": {},
             "classes": {
                 "ShopifyBuy": 1
             },
@@ -190,7 +186,6 @@
             "static": 1
         }
     },
-    "elements": {},
     "classitems": [
         {
             "file": "src/config.js",

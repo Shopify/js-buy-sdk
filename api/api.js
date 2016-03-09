@@ -29,7 +29,6 @@ YUI.add("yuidoc-meta", function(Y) {
             "name": "shopify",
             "description": "This namespace contains all globally accessible classes"
         }
-    ],
-    "elements": []
+    ]
 } };
 });
