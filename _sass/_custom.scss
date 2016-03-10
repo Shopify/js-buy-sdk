@@ -70,12 +70,7 @@ blockquote {
 }
 
 h1, h2 {
-  color: #555;
   margin-top: 0;
-}
-
-h1 {
-  color: #444;
 }
 
 h1, h2, h3, h4 {
@@ -159,6 +154,10 @@ p {
 
 .docs-content {
   padding-right: 30px;
+
+  h1, h2, h3, h4 {
+    color: $header-color;
+  }
 
   a {
     color: $brand-color;
