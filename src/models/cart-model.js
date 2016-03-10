@@ -26,12 +26,6 @@ const CartModel = BaseModel.extend({
     return this.attrs.line_items;
   },
 
-  set lineItems(value) {
-    this.attrs.line_items = value;
-
-    return value;
-  },
-
   get subTotal() {
     return this.attrs.subtotal_price;
   },
@@ -48,7 +42,7 @@ const CartModel = BaseModel.extend({
 
     existingLineItems.push(...newLineItems);
 
-    this.lineItems = existingLineItems.reduce((itemAcc, item) => {
+    this.attrs.line_items = existingLineItems.reduce((itemAcc, item) => {
       const matchingItem = itemAcc.filter(existingItem => {
         return (existingItem.variant_id === item.variant_id &&
                 objectsEqual(existingItem.properties, item.properties));
