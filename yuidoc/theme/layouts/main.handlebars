@@ -1,15 +1,10 @@
-<script src="{{yuiSeedUrl}}"></script>
 
-<div id="doc">
-    <div id="bd" class="yui3-g">
-
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                {{>sidebar}}
-            </div>
+<div class="">
+    <div class="row">
+        <div class="span3">
+{{>sidebar}}
         </div>
-        <div class="yui3-u-3-4">
-            {{>options}}
+        <div class="span9">
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
@@ -20,11 +15,8 @@
         </div>
     </div>
 </div>
+<script src="{{projectAssets}}/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="{{projectAssets}}/vendor/bootstrap/js/bootstrap.js"></script>
 <script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
+<script src="{{projectAssets}}/js/yuidoc-bootstrap.js"></script>
 <script>prettyPrint();</script>
-<script src="{{projectAssets}}/js/yui-prettify.js"></script>
-<script src="{{projectAssets}}/../api.js"></script>
-<script src="{{projectAssets}}/js/api-filter.js"></script>
-<script src="{{projectAssets}}/js/api-list.js"></script>
-<script src="{{projectAssets}}/js/api-search.js"></script>
-<script src="{{projectAssets}}/js/apidocs.js"></script>
