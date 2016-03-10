@@ -7,6 +7,9 @@ The JS Buy SDK is a lightweight library that allows you to build ecommerce into 
 It is based on Shopify's API and provides the ability to retrieve products and collections from your shop,
 add products to a cart, and checkout.
 
+It can render data on the client side or server. This will allow you to add ecommerce functionality to any website or
+javascript application. This is helpful if you already have a website and need to add ecommerce or only need a simple buy button on your site.
+
 Using the JS Buy SDK, you can:
 
 - fetch information about a single product or a collection of products
@@ -14,6 +17,7 @@ Using the JS Buy SDK, you can:
 - allow customers to select options and quantities
 - generate a checkout URL for a single product or an entire cart
 
+This tool is intended for use by developers who are experienced with JavaScript.
 
 ## Including the Buy SDK
 
@@ -64,7 +68,7 @@ To generate a checkout link, you will need to create a cart model.
 var cart;
 shopClient.create('checkout').then(function (cart) {
   cart = cart;
-})
+});
 ```
 
 ### Adding items to a cart
