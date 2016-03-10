@@ -1,6 +1,6 @@
 import CoreObject from '../metal/core-object';
 import assign from '../metal/assign';
-import CheckoutModel from '../models/checkout-model';
+import CartModel from '../models/cart-model';
 
 const CheckoutSerializer = CoreObject.extend({
   constructor() {
@@ -11,7 +11,7 @@ const CheckoutSerializer = CoreObject.extend({
   },
 
   modelForType(/* type */) {
-    return CheckoutModel;
+    return CartModel;
   },
 
   deserializeSingle(type, singlePayload, metaAttrs) {

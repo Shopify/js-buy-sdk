@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import CheckoutSerializer from 'buy-button-sdk/serializers/checkout-serializer';
-import CheckoutModel from 'buy-button-sdk/models/checkout-model';
+import CartModel from 'buy-button-sdk/models/cart-model';
 
 let serializer;
 
@@ -26,10 +26,10 @@ test('it discovers the root key from the type', function (assert) {
   assert.equal(serializer.rootKeyForType('checkouts'), 'checkout');
 });
 
-test('it returns CheckoutModel for checkout type', function (assert) {
+test('it returns CartModel for checkout type', function (assert) {
   assert.expect(1);
 
-  assert.equal(serializer.modelForType('checkouts'), CheckoutModel);
+  assert.equal(serializer.modelForType('checkouts'), CartModel);
 });
 
 test('it transforms a single item payload into a checkout object.', function (assert) {
@@ -60,7 +60,7 @@ test('it attaches a reference of the passed shopClient to the model on #deserial
 });
 
 test('it transforms a model into a payload on #serialize using the root key', function (assert) {
-  const updatedModel = new CheckoutModel({
+  const updatedModel = new CartModel({
     line_items: [
       {
         variant_id: 123456789,

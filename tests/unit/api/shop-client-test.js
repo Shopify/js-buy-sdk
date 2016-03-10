@@ -3,7 +3,7 @@ import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
 import ShopClient from 'buy-button-sdk/shop-client';
 import Config from 'buy-button-sdk/config';
 import Promise from 'promise';
-import CheckoutModel from 'buy-button-sdk/models/checkout-model';
+import CartModel from 'buy-button-sdk/models/cart-model';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
@@ -513,7 +513,7 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
   const serializedModel = { serializedProps: 'some-values' };
   const updatedPayload = { rawUpdatedProps: 'updated-values' };
   const updatedModel = { updatedProps: 'updated-values' };
-  const model = new CheckoutModel({
+  const model = new CartModel({
     token: 'abc123',
     someProp: 'some-prop'
   }, {
