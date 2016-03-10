@@ -1,12 +1,6 @@
 import BaseModel from './base-model';
 import assign from '../metal/assign';
 
-function mergeModel(updateCart) {
-  assign(this.attrs, updateCart.attrs);
-
-  return this;
-}
-
 const CartModel = BaseModel.extend({
   constructor() {
     this.super(...arguments);
@@ -53,7 +47,7 @@ const CartModel = BaseModel.extend({
       return itemAcc;
     }, []);
 
-    return this.shopClient.update('checkouts', this).then(mergeModel.bind(this));
+    return this.updateModel();
   },
 
   updateLineItem(id, quantity) {
@@ -64,7 +58,7 @@ const CartModel = BaseModel.extend({
     if (lineItem) {
       lineItem.quantity = quantity;
 
-      return this.shopClient.update('checkouts', this).then(mergeModel.bind(this));
+      return this.updateModel();
     }
 
     return new Promise(function (resolve, reject) {
@@ -82,7 +76,7 @@ const CartModel = BaseModel.extend({
     if (newLength < oldLength) {
       this.attrs.line_items = newLineItems;
 
-      return this.shopClient.update('checkouts', this).then(mergeModel.bind(this));
+      return this.updateModel();
     }
 
     return new Promise(function (resolve, reject) {
@@ -93,7 +87,15 @@ const CartModel = BaseModel.extend({
   clearLineItems() {
     this.attrs.line_items = [];
 
-    return this.shopClient.update('checkouts', this).then(mergeModel.bind(this));
+    return this.updateModel();
+  },
+
+  updateModel() {
+    return this.shopClient.update('checkouts', this).then(updateCart => {
+      assign(this.attrs, updateCart.attrs);
+
+      return this;
+    });
   }
 });
 
