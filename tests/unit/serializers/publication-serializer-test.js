@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import PublicationSerializer from 'buy-button-sdk/serializers/publication-serializer';
-import BaseModel from 'buy-button-sdk/models/base-model';
-import ProductModel from 'buy-button-sdk/models/product-model';
+import PublicationSerializer from 'js-buy-sdk/serializers/publication-serializer';
+import BaseModel from 'js-buy-sdk/models/base-model';
+import ProductModel from 'js-buy-sdk/models/product-model';
 
 let serializer;
 

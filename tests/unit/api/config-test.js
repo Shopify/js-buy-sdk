@@ -1,7 +1,7 @@
 /* eslint no-new: 0 */
 
 import { module, test } from 'qunit';
-import Config from 'buy-button-sdk/config';
+import Config from 'js-buy-sdk/config';
 
 module('Unit | Config');
 

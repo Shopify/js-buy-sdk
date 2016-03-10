@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import CheckoutSerializer from 'buy-button-sdk/serializers/checkout-serializer';
-import CartModel from 'buy-button-sdk/models/cart-model';
+import CheckoutSerializer from 'js-buy-sdk/serializers/checkout-serializer';
+import CartModel from 'js-buy-sdk/models/cart-model';
 
 let serializer;
 

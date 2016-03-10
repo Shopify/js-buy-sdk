@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import CheckoutAdapter from 'buy-button-sdk/adapters/checkout-adapter';
-import assign from 'buy-button-sdk/metal/assign';
+import CheckoutAdapter from 'js-buy-sdk/adapters/checkout-adapter';
+import assign from 'js-buy-sdk/metal/assign';
 import Promise from 'promise';
 
 let adapter;

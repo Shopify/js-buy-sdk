@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
-import ajax from 'buy-button-sdk/ajax';
+import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
+import ajax from 'js-buy-sdk/ajax';
 import Pretender from 'pretender';
 
 let pretender;

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import CartModel from 'buy-button-sdk/models/cart-model';
-import BaseModel from 'buy-button-sdk/models/base-model';
-import assign from 'buy-button-sdk/metal/assign';
+import CartModel from 'js-buy-sdk/models/cart-model';
+import BaseModel from 'js-buy-sdk/models/base-model';
+import assign from 'js-buy-sdk/metal/assign';
 import { cartFixture } from '../../fixtures/cart-fixture';
 
 let model;

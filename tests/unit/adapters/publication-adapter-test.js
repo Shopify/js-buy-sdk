@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import PublicationAdapter from 'buy-button-sdk/adapters/publication-adapter';
+import PublicationAdapter from 'js-buy-sdk/adapters/publication-adapter';
 import Promise from 'promise';
 
 let adapter;

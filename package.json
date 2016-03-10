@@ -1,9 +1,9 @@
 {
-  "name": "buy-button-sdk",
+  "name": "js-buy-sdk",
   "version": "0.0.1",
   "description": "",
   "main": "lib/shopify.js",
-  "repository": "git@github.com:Shopify/buy-button-sdk.git",
+  "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "./scripts/build",
     "doc": "yuidoc",

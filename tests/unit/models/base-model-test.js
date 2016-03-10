@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import BaseModel from 'buy-button-sdk/models/base-model';
-import CoreObject from 'buy-button-sdk/metal/core-object';
+import BaseModel from 'js-buy-sdk/models/base-model';
+import CoreObject from 'js-buy-sdk/metal/core-object';
 
 module('Unit | BaseModel');
 
