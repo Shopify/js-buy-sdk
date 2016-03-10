@@ -23,6 +23,10 @@ a {
   color: #666;
 }
 
+blockquote {
+  font-style: normal;
+}
+
 .left {
   color: #888;
   background: #31373d;
@@ -150,10 +154,23 @@ p {
 .docs-header {
   margin-bottom: 20px;
   padding-top: 15px;
+
 }
 
 .docs-content {
   padding-right: 30px;
+
+  a {
+    color: $brand-color;
+    text-decoration: underline;
+  }
+
+  .docs-header {
+    a {
+      text-decoration: none;
+      color: #666;
+    }
+  }
 
   @media screen and (max-width: 799px) {
     padding-left: 30px;
