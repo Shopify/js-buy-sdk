@@ -16,12 +16,42 @@ const CartModel = BaseModel.extend({
     return this.attrs.line_items;
   },
 
+  set lineItems(value) {
+    this.attrs.line_items = value;
+
+    return value;
+  },
+
   get subTotal() {
     return this.attrs.subtotal_price;
   },
 
   addVariants(/* { id, quantity }, ... */) {
-    this.lineItems.push(...arguments);
+    const newLineItems = [...arguments].map(variant => {
+      return {
+        variant_id: variant.id,
+        quantity: variant.quantity,
+        properties: variant.properties
+      };
+    });
+    const existingLineItems = this.lineItems;
+
+    existingLineItems.push(...newLineItems);
+
+    this.lineItems = existingLineItems.reduce((itemAcc, item) => {
+      const matchingItem = itemAcc.filter(existingItem => {
+        return (existingItem.variant_id === item.variant_id &&
+                existingLineItems.properties === item.properties);
+      })[0];
+
+      if (matchingItem) {
+        matchingItem.quantity = matchingItem.quantity + item.quantity;
+      } else {
+        itemAcc.push(item);
+      }
+
+      return itemAcc;
+    }, []);
 
     return this.shopClient.update('checkouts', this).then(mergeModel.bind(this));
   },

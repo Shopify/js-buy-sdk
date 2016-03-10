@@ -51,7 +51,7 @@ test('it creates a line item when you add a variant', function (assert) {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.id === id && item.quantity === quantity;
+      return item.variant_id === id && item.quantity === quantity;
     }).length, 1, 'the line item exists');
 
     done();
@@ -107,6 +107,87 @@ test('it removes all line items', function (assert) {
   model.clearLineItems().then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.deepEqual(cart.lineItems, [], 'it removes all line items');
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it dedupes line items with the same variant_id when added together', function (assert) {
+  assert.expect(3);
+
+  const done = assert.async();
+
+  const id = 12345;
+  const quantity = 1;
+
+  model.addVariants({ id, quantity }, { id, quantity }).then(cart => {
+    assert.equal(cart, model, 'it should be the same model, with updated attrs');
+    assert.equal(cart.lineItems.length, 2);
+    assert.equal(cart.lineItems.filter(item => {
+      return item.variant_id === id && item.quantity === (quantity * 2);
+    }).length, 1, 'the line item exists with summed quantities');
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it dedupes line items with the same variant_id when added one after another', function (assert) {
+  assert.expect(3);
+
+  const done = assert.async();
+
+  const id = cartFixture.checkout.line_items[0].variant_id;
+  const quantity = 1;
+  const summedQuantity = quantity + cartFixture.checkout.line_items[0].quantity;
+
+  model.addVariants({ id, quantity }).then(cart => {
+    assert.equal(cart, model, 'it should be the same model, with updated attrs');
+    assert.equal(cart.lineItems.length, 1, 'we\'re adding to the existing line_item');
+    assert.equal(cart.lineItems.filter(item => {
+      return item.variant_id === id && item.quantity === summedQuantity;
+    }).length, 1, 'the line item exists with summed quantities');
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it treats line_items with same variant_ids and different properties as different', function (assert) {
+  assert.expect(4);
+
+  const done = assert.async();
+
+  const id = 12345;
+  const quantity = 1;
+  const propertiesOne = 'engraving="awesome engraving"';
+  const propertiesTwo = 'custom_color=shmurple';
+  const items = [{
+    id,
+    quantity,
+    properties: propertiesOne
+  }, {
+    id,
+    quantity,
+    properties: propertiesTwo
+  }];
+
+  model.addVariants(...items).then(cart => {
+    assert.equal(cart, model, 'it should be the same model, with updated attrs');
+    assert.equal(cart.lineItems.length, 3);
+    assert.equal(cart.lineItems.filter(item => {
+      return item.variant_id === id && item.quantity === quantity && item.properties === propertiesOne;
+    }).length, 1, 'line item with props one exists');
+    assert.equal(cart.lineItems.filter(item => {
+      return item.variant_id === id && item.quantity === quantity && item.properties === propertiesTwo;
+    }).length, 1, 'line item with props two exists');
+
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
