@@ -67,6 +67,10 @@ const CartModel = BaseModel.extend({
   },
 
   updateLineItem(id, quantity) {
+    if (quantity < 1) {
+      return this.removeLineItem(id);
+    }
+
     const lineItem = this.lineItems.filter(item => {
       return item.id === id;
     })[0];

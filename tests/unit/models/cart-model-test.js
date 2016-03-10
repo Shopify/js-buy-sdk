@@ -195,3 +195,22 @@ test('it treats line_items with same variant_ids and different properties as dif
     done();
   });
 });
+
+test('it removes the line item if the quantity isn\'t at least one', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  const id = model.lineItems[0].id;
+  const quantity = 0;
+
+  model.updateLineItem(id, quantity).then(cart => {
+    assert.equal(cart, model, 'it should be the same model, with updated attrs');
+    assert.equal(cart.lineItems.length, 0, 'it doesn\'t create a new line item');
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
