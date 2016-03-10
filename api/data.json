@@ -1,7 +1,10 @@
 {
     "project": {
         "name": "Shopify's JS Buy SDK",
-        "version": "0.0.1"
+        "version": "0.0.1",
+        "helpers": [
+            "node_modules/yuidoc-lucid-theme/helpers/helpers.js"
+        ]
     },
     "files": {
         "src/config.js": {

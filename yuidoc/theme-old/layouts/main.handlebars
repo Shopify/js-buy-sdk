@@ -1,0 +1,30 @@
+<script src="{{yuiSeedUrl}}"></script>
+
+<div id="doc">
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                {{>sidebar}}
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+            {{>options}}
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+{{>layout_content}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="{{projectAssets}}/js/yui-prettify.js"></script>
+<script src="{{projectAssets}}/../api.js"></script>
+<script src="{{projectAssets}}/js/api-filter.js"></script>
+<script src="{{projectAssets}}/js/api-list.js"></script>
+<script src="{{projectAssets}}/js/api-search.js"></script>
+<script src="{{projectAssets}}/js/apidocs.js"></script>
