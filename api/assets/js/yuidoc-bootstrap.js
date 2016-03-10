@@ -238,7 +238,6 @@ $(function() {
     //  Immediate function calls
     // ************************************************************************* //
 
-    setUpOptionsCheckboxes();
     setUpWidgets();
     setUpHashChange();
     if (window.location.hash) {
