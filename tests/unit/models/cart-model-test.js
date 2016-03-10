@@ -144,8 +144,9 @@ test('it dedupes line items with the same variant_id when added one after anothe
   const id = cartFixture.checkout.line_items[0].variant_id;
   const quantity = 1;
   const summedQuantity = quantity + cartFixture.checkout.line_items[0].quantity;
+  const properties = assign({}, cartFixture.checkout.line_items[0].properties);
 
-  model.addVariants({ id, quantity }).then(cart => {
+  model.addVariants({ id, quantity, properties }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 1, 'we\'re adding to the existing line_item');
     assert.equal(cart.lineItems.filter(item => {
@@ -166,8 +167,8 @@ test('it treats line_items with same variant_ids and different properties as dif
 
   const id = 12345;
   const quantity = 1;
-  const propertiesOne = 'engraving="awesome engraving"';
-  const propertiesTwo = 'custom_color=shmurple';
+  const propertiesOne = { prop: 'engraving="awesome engraving"' };
+  const propertiesTwo = { prop: 'custom_color=shmurple' };
   const items = [{
     id,
     quantity,

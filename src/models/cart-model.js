@@ -1,6 +1,22 @@
 import BaseModel from './base-model';
 import assign from '../metal/assign';
 
+function objectsEqual(one, two) {
+  if (one === two) {
+    return true;
+  }
+
+  return Object.keys(one).every(key => {
+    if (one[key] instanceof Date) {
+      return one[key].toString() === two[key].toString();
+    } else if (typeof one[key] === 'object') {
+      return objectsEqual(one[key], two[key]);
+    }
+
+    return one[key] === two[key];
+  });
+}
+
 const CartModel = BaseModel.extend({
   constructor() {
     this.super(...arguments);
@@ -20,7 +36,7 @@ const CartModel = BaseModel.extend({
     return this.attrs.subtotal_price;
   },
 
-  addVariants(/* { id, quantity }, ... */) {
+  addVariants(/* { id, quantity, properties }, ... */) {
     const newLineItems = [...arguments].map(variant => {
       return {
         variant_id: variant.id,
@@ -35,7 +51,7 @@ const CartModel = BaseModel.extend({
     this.lineItems = existingLineItems.reduce((itemAcc, item) => {
       const matchingItem = itemAcc.filter(existingItem => {
         return (existingItem.variant_id === item.variant_id &&
-                existingLineItems.properties === item.properties);
+                objectsEqual(existingItem.properties, item.properties));
       })[0];
 
       if (matchingItem) {
