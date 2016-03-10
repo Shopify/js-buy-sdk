@@ -70,16 +70,11 @@ shopClient.create('checkout').then(function (cart) {
 ### Adding items to a cart
 
 Cart items are stored in the `Cart.attrs.line_items` array. To add items to a cart,
-you must call the client's `update` method and pass along the cart with updated line items.
+you can call the cart's `addVariants` method and pass in the product to be added.
 The `update` call will return a promise which returns the updated model.
 
 ```js
-cart.attr.line_items.push({
-  variant_id: 123,
-  quantity: 1
-});
-
-client.update('checkouts', cart).then(function (cart) {
+cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
   cart = cart;
 });
 
