@@ -2,109 +2,108 @@
   box-sizing: border-box;
 }
 
-  body {
-    font-family: 'Lato', Helvetica, sans-serif;
-    background: #f2f7fa;
-    color: #666;
-  }
+body {
+  font-family: 'Lato', Helvetica, sans-serif;
+  color: #666;
+}
+a {
+  color: #666;
+}
+input {
+  border: 2px solid #666;
+  color: #666;
+  border-radius: 2px;
+  outline: none;
+  font-size: 16px;
+  padding: 0.5em;
+}
+
+.left {
+  overflow: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: #31373d;
+  border-right: 1px solid #272c30;
+  padding-left: 30px;
+  padding-top: 80px;
+  padding-bottom: 40px;
+  padding-right: 30px;
+  width: 250px;
+  color: #888;
+
   a {
-    color: #666;
+    color: rgba(255, 255, 255, 0.7);
   }
-  input {
-    border: 2px solid #666;
-    color: #666;
-    border-radius: 2px;
-    outline: none;
-    font-size: 16px;
-    padding: 0.5em;
-  }
+}
+.left h1 {
+  font-weight: 300;
+  color: #bbb;
+}
+.left pre {
+  margin-top: 30px;
+  background: #272c30;
+  border-color: #252a2c;
+}
+.right {
+  position: absolute;
+  left: 288px;
+  right: 0;
+  top: 0;
+  padding-bottom: 80px;
+}
+.left h1:first-child, .right h2:first-child {
+  margin-top: 0;
+}
+h1, h2 {
+  color: #555;
+  margin-top: 1.5em;
+}
+h1 {
+  color: #444;
+}
+pre, code {
+  font-family: Menlo,"DejaVu Sans Mono","Bitstream Vera Sans Mono",Consolas,Monaco,"Courier New",monospace;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1em;
+  border-radius: 2px;
+  border: 1px solid #ecf0f3;
+}
+code {
+  display: inline-block;
+  padding: 4px;
+  position: relative;
+  top: -1px;
+}
+pre {
+  word-wrap: break-word;
+  line-height: 1.6em;
+  white-space: pre-wrap;
+  padding: 14px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+p {
+  max-width: 600px;
+  padding-right: 20px;
+  line-height: 1.5em;
+}
 
-  .left {
-    overflow: scroll;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    background: #31373d;
-    border-right: 1px solid #272c30;
-    padding-left: 30px;
-    padding-top: 80px;
-    padding-bottom: 40px;
-    padding-right: 30px;
-    width: 250px;
-    color: #888;
+.prepend-pre {
+  position: relative;
+}
 
-    a {
-      color: rgba(255, 255, 255, 0.7);
-    }
-  }
-  .left h1 {
-    font-weight: 300;
-    color: #bbb;
-  }
-  .left pre {
-    margin-top: 30px;
-    background: #272c30;
-    border-color: #252a2c;
-  }
-  .right {
-    position: absolute;
-    left: 288px;
-    right: 0;
-    top: 0;
-    padding-bottom: 80px;
-  }
-  .left h1:first-child, .right h2:first-child {
-    margin-top: 0;
-  }
-  h1, h2 {
-    color: #555;
-    margin-top: 1.5em;
-  }
-  h1 {
-    color: #444;
-  }
-  pre, code {
-    font-family: Menlo,"DejaVu Sans Mono","Bitstream Vera Sans Mono",Consolas,Monaco,"Courier New",monospace;
-    background: #fff;
-    font-size: 12px;
-    line-height: 1em;
-    border-radius: 2px;
-    border: 1px solid #ecf0f3;
-  }
-  code {
-    display: inline-block;
-    padding: 4px;
-    position: relative;
-    top: -1px;
-  }
-  pre {
-    word-wrap: break-word;
-    line-height: 1.6em;
-    white-space: pre-wrap;
-    padding: 14px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  p {
-    max-width: 600px;
-    padding-right: 20px;
-    line-height: 1.5em;
-  }
-
-  .prepend-pre {
-    position: relative;
-  }
-
-  .prepend-pre:before {
-    content: " ";
-    position: absolute;
-    left: -10px;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #e2e7ea;
-  }
+.prepend-pre:before {
+  content: " ";
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #e2e7ea;
+}
 
 h1, h2 {
   margin-top: 0;
@@ -144,7 +143,12 @@ h1, h2 {
 }
 
 .docs-content {
+  padding-right: 30px;
+}
+
+.docs-content--api {
   width: calc(100% - 250px);
+  padding-right: 0;
 }
 
 .docs-pages {
@@ -157,7 +161,7 @@ h1, h2 {
   right: 0;
   top: 0;
   width: 220px;
-  background: white;
+  background: #f8f8f8;
   height: 100%;
   padding: 20px;
 
@@ -165,20 +169,71 @@ h1, h2 {
     margin: 0;
     list-style: none;
   }
+
+  h2 {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 10px;
+  }
 }
 
+.apidocs .page-section {
+  h2 {
+    font-weight: normal;
+    margin-top: 20px;
+  }
+}
 
-.method-signature, .method-signature code {
-	line-height: 20px !important;
-	font-size: 15px;
-	background: 0 none;
-	padding: 0;
-	border: 0 none;
+.apidocs {
+  .method-signature,
+  .method-signature code {
+    line-height: 20px;
+    font-size: 15px;
+    background: none;
+    border: 0;
+  }
+
+  .method-signature {
+    display: inline-block;
+
+    .name {
+      color: $brand-color;
+      font-weight: bold;
+
+      code {
+        padding-left: 0;
+      }
+    }
+
+    .args {
+      margin: 0;
+
+      .optional {
+        color: #a6a6a6;
+      }
+    }
+  }
+
+  .item {
+    .meta {
+      margin-bottom: 10px;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    .description {
+      margin-bottom: 20px;
+    }
+
+  }
 }
-.method-signature .name code {
-	font-weight: bold !important;
-	color: #4CA0E7 !important;
-}
-.method-signature {
-	margin-bottom: 2px;
+
+.apidocs .item pre.prettyprint,
+.docs-content .highlighter-rouge .highlight {
+  background: #f8f8f8;
+  border: 0;
+  padding: 14px;
+  border-left: 3px solid #7a8c9b;
 }

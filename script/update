@@ -4,5 +4,5 @@ rm -rf src
 
 for file in $(find api -name '*.html')
 do
-  echo "---\nlayout: default\n---\n\n\n$(cat $file)" > $file
+  echo "---\nlayout: api\n---\n\n\n$(cat $file)" > $file
 done

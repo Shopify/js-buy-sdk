@@ -40,6 +40,20 @@ ul.inline > li, ol.inline > li {
 	padding: 0 !important;
 }
 
+.method-signature, .method-signature code {
+	line-height: 20px !important;
+	font-size: 15px;
+	background: 0 none;
+	padding: 0;
+	border: 0 none;
+}
+.method-signature .name code {
+	font-weight: bold !important;
+	color: #4CA0E7 !important;
+}
+.method-signature {
+	margin-bottom: 2px;
+}
 
 
 body .apidocs .item + .item {
