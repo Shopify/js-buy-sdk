@@ -1,11 +1,24 @@
+@charset 'utf-8';
+
+$url-prefix: 'https://cdn.shopify.com/shopify-marketing_assets/static/';
+
+@font-face {
+  font-family: 'brandon';
+  src: url("#{$url-prefix}Brandon--regular.woff2") format('woff2'),
+       url("#{$url-prefix}Branon--regular.woff") format('woff');
+  font-style: normal;
+  font-weight: normal;;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Lato', Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;;
   color: #666;
 }
+
 a {
   color: #666;
 }
@@ -13,6 +26,7 @@ a {
 .left {
   color: #888;
   background: #31373d;
+  font-family: 'brandon', Helvetica, Arial, sans-serif;
 
   @media screen and (max-width: 799px) {
     padding: 30px;
@@ -37,8 +51,8 @@ a {
   }
 }
 
-.left h1 {
-  color: #bbb;
+.left h1 a {
+  color: #fff;
 }
 
 .right {
@@ -58,6 +72,10 @@ h1, h2 {
 
 h1 {
   color: #444;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'brandon', Helvetica, Arial, sans-serif;
 }
 
 pre, code {
@@ -88,6 +106,10 @@ pre {
 p {
   padding-right: 20px;
   line-height: 1.5em;
+}
+
+.docs-container {
+  max-width: 1440px;
 }
 
 .docs-header {
@@ -165,14 +187,14 @@ p {
   }
 
   ul {
-    margin: 0;
+    margin-left: 0;
     list-style: none;
   }
 
   h2 {
-    font-size: 20px;
+    font-size: 18px;
     color: #666;
-    margin-bottom: 10px;
+    margin-bottom: 0;
   }
 }
 
