@@ -3,357 +3,282 @@ layout: default
 ---
 
 
-<script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
 
-<div id="doc">
-    <div id="bd" class="yui3-g">
+<div class="">
+    <div class="row">
+        <div class="span3">
+<div>
+    <div id="sidebar" class="docs-class__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+        <ul id="api-classes" class="nav nav-list">
+                <li><a href="../classes/Config.html">Config</a></li>
+                <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+                <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+        </ul>
+	<h2>Methods</h2>
+    <ul>
 
-        <div class="yui3-u-1-4">
-            <div id="docs-sidebar" class="sidebar apidocs">
-                <div id="api-list">
-                    <h2 class="off-left">APIs</h2>
-                    <div id="api-tabview" class="tabview">
-                        <ul class="tabs">
-                            <li><a href="#api-classes">Classes</a></li>
-                            <li><a href="#api-modules">Modules</a></li>
-                        </ul>
-                
-                        <div id="api-tabview-filter">
-                            <input type="search" id="api-filter" placeholder="Type to filter APIs">
-                        </div>
-                
-                        <div id="api-tabview-panel">
-                            <ul id="api-classes" class="apis classes">
-                                <li><a href="../classes/Config.html">Config</a></li>
-                                <li><a href="../classes/ShopClient.html">ShopClient</a></li>
-                                <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
-                            </ul>
-                
-                            <ul id="api-modules" class="apis modules">
-                                <li><a href="../modules/config.html">config</a></li>
-                                <li><a href="../modules/js-buy-sdk.html">js-buy-sdk</a></li>
-                                <li><a href="../modules/shop-client.html">shop-client</a></li>
-                                <li><a href="../modules/shopify.html">shopify</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+		<li>
+			<strong>Attributes</strong>
+			<ul>
+				<li><a href="#attr-apiKey"><span class="iattr">apiKey</span></a></li>
+				<li><a href="#attr-channelId"><span class="iattr">channelId</span></a></li>
+				<li><a href="#attr-myShopifyDomain"><span class="iattr">myShopifyDomain</span></a></li>
+				<li><a href="#attr-requiredProperties"><span class="iattr">requiredProperties</span></a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+</div>
         </div>
-        <div class="yui3-u-3-4">
-                <div id="api-options">
-                    Show:
-                    <label for="api-show-inherited">
-                        <input type="checkbox" id="api-show-inherited" checked>
-                        Inherited
-                    </label>
-            
-                    <label for="api-show-protected">
-                        <input type="checkbox" id="api-show-protected">
-                        Protected
-                    </label>
-            
-                    <label for="api-show-private">
-                        <input type="checkbox" id="api-show-private">
-                        Private
-                    </label>
-                    <label for="api-show-deprecated">
-                        <input type="checkbox" id="api-show-deprecated">
-                        Deprecated
-                    </label>
-            
-                </div>
-            
+        <div class="span9">
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-<h1>Config Class</h1>
-<div class="box meta">
+<div class="page-header">
+    <h1>Config</h1>
+</div>
 
 
-        <div class="foundat">
-            Defined in: <a href="../files/src_config.js.html#l9"><code>src&#x2F;config.js:9</code></a>
-        </div>
 
+	<div class="well well-small">
             Module: <a href="../modules/config.html">config</a><br>
             Parent Module: <a href="../modules/js-buy-sdk.html">js-buy-sdk</a>
+    </div>
 
-</div>
 
 
-<div class="box intro">
-    
-</div>
 
-    <div class="constructor">
+<!-- table of contents -->
+
+
+    <div class="constructor yuidoc-class-constructor page-section">
         <h2>Constructor</h2>
-        <div id="method_Config" class="method item">
-            <h3 class="name"><code>Config</code></h3>
-        
-                <div class="args">
-                    <span class="paren">(</span><ul class="args-list inline commas">
-                        <li class="arg">
-                                <code>attrs</code>
-                        </li>
-                    </ul><span class="paren">)</span>
-                </div>
-        
-        
-        
-        
-        
-        
-        
-        
-            <div class="meta">
-                        <p>
-                        Defined in
-                <a href="../files/src_config.js.html#l9"><code>src&#x2F;config.js:9</code></a>
-                </p>
-        
-        
-        
-            </div>
-        
-            <div class="description">
-                
-            </div>
-        
-                <div class="params">
-                    <h4>Parameters:</h4>
-        
-                    <ul class="params-list">
-                        <li class="param">
-                                <code class="param-name">attrs</code>
-                                <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-        
-        
-                            <div class="param-description">
-                                <p>A hash of required config data.</p>
-        
-                            </div>
-        
-                                <ul class="params-list">
-                                    <li class="param">
-                                            <code class="param-name">apiKey</code>
-                                            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-        
-                                        <div class="param-description">
-                                            <p>Your api client's public token</p>
-        
-                                        </div>
-        
-                                    </li>
-                                    <li class="param">
-                                            <code class="param-name">channelId</code>
-                                            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-        
-                                        <div class="param-description">
-                                            <p>The channel from which to read
-        publications. Visit <code>&lt;your-shops-domain&gt;/admin/channels.json</code> while
-        authenticated to see a list of available channels.</p>
-        
-                                        </div>
-        
-                                    </li>
-                                    <li class="param">
-                                            <code class="param-name">myShopifyDomain</code>
-                                            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-        
-                                        <div class="param-description">
-                                            <p>You shop's <code>myshopify.com</code> domain.</p>
-        
-                                        </div>
-        
-                                    </li>
-                                </ul>
-                        </li>
-                    </ul>
-                </div>
-        
-        
-        
-        </div>
-    </div>
+        <div class="item-list">
+<div id="method-Config" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>Config</code></span>
 
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-            <li class="api-class-tab attrs"><a href="#attrs">Attributes</a></li>
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>attrs</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
 
 
 
-                <div class="index-section attrs">
-                    <h3>Attributes</h3>
-
-                    <ul class="index-list attrs">
-                            <li class="index-item attr public">
-                                <a href="#attr_apiKey">apiKey</a>
-                            </li>
-                            <li class="index-item attr public">
-                                <a href="#attr_channelId">channelId</a>
-                            </li>
-                            <li class="index-item attr public">
-                                <a href="#attr_myShopifyDomain">myShopifyDomain</a>
-                            </li>
-                            <li class="index-item attr private">
-                                <a href="#attr_requiredProperties">requiredProperties</a>
-                            </li>
-                    </ul>
-                </div>
-
-        </div>
 
 
 
-            <div id="attrs" class="api-class-tabpanel">
-                <h2 class="off-left">Attributes</h2>
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="../files/src_config.js.html#l9"><code>src&#x2F;config.js:9</code></a>
+		</p>
 
-                    <div id="attr_apiKey" class="attr item public">
-                        <a name="config_apiKey"></a> 
-                        <h3 class="name"><code>apiKey</code></h3>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-                    
-                            <span class="flag public">public</span>
-                    
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/src_config.js.html#l44"><code>src&#x2F;config.js:44</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>The apiKey for authenticating against shopify. This is your api client's
-                    public api token. Not the shared secret. Set during initialation.</p>
-                    
-                        </div>
-                    
-                            <p><strong>Default:</strong> &#x27;&#x27;</p>
-                    
-                    
-                    </div>
-                    <div id="attr_channelId" class="attr item public">
-                        <a name="config_channelId"></a> 
-                        <h3 class="name"><code>channelId</code></h3>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-                    
-                            <span class="flag public">public</span>
-                    
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/src_config.js.html#l54"><code>src&#x2F;config.js:54</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            
-                        </div>
-                    
-                            <p><strong>Default:</strong> &#x27;&#x27;</p>
-                    
-                    
-                    </div>
-                    <div id="attr_myShopifyDomain" class="attr item public">
-                        <a name="config_myShopifyDomain"></a> 
-                        <h3 class="name"><code>myShopifyDomain</code></h3>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-                    
-                            <span class="flag public">public</span>
-                    
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/src_config.js.html#l62"><code>src&#x2F;config.js:62</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            
-                        </div>
-                    
-                            <p><strong>Default:</strong> &#x27;&#x27;</p>
-                    
-                    
-                    </div>
-                    <div id="attr_requiredProperties" class="attr item private">
-                        <a name="config_requiredProperties"></a> 
-                        <h3 class="name"><code>requiredProperties</code></h3>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
-                    
-                    
-                            <span class="flag private">private</span>
-                    
-                    
-                    
-                    
-                    
-                    
-                        <div class="meta">
-                                    <p>
-                                    Defined in
-                            <a href="../files/src_config.js.html#l29"><code>src&#x2F;config.js:29</code></a>
-                            </p>
-                    
-                    
-                        </div>
-                    
-                        <div class="description">
-                            <p>The apiKey for authenticating against shopify. This is your api client's
-                    public api token. Not the shared secret. Set during initialation.</p>
-                    
-                        </div>
-                    
-                            <p><strong>Default:</strong> [&#x27;apiKey&#x27;, &#x27;channelId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
-                    
-                    
-                    </div>
-            </div>
 
-    </div>
+
+	</div>
+
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">attrs</code>
+						<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>A hash of required config data.</p>
 </div>
+
+						<ul class="params-list">
+							<li class="param">
+									<code class="param-name">apiKey</code>
+									<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>Your api client's public token</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">channelId</code>
+									<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>The channel from which to read
+publications. Visit <code>&lt;your-shops-domain&gt;/admin/channels.json</code> while
+authenticated to see a list of available channels.</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">myShopifyDomain</code>
+									<span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>You shop's <code>myshopify.com</code> domain.</p>
+</div>
+
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+        </div>
+    </div>
+
+
+
+    <div id="attrs" class="page-section">
+        <h2 class="off-left">Attributes</h2>
+
+<div id="attr-apiKey" class="attr item public">
+    <a name="config_apiKey"></a> 
+    <h3 class="name"><code>apiKey</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_config.js.html#l44"><code>src&#x2F;config.js:44</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The apiKey for authenticating against shopify. This is your api client's
+public api token. Not the shared secret. Set during initialation.</p>
+
+    </div>
+
+        <p><strong>Default:</strong> &#x27;&#x27;</p>
+
+
+</div>
+<div id="attr-channelId" class="attr item public">
+    <a name="config_channelId"></a> 
+    <h3 class="name"><code>channelId</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_config.js.html#l54"><code>src&#x2F;config.js:54</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;&#x27;</p>
+
+
+</div>
+<div id="attr-myShopifyDomain" class="attr item public">
+    <a name="config_myShopifyDomain"></a> 
+    <h3 class="name"><code>myShopifyDomain</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag public">public</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_config.js.html#l62"><code>src&#x2F;config.js:62</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> &#x27;&#x27;</p>
+
+
+</div>
+<div id="attr-requiredProperties" class="attr item private">
+    <a name="config_requiredProperties"></a> 
+    <h3 class="name"><code>requiredProperties</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_config.js.html#l29"><code>src&#x2F;config.js:29</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The apiKey for authenticating against shopify. This is your api client's
+public api token. Not the shared secret. Set during initialation.</p>
+
+    </div>
+
+        <p><strong>Default:</strong> [&#x27;apiKey&#x27;, &#x27;channelId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
+
+
+</div>
+    </div>
+
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
 <script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
 <script>prettyPrint();</script>
-<script src="../assets/js/yui-prettify.js"></script>
-<script src="../assets/../api.js"></script>
-<script src="../assets/js/api-filter.js"></script>
-<script src="../assets/js/api-list.js"></script>
-<script src="../assets/js/api-search.js"></script>
-<script src="../assets/js/apidocs.js"></script>

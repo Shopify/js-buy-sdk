@@ -1,0 +1,65 @@
+<div>
+    <div id="sidebar" class="docs-class__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+        <ul id="api-classes" class="nav nav-list">
+            {{#publicClasses classes}}
+                <li><a href="{{../projectRoot}}classes/{{name}}.html">{{displayName}}</a></li>
+            {{/publicClasses}}
+        </ul>
+	<h2>Methods</h2>
+    <ul>
+		{{#hasInstanceMethods methods}}
+		<li>
+			<strong>Methods</strong>
+			<ul>
+				{{#methods}}
+				{{#if static}}
+				{{else}}
+				<li><a href="#method-{{name}}"><span class="im">{{name}}</span>({{#params}}<span class="ia">{{name}}</span>{{/params}})</a></li>
+				{{/if}}
+				{{/methods}}
+			</ul>
+		</li>
+		{{/hasInstanceMethods}}
+
+		{{#if properties}}
+		<li>
+			<strong>Properties</strong>
+			<ul>
+				{{#properties}}
+				<li><a href="#prop-{{name}}"><span class="ip">{{name}}</span></a></li>
+				{{/properties}}
+			</ul>
+		</li>
+		{{/if}}
+
+		{{#if attrs}}
+		<li>
+			<strong>Attributes</strong>
+			<ul>
+				{{#attrs}}
+				<li><a href="#attr-{{name}}"><span class="iattr">{{name}}</span></a></li>
+				{{/attrs}}
+			</ul>
+		</li>
+		{{/if}}
+
+		{{#hasStaticMethods methods}}
+		<li>
+			<strong>Static Methods</strong>
+			<ul>
+				{{#methods}}
+				{{#if static}}
+				<li><a href="#method-{{name}}"><span class="im">{{class}}.{{name}}</span>({{#params}}<span class="ia">{{name}}</span>{{/params}})</a></li>
+				{{/if}}
+				{{/methods}}
+			</ul>
+		</li>
+		{{/hasStaticMethods}}
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+</div>

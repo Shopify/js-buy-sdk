@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
   body {
     font-family: 'Lato', Helvetica, sans-serif;
     background: #f2f7fa;
@@ -27,7 +31,7 @@
     padding-top: 80px;
     padding-bottom: 40px;
     padding-right: 30px;
-    width: 300px;
+    width: 250px;
     color: #888;
 
     a {
@@ -45,9 +49,9 @@
   }
   .right {
     position: absolute;
-    left: 388px;
+    left: 288px;
     right: 0;
-    top: 15px;
+    top: 0;
     padding-bottom: 80px;
   }
   .left h1:first-child, .right h2:first-child {
@@ -134,11 +138,47 @@ h1, h2 {
   }
 }
 
+.docs-header {
+  margin-bottom: 20px;
+  padding-top: 15px;
+}
+
 .docs-content {
-  padding-top: 20px;
+  width: calc(100% - 250px);
 }
 
 .docs-pages {
   margin: 0;
   list-style: none;
+}
+
+.docs-class__sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 220px;
+  background: white;
+  height: 100%;
+  padding: 20px;
+
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+}
+
+
+.method-signature, .method-signature code {
+	line-height: 20px !important;
+	font-size: 15px;
+	background: 0 none;
+	padding: 0;
+	border: 0 none;
+}
+.method-signature .name code {
+	font-weight: bold !important;
+	color: #4CA0E7 !important;
+}
+.method-signature {
+	margin-bottom: 2px;
 }
