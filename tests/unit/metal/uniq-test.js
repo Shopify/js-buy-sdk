@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import uniq from 'buy-button-sdk/metal/uniq';
+import uniq from 'js-buy-sdk/metal/uniq';
 
 module('Unit | uniq');
 

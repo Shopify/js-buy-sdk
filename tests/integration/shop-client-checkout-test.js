@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import { step, resetStep } from 'buy-button-sdk/tests/helpers/assert-step';
-import ShopClient from 'buy-button-sdk/shop-client';
-import Config from 'buy-button-sdk/config';
+import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
+import ShopClient from 'js-buy-sdk/shop-client';
+import Config from 'js-buy-sdk/config';
 import Pretender from 'pretender';
 
 const configAttrs = {
