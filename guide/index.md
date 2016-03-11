@@ -10,6 +10,9 @@ The code examples in this guide should be mostly DOM-agnostic, so you should be 
 into whatever code you are using to create and update your DOM, whether you are doing so manually
 or using a library/framework.
 
+To see how the JS Buy SDK can be integrated with various frameworks and approaches, take a look at
+the [examples](/js-buy-sdk/examples)
+
 ## Creating a single "Buy Button" that links to checkout
 
 Once you have created your `ShopClient`, fetch information about your product to display in your UI:
@@ -29,9 +32,11 @@ you want to the cart:
 var variant = product.variants[0];
 var checkoutURL;
 
-shopClient.create('checkout', {
-  id: variant.id,
-  quantity: 1
+shopClient.create('checkouts', {
+  line_items: [{
+    id: variant.id,
+    quantity: 1
+  }]
 }).then(function (cart) {
   checkoutURL = cart.attrs.web_url;
 });
@@ -62,14 +67,15 @@ shopClient.create('checkout').then(function (cart) {
 ### Adding items to a cart
 
 Items are added to the cart by calling the cart's `addVariants` method, which accepts one or more objects containing
-a variant ID and quantity. `addVariants` will synchronize the updated cart with Shopify and return the new cart. If you add a
+a variant ID and quantity. `addVariants` will update the cart and synchronize it with Shopify. If you add a
 variant ID that already exists in the cart, that line item's quantity will be incremented.
 
 ```js
-cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
-  cart = cart;
+cart.addVariants({id: 123, quantity: 1}).then(function () {
+  console.log('cart updated')
 });
 ```
+> *Note:* `cart` is modified by calling `addVariants`
 
 ### Updating cart items
 
