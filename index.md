@@ -66,7 +66,7 @@ To generate a checkout link, you will need to create a cart model.
 
 ```js
 var cart;
-shopClient.create('checkout').then(function (cart) {
+shopClient.create('checkouts').then(function (cart) {
   cart = cart;
 });
 ```
