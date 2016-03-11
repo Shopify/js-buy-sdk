@@ -79,7 +79,7 @@ cart.addVariants({id: 123, quantity: 1}).then(function () {
 
 ### Updating cart items
 
-You can update the quantity of items in the cart with the `updateLineItem` method, which accepts a variant ID and a quantity. To decrement
+You can update the quantity of items in the cart with the `updateLineItem` method, which accepts a cart item ID and a quantity. To decrement
 the quantity of an item, pass a negative number. Remove an item with the `removeLineItem` method.
 
 ```js
@@ -91,6 +91,8 @@ cart.removeLineItem(123).then(function (cart) {
   cart = cart;
 });
 ```
+
+> *Note:* Cart item IDs are strings, not integers
 
 You can remove all items from a cart with the `clearLineItems` method.
 
