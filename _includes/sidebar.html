@@ -1,12 +1,18 @@
-<h1 class="docs-title"><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
-<ul class="docs-pages">
+<div class="docs-title heading--1"><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></div>
+<ul class="docs-nav">
   <li>
-    <a class="docs-pages__link" href="{{ '/' | prepend: site.baseurl }}">Getting started</a>
+    <a class="docs-nav__link" href="{{ '/' | prepend: site.baseurl }}">Getting started</a>
   </li>
   <li>
-    <a class="docs-pages__link" href="{{ '/guide' | prepend: site.baseurl }}">Guide</a>
+    <a class="docs-nav__link" href="{{ '/guide' | prepend: site.baseurl }}">Guide</a>
   </li>
   <li>
-    <a class="docs-pages__link" href="{{ '/api' | prepend: site.baseurl }}">Reference</a>
+    <a class="docs-nav__link" href="{{ '/api' | prepend: site.baseurl }}">Reference</a>
   </li>
+  <div class="docs-shopify-logo">
+    <a href="https://shopify.com">
+      <img src="{{ "/assets/images/shopify-logo-large.png" | prepend: site.baseurl }}" alt="Shopify" />
+    </a>
+    <p><a href="#">Provide feedback</a></p>
+  </div>
 </ul>
