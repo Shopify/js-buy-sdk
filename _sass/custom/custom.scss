@@ -1,0 +1,94 @@
+$navy: #30373b;
+$navy--light: #7a8c9b;
+$blue--light: #368aa9;
+$blue--pale: #d3dbe2;
+$grey--dark: #30373b;
+$grey--light: #949595;
+$grey--pale: #f9fafa;
+$grey--on-dark: #a9a9a9;
+
+.body-link,
+main p > a,
+main .marketing-markdown > a,
+.marketing-markdown a:not(.marketing-button):not(.marketing-nav__button) {
+  color: $blue--light;
+  border-bottom: 0;
+}
+
+blockquote,
+.marketing-markdown blockquote,
+pre,
+pre.code,
+pre.prettyprint {
+  margin-left: 0;
+  background: $grey--pale;
+  border-left: 2px solid $navy--light;
+  padding: 15px 20px;
+  font-size: 1em;
+  font-weight: $font-weight-medium;
+  color: $grey--dark;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  &:before,
+  &:after {
+    display: none;
+  }
+}
+
+.page-header {
+  padding: 0;
+  text-align: left;
+}
+
+.docs-sidebar {
+  background: $navy;
+}
+
+.docs-title {
+  font-weight: $font-weight-light;
+
+  @include shopify-breakpoint($desktop-up) {
+    margin-bottom: 40px;
+  }
+
+  a {
+    color: $color-white;
+  }
+}
+
+.docs-nav {
+  li {
+    margin-bottom: 10px;
+  }
+}
+
+.docs-nav__link {
+  color: $grey--on-dark;
+  @include font-brandon-medium();
+}
+
+.docs-shopify-logo {
+  a {
+    color: $grey--on-dark;
+  }
+}
+
+.docs-header {
+  border-bottom: 1px solid $blue--pale;
+  padding-top: 15px;
+  margin-bottom: 50px;
+  margin-right: 45px;
+
+  img {
+    height: 25px;
+    padding-right: 10px;
+  }
+
+  li {
+    display: inline-block;
+    padding-right: 30px;
+  }
+}
