@@ -80,7 +80,10 @@ pre.prettyprint {
   border-bottom: 1px solid $blue--pale;
   padding-top: 15px;
   margin-bottom: 50px;
-  margin-right: 45px;
+
+  @include shopify-breakpoint($desktop-up) {
+    margin-right: 45px;
+  }
 
   img {
     height: 25px;
