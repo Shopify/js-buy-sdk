@@ -1,0 +1,40 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/Users/tessathornton/.nvm/versions/io.js/v2.5.0/bin/iojs',
+1 verbose cli   '/Users/tessathornton/.nvm/versions/io.js/v2.5.0/bin/npm',
+1 verbose cli   'run',
+1 verbose cli   'examples' ]
+2 info using npm@2.13.2
+3 info using node@v2.5.0
+4 verbose run-script [ 'preexamples', 'examples', 'postexamples' ]
+5 info preexamples js-buy-sdk@0.0.1
+6 info examples js-buy-sdk@0.0.1
+7 verbose unsafe-perm in lifecycle true
+8 info js-buy-sdk@0.0.1 Failed to exec examples script
+9 verbose stack Error: js-buy-sdk@0.0.1 examples: `env EXAMPLES=1 broccoli serve`
+9 verbose stack spawn ENOENT
+9 verbose stack     at ChildProcess.<anonymous> (/Users/tessathornton/.nvm/versions/io.js/v2.5.0/lib/node_modules/npm/lib/utils/spawn.js:17:16)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:764:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid js-buy-sdk@0.0.1
+11 verbose cwd /Users/tessathornton/dev/js-buy-sdk
+12 error Darwin 15.0.0
+13 error argv "/Users/tessathornton/.nvm/versions/io.js/v2.5.0/bin/iojs" "/Users/tessathornton/.nvm/versions/io.js/v2.5.0/bin/npm" "run" "examples"
+14 error node v2.5.0
+15 error npm  v2.13.2
+16 error file sh
+17 error code ELIFECYCLE
+18 error errno ENOENT
+19 error syscall spawn
+20 error js-buy-sdk@0.0.1 examples: `env EXAMPLES=1 broccoli serve`
+20 error spawn ENOENT
+21 error Failed at the js-buy-sdk@0.0.1 examples script 'env EXAMPLES=1 broccoli serve'.
+21 error This is most likely a problem with the js-buy-sdk package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     env EXAMPLES=1 broccoli serve
+21 error You can get their info via:
+21 error     npm owner ls js-buy-sdk
+21 error There is likely additional logging output above.
+22 verbose exit [ 1, true ]

@@ -1,0 +1,82 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.docs-container {
+  padding: 0;
+
+  @include shopify-breakpoint($desktop-up) {
+    overflow: hidden;
+    min-height: 600px;
+  }
+}
+
+.docs-sidebar {
+  @include shopify-breakpoint($tablet-down) {
+    padding: 15px 30px;
+  }
+
+  @include shopify-breakpoint($desktop-up) {
+    min-height: 100%;
+    width: 300px;
+    padding: 60px 40px 0;
+    position: absolute;
+  }
+}
+
+.docs-main {
+  padding: 0 30px;
+
+  @include shopify-breakpoint($desktop-up) {
+    float: left;
+    padding: 0 45px;
+    width: calc(100% - 300px);
+    margin-left: 300px;
+  }
+}
+
+.docs-shopify-logo {
+  @include shopify-breakpoint($tablet-down) {
+    display: none;
+  }
+
+  @include shopify-breakpoint($desktop-up) {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+  }
+
+  img {
+    max-width: 100px;
+    margin-bottom: 10px;
+  }
+}
+
+.apidocs-container {
+  @include shopify-breakpoint($desktop-up) {
+    position: relative;
+  }
+}
+
+.apidocs__sidebar {
+  @include shopify-breakpoint($desktop-up) {
+    width: 200px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+
+.apidocs {
+  @include shopify-breakpoint($desktop-up) {
+    max-width: calc(100% - 200px);
+    padding-right: 30px;
+  }
+}
