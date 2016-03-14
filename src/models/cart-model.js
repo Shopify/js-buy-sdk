@@ -16,21 +16,51 @@ function objectsEqual(one, two) {
     return one[key] === two[key];
   });
 }
-
 const CartModel = BaseModel.extend({
+
+  /**
+    * Class for cart model
+    * @class CartModel
+    * @constructor
+  */
   constructor() {
     this.super(...arguments);
   },
 
+  /**
+    * Get current line items for cart
+    * @property lineItems
+    * @type {Array}
+  */
   get lineItems() {
     return this.attrs.line_items;
   },
 
+  /**
+    * Get current subtotal price for all line items
+    * @property subTotal
+    * @type {String}
+  */
   get subTotal() {
     return this.attrs.subtotal_price;
   },
 
-  addVariants(/* { id, quantity, properties }, ... */) {
+  /**
+    * Add items to cart. Updates cart's `lineItems`
+    * ```javascript
+    * cart.addVariants({id: 123, quantity: 1}).then(cart => {
+    *   // do things with the updated cart.
+    * });
+    * ```
+    * @method addVariants
+    * @param {Object} variant - One or more variants
+    * @param {Number} variant.id - variant ID
+    * @param {Number} variant.quantity - quantity
+    * @param {Object} [variant2...] - further variants may also be passed
+    * @public
+    * @return {Promise|CartModel} - updated cart instance.
+  */
+  addVariants() {
     const newLineItems = [...arguments].map(variant => {
       return {
         variant_id: variant.id,
@@ -60,6 +90,20 @@ const CartModel = BaseModel.extend({
     return this.updateModel();
   },
 
+  /**
+    * Update line item quantity
+    * ```javascript
+    * cart.updateLineItem(123, 2}).then(cart => {
+    *   // do things with the updated cart.
+    * });
+    * ```
+    * @method updateLineItem
+    * @param {Number} id - line item ID
+    * @param {Number} quantity - new quantity for line item
+    * @throws {Error} if line item with ID is not in cart.
+    * @public
+    * @return {Promise|CartModel} - updated cart instance
+  */
   updateLineItem(id, quantity) {
     if (quantity < 1) {
       return this.removeLineItem(id);
@@ -80,6 +124,14 @@ const CartModel = BaseModel.extend({
     });
   },
 
+  /**
+    * Remove line item from cart
+    * @method removeLineItem
+    * @param {Number} id - line item ID
+    * @throws {Error} if line item with ID is not in cart.
+    * @public
+    * @return {Promise|CartModel} - updated cart instance
+  */
   removeLineItem(id) {
     const oldLength = this.lineItems.length;
     const newLineItems = this.lineItems.filter(item => {
@@ -98,12 +150,24 @@ const CartModel = BaseModel.extend({
     });
   },
 
+  /**
+    * Remove all line items from cart
+    * @method clearLineItems
+    * @public
+    * @return {Promise|CartModel} - updated cart instance
+  */
   clearLineItems() {
     this.attrs.line_items = [];
 
     return this.updateModel();
   },
 
+  /**
+    * force update of cart model on server
+    * @method updateModel
+    * @public
+    * @return {Promise|CartModel} - updated cart instance
+  */
   updateModel() {
     return this.shopClient.update('checkouts', this).then(updateCart => {
       assign(this.attrs, updateCart.attrs);
