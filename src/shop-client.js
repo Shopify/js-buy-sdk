@@ -94,7 +94,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchMultiple(type).then(payload => {
-      return this.deserialize(type, payload, adapter, { multiple: true });
+      return this.deserialize(type, payload, adapter, null, { multiple: true });
     });
   },
 
@@ -118,7 +118,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchSingle(type, id).then(payload => {
-      return this.deserialize(type, payload, adapter, { single: true });
+      return this.deserialize(type, payload, adapter, null, { single: true });
     });
   },
 
@@ -141,7 +141,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchMultiple(type, query).then(payload => {
-      return this.deserialize(type, payload, adapter, { multiple: true });
+      return this.deserialize(type, payload, adapter, null, { multiple: true });
     });
   },
 
@@ -157,15 +157,20 @@ const ShopClient = CoreObject.extend({
    * @method create
    * @public
    * @param {String} type The pluralized name of the type, in lower case.
-   * @param {Object} [attrs={}] attributes to send to the server for creation.
+   * @param {Object} [modelAttr={}] attributes representing the internal state
+   * of the model to be persisted to the server.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * `type`
    */
-  create(type, attrs = {}) {
+  create(type, modelAttrs = {}) {
     const adapter = new this.adapters[type](this.config);
+    const serializer = new this.serializers[type](this.config);
+    const Model = serializer.modelForType(type);
+    const model = new Model(modelAttrs, { shopClient: this });
+    const attrs = serializer.serialize(type, model);
 
     return adapter.create(type, attrs).then(payload => {
-      return this.deserialize(type, payload, adapter, { single: true });
+      return this.deserialize(type, payload, adapter, serializer, { single: true });
     });
   },
 
@@ -193,9 +198,7 @@ const ShopClient = CoreObject.extend({
     const id = updatedModel.attrs[adapter.idKeyForType(type)];
 
     return adapter.update(type, id, serializedModel).then(payload => {
-      const meta = { shopClient: this, adapter, serializer, type };
-
-      return serializer.deserializeSingle(type, payload, meta);
+      return this.deserialize(type, payload, adapter, serializer, { single: true });
     });
   },
 
@@ -207,6 +210,8 @@ const ShopClient = CoreObject.extend({
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {Object} payload The raw payload returned by the adapter.
    * @param {BaseAdapter} adapter The adapter that yielded the payload.
+   * @param {BaseSerializer} existingSerializer The serializer to attach. If
+   * none is passed, then `this.deserialize` will create one for the type.
    * @param {Object} opts Options that determine which deserialization method to
    * use.
    * @param {Boolean} opts.multiple true when the payload represents multiple
@@ -214,8 +219,8 @@ const ShopClient = CoreObject.extend({
    * @param {Boolean} opts.single true when the payload represents one model.
    * @return {BaseModel} an instance of `type` reified into a model.
    */
-  deserialize(type, payload, adapter, opts = {}) {
-    const serializer = new this.serializers[type](this.config);
+  deserialize(type, payload, adapter, existingSerializer, opts = {}) {
+    const serializer = (existingSerializer || new this.serializers[type](this.config));
     const meta = { shopClient: this, adapter, serializer, type };
     let serializedPayload;
 

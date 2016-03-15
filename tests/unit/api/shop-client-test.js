@@ -48,6 +48,10 @@ function FakeSerializer() {
   this.serialize = function () {
     return {};
   };
+  this.modelForType = function () {
+    return function () {
+    };
+  };
 }
 
 module('Unit | ShopClient', {
@@ -461,20 +465,21 @@ test('it inits a type\'s serializer with the config during #create', function (a
 });
 
 test('it chains the result of the adapter\'s create through the type\'s serializer on #create', function (assert) {
-  assert.expect(6);
+  assert.expect(8);
 
   const done = assert.async();
 
   const inputAttrs = { someProps: 'prop' };
   const rawModel = { props: 'some-object' };
-  const serializedModel = { attrs: 'serialized-model' };
+  const serializedModel = { checkouts: 'serialized-model' };
+  const deserializedModel = { attrs: 'modelAttrs' };
 
   shopClient.adapters = {
     checkouts: function () {
       this.create = function (type, attrs) {
-        step(1, 'calls create on the adapter', assert);
+        step(2, 'calls create on the adapter', assert);
 
-        assert.equal(attrs, inputAttrs);
+        assert.equal(attrs, serializedModel);
 
         return new Promise(function (resolve) {
           resolve(rawModel);
@@ -486,18 +491,29 @@ test('it chains the result of the adapter\'s create through the type\'s serializ
   shopClient.serializers = {
     checkouts: function () {
       this.deserializeSingle = function (type, results) {
-        step(2, 'calls deserializeSingle', assert);
+        step(3, 'calls deserializeSingle', assert);
 
         assert.equal(results, rawModel);
 
+        return deserializedModel;
+      };
+      this.serialize = function (type, model) {
+        step(1, 'calls serialize on the model created from attrs', assert);
+
+        assert.ok(model instanceof CartModel);
+
         return serializedModel;
       };
+      this.modelForType = function () {
+        return CartModel;
+      };
+
     }
   };
 
-  shopClient.create('checkouts', inputAttrs).then(products => {
-    step(3, 'resolves after fetch and serialize', assert);
-    assert.equal(products, serializedModel);
+  shopClient.create('checkouts', inputAttrs).then(cart => {
+    step(4, 'resolves after fetch and serialize', assert);
+    assert.equal(cart, deserializedModel);
 
     done();
   }).catch(() => {
