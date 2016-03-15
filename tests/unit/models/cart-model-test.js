@@ -16,7 +16,7 @@ module('Unit | CartModel', {
       }
     };
 
-    model = new CartModel(assign({}, cartFixture.checkout), { shopClient });
+    model = new CartModel(assign({}, cartFixture.cart), { shopClient });
     model.attrs.line_items = model.attrs.line_items.slice(0);
   }
 });
@@ -30,13 +30,13 @@ test('it extends from BaseModel', function (assert) {
 test('it proxies `lineItems` to the underlying line items', function (assert) {
   assert.expect(1);
 
-  assert.deepEqual(model.lineItems, cartFixture.checkout.line_items);
+  assert.deepEqual(model.lineItems, cartFixture.cart.line_items);
 });
 
-test('it proxies sub total from the underlying checkout', function (assert) {
+test('it proxies sub total from the underlying cart', function (assert) {
   assert.expect(1);
 
-  assert.equal(model.subTotal, cartFixture.checkout.subtotal_price);
+  assert.equal(model.subTotal, cartFixture.cart.subtotal_price);
 });
 
 test('it creates a line item when you add a variant', function (assert) {
@@ -141,10 +141,10 @@ test('it dedupes line items with the same variant_id when added one after anothe
 
   const done = assert.async();
 
-  const id = cartFixture.checkout.line_items[0].variant_id;
+  const id = cartFixture.cart.line_items[0].variant_id;
   const quantity = 1;
-  const summedQuantity = quantity + cartFixture.checkout.line_items[0].quantity;
-  const properties = assign({}, cartFixture.checkout.line_items[0].properties);
+  const summedQuantity = quantity + cartFixture.cart.line_items[0].quantity;
+  const properties = assign({}, cartFixture.cart.line_items[0].properties);
 
   model.addVariants({ id, quantity, properties }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');

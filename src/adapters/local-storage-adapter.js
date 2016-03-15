@@ -1,12 +1,13 @@
 import CoreObject from '../metal/core-object';
 import guidFor from '../metal/guid-for';
+import { GUID_KEY } from '../metal/guid-for';
 
 const LocalStorageAdapter = CoreObject.extend({
   constructor() {
   },
 
-  idKeyForType() {
-    return 'token';
+  idKeyForType(/* type */) {
+    return GUID_KEY;
   },
 
   fetchSingle(type, id) {

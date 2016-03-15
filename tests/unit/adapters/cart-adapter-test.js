@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import CheckoutAdapter from 'js-buy-sdk/adapters/checkout-adapter';
+import CartAdapter from 'js-buy-sdk/adapters/cart-adapter';
 import assign from 'js-buy-sdk/metal/assign';
 import Promise from 'promise';
 
@@ -16,9 +16,9 @@ function resolvingPromise(data = {}) {
   });
 }
 
-module('Unit | CheckoutAdapter', {
+module('Unit | CartAdapter', {
   setup() {
-    adapter = new CheckoutAdapter();
+    adapter = new CartAdapter();
   },
   teardown() {
     adapter = null;
@@ -44,25 +44,25 @@ test('it builds auth headers using the base64 encoded api key', function (assert
   });
 });
 
-test('it builds the url for all checkouts (used on #create)', function (assert) {
+test('it builds the url for all carts (used on #create)', function (assert) {
   assert.expect(1);
 
   adapter.config = { myShopifyDomain };
 
-  assert.equal(adapter.buildUrl('multiple', 'checkouts'), `${baseUrl}/checkouts.json`);
+  assert.equal(adapter.buildUrl('multiple', 'carts'), `${baseUrl}/carts.json`);
 });
 
-test('it builds the url for a single checkout', function (assert) {
+test('it builds the url for a single cart', function (assert) {
   assert.expect(1);
 
   const token = 'abc123';
 
   adapter.config = { myShopifyDomain };
 
-  assert.equal(adapter.buildUrl('single', 'checkouts', token), `${baseUrl}/checkouts/${token}.json`);
+  assert.equal(adapter.buildUrl('single', 'carts', token), `${baseUrl}/carts/${token}.json`);
 });
 
-test('it throws if someone attempts to query the checkout endpoint', function (assert) {
+test('it throws if someone attempts to query the cart endpoint', function (assert) {
   assert.expect(1);
 
   const token = 'abc123';
@@ -70,8 +70,8 @@ test('it throws if someone attempts to query the checkout endpoint', function (a
   adapter.config = { myShopifyDomain };
 
   assert.throws(function () {
-    adapter.buildUrl('multiple', 'checkouts', { token });
-  }, 'querying checkouts should produce an error');
+    adapter.buildUrl('multiple', 'carts', { token });
+  }, 'querying carts should produce an error');
 });
 
 test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax', function (assert) {
@@ -83,7 +83,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'GET');
-    assert.equal(url, `${baseUrl}/checkouts/${token}.json`);
+    assert.equal(url, `${baseUrl}/carts/${token}.json`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
     return resolvingPromise();
   };
 
-  adapter.fetchSingle('checkouts', token);
+  adapter.fetchSingle('carts', token);
 });
 
 test('it sends a POST, the correct url, and auth headers to #ajax on #create', function (assert) {
@@ -100,23 +100,23 @@ test('it sends a POST, the correct url, and auth headers to #ajax on #create', f
 
   const done = assert.async();
 
-  const checkoutJson = { token: 'abc123' };
+  const cartJson = { token: 'abc123' };
 
   adapter.config = { myShopifyDomain, apiKey };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'POST');
-    assert.equal(url, `${baseUrl}/checkouts.json`);
+    assert.equal(url, `${baseUrl}/carts.json`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
     });
 
-    return resolvingPromise({ json: checkoutJson });
+    return resolvingPromise({ json: cartJson });
   };
 
-  adapter.create('checkouts').then(result => {
-    assert.equal(result, checkoutJson);
+  adapter.create('carts').then(result => {
+    assert.equal(result, cartJson);
     done();
   }).catch(() => {
     assert.ok(false);
@@ -130,14 +130,14 @@ test('it sends a PATCH, the correct url, and auth headers to #ajax on #update', 
   const done = assert.async();
 
   const id = 'abc123';
-  const payload = { checkout: { id, line_items: [] } };
+  const payload = { cart: { id, line_items: [] } };
   const serverResponse = assign({}, payload);
 
   adapter.config = { myShopifyDomain, apiKey };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'PATCH');
-    assert.equal(url, `${baseUrl}/checkouts/${id}.json`);
+    assert.equal(url, `${baseUrl}/carts/${id}.json`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
       'Content-Type': 'application/json'
@@ -146,7 +146,7 @@ test('it sends a PATCH, the correct url, and auth headers to #ajax on #update', 
     return resolvingPromise({ json: serverResponse });
   };
 
-  adapter.update('checkouts', id, payload).then(result => {
+  adapter.update('carts', id, payload).then(result => {
     assert.equal(result, serverResponse);
     done();
   }).catch(() => {

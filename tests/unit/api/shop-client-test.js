@@ -421,16 +421,16 @@ test('it inits a type\'s adapter with the config during #create', function (asse
   const done = assert.async();
 
   shopClient.adapters = {
-    checkouts: function (localConfig) {
+    carts: function (localConfig) {
       assert.equal(localConfig, config);
       FakeAdapter.apply(this, arguments);
     }
   };
   shopClient.serializers = {
-    checkouts: FakeSerializer
+    carts: FakeSerializer
   };
 
-  shopClient.create('checkouts').then(() => {
+  shopClient.create('carts').then(() => {
     assert.ok(true, 'it resolves the promise');
     done();
   }).catch(() => {
@@ -445,17 +445,17 @@ test('it inits a type\'s serializer with the config during #create', function (a
   const done = assert.async();
 
   shopClient.adapters = {
-    checkouts: FakeAdapter
+    carts: FakeAdapter
   };
 
   shopClient.serializers = {
-    checkouts: function (localConfig) {
+    carts: function (localConfig) {
       assert.equal(localConfig, config);
       FakeSerializer.apply(this, arguments);
     }
   };
 
-  shopClient.create('checkouts').then(() => {
+  shopClient.create('carts').then(() => {
     assert.ok(true);
     done();
   }).catch(() => {
@@ -471,11 +471,11 @@ test('it chains the result of the adapter\'s create through the type\'s serializ
 
   const inputAttrs = { someProps: 'prop' };
   const rawModel = { props: 'some-object' };
-  const serializedModel = { checkouts: 'serialized-model' };
+  const serializedModel = { carts: 'serialized-model' };
   const deserializedModel = { attrs: 'modelAttrs' };
 
   shopClient.adapters = {
-    checkouts: function () {
+    carts: function () {
       this.create = function (type, attrs) {
         step(2, 'calls create on the adapter', assert);
 
@@ -489,7 +489,7 @@ test('it chains the result of the adapter\'s create through the type\'s serializ
   };
 
   shopClient.serializers = {
-    checkouts: function () {
+    carts: function () {
       this.deserializeSingle = function (type, results) {
         step(3, 'calls deserializeSingle', assert);
 
@@ -511,7 +511,7 @@ test('it chains the result of the adapter\'s create through the type\'s serializ
     }
   };
 
-  shopClient.create('checkouts', inputAttrs).then(cart => {
+  shopClient.create('carts', inputAttrs).then(cart => {
     step(4, 'resolves after fetch and serialize', assert);
     assert.equal(cart, deserializedModel);
 
@@ -564,7 +564,7 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
     }
   });
 
-  shopClient.update('checkouts', model).then(localUpdatedModel => {
+  shopClient.update('carts', model).then(localUpdatedModel => {
     step(4, 'resolves update with the deserialized model', assert);
     assert.equal(localUpdatedModel, updatedModel);
     done();

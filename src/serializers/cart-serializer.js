@@ -2,7 +2,7 @@ import CoreObject from '../metal/core-object';
 import assign from '../metal/assign';
 import CartModel from '../models/cart-model';
 
-const CheckoutSerializer = CoreObject.extend({
+const CartSerializer = CoreObject.extend({
   constructor() {
   },
 
@@ -48,4 +48,4 @@ const CheckoutSerializer = CoreObject.extend({
   }
 });
 
-export default CheckoutSerializer;
+export default CartSerializer;

@@ -1,7 +1,7 @@
 import PublicationSerializer from './serializers/publication-serializer';
 import PublicationAdapter from './adapters/publication-adapter';
-import CheckoutSerializer from './serializers/checkout-serializer';
-import CheckoutAdapter from './adapters/checkout-adapter';
+import CartSerializer from './serializers/cart-serializer';
+import LocalStorageAdapter from './adapters/local-storage-adapter';
 import CoreObject from './metal/core-object';
 import assign from './metal/assign';
 
@@ -149,8 +149,8 @@ const ShopClient = CoreObject.extend({
    * Create an instance of `type`, optionally including `attrs`.
    *
    * ```javascript
-   * client.create('checkouts', { line_items: [ ... ] }).then(checkout => {
-   *   // do things with the checkout.
+   * client.create('carts', { line_items: [ ... ] }).then(cart => {
+   *   // do things with the cart.
    * });
    * ```
    *
@@ -178,8 +178,8 @@ const ShopClient = CoreObject.extend({
    * Create an instance of `type`, optionally including `attrs`.
    *
    * ```javascript
-   * client.create('checkouts', { line_items: [ ... ] }).then(checkout => {
-   *   // do things with the checkout.
+   * client.create('carts', { line_items: [ ... ] }).then(cart => {
+   *   // do things with the cart.
    * });
    * ```
    *

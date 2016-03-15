@@ -1,12 +1,12 @@
 import { module, test } from 'qunit';
-import CheckoutSerializer from 'js-buy-sdk/serializers/checkout-serializer';
+import CartSerializer from 'js-buy-sdk/serializers/cart-serializer';
 import CartModel from 'js-buy-sdk/models/cart-model';
 
 let serializer;
 
-module('Unit | CheckoutSerializer', {
+module('Unit | CartSerializer', {
   setup() {
-    serializer = new CheckoutSerializer();
+    serializer = new CartSerializer();
   },
   teardown() {
     serializer = null;
@@ -14,8 +14,8 @@ module('Unit | CheckoutSerializer', {
 });
 
 
-const checkoutFixture = {
-  checkout: {
+const cartFixture = {
+  cart: {
     line_items: []
   }
 };
@@ -23,28 +23,28 @@ const checkoutFixture = {
 test('it discovers the root key from the type', function (assert) {
   assert.expect(1);
 
-  assert.equal(serializer.rootKeyForType('checkouts'), 'checkout');
+  assert.equal(serializer.rootKeyForType('carts'), 'cart');
 });
 
-test('it returns CartModel for checkout type', function (assert) {
+test('it returns CartModel for cart type', function (assert) {
   assert.expect(1);
 
-  assert.equal(serializer.modelForType('checkouts'), CartModel);
+  assert.equal(serializer.modelForType('carts'), CartModel);
 });
 
-test('it transforms a single item payload into a checkout object.', function (assert) {
+test('it transforms a single item payload into a cart object.', function (assert) {
   assert.expect(2);
 
-  const model = serializer.deserializeSingle('checkouts', checkoutFixture);
+  const model = serializer.deserializeSingle('carts', cartFixture);
 
   assert.notOk(Array.isArray(model), 'should not be an array');
-  assert.deepEqual(model.attrs, checkoutFixture.checkout);
+  assert.deepEqual(model.attrs, cartFixture.cart);
 });
 
 test('it attaches a reference of the passed serializer to the model on #deserializeSingle', function (assert) {
   assert.expect(1);
 
-  const model = serializer.deserializeSingle('checkouts', checkoutFixture, { serializer });
+  const model = serializer.deserializeSingle('carts', cartFixture, { serializer });
 
   assert.deepEqual(model.serializer, serializer);
 });
@@ -54,7 +54,7 @@ test('it attaches a reference of the passed shopClient to the model on #deserial
 
   const shopClient = 'some-shop-client';
 
-  const model = serializer.deserializeSingle('checkouts', checkoutFixture, { shopClient });
+  const model = serializer.deserializeSingle('carts', cartFixture, { shopClient });
 
   assert.equal(model.shopClient, shopClient);
 });
@@ -69,7 +69,7 @@ test('it transforms a model into a payload on #serialize using the root key', fu
     ]
   });
 
-  const payload = serializer.serialize('checkouts', updatedModel);
+  const payload = serializer.serialize('carts', updatedModel);
 
-  assert.deepEqual(payload, { checkout: updatedModel.attrs });
+  assert.deepEqual(payload, { cart: updatedModel.attrs });
 });

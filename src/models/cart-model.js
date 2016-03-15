@@ -169,7 +169,7 @@ const CartModel = BaseModel.extend({
     * @return {Promise|CartModel} - updated cart instance
   */
   updateModel() {
-    return this.shopClient.update('checkouts', this).then(updateCart => {
+    return this.shopClient.update('carts', this).then(updateCart => {
       assign(this.attrs, updateCart.attrs);
 
       return this;

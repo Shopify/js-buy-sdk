@@ -1,7 +1,7 @@
 import ajax from '../ajax';
 import CoreObject from '../metal/core-object';
 
-const CheckoutAdapter = CoreObject.extend({
+const CartAdapter = CoreObject.extend({
   ajax,
 
   constructor(config) {
@@ -49,7 +49,7 @@ const CheckoutAdapter = CoreObject.extend({
     const paramNames = Object.keys(query);
 
     if (paramNames.length > 0) {
-      throw new Error('Querying checkouts is not allowed');
+      throw new Error('Querying carts is not allowed');
     }
 
     return url;
@@ -84,4 +84,4 @@ const CheckoutAdapter = CoreObject.extend({
   }
 });
 
-export default CheckoutAdapter;
+export default CartAdapter;
