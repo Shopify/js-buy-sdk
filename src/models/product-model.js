@@ -3,6 +3,11 @@ import CoreObject from '../metal/core-object';
 import uniq from '../metal/uniq';
 import includes from '../metal/includes';
 
+/**
+  * Class for product option
+  * @class Option
+  * @constructor
+*/
 const Option = CoreObject.extend({
   constructor(name, values) {
     this.name = name;
@@ -10,10 +15,26 @@ const Option = CoreObject.extend({
     this.selected = values[0];
   },
 
+  /**
+    * name of option (ex. "Size", "Color")
+    * @property name
+    * @type String
+  */
   name: '',
 
+  /**
+    * possible values for selection
+    * @property values
+    * @type Array
+  */
   values: [],
 
+  /**
+    * get/set selected option value (ex. "Large"). Setting this will update the
+    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
+    * @property selected
+    * @type String
+  */
   get selected() {
     return this._selected;
   },
@@ -29,6 +50,12 @@ const Option = CoreObject.extend({
   }
 });
 
+/**
+   * Class for products returned by fetch('product')
+   * @class ProductModel
+   * @constructor
+ */
+
 const ProductModel = BaseModel.extend({
   constructor() {
     this.super(...arguments);
@@ -40,6 +67,20 @@ const ProductModel = BaseModel.extend({
     return this._memoized;
   },
 
+  /**
+     *  Get array of options with nested values. Useful for creating UI for selecting options.
+     *
+     * ```javascript
+     *  var elements = product.options.map(function(option) {
+     *    return '<select name="' + option.name + '">' + option.values.map(function(value) {
+     *      return '<option value="' + value + '">' + value + '</option>';
+     *    }) + '</select>';
+     *  });
+     * ```
+     *
+     * @attribute options
+     * @type {Array|Option}
+   */
   get options() {
     if (this.memoized.options) {
       return this.memoized.options;
@@ -69,12 +110,23 @@ const ProductModel = BaseModel.extend({
     return this.memoized.options;
   },
 
+  /**
+    * Retrieve currently selected option values.
+    * @attribute selections
+    * @type {Option}
+   */
+
   get selections() {
     return this.options.map(option => {
       return option.selected;
     });
   },
 
+  /**
+    * Retrieve variant for currently selected options
+    * @attribute selectedVariant
+    * @type {Object}
+  */
   get selectedVariant() {
     const variantTitle = this.selections.join(' / ');
 
@@ -83,6 +135,11 @@ const ProductModel = BaseModel.extend({
     })[0];
   },
 
+  /**
+    * Retrieve image for currently selected variantImage
+    * @attribute selectedVariantImage
+    * @type {Object}
+  */
   get selectedVariantImage() {
     const selectedVariantId = this.selectedVariant.id;
     const images = this.attrs.images;
