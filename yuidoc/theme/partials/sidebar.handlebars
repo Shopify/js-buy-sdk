@@ -24,7 +24,7 @@
 
 		{{#if properties}}
 		<li>
-			<strong>Properties</strong>
+			<h2>Properties</h2>
 			<ul>
 				{{#properties}}
 				<li><a href="#prop-{{name}}"><span class="ip">{{name}}</span></a></li>
@@ -35,7 +35,7 @@
 
 		{{#if attrs}}
 		<li>
-			<strong>Attributes</strong>
+			<h2>Attributes</h2>
 			<ul>
 				{{#attrs}}
 				<li><a href="#attr-{{name}}"><span class="iattr">{{name}}</span></a></li>
@@ -46,7 +46,7 @@
 
 		{{#hasStaticMethods methods}}
 		<li>
-			<strong>Static Methods</strong>
+			<h2>Static Methods</h2>
 			<ul>
 				{{#methods}}
 				{{#if static}}

@@ -7,6 +7,25 @@
         ]
     },
     "files": {
+        "src/models/cart-model.js": {
+            "name": "src/models/cart-model.js",
+            "modules": {},
+            "classes": {
+                "CartModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-model.js": {
+            "name": "src/models/product-model.js",
+            "modules": {},
+            "classes": {
+                "Option": 1,
+                "ProductModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "src/config.js": {
             "name": "src/config.js",
             "modules": {
@@ -52,6 +71,9 @@
                 "shopify": 1
             },
             "classes": {
+                "CartModel": 1,
+                "Option": 1,
+                "ProductModel": 1,
                 "Config": 1,
                 "ShopClient": 1,
                 "ShopifyBuy": 1
@@ -110,6 +132,48 @@
         }
     },
     "classes": {
+        "CartModel": {
+            "name": "CartModel",
+            "shortname": "CartModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "file": "src/models/cart-model.js",
+            "line": 21,
+            "description": "Class for cart model",
+            "is_constructor": 1
+        },
+        "Option": {
+            "name": "Option",
+            "shortname": "Option",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "file": "src/models/product-model.js",
+            "line": 6,
+            "description": "Class for product option",
+            "is_constructor": 1
+        },
+        "ProductModel": {
+            "name": "ProductModel",
+            "shortname": "ProductModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "js-buy-sdk",
+            "file": "src/models/product-model.js",
+            "line": 53,
+            "description": "Class for products returned by fetch('product')",
+            "is_constructor": 1
+        },
         "Config": {
             "name": "Config",
             "shortname": "Config",
@@ -190,6 +254,209 @@
         }
     },
     "classitems": [
+        {
+            "file": "src/models/cart-model.js",
+            "line": 30,
+            "description": "Get current line items for cart",
+            "itemtype": "property",
+            "name": "lineItems",
+            "type": "{Array}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 39,
+            "description": "Get current subtotal price for all line items",
+            "itemtype": "property",
+            "name": "subTotal",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 48,
+            "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({id: 123, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
+            "itemtype": "method",
+            "name": "addVariants",
+            "params": [
+                {
+                    "name": "variant",
+                    "description": "- One or more variants",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "id",
+                            "description": "- variant ID",
+                            "type": "Number"
+                        },
+                        {
+                            "name": "quantity",
+                            "description": "- quantity",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "variant2...",
+                    "description": "- further variants may also be passed",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 93,
+            "description": "Update line item quantity\n```javascript\ncart.updateLineItem(123, 2}).then(cart => {\n  // do things with the updated cart.\n});\n```",
+            "itemtype": "method",
+            "name": "updateLineItem",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- line item ID",
+                    "type": "Number"
+                },
+                {
+                    "name": "quantity",
+                    "description": "- new quantity for line item",
+                    "type": "Number"
+                }
+            ],
+            "throws": {
+                "description": "if line item with ID is not in cart.",
+                "type": "Error"
+            },
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 127,
+            "description": "Remove line item from cart",
+            "itemtype": "method",
+            "name": "removeLineItem",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- line item ID",
+                    "type": "Number"
+                }
+            ],
+            "throws": {
+                "description": "if line item with ID is not in cart.",
+                "type": "Error"
+            },
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 153,
+            "description": "Remove all line items from cart",
+            "itemtype": "method",
+            "name": "clearLineItems",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 165,
+            "description": "force update of cart model on server",
+            "itemtype": "method",
+            "name": "updateModel",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 18,
+            "description": "name of option (ex. \"Size\", \"Color\")",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 25,
+            "description": "possible values for selection",
+            "itemtype": "property",
+            "name": "values",
+            "type": "Array",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 32,
+            "description": "get/set selected option value (ex. \"Large\"). Setting this will update the\nselected value on the model. Throws {Error} if setting selected to value that does not exist for option",
+            "itemtype": "property",
+            "name": "selected",
+            "type": "String",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 70,
+            "description": "Get array of options with nested values. Useful for creating UI for selecting options.\n\n ```javascript\nvar elements = product.options.map(function(option) {\n  return '<select name=\"' + option.name + '\">' + option.values.map(function(value) {\n    return '<option value=\"' + value + '\">' + value + '</option>';\n  }) + '</select>';\n});\n ```",
+            "itemtype": "attribute",
+            "name": "options",
+            "type": "{Array|Option}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 113,
+            "description": "Retrieve currently selected option values.",
+            "itemtype": "attribute",
+            "name": "selections",
+            "type": "{Option}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 125,
+            "description": "Retrieve variant for currently selected options",
+            "itemtype": "attribute",
+            "name": "selectedVariant",
+            "type": "{Object}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 138,
+            "description": "Retrieve image for currently selected variantImage",
+            "itemtype": "attribute",
+            "name": "selectedVariantImage",
+            "type": "{Object}",
+            "class": "ProductModel"
+        },
         {
             "file": "src/config.js",
             "line": 29,

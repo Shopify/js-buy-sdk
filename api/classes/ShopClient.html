@@ -6,6 +6,29 @@ layout: api
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
 <div class="page-header">
     <h1>ShopClient</h1>
 </div>
@@ -96,7 +119,7 @@ interaction</p>
 			</ul><span class="paren">)</span>
 		</div>
 		<span class="returns-inline">
-			<span class="type">Promise  |  CartModel</span>
+			<span class="type">Promise  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
 		</span>
 	</div>
 
@@ -153,7 +176,7 @@ interaction</p>
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type">Promise  |  CartModel</span>:
+						<span class="type">Promise  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
 					<p>a promise resolving with a single instance of
 <code>type</code></p>
 
@@ -859,7 +882,7 @@ models</p>
 			</ul><span class="paren">)</span>
 		</div>
 		<span class="returns-inline">
-			<span class="type">Promise  |  CartModel</span>
+			<span class="type">Promise  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
 		</span>
 	</div>
 
@@ -916,7 +939,7 @@ to persist to the server.</p>
 			<h4>Returns:</h4>
 
 			<div class="returns-description">
-						<span class="type">Promise  |  CartModel</span>:
+						<span class="type">Promise  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
 					<p>a promise resolving with a single instance of
 <code>type</code></p>
 
@@ -937,7 +960,10 @@ to persist to the server.</p>
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
             <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
