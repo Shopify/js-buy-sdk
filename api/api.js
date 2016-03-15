@@ -1,7 +1,10 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "CartModel",
         "Config",
+        "Option",
+        "ProductModel",
         "ShopClient",
         "ShopifyBuy"
     ],

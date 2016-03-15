@@ -1,0 +1,224 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>src/models/product-model.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import BaseModel from &#x27;./base-model&#x27;;
+import CoreObject from &#x27;../metal/core-object&#x27;;
+import uniq from &#x27;../metal/uniq&#x27;;
+import includes from &#x27;../metal/includes&#x27;;
+
+/**
+  * Class for product option
+  * @class Option
+  * @constructor
+*/
+const Option = CoreObject.extend({
+  constructor(name, values) {
+    this.name = name;
+    this.values = values;
+    this.selected = values[0];
+  },
+
+  /**
+    * name of option (ex. &quot;Size&quot;, &quot;Color&quot;)
+    * @property name
+    * @type String
+  */
+  name: &#x27;&#x27;,
+
+  /**
+    * possible values for selection
+    * @property values
+    * @type Array
+  */
+  values: [],
+
+  /**
+    * get/set selected option value (ex. &quot;Large&quot;). Setting this will update the
+    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
+    * @property selected
+    * @type String
+  */
+  get selected() {
+    return this._selected;
+  },
+
+  set selected(value) {
+    if (includes(this.values, value)) {
+      this._selected = value;
+    } else {
+      throw new Error(&#x60;Invalid option selection for ${this.name}.&#x60;);
+    }
+
+    return value;
+  }
+});
+
+/**
+   * Class for products returned by fetch(&#x27;product&#x27;)
+   * @class ProductModel
+   * @constructor
+ */
+
+const ProductModel = BaseModel.extend({
+  constructor() {
+    this.super(...arguments);
+  },
+
+  get memoized() {
+    this._memoized = this._memoized || {};
+
+    return this._memoized;
+  },
+
+  /**
+     *  Get array of options with nested values. Useful for creating UI for selecting options.
+     *
+     * &#x60;&#x60;&#x60;javascript
+     *  var elements = product.options.map(function(option) {
+     *    return &#x27;&lt;select name=&quot;&#x27; + option.name + &#x27;&quot;&gt;&#x27; + option.values.map(function(value) {
+     *      return &#x27;&lt;option value=&quot;&#x27; + value + &#x27;&quot;&gt;&#x27; + value + &#x27;&lt;/option&gt;&#x27;;
+     *    }) + &#x27;&lt;/select&gt;&#x27;;
+     *  });
+     * &#x60;&#x60;&#x60;
+     *
+     * @attribute options
+     * @type {Array|Option}
+   */
+  get options() {
+    if (this.memoized.options) {
+      return this.memoized.options;
+    }
+
+    const baseOptions = this.attrs.options;
+    const variants = this.attrs.variants;
+
+    this.memoized.options = baseOptions.map(option =&gt; {
+      const name = option.name;
+
+      const dupedValues = variants.reduce((valueList, variant) =&gt; {
+        const optionValueForOption = variant.option_values.filter(optionValue =&gt; {
+          return optionValue.name === option.name;
+        })[0];
+
+        valueList.push(optionValueForOption.value);
+
+        return valueList;
+      }, []);
+
+      const values = uniq(dupedValues);
+
+      return new Option(name, values);
+    });
+
+    return this.memoized.options;
+  },
+
+  /**
+    * Retrieve currently selected option values.
+    * @attribute selections
+    * @type {Option}
+   */
+
+  get selections() {
+    return this.options.map(option =&gt; {
+      return option.selected;
+    });
+  },
+
+  /**
+    * Retrieve variant for currently selected options
+    * @attribute selectedVariant
+    * @type {Object}
+  */
+  get selectedVariant() {
+    const variantTitle = this.selections.join(&#x27; / &#x27;);
+
+    return this.attrs.variants.filter(variant =&gt; {
+      return variant.title === variantTitle;
+    })[0];
+  },
+
+  /**
+    * Retrieve image for currently selected variantImage
+    * @attribute selectedVariantImage
+    * @type {Object}
+  */
+  get selectedVariantImage() {
+    const selectedVariantId = this.selectedVariant.id;
+    const images = this.attrs.images;
+    const primaryImage = images[0];
+    const variantImage = images.filter(image =&gt; {
+      return image.variant_ids.indexOf(selectedVariantId) !== -1;
+    })[0];
+
+    return (variantImage || primaryImage);
+  }
+});
+
+export default ProductModel;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+<script>prettyPrint();</script>

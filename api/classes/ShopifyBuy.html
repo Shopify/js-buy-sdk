@@ -6,6 +6,29 @@ layout: api
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
 <div class="page-header">
     <h1>ShopifyBuy</h1>
 </div>
@@ -141,7 +164,10 @@ domain.</p>
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
             <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -150,7 +176,7 @@ domain.</p>
 
 
 		<li>
-			<strong>Static Methods</strong>
+			<h2>Static Methods</h2>
 			<ul>
 				<li><a href="#method-buildClient"><span class="im">ShopifyBuy.buildClient</span></a></li>
 			</ul>

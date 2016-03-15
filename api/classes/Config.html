@@ -6,6 +6,29 @@ layout: api
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
 <div class="page-header">
     <h1>Config</h1>
 </div>
@@ -243,7 +266,10 @@ public api token. Not the shared secret. Set during initialation.</p>
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
             <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -251,7 +277,7 @@ public api token. Not the shared secret. Set during initialation.</p>
 
 
 		<li>
-			<strong>Attributes</strong>
+			<h2>Attributes</h2>
 			<ul>
 				<li><a href="#attr-apiKey"><span class="iattr">apiKey</span></a></li>
 				<li><a href="#attr-channelId"><span class="iattr">channelId</span></a></li>
