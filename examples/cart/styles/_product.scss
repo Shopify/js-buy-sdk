@@ -1,0 +1,26 @@
+.product {
+  max-width: 400px;
+  box-shadow: 0 0 100px 10px #eee;
+  padding: 30px;
+  margin: 40px auto;
+  line-height: 1;
+}
+
+.product-title,
+.variant-title,
+.variant-image,
+.variant-price {
+  margin-bottom: 20px;
+}
+
+.variant-selectors {
+  margin-bottom: 20px;
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  select {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
