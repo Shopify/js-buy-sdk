@@ -1,5 +1,7 @@
+#!/bin/sh
+
 git checkout master src
-yuidoc -t ./yuidoc/theme
+npm run yuidoc -- -t ./yuidoc/theme
 rm -rf src
 
 for file in $(find api -name '*.html')
