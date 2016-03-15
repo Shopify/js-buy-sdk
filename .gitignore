@@ -13,4 +13,3 @@ tmp
 dist
 .dist-test
 tests.xml
-lib
