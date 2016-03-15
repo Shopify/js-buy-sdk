@@ -15,7 +15,7 @@ Using the JS Buy SDK, you can:
 - fetch information about a single product or a collection of products
 - create a shopping cart
 - allow customers to select options and quantities
-- generate a checkout URL for a single product or an entire cart
+- generate a checkout URL for a single product or an entire cart.
 
 This tool is intended for use by developers who are experienced with JavaScript.
 
@@ -28,8 +28,8 @@ This tool is intended for use by developers who are experienced with JavaScript.
 ## Creating a Shop Client
 
 The Client is the primary interface through which you make requests using the JS Buy SDK.
-You will need your `myshopify.com` domain, API key, and channelId to create your client and
-begin making requests. [Where do I find my API Key and channelId?](#)
+You will need your `myshopify.com` domain, API key, and channel ID to create your client and
+begin making requests. [Where do I find my API Key and channel ID?](#)
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
@@ -39,7 +39,7 @@ var shopClient = ShopifyBuy.buildClient({
 });
 ```
 
-> **Note**: You will need to publish the product/collection you wish to interact with to the
+> Note: You will need to publish the product/[collection](https://docs.shopify.com/manual/products/collections/make-collections-findable#change-the-visibility-of-a-collection) you wish to interact with to the
 > "Buy Button" channel in Shopify
 
 ## Making a request
@@ -67,19 +67,19 @@ To generate a checkout link, you will need to create a cart model.
 ```js
 var cart;
 shopClient.create('checkouts').then(function (cart) {
-  cart = cart;
+  // do something with updated cart
 });
 ```
 
 ### Adding items to a cart
 
-Cart items are stored in the `Cart.attrs.line_items` array. To add items to a cart,
-you can call the cart's `addVariants` method and pass in the product to be added.
+Cart items can be retrieved as an array with the `Cart.lineItems` getter. To add items to a cart,
+you can call the cart's `addVariants` method and pass in the product(s) to be added.
 The `update` call will return a promise which returns the updated model.
 
 ```js
 cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
-  cart = cart;
+  // do something with updated cart
 });
 
 ```
