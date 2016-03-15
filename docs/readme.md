@@ -3,7 +3,7 @@
 ## Local Setup
 - `gem install jekyll`
 - `npm install`
-- `script/update`
+- `script/yuidoc`
 - `jekyll serve`
 
 ## Deployment

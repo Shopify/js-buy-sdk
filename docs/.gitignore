@@ -1,5 +1,12 @@
 _site
 .sass-cache
 .jekyll-metadata
+node_modules
 src
 npm-debug.log
+.dist-tests
+tmp
+tests.xml
+dist
+lib
+.dist-test

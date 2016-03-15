@@ -1,22 +1,21 @@
 {
   "name": "js-buy-sdk-docs",
   "version": "1.0.0",
-  "description": "",
+  "description": "Documentation for the Shopify JS Buy SDK",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "yuidoc": "./node_modules/.bin/yuidoc"
+    "build-yuidoc": "./script/yuidoc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Shopify/js-buy-sdk.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Shopify Inc.",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Shopify/js-buy-sdk/issues"
   },
-  "homepage": "https://github.com/Shopify/js-buy-sdk#readme",
+  "homepage": "https://shopify.github.io/js-buy-sdk",
   "dependencies": {
     "yuidocjs": "^0.10.0"
   },
