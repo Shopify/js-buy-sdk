@@ -1,5 +1,5 @@
 git checkout master src
-yuidoc -t ./yuidoc/theme
+./node_modules/.bin/yuidoc -t ./yuidoc/theme
 rm -rf src
 
 for file in $(find api -name '*.html')
