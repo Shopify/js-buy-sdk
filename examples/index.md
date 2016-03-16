@@ -161,10 +161,6 @@ Additional event listeners are used to toggle the cart's visibility on/off by ad
 
 <button class="button js-toggleCart">Toggle Cart</button>
 
-```html
-<button class="button js-toggleCart">Toggle Cart</button>
-```
-
 ```js
 function openCart() {
   $('.cart').addClass('js-active');
