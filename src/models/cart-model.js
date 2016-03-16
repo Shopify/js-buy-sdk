@@ -1,7 +1,7 @@
 import BaseModel from './base-model';
 import assign from '../metal/assign';
-import guidFor from '../metal/guid-for';
-import { GUID_KEY } from '../metal/guid-for';
+import setGuidFor from '../metal/set-guid-for';
+import { GUID_KEY } from '../metal/set-guid-for';
 
 function objectsEqual(one, two) {
   if (one === two) {
@@ -45,10 +45,10 @@ const CartModel = BaseModel.extend({
 
   /**
     * Get current subtotal price for all line items
-    * @property subTotal
+    * @property subtotal
     * @type {String}
   */
-  get subTotal() {
+  get subtotal() {
     return this.lineItems.reduce((runningTotal, lineItem) => {
       return (runningTotal + parseFloat(lineItem.line_price)).toFixed(2);
     }, 0);
@@ -90,7 +90,7 @@ const CartModel = BaseModel.extend({
         grams: item.variant.grams
       };
 
-      guidFor(lineItem);
+      setGuidFor(lineItem);
 
       return lineItem;
     });

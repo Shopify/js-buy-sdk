@@ -1,4 +1,4 @@
-import { GUID_KEY } from 'js-buy-sdk/metal/guid-for';
+import { GUID_KEY } from 'js-buy-sdk/metal/set-guid-for';
 
 export const cartFixture = {
   cart: {

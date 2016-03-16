@@ -1,6 +1,6 @@
 import CoreObject from '../metal/core-object';
-import guidFor from '../metal/guid-for';
-import { GUID_KEY } from '../metal/guid-for';
+import setGuidFor from '../metal/set-guid-for';
+import { GUID_KEY } from '../metal/set-guid-for';
 
 const LocalStorageAdapter = CoreObject.extend({
   constructor() {
@@ -64,10 +64,10 @@ const LocalStorageAdapter = CoreObject.extend({
     const keys = Object.keys(payload);
 
     if (keys.length === 1 && typeof payload[keys[0]] === 'object') {
-      return guidFor(payload[keys[0]]);
+      return setGuidFor(payload[keys[0]]);
     }
 
-    return guidFor(payload);
+    return setGuidFor(payload);
   }
 });
 

@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
 import ShopClient from 'js-buy-sdk/shop-client';
 import Config from 'js-buy-sdk/config';
-import { GUID_KEY } from 'js-buy-sdk/metal/guid-for';
+import { GUID_KEY } from 'js-buy-sdk/metal/set-guid-for';
 import assign from 'js-buy-sdk/metal/assign';
 
 const configAttrs = {

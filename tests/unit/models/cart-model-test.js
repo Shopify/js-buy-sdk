@@ -37,7 +37,7 @@ test('it proxies `lineItems` to the underlying line items', function (assert) {
 test('it proxies sub total from the underlying cart', function (assert) {
   assert.expect(1);
 
-  assert.equal(model.subTotal, cartFixture.cart.subtotal_price);
+  assert.equal(model.subtotal, cartFixture.cart.subtotal_price);
 });
 
 test('it creates a line item when you add a variant', function (assert) {

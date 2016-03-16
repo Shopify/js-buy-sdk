@@ -8,9 +8,9 @@ $(function() {
     channelId: '33453571'
   });
 
-  var checkout;
-  client.create('checkouts').then(function (newCheckout) {
-    checkout = newCheckout;
+  var cart;
+  client.createCart().then(function (newCart) {
+    cart = newCart;
   });
 
   var lineItemImages = {};
@@ -25,7 +25,7 @@ $(function() {
     var variantSelectors = generateSelectors(product);
     $('.variant-selectors').html(variantSelectors);
 
-    updateProductTitle(product.attrs.title);
+    updateProductTitle(product.title);
     updateVariantImage(selectedVariantImage);
     updateVariantTitle(selectedVariant);
     updateVariantPrice(selectedVariant);
@@ -63,7 +63,7 @@ $(function() {
 
       var selectedVariant = product.selectedVariant;
       var selectedVariantImage = product.selectedVariantImage;
-      updateProductTitle(product.attrs.title);
+      updateProductTitle(product.title);
       updateVariantImage(selectedVariantImage);
       updateVariantTitle(selectedVariant);
       updateVariantPrice(selectedVariant);
@@ -111,7 +111,7 @@ $(function() {
   function attachQuantityIncrementListeners(product) {
     $('.cart').on('click', '.quantity-increment', function() {
       var variantId = parseInt($(this).attr('data-variant-id'));
-      var variant = product.attrs.variants.filter(function (variant) {
+      var variant = product.variants.filter(function (variant) {
         return (variant.id === variantId);
       })[0];
 
@@ -127,7 +127,7 @@ $(function() {
   function attachQuantityDecrementListeners(product) {
     $('.cart').on('click', '.quantity-decrement', function() {
       var variantId = parseInt($(this).attr('data-variant-id'));
-      var variant = product.attrs.variants.filter(function (variant) {
+      var variant = product.variants.filter(function (variant) {
         return (variant.id === variantId);
       })[0];
 
@@ -156,35 +156,17 @@ $(function() {
   /* Add 'quantity' amount of product 'variant' to cart
   ============================================================ */
   function addVariantToCart(product, variant, quantity) {
-
-    var existingLineItem = checkout.attrs.line_items.filter(function (lineItem, index) {
-      return lineItem.variant_id === variant.id;
-    })[0];
-
-    if (existingLineItem) {
-      existingLineItem.quantity = existingLineItem.quantity + quantity;
-      if (existingLineItem.quantity < 1) {
-        checkout.attrs.line_items.pop(existingLineItem);
-      }
-    } else {
-      checkout.attrs.line_items.push({
-        variant_id: variant.id,
-        quantity: quantity
-      })
-    }
-
     openCart();
 
-    client.update('checkouts', checkout).then(function (newCheckout) {
-      checkout = newCheckout;
+    cart.addVariants({ variant: variant, quantity: 1 }).then(function () {
       var $cartItemContainer = $('.cart-item-container');
       var totalPrice = 0;
 
       $cartItemContainer.empty();
       var lineItemEmptyTemplate = $('#cart-item-template').html();
-      var $cartLineItems = checkout.attrs.line_items.map(function (lineItem, index) {
+      var $cartLineItems = cart.lineItems.map(function (lineItem, index) {
         var $lineItemTemplate = $(lineItemEmptyTemplate);
-        var itemImage = lineItemImages[lineItem.variant_id];
+        var itemImage = lineItem.image.src;
         $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
         $lineItemTemplate.find('.cart-item__title').text(lineItem.title);
         $lineItemTemplate.find('.cart-item__variant-title').text(lineItem.variant_title);
@@ -193,7 +175,7 @@ $(function() {
         $lineItemTemplate.find('.quantity-decrement').attr('data-variant-id', lineItem.variant_id);
         $lineItemTemplate.find('.quantity-increment').attr('data-variant-id', lineItem.variant_id);
 
-        if (!existingLineItem && (index === checkout.attrs.line_items.length - 1)) {
+        if (index === cart.lineItems.length - 1) {
           $lineItemTemplate.addClass('js-hidden');
         }
         return $lineItemTemplate;
@@ -204,7 +186,7 @@ $(function() {
         $cartItemContainer.find('.js-hidden').removeClass('js-hidden');
       }, 0)
 
-      $('.cart .pricing').text(formatAsMoney(checkout.attrs.subtotal_price));
+      $('.cart .pricing').text(formatAsMoney(cart.subtotal));
 
     }).catch(function (errors) {
       console.log("Fail");

@@ -2,11 +2,11 @@
 
 const GUID_KEY = 'js-buy-sdk-uuid';
 
-const GUID_PREFIX = `js-buy-sdk.${Number(new Date())}`;
+const GUID_PREFIX = `js-buy-sdk.${Date.now()}`;
 
 const GUID_DESC = {
   writable: true,
-  configurabl: true,
+  configurable: true,
   enumerable: true,
   value: null
 };
@@ -20,7 +20,7 @@ function uuid() {
 const numberCache = {};
 const stringCache = {};
 
-function guidFor(obj) {
+function setGuidFor(obj) {
   if (obj && obj[GUID_KEY]) {
     return obj[GUID_KEY];
   }
@@ -88,5 +88,5 @@ function guidFor(obj) {
   return id;
 }
 
-export default guidFor;
+export default setGuidFor;
 export { GUID_KEY };

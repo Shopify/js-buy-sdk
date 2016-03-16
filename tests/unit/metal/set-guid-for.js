@@ -1,8 +1,8 @@
 import { module, test } from 'qunit';
-import guidFor from 'js-buy-sdk/metal/guid-for';
+import setGuidFor from 'js-buy-sdk/metal/set-guid-for';
 import uniq from 'js-buy-sdk/metal/uniq';
 
-module('Unit | guidFor');
+module('Unit | setGuidFor');
 
 test('it generates unique ids', function (assert) {
   assert.expect(1);
@@ -14,7 +14,7 @@ test('it generates unique ids', function (assert) {
   }
 
   const ids = items.map(item => {
-    return guidFor(item);
+    return setGuidFor(item);
   });
 
   const uniqueIds = uniq(ids);
@@ -48,7 +48,7 @@ test('it doesn\'t regenerate ids for duplicates', function (assert) {
   ];
 
   const ids = items.map(item => {
-    return guidFor(item);
+    return setGuidFor(item);
   });
 
   const uniqueIds = uniq(ids);
