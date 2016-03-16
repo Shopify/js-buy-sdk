@@ -61,11 +61,25 @@ test('it returns the correct variant and image when option selections change', f
   assert.equal(model.selectedVariantImage.id, 7776617601);
 });
 
-test('', function (assert) {
-  assert.expect(1);
+test('it proxies attrs for most commonly used props', function (assert) {
+  assert.expect(4);
 
-  assert.throws(function () {
-    model.options[0].selected = 'Bork';
-  }, new Error(`Invalid option selection for ${model.options[0].name}.`),
-  'throws on invalid option');
+  assert.equal(model.id, singleProductFixture.product_publications[0].product_id);
+  assert.equal(model.title, singleProductFixture.product_publications[0].title);
+  assert.deepEqual(model.images, singleProductFixture.product_publications[0].images);
+
+  // Variants are now rich models, so we just want to guarantee that same-state
+  // is represented.
+  function condenseVariant(variant) {
+    return {
+      id: variant.id,
+      title: variant.title,
+      price: variant.price
+    };
+  }
+
+  assert.deepEqual(
+    model.variants.map(condenseVariant),
+    singleProductFixture.product_publications[0].variants.map(condenseVariant)
+  );
 });

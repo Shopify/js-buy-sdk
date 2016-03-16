@@ -47,18 +47,28 @@ const ShopClient = CoreObject.extend({
     this.serializers = {
       products: PublicationSerializer,
       collections: PublicationSerializer,
-      checkouts: CheckoutSerializer
+      carts: CartSerializer
     };
 
     this.adapters = {
       products: PublicationAdapter,
       collections: PublicationAdapter,
-      checkouts: CheckoutAdapter
+      carts: LocalStorageAdapter
     };
   },
 
   config: null,
 
+  /**
+   * @attribute
+   * @default {
+   *  products: PublicationAdapter,
+   *  collections: PublicationAdapter,
+   *  carts: CartAdapter
+   * }
+   * @type Object
+   * @protected
+   */
   // Prevent leaky state
   get serializers() {
     return assign({}, this.shadowedSerializers);
