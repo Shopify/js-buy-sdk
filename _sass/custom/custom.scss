@@ -4,8 +4,38 @@ $blue--light: #368aa9;
 $blue--pale: #d3dbe2;
 $grey--dark: #30373b;
 $grey--light: #949595;
-$grey--pale: #f9fafa;
+$grey--pale: #F9FAFA;
 $grey--on-dark: #a9a9a9;
+
+$docs--border: #798C9C;
+$docs--code: #5C5C5C;
+$docs--notes: #444444;
+
+body {
+  background: white;
+  font-size: 15px;
+}
+
+body,
+.marketing-markdown {
+  color: #4E5665;
+}
+
+.marketing-markdown {
+  max-width: 700px;
+}
+
+h1 {
+  font-weight: 700;
+  margin-bottom: 33px;
+}
+
+.marketing-markdown h2,
+h2 {
+  margin-top: 40px;
+  margin-bottom: 33px;
+  font-weight: 400;
+}
 
 .body-link,
 main p > a,
@@ -21,12 +51,12 @@ pre,
 pre.code,
 pre.prettyprint {
   margin-left: 0;
+  margin-right: 0;
   background: $grey--pale;
-  border-left: 2px solid $navy--light;
-  padding: 15px 20px;
+  padding: 25px;
   font-size: 1em;
-  font-weight: $font-weight-medium;
-  color: $grey--dark;
+  line-height: 1.7;
+  font-weight: normal;
 
   p:last-child {
     margin-bottom: 0;
@@ -36,6 +66,20 @@ pre.prettyprint {
   &:after {
     display: none;
   }
+}
+
+pre,
+pre.code,
+pre.prettyprint {
+  font-family: 'Courier New', Courier, monospace;
+  color: $docs--code;
+}
+
+blockquote,
+.marketing-markdown blockquote {
+  border-left: 3px solid $docs--border;
+  color: $docs--notes;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
 .page-header {
@@ -79,15 +123,18 @@ pre.prettyprint {
 .docs-header {
   border-bottom: 1px solid $blue--pale;
   padding-top: 15px;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
+  font-size: 13px;
 
-  @include shopify-breakpoint($desktop-up) {
-    margin-right: 45px;
+  a {
+    color: #A0A0A0;
   }
 
   img {
-    height: 25px;
-    padding-right: 10px;
+    height: 18px;
+    padding-right: 5px;
+    opacity: 0.8;
+
   }
 
   li {
