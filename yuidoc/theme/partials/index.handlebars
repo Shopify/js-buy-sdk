@@ -1,15 +1,11 @@
 <div class="apidocs">
     <div id="docs-main" class="content">
       <h2>JavaScript Buy SDK API reference</h2>
+      <h3>Public Classes</h3>
       <ul id="api-classes" class="nav nav-list">
-        <li>
-          <h3><a href="{{../projectRoot}}classes/ShopifyBuy.html">ShopifyBuy Class</a></h3>
-          <p>The main entry point to the JS Buy SDK. Allows for creation of ShopifyClient.</p>
-        </li>
-        <li>
-          <h3><a href="{{../projectRoot}}classes/ShopClient.html">ShopClient Class</a></h3>
-          <p>The main interface for the SDK. Facilitates access to products, collections, and carts.</p>
-        </li>
+        {{#publicClasses classes}}
+            <li><a href="{{../projectRoot}}classes/{{name}}.html">{{displayName}}</a></li>
+        {{/publicClasses}}
       </ul>
     </div>
 </div>
