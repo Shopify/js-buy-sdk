@@ -1,3 +1,5 @@
+import { GUID_KEY } from 'js-buy-sdk/metal/guid-for';
+
 export const cartFixture = {
   cart: {
     created_at: '2016-03-09T10:52:51-05:00',
@@ -12,7 +14,6 @@ export const cartFixture = {
     source_identifier: null,
     source_url: null,
     taxes_included: false,
-    token: '2fadcb49fad5087fd0ff225717ccd743',
     updated_at: '2016-03-09T10:52:51-05:00',
     payment_due: '4.04',
     payment_url: 'https://elb.deposit.shopifycs.com/sessions',
@@ -59,3 +60,5 @@ export const cartFixture = {
     discount: null
   }
 };
+
+cartFixture.cart[GUID_KEY] = 'abc123';

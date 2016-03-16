@@ -22,18 +22,18 @@ test('it calls `getItem` on localStorage with the framework name, type, and id o
 
   const done = assert.async();
 
-  const token = 'abc123';
+  const id = 'abc123';
   const type = 'carts';
 
-  const cartJson = { cart: { token } };
+  const cartJson = { cart: { id } };
 
   localStorage.getItem = function (key) {
-    assert.equal(key, `${type}.${token}`, 'uses correct key');
+    assert.equal(key, `${type}.${id}`, 'uses correct key');
 
     return JSON.stringify(cartJson);
   };
 
-  adapter.fetchSingle(type, token).then(result => {
+  adapter.fetchSingle(type, id).then(result => {
     assert.deepEqual(result, cartJson, 'resolves with json');
     done();
   }).catch(() => {
@@ -71,17 +71,17 @@ test('it calls setItem on #update', function (assert) {
 
   const done = assert.async();
 
-  const token = 'abc123';
+  const id = 'abc123';
   const type = 'carts';
 
-  const cartJson = { cart: { token } };
+  const cartJson = { cart: { id } };
 
   localStorage.setItem = function (key, value) {
-    assert.equal(key, `${type}.${cartJson.cart.token}`);
+    assert.equal(key, `${type}.${cartJson.cart.id}`);
     assert.equal(value, JSON.stringify(cartJson));
   };
 
-  adapter.update(type, token, cartJson).then(result => {
+  adapter.update(type, id, cartJson).then(result => {
     assert.equal(result, cartJson);
     done();
   }).catch(() => {

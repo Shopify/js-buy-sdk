@@ -4,6 +4,7 @@ import ShopClient from 'js-buy-sdk/shop-client';
 import Config from 'js-buy-sdk/config';
 import Promise from 'promise';
 import CartModel from 'js-buy-sdk/models/cart-model';
+import { GUID_KEY } from 'js-buy-sdk/models/cart-model';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
@@ -530,14 +531,13 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
   const updatedPayload = { rawUpdatedProps: 'updated-values' };
   const updatedModel = { updatedProps: 'updated-values' };
   const model = new CartModel({
-    token: 'abc123',
     someProp: 'some-prop'
   }, {
     shopClient,
     adapter: {
       update(type, id, payload) {
         step(2, 'calls update on the models adapter', assert);
-        assert.equal(id, model.attrs.token, 'client extracts the token');
+        assert.equal(id, model.attrs[GUID_KEY], 'client extracts the identifier');
         assert.equal(payload, serializedModel);
 
         return new Promise(function (resolve) {
@@ -545,7 +545,7 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
         });
       },
       idKeyForType() {
-        return 'token';
+        return GUID_KEY;
       }
     },
     serializer: {
@@ -563,6 +563,8 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
       }
     }
   });
+
+  model.attrs[GUID_KEY] = 'abc123';
 
   shopClient.update('carts', model).then(localUpdatedModel => {
     step(4, 'resolves update with the deserialized model', assert);

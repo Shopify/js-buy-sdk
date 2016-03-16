@@ -1,5 +1,7 @@
 import BaseModel from './base-model';
 import assign from '../metal/assign';
+import guidFor from '../metal/guid-for';
+import { GUID_KEY } from '../metal/guid-for';
 
 function objectsEqual(one, two) {
   if (one === two) {
@@ -16,6 +18,7 @@ function objectsEqual(one, two) {
     return one[key] === two[key];
   });
 }
+
 const CartModel = BaseModel.extend({
 
   /**
@@ -27,13 +30,17 @@ const CartModel = BaseModel.extend({
     this.super(...arguments);
   },
 
+  get id() {
+    return this.attrs[GUID_KEY];
+  },
+
   /**
     * Get current line items for cart
     * @property lineItems
     * @type {Array}
   */
   get lineItems() {
-    return this.attrs.line_items;
+    return this.attrs.line_items || [];
   },
 
   /**
@@ -42,7 +49,9 @@ const CartModel = BaseModel.extend({
     * @type {String}
   */
   get subTotal() {
-    return this.attrs.subtotal_price;
+    return this.lineItems.reduce((runningTotal, lineItem) => {
+      return (runningTotal + parseFloat(lineItem.line_price)).toFixed(2);
+    }, 0);
   },
 
   /**
@@ -53,20 +62,37 @@ const CartModel = BaseModel.extend({
     * });
     * ```
     * @method addVariants
-    * @param {Object} variant - One or more variants
-    * @param {Number} variant.id - variant ID
-    * @param {Number} variant.quantity - quantity
-    * @param {Object} [variant2...] - further variants may also be passed
+    * @param {Object} item - One or more variants
+    * @param {Object} item.variant - variant hash
+    * @param {Number} item.quantity - quantity
+    * @param {Object} [nextItem...] - further lineItems may be passed
     * @public
     * @return {Promise|CartModel} - updated cart instance.
   */
   addVariants() {
-    const newLineItems = [...arguments].map(variant => {
-      return {
-        variant_id: variant.id,
-        quantity: variant.quantity,
-        properties: variant.properties
+    const newLineItems = [...arguments].map(item => {
+      const lineItem = {
+        get id() {
+          return this[GUID_KEY];
+        },
+        image: item.variant.image,
+        variant_id: item.variant.id,
+        product_id: item.variant.productId,
+        title: item.variant.productTitle,
+        quantity: item.quantity,
+        properties: (item.properties || {}),
+        variant_title: item.variant.title,
+        price: item.variant.price,
+        compare_at_price: item.variant.compareAtPrice,
+        get line_price() {
+          return (this.quantity * parseFloat(this.price)).toFixed(2);
+        },
+        grams: item.variant.grams
       };
+
+      guidFor(lineItem);
+
+      return lineItem;
     });
     const existingLineItems = this.lineItems;
 
@@ -120,7 +146,7 @@ const CartModel = BaseModel.extend({
     }
 
     return new Promise(function (resolve, reject) {
-      reject(new Error(`line item with id: ${id} not found in cart#${this.attrs.token}`));
+      reject(new Error(`line item with id: ${id} not found in cart#${this.id}`));
     });
   },
 
@@ -146,7 +172,7 @@ const CartModel = BaseModel.extend({
     }
 
     return new Promise(function (resolve, reject) {
-      reject(new Error(`line item with id: ${id} not found in cart#${this.attrs.token}`));
+      reject(new Error(`line item with id: ${id} not found in cart#${this.id}`));
     });
   },
 

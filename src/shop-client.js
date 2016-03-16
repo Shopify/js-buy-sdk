@@ -233,6 +233,24 @@ const ShopClient = CoreObject.extend({
     return serializedPayload;
   },
 
+  createCart(userAttrs = {}) {
+    const baseAttrs = {
+      line_items: []
+    };
+    const attrs = {};
+
+    assign(attrs, baseAttrs);
+    assign(attrs, userAttrs);
+
+    return this.create('carts', attrs);
+  },
+
+  updateCart(updatedCart) {
+    return this.update('carts', updatedCart);
+  },
+
+  fetchCart: fetchFactory('one', 'carts'),
+
   /**
    * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
    * {{/crossLink}}. Equivalent to:

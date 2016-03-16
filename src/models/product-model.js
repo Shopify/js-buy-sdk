@@ -1,64 +1,29 @@
 import BaseModel from './base-model';
-import CoreObject from '../metal/core-object';
+import ProductOptionModel from './product-option-model';
+import ProductVariantModel from './product-variant-model';
 import uniq from '../metal/uniq';
-import includes from '../metal/includes';
 
-/**
-  * Class for product option
-  * @class Option
-  * @constructor
-*/
-const Option = CoreObject.extend({
-  constructor(name, values) {
-    this.name = name;
-    this.values = values;
-    this.selected = values[0];
-  },
-
-  /**
-    * name of option (ex. "Size", "Color")
-    * @property name
-    * @type String
-  */
-  name: '',
-
-  /**
-    * possible values for selection
-    * @property values
-    * @type Array
-  */
-  values: [],
-
-  /**
-    * get/set selected option value (ex. "Large"). Setting this will update the
-    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
-    * @property selected
-    * @type String
-  */
-  get selected() {
-    return this._selected;
-  },
-
-  set selected(value) {
-    if (includes(this.values, value)) {
-      this._selected = value;
-    } else {
-      throw new Error(`Invalid option selection for ${this.name}.`);
-    }
-
-    return value;
-  }
-});
 
 /**
    * Class for products returned by fetch('product')
    * @class ProductModel
    * @constructor
  */
-
 const ProductModel = BaseModel.extend({
   constructor() {
     this.super(...arguments);
+  },
+
+  get id() {
+    return this.attrs.product_id;
+  },
+
+  get title() {
+    return this.attrs.title;
+  },
+
+  get images() {
+    return this.attrs.images;
   },
 
   get memoized() {
@@ -87,13 +52,13 @@ const ProductModel = BaseModel.extend({
     }
 
     const baseOptions = this.attrs.options;
-    const variants = this.attrs.variants;
+    const variants = this.variants;
 
     this.memoized.options = baseOptions.map(option => {
       const name = option.name;
 
       const dupedValues = variants.reduce((valueList, variant) => {
-        const optionValueForOption = variant.option_values.filter(optionValue => {
+        const optionValueForOption = variant.optionValues.filter(optionValue => {
           return optionValue.name === option.name;
         })[0];
 
@@ -104,10 +69,16 @@ const ProductModel = BaseModel.extend({
 
       const values = uniq(dupedValues);
 
-      return new Option(name, values);
+      return new ProductOptionModel({ name, values });
     });
 
     return this.memoized.options;
+  },
+
+  get variants() {
+    return this.attrs.variants.map(variant => {
+      return new ProductVariantModel({ variant, product: this });
+    });
   },
 
   /**
@@ -130,7 +101,7 @@ const ProductModel = BaseModel.extend({
   get selectedVariant() {
     const variantTitle = this.selections.join(' / ');
 
-    return this.attrs.variants.filter(variant => {
+    return this.variants.filter(variant => {
       return variant.title === variantTitle;
     })[0];
   },
@@ -141,14 +112,7 @@ const ProductModel = BaseModel.extend({
     * @type {Object}
   */
   get selectedVariantImage() {
-    const selectedVariantId = this.selectedVariant.id;
-    const images = this.attrs.images;
-    const primaryImage = images[0];
-    const variantImage = images.filter(image => {
-      return image.variant_ids.indexOf(selectedVariantId) !== -1;
-    })[0];
-
-    return (variantImage || primaryImage);
+    return this.selectedVariant.image;
   }
 });
 
