@@ -120,6 +120,10 @@ blockquote,
 .docs-nav__link {
   color: $grey--on-dark;
   @include font-brandon-medium();
+
+  &.active {
+    color: white;
+  }
 }
 
 .docs-shopify-logo {
