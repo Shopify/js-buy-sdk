@@ -11,11 +11,22 @@
   </li>
   <li>
     <a class="docs-nav__link {% if page.url == '/examples/' %}active{% endif %}" href="{{ '/examples' | prepend: site.baseurl }}">Examples</a>
+    <ul class="docs-sub-nav">
+      <li>
+        <a href="{{ '/examples/#product-checkout' | prepend: site.baseurl }}" class="docs-sub-nav__link">Product Checkout</a>
+      </li>
+      <li>
+        <a href="{{ '/examples/#product-add-to-cart' | prepend: site.baseurl }}" class="docs-sub-nav__link">Product Add-To-Cart</a>
+      </li>
+      <li>
+        <a href="{{ '/examples/#showhide-cart' | prepend: site.baseurl }}" class="docs-sub-nav__link">Show/Hide Cart</a>
+      </li>
+    </ul>
   </li>
   <div class="docs-shopify-logo">
     <a href="https://shopify.com">
       <img src="{{ "/assets/images/shopify-logo-large.png" | prepend: site.baseurl }}" alt="Shopify" />
     </a>
-    <p><a href="#">Provide feedback</a></p>
+    <p><a href="mailto:buybutton@shopify.com">Provide feedback</a></p>
   </div>
 </ul>
