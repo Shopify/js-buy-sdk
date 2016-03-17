@@ -22,7 +22,7 @@ body,
 }
 
 .marketing-markdown {
-  max-width: 700px;
+  max-width: 900px;
 }
 
 h1 {
@@ -99,6 +99,12 @@ blockquote,
   font-size: 18px;
 }
 
+.site-title {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .docs-title {
   font-weight: $font-weight-light;
 
@@ -133,11 +139,17 @@ blockquote,
   font-size: 13px;
   margin-top: 10px;
   margin-left: 5px;
+  display: none;
 
   li {
     margin-bottom: 13px;
   }
+
+  .active ~ & {
+    display: block;
+  }
 }
+
 
 .docs-shopify-logo {
   a {
