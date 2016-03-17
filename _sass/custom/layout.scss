@@ -49,9 +49,16 @@ main {
   }
 
   @include shopify-breakpoint($desktop-up) {
-    position: absolute;
+    position: fixed;
     bottom: 40px;
     left: 40px;
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: underline;
   }
 
   img {
