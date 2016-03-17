@@ -3,6 +3,7 @@ import CartModel from 'js-buy-sdk/models/cart-model';
 import BaseModel from 'js-buy-sdk/models/base-model';
 import assign from 'js-buy-sdk/metal/assign';
 import { cartFixture } from '../../fixtures/cart-fixture';
+import { singleProductFixture } from '../../fixtures/product-fixture';
 
 let model;
 
@@ -16,7 +17,7 @@ module('Unit | CartModel', {
       }
     };
 
-    model = new CartModel(assign({}, cartFixture.checkout), { shopClient });
+    model = new CartModel(assign({}, cartFixture.cart), { shopClient });
     model.attrs.line_items = model.attrs.line_items.slice(0);
   }
 });
@@ -30,13 +31,13 @@ test('it extends from BaseModel', function (assert) {
 test('it proxies `lineItems` to the underlying line items', function (assert) {
   assert.expect(1);
 
-  assert.deepEqual(model.lineItems, cartFixture.checkout.line_items);
+  assert.deepEqual(model.lineItems, cartFixture.cart.line_items);
 });
 
-test('it proxies sub total from the underlying checkout', function (assert) {
+test('it proxies sub total from the underlying cart', function (assert) {
   assert.expect(1);
 
-  assert.equal(model.subTotal, cartFixture.checkout.subtotal_price);
+  assert.equal(model.subtotal, cartFixture.cart.subtotal_price);
 });
 
 test('it creates a line item when you add a variant', function (assert) {
@@ -44,14 +45,15 @@ test('it creates a line item when you add a variant', function (assert) {
 
   const done = assert.async();
 
-  const id = 12345;
   const quantity = 2;
 
-  model.addVariants({ id, quantity }).then(cart => {
+  const variant = singleProductFixture.product_publications[0].variants[1];
+
+  model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === id && item.quantity === quantity;
+      return item.variant_id === variant.id && item.quantity === quantity;
     }).length, 1, 'the line item exists');
 
     done();
@@ -119,14 +121,14 @@ test('it dedupes line items with the same variant_id when added together', funct
 
   const done = assert.async();
 
-  const id = 12345;
   const quantity = 1;
+  const variant = singleProductFixture.product_publications[0].variants[1];
 
-  model.addVariants({ id, quantity }, { id, quantity }).then(cart => {
+  model.addVariants({ variant, quantity }, { variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === id && item.quantity === (quantity * 2);
+      return item.variant_id === variant.id && item.quantity === (quantity * 2);
     }).length, 1, 'the line item exists with summed quantities');
 
     done();
@@ -141,16 +143,17 @@ test('it dedupes line items with the same variant_id when added one after anothe
 
   const done = assert.async();
 
-  const id = cartFixture.checkout.line_items[0].variant_id;
+  // Variant-0 is already in the cart fixture
+  const variant = singleProductFixture.product_publications[0].variants[0];
   const quantity = 1;
-  const summedQuantity = quantity + cartFixture.checkout.line_items[0].quantity;
-  const properties = assign({}, cartFixture.checkout.line_items[0].properties);
+  const summedQuantity = quantity + cartFixture.cart.line_items[0].quantity;
+  const properties = assign({}, cartFixture.cart.line_items[0].properties);
 
-  model.addVariants({ id, quantity, properties }).then(cart => {
+  model.addVariants({ variant, quantity, properties }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 1, 'we\'re adding to the existing line_item');
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === id && item.quantity === summedQuantity;
+      return item.variant_id === variant.id && item.quantity === summedQuantity;
     }).length, 1, 'the line item exists with summed quantities');
 
     done();
@@ -165,16 +168,16 @@ test('it treats line_items with same variant_ids and different properties as dif
 
   const done = assert.async();
 
-  const id = 12345;
+  const variant = singleProductFixture.product_publications[0].variants[1];
   const quantity = 1;
   const propertiesOne = { prop: 'engraving="awesome engraving"' };
   const propertiesTwo = { prop: 'custom_color=shmurple' };
   const items = [{
-    id,
+    variant,
     quantity,
     properties: propertiesOne
   }, {
-    id,
+    variant,
     quantity,
     properties: propertiesTwo
   }];
@@ -183,10 +186,10 @@ test('it treats line_items with same variant_ids and different properties as dif
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 3);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === id && item.quantity === quantity && item.properties === propertiesOne;
+      return item.variant_id === variant.id && item.quantity === quantity && item.properties === propertiesOne;
     }).length, 1, 'line item with props one exists');
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === id && item.quantity === quantity && item.properties === propertiesTwo;
+      return item.variant_id === variant.id && item.quantity === quantity && item.properties === propertiesTwo;
     }).length, 1, 'line item with props two exists');
 
     done();

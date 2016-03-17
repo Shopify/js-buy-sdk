@@ -1,7 +1,7 @@
 import PublicationSerializer from './serializers/publication-serializer';
 import PublicationAdapter from './adapters/publication-adapter';
-import CheckoutSerializer from './serializers/checkout-serializer';
-import CheckoutAdapter from './adapters/checkout-adapter';
+import CartSerializer from './serializers/cart-serializer';
+import LocalStorageAdapter from './adapters/local-storage-adapter';
 import CoreObject from './metal/core-object';
 import assign from './metal/assign';
 
@@ -47,18 +47,28 @@ const ShopClient = CoreObject.extend({
     this.serializers = {
       products: PublicationSerializer,
       collections: PublicationSerializer,
-      checkouts: CheckoutSerializer
+      carts: CartSerializer
     };
 
     this.adapters = {
       products: PublicationAdapter,
       collections: PublicationAdapter,
-      checkouts: CheckoutAdapter
+      carts: LocalStorageAdapter
     };
   },
 
   config: null,
 
+  /**
+   * @attribute
+   * @default {
+   *  products: PublicationAdapter,
+   *  collections: PublicationAdapter,
+   *  carts: CartAdapter
+   * }
+   * @type Object
+   * @protected
+   */
   // Prevent leaky state
   get serializers() {
     return assign({}, this.shadowedSerializers);
@@ -149,8 +159,8 @@ const ShopClient = CoreObject.extend({
    * Create an instance of `type`, optionally including `attrs`.
    *
    * ```javascript
-   * client.create('checkouts', { line_items: [ ... ] }).then(checkout => {
-   *   // do things with the checkout.
+   * client.create('carts', { line_items: [ ... ] }).then(cart => {
+   *   // do things with the cart.
    * });
    * ```
    *
@@ -178,8 +188,8 @@ const ShopClient = CoreObject.extend({
    * Create an instance of `type`, optionally including `attrs`.
    *
    * ```javascript
-   * client.create('checkouts', { line_items: [ ... ] }).then(checkout => {
-   *   // do things with the checkout.
+   * client.create('carts', { line_items: [ ... ] }).then(cart => {
+   *   // do things with the cart.
    * });
    * ```
    *
@@ -232,6 +242,24 @@ const ShopClient = CoreObject.extend({
 
     return serializedPayload;
   },
+
+  createCart(userAttrs = {}) {
+    const baseAttrs = {
+      line_items: []
+    };
+    const attrs = {};
+
+    assign(attrs, baseAttrs);
+    assign(attrs, userAttrs);
+
+    return this.create('carts', attrs);
+  },
+
+  updateCart(updatedCart) {
+    return this.update('carts', updatedCart);
+  },
+
+  fetchCart: fetchFactory('one', 'carts'),
 
   /**
    * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
