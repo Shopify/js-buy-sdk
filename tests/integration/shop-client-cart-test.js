@@ -8,7 +8,7 @@ import assign from 'shopify-buy/metal/assign';
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
   apiKey: 1,
-  applicationId: 6
+  appId: 6
 };
 
 

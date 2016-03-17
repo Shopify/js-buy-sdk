@@ -11,7 +11,7 @@ const Config = CoreObject.extend({
    * @constructor
    * @param {Object} attrs A hash of required config data.
    * @param {String} attrs.apiKey Your api client's public token
-   * @param {String} attrs.applicationId The channel from which to read
+   * @param {String} attrs.appId The channel from which to read
    * listings. Visit `<your-shops-domain>/admin/channels.json` while
    * authenticated to see a list of available channels.
    * @param {String} attrs.myShopifyDomain You shop's `myshopify.com` domain.
@@ -30,13 +30,13 @@ const Config = CoreObject.extend({
    * The apiKey for authenticating against shopify. This is your api client's
    * public api token. Not the shared secret. Set during initialation.
    * @attribute requiredProperties
-   * @default ['apiKey', 'applicationId', 'myShopifyDomain']
+   * @default ['apiKey', 'appId', 'myShopifyDomain']
    * @type Array
    * @private
    */
   requiredProperties: [
     'apiKey',
-    'applicationId',
+    'appId',
     'myShopifyDomain'
   ],
 
@@ -52,12 +52,12 @@ const Config = CoreObject.extend({
   apiKey: '',
 
   /**
-   * @attribute applicationId
+   * @attribute appId
    * @default ''
    * @type String
    * @public
    */
-  applicationId: '',
+  appId: '',
 
   /**
    * @attribute myShopifyDomain

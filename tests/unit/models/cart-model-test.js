@@ -6,14 +6,19 @@ import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 
 let model;
+let shopClient;
 
 module('Unit | CartModel', {
   setup() {
-    const shopClient = {
+    shopClient = {
       update(type, updatedModel) {
         return new Promise(function (resolve) {
           resolve(new CartModel(assign({}, updatedModel.attrs), { shopClient }));
         });
+      },
+      config: {
+        myShopifyDomain: 'buckets-o-stuff',
+        apiKey: 6
       }
     };
 

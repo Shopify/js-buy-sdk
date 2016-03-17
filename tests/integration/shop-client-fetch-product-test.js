@@ -7,12 +7,12 @@ import { singleProductFixture, multipleProductsFixture } from '../fixtures/produ
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
   apiKey: 1,
-  applicationId: 6
+  appId: 6
 };
 
 const config = new Config(configAttrs);
 
-const baseUrl = `https://${configAttrs.myShopifyDomain}.myshopify.com/api/apps/${configAttrs.applicationId}`;
+const baseUrl = `https://${configAttrs.myShopifyDomain}.myshopify.com/api/apps/${configAttrs.appId}`;
 
 function apiUrl(path) {
   return `${baseUrl}${path}`;
