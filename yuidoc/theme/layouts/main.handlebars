@@ -11,4 +11,16 @@
 <script src="{{projectAssets}}/vendor/bootstrap/js/bootstrap.js"></script>
 <script src="{{projectAssets}}/vendor/prettify/prettify-min.js"></script>
 <script src="{{projectAssets}}/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+  {{#publicClasses classes}}
+    YUIDocs.classes.push({
+      name: '{{name}}',
+      url: '{{../projectRoot}}classes/{{name}}.html'
+    })
+  {{/publicClasses}}
+</script>
 <script>prettyPrint();</script>
