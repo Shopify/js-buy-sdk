@@ -47,7 +47,7 @@ test('it creates a line item when you add a variant', function (assert) {
 
   const quantity = 2;
 
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
 
   model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
@@ -122,7 +122,7 @@ test('it dedupes line items with the same variant_id when added together', funct
   const done = assert.async();
 
   const quantity = 1;
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
 
   model.addVariants({ variant, quantity }, { variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
@@ -144,7 +144,7 @@ test('it dedupes line items with the same variant_id when added one after anothe
   const done = assert.async();
 
   // Variant-0 is already in the cart fixture
-  const variant = singleProductFixture.product_publications[0].variants[0];
+  const variant = singleProductFixture.product_listing.variants[0];
   const quantity = 1;
   const summedQuantity = quantity + cartFixture.cart.line_items[0].quantity;
   const properties = assign({}, cartFixture.cart.line_items[0].properties);
@@ -168,7 +168,7 @@ test('it treats line_items with same variant_ids and different properties as dif
 
   const done = assert.async();
 
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
   const quantity = 1;
   const propertiesOne = { prop: 'engraving="awesome engraving"' };
   const propertiesTwo = { prop: 'custom_color=shmurple' };

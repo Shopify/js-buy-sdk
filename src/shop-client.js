@@ -1,5 +1,5 @@
-import PublicationSerializer from './serializers/publication-serializer';
-import PublicationAdapter from './adapters/publication-adapter';
+import ListingsSerializer from './serializers/listings-serializer';
+import ListingsAdapter from './adapters/listings-adapter';
 import CartSerializer from './serializers/cart-serializer';
 import LocalStorageAdapter from './adapters/local-storage-adapter';
 import CoreObject from './metal/core-object';
@@ -45,14 +45,14 @@ const ShopClient = CoreObject.extend({
     this.config = config;
 
     this.serializers = {
-      products: PublicationSerializer,
-      collections: PublicationSerializer,
+      products: ListingsSerializer,
+      collections: ListingsSerializer,
       carts: CartSerializer
     };
 
     this.adapters = {
-      products: PublicationAdapter,
-      collections: PublicationAdapter,
+      products: ListingsAdapter,
+      collections: ListingsAdapter,
       carts: LocalStorageAdapter
     };
   },
@@ -62,8 +62,8 @@ const ShopClient = CoreObject.extend({
   /**
    * @attribute
    * @default {
-   *  products: PublicationAdapter,
-   *  collections: PublicationAdapter,
+   *  products: ListingsAdapter,
+   *  collections: ListingsAdapter,
    *  carts: CartAdapter
    * }
    * @type Object

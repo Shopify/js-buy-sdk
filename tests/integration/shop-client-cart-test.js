@@ -8,7 +8,7 @@ import assign from 'shopify-buy/metal/assign';
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
   apiKey: 1,
-  channelId: 'abc123'
+  applicationId: 6
 };
 
 
@@ -44,24 +44,24 @@ test('it resolves with a new cart on ShopClient#create', function (assert) {
 
   const done = assert.async();
 
-  const newCart = assign({}, cartFixture.cart);
+  const cartAttrs = assign({}, cartFixture.cart);
 
-  delete newCart[GUID_KEY];
+  delete cartAttrs[GUID_KEY];
 
   localStorage.setItem = function (key, value) {
     assert.ok(key.match(/shopify-buy\.\d+\.\d+/));
-    assert.deepEqual(JSON.parse(value).cart.line_items, newCart.line_items);
-    assert.equal(JSON.parse(value).cart.subtotal_price, newCart.subtotal_price);
+    assert.deepEqual(JSON.parse(value).cart.line_items, cartAttrs.line_items);
+    assert.equal(JSON.parse(value).cart.subtotal_price, cartAttrs.subtotal_price);
   };
 
-  shopClient.create('carts', newCart).then(cart => {
+  shopClient.createCart(cartAttrs).then(cart => {
     const generatedId = cart.attrs[GUID_KEY];
 
-    newCart[GUID_KEY] = '';
+    cartAttrs[GUID_KEY] = '';
     cart.attrs[GUID_KEY] = '';
 
     assert.ok(generatedId.match(/shopify-buy\.\d+\.\d+/));
-    assert.deepEqual(cart.attrs, newCart);
+    assert.deepEqual(cart.attrs, cartAttrs);
     assert.equal(cart.shopClient, shopClient);
     done();
   }).catch(() => {
@@ -81,7 +81,7 @@ test('it resolves with an existing cart on ShopClient#fetch', function (assert) 
     return JSON.stringify(cartFixture);
   };
 
-  shopClient.fetch('carts', id).then(cart => {
+  shopClient.fetchCart(id).then(cart => {
     assert.deepEqual(cart.attrs, cartFixture.cart);
     assert.equal(cart.shopClient, shopClient);
     done();
@@ -116,12 +116,12 @@ test('it resolves with a new modified cart on ShopClient#update', function (asse
     assert.deepEqual(payload.cart.line_items[0], lineItem);
   };
 
-  shopClient.fetch('carts', id).then(cart => {
+  shopClient.fetchCart(id).then(cart => {
     step(2, 'resolves with a model', assert);
 
     cart.attrs.line_items = [lineItem];
 
-    shopClient.update('carts', cart).then(updatedCart => {
+    shopClient.updateCart(cart).then(updatedCart => {
       step(4, 'resolves with the updated line items', assert);
       assert.deepEqual(updatedCart.attrs.line_items[0], lineItem);
       done();

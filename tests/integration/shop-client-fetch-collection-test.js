@@ -1,40 +1,22 @@
-
 import { module, test } from 'qunit';
 import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
 import Pretender from 'pretender';
+import { singleCollectionFixture, multipleCollectionsFixture } from '../fixtures/collection-fixture';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
   apiKey: 1,
-  channelId: 'abc123'
+  applicationId: 6
 };
 
 const config = new Config(configAttrs);
 
-const baseUrl = `https://${configAttrs.myShopifyDomain}.myshopify.com/api/channels/${configAttrs.channelId}`;
+const baseUrl = `https://${configAttrs.myShopifyDomain}.myshopify.com/api/apps/${configAttrs.applicationId}`;
 
 function apiUrl(path) {
   return `${baseUrl}${path}`;
 }
-
-const collectionsFixture = {
-  collection_publications: [
-    {
-      id: 220591297,
-      collection_id: 159064961,
-      channel_id: 40889985,
-      created_at: '2016-01-05T11:32:26-05:00',
-      updated_at: '2016-01-05T11:32:26-05:00',
-      body_html: '',
-      handle: 'blergh',
-      image: null,
-      title: 'Blergh.',
-      published_at: '2016-01-05T11:32:26-05:00',
-      published: true
-    }
-  ]
-};
 
 let shopClient;
 let pretender;
@@ -56,14 +38,14 @@ test('it resolves with an array of collections on ShopClient#fetchAll', function
 
   const done = assert.async();
 
-  pretender.get(apiUrl('/collection_publications.json'), function () {
-    return [200, {}, JSON.stringify(collectionsFixture)];
+  pretender.get(apiUrl('/collection_listings'), function () {
+    return [200, {}, JSON.stringify(multipleCollectionsFixture)];
   });
 
-  shopClient.fetchAll('collections').then(collections => {
+  shopClient.fetchAllCollections().then(collections => {
     assert.ok(Array.isArray(collections), 'collections is an array');
-    assert.equal(collections.length, 1, 'there is one collection in the array');
-    assert.deepEqual(collections[0].attrs, collectionsFixture.collection_publications[0]);
+    assert.equal(collections.length, 2, 'there is one collection in the array');
+    assert.deepEqual(collections[0].attrs, multipleCollectionsFixture.collection_listings[0]);
     assert.equal(collections[0].shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {
@@ -80,15 +62,15 @@ test('it resolves with a single collection on ShopClient#fetch', function (asser
 
   const id = 1;
 
-  pretender.get(apiUrl('/collection_publications.json'), function (request) {
-    assert.equal(request.queryParams.collection_ids, id.toString(), 'collection id sent to server');
+  pretender.get(apiUrl('/collection_listings/:id'), function (request) {
+    assert.equal(request.params.id, id.toString(), 'collection id sent to server');
 
-    return [200, {}, JSON.stringify(collectionsFixture)];
+    return [200, {}, JSON.stringify(singleCollectionFixture)];
   });
 
-  shopClient.fetch('collections', id).then(collection => {
+  shopClient.fetchCollection(id).then(collection => {
     assert.notOk(Array.isArray(collection), 'collections is not an array');
-    assert.deepEqual(collection.attrs, collectionsFixture.collection_publications[0]);
+    assert.deepEqual(collection.attrs, singleCollectionFixture.collection_listing);
     assert.equal(collection.shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {
@@ -102,18 +84,18 @@ test('it resolves with a collection of collections on ShopClient#fetchQuery', fu
 
   const done = assert.async();
 
-  const id = 1;
+  const ids = [1, 2];
 
-  pretender.get(apiUrl('/collection_publications.json'), function (request) {
-    assert.equal(request.queryParams.collection_id, id.toString(), 'collection id sent to server');
+  pretender.get(apiUrl('/collection_listings'), function (request) {
+    assert.equal(request.queryParams.collection_ids, ids.join(','), 'collection id sent to server');
 
-    return [200, {}, JSON.stringify(collectionsFixture)];
+    return [200, {}, JSON.stringify(multipleCollectionsFixture)];
   });
 
-  shopClient.fetchQuery('collections', { collection_id: id }).then(collections => {
+  shopClient.fetchQueryCollections({ collection_ids: ids }).then(collections => {
     assert.ok(Array.isArray(collections), 'collections is an array');
-    assert.equal(collections.length, 1, 'there is one collection in the array');
-    assert.deepEqual(collections[0].attrs, collectionsFixture.collection_publications[0]);
+    assert.equal(collections.length, 2, 'there is one collection in the array');
+    assert.deepEqual(collections[0].attrs, multipleCollectionsFixture.collection_listings[0]);
     assert.equal(collections[0].shopClient, shopClient, 'collection knows its owner (the shop client)');
     done();
   }).catch(() => {

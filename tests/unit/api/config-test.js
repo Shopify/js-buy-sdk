@@ -27,7 +27,7 @@ test('it doesn\'t throw when all required params are specified', function (asser
   const config = new Config({
     myShopifyDomain: 'krundle',
     apiKey: 123,
-    channelId: 'abc'
+    applicationId: 6
   });
 
   assert.ok(config);

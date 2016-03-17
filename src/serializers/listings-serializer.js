@@ -2,12 +2,12 @@ import CoreObject from '../metal/core-object';
 import BaseModel from '../models/base-model';
 import ProductModel from '../models/product-model';
 
-const PublicationSerializer = CoreObject.extend({
+const ListingsSerializer = CoreObject.extend({
   constructor() {
   },
 
   rootKeyForType(type) {
-    return `${type.slice(0, -1)}_publications`;
+    return `${type.slice(0, -1)}_listing`;
   },
 
   models: {
@@ -20,14 +20,14 @@ const PublicationSerializer = CoreObject.extend({
   },
 
   deserializeSingle(type, singlePayload, metaAttrs) {
-    const models = singlePayload[this.rootKeyForType(type)];
-    const model = this.modelFromAttrs(type, models[0], metaAttrs);
+    const modelAttrs = singlePayload[this.rootKeyForType(type)];
+    const model = this.modelFromAttrs(type, modelAttrs, metaAttrs);
 
     return model;
   },
 
   deserializeMultiple(type, collectionPayload, metaAttrs) {
-    const models = collectionPayload[this.rootKeyForType(type)];
+    const models = collectionPayload[`${this.rootKeyForType(type)}s`];
 
     return models.map(attrs => {
       const model = this.modelFromAttrs(type, attrs, metaAttrs);
@@ -43,4 +43,4 @@ const PublicationSerializer = CoreObject.extend({
   }
 });
 
-export default PublicationSerializer;
+export default ListingsSerializer;

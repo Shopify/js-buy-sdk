@@ -9,7 +9,7 @@ import { GUID_KEY } from 'shopify-buy/models/cart-model';
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
   apiKey: 123,
-  channelId: 'abc'
+  applicationId: 6
 };
 
 const config = new Config(configAttrs);

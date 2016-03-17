@@ -1,5 +1,5 @@
 export const singleProductFixture = {
-  product_publications: [{
+  product_listing: {
     id: 5123170945,
     product_id: 3677189889,
     channel_id: 40889985,
@@ -148,5 +148,33 @@ export const singleProductFixture = {
         available: true
       }
     ]
-  }]
+  }
+};
+
+export const multipleProductsFixture = {
+  product_listings: [
+    singleProductFixture.product_listing,
+    {
+      id: 5123171009,
+      product_id: 3680886721,
+      channel_id: 40889985,
+      created_at: '2016-01-05T11:32:26-05:00',
+      updated_at: '2016-01-05T11:32:26-05:00',
+      body_html: 'Why would you buy this?',
+      handle: 'electricity-socket-with-jam',
+      product_type: '',
+      title: 'Electricity socket with jam',
+      vendor: 'buckets-o-stuff',
+      published_at: '2016-01-05T11:32:26-05:00',
+      published: true,
+      available: true,
+      tags: '',
+      images: [
+      ],
+      options: [
+      ],
+      variants: [
+      ]
+    }
+  ]
 };
