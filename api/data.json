@@ -610,8 +610,8 @@
                     "type": "String"
                 },
                 {
-                    "name": "modelAttr",
-                    "description": "attributes representing the internal state\nof the model to be persisted to the server.",
+                    "name": "attrs",
+                    "description": "attributes to send to the server for creation.",
                     "type": "Object",
                     "optional": true,
                     "optdefault": "{}"
@@ -627,7 +627,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 177,
+            "line": 172,
             "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('checkouts', { line_items: [ ... ] }).then(checkout => {\n  // do things with the checkout.\n});\n```",
             "itemtype": "method",
             "name": "update",
@@ -655,7 +655,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 205,
+            "line": 202,
             "description": "Proxy to serializer's deserialize.",
             "itemtype": "method",
             "name": "deserialize",
@@ -676,11 +676,6 @@
                     "name": "adapter",
                     "description": "The adapter that yielded the payload.",
                     "type": "BaseAdapter"
-                },
-                {
-                    "name": "existingSerializer",
-                    "description": "The serializer to attach. If\nnone is passed, then `this.deserialize` will create one for the type.",
-                    "type": "BaseSerializer"
                 },
                 {
                     "name": "opts",
@@ -710,7 +705,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 236,
+            "line": 231,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('products');\n```",
             "itemtype": "method",
             "name": "fetchAllProducts",
@@ -726,7 +721,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 250,
+            "line": 245,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('collections');\n```",
             "itemtype": "method",
             "name": "fetchAllCollections",
@@ -742,7 +737,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 264,
+            "line": 259,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('products', 123);\n```",
             "itemtype": "method",
             "name": "fetchProduct",
@@ -765,7 +760,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 279,
+            "line": 274,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('collections', 123);\n```",
             "itemtype": "method",
             "name": "fetchCollection",
@@ -788,7 +783,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 294,
+            "line": 289,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('products', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryProducts",
@@ -811,7 +806,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 309,
+            "line": 304,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('collections', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryCollections",
