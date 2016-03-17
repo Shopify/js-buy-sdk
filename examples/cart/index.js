@@ -158,7 +158,7 @@ $(function() {
   function addVariantToCart(product, variant, quantity) {
     openCart();
 
-    cart.addVariants({ variant: variant, quantity: 1 }).then(function () {
+    cart.addVariants({ variant: variant, quantity: quantity }).then(function () {
       var $cartItemContainer = $('.cart-item-container');
       var totalPrice = 0;
 
