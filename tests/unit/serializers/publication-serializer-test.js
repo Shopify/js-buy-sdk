@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import PublicationSerializer from 'js-buy-sdk/serializers/publication-serializer';
-import BaseModel from 'js-buy-sdk/models/base-model';
-import ProductModel from 'js-buy-sdk/models/product-model';
+import PublicationSerializer from 'shopify-buy/serializers/publication-serializer';
+import BaseModel from 'shopify-buy/models/base-model';
+import ProductModel from 'shopify-buy/models/product-model';
 
 let serializer;
 

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import CartModel from 'js-buy-sdk/models/cart-model';
-import BaseModel from 'js-buy-sdk/models/base-model';
-import assign from 'js-buy-sdk/metal/assign';
+import CartModel from 'shopify-buy/models/cart-model';
+import BaseModel from 'shopify-buy/models/base-model';
+import assign from 'shopify-buy/metal/assign';
 import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 

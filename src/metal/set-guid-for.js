@@ -1,8 +1,8 @@
 /* eslint no-undefined: 0 complexity: 0 */
 
-const GUID_KEY = 'js-buy-sdk-uuid';
+const GUID_KEY = 'shopify-buy-uuid';
 
-const GUID_PREFIX = `js-buy-sdk.${Date.now()}`;
+const GUID_PREFIX = `shopify-buy.${Date.now()}`;
 
 const GUID_DESC = {
   writable: true,

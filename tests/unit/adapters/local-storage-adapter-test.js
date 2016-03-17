@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import LocalStorageAdapter from 'js-buy-sdk/adapters/local-storage-adapter';
+import LocalStorageAdapter from 'shopify-buy/adapters/local-storage-adapter';
 
 let adapter;
 
@@ -53,7 +53,7 @@ test('it calls `setItem` on localStorage with the proper key name, and json payl
   const cartJson = { cart: cartAttrs };
 
   localStorage.setItem = function (key, value) {
-    assert.ok(key.match(/carts\.js-buy-sdk\.\d+.\d+/), 'creates an id');
+    assert.ok(key.match(/carts\.shopify-buy\.\d+.\d+/), 'creates an id');
     assert.equal(value, JSON.stringify(cartJson));
   };
 

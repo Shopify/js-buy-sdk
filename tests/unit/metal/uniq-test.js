@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import uniq from 'js-buy-sdk/metal/uniq';
+import uniq from 'shopify-buy/metal/uniq';
 
 module('Unit | uniq');
 

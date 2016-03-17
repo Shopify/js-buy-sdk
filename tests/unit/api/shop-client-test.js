@@ -1,10 +1,10 @@
 import { module, test } from 'qunit';
-import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
-import ShopClient from 'js-buy-sdk/shop-client';
-import Config from 'js-buy-sdk/config';
+import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
+import ShopClient from 'shopify-buy/shop-client';
+import Config from 'shopify-buy/config';
 import Promise from 'promise';
-import CartModel from 'js-buy-sdk/models/cart-model';
-import { GUID_KEY } from 'js-buy-sdk/models/cart-model';
+import CartModel from 'shopify-buy/models/cart-model';
+import { GUID_KEY } from 'shopify-buy/models/cart-model';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',

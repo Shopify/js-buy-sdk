@@ -1,5 +1,5 @@
 {
-  "name": "js-buy-sdk",
+  "name": "shopify-buy",
   "version": "0.0.1",
   "description": "",
   "main": "lib/shopify.js",
@@ -14,7 +14,7 @@
     "test": "./scripts/test",
     "test-ci": "./scripts/ci"
   },
-  "author": "Mina Smart",
+  "author": "Shopify Inc.",
   "license": "MIT",
   "dependencies": {
     "babel-eslint": "5.0.0",

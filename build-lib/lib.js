@@ -34,7 +34,7 @@ module.exports = function (pathConfig, env) {
     header: ';(function () {',
     headerFiles: ['loader.js'],
     inputFiles: ['**/*.js'],
-    footer: `window.ShopifyBuy = require('js-buy-sdk/shopify').default;
+    footer: `window.ShopifyBuy = require('shopify-buy/shopify').default;
     }());`,
     outputFile: `${pkg.name}.globals.js`
   });

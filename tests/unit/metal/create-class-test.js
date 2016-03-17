@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
-import createClass from 'js-buy-sdk/metal/create-class';
+import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
+import createClass from 'shopify-buy/metal/create-class';
 
 
 module('Unit | createClass', {

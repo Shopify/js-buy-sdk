@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import ProductOptionModel from 'js-buy-sdk/models/product-option-model';
-import BaseModel from 'js-buy-sdk/models/base-model';
+import ProductOptionModel from 'shopify-buy/models/product-option-model';
+import BaseModel from 'shopify-buy/models/base-model';
 
 let model;
 
