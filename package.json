@@ -44,6 +44,8 @@
     "yuidocjs": "0.10.0"
   },
   "devDependencies": {
-    "broccoli-sass": "0.7.0"
+    "broccoli-sass": "0.7.0",
+    "aws-sdk": "2.2.44",
+    "mime-types": "2.1.10"
   }
 }
