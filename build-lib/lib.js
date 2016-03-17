@@ -34,39 +34,46 @@ module.exports = function (pathConfig, env) {
     header: ';(function () {',
     headerFiles: ['loader.js'],
     inputFiles: ['**/*.js'],
-    footer: `window.ShopifyBuy = require('shopify-buy/shopify').default;
-    }());`,
-    outputFile: `${pkg.name}.globals.js`
+    footer: `
+window.ShopifyBuy = require('shopify-buy/shopify').default;
+}());`,
+    outputFile: `${pkg.name}.globals.js`,
+    sourceMapConfig: { enabled: (env !== 'production') }
   });
 
   if (env === 'production') {
     const amdOutput = concat(amdTree, {
       inputFiles: ['**/*.js'],
-      outputFile: `${pkg.name}.amd.js`
+      outputFile: `${pkg.name}.amd.js`,
+      sourceMapConfig: { enabled: false }
     });
 
     const polyFilledAmdOutput = concat(mergeTrees([amdOutput, polyfillTree]), {
       headerFiles: ['polyfills.js'],
       inputFiles: `${pkg.name}.amd.js`,
-      outputFile: `${pkg.name}.polyfilled.amd.js`
+      outputFile: `${pkg.name}.polyfilled.amd.js`,
+      sourceMapConfig: { enabled: false }
     });
 
     const polyFilledGlobalsOutput = concat(mergeTrees([globalsOutput, polyfillTree]), {
       headerFiles: ['polyfills.js'],
       inputFiles: `${pkg.name}.globals.js`,
-      outputFile: `${pkg.name}.polyfilled.globals.js`
+      outputFile: `${pkg.name}.polyfilled.globals.js`,
+      sourceMapConfig: { enabled: false }
     });
 
     const commonTree = sourceTree(pathConfig, 'common');
     const commonOutput = concat(commonTree, {
       inputFiles: ['**/*.js'],
-      outputFile: `${pkg.name}.common.js`
+      outputFile: `${pkg.name}.common.js`,
+      sourceMapConfig: { enabled: false }
     });
 
     const polyFilledCommonOutput = concat(mergeTrees([commonOutput, polyfillTree]), {
       headerFiles: ['polyfills.js'],
       inputFiles: `${pkg.name}.common.js`,
-      outputFile: `${pkg.name}.polyfilled.common.js`
+      outputFile: `${pkg.name}.polyfilled.common.js`,
+      sourceMapConfig: { enabled: false }
     });
 
     const nodeLibOutput = funnel(commonTree, {
