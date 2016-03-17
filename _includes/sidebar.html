@@ -6,8 +6,8 @@
   <li>
     <a class="docs-nav__link {% if page.url == '/guide/' %}active{% endif %}" href="{{ '/guide' | prepend: site.baseurl }}">Guide</a>
   </li>
-  <li>
-    <a class="docs-nav__link {% if page.url == '/api/' %}active{% endif %}" href="{{ '/api' | prepend: site.baseurl }}">Reference</a>
+  <li class="nav-item--reference">
+    <a class="docs-nav__link {% if page.url contains '/api/' %}active{% endif %}" href="{{ '/api/classes/CartModel.html' | prepend: site.baseurl }}">Reference</a>
   </li>
   <li>
     <a class="docs-nav__link {% if page.url == '/examples/' %}active{% endif %}" href="{{ '/examples' | prepend: site.baseurl }}">Examples</a>
