@@ -126,6 +126,23 @@ blockquote,
   }
 }
 
+.docs-sub-nav {
+  border-left: 3px solid $grey--on-dark;
+  padding-left: 10px;
+  font-size: 13px;
+  margin-top: 10px;
+  margin-left: 5px;
+
+  li {
+    margin-bottom: 13px;
+  }
+}
+
+.docs-sub-nav__link {
+  color: $grey--on-dark;
+  @include font-brandon-medium();
+}
+
 .docs-shopify-logo {
   a {
     color: $grey--on-dark;
