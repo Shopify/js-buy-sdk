@@ -19,7 +19,7 @@ $(function() {
 });
 ```
 
-## Simple Product Checkout
+## Product Checkout
 
 This example illustrates the simplest way to integrate ecommerce into your site to allow the purchasing of a single product. It creates an HTML anchor element that links to the product's checkout URL.
 
@@ -155,7 +155,8 @@ $cartItemContainer.append($cartLineItems);
 
 ...
 ```
-***
+
+## Show/Hide Cart
 
 Additional event listeners are used to toggle the cart's visibility on/off by adding and removing the `js-active` class on the `cart`.
 
