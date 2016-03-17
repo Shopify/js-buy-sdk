@@ -117,7 +117,8 @@ blockquote,
   }
 }
 
-.docs-nav__link {
+.docs-nav__link,
+.docs-sub-nav__link {
   color: $grey--on-dark;
   @include font-brandon-medium();
 
@@ -136,11 +137,6 @@ blockquote,
   li {
     margin-bottom: 13px;
   }
-}
-
-.docs-sub-nav__link {
-  color: $grey--on-dark;
-  @include font-brandon-medium();
 }
 
 .docs-shopify-logo {
