@@ -1,0 +1,5 @@
+deploy:
+  override:
+    - ejson decrypt config/secrets.ejson > config/secrets.json
+    - upload-script
+
