@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import setGuidFor from 'js-buy-sdk/metal/set-guid-for';
-import uniq from 'js-buy-sdk/metal/uniq';
+import setGuidFor from 'shopify-buy/metal/set-guid-for';
+import uniq from 'shopify-buy/metal/uniq';
 
 module('Unit | setGuidFor');
 

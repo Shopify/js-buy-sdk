@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import BaseModel from 'js-buy-sdk/models/base-model';
-import CoreObject from 'js-buy-sdk/metal/core-object';
+import BaseModel from 'shopify-buy/models/base-model';
+import CoreObject from 'shopify-buy/metal/core-object';
 
 module('Unit | BaseModel');
 

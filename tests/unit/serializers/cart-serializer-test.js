@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import CartSerializer from 'js-buy-sdk/serializers/cart-serializer';
-import CartModel from 'js-buy-sdk/models/cart-model';
+import CartSerializer from 'shopify-buy/serializers/cart-serializer';
+import CartModel from 'shopify-buy/models/cart-model';
 
 let serializer;
 

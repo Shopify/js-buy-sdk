@@ -4,7 +4,7 @@ import './isomorphic-fetch';
 import './isomorphic-btoa';
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule shopify
  */
 

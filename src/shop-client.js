@@ -6,7 +6,7 @@ import CoreObject from './metal/core-object';
 import assign from './metal/assign';
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule shop-client
  */
 

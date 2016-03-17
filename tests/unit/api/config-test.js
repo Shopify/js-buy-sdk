@@ -1,7 +1,7 @@
 /* eslint no-new: 0 */
 
 import { module, test } from 'qunit';
-import Config from 'js-buy-sdk/config';
+import Config from 'shopify-buy/config';
 
 module('Unit | Config');
 

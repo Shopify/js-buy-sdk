@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import CoreObject from 'js-buy-sdk/metal/core-object';
+import CoreObject from 'shopify-buy/metal/core-object';
 
 
 module('Unit | CoreObject', {

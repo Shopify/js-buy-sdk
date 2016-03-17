@@ -1,7 +1,7 @@
 
 import { module, test } from 'qunit';
-import ShopClient from 'js-buy-sdk/shop-client';
-import Config from 'js-buy-sdk/config';
+import ShopClient from 'shopify-buy/shop-client';
+import Config from 'shopify-buy/config';
 import Pretender from 'pretender';
 
 const configAttrs = {

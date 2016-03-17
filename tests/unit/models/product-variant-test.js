@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
-import ProductVariantModel from 'js-buy-sdk/models/product-variant-model';
-import BaseModel from 'js-buy-sdk/models/base-model';
-import assign from 'js-buy-sdk/metal/assign';
+import ProductVariantModel from 'shopify-buy/models/product-variant-model';
+import BaseModel from 'shopify-buy/models/base-model';
+import assign from 'shopify-buy/metal/assign';
 
 let model;
 

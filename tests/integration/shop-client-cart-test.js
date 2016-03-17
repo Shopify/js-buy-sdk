@@ -1,9 +1,9 @@
 import { module, test } from 'qunit';
-import { step, resetStep } from 'js-buy-sdk/tests/helpers/assert-step';
-import ShopClient from 'js-buy-sdk/shop-client';
-import Config from 'js-buy-sdk/config';
-import { GUID_KEY } from 'js-buy-sdk/metal/set-guid-for';
-import assign from 'js-buy-sdk/metal/assign';
+import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
+import ShopClient from 'shopify-buy/shop-client';
+import Config from 'shopify-buy/config';
+import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
+import assign from 'shopify-buy/metal/assign';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
@@ -23,7 +23,7 @@ const cartFixture = {
 
 let shopClient;
 
-const id = cartFixture.cart[GUID_KEY] = 'js-buy-sdk.123457890.1';
+const id = cartFixture.cart[GUID_KEY] = 'shopify-buy.123457890.1';
 const { getItem, setItem, removeItem } = localStorage;
 
 module('Integration | ShopClient - carts', {
@@ -49,7 +49,7 @@ test('it resolves with a new cart on ShopClient#create', function (assert) {
   delete newCart[GUID_KEY];
 
   localStorage.setItem = function (key, value) {
-    assert.ok(key.match(/js-buy-sdk\.\d+\.\d+/));
+    assert.ok(key.match(/shopify-buy\.\d+\.\d+/));
     assert.deepEqual(JSON.parse(value).cart.line_items, newCart.line_items);
     assert.equal(JSON.parse(value).cart.subtotal_price, newCart.subtotal_price);
   };
@@ -60,7 +60,7 @@ test('it resolves with a new cart on ShopClient#create', function (assert) {
     newCart[GUID_KEY] = '';
     cart.attrs[GUID_KEY] = '';
 
-    assert.ok(generatedId.match(/js-buy-sdk\.\d+\.\d+/));
+    assert.ok(generatedId.match(/shopify-buy\.\d+\.\d+/));
     assert.deepEqual(cart.attrs, newCart);
     assert.equal(cart.shopClient, shopClient);
     done();

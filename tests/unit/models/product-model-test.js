@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
-import ProductModel from 'js-buy-sdk/models/product-model';
-import BaseModel from 'js-buy-sdk/models/base-model';
+import ProductModel from 'shopify-buy/models/product-model';
+import BaseModel from 'shopify-buy/models/base-model';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 
 let model;

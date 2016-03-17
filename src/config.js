@@ -1,7 +1,7 @@
 import CoreObject from './metal/core-object';
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule config
  */
 
