@@ -236,8 +236,6 @@ function closeCart() {
 <!-- .cart end -->
 
 
-
-<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
 <script src="../dist/buy-button-sdk.globals.js"></script>
 <script src="../assets/scripts/addToCart.js"></script>
 
