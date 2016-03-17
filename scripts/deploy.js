@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+
 var AWS = require('aws-sdk');
 var fs = require('fs');
+var path = require('path');
 var mime = require('mime-types');
 var exec = require('child_process').exec;
 var DEFAULT_CONTENT_TYPE = 'application/octet-stream';
-var DEFAULT_CACHE_CONTROL = "public, max-age=31557600";
-var FILENAME_FILTER = 'globals';
+var DEFAULT_CACHE_CONTROL = "public, max-age=86400";
+var FILENAME_FILTER = 'shopify-buy';
 var DIST_DIR = 'dist';
 
 var Secrets = function() {
@@ -52,7 +55,7 @@ Uploader.prototype.uploadDistAssets = function () {
   this.getCurrentTag(function (tag) {
     this.distAssets.forEach(function (file) {
       if (file.indexOf(FILENAME_FILTER) > -1) {
-        this.uploadFile(DIST_DIR + '/ ' + file, this.s3PathForFile(file, tag));
+        this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, tag));
       }
     }.bind(this));
   }.bind(this));
