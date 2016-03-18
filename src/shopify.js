@@ -34,10 +34,9 @@ const Shopify = {
    * @public
    * @param {Object} configAttrs A hash of required config data.
    * @param {String} configAttrs.apiKey Your api client's public token.
-   * @param {String} configAttrs.appId The application who's listings
-   * api will be using. If you are just modifying a buy button, the buy-button's
-   * application id is 6. Otherwise, create your own channel provider and
-   * application.
+   * @param {String} configAttrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button's app id is
+   * 6. Otherwise, obtain the app id of the app you're modifying or extending.
    * @param {String} configAttrs.myShopifyDomain You shop's `myshopify.com`
    * domain.
    * @return {ShopClient} a client for the shop using your api credentials.

@@ -11,9 +11,9 @@ const Config = CoreObject.extend({
    * @constructor
    * @param {Object} attrs A hash of required config data.
    * @param {String} attrs.apiKey Your api client's public token
-   * @param {String} attrs.appId The channel from which to read
-   * listings. Visit `<your-shops-domain>/admin/channels.json` while
-   * authenticated to see a list of available channels.
+   * @param {String} attrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button's app id is
+   * 6. Otherwise, obtain the app id of the app you're modifying or extending.
    * @param {String} attrs.myShopifyDomain You shop's `myshopify.com` domain.
    */
   constructor(attrs) {
