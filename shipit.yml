@@ -1,4 +1,5 @@
 deploy:
   override:
+    - npm install
     - ejson decrypt config/secrets.ejson > config/secrets.json
-    - scripts/deploy 
+    - scripts/deploy
