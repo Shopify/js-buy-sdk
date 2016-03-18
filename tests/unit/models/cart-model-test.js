@@ -6,19 +6,43 @@ import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 
 let model;
+let shopClient;
+
+const { getItem, setItem, removeItem } = localStorage;
+const storage = {};
 
 module('Unit | CartModel', {
   setup() {
-    const shopClient = {
+    shopClient = {
       update(type, updatedModel) {
         return new Promise(function (resolve) {
           resolve(new CartModel(assign({}, updatedModel.attrs), { shopClient }));
         });
+      },
+      config: {
+        myShopifyDomain: 'buckets-o-stuff',
+        apiKey: 6
       }
     };
 
     model = new CartModel(assign({}, cartFixture.cart), { shopClient });
     model.attrs.line_items = model.attrs.line_items.slice(0);
+    localStorage.getItem = function (key) {
+      return storage[key];
+    };
+    localStorage.setItem = function (key, value) {
+      storage[key] = value;
+    };
+    localStorage.setItem = function (key) {
+      delete storage[key];
+    };
+  },
+  teardown() {
+    shopClient = null;
+    model = null;
+    localStorage.getItem = getItem;
+    localStorage.setItem = setItem;
+    localStorage.removeItem = removeItem;
   }
 });
 
@@ -47,7 +71,7 @@ test('it creates a line item when you add a variant', function (assert) {
 
   const quantity = 2;
 
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
 
   model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
@@ -122,7 +146,7 @@ test('it dedupes line items with the same variant_id when added together', funct
   const done = assert.async();
 
   const quantity = 1;
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
 
   model.addVariants({ variant, quantity }, { variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
@@ -144,7 +168,7 @@ test('it dedupes line items with the same variant_id when added one after anothe
   const done = assert.async();
 
   // Variant-0 is already in the cart fixture
-  const variant = singleProductFixture.product_publications[0].variants[0];
+  const variant = singleProductFixture.product_listing.variants[0];
   const quantity = 1;
   const summedQuantity = quantity + cartFixture.cart.line_items[0].quantity;
   const properties = assign({}, cartFixture.cart.line_items[0].properties);
@@ -168,7 +192,7 @@ test('it treats line_items with same variant_ids and different properties as dif
 
   const done = assert.async();
 
-  const variant = singleProductFixture.product_publications[0].variants[1];
+  const variant = singleProductFixture.product_listing.variants[1];
   const quantity = 1;
   const propertiesOne = { prop: 'engraving="awesome engraving"' };
   const propertiesTwo = { prop: 'custom_color=shmurple' };

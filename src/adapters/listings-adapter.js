@@ -2,7 +2,7 @@ import ajax from '../ajax';
 import CoreObject from '../metal/core-object';
 
 
-const PublicationAdapter = CoreObject.extend({
+const ListingsAdapter = CoreObject.extend({
   ajax,
 
   constructor(config) {
@@ -14,9 +14,9 @@ const PublicationAdapter = CoreObject.extend({
   },
 
   get baseUrl() {
-    const { myShopifyDomain, channelId } = this.config;
+    const { myShopifyDomain, appId } = this.config;
 
-    return `https://${myShopifyDomain}.myshopify.com/api/channels/${channelId}`;
+    return `https://${myShopifyDomain}.myshopify.com/api/apps/${appId}`;
   },
 
   get headers() {
@@ -26,12 +26,8 @@ const PublicationAdapter = CoreObject.extend({
     };
   },
 
-  idKeyForType(type) {
-    return `${type.slice(0, -1)}_ids`;
-  },
-
   pathForType(type) {
-    return `/${type.slice(0, -1)}_publications.json`;
+    return `/${type.slice(0, -1)}_listings`;
   },
 
   buildUrl(singleOrMultiple, type, idOrQuery) {
@@ -69,12 +65,7 @@ const PublicationAdapter = CoreObject.extend({
   },
 
   buildSingleUrl(type, id) {
-    const key = this.idKeyForType(type);
-    const opts = {};
-
-    opts[key] = [id];
-
-    return this.buildMultipleUrl(type, opts);
+    return `${this.baseUrl}${this.pathForType(type)}/${id}`;
   },
 
   fetchMultiple(/* type, [query] */) {
@@ -94,4 +85,4 @@ const PublicationAdapter = CoreObject.extend({
   }
 });
 
-export default PublicationAdapter;
+export default ListingsAdapter;

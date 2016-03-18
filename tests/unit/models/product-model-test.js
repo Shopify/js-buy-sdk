@@ -7,7 +7,7 @@ let model;
 
 module('Unit | ProductModel', {
   setup() {
-    model = new ProductModel(singleProductFixture.product_publications[0]);
+    model = new ProductModel(singleProductFixture.product_listing);
   }
 });
 
@@ -64,9 +64,9 @@ test('it returns the correct variant and image when option selections change', f
 test('it proxies attrs for most commonly used props', function (assert) {
   assert.expect(4);
 
-  assert.equal(model.id, singleProductFixture.product_publications[0].product_id);
-  assert.equal(model.title, singleProductFixture.product_publications[0].title);
-  assert.deepEqual(model.images, singleProductFixture.product_publications[0].images);
+  assert.equal(model.id, singleProductFixture.product_listing.product_id);
+  assert.equal(model.title, singleProductFixture.product_listing.title);
+  assert.deepEqual(model.images, singleProductFixture.product_listing.images);
 
   // Variants are now rich models, so we just want to guarantee that same-state
   // is represented.
@@ -80,6 +80,6 @@ test('it proxies attrs for most commonly used props', function (assert) {
 
   assert.deepEqual(
     model.variants.map(condenseVariant),
-    singleProductFixture.product_publications[0].variants.map(condenseVariant)
+    singleProductFixture.product_listing.variants.map(condenseVariant)
   );
 });

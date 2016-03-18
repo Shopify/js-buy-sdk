@@ -1,116 +1,27 @@
 import { module, test } from 'qunit';
-import PublicationSerializer from 'shopify-buy/serializers/publication-serializer';
+import ListingsSerializer from 'shopify-buy/serializers/listings-serializer';
 import BaseModel from 'shopify-buy/models/base-model';
 import ProductModel from 'shopify-buy/models/product-model';
+import { singleProductFixture, multipleProductsFixture } from '../../fixtures/product-fixture';
+import { singleCollectionFixture, multipleCollectionsFixture } from '../../fixtures/collection-fixture';
 
 let serializer;
 
-module('Unit | PublicationSerializer', {
+module('Unit | ListingsSerializer', {
   setup() {
-    serializer = new PublicationSerializer();
+    serializer = new ListingsSerializer();
   },
   teardown() {
     serializer = null;
   }
 });
 
-const singleProductFixture = {
-  product_publications: [
-    {
-      id: 5123171009,
-      product_id: 3680886721,
-      channel_id: 40889985,
-      created_at: '2016-01-05T11:32:26-05:00',
-      updated_at: '2016-01-05T11:32:26-05:00',
-      body_html: 'Why would you buy this?',
-      handle: 'electricity-socket-with-jam',
-      product_type: '',
-      title: 'Electricity socket with jam',
-      vendor: 'buckets-o-stuff',
-      published_at: '2016-01-05T11:32:26-05:00',
-      published: true,
-      available: true,
-      tags: '',
-      images: [
-      ],
-      options: [
-      ],
-      variants: [
-      ]
-    }
-  ]
-};
-
-const multipleProductsFixture = {
-  product_publications: [
-    singleProductFixture.product_publications[0],
-    {
-      id: 5123170945,
-      product_id: 3677189889,
-      channel_id: 40889985,
-      created_at: '2016-01-05T11:32:26-05:00',
-      updated_at: '2016-01-05T11:32:26-05:00',
-      body_html: 'It\'s an aluminum pole. What\'re you expecting?',
-      handle: 'aluminum-pole',
-      product_type: '',
-      title: 'Aluminum Pole',
-      vendor: 'buckets-o-stuff',
-      published_at: '2016-01-05T11:32:26-05:00',
-      published: true,
-      available: true,
-      tags: '',
-      images: [
-      ],
-      options: [
-      ],
-      variants: [
-      ]
-    }
-  ]
-};
-
-const singleCollectionFixture = {
-  collection_publications: [
-    {
-      id: 220591297,
-      collection_id: 159064961,
-      channel_id: 40889985,
-      created_at: '2016-01-05T11:32:26-05:00',
-      updated_at: '2016-01-05T11:32:26-05:00',
-      body_html: '',
-      handle: 'blergh',
-      image: null,
-      title: 'Blergh.',
-      published_at: '2016-01-05T11:32:26-05:00',
-      published: true
-    }
-  ]
-};
-
-const multipleCollectionsFixture = {
-  collection_publications: [
-    singleCollectionFixture.collection_publications[0],
-    {
-      id: 220591233,
-      collection_id: 157327425,
-      channel_id: 40889985,
-      created_at: '2016-01-05T11:32:26-05:00',
-      updated_at: '2016-01-05T11:32:26-05:00',
-      body_html: null,
-      handle: 'frontpage',
-      image: null,
-      title: 'Home page',
-      published_at: '2016-01-05T11:32:26-05:00',
-      published: true
-    }
-  ]
-};
 
 test('it discovers the root key from the type', function (assert) {
   assert.expect(2);
 
-  assert.equal(serializer.rootKeyForType('products'), 'product_publications');
-  assert.equal(serializer.rootKeyForType('collections'), 'collection_publications');
+  assert.equal(serializer.rootKeyForType('products'), 'product_listing');
+  assert.equal(serializer.rootKeyForType('collections'), 'collection_listing');
 });
 
 test('it returns the correct model for a type', function (assert) {
@@ -126,18 +37,18 @@ test('it transforms a single item payload into a product object.', function (ass
   const model = serializer.deserializeSingle('products', singleProductFixture);
 
   assert.notOk(Array.isArray(model), 'should not be an array');
-  assert.deepEqual(model.attrs, singleProductFixture.product_publications[0]);
+  assert.deepEqual(model.attrs, singleProductFixture.product_listing);
 });
 
-test('it transforms a collection payload into a list of product objects.', function (assert) {
+test('it transforms an array payload into a list of product objects.', function (assert) {
   assert.expect(4);
 
   const models = serializer.deserializeMultiple('products', multipleProductsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
-  assert.deepEqual(models[0].attrs, multipleProductsFixture.product_publications[0]);
-  assert.deepEqual(models[1].attrs, multipleProductsFixture.product_publications[1]);
+  assert.deepEqual(models[0].attrs, multipleProductsFixture.product_listings[0]);
+  assert.deepEqual(models[1].attrs, multipleProductsFixture.product_listings[1]);
 });
 
 test('it attaches a reference of the passed serializer to the model on #deserializeSingle', function (assert) {
@@ -184,18 +95,18 @@ test('it transforms a single item payload into a collection object.', function (
   const model = serializer.deserializeSingle('collections', singleCollectionFixture);
 
   assert.notOk(Array.isArray(model), 'should not be an array');
-  assert.deepEqual(model.attrs, singleCollectionFixture.collection_publications[0]);
+  assert.deepEqual(model.attrs, singleCollectionFixture.collection_listing);
 });
 
-test('it transforms a collection payload into a list of collection objects.', function (assert) {
+test('it transforms an array payload into a list of collection objects.', function (assert) {
   assert.expect(4);
 
   const models = serializer.deserializeMultiple('collections', multipleCollectionsFixture);
 
   assert.ok(Array.isArray(models), 'should be an array');
   assert.equal(models.length, 2, 'we passed in two, it should serialize two');
-  assert.deepEqual(models[0].attrs, multipleCollectionsFixture.collection_publications[0]);
-  assert.deepEqual(models[1].attrs, multipleCollectionsFixture.collection_publications[1]);
+  assert.deepEqual(models[0].attrs, multipleCollectionsFixture.collection_listings[0]);
+  assert.deepEqual(models[1].attrs, multipleCollectionsFixture.collection_listings[1]);
 });
 
 test('it attaches a reference of the passed serializer to the model on #deserializeSingle', function (assert) {

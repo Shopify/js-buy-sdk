@@ -23,7 +23,7 @@ const Shopify = {
    * ```javascript
    * const client = ShopifyBuy.buildClient({
    *   apiKey: 'abc123',
-   *   channelId: 123456,
+   *   appId: 123456,
    *   myShopifyDomain: 'myshop'
    * });
    * ```
@@ -34,9 +34,9 @@ const Shopify = {
    * @public
    * @param {Object} configAttrs A hash of required config data.
    * @param {String} configAttrs.apiKey Your api client's public token.
-   * @param {String} configAttrs.channelId The channel from which to read
-   * publications. Visit `<your-shops-domain>/admin/channels.json` while
-   * authenticated to see a list of available channels.
+   * @param {String} configAttrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button's app id is
+   * 6. Otherwise, obtain the app id of the app you're modifying or extending.
    * @param {String} configAttrs.myShopifyDomain You shop's `myshopify.com`
    * domain.
    * @return {ShopClient} a client for the shop using your api credentials.
