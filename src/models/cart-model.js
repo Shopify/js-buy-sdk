@@ -79,7 +79,7 @@ const CartModel = BaseModel.extend({
         variant_id: item.variant.id,
         product_id: item.variant.productId,
         title: item.variant.productTitle,
-        quantity: item.quantity,
+        quantity: parseInt(item.quantity, 10),
         properties: (item.properties || {}),
         variant_title: item.variant.title,
         price: item.variant.price,
@@ -98,7 +98,7 @@ const CartModel = BaseModel.extend({
 
     existingLineItems.push(...newLineItems);
 
-    this.attrs.line_items = existingLineItems.reduce((itemAcc, item) => {
+    const dedupedLineItems = existingLineItems.reduce((itemAcc, item) => {
       const matchingItem = itemAcc.filter(existingItem => {
         return (existingItem.variant_id === item.variant_id &&
                 objectsEqual(existingItem.properties, item.properties));
@@ -107,6 +107,16 @@ const CartModel = BaseModel.extend({
       if (matchingItem) {
         matchingItem.quantity = matchingItem.quantity + item.quantity;
       } else {
+        itemAcc.push(item);
+      }
+
+      return itemAcc;
+    }, []);
+
+    // Users may pass negative numbers and remove items. This ensures there's no
+    // item with a quantity of zero or less.
+    this.attrs.line_items = dedupedLineItems.reduce((itemAcc, item) => {
+      if (item.quantity >= 1) {
         itemAcc.push(item);
       }
 
