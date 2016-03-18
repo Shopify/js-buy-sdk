@@ -6,6 +6,7 @@ var path = require('path');
 var mime = require('mime-types');
 var exec = require('child_process').exec;
 var DEFAULT_CONTENT_TYPE = 'application/octet-stream';
+var S3_DIR = 'js-buy-sdk';
 var DEFAULT_CACHE_CONTROL = "public, max-age=86400";
 var FILENAME_FILTER = 'shopify-buy';
 var DIST_DIR = 'dist';
@@ -67,12 +68,12 @@ Uploader.prototype.getCurrentTag = function (cb) {
       console.error(err);
       cb();
     }
-    cb(stdout);
+    cb(stdout.trim());
   });
 };
 
 Uploader.prototype.s3PathForFile = function (localPath, tag) {
-  return tag + '/' + localPath;
+  return path.join(S3_DIR, tag, localPath);
 };
 
 Uploader.prototype.contentType = function(path) {
