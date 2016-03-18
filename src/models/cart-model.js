@@ -49,9 +49,11 @@ const CartModel = BaseModel.extend({
     * @type {String}
   */
   get subtotal() {
-    return this.lineItems.reduce((runningTotal, lineItem) => {
-      return (runningTotal + parseFloat(lineItem.line_price)).toFixed(2);
+    const subtotal = this.lineItems.reduce((runningTotal, lineItem) => {
+      return (runningTotal + parseFloat(lineItem.line_price));
     }, 0);
+
+    return subtotal.toFixed(2);
   },
 
   /**
