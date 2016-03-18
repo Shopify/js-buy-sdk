@@ -49,9 +49,14 @@ const baseAttrs = {
   }
 };
 
+const config = {
+  myShopifyDomain: 'buckets-o-stuff',
+  apiKey: 'abc123'
+};
+
 module('Unit | ProductVariantModel', {
   setup() {
-    model = new ProductVariantModel(assign({}, baseAttrs));
+    model = new ProductVariantModel(assign({}, baseAttrs), { config });
   }
 });
 
@@ -82,4 +87,16 @@ test('it returns the image for the variant', function (assert) {
   model.attrs.variant.id = 'abc123';
 
   assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+});
+
+test('it generates checkout permalinks from passed quantity', function (assert) {
+  assert.expect(4);
+
+  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const query = `api_key=${config.apiKey}`;
+
+  assert.equal(model.checkoutUrl(), `${baseUrl}/${model.id}:1?${query}`, 'defaults to 1');
+  assert.equal(model.checkoutUrl(27), `${baseUrl}/${model.id}:27?${query}`, 'respects passed quantity');
+  assert.equal(model.checkoutUrl('3'), `${baseUrl}/${model.id}:3?${query}`, 'works with strings');
+  assert.equal(model.checkoutUrl(5.5), `${baseUrl}/${model.id}:5?${query}`, 'trims decimals');
 });

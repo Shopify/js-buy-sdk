@@ -77,7 +77,7 @@ const ProductModel = BaseModel.extend({
 
   get variants() {
     return this.attrs.variants.map(variant => {
-      return new ProductVariantModel({ variant, product: this });
+      return new ProductVariantModel({ variant, product: this }, { config: this.config });
     });
   },
 

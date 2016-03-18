@@ -5,9 +5,11 @@ import { singleProductFixture } from '../../fixtures/product-fixture';
 
 let model;
 
+const config = {};
+
 module('Unit | ProductModel', {
   setup() {
-    model = new ProductModel(singleProductFixture.product_listing);
+    model = new ProductModel(singleProductFixture.product_listing, { config });
   }
 });
 
@@ -82,4 +84,14 @@ test('it proxies attrs for most commonly used props', function (assert) {
     model.variants.map(condenseVariant),
     singleProductFixture.product_listing.variants.map(condenseVariant)
   );
+});
+
+test('it attaches a reference to the config on variants', function (assert) {
+  assert.expect(singleProductFixture.product_listing.variants.length + 1);
+
+  assert.ok(singleProductFixture.product_listing.variants.length > 0, 'this test requires the fixture have variants');
+
+  model.variants.forEach(variant => {
+    assert.equal(variant.config, config);
+  });
 });

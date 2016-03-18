@@ -6,10 +6,11 @@ import { singleProductFixture, multipleProductsFixture } from '../../fixtures/pr
 import { singleCollectionFixture, multipleCollectionsFixture } from '../../fixtures/collection-fixture';
 
 let serializer;
+const config = {};
 
 module('Unit | ListingsSerializer', {
   setup() {
-    serializer = new ListingsSerializer();
+    serializer = new ListingsSerializer(config);
   },
   teardown() {
     serializer = null;
@@ -145,4 +146,20 @@ test('it attaches a reference of the passed shopClient to every model on #deseri
 
   assert.deepEqual(models[0].shopClient, shopClient);
   assert.deepEqual(models[1].shopClient, shopClient);
+});
+
+test('it attaches a reference to the config on #deserializeSingle', function (assert) {
+  assert.expect(1);
+
+  const model = serializer.deserializeSingle('collections', singleCollectionFixture, {});
+
+  assert.equal(model.config, config);
+});
+
+test('it attaches a reference to the config on #deserializeMultiple', function (assert) {
+  assert.expect(1);
+
+  const model = serializer.deserializeSingle('products', multipleProductsFixture, {});
+
+  assert.equal(model.config, config);
 });
