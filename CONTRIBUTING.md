@@ -32,5 +32,14 @@ npm run test
 If your change affects how people use the project (i.e. adding or
 changing arguments to a function, adding a new function, changing the
 return value, etc), please ensure the documentation is also updated to
-reflect this. The docs server can be run with `npm run doc-server` and
-runs at `http://localhost:5000`.
+reflect this. The docs live inside the `gh-pages` branch and are hosted
+at `shopify.github.io/js-buy-sdk`.
+
+```
+git checkout -b my-feature-branch gh-pages
+script/yuidoc
+jekyll serve
+```
+
+The documentation will then be visible at
+`http://localhost:4000/js-buy-sdk/index.html`
