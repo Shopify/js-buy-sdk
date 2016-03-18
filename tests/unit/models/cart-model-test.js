@@ -8,6 +8,9 @@ import { singleProductFixture } from '../../fixtures/product-fixture';
 let model;
 let shopClient;
 
+const { getItem, setItem, removeItem } = localStorage;
+const storage = {};
+
 module('Unit | CartModel', {
   setup() {
     shopClient = {
@@ -24,6 +27,22 @@ module('Unit | CartModel', {
 
     model = new CartModel(assign({}, cartFixture.cart), { shopClient });
     model.attrs.line_items = model.attrs.line_items.slice(0);
+    localStorage.getItem = function (key) {
+      return storage[key];
+    };
+    localStorage.setItem = function (key, value) {
+      storage[key] = value;
+    };
+    localStorage.setItem = function (key) {
+      delete storage[key];
+    };
+  },
+  teardown() {
+    shopClient = null;
+    model = null;
+    localStorage.getItem = getItem;
+    localStorage.setItem = setItem;
+    localStorage.removeItem = removeItem;
   }
 });
 
