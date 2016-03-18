@@ -22,7 +22,7 @@
     "broccoli-asset-rev": "2.4.1",
     "broccoli-babel-transpiler": "5.5.0",
     "broccoli-cli": "1.0.0",
-    "broccoli-concat": "2.0.4",
+    "broccoli-concat": "2.2.0",
     "broccoli-env": "0.0.1",
     "broccoli-funnel": "1.0.1",
     "broccoli-lint-eslint": "1.2.0",
