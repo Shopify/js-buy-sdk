@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-yuidoc": "./script/yuidoc",
-    "yuidoc-bin": "./node_modules/.bin/yuidoc"
+    "build-yuidoc": "./script/yuidoc"
   },
   "repository": {
     "type": "git",
