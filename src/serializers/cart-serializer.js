@@ -3,7 +3,8 @@ import assign from '../metal/assign';
 import CartModel from '../models/cart-model';
 
 const CartSerializer = CoreObject.extend({
-  constructor() {
+  constructor(config) {
+    this.config = config;
   },
 
   rootKeyForType(type) {
@@ -14,7 +15,7 @@ const CartSerializer = CoreObject.extend({
     return CartModel;
   },
 
-  deserializeSingle(type, singlePayload, metaAttrs) {
+  deserializeSingle(type, singlePayload = {}, metaAttrs = {}) {
     const modelAttrs = singlePayload[this.rootKeyForType(type)];
     const model = this.modelFromAttrs(type, modelAttrs, metaAttrs);
 
@@ -23,6 +24,8 @@ const CartSerializer = CoreObject.extend({
 
   modelFromAttrs(type, attrs, metaAttrs) {
     const Model = this.modelForType(type);
+
+    metaAttrs.config = this.config;
 
     return new Model(attrs, metaAttrs);
   },

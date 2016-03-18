@@ -7,7 +7,7 @@ import assign from 'shopify-buy/metal/assign';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
-  apiKey: 1,
+  apiKey: 'abc123',
   appId: 6
 };
 
@@ -131,6 +131,36 @@ test('it resolves with a new modified cart on ShopClient#update', function (asse
     });
   }).catch(() => {
     assert.ok(false, '#1 promise should not reject');
+    done();
+  });
+});
+
+test('it has a checkout url reflecting the line items in the cart', function (assert) {
+  assert.expect(1);
+
+  const done = assert.async();
+
+  localStorage.getItem = function () {
+    return JSON.stringify(cartFixture);
+  };
+
+  const lineItem = {
+    quantity: 1,
+    variant_id: 12345
+  };
+  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const lineItemPath = `${lineItem.variant_id}:${lineItem.quantity}`;
+  const query = `api_key=${config.apiKey}`;
+
+
+  shopClient.fetchCart(id).then(cart => {
+    cart.attrs.line_items = [lineItem];
+
+    assert.equal(cart.checkoutUrl, `${baseUrl}/${lineItemPath}?${query}`);
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
     done();
   });
 });
