@@ -68,7 +68,7 @@ Uploader.prototype.getCurrentTag = function (cb) {
       console.error(err);
       cb();
     }
-    cb(stdout);
+    cb(stdout.trim());
   });
 };
 
