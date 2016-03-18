@@ -56,6 +56,19 @@ const CartModel = BaseModel.extend({
     return subtotal.toFixed(2);
   },
 
+  get checkoutUrl() {
+    const config = this.config;
+    const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+
+    const variantPath = this.lineItems.map(item => {
+      return `${item.variant_id}:${item.quantity}`;
+    });
+
+    const query = `api_key=${config.apiKey}`;
+
+    return `${baseUrl}/${variantPath}?${query}`;
+  },
+
   /**
     * Add items to cart. Updates cart's `lineItems`
     * ```javascript

@@ -3,7 +3,8 @@ import BaseModel from '../models/base-model';
 import ProductModel from '../models/product-model';
 
 const ListingsSerializer = CoreObject.extend({
-  constructor() {
+  constructor(config) {
+    this.config = config;
   },
 
   rootKeyForType(type) {
@@ -19,14 +20,14 @@ const ListingsSerializer = CoreObject.extend({
     return this.models[type];
   },
 
-  deserializeSingle(type, singlePayload, metaAttrs) {
+  deserializeSingle(type, singlePayload = {}, metaAttrs = {}) {
     const modelAttrs = singlePayload[this.rootKeyForType(type)];
     const model = this.modelFromAttrs(type, modelAttrs, metaAttrs);
 
     return model;
   },
 
-  deserializeMultiple(type, collectionPayload, metaAttrs) {
+  deserializeMultiple(type, collectionPayload = {}, metaAttrs = {}) {
     const models = collectionPayload[`${this.rootKeyForType(type)}s`];
 
     return models.map(attrs => {
@@ -38,6 +39,8 @@ const ListingsSerializer = CoreObject.extend({
 
   modelFromAttrs(type, attrs, metaAttrs) {
     const Model = this.modelForType(type);
+
+    metaAttrs.config = this.config;
 
     return new Model(attrs, metaAttrs);
   }

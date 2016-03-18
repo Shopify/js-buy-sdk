@@ -4,9 +4,11 @@ import CartModel from 'shopify-buy/models/cart-model';
 
 let serializer;
 
+const config = {};
+
 module('Unit | CartSerializer', {
   setup() {
-    serializer = new CartSerializer();
+    serializer = new CartSerializer(config);
   },
   teardown() {
     serializer = null;
@@ -72,4 +74,12 @@ test('it transforms a model into a payload on #serialize using the root key', fu
   const payload = serializer.serialize('carts', updatedModel);
 
   assert.deepEqual(payload, { cart: updatedModel.attrs });
+});
+
+test('it attaches a reference to the config', function (assert) {
+  assert.expect(1);
+
+  const model = serializer.deserializeSingle('carts', cartFixture, {});
+
+  assert.equal(model.config, config);
 });

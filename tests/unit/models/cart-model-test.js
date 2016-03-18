@@ -10,6 +10,10 @@ let shopClient;
 
 const { getItem, setItem, removeItem } = localStorage;
 const storage = {};
+const config = {
+  myShopifyDomain: 'buckets-o-stuff',
+  apiKey: 'abc123'
+};
 
 module('Unit | CartModel', {
   setup() {
@@ -18,14 +22,11 @@ module('Unit | CartModel', {
         return new Promise(function (resolve) {
           resolve(new CartModel(assign({}, updatedModel.attrs), { shopClient }));
         });
-      },
-      config: {
-        myShopifyDomain: 'buckets-o-stuff',
-        apiKey: 6
       }
     };
 
-    model = new CartModel(assign({}, cartFixture.cart), { shopClient });
+    model = new CartModel(assign({}, cartFixture.cart), { shopClient, config });
+
     model.attrs.line_items = model.attrs.line_items.slice(0);
     localStorage.getItem = function (key) {
       return storage[key];
@@ -238,6 +239,35 @@ test('it removes the line item if the quantity isn\'t at least one', function (a
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it generates checkout permalinks', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const variantId = model.lineItems[0].variant_id;
+  const quantity = model.lineItems[0].quantity;
+  const query = `api_key=${config.apiKey}`;
+
+  assert.equal(model.checkoutUrl, `${baseUrl}/${variantId}:${quantity}?${query}`);
+
+  const variant = singleProductFixture.product_listing.variants[1];
+
+  model.addVariants({ variant, quantity: 1 }).then(cart => {
+    const checkoutVariantPath = cart.lineItems.map(lineItem => {
+      return `${lineItem.variant_id}:${lineItem.quantity}`;
+    }).join(',');
+
+    assert.equal(cart.checkoutUrl, `${baseUrl}/${checkoutVariantPath}?${query}`);
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+
     done();
   });
 });

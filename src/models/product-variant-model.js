@@ -53,6 +53,17 @@ const ProductVariantModel = BaseModel.extend({
     })[0];
 
     return (variantImage || primaryImage);
+  },
+
+  checkoutUrl(quantity = 1) {
+    const config = this.config;
+    const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+
+    const variantPath = `${this.id}:${parseInt(quantity, 10)}`;
+
+    const query = `api_key=${config.apiKey}`;
+
+    return `${baseUrl}/${variantPath}?${query}`;
   }
 });
 
