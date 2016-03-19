@@ -35,15 +35,15 @@ layout: api
 
 <div class="file">
     <pre class="prettyprint linenums">
-import PublicationSerializer from &#x27;./serializers/publication-serializer&#x27;;
-import PublicationAdapter from &#x27;./adapters/publication-adapter&#x27;;
-import CheckoutSerializer from &#x27;./serializers/checkout-serializer&#x27;;
-import CheckoutAdapter from &#x27;./adapters/checkout-adapter&#x27;;
+import ListingsSerializer from &#x27;./serializers/listings-serializer&#x27;;
+import ListingsAdapter from &#x27;./adapters/listings-adapter&#x27;;
+import CartSerializer from &#x27;./serializers/cart-serializer&#x27;;
+import LocalStorageAdapter from &#x27;./adapters/local-storage-adapter&#x27;;
 import CoreObject from &#x27;./metal/core-object&#x27;;
 import assign from &#x27;./metal/assign&#x27;;
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule shop-client
  */
 
@@ -82,20 +82,30 @@ const ShopClient = CoreObject.extend({
     this.config = config;
 
     this.serializers = {
-      products: PublicationSerializer,
-      collections: PublicationSerializer,
-      checkouts: CheckoutSerializer
+      products: ListingsSerializer,
+      collections: ListingsSerializer,
+      carts: CartSerializer
     };
 
     this.adapters = {
-      products: PublicationAdapter,
-      collections: PublicationAdapter,
-      checkouts: CheckoutAdapter
+      products: ListingsAdapter,
+      collections: ListingsAdapter,
+      carts: LocalStorageAdapter
     };
   },
 
   config: null,
 
+  /**
+   * @attribute
+   * @default {
+   *  products: ListingsAdapter,
+   *  collections: ListingsAdapter,
+   *  carts: CartAdapter
+   * }
+   * @type Object
+   * @protected
+   */
   // Prevent leaky state
   get serializers() {
     return assign({}, this.shadowedSerializers);
@@ -131,7 +141,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchMultiple(type).then(payload =&gt; {
-      return this.deserialize(type, payload, adapter, { multiple: true });
+      return this.deserialize(type, payload, adapter, null, { multiple: true });
     });
   },
 
@@ -155,7 +165,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchSingle(type, id).then(payload =&gt; {
-      return this.deserialize(type, payload, adapter, { single: true });
+      return this.deserialize(type, payload, adapter, null, { single: true });
     });
   },
 
@@ -178,7 +188,7 @@ const ShopClient = CoreObject.extend({
     const adapter = new this.adapters[type](this.config);
 
     return adapter.fetchMultiple(type, query).then(payload =&gt; {
-      return this.deserialize(type, payload, adapter, { multiple: true });
+      return this.deserialize(type, payload, adapter, null, { multiple: true });
     });
   },
 
@@ -186,23 +196,28 @@ const ShopClient = CoreObject.extend({
    * Create an instance of &#x60;type&#x60;, optionally including &#x60;attrs&#x60;.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.create(&#x27;checkouts&#x27;, { line_items: [ ... ] }).then(checkout =&gt; {
-   *   // do things with the checkout.
+   * client.create(&#x27;carts&#x27;, { line_items: [ ... ] }).then(cart =&gt; {
+   *   // do things with the cart.
    * });
    * &#x60;&#x60;&#x60;
    *
    * @method create
    * @public
    * @param {String} type The pluralized name of the type, in lower case.
-   * @param {Object} [attrs={}] attributes to send to the server for creation.
+   * @param {Object} [modelAttr={}] attributes representing the internal state
+   * of the model to be persisted to the server.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * &#x60;type&#x60;
    */
-  create(type, attrs = {}) {
+  create(type, modelAttrs = {}) {
     const adapter = new this.adapters[type](this.config);
+    const serializer = new this.serializers[type](this.config);
+    const Model = serializer.modelForType(type);
+    const model = new Model(modelAttrs, { shopClient: this });
+    const attrs = serializer.serialize(type, model);
 
     return adapter.create(type, attrs).then(payload =&gt; {
-      return this.deserialize(type, payload, adapter, { single: true });
+      return this.deserialize(type, payload, adapter, serializer, { single: true });
     });
   },
 
@@ -210,8 +225,8 @@ const ShopClient = CoreObject.extend({
    * Create an instance of &#x60;type&#x60;, optionally including &#x60;attrs&#x60;.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.create(&#x27;checkouts&#x27;, { line_items: [ ... ] }).then(checkout =&gt; {
-   *   // do things with the checkout.
+   * client.create(&#x27;carts&#x27;, { line_items: [ ... ] }).then(cart =&gt; {
+   *   // do things with the cart.
    * });
    * &#x60;&#x60;&#x60;
    *
@@ -230,9 +245,7 @@ const ShopClient = CoreObject.extend({
     const id = updatedModel.attrs[adapter.idKeyForType(type)];
 
     return adapter.update(type, id, serializedModel).then(payload =&gt; {
-      const meta = { shopClient: this, adapter, serializer, type };
-
-      return serializer.deserializeSingle(type, payload, meta);
+      return this.deserialize(type, payload, adapter, serializer, { single: true });
     });
   },
 
@@ -244,6 +257,8 @@ const ShopClient = CoreObject.extend({
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {Object} payload The raw payload returned by the adapter.
    * @param {BaseAdapter} adapter The adapter that yielded the payload.
+   * @param {BaseSerializer} existingSerializer The serializer to attach. If
+   * none is passed, then &#x60;this.deserialize&#x60; will create one for the type.
    * @param {Object} opts Options that determine which deserialization method to
    * use.
    * @param {Boolean} opts.multiple true when the payload represents multiple
@@ -251,8 +266,8 @@ const ShopClient = CoreObject.extend({
    * @param {Boolean} opts.single true when the payload represents one model.
    * @return {BaseModel} an instance of &#x60;type&#x60; reified into a model.
    */
-  deserialize(type, payload, adapter, opts = {}) {
-    const serializer = new this.serializers[type](this.config);
+  deserialize(type, payload, adapter, existingSerializer, opts = {}) {
+    const serializer = (existingSerializer || new this.serializers[type](this.config));
     const meta = { shopClient: this, adapter, serializer, type };
     let serializedPayload;
 
@@ -264,6 +279,24 @@ const ShopClient = CoreObject.extend({
 
     return serializedPayload;
   },
+
+  createCart(userAttrs = {}) {
+    const baseAttrs = {
+      line_items: []
+    };
+    const attrs = {};
+
+    assign(attrs, baseAttrs);
+    assign(attrs, userAttrs);
+
+    return this.create(&#x27;carts&#x27;, attrs);
+  },
+
+  updateCart(updatedCart) {
+    return this.update(&#x27;carts&#x27;, updatedCart);
+  },
+
+  fetchCart: fetchFactory(&#x27;one&#x27;, &#x27;carts&#x27;),
 
   /**
    * Convenience wrapper for {{#crossLink &quot;ShopClient/fetchAll:method&quot;}}
@@ -369,6 +402,7 @@ export default ShopClient;
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -406,6 +440,10 @@ export default ShopClient;
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

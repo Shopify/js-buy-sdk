@@ -41,7 +41,7 @@ import &#x27;./isomorphic-fetch&#x27;;
 import &#x27;./isomorphic-btoa&#x27;;
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule shopify
  */
 
@@ -60,7 +60,7 @@ const Shopify = {
    * &#x60;&#x60;&#x60;javascript
    * const client = ShopifyBuy.buildClient({
    *   apiKey: &#x27;abc123&#x27;,
-   *   channelId: 123456,
+   *   appId: 123456,
    *   myShopifyDomain: &#x27;myshop&#x27;
    * });
    * &#x60;&#x60;&#x60;
@@ -71,9 +71,9 @@ const Shopify = {
    * @public
    * @param {Object} configAttrs A hash of required config data.
    * @param {String} configAttrs.apiKey Your api client&#x27;s public token.
-   * @param {String} configAttrs.channelId The channel from which to read
-   * publications. Visit &#x60;&lt;your-shops-domain&gt;/admin/channels.json&#x60; while
-   * authenticated to see a list of available channels.
+   * @param {String} configAttrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button&#x27;s app id is
+   * 6. Otherwise, obtain the app id of the app you&#x27;re modifying or extending.
    * @param {String} configAttrs.myShopifyDomain You shop&#x27;s &#x60;myshopify.com&#x60;
    * domain.
    * @return {ShopClient} a client for the shop using your api credentials.
@@ -100,6 +100,7 @@ export default Shopify;
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -137,6 +138,10 @@ export default Shopify;
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

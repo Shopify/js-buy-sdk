@@ -30,40 +30,83 @@ layout: api
     </form>
 
 <div class="page-header">
-    <h1>shopify <small>Module</small></h1>
+    <h1>src/models/product-variant-model.js <small>File</small></h1>
 </div>
 
-<div class="clearfix well well-small">
+<div class="file">
+    <pre class="prettyprint linenums">
+import BaseModel from &#x27;./base-model&#x27;;
 
 
-        <div class="foundat">
-            Defined in: <a href="../files/src_shopify.js.html#l11"><code>src&#x2F;shopify.js:11</code></a>
-        </div>
+/**
+  * Model for product variant
+  * @class ProductVariantModel
+  * @constructor
+*/
+const ProductVariantModel = BaseModel.extend({
+  constructor() {
+    this.super(...arguments);
+  },
 
-</div>
+  get id() {
+    return this.attrs.variant.id;
+  },
 
+  get productId() {
+    return this.attrs.product.id;
+  },
 
-<div class="moduledesc well well-small">
-    <p>This namespace contains all globally accessible classes</p>
+  get title() {
+    return this.attrs.variant.title;
+  },
 
-</div>
+  get productTitle() {
+    return this.attrs.product.title;
+  },
 
+  get compareAtPrice() {
+    return this.attrs.variant.compare_at_price;
+  },
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-            <p>This module provides the following classes:</p>
+  get price() {
+    return this.attrs.variant.price;
+  },
 
-            <ul class="module-classes">
-                <li class="module-class">
-                    <a href="../classes/ShopifyBuy.html">
-                        ShopifyBuy
-                    </a>
-                </li>
-            </ul>
-    </div>
+  get grams() {
+    return this.attrs.variant.grams;
+  },
 
-    <div class="yui3-u-1-2">
-    </div>
+  get optionValues() {
+    return this.attrs.variant.option_values;
+  },
+
+  get image() {
+    const id = this.id;
+    const images = this.attrs.product.images;
+
+    const primaryImage = images[0];
+    const variantImage = images.filter(image =&gt; {
+      return image.variant_ids.indexOf(id) !== -1;
+    })[0];
+
+    return (variantImage || primaryImage);
+  },
+
+  checkoutUrl(quantity = 1) {
+    const config = this.config;
+    const baseUrl = &#x60;https://${config.myShopifyDomain}.myshopify.com/cart&#x60;;
+
+    const variantPath = &#x60;${this.id}:${parseInt(quantity, 10)}&#x60;;
+
+    const query = &#x60;api_key=${config.apiKey}&#x60;;
+
+    return &#x60;${baseUrl}/${variantPath}?${query}&#x60;;
+  }
+});
+
+export default ProductVariantModel;
+
+    </pre>
 </div>
                     </div>
                 </div>
