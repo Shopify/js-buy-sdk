@@ -14,14 +14,29 @@ const ProductModel = BaseModel.extend({
     this.super(...arguments);
   },
 
+  /**
+    * Product unique ID
+    * @property id
+    * @type {String}
+  */
   get id() {
     return this.attrs.product_id;
   },
 
+  /**
+    * Product title
+    * @property title
+    * @type {String}
+  */
   get title() {
     return this.attrs.title;
   },
 
+  /**
+    * All images associated with product.
+    * @property images
+    * @type {Array} array of image objects.
+  */
   get images() {
     return this.attrs.images;
   },
@@ -75,6 +90,11 @@ const ProductModel = BaseModel.extend({
     return this.memoized.options;
   },
 
+  /**
+    * All variants of a product.
+    * @property variants
+    * @type {Array|ProductVariantModel} array of ProductVariantModel instances.
+  */
   get variants() {
     return this.attrs.variants.map(variant => {
       return new ProductVariantModel({ variant, product: this }, { config: this.config });
@@ -85,8 +105,7 @@ const ProductModel = BaseModel.extend({
     * Retrieve currently selected option values.
     * @attribute selections
     * @type {Option}
-   */
-
+  */
   get selections() {
     return this.options.map(option => {
       return option.selected;

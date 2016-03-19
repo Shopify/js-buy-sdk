@@ -30,6 +30,11 @@ const CartModel = BaseModel.extend({
     this.super(...arguments);
   },
 
+  /**
+    * get ID for current cart
+    * @property id
+    * @type {String}
+  */
   get id() {
     return this.attrs[GUID_KEY];
   },
@@ -56,6 +61,11 @@ const CartModel = BaseModel.extend({
     return subtotal.toFixed(2);
   },
 
+  /**
+    * Get checkout URL for current cart
+    * @property checkoutUrl
+    * @type {String}
+  */
   get checkoutUrl() {
     const config = this.config;
     const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
