@@ -37,6 +37,8 @@ layout: api
     <pre class="prettyprint linenums">
 import BaseModel from &#x27;./base-model&#x27;;
 import assign from &#x27;../metal/assign&#x27;;
+import setGuidFor from &#x27;../metal/set-guid-for&#x27;;
+import { GUID_KEY } from &#x27;../metal/set-guid-for&#x27;;
 
 function objectsEqual(one, two) {
   if (one === two) {
@@ -53,6 +55,7 @@ function objectsEqual(one, two) {
     return one[key] === two[key];
   });
 }
+
 const CartModel = BaseModel.extend({
 
   /**
@@ -64,22 +67,43 @@ const CartModel = BaseModel.extend({
     this.super(...arguments);
   },
 
+  get id() {
+    return this.attrs[GUID_KEY];
+  },
+
   /**
     * Get current line items for cart
     * @property lineItems
     * @type {Array}
   */
   get lineItems() {
-    return this.attrs.line_items;
+    return this.attrs.line_items || [];
   },
 
   /**
     * Get current subtotal price for all line items
-    * @property subTotal
+    * @property subtotal
     * @type {String}
   */
-  get subTotal() {
-    return this.attrs.subtotal_price;
+  get subtotal() {
+    const subtotal = this.lineItems.reduce((runningTotal, lineItem) =&gt; {
+      return (runningTotal + parseFloat(lineItem.line_price));
+    }, 0);
+
+    return subtotal.toFixed(2);
+  },
+
+  get checkoutUrl() {
+    const config = this.config;
+    const baseUrl = &#x60;https://${config.myShopifyDomain}.myshopify.com/cart&#x60;;
+
+    const variantPath = this.lineItems.map(item =&gt; {
+      return &#x60;${item.variant_id}:${item.quantity}&#x60;;
+    });
+
+    const query = &#x60;api_key=${config.apiKey}&#x60;;
+
+    return &#x60;${baseUrl}/${variantPath}?${query}&#x60;;
   },
 
   /**
@@ -90,26 +114,43 @@ const CartModel = BaseModel.extend({
     * });
     * &#x60;&#x60;&#x60;
     * @method addVariants
-    * @param {Object} variant - One or more variants
-    * @param {Number} variant.id - variant ID
-    * @param {Number} variant.quantity - quantity
-    * @param {Object} [variant2...] - further variants may also be passed
+    * @param {Object} item - One or more variants
+    * @param {Object} item.variant - variant hash
+    * @param {Number} item.quantity - quantity
+    * @param {Object} [nextItem...] - further lineItems may be passed
     * @public
     * @return {Promise|CartModel} - updated cart instance.
   */
   addVariants() {
-    const newLineItems = [...arguments].map(variant =&gt; {
-      return {
-        variant_id: variant.id,
-        quantity: variant.quantity,
-        properties: variant.properties
+    const newLineItems = [...arguments].map(item =&gt; {
+      const lineItem = {
+        get id() {
+          return this[GUID_KEY];
+        },
+        image: item.variant.image,
+        variant_id: item.variant.id,
+        product_id: item.variant.productId,
+        title: item.variant.productTitle,
+        quantity: parseInt(item.quantity, 10),
+        properties: (item.properties || {}),
+        variant_title: item.variant.title,
+        price: item.variant.price,
+        compare_at_price: item.variant.compareAtPrice,
+        get line_price() {
+          return (this.quantity * parseFloat(this.price)).toFixed(2);
+        },
+        grams: item.variant.grams
       };
+
+      setGuidFor(lineItem);
+
+      return lineItem;
     });
     const existingLineItems = this.lineItems;
 
     existingLineItems.push(...newLineItems);
 
-    this.attrs.line_items = existingLineItems.reduce((itemAcc, item) =&gt; {
+    const dedupedLineItems = existingLineItems.reduce((itemAcc, item) =&gt; {
       const matchingItem = itemAcc.filter(existingItem =&gt; {
         return (existingItem.variant_id === item.variant_id &amp;&amp;
                 objectsEqual(existingItem.properties, item.properties));
@@ -118,6 +159,16 @@ const CartModel = BaseModel.extend({
       if (matchingItem) {
         matchingItem.quantity = matchingItem.quantity + item.quantity;
       } else {
+        itemAcc.push(item);
+      }
+
+      return itemAcc;
+    }, []);
+
+    // Users may pass negative numbers and remove items. This ensures there&#x27;s no
+    // item with a quantity of zero or less.
+    this.attrs.line_items = dedupedLineItems.reduce((itemAcc, item) =&gt; {
+      if (item.quantity &gt;= 1) {
         itemAcc.push(item);
       }
 
@@ -157,7 +208,7 @@ const CartModel = BaseModel.extend({
     }
 
     return new Promise(function (resolve, reject) {
-      reject(new Error(&#x60;line item with id: ${id} not found in cart#${this.attrs.token}&#x60;));
+      reject(new Error(&#x60;line item with id: ${id} not found in cart#${this.id}&#x60;));
     });
   },
 
@@ -183,7 +234,7 @@ const CartModel = BaseModel.extend({
     }
 
     return new Promise(function (resolve, reject) {
-      reject(new Error(&#x60;line item with id: ${id} not found in cart#${this.attrs.token}&#x60;));
+      reject(new Error(&#x60;line item with id: ${id} not found in cart#${this.id}&#x60;));
     });
   },
 
@@ -206,7 +257,7 @@ const CartModel = BaseModel.extend({
     * @return {Promise|CartModel} - updated cart instance
   */
   updateModel() {
-    return this.shopClient.update(&#x27;checkouts&#x27;, this).then(updateCart =&gt; {
+    return this.shopClient.update(&#x27;carts&#x27;, this).then(updateCart =&gt; {
       assign(this.attrs, updateCart.attrs);
 
       return this;
@@ -229,6 +280,7 @@ export default CartModel;
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -266,6 +318,10 @@ export default CartModel;
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

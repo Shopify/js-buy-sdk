@@ -4,7 +4,8 @@
         "version": "0.0.1",
         "helpers": [
             "node_modules/yuidoc-lucid-theme/helpers/helpers.js"
-        ]
+        ],
+        "description": "Documentation for the Shopify JS Buy SDK"
     },
     "files": {
         "src/models/cart-model.js": {
@@ -20,8 +21,25 @@
             "name": "src/models/product-model.js",
             "modules": {},
             "classes": {
-                "Option": 1,
                 "ProductModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-option-model.js": {
+            "name": "src/models/product-option-model.js",
+            "modules": {},
+            "classes": {
+                "Option": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-variant-model.js": {
+            "name": "src/models/product-variant-model.js",
+            "modules": {},
+            "classes": {
+                "ProductVariantModel": 1
             },
             "fors": {},
             "namespaces": {}
@@ -63,8 +81,8 @@
         }
     },
     "modules": {
-        "js-buy-sdk": {
-            "name": "js-buy-sdk",
+        "shopify-buy": {
+            "name": "shopify-buy",
             "submodules": {
                 "config": 1,
                 "shop-client": 1,
@@ -73,8 +91,9 @@
             "elements": {},
             "classes": {
                 "CartModel": 1,
-                "Option": 1,
                 "ProductModel": 1,
+                "Option": 1,
+                "ProductVariantModel": 1,
                 "Config": 1,
                 "ShopClient": 1,
                 "ShopifyBuy": 1
@@ -96,7 +115,7 @@
             "fors": {},
             "is_submodule": 1,
             "namespaces": {},
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "namespace": "",
             "file": "src/config.js",
             "line": 9
@@ -111,7 +130,7 @@
             "fors": {},
             "is_submodule": 1,
             "namespaces": {},
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "namespace": "",
             "file": "src/shop-client.js",
             "line": 38
@@ -128,7 +147,7 @@
             },
             "is_submodule": 1,
             "namespaces": {},
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "namespace": "",
             "file": "src/shopify.js",
             "line": 11,
@@ -144,24 +163,10 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "file": "src/models/cart-model.js",
-            "line": 21,
+            "line": 24,
             "description": "Class for cart model",
-            "is_constructor": 1
-        },
-        "Option": {
-            "name": "Option",
-            "shortname": "Option",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "js-buy-sdk",
-            "file": "src/models/product-model.js",
-            "line": 6,
-            "description": "Class for product option",
             "is_constructor": 1
         },
         "ProductModel": {
@@ -172,10 +177,38 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "file": "src/models/product-model.js",
-            "line": 53,
+            "line": 7,
             "description": "Class for products returned by fetch('product')",
+            "is_constructor": 1
+        },
+        "Option": {
+            "name": "Option",
+            "shortname": "Option",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/product-option-model.js",
+            "line": 5,
+            "description": "Class for product option",
+            "is_constructor": 1
+        },
+        "ProductVariantModel": {
+            "name": "ProductVariantModel",
+            "shortname": "ProductVariantModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/product-variant-model.js",
+            "line": 4,
+            "description": "Model for product variant",
             "is_constructor": 1
         },
         "Config": {
@@ -186,7 +219,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "config",
             "namespace": "",
             "file": "src/config.js",
@@ -204,8 +237,8 @@
                             "type": "String"
                         },
                         {
-                            "name": "channelId",
-                            "description": "The channel from which to read\npublications. Visit `<your-shops-domain>/admin/channels.json` while\nauthenticated to see a list of available channels.",
+                            "name": "appId",
+                            "description": "The app whose listings the client will be\nusing. If you are just modifying a buy button, the buy-button's app id is\n6. Otherwise, obtain the app id of the app you're modifying or extending.",
                             "type": "String"
                         },
                         {
@@ -225,7 +258,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client",
             "namespace": "",
             "file": "src/shop-client.js",
@@ -248,7 +281,7 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shopify",
             "namespace": "",
             "file": "src/shopify.js",
@@ -261,7 +294,7 @@
     "classitems": [
         {
             "file": "src/models/cart-model.js",
-            "line": 30,
+            "line": 37,
             "description": "Get current line items for cart",
             "itemtype": "property",
             "name": "lineItems",
@@ -270,29 +303,29 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 39,
+            "line": 46,
             "description": "Get current subtotal price for all line items",
             "itemtype": "property",
-            "name": "subTotal",
+            "name": "subtotal",
             "type": "{String}",
             "class": "CartModel"
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 48,
+            "line": 72,
             "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({id: 123, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
             "itemtype": "method",
             "name": "addVariants",
             "params": [
                 {
-                    "name": "variant",
+                    "name": "item",
                     "description": "- One or more variants",
                     "type": "Object",
                     "props": [
                         {
-                            "name": "id",
-                            "description": "- variant ID",
-                            "type": "Number"
+                            "name": "variant",
+                            "description": "- variant hash",
+                            "type": "Object"
                         },
                         {
                             "name": "quantity",
@@ -302,8 +335,8 @@
                     ]
                 },
                 {
-                    "name": "variant2...",
-                    "description": "- further variants may also be passed",
+                    "name": "nextItem...",
+                    "description": "- further lineItems may be passed",
                     "type": "Object",
                     "optional": true
                 }
@@ -318,7 +351,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 93,
+            "line": 144,
             "description": "Update line item quantity\n```javascript\ncart.updateLineItem(123, 2}).then(cart => {\n  // do things with the updated cart.\n});\n```",
             "itemtype": "method",
             "name": "updateLineItem",
@@ -348,7 +381,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 127,
+            "line": 178,
             "description": "Remove line item from cart",
             "itemtype": "method",
             "name": "removeLineItem",
@@ -373,7 +406,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 153,
+            "line": 204,
             "description": "Remove all line items from cart",
             "itemtype": "method",
             "name": "clearLineItems",
@@ -387,7 +420,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 165,
+            "line": 216,
             "description": "force update of cart model on server",
             "itemtype": "method",
             "name": "updateModel",
@@ -401,34 +434,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 18,
-            "description": "name of option (ex. \"Size\", \"Color\")",
-            "itemtype": "property",
-            "name": "name",
-            "type": "String",
-            "class": "Option"
-        },
-        {
-            "file": "src/models/product-model.js",
-            "line": 25,
-            "description": "possible values for selection",
-            "itemtype": "property",
-            "name": "values",
-            "type": "Array",
-            "class": "Option"
-        },
-        {
-            "file": "src/models/product-model.js",
-            "line": 32,
-            "description": "get/set selected option value (ex. \"Large\"). Setting this will update the\nselected value on the model. Throws {Error} if setting selected to value that does not exist for option",
-            "itemtype": "property",
-            "name": "selected",
-            "type": "String",
-            "class": "Option"
-        },
-        {
-            "file": "src/models/product-model.js",
-            "line": 70,
+            "line": 35,
             "description": "Get array of options with nested values. Useful for creating UI for selecting options.\n\n ```javascript\nvar elements = product.options.map(function(option) {\n  return '<select name=\"' + option.name + '\">' + option.values.map(function(value) {\n    return '<option value=\"' + value + '\">' + value + '</option>';\n  }) + '</select>';\n});\n ```",
             "itemtype": "attribute",
             "name": "options",
@@ -437,7 +443,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 113,
+            "line": 84,
             "description": "Retrieve currently selected option values.",
             "itemtype": "attribute",
             "name": "selections",
@@ -446,7 +452,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 125,
+            "line": 96,
             "description": "Retrieve variant for currently selected options",
             "itemtype": "attribute",
             "name": "selectedVariant",
@@ -455,7 +461,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 138,
+            "line": 109,
             "description": "Retrieve image for currently selected variantImage",
             "itemtype": "attribute",
             "name": "selectedVariantImage",
@@ -463,17 +469,44 @@
             "class": "ProductModel"
         },
         {
+            "file": "src/models/product-option-model.js",
+            "line": 17,
+            "description": "name of option (ex. \"Size\", \"Color\")",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-option-model.js",
+            "line": 26,
+            "description": "possible values for selection",
+            "itemtype": "property",
+            "name": "values",
+            "type": "Array",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-option-model.js",
+            "line": 35,
+            "description": "get/set selected option value (ex. \"Large\"). Setting this will update the\nselected value on the model. Throws {Error} if setting selected to value that does not exist for option",
+            "itemtype": "property",
+            "name": "selected",
+            "type": "String",
+            "class": "Option"
+        },
+        {
             "file": "src/config.js",
             "line": 29,
             "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
             "itemtype": "attribute",
             "name": "requiredProperties",
-            "default": "['apiKey', 'channelId', 'myShopifyDomain']",
+            "default": "['apiKey', 'appId', 'myShopifyDomain']",
             "type": "Array",
             "access": "private",
             "tagname": "",
             "class": "Config",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "config"
         },
         {
@@ -487,20 +520,20 @@
             "access": "public",
             "tagname": "",
             "class": "Config",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "config"
         },
         {
             "file": "src/config.js",
             "line": 54,
             "itemtype": "attribute",
-            "name": "channelId",
+            "name": "appId",
             "default": "''",
             "type": "String",
             "access": "public",
             "tagname": "",
             "class": "Config",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "config"
         },
         {
@@ -513,12 +546,25 @@
             "access": "public",
             "tagname": "",
             "class": "Config",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "config"
         },
         {
             "file": "src/shop-client.js",
-            "line": 79,
+            "line": 62,
+            "itemtype": "attribute",
+            "name": "",
+            "default": "{\n products: ListingsAdapter,\n collections: ListingsAdapter,\n carts: CartAdapter\n}",
+            "type": "Object",
+            "access": "protected",
+            "tagname": "",
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 89,
             "description": "Fetch all of a `type`, returning a promise.\n\n```javascript\nclient.fetchAll('products').then(products => {\n  // do things with products\n});\n```",
             "itemtype": "method",
             "name": "fetchAll",
@@ -536,12 +582,12 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 101,
+            "line": 111,
             "description": "Fetch one of a `type`, returning a promise.\n\n```javascript\nclient.fetch('products', 123).then(product => {\n  // do things with the product\n});\n```",
             "itemtype": "method",
             "name": "fetch",
@@ -564,12 +610,12 @@
                 "type": "Promise|BaseModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 125,
+            "line": 135,
             "description": "Fetch many of a `type`, that match `query`\n\n```javascript\nclient.fetchQuery('products', { collection_id: 456 }).then(products => {\n  // do things with the products\n});\n```",
             "itemtype": "method",
             "name": "fetchQuery",
@@ -592,13 +638,13 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 148,
-            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('checkouts', { line_items: [ ... ] }).then(checkout => {\n  // do things with the checkout.\n});\n```",
+            "line": 158,
+            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('carts', { line_items: [ ... ] }).then(cart => {\n  // do things with the cart.\n});\n```",
             "itemtype": "method",
             "name": "create",
             "access": "public",
@@ -610,8 +656,8 @@
                     "type": "String"
                 },
                 {
-                    "name": "attrs",
-                    "description": "attributes to send to the server for creation.",
+                    "name": "modelAttr",
+                    "description": "attributes representing the internal state\nof the model to be persisted to the server.",
                     "type": "Object",
                     "optional": true,
                     "optdefault": "{}"
@@ -622,13 +668,13 @@
                 "type": "Promise|CartModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 172,
-            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('checkouts', { line_items: [ ... ] }).then(checkout => {\n  // do things with the checkout.\n});\n```",
+            "line": 187,
+            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('carts', { line_items: [ ... ] }).then(cart => {\n  // do things with the cart.\n});\n```",
             "itemtype": "method",
             "name": "update",
             "access": "public",
@@ -650,12 +696,12 @@
                 "type": "Promise|CartModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 202,
+            "line": 215,
             "description": "Proxy to serializer's deserialize.",
             "itemtype": "method",
             "name": "deserialize",
@@ -676,6 +722,11 @@
                     "name": "adapter",
                     "description": "The adapter that yielded the payload.",
                     "type": "BaseAdapter"
+                },
+                {
+                    "name": "existingSerializer",
+                    "description": "The serializer to attach. If\nnone is passed, then `this.deserialize` will create one for the type.",
+                    "type": "BaseSerializer"
                 },
                 {
                     "name": "opts",
@@ -700,12 +751,12 @@
                 "type": "BaseModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 231,
+            "line": 264,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('products');\n```",
             "itemtype": "method",
             "name": "fetchAllProducts",
@@ -716,12 +767,12 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 245,
+            "line": 278,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('collections');\n```",
             "itemtype": "method",
             "name": "fetchAllCollections",
@@ -732,12 +783,12 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 259,
+            "line": 292,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('products', 123);\n```",
             "itemtype": "method",
             "name": "fetchProduct",
@@ -755,12 +806,12 @@
                 "type": "Promise|BaseModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 274,
+            "line": 307,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('collections', 123);\n```",
             "itemtype": "method",
             "name": "fetchCollection",
@@ -778,12 +829,12 @@
                 "type": "Promise|BaseModel"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 289,
+            "line": 322,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('products', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryProducts",
@@ -801,12 +852,12 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shop-client.js",
-            "line": 304,
+            "line": 337,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('collections', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryCollections",
@@ -824,13 +875,13 @@
                 "type": "Promise|Array"
             },
             "class": "ShopClient",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shop-client"
         },
         {
             "file": "src/shopify.js",
             "line": 20,
-            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  apiKey: 'abc123',\n  channelId: 123456,\n  myShopifyDomain: 'myshop'\n});\n```",
+            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  apiKey: 'abc123',\n  appId: 123456,\n  myShopifyDomain: 'myshop'\n});\n```",
             "itemtype": "method",
             "name": "buildClient",
             "static": 1,
@@ -848,8 +899,8 @@
                             "type": "String"
                         },
                         {
-                            "name": "channelId",
-                            "description": "The channel from which to read\npublications. Visit `<your-shops-domain>/admin/channels.json` while\nauthenticated to see a list of available channels.",
+                            "name": "appId",
+                            "description": "The app whose listings the client will be\nusing. If you are just modifying a buy button, the buy-button's app id is\n6. Otherwise, obtain the app id of the app you're modifying or extending.",
                             "type": "String"
                         },
                         {
@@ -865,7 +916,7 @@
                 "type": "ShopClient"
             },
             "class": "ShopifyBuy",
-            "module": "js-buy-sdk",
+            "module": "shopify-buy",
             "submodule": "shopify"
         }
     ],

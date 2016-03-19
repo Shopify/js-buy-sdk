@@ -5,23 +5,20 @@ YUI.add("yuidoc-meta", function(Y) {
         "Config",
         "Option",
         "ProductModel",
+        "ProductVariantModel",
         "ShopClient",
         "ShopifyBuy"
     ],
     "modules": [
         "config",
-        "js-buy-sdk",
         "shop-client",
-        "shopify"
+        "shopify",
+        "shopify-buy"
     ],
     "allModules": [
         {
             "displayName": "config",
             "name": "config"
-        },
-        {
-            "displayName": "js-buy-sdk",
-            "name": "js-buy-sdk"
         },
         {
             "displayName": "shop-client",
@@ -31,6 +28,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "shopify",
             "name": "shopify",
             "description": "This namespace contains all globally accessible classes"
+        },
+        {
+            "displayName": "shopify-buy",
+            "name": "shopify-buy"
         }
     ],
     "elements": []

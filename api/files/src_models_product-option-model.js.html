@@ -30,40 +30,69 @@ layout: api
     </form>
 
 <div class="page-header">
-    <h1>shopify <small>Module</small></h1>
+    <h1>src/models/product-option-model.js <small>File</small></h1>
 </div>
 
-<div class="clearfix well well-small">
+<div class="file">
+    <pre class="prettyprint linenums">
+import BaseModel from &#x27;./base-model&#x27;;
+import includes from &#x27;../metal/includes&#x27;;
 
 
-        <div class="foundat">
-            Defined in: <a href="../files/src_shopify.js.html#l11"><code>src&#x2F;shopify.js:11</code></a>
-        </div>
+/**
+  * Class for product option
+  * @class Option
+  * @constructor
+*/
+const ProductOptionModel = BaseModel.extend({
+  constructor() {
+    this.super(...arguments);
 
-</div>
+    this.selected = this.values[0];
+  },
 
+  /**
+    * name of option (ex. &quot;Size&quot;, &quot;Color&quot;)
+    * @property name
+    * @type String
+  */
+  get name() {
+    return this.attrs.name;
+  },
 
-<div class="moduledesc well well-small">
-    <p>This namespace contains all globally accessible classes</p>
+  /**
+    * possible values for selection
+    * @property values
+    * @type Array
+  */
+  get values() {
+    return this.attrs.values;
+  },
 
-</div>
+  /**
+    * get/set selected option value (ex. &quot;Large&quot;). Setting this will update the
+    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
+    * @property selected
+    * @type String
+  */
+  get selected() {
+    return this._selected;
+  },
 
+  set selected(value) {
+    if (includes(this.values, value)) {
+      this._selected = value;
+    } else {
+      throw new Error(&#x60;Invalid option selection for ${this.name}.&#x60;);
+    }
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-            <p>This module provides the following classes:</p>
+    return value;
+  }
+});
 
-            <ul class="module-classes">
-                <li class="module-class">
-                    <a href="../classes/ShopifyBuy.html">
-                        ShopifyBuy
-                    </a>
-                </li>
-            </ul>
-    </div>
+export default ProductOptionModel;
 
-    <div class="yui3-u-1-2">
-    </div>
+    </pre>
 </div>
                     </div>
                 </div>

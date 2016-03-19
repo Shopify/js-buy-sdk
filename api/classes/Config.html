@@ -37,7 +37,7 @@ layout: api
 
 	<div class="well well-small">
             Module: <a href="../modules/config.html">config</a><br>
-            Parent Module: <a href="../modules/js-buy-sdk.html">js-buy-sdk</a>
+            Parent Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
     </div>
 
 
@@ -100,12 +100,14 @@ layout: api
 
 							</li>
 							<li class="param">
-									<code class="param-name">channelId</code>
+									<code class="param-name">appId</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>The channel from which to read
-publications. Visit <code>&lt;your-shops-domain&gt;/admin/channels.json</code> while
-authenticated to see a list of available channels.</p>
+								<div class="param-description"><p>The app whose listings the client will be
+using. If you are just modifying a buy button, the buy-button's app id is</p>
+<ol start="6">
+<li>Otherwise, obtain the app id of the app you're modifying or extending.</li>
+</ol>
 </div>
 
 							</li>
@@ -164,9 +166,9 @@ public api token. Not the shared secret. Set during initialation.</p>
 
 
 </div>
-<div id="attr-channelId" class="attr item public">
-    <a name="config_channelId"></a> 
-    <h3 class="name"><code>channelId</code></h3>
+<div id="attr-appId" class="attr item public">
+    <a name="config_appId"></a> 
+    <h3 class="name"><code>appId</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
 
@@ -252,7 +254,7 @@ public api token. Not the shared secret. Set during initialation.</p>
 
     </div>
 
-        <p><strong>Default:</strong> [&#x27;apiKey&#x27;, &#x27;channelId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
+        <p><strong>Default:</strong> [&#x27;apiKey&#x27;, &#x27;appId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
 
 
 </div>
@@ -270,6 +272,7 @@ public api token. Not the shared secret. Set during initialation.</p>
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -280,7 +283,7 @@ public api token. Not the shared secret. Set during initialation.</p>
 			<h2>Attributes</h2>
 			<ul>
 				<li><a href="#attr-apiKey"><span class="iattr">apiKey</span></a></li>
-				<li><a href="#attr-channelId"><span class="iattr">channelId</span></a></li>
+				<li><a href="#attr-appId"><span class="iattr">appId</span></a></li>
 				<li><a href="#attr-myShopifyDomain"><span class="iattr">myShopifyDomain</span></a></li>
 				<li><a href="#attr-requiredProperties"><span class="iattr">requiredProperties</span></a></li>
 			</ul>
@@ -316,6 +319,10 @@ public api token. Not the shared secret. Set during initialation.</p>
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

@@ -36,66 +36,31 @@ layout: api
 <div class="file">
     <pre class="prettyprint linenums">
 import BaseModel from &#x27;./base-model&#x27;;
-import CoreObject from &#x27;../metal/core-object&#x27;;
+import ProductOptionModel from &#x27;./product-option-model&#x27;;
+import ProductVariantModel from &#x27;./product-variant-model&#x27;;
 import uniq from &#x27;../metal/uniq&#x27;;
-import includes from &#x27;../metal/includes&#x27;;
 
-/**
-  * Class for product option
-  * @class Option
-  * @constructor
-*/
-const Option = CoreObject.extend({
-  constructor(name, values) {
-    this.name = name;
-    this.values = values;
-    this.selected = values[0];
-  },
-
-  /**
-    * name of option (ex. &quot;Size&quot;, &quot;Color&quot;)
-    * @property name
-    * @type String
-  */
-  name: &#x27;&#x27;,
-
-  /**
-    * possible values for selection
-    * @property values
-    * @type Array
-  */
-  values: [],
-
-  /**
-    * get/set selected option value (ex. &quot;Large&quot;). Setting this will update the
-    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
-    * @property selected
-    * @type String
-  */
-  get selected() {
-    return this._selected;
-  },
-
-  set selected(value) {
-    if (includes(this.values, value)) {
-      this._selected = value;
-    } else {
-      throw new Error(&#x60;Invalid option selection for ${this.name}.&#x60;);
-    }
-
-    return value;
-  }
-});
 
 /**
    * Class for products returned by fetch(&#x27;product&#x27;)
    * @class ProductModel
    * @constructor
  */
-
 const ProductModel = BaseModel.extend({
   constructor() {
     this.super(...arguments);
+  },
+
+  get id() {
+    return this.attrs.product_id;
+  },
+
+  get title() {
+    return this.attrs.title;
+  },
+
+  get images() {
+    return this.attrs.images;
   },
 
   get memoized() {
@@ -124,13 +89,13 @@ const ProductModel = BaseModel.extend({
     }
 
     const baseOptions = this.attrs.options;
-    const variants = this.attrs.variants;
+    const variants = this.variants;
 
     this.memoized.options = baseOptions.map(option =&gt; {
       const name = option.name;
 
       const dupedValues = variants.reduce((valueList, variant) =&gt; {
-        const optionValueForOption = variant.option_values.filter(optionValue =&gt; {
+        const optionValueForOption = variant.optionValues.filter(optionValue =&gt; {
           return optionValue.name === option.name;
         })[0];
 
@@ -141,10 +106,16 @@ const ProductModel = BaseModel.extend({
 
       const values = uniq(dupedValues);
 
-      return new Option(name, values);
+      return new ProductOptionModel({ name, values });
     });
 
     return this.memoized.options;
+  },
+
+  get variants() {
+    return this.attrs.variants.map(variant =&gt; {
+      return new ProductVariantModel({ variant, product: this }, { config: this.config });
+    });
   },
 
   /**
@@ -167,7 +138,7 @@ const ProductModel = BaseModel.extend({
   get selectedVariant() {
     const variantTitle = this.selections.join(&#x27; / &#x27;);
 
-    return this.attrs.variants.filter(variant =&gt; {
+    return this.variants.filter(variant =&gt; {
       return variant.title === variantTitle;
     })[0];
   },
@@ -178,14 +149,7 @@ const ProductModel = BaseModel.extend({
     * @type {Object}
   */
   get selectedVariantImage() {
-    const selectedVariantId = this.selectedVariant.id;
-    const images = this.attrs.images;
-    const primaryImage = images[0];
-    const variantImage = images.filter(image =&gt; {
-      return image.variant_ids.indexOf(selectedVariantId) !== -1;
-    })[0];
-
-    return (variantImage || primaryImage);
+    return this.selectedVariant.image;
   }
 });
 
@@ -204,6 +168,7 @@ export default ProductModel;
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -241,6 +206,10 @@ export default ProductModel;
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',
