@@ -38,7 +38,7 @@ layout: api
 import CoreObject from &#x27;./metal/core-object&#x27;;
 
 /**
- * @module js-buy-sdk
+ * @module shopify-buy
  * @submodule config
  */
 
@@ -48,9 +48,9 @@ const Config = CoreObject.extend({
    * @constructor
    * @param {Object} attrs A hash of required config data.
    * @param {String} attrs.apiKey Your api client&#x27;s public token
-   * @param {String} attrs.channelId The channel from which to read
-   * publications. Visit &#x60;&lt;your-shops-domain&gt;/admin/channels.json&#x60; while
-   * authenticated to see a list of available channels.
+   * @param {String} attrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button&#x27;s app id is
+   * 6. Otherwise, obtain the app id of the app you&#x27;re modifying or extending.
    * @param {String} attrs.myShopifyDomain You shop&#x27;s &#x60;myshopify.com&#x60; domain.
    */
   constructor(attrs) {
@@ -67,13 +67,13 @@ const Config = CoreObject.extend({
    * The apiKey for authenticating against shopify. This is your api client&#x27;s
    * public api token. Not the shared secret. Set during initialation.
    * @attribute requiredProperties
-   * @default [&#x27;apiKey&#x27;, &#x27;channelId&#x27;, &#x27;myShopifyDomain&#x27;]
+   * @default [&#x27;apiKey&#x27;, &#x27;appId&#x27;, &#x27;myShopifyDomain&#x27;]
    * @type Array
    * @private
    */
   requiredProperties: [
     &#x27;apiKey&#x27;,
-    &#x27;channelId&#x27;,
+    &#x27;appId&#x27;,
     &#x27;myShopifyDomain&#x27;
   ],
 
@@ -89,12 +89,12 @@ const Config = CoreObject.extend({
   apiKey: &#x27;&#x27;,
 
   /**
-   * @attribute channelId
+   * @attribute appId
    * @default &#x27;&#x27;
    * @type String
    * @public
    */
-  channelId: &#x27;&#x27;,
+  appId: &#x27;&#x27;,
 
   /**
    * @attribute myShopifyDomain
@@ -120,6 +120,7 @@ export default Config;
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -157,6 +158,10 @@ export default Config;
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

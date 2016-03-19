@@ -37,7 +37,7 @@ layout: api
 
 	<div class="well well-small">
             Module: <a href="../modules/shopify.html">shopify</a><br>
-            Parent Module: <a href="../modules/js-buy-sdk.html">js-buy-sdk</a>
+            Parent Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
     </div>
 
 
@@ -93,7 +93,7 @@ layout: api
 	<div class="description"><p>Create a ShopClient. This is the main entry point to the SDK.</p>
 <pre class="code prettyprint"><code class="language-javascript">const client = ShopifyBuy.buildClient({
   apiKey: 'abc123',
-  channelId: 123456,
+  appId: 123456,
   myShopifyDomain: 'myshop'
 });
 </code></pre>
@@ -121,12 +121,14 @@ layout: api
 
 							</li>
 							<li class="param">
-									<code class="param-name">channelId</code>
+									<code class="param-name">appId</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>The channel from which to read
-publications. Visit <code>&lt;your-shops-domain&gt;/admin/channels.json</code> while
-authenticated to see a list of available channels.</p>
+								<div class="param-description"><p>The app whose listings the client will be
+using. If you are just modifying a buy button, the buy-button's app id is</p>
+<ol start="6">
+<li>Otherwise, obtain the app id of the app you're modifying or extending.</li>
+</ol>
 </div>
 
 							</li>
@@ -168,6 +170,7 @@ domain.</p>
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -211,6 +214,10 @@ domain.</p>
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',

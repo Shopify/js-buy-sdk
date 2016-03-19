@@ -37,7 +37,7 @@ layout: api
 
 	<div class="well well-small">
             Module: <a href="../modules/shop-client.html">shop-client</a><br>
-            Parent Module: <a href="../modules/js-buy-sdk.html">js-buy-sdk</a>
+            Parent Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
     </div>
 
 
@@ -114,7 +114,7 @@ interaction</p>
 						<code>type</code>
 				</li>
 				<li class="arg">
-						<code class="optional">attrs={}</code>
+						<code class="optional">modelAttr={}</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -132,7 +132,7 @@ interaction</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L148"><code>src&#x2F;shop-client.js:148</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L158"><code>src&#x2F;shop-client.js:158</code></a>
 		</p>
 
 
@@ -140,8 +140,8 @@ interaction</p>
 	</div>
 
 	<div class="description"><p>Create an instance of <code>type</code>, optionally including <code>attrs</code>.</p>
-<pre class="code prettyprint"><code class="language-javascript">client.create('checkouts', { line_items: [ ... ] }).then(checkout =&gt; {
-  // do things with the checkout.
+<pre class="code prettyprint"><code class="language-javascript">client.create('carts', { line_items: [ ... ] }).then(cart =&gt; {
+  // do things with the cart.
 });
 </code></pre>
 </div>
@@ -160,12 +160,13 @@ interaction</p>
 
 				</li>
 				<li class="param">
-						<code class="param-name optional">[attrs={}]</code>
+						<code class="param-name optional">[modelAttr={}]</code>
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 						<span class="flag optional" title="This parameter is optional.">optional</span>
 
 
-					<div class="param-description"><p>attributes to send to the server for creation.</p>
+					<div class="param-description"><p>attributes representing the internal state
+of the model to be persisted to the server.</p>
 </div>
 
 				</li>
@@ -200,6 +201,9 @@ interaction</p>
 						<code>adapter</code>
 				</li>
 				<li class="arg">
+						<code>existingSerializer</code>
+				</li>
+				<li class="arg">
 						<code>opts</code>
 				</li>
 			</ul><span class="paren">)</span>
@@ -218,7 +222,7 @@ interaction</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L202"><code>src&#x2F;shop-client.js:202</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L215"><code>src&#x2F;shop-client.js:215</code></a>
 		</p>
 
 
@@ -256,6 +260,16 @@ interaction</p>
 
 
 					<div class="param-description"><p>The adapter that yielded the payload.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">existingSerializer</code>
+						<span class="type">BaseSerializer</span>
+
+
+					<div class="param-description"><p>The serializer to attach. If
+none is passed, then <code>this.deserialize</code> will create one for the type.</p>
 </div>
 
 				</li>
@@ -330,7 +344,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L101"><code>src&#x2F;shop-client.js:101</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L111"><code>src&#x2F;shop-client.js:111</code></a>
 		</p>
 
 
@@ -406,7 +420,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L79"><code>src&#x2F;shop-client.js:79</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L89"><code>src&#x2F;shop-client.js:89</code></a>
 		</p>
 
 
@@ -466,7 +480,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L245"><code>src&#x2F;shop-client.js:245</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L278"><code>src&#x2F;shop-client.js:278</code></a>
 		</p>
 
 
@@ -509,7 +523,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L231"><code>src&#x2F;shop-client.js:231</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L264"><code>src&#x2F;shop-client.js:264</code></a>
 		</p>
 
 
@@ -558,7 +572,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L274"><code>src&#x2F;shop-client.js:274</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L307"><code>src&#x2F;shop-client.js:307</code></a>
 		</p>
 
 
@@ -622,7 +636,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L259"><code>src&#x2F;shop-client.js:259</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L292"><code>src&#x2F;shop-client.js:292</code></a>
 		</p>
 
 
@@ -689,7 +703,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L125"><code>src&#x2F;shop-client.js:125</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L135"><code>src&#x2F;shop-client.js:135</code></a>
 		</p>
 
 
@@ -764,7 +778,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L304"><code>src&#x2F;shop-client.js:304</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L337"><code>src&#x2F;shop-client.js:337</code></a>
 		</p>
 
 
@@ -828,7 +842,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L289"><code>src&#x2F;shop-client.js:289</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L322"><code>src&#x2F;shop-client.js:322</code></a>
 		</p>
 
 
@@ -895,7 +909,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L172"><code>src&#x2F;shop-client.js:172</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L187"><code>src&#x2F;shop-client.js:187</code></a>
 		</p>
 
 
@@ -903,8 +917,8 @@ models</p>
 	</div>
 
 	<div class="description"><p>Create an instance of <code>type</code>, optionally including <code>attrs</code>.</p>
-<pre class="code prettyprint"><code class="language-javascript">client.create('checkouts', { line_items: [ ... ] }).then(checkout =&gt; {
-  // do things with the checkout.
+<pre class="code prettyprint"><code class="language-javascript">client.create('carts', { line_items: [ ... ] }).then(cart =&gt; {
+  // do things with the cart.
 });
 </code></pre>
 </div>
@@ -951,6 +965,44 @@ to persist to the server.</p>
     </div>
 
 
+    <div id="attrs" class="page-section">
+        <h2 class="off-left">Attributes</h2>
+
+<div id="attr-" class="attr item protected">
+    <a name="config_"></a> 
+    <h3 class="name"><code></code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+        <span class="flag protected">protected</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_shop-client.js.html#l62"><code>src&#x2F;shop-client.js:62</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> {
+ products: ListingsAdapter,
+ collections: ListingsAdapter,
+ carts: CartAdapter
+}</p>
+
+
+</div>
+    </div>
 
 
                     </div>
@@ -964,6 +1016,7 @@ to persist to the server.</p>
             <li><a href="../classes/Config.html">Config</a></li>
             <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
     </ul>
@@ -987,6 +1040,12 @@ to persist to the server.</p>
 		</li>
 
 
+		<li>
+			<h2>Attributes</h2>
+			<ul>
+				<li><a href="#attr-"><span class="iattr"></span></a></li>
+			</ul>
+		</li>
 
 	</ul>
 
@@ -1018,6 +1077,10 @@ to persist to the server.</p>
     YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
     })
     YUIDocs.classes.push({
       name: 'ShopClient',
