@@ -243,6 +243,21 @@ const ShopClient = CoreObject.extend({
     return serializedPayload;
   },
 
+  /**
+    * Convenience wrapper for {{#crossLink "ShopClient/create:method"}}
+    * {{/crossLink}}.
+    *
+    * ```javascript
+    * client.createCart().then(cart => {
+    *   // do something with cart
+    * });
+    * ```
+    *
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @method createCart
+    * @public
+    * @return {Promise|CartModel} - new cart instance.
+  */
   createCart(userAttrs = {}) {
     const baseAttrs = {
       line_items: []
@@ -255,6 +270,19 @@ const ShopClient = CoreObject.extend({
     return this.create('carts', attrs);
   },
 
+  /**
+    * Convenience wrapper for {{#crossLink "ShopClient/update:method"}}
+    * {{/crossLink}}. Equivalent to:
+    *
+    * ```javascript
+    * client.update('cart');
+    * ```
+    *
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @method createCart
+    * @public
+    * @return {Promise|CartModel} - updated cart instance.
+  */
   updateCart(updatedCart) {
     return this.update('carts', updatedCart);
   },
