@@ -39,4 +39,4 @@ npm install js-buy-sdk
 
 
 ## Polyfills
-Quisque sed est dictum, mollis massa non, varius metus. Proin sed nibh eu elit elementum suscipit et in odio. Sed magna mauris, convallis id sodales sed, placerat eget velit. Etiam vel ante elit. Nam eget egestas mauris. Pellentesque vehicula justo sit amet tristique malesuada. Sed ut vehicula eros. Etiam convallis magna sit amet nulla iaculis, at finibus quam rutrum. Fusce ac congue ante, at eleifend ligula.
+The JavaScript Buy SDK uses the [Fetch API](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) to make network requests, and [Promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) for managing asynchronous behaviour. Fetch is natively supported in Chrome, Firefox, and Opera, and Promises are supported in Chrome, Firefox, Opera, Safari, and Edge. If you are targeting those browsers specifically, you can include the un-polyfilled version of the SDK. If you are targeting broader browser support, you will want to include the polyfilled version, which includes polyfills for both the Promises and Fetch APIs. 
