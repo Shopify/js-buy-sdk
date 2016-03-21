@@ -19,6 +19,12 @@ Using the JS Buy SDK, you can:
 
 This tool is intended for use by developers who are experienced with JavaScript.
 
+## Current Support
+
+| Internet Explorer     | Chrome, Edge, Firefox     | Safari   | Opera   | iOS   | Android   |
+| :--------------------- | :------------------------ | :------- | :------ | :---- | :-------- |
+| 9+                     | (Current - 1) or Current  | 5.1+     | 12.1x, (Current - 1) or Current | 6.1+ | 2.3, 4.0+
+
 ## Including the Buy SDK
 
 ```html
