@@ -187,3 +187,29 @@ blockquote,
 .marketing-markdown li ul {
   margin-top: 10px;
 }
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 1px solid #ddd;
+  background-color: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+  * {
+    border: none;
+    background: none;
+  }
+
+  th {
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  th,
+  td {
+    padding: 8px 15px;
+  }
+
+}
