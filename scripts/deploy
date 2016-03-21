@@ -57,6 +57,7 @@ Uploader.prototype.uploadDistAssets = function () {
     this.distAssets.forEach(function (file) {
       if (file.indexOf(FILENAME_FILTER) > -1) {
         this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, tag));
+        this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, 'latest'));
       }
     }.bind(this));
   }.bind(this));
