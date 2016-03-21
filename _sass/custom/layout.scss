@@ -22,7 +22,7 @@ main {
 
 .docs-sidebar {
   @include shopify-breakpoint($tablet-down) {
-    padding: 15px 30px;
+    padding: 60px 30px 15px;
   }
 
   @include shopify-breakpoint($desktop-up) {
@@ -45,8 +45,28 @@ main {
 }
 
 .docs-shopify-logo {
+
+  img {
+    margin-bottom: 10px;
+    max-width: 100px;
+  }
+
   @include shopify-breakpoint($tablet-down) {
-    display: none;
+    background: #232323;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 8px 30px;
+
+    img {
+      margin-bottom: 0;
+      max-width: 80px;
+    }
+
+    p {
+      display: none;
+    }
   }
 
   @include shopify-breakpoint($desktop-up) {
@@ -60,11 +80,6 @@ main {
     font-size: 15px;
     font-weight: 500;
     text-decoration: underline;
-  }
-
-  img {
-    max-width: 100px;
-    margin-bottom: 10px;
   }
 }
 
