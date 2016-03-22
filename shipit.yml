@@ -1,3 +1,5 @@
+machine:
+  cleanup: false
 deploy:
   override:
     - npm install
