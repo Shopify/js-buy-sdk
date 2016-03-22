@@ -15,7 +15,7 @@ the [examples](/js-buy-sdk/examples).
 
 ## Creating a single "Buy Button" that links to checkout
 
-Once you have created your `ShopClient`, fetch information about your product to display in your UI:
+Once you have created your `ShopClient` ([see documentation here](/js-buy-sdk/#creating-a-shop-client)), fetch information about your product to display in your UI:
 
 ```js
 var product;
