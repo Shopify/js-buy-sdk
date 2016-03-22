@@ -23,7 +23,7 @@ $(function() {
       product.selectedVariantImage.src +
       "' >" +
     "<h2 class='product__title'>" +
-      product.attrs.title +
+      product.title +
     "</h2>" +
     "<a class='product__buy' href='" +
       product.selectedVariant.checkoutUrl(1) +
