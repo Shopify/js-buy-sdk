@@ -1,6 +1,6 @@
 {
   "name": "shopify-buy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "lib/shopify.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
