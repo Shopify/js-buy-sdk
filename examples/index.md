@@ -254,7 +254,8 @@ function closeCart() {
   }
 
   .product__buy,
-  .button {
+  .button,
+  .btn {
     background: #7ab55c;
     font-size: 16px;
     padding: 0.5625em 1.875em !important;
@@ -269,10 +270,17 @@ function closeCart() {
   }
 
   .product__buy:hover,
-  .button:hover {
+  .button:hover,
+  .btn:hover {
     text-decoration: none;
     background: #6aa74c;
     text-shadow: none;
+  }
+
+  .btn--cart-checkout {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
   }
 
   .product .variant-title,
@@ -316,8 +324,7 @@ function closeCart() {
     z-index: 5;
   }
 
-  .cart-title {
-    // color: $color-title;
+  h2.cart-title {
     display: inline-block;
     font-weight: 400;
     font-size: 18px;
@@ -326,6 +333,8 @@ function closeCart() {
     white-space: nowrap;
     text-overflow: ellipsis;
     max-width: 90%;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .btn--close {
