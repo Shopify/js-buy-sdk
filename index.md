@@ -21,9 +21,30 @@ This tool is intended for use by developers who are experienced with JavaScript.
 
 ## Current Support
 
-| Internet Explorer     | Chrome, Edge, Firefox     | Safari   | Opera   | iOS   | Android   |
-| :--------------------- | :------------------------ | :------- | :------ | :---- | :-------- |
-| 9+                     | (Current - 1) or Current  | 5.1+     | 12.1x, (Current - 1) or Current | 6.1+ | 2.3, 4.0+
+<div markdown="0" class="compatibility-table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>Internet Explorer</th>
+        <th>Chrome, Edge, Firefox</th>
+        <th>Safari</th>
+        <th>Opera</th>
+        <th>iOS</th>
+        <th>Android</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>9+</td>
+        <td>(Current - 1) or Current</td>
+        <td>5.1+</td>
+        <td>12.1x, (Current - 1) or Current</td>
+        <td>6.1+</td>
+        <td>2.3, 4.0+</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ## Including the Buy SDK
 
