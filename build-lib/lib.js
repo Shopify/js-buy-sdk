@@ -97,7 +97,14 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       outputFile: `${pkg.name}.amd.js`
     });
 
-    tree = mergeTrees([amdOutput, polyfillTree, globalsOutput]);
+    const polyFilledGlobalsOutput = concat(mergeTrees([globalsOutput, polyfillTree]), {
+      headerFiles: ['polyfills.js'],
+      inputFiles: `${pkg.name}.globals.js`,
+      outputFile: `${pkg.name}.polyfilled.globals.js`,
+      sourceMapConfig: { enabled: false }
+    });
+
+    tree = mergeTrees([amdOutput, polyfillTree, globalsOutput, polyFilledGlobalsOutput]);
   }
 
   return tree;
