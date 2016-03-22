@@ -13,8 +13,8 @@ To use any of the examples, we first have to set up a Shopify Client in our Java
 $(function() {
   var client = ShopifyBuy.buildClient({
     apiKey: 'your-api-key',
-    myShopifyDomain: 'your-shop-name',
-    appId: 'your-app-id'
+    myShopifyDomain: 'your-myshopify-domain',
+    appId: '6'
   });
 });
 ```
