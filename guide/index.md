@@ -32,13 +32,13 @@ you want to the cart:
 var variant = product.variants[0];
 var checkoutURL;
 
-shopClient.create('checkouts', {
+shopClient.createCart({
   line_items: [{
     id: variant.id,
     quantity: 1
   }]
 }).then(function (cart) {
-  checkoutURL = cart.attrs.web_url;
+  checkoutURL = cart.checkoutUrl;
 });
 ```
 
@@ -59,7 +59,7 @@ add and remove variants from.
 
 ```js
 var cart;
-shopClient.create('checkouts').then(function (cart) {
+shopClient.createCart().then(function (cart) {
   // do something with updated cart
 });
 ```
