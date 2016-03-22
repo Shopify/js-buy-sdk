@@ -294,7 +294,16 @@
     "classitems": [
         {
             "file": "src/models/cart-model.js",
-            "line": 37,
+            "line": 33,
+            "description": "get ID for current cart",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 42,
             "description": "Get current line items for cart",
             "itemtype": "property",
             "name": "lineItems",
@@ -303,7 +312,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 46,
+            "line": 51,
             "description": "Get current subtotal price for all line items",
             "itemtype": "property",
             "name": "subtotal",
@@ -312,7 +321,16 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 72,
+            "line": 64,
+            "description": "Get checkout URL for current cart",
+            "itemtype": "property",
+            "name": "checkoutUrl",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 82,
             "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({id: 123, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
             "itemtype": "method",
             "name": "addVariants",
@@ -351,7 +369,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 144,
+            "line": 154,
             "description": "Update line item quantity\n```javascript\ncart.updateLineItem(123, 2}).then(cart => {\n  // do things with the updated cart.\n});\n```",
             "itemtype": "method",
             "name": "updateLineItem",
@@ -381,7 +399,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 178,
+            "line": 188,
             "description": "Remove line item from cart",
             "itemtype": "method",
             "name": "removeLineItem",
@@ -406,7 +424,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 204,
+            "line": 214,
             "description": "Remove all line items from cart",
             "itemtype": "method",
             "name": "clearLineItems",
@@ -420,7 +438,7 @@
         },
         {
             "file": "src/models/cart-model.js",
-            "line": 216,
+            "line": 226,
             "description": "force update of cart model on server",
             "itemtype": "method",
             "name": "updateModel",
@@ -434,7 +452,34 @@
         },
         {
             "file": "src/models/product-model.js",
+            "line": 17,
+            "description": "Product unique ID",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 26,
+            "description": "Product title",
+            "itemtype": "property",
+            "name": "title",
+            "type": "{String}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
             "line": 35,
+            "description": "All images associated with product.",
+            "itemtype": "property",
+            "name": "images",
+            "type": "{Array} array of image objects.",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 50,
             "description": "Get array of options with nested values. Useful for creating UI for selecting options.\n\n ```javascript\nvar elements = product.options.map(function(option) {\n  return '<select name=\"' + option.name + '\">' + option.values.map(function(value) {\n    return '<option value=\"' + value + '\">' + value + '</option>';\n  }) + '</select>';\n});\n ```",
             "itemtype": "attribute",
             "name": "options",
@@ -443,7 +488,16 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 84,
+            "line": 93,
+            "description": "All variants of a product.",
+            "itemtype": "property",
+            "name": "variants",
+            "type": "{Array|ProductVariantModel} array of ProductVariantModel instances.",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 104,
             "description": "Retrieve currently selected option values.",
             "itemtype": "attribute",
             "name": "selections",
@@ -452,7 +506,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 96,
+            "line": 115,
             "description": "Retrieve variant for currently selected options",
             "itemtype": "attribute",
             "name": "selectedVariant",
@@ -461,7 +515,7 @@
         },
         {
             "file": "src/models/product-model.js",
-            "line": 109,
+            "line": 128,
             "description": "Retrieve image for currently selected variantImage",
             "itemtype": "attribute",
             "name": "selectedVariantImage",
@@ -494,6 +548,110 @@
             "name": "selected",
             "type": "String",
             "class": "Option"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 14,
+            "description": "Variant unique ID",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 23,
+            "description": "ID of product variant belongs to",
+            "itemtype": "property",
+            "name": "productId",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 32,
+            "description": "Title of variant",
+            "itemtype": "property",
+            "name": "title",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 41,
+            "description": "Title of product variant belongs to",
+            "itemtype": "property",
+            "name": "productTitle",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 50,
+            "description": "<a href=\"https://docs.shopify.com/manual/products/promoting-marketing/sales\">\nCompare at</a> price for variant formatted as currency.",
+            "itemtype": "property",
+            "name": "compareAtPrice",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 61,
+            "description": "Price of variant, formatted as currency",
+            "itemtype": "property",
+            "name": "price",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 70,
+            "description": "Variant weight in grams",
+            "itemtype": "property",
+            "name": "grams",
+            "type": "{Number}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 79,
+            "description": "Option values associated with this variant, ex {name: \"color\", value: \"Blue\"}",
+            "itemtype": "property",
+            "name": "optionValues",
+            "type": "{Array|Object}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 88,
+            "description": "Image for variant",
+            "itemtype": "property",
+            "name": "image",
+            "type": "{Object}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 105,
+            "description": "Checkout URL for purchasing variant with quantity.",
+            "itemtype": "method",
+            "name": "checkoutUrl",
+            "params": [
+                {
+                    "name": "quantity ",
+                    "description": "quantity of variant",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": " 1"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "Checkout URL",
+                "type": "String"
+            },
+            "class": "ProductVariantModel"
         },
         {
             "file": "src/config.js",
@@ -756,7 +914,57 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 264,
+            "line": 246,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/create:method\"}}\n{{/crossLink}}.\n\n```javascript\nclient.createCart().then(cart => {\n  // do something with cart\n});\n```",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "attributes representing the internal state of the cart to be persisted to the server.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "itemtype": "method",
+            "name": "createCart",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- new cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 273,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/update:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.update('cart');\n```",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "attributes representing the internal state of the cart to be persisted to the server.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "itemtype": "method",
+            "name": "createCart",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 292,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('products');\n```",
             "itemtype": "method",
             "name": "fetchAllProducts",
@@ -772,7 +980,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 278,
+            "line": 306,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('collections');\n```",
             "itemtype": "method",
             "name": "fetchAllCollections",
@@ -788,7 +996,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 292,
+            "line": 320,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('products', 123);\n```",
             "itemtype": "method",
             "name": "fetchProduct",
@@ -811,7 +1019,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 307,
+            "line": 335,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetch:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetch('collections', 123);\n```",
             "itemtype": "method",
             "name": "fetchCollection",
@@ -834,7 +1042,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 322,
+            "line": 350,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('products', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryProducts",
@@ -857,7 +1065,7 @@
         },
         {
             "file": "src/shop-client.js",
-            "line": 337,
+            "line": 365,
             "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchQuery:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchQuery('collections', { query: 'options' });\n```",
             "itemtype": "method",
             "name": "fetchQueryCollections",
