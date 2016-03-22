@@ -73,11 +73,13 @@ main {
     position: fixed;
     bottom: 40px;
     left: 40px;
+    width: 220px;
+    background: #30373b;
   }
 
   p {
     margin-bottom: 0;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 500;
     text-decoration: underline;
   }
