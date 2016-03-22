@@ -71,9 +71,9 @@ shopClient.fetchProduct(1234)
 To create a cart, use the `client.createCart()` function:
 
 ```js
-var myCart;
+var cart;
 shopClient.createCart.then(function (newCart) {
-  myCart = newCart;
+  cart = newCart;
   // do something with updated cart
 });
 ```
@@ -88,7 +88,6 @@ The `update` call will return a promise which returns the updated model.
 cart.addVariants({variant: product.selectedVariant, quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
-
 ```
 
 ### Creating a checkout URL
