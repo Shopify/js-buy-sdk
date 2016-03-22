@@ -135,7 +135,7 @@ When a product variant is added to, or removed from, the cart, the `addVariantTo
 ```js
 ...
 
-var $cartLineItems = checkout.attrs.line_items.map(function (lineItem, index) {
+var $cartLineItems = checkout.lineItems.map(function (lineItem, index) {
   var $lineItemTemplate = $(lineItemEmptyTemplate);
   var itemImage = lineItemImages[lineItem.variant_id];
   $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
