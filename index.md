@@ -35,7 +35,7 @@ This tool is intended for use by developers who are experienced with JavaScript.
 
 The Client is the primary interface through which you make requests using the JS Buy SDK.
 You will need your `myshopify.com` domain, API key, and application ID to create your client and
-begin making requests. [Where do I find my API Key and application ID?](https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id)
+begin making requests. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id" target="_blank">Where do I find my API Key and application ID?</a>
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
@@ -45,7 +45,7 @@ var shopClient = ShopifyBuy.buildClient({
 });
 ```
 
-> Note: You will need to publish the product/[collection](https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#object-visibility) you wish to interact with to the
+> Note: You will need to publish the product/<a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#object-visibility" target="_blank">collection</a> you wish to interact with to the
 > "Buy Button" channel in Shopify
 
 ## Making a request
@@ -54,7 +54,7 @@ You can now call a `fetch` method on your client to retrieve products or collect
 All `fetch` methods return a promise which will return a `Cart` or `Collection` model for `fetchProduct`
 or `fetchCollection`, or an array of `Cart` or `Collection` models for `fetchAllProducts` or `fetchAllCollection`.
 
-To request an individual resource, you will need to pass that resource's ID as the first argument. [How do I find my resource ID?](https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#retrieving-products)
+To request an individual resource, you will need to pass that resource's ID as the first argument. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#retrieving-products" target="_blank">How do I find my resource ID?</a>
 
 ```js
 shopClient.fetchProduct(1234)
