@@ -185,6 +185,142 @@ of the model to be persisted to the server.</p>
 		</div>
 
 </div>
+<div id="method-createCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>createCart</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">attrs={}</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L273"><code>src&#x2F;shop-client.js:273</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_update" class="crosslink">update</a>. Equivalent to:</p>
+<pre class="code prettyprint"><code class="language-javascript">client.update('cart');
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[attrs={}]</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to the server.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<ul>
+<li>updated cart instance.</li>
+</ul>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-createCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>createCart</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">attrs={}</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L246"><code>src&#x2F;shop-client.js:246</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_create" class="crosslink">create</a>.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.createCart().then(cart =&gt; {
+  // do something with cart
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[attrs={}]</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to the server.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<ul>
+<li>new cart instance.</li>
+</ul>
+
+			</div>
+		</div>
+
+</div>
 <div id="method-deserialize" class="method item private">
 	<div class="method-signature">
 	<span class="name"><code>deserialize</code></span>
@@ -480,7 +616,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L278"><code>src&#x2F;shop-client.js:278</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L306"><code>src&#x2F;shop-client.js:306</code></a>
 		</p>
 
 
@@ -523,7 +659,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L264"><code>src&#x2F;shop-client.js:264</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L292"><code>src&#x2F;shop-client.js:292</code></a>
 		</p>
 
 
@@ -572,7 +708,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L307"><code>src&#x2F;shop-client.js:307</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L335"><code>src&#x2F;shop-client.js:335</code></a>
 		</p>
 
 
@@ -636,7 +772,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L292"><code>src&#x2F;shop-client.js:292</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L320"><code>src&#x2F;shop-client.js:320</code></a>
 		</p>
 
 
@@ -778,7 +914,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L337"><code>src&#x2F;shop-client.js:337</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L365"><code>src&#x2F;shop-client.js:365</code></a>
 		</p>
 
 
@@ -842,7 +978,7 @@ models</p>
 	<div class="meta">
 				<p>
 				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L322"><code>src&#x2F;shop-client.js:322</code></a>
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L350"><code>src&#x2F;shop-client.js:350</code></a>
 		</p>
 
 
@@ -1025,6 +1161,8 @@ to persist to the server.</p>
       <h2>Methods</h2>
 			<ul>
 				<li><a href="#method-create"><span class="im">create</span></a></li>
+				<li><a href="#method-createCart"><span class="im">createCart</span></a></li>
+				<li><a href="#method-createCart"><span class="im">createCart</span></a></li>
 				<li><a href="#method-deserialize"><span class="im">deserialize</span></a></li>
 				<li><a href="#method-fetch"><span class="im">fetch</span></a></li>
 				<li><a href="#method-fetchAll"><span class="im">fetchAll</span></a></li>

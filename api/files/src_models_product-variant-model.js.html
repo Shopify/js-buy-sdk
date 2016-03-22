@@ -48,38 +48,85 @@ const ProductVariantModel = BaseModel.extend({
     this.super(...arguments);
   },
 
+  /**
+    * Variant unique ID
+    * @property id
+    * @type {String}
+  */
   get id() {
     return this.attrs.variant.id;
   },
 
+  /**
+    * ID of product variant belongs to
+    * @property productId
+    * @type {String}
+  */
   get productId() {
     return this.attrs.product.id;
   },
 
+  /**
+    * Title of variant
+    * @property title
+    * @type {String}
+  */
   get title() {
     return this.attrs.variant.title;
   },
 
+  /**
+    * Title of product variant belongs to
+    * @property productTitle
+    * @type {String}
+  */
   get productTitle() {
     return this.attrs.product.title;
   },
 
+  /**
+    * &lt;a href=&quot;https://docs.shopify.com/manual/products/promoting-marketing/sales&quot;&gt;
+    * Compare at&lt;/a&gt; price for variant formatted as currency.
+    * @property compareAtPrice
+    * @type {String}
+  */
   get compareAtPrice() {
     return this.attrs.variant.compare_at_price;
   },
 
+
+  /**
+    * Price of variant, formatted as currency
+    * @property price
+    * @type {String}
+  */
   get price() {
     return this.attrs.variant.price;
   },
 
+  /**
+    * Variant weight in grams
+    * @property grams
+    * @type {Number}
+  */
   get grams() {
     return this.attrs.variant.grams;
   },
 
+  /**
+    * Option values associated with this variant, ex {name: &quot;color&quot;, value: &quot;Blue&quot;}
+    * @property optionValues
+    * @type {Array|Object}
+  */
   get optionValues() {
     return this.attrs.variant.option_values;
   },
 
+  /**
+    * Image for variant
+    * @property image
+    * @type {Object}
+  */
   get image() {
     const id = this.id;
     const images = this.attrs.product.images;
@@ -92,6 +139,13 @@ const ProductVariantModel = BaseModel.extend({
     return (variantImage || primaryImage);
   },
 
+  /**
+    * Checkout URL for purchasing variant with quantity.
+    * @method checkoutUrl
+    * @param {Number} [quantity = 1] quantity of variant
+    * @public
+    * @return {String} Checkout URL
+  */
   checkoutUrl(quantity = 1) {
     const config = this.config;
     const baseUrl = &#x60;https://${config.myShopifyDomain}.myshopify.com/cart&#x60;;
