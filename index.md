@@ -39,8 +39,8 @@ begin making requests. [Where do I find my API Key and application ID?](#TODO)
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
-  apiKey: '123',
-  myShopifyDomain: 'embeds',
+  apiKey: 'your-api-key',
+  myShopifyDomain: 'your-myshopify-domain',
   appId: '6'
 });
 ```
