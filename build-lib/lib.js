@@ -88,8 +88,7 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       globalsOutput,
       polyFilledGlobalsOutput,
       commonOutput,
-      polyFilledCommonOutput,
-      nodeLibOutput
+      polyFilledCommonOutput
     ]);
 
     const minifiedTree = uglifyJavaScript(funnel(tree, {
@@ -98,7 +97,7 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       }
     }));
 
-    tree = mergeTrees([tree, minifiedTree]);
+    tree = mergeTrees([tree, minifiedTree, nodeLibOutput]);
 
   } else {
     const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
