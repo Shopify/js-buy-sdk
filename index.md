@@ -34,14 +34,14 @@ This tool is intended for use by developers who are experienced with JavaScript.
 ## Creating a Shop Client
 
 The Client is the primary interface through which you make requests using the JS Buy SDK.
-You will need your `myshopify.com` domain, API key, and channel ID to create your client and
-begin making requests. [Where do I find my API Key and channel ID?](#)
+You will need your `myshopify.com` domain, API key, and application ID to create your client and
+begin making requests. [Where do I find my API Key and application ID?](#)
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
   apiKey: '123',
   myShopifyDomain: 'haris-mahmood',
-  channelId: '123'
+  applicationId: '6'
 });
 ```
 
