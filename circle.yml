@@ -5,7 +5,7 @@ machine:
 dependencies:
   override:
     - npm install -g npm@3.3.12
-    - npm install -g phantomjs-prebuilt@2.1.5
+    - [ "$(phantomjs --version)" = "2.1.1" ] || npm install -g phantomjs-prebuilt@2.1.5
     - npm install
 
 test:
