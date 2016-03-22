@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -x
+
+
+npm install -g npm@3.3.12
+
+# Versions differ intentionally. NPM package at 2.1.6 contains phantom 2.1.1
+[ "$(phantomjs --version)" = "2.1.1" ] || npm install -g phantomjs-prebuilt@2.1.6
+
+npm install

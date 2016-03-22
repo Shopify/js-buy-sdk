@@ -4,12 +4,8 @@ machine:
 
 dependencies:
   override:
-    - npm install -g npm@3.3.12
-    - [ "$(phantomjs --version)" = "2.1.1" ] || npm install -g phantomjs-prebuilt@2.1.5
-    - npm install
+    - ./ci/deps
 
 test:
   override:
-    - npm run test-ci
-    - mkdir -p $CIRCLE_TEST_REPORTS/xunit
-    - mv tests.xml $CIRCLE_TEST_REPORTS/xunit/tests.xml
+    - ./ci/test

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -x
+
+npm run test-ci
+
+mkdir -p $CIRCLE_TEST_REPORTS/xunit
+
+mv tests.xml $CIRCLE_TEST_REPORTS/xunit/tests.xml
