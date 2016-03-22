@@ -38,7 +38,7 @@ $(function() {
     var variantSelectors = generateSelectors(product);
     $('.variant-selectors').html(variantSelectors);
 
-    updateProductTitle(product.attrs.title);
+    updateProductTitle(product.title);
     updateVariantImage(selectedVariantImage);
     updateVariantTitle(selectedVariant);
     updateVariantPrice(selectedVariant);
@@ -48,6 +48,9 @@ $(function() {
 
     attachQuantityIncrementListeners(product);
     attachQuantityDecrementListeners(product);
+
+    updateCartTabButton();
+    attachCheckoutButtonListeners();
 
   });
 
@@ -170,34 +173,25 @@ function attachQuantityDecrementListeners(product) {
  /* Add 'quantity' amount of product 'variant' to cart
   ============================================================ */
   function addVariantToCart(product, variant, quantity) {
-    var existingLineItem = cart.attrs.line_items.filter(function (lineItem, index) {
-      return lineItem.variant_id === variant.id;
-    })[0];
+    openCart();
+    closeCart();
 
-    if (existingLineItem) {
-      existingLineItem.quantity = existingLineItem.quantity + quantity;
-      if (existingLineItem.quantity < 1) {
-        cart.attrs.line_items.pop(existingLineItem);
-      }
-    } else {
-      cart.attrs.line_items.push({
-        variant_id: variant.id,
-        quantity: quantity
-      })
+    var itemExists;
+    if (cart.lineItems.length > 0) {
+      itemExists = cart.lineItems.filter(function (cartItem) {
+        return (cartItem.variant_id === variant.id);
+      })[0];
     }
 
-    openCart();
-
-    client.update('carts', cart).then(function (newCart) {
-      cart = newCart;
+    cart.addVariants({ variant: variant, quantity: quantity }).then(function () {
       var $cartItemContainer = $('.cart-item-container');
       var totalPrice = 0;
 
       $cartItemContainer.empty();
       var lineItemEmptyTemplate = $('#cart-item-template').html();
-      var $cartLineItems = cart.attrs.line_items.map(function (lineItem, index) {
+      var $cartLineItems = cart.lineItems.map(function (lineItem, index) {
         var $lineItemTemplate = $(lineItemEmptyTemplate);
-        var itemImage = lineItemImages[lineItem.variant_id];
+        var itemImage = lineItem.image.src;
         $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
         $lineItemTemplate.find('.cart-item__title').text(lineItem.title);
         $lineItemTemplate.find('.cart-item__variant-title').text(lineItem.variant_title);
@@ -206,7 +200,7 @@ function attachQuantityDecrementListeners(product) {
         $lineItemTemplate.find('.quantity-decrement').attr('data-variant-id', lineItem.variant_id);
         $lineItemTemplate.find('.quantity-increment').attr('data-variant-id', lineItem.variant_id);
 
-        if (!existingLineItem && (index === cart.attrs.line_items.length - 1)) {
+        if (!itemExists && (index === cart.lineItems.length - 1)) {
           $lineItemTemplate.addClass('js-hidden');
         }
         return $lineItemTemplate;
@@ -217,19 +211,46 @@ function attachQuantityDecrementListeners(product) {
         $cartItemContainer.find('.js-hidden').removeClass('js-hidden');
       }, 0)
 
-      $('.cart .pricing').text(formatAsMoney(cart.attrs.subtotal_price));
+      $('.cart .pricing').text(formatAsMoney(cart.subtotal));
 
     }).catch(function (errors) {
       console.log("Fail");
-      console.log(errors);
+      console.error(errors);
     });
 
+    updateCartTabButton();
   }
 
   /* Format amount as currency
   ============================================================ */
   function formatAsMoney(amount) {
     return '$' + parseFloat(amount, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+  }
+
+  /* Update cart tab button
+  ============================================================ */
+  function updateCartTabButton() {
+    if (cart.lineItems.length > 0) {
+      var totalItems = cart.lineItems.reduce(function(total, item) {
+        return total + item.quantity;
+      }, 0);
+      $('.btn--cart-tab .btn__counter').html(totalItems);
+      $('.btn--cart-tab').addClass('js-active');
+    } else {
+      $('.btn--cart-tab').removeClass('js-active');
+    }
+
+    $('.btn--cart-tab').click(function() {
+      openCart();
+    });
+  }
+
+  /* Checkout listener
+  ============================================================ */
+  function attachCheckoutButtonListeners() {
+    $('.btn--cart-checkout').on('click', function () {
+      window.open(cart.checkoutUrl, '_self');
+    });
   }
 
 
