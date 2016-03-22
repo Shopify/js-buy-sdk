@@ -28,20 +28,20 @@ This tool is intended for use by developers who are experienced with JavaScript.
 ## Including the Buy SDK
 
 ```html
-<script src="cdn.shopify.com/scripts/js_buy.js">
+<script src="//sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.js">
 ```
 
 ## Creating a Shop Client
 
 The Client is the primary interface through which you make requests using the JS Buy SDK.
 You will need your `myshopify.com` domain, API key, and application ID to create your client and
-begin making requests. [Where do I find my API Key and application ID?](#)
+begin making requests. [Where do I find my API Key and application ID?](#TODO)
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
   apiKey: '123',
-  myShopifyDomain: 'haris-mahmood',
-  applicationId: '6'
+  myShopifyDomain: 'embeds',
+  appId: '6'
 });
 ```
 
@@ -66,25 +66,26 @@ shopClient.fetchProduct(1234)
   });
 ```
 
-## Creating a Checkout
+## Creating a Cart
 
-To generate a checkout link, you will need to create a cart model.
+To create a cart, use the `client.createCart()` function:
 
 ```js
-var cart;
-shopClient.create('checkouts').then(function (cart) {
+var myCart;
+shopClient.createCart.then(function (newCart) {
+  myCart = newCart;
   // do something with updated cart
 });
 ```
 
 ### Adding items to a cart
 
-Cart items can be retrieved as an array with the `Cart.lineItems` getter. To add items to a cart,
-you can call the cart's `addVariants` method and pass in the product(s) to be added.
+Cart items can be retrieved as an array with the `cart.lineItems` getter. To add items to a cart,
+you can call the cart’s `addVariants` method and pass in the product(s) to be added.
 The `update` call will return a promise which returns the updated model.
 
 ```js
-cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
+cart.addVariants({variant: product.variants[0], quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
 
@@ -92,9 +93,8 @@ cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
 
 ### Creating a checkout URL
 
-You can generate a checkout URL for a given cart at any time by retrieving the `Cart.attrs.web_url`.
+You can generate a checkout URL for a given cart at any time by retrieving the `cart.checkoutUrl`.
 
 ```js
-var checkout = window.open();
-checkout.location = cart.attrs.web_url;
+document.location.href = cart.checkoutUrl;
 ```
