@@ -92,13 +92,13 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       nodeLibOutput
     ]);
 
-    const minOuput = uglifyJavaScript(funnel(tree, {
+    const minifiedTree = uglifyJavaScript(funnel(tree, {
       getDestinationPath: function (path) {
         return path.replace(/\.js/, '.min.js');
       }
     }));
 
-    tree = mergeTrees([tree, minOuput]);
+    tree = mergeTrees([tree, minifiedTree]);
 
   } else {
     const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
