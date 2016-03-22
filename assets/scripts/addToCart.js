@@ -10,9 +10,9 @@ $(function() {
     applicationId: '6'
   });
 
-  var checkout;
-  client.create('checkouts').then(function (newCheckout) {
-    checkout = newCheckout;
+  var cart;
+  client.createCart().then(function (newCart) {
+    cart = newCart;
   });
 
   var lineItemImages = {};
@@ -27,7 +27,7 @@ $(function() {
     "</h2>" +
     "<a class='product__buy' href='" +
       "#" +
-      // product.selectedVariant.checkoutUrl({quantity: 1}) +
+      product.selectedVariant.checkoutUrl() +
     "'>Buy Now!</a>";
 
     $('#product-1').html(exampleOneHtml);
@@ -171,17 +171,17 @@ function attachQuantityDecrementListeners(product) {
  /* Add 'quantity' amount of product 'variant' to cart
   ============================================================ */
   function addVariantToCart(product, variant, quantity) {
-    var existingLineItem = checkout.attrs.line_items.filter(function (lineItem, index) {
+    var existingLineItem = cart.attrs.line_items.filter(function (lineItem, index) {
       return lineItem.variant_id === variant.id;
     })[0];
 
     if (existingLineItem) {
       existingLineItem.quantity = existingLineItem.quantity + quantity;
       if (existingLineItem.quantity < 1) {
-        checkout.attrs.line_items.pop(existingLineItem);
+        cart.attrs.line_items.pop(existingLineItem);
       }
     } else {
-      checkout.attrs.line_items.push({
+      cart.attrs.line_items.push({
         variant_id: variant.id,
         quantity: quantity
       })
@@ -189,14 +189,14 @@ function attachQuantityDecrementListeners(product) {
 
     openCart();
 
-    client.update('checkouts', checkout).then(function (newCheckout) {
-      checkout = newCheckout;
+    client.update('carts', cart).then(function (newCart) {
+      cart = newCart;
       var $cartItemContainer = $('.cart-item-container');
       var totalPrice = 0;
 
       $cartItemContainer.empty();
       var lineItemEmptyTemplate = $('#cart-item-template').html();
-      var $cartLineItems = checkout.attrs.line_items.map(function (lineItem, index) {
+      var $cartLineItems = cart.attrs.line_items.map(function (lineItem, index) {
         var $lineItemTemplate = $(lineItemEmptyTemplate);
         var itemImage = lineItemImages[lineItem.variant_id];
         $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
@@ -207,7 +207,7 @@ function attachQuantityDecrementListeners(product) {
         $lineItemTemplate.find('.quantity-decrement').attr('data-variant-id', lineItem.variant_id);
         $lineItemTemplate.find('.quantity-increment').attr('data-variant-id', lineItem.variant_id);
 
-        if (!existingLineItem && (index === checkout.attrs.line_items.length - 1)) {
+        if (!existingLineItem && (index === cart.attrs.line_items.length - 1)) {
           $lineItemTemplate.addClass('js-hidden');
         }
         return $lineItemTemplate;
@@ -218,7 +218,7 @@ function attachQuantityDecrementListeners(product) {
         $cartItemContainer.find('.js-hidden').removeClass('js-hidden');
       }, 0)
 
-      $('.cart .pricing').text(formatAsMoney(checkout.attrs.subtotal_price));
+      $('.cart .pricing').text(formatAsMoney(cart.attrs.subtotal_price));
 
     }).catch(function (errors) {
       console.log("Fail");
