@@ -4,3 +4,6 @@ _site
 node_modules
 src
 npm-debug.log
+.dist-tests
+tmp
+tests.xml
