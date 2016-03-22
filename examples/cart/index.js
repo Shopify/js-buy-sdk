@@ -36,6 +36,13 @@ $(function() {
     attachQuantityIncrementListeners(product);
     attachQuantityDecrementListeners(product);
 
+    // $('.btn--cart-checkout').on('click', function() {
+    //   cart.checkoutUrl
+    // });
+
+    var checkoutUrl = cart.checkoutUrl;
+    $('.btn--cart-checkout').attr('href', checkoutUrl);
+
   });
 
   /* Generate DOM elements for variant selectors
@@ -110,7 +117,7 @@ $(function() {
   ============================================================ */
   function attachQuantityIncrementListeners(product) {
     $('.cart').on('click', '.quantity-increment', function() {
-      var variantId = parseInt($(this).attr('data-variant-id'));
+      var variantId = parseInt($(this).attr('data-variant-id'), 10);
       var variant = product.variants.filter(function (variant) {
         return (variant.id === variantId);
       })[0];
@@ -126,7 +133,7 @@ $(function() {
   ============================================================ */
   function attachQuantityDecrementListeners(product) {
     $('.cart').on('click', '.quantity-decrement', function() {
-      var variantId = parseInt($(this).attr('data-variant-id'));
+      var variantId = parseInt($(this).attr('data-variant-id'), 10);
       var variant = product.variants.filter(function (variant) {
         return (variant.id === variantId);
       })[0];
