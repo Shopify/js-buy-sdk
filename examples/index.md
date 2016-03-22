@@ -14,7 +14,7 @@ $(function() {
   var client = ShopifyBuy.buildClient({
     apiKey: 'your-api-key',
     myShopifyDomain: 'your-shop-name',
-    applicationId: 'your-application-id'
+    appId: 'your-application-id'
   });
 });
 ```
