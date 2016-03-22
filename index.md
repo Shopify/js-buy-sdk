@@ -85,7 +85,7 @@ you can call the cart’s `addVariants` method and pass in the product(s) to be 
 The `update` call will return a promise which returns the updated model.
 
 ```js
-cart.addVariants({variant: product.variants[0], quantity: 1}).then(function (cart) {
+cart.addVariants({variant: product.selectedVariant, quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
 
