@@ -71,10 +71,12 @@ main {
 
   @include shopify-breakpoint($desktop-up) {
     position: fixed;
-    bottom: 40px;
     left: 40px;
+    bottom: 0;
     width: 220px;
     background: #30373b;
+    padding-top: 20px;
+    padding-bottom: 40px;
   }
 
   p {
