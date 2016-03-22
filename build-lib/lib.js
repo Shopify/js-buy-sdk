@@ -6,7 +6,6 @@ const funnel = require('broccoli-funnel');
 const concat = require('broccoli-concat');
 const mergeTrees = require('broccoli-merge-trees');
 const babelTranspiler = require('broccoli-babel-transpiler');
-const uglifyJavaScript = require('broccoli-uglify-js');
 const pkg = require('../package.json');
 const polyfills = require('./polyfills');
 const loader = require('./loader');
@@ -91,15 +90,6 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       polyFilledCommonOutput,
       nodeLibOutput
     ]);
-
-    const minifiedTree = uglifyJavaScript(funnel(tree, {
-      getDestinationPath: function (path) {
-        return path.replace(/\.js/, '.min.js');
-      }
-    }));
-
-    tree = mergeTrees([tree, minifiedTree]);
-
   } else {
     const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
       headerFiles: ['loader.js'],
