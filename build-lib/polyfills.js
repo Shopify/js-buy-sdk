@@ -13,13 +13,15 @@ module.exports = function (/* env */) {
     header: ';(function (self) {',
     inputFiles: ['rsvp.js'],
     footer: `if (self.Promise === undefined) {
-      self.Promise = RSVP.Promise;
-    }}(window));`,
-    outputFile: 'promise.js'
+  self.Promise = RSVP.Promise;
+}}(window));`,
+    outputFile: 'promise.js',
+    sourceMapConfig: { enabled: false }
   });
 
   return concat(mergeTrees([fetchPolyfill, rsvpPolyfill]), {
     inputFiles: ['fetch.js', 'promise.js'],
-    outputFile: 'polyfills.js'
+    outputFile: 'polyfills.js',
+    sourceMapConfig: { enabled: false }
   });
 };
