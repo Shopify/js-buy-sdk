@@ -56,7 +56,7 @@ shopClient.createCart().then(function (cart) {
 });
 ```
 
-Variants can be passed in during initalization to create a non-cart with with those variants.
+Variants can be passed in during initalization to create a non-empty cart with those variants.
 
 ```js
 var cart;
