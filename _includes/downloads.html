@@ -3,27 +3,8 @@
 {% assign base_url = '//sdks.shopifycdn.com/js-buy-sdk' %}
 {% assign base_filename = 'shopify-buy' %}
 
-<h2>Development</h2>
-
-<ul>
-  <li>Polyfilled
-    <ul>
-      {% for module_type in module_types %}
-        <li><a href="{{base_url}}/{{sdk_version}}/{{base_filename}}.polyfilled.{{module_type}}.js">{{base_filename}}.polyfilled.{{module_type}}.js</a></li>
-      {% endfor %}
-    </ul>
-  </li>
-  <li>Un-polyfilled
-    <ul>
-      {% for module_type in module_types %}
-        <li><a href="{{base_url}}/{{sdk_version}}/{{base_filename}}.{{module_type}}.js">{{base_filename}}.{{module_type}}.js</a></li>
-      {% endfor %}
-    </ul>
-  </li>
-</ul>
 
 <h2>Minified</h2>
-
 <ul>
   <li>Polyfilled
     <ul>
@@ -36,6 +17,24 @@
     <ul>
       {% for module_type in module_types %}
         <li><a href="{{base_url}}/{{sdk_version}}/{{base_filename}}.{{module_type}}.min.js">{{base_filename}}.{{module_type}}.min.js</a></li>
+      {% endfor %}
+    </ul>
+  </li>
+</ul>
+
+<h2>Development</h2>
+<ul>
+  <li>Polyfilled
+    <ul>
+      {% for module_type in module_types %}
+        <li><a href="{{base_url}}/{{sdk_version}}/{{base_filename}}.polyfilled.{{module_type}}.js">{{base_filename}}.polyfilled.{{module_type}}.js</a></li>
+      {% endfor %}
+    </ul>
+  </li>
+  <li>Un-polyfilled
+    <ul>
+      {% for module_type in module_types %}
+        <li><a href="{{base_url}}/{{sdk_version}}/{{base_filename}}.{{module_type}}.js">{{base_filename}}.{{module_type}}.js</a></li>
       {% endfor %}
     </ul>
   </li>
