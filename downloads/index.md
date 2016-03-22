@@ -17,27 +17,7 @@ npm install shopify-buy
 
 ## CDN Package
 
-### Development
-- Polyfilled
-  - [shopify-buy.polyfilled.globals.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.globals.js)
-  - [shopify-buy.polyfilled.amd.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.amd.js)
-  - [shopify-buy.polyfilled.common.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.common.js)
-
-- Unpolyfilled
-  - [shopify-buy.globals.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.globals.js)
-  - [shopify-buy.amd.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.amd.js)
-  - [shopify-buy.common.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.common.js)
-
-### Minified
-- Polyfilled
-  - [shopify-buy.polyfilled.globals.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.globals.min.js)
-  - [shopify-buy.polyfilled.amd.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.amd.min.js)
-  - [shopify-buy.polyfilled.common.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.polyfilled.common.min.js)
-
-- Unpolyfilled
-  - [shopify-buy.globals.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.globals.min.js)
-  - [shopify-buy.amd.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.amd.min.js)
-  - [shopify-buy.common.min.js](//sdks.shopifycdn.com/js-buy-sdk/shopify-buy.common.min.js)
+{% include downloads.html %}
 
 ## Source code
 The JavaScript Buy SDK is open source and available on [Github](https://github.com/Shopify/js-buy-sdk/)
