@@ -2,6 +2,6 @@ machine:
   cleanup: false
 deploy:
   override:
-    - npm install
+    - npm install --no-progress
     - ejson decrypt -o config/secrets.json config/secrets.ejson
     - scripts/deploy
