@@ -17,6 +17,7 @@
   "author": "Shopify Inc.",
   "license": "MIT",
   "dependencies": {
+    "Base64": "0.3.0",
     "babel-eslint": "5.0.0",
     "broccoli": "0.16.9",
     "broccoli-asset-rev": "2.4.1",
