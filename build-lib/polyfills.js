@@ -8,6 +8,7 @@ const treeFromPackage = require('./util/tree-from-package');
 module.exports = function (/* env */) {
   const fetchPolyfill = treeFromPackage('whatwg-fetch', ['fetch.js']);
   const rsvp = treeFromPackage('rsvp', ['rsvp.js']);
+  const base64Polyfill = treeFromPackage('Base64', ['base64.js']);
 
   const rsvpPolyfill = concat(rsvp, {
     header: ';(function (self) {',
@@ -19,8 +20,8 @@ module.exports = function (/* env */) {
     sourceMapConfig: { enabled: false }
   });
 
-  return concat(mergeTrees([fetchPolyfill, rsvpPolyfill]), {
-    inputFiles: ['fetch.js', 'promise.js'],
+  return concat(mergeTrees([fetchPolyfill, rsvpPolyfill, base64Polyfill]), {
+    inputFiles: ['fetch.js', 'promise.js', 'base64.js'],
     outputFile: 'polyfills.js',
     sourceMapConfig: { enabled: false }
   });
