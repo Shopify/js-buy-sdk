@@ -25,21 +25,13 @@ shopClient.fetchProduct(1234)
   });
 ```
 
-To generate a checkout URL for this product, you will need to create a cart object and add the product variant
-you want to the cart:
+To generate a checkout URL for this product, you can call the `checkoutUrl` getter for a variant and pass in a value for quantity:
 
 ```js
 var variant = product.variants[0];
 var checkoutURL;
 
-shopClient.createCart({
-  line_items: [{
-    id: variant.id,
-    quantity: 1
-  }]
-}).then(function (cart) {
-  checkoutURL = cart.checkoutUrl;
-});
+checkoutURL = variant.checkoutUrl(1);
 ```
 
 Once you have obtained a checkout URL, you can insert this URL into the DOM by your preferred method.
@@ -60,7 +52,17 @@ add and remove variants from.
 ```js
 var cart;
 shopClient.createCart().then(function (cart) {
-  // do something with updated cart
+  // do something with cart
+});
+```
+
+Variants can be passed in during initalization to create a non-cart with with those variants.
+
+```js
+var cart;
+shopClient.createCart({id: 123, quantity: 1}).then(function (cart) {
+  cart = cart;
+  // do something with cart
 });
 ```
 
