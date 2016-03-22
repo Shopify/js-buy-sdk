@@ -36,9 +36,9 @@ module.exports = function (pathConfig, env) {
     inputFiles: ['**/*.js'],
     footer: `
 window.ShopifyBuy = require('shopify-buy/shopify').default;
-}());`,
+})();`,
     outputFile: `${pkg.name}.globals.js`,
-    sourceMapConfig: { enabled: (env !== 'production') }
+    sourceMapConfig: { enabled: false }
   });
 
   if (env === 'production') {
