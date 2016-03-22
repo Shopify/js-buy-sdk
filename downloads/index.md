@@ -3,7 +3,7 @@ layout: default
 ---
 # Downloads
 
-<a class="marketing-button" href="//sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.globals.polyfilled.min.js" download>Download Latest</a>
+<a class="marketing-button" href="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js" download>Download Latest</a>
 
 The SDK is available as CommonJS, AMD, and global modules. CDN-hosted versions are available on the Shopify CDN, or you can download the package from NPM or Github.
 
