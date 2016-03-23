@@ -7,3 +7,5 @@ npm-debug.log
 .dist-tests
 tmp
 tests.xml
+dist
+lib
