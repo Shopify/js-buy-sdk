@@ -28,7 +28,7 @@ This tool is intended for use by developers who are experienced with JavaScript.
 ## Including the Buy SDK
 
 ```html
-<script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js">
+<script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js"></script>
 ```
 
 ## Creating a Shop Client
@@ -72,7 +72,7 @@ To create a cart, use the `client.createCart()` function:
 
 ```js
 var cart;
-shopClient.createCart.then(function (newCart) {
+shopClient.createCart().then(function (newCart) {
   cart = newCart;
   // do something with updated cart
 });
