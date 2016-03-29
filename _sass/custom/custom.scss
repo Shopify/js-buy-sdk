@@ -252,3 +252,13 @@ table {
 	td:nth-of-type(5):before { content: "iOS"; }
 	td:nth-of-type(6):before { content: "Android"; }
 }
+
+
+.copy-button {
+  padding: 3px 12px 5px;
+  font-size: 1em;
+}
+
+.u-alignRight {
+  text-align: right;
+}

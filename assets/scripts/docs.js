@@ -40,4 +40,9 @@ $(function() {
     generateApiClassNavItems();
   }
 
+  $('.copy-button').on('click', function(e) {
+    e.preventDefault();
+    $(this).text('Copied!');
+  });
+
 });
