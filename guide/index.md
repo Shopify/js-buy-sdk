@@ -69,7 +69,7 @@ shopClient.createCart({id: 123, quantity: 1}).then(function (cart) {
 ### Adding items to a cart
 
 Items are added to the cart by calling the cart's `addVariants` method, which accepts one or more objects containing
-a variant ID and quantity. `addVariants` will update the cart and synchronize it with Shopify. If you add a
+a variant ID and quantity. `addVariants` will update the cart and synchronizing it with Shopify. If you add a
 variant ID that already exists in the cart, that line item's quantity will be incremented.
 
 > Note: `addVariants` accepts a variable number of arguments, each of which must be an object containing an id and quantity.
@@ -79,7 +79,7 @@ cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
 ```
-> *Note:* `cart` is modified by calling `addVariants`
+> Note: `cart` is modified by calling `addVariants`
 
 ### Updating cart items
 
