@@ -45,8 +45,8 @@ var shopClient = ShopifyBuy.buildClient({
 });
 ```
 
-> Note: You will need to publish the product/<a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#object-visibility" target="_blank">collection</a> you wish to interact with to the
-> "Buy Button" channel in Shopify
+> Note: You will need to publish the product/<a href="https://docs.shopify.com/manual/products/collections/make-collections-findable#change-the-visibility-of-a-collection" target="_blank">collection</a> you wish to interact with to the
+> "Buy Button" channel in Shopify.
 
 ## Making a request
 
