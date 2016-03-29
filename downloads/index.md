@@ -3,9 +3,11 @@ layout: default
 ---
 # Downloads
 
+The SDK is available as CommonJS, AMD, and global modules. CDN-hosted versions are available on the Shopify CDN, or you can download the package from NPM or Github.
+
 ## Quick Start
 
-The SDK is available as CommonJS, AMD, and global modules. CDN-hosted versions are available on the Shopify CDN, or you can download the package from NPM or Github. To get up and running quickly, copy the following snippet and add it to your site's `<head>` element.
+To get up and running quickly, copy the following snippet and add it to your site's `<head>` element.
 
 ```html
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js"></script>
