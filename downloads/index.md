@@ -11,7 +11,7 @@ The SDK is available as CommonJS, AMD, and global modules. CDN-hosted versions a
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js"></script>
 ```
 
-<button class="marketing-button copy-button" data-clipboard-text="<script src='http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js'></script>">Copy</button>
+<button class="marketing-button copy-button" data-clipboard-text="<script src='http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js'></script>">Copy to clipboard</button>
 
 ## NPM Package
 

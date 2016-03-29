@@ -258,6 +258,11 @@ table {
 .copy-button {
   padding: 3px 12px 5px;
   font-size: 1em;
+  width: 100%;
+  position: relative;
+  top: -13px;
+  background: #ccc;
+  border-radius: 0 0 3px 3px;
 }
 
 .u-alignRight {
