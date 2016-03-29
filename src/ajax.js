@@ -1,3 +1,5 @@
+import ie9Ajax from './ie9-ajax';
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -24,35 +26,9 @@ function parseResponse(response) {
     });
 }
 
-function ieFallback(method, url, opts) {
-  return new Promise(function (resolve, reject) {
-    const xdr = new XDomainRequest();
-
-    xdr.onload = function () {
-      try {
-        const json = JSON.parse(xdr.responseText);
-
-        resolve({ json, originalResponse: xdr, isJSON: true });
-      } catch (e) {
-        resolve({ text: xdr.responseText, originalResponse: xdr, isText: true });
-      }
-    };
-
-    function handleError() {
-      reject(new Error('There was an error with the XDR'));
-    }
-
-    xdr.onerror = handleError;
-    xdr.ontimeout = handleError;
-
-    xdr.open(method, url);
-    xdr.send(opts.data);
-  });
-}
-
 export default function ajax(method, url, opts = {}) {
   if (window.XDomainRequest) {
-    return ieFallback(...arguments);
+    return ie9Ajax(...arguments);
   }
 
   opts.method = method;
