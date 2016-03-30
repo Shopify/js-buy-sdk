@@ -1,3 +1,5 @@
+import ie9Ajax from './ie9-ajax';
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -25,7 +27,12 @@ function parseResponse(response) {
 }
 
 export default function ajax(method, url, opts = {}) {
+  if (window.XDomainRequest) {
+    return ie9Ajax(...arguments);
+  }
+
   opts.method = method;
+  opts.mode = 'cors';
 
   return fetch(url, opts)
     .then(checkStatus)
