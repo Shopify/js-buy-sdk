@@ -88,7 +88,7 @@ const CartModel = BaseModel.extend({
     * ```
     * @method addVariants
     * @param {Object} item - One or more variants
-    * @param {Object} item.variant - variant hash
+    * @param {Object} item.variant - variant object
     * @param {Number} item.quantity - quantity
     * @param {Object} [nextItem...] - further lineItems may be passed
     * @public

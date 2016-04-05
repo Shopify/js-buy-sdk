@@ -32,7 +32,7 @@ const Shopify = {
    * @for ShopifyBuy
    * @static
    * @public
-   * @param {Object} configAttrs A hash of required config data.
+   * @param {Object} configAttrs An object of required config data.
    * @param {String} configAttrs.apiKey Your api client's public token.
    * @param {String} configAttrs.appId The app whose listings the client will be
    * using. If you are just modifying a buy button, the buy-button's app id is

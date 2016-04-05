@@ -9,7 +9,7 @@ const Config = CoreObject.extend({
   /**
    * @class Config
    * @constructor
-   * @param {Object} attrs A hash of required config data.
+   * @param {Object} attrs An object of required config data.
    * @param {String} attrs.apiKey Your api client's public token
    * @param {String} attrs.appId The app whose listings the client will be
    * using. If you are just modifying a buy button, the buy-button's app id is

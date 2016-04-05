@@ -96,7 +96,7 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method fetchAll
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @return {Promise|Array} a promise resolving with an array of `type`
    */
@@ -118,7 +118,7 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method fetch
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {String|Number} id a unique identifier
    * @return {Promise|BaseModel} a promise resolving with a single instance of
@@ -142,7 +142,7 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method fetchQuery
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {Object} query a query sent to the api server.
    * @return {Promise|Array} a promise resolving with an array of `type`.
@@ -156,7 +156,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-   * Create an instance of `type`, optionally including `attrs`.
+   * Create an instance of `type`, optionally including `modelAttrs`.
    *
    * ```javascript
    * client.create('carts', { line_items: [ ... ] }).then(cart => {
@@ -165,10 +165,10 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method create
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
-   * @param {Object} [modelAttr={}] attributes representing the internal state
-   * of the model to be persisted to the server.
+   * @param {Object} [modelAttrs={}] attributes representing the internal state
+   * of the model to be persisted.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * `type`
    */
@@ -194,10 +194,10 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method update
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {BaseModel} updatedModel The model that represents new state to
-   * to persist to the server.
+   * to persist.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * `type`
    */
@@ -244,8 +244,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Convenience wrapper for {{#crossLink "ShopClient/create:method"}}
-    * {{/crossLink}}.
+    * Creates a {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance, optionally including `attrs`.
     *
     * ```javascript
     * client.createCart().then(cart => {
@@ -253,7 +252,7 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method createCart
     * @public
     * @return {Promise|CartModel} - new cart instance.
@@ -271,15 +270,19 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Convenience wrapper for {{#crossLink "ShopClient/update:method"}}
-    * {{/crossLink}}. Equivalent to:
+    * Updates an existing {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance and persists it to localStorage.
     *
     * ```javascript
-    * client.update('cart');
+    * client.createCart().then(cart => {
+    *   cart.lineItems = [
+    *     // ...
+    *   ];
+    *   client.updateCart(cart);
+    * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
-    * @method createCart
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
+    * @method updateCart
     * @public
     * @return {Promise|CartModel} - updated cart instance.
   */
@@ -287,6 +290,20 @@ const ShopClient = CoreObject.extend({
     return this.update('carts', updatedCart);
   },
 
+  /**
+   * Retrieve a previously created cart by its key.
+   *
+   * ```javascript
+   * client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
+   *   console.log(cart); // The retrieved cart
+   * });
+   *
+   * @method fetchCart
+   * @public
+   * @param {String} id The cart's unique identifier
+   * @return {Promise|CartModel} The cart model.
+   *
+   */
   fetchCart: fetchFactory('one', 'carts'),
 
   /**
@@ -298,7 +315,7 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method fetchAllProducts
-   * @public
+   * @private
    * @return {Promise|Array} The product models.
    */
   fetchAllProducts: fetchFactory('all', 'products'),
@@ -312,67 +329,76 @@ const ShopClient = CoreObject.extend({
    * ```
    *
    * @method fetchAllCollections
-   * @public
+   * @private
    * @return {Promise|Array} The collection models.
    */
   fetchAllCollections: fetchFactory('all', 'collections'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetch:method"}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetch one product by its ID.
    *
    * ```javascript
-   * client.fetch('products', 123);
+   * client.fetchProduct(123).then(product => {
+   *   console.log(product); // The product with an ID of 123
+   * });
    * ```
    *
    * @method fetchProduct
    * @public
    * @param {String|Number} id a unique identifier
-   * @return {Promise|BaseModel} The product model.
+   * @return {Promise|BaseModel} The product model with the specified ID.
    */
   fetchProduct: fetchFactory('one', 'products'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetch:method"}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetch one collection by its ID.
    *
    * ```javascript
-   * client.fetch('collections', 123);
+   * client.fetchCollection(123).then(collection => {
+   *   console.log(collection); // The collection with an ID of 123
+   * });
    * ```
    *
    * @method fetchCollection
    * @public
    * @param {String|Number} id a unique identifier
-   * @return {Promise|BaseModel} The collection model.
+   * @return {Promise|BaseModel} The collection model with the specified ID.
    */
   fetchCollection: fetchFactory('one', 'collections'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchQuery:method"}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetches a list of products matching a specified query.
    *
    * ```javascript
-   * client.fetchQuery('products', { query: 'options' });
+   * client.fetchQueryProducts({ collection_id: 123}).then(products => {
+   *   console.log(products); // An array of products in collection 123
+   * });
    * ```
-   *
    * @method fetchQueryProducts
    * @public
-   * @param {Object} query a query sent to the api server.
+   * @param {Object} query a query sent to the api server containing one or more of:
+   *   @param {String|Number} [query.collection_id] the ID of a collection to retrieve products from
+   *   @param {Array} [query.product_ids] a list of product IDs to retrieve
+   *   @param {String|Number} [query.page=1] the page offset number of the current lookup (based on the `limit`)
+   *   @param {String|Number} [query.limit=50] the number of products to retrieve per page
    * @return {Promise|Array} The product models.
    */
   fetchQueryProducts: fetchFactory('query', 'products'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchQuery:method"}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetches a list of collections matching a specified query.
    *
    * ```javascript
-   * client.fetchQuery('collections', { query: 'options' });
+   * client.fetchQueryCollections({page: 2, limit: 20}).then(collections => {
+   *   console.log(collections); // An array of collection resources
+   * });
    * ```
    *
    * @method fetchQueryCollections
    * @public
    * @param {Object} query a query sent to the api server.
+   *   @param {String|Number} [query.page=1] the page offset number of the current lookup (based on the `limit`)
+   *   @param {String|Number} [query.limit=50] the number of collections to retrieve per page
    * @return {Promise|Array} The collection models.
    */
   fetchQueryCollections: fetchFactory('query', 'collections')
