@@ -168,7 +168,7 @@ const ShopClient = CoreObject.extend({
    * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {Object} [modelAttrs={}] attributes representing the internal state
-   * of the model to be persisted to the server.
+   * of the model to be persisted.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * `type`
    */
@@ -197,7 +197,7 @@ const ShopClient = CoreObject.extend({
    * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {BaseModel} updatedModel The model that represents new state to
-   * to persist to the server.
+   * to persist.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * `type`
    */
@@ -252,7 +252,7 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method createCart
     * @public
     * @return {Promise|CartModel} - new cart instance.
@@ -270,7 +270,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Updates an existing {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance and saves it.
+    * Updates an existing {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance and persists it to localStorage.
     *
     * ```javascript
     * client.createCart().then(cart => {
@@ -281,7 +281,7 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method updateCart
     * @public
     * @return {Promise|CartModel} - updated cart instance.
