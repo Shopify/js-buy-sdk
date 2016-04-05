@@ -40,7 +40,7 @@ client.fetchProduct('your-product-id').then(function(product) {
   "<img class='product__image' src='" + product.selectedVariantImage.src + "' >" +
   "<h2 class='product__title'>" + product.title + "</h2>" +
   "<a class='product__buy' href='" +
-    product.selectedVariant.checkoutUrl({quantity: 1}) +
+    product.selectedVariant.checkoutUrl([quantity = 1]) +
   "'>Buy Now!</a>";
 
   $('#product-1').html(html);
