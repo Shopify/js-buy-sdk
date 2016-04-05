@@ -6,6 +6,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "./scripts/build",
+    "doc-server": "yuidoc --server 5000",
     "postinstall": "./scripts/postinstall",
     "start": "broccoli serve",
     "examples": "env EXAMPLES=1 broccoli serve",
