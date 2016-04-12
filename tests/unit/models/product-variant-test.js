@@ -90,13 +90,18 @@ test('it returns the image for the variant', function (assert) {
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
   const query = `api_key=${config.apiKey}`;
+  const opts = {};
 
   assert.equal(model.checkoutUrl(), `${baseUrl}/${model.id}:1?${query}`, 'defaults to 1');
-  assert.equal(model.checkoutUrl(27), `${baseUrl}/${model.id}:27?${query}`, 'respects passed quantity');
-  assert.equal(model.checkoutUrl('3'), `${baseUrl}/${model.id}:3?${query}`, 'works with strings');
-  assert.equal(model.checkoutUrl(5.5), `${baseUrl}/${model.id}:5?${query}`, 'trims decimals');
+  assert.equal(model.checkoutUrl(opts), `${baseUrl}/${model.id}:1?${query}`, 'defaults to 1 when passed an empty object');
+  opts.quantity = 27;
+  assert.equal(model.checkoutUrl(opts), `${baseUrl}/${model.id}:27?${query}`, 'respects passed quantity');
+  opts.quantity = '3';
+  assert.equal(model.checkoutUrl(opts), `${baseUrl}/${model.id}:3?${query}`, 'works with strings');
+  opts.quantity = 5.5;
+  assert.equal(model.checkoutUrl(opts), `${baseUrl}/${model.id}:5?${query}`, 'trims decimals');
 });

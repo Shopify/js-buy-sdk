@@ -105,15 +105,22 @@ const ProductVariantModel = BaseModel.extend({
   /**
     * Checkout URL for purchasing variant with quantity.
     * @method checkoutUrl
-    * @param {Number} [quantity = 1] quantity of variant
+    * @param {Object} [{quantity: 1}] an options object, contains quantity by
+    * default.
     * @public
     * @return {String} Checkout URL
   */
-  checkoutUrl(quantity = 1) {
+  checkoutUrl(opts = { quantity: 1 }) {
+
+    if (Object.keys(opts).length === 0) {
+      opts.quantity = 1;
+    }
+
     const config = this.config;
     const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
 
-    const variantPath = `${this.id}:${parseInt(quantity, 10)}`;
+    const quantity = parseInt(opts.quantity, 10);
+    const variantPath = `${this.id}:${quantity}`;
 
     const query = `api_key=${config.apiKey}`;
 
