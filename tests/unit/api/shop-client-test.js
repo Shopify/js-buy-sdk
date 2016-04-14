@@ -4,7 +4,7 @@ import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
 import Promise from 'promise';
 import CartModel from 'shopify-buy/models/cart-model';
-import { GUID_KEY } from 'shopify-buy/models/cart-model';
+import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
 
 const configAttrs = {
   myShopifyDomain: 'buckets-o-stuff',
@@ -572,6 +572,183 @@ test('it utilizes the model\'s adapter and serializer during #update', function 
     done();
   }).catch(() => {
     assert.ok(false);
+    done();
+  });
+});
+
+test('it fetches a reference, then a cart on #fetchRecentCart when one exists', function (assert) {
+  assert.expect(6);
+
+  const done = assert.async();
+
+  const cartModel = new CartModel();
+  const cartId = 12;
+
+  shopClient.fetch = function (type, idOrQuery) {
+    if (type === 'references') {
+      step(1, 'fetches a reference', assert);
+
+      assert.equal(idOrQuery, `${config.myShopifyDomain}.recent-cart`);
+
+      return new Promise(resolve => {
+        resolve({ referenceId: cartId });
+      });
+    } else if (type === 'carts') {
+      step(2, 'fetches a cart', assert);
+
+      assert.equal(idOrQuery, cartId);
+
+      return new Promise(resolve => {
+        resolve(cartModel);
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      const errorMessage = `fetched an unknown type of ${type}`;
+
+      assert.ok(false, errorMessage);
+      reject(new Error(errorMessage));
+    });
+  };
+
+  shopClient.fetchRecentCart().then(cart => {
+    step(3, 'it resolves with a cart', assert);
+    assert.equal(cart, cartModel);
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it fetches a reference and creates a cart on #fetchRecentCart when one does not exist', function (assert) {
+  const done = assert.async();
+
+  const cartModel = new CartModel();
+
+  cartModel.attrs[GUID_KEY] = 5;
+
+  shopClient.fetch = function (type, idOrQuery) {
+    if (type === 'references') {
+      step(1, 'fetches a reference', assert);
+
+      assert.equal(idOrQuery, `${config.myShopifyDomain}.recent-cart`);
+
+      return new Promise((resolve, reject) => {
+        reject({});
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      const errorMessage = `fetched an unknown type of ${type}`;
+
+      assert.ok(false, errorMessage);
+      reject(new Error(errorMessage));
+    });
+  };
+
+  shopClient.create = function (type, attrs) {
+    if (type === 'carts') {
+      step(2, 'it creates a cart', assert);
+
+      return new Promise(resolve => {
+        resolve(cartModel);
+      });
+    } else if (type === 'references') {
+      step(3, 'it creates a reference with the cart id', assert);
+      assert.equal(attrs[GUID_KEY], `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(attrs.referenceId, cartModel.id);
+
+      return new Promise(resolve => {
+        resolve({});
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      const errorMessage = `an unknown type of ${type}`;
+
+      assert.ok(false, errorMessage);
+      reject(new Error(errorMessage));
+    });
+  };
+
+  shopClient.fetchRecentCart().then(cart => {
+    step(4, 'it resolves with a cart', assert);
+    assert.equal(cart, cartModel);
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it fetches a reference and creates a cart on #fetchRecentCart with broken internal state (reference to nil cart)', function (assert) {
+  assert.expect(8);
+
+  const done = assert.async();
+
+  const cartModel = new CartModel();
+
+  cartModel.attrs[GUID_KEY] = 5;
+
+  // Return a reference, but there's no cart
+  shopClient.fetch = function (type) {
+    if (type === 'references') {
+      step(1, 'it fetches a reference', assert);
+
+      return new Promise(resolve => {
+        resolve({ referenceId: 5 });
+      });
+    } else if (type === 'carts') {
+      step(2, 'it attempts to fetch a cart', assert);
+
+      return new Promise((resolve, reject) => {
+        reject({});
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      const errorMessage = `fetched an unknown type of ${type}`;
+
+      assert.ok(false, errorMessage);
+      reject(new Error(errorMessage));
+    });
+  };
+
+  // Create a cart, then create a ref
+  shopClient.create = function (type, attrs) {
+    if (type === 'carts') {
+      step(3, 'it creates a cart after failing to find one', assert);
+
+      return new Promise(resolve => {
+        resolve(cartModel);
+      });
+    } else if (type === 'references') {
+      step(4, 'it saves a new reference to the cart', assert);
+
+      assert.equal(attrs[GUID_KEY], `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(attrs.referenceId, cartModel.id);
+
+      return new Promise(resolve => {
+        resolve({});
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      const errorMessage = `an unknown type of ${type}`;
+
+      assert.ok(false, errorMessage);
+      reject(new Error(errorMessage));
+    });
+  };
+
+  shopClient.fetchRecentCart().then(cart => {
+    step(5, 'it resolves with the cart', assert);
+
+    assert.equal(cart, cartModel);
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
     done();
   });
 });
