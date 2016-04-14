@@ -408,6 +408,21 @@ const ShopClient = CoreObject.extend({
   fetchQueryCollections: fetchFactory('query', 'collections'),
 
 
+  /**
+   * This method looks up a reference in localStorage to the most recent cart.
+   * If one is not found, creates one. If the cart the reference points to
+   * doesn't exist, create one and store the new reference.
+   *
+   * ```javascript
+   * client.fetchRecentCart().then(cart => {
+   *  // do stuff with the cart
+   * });
+   * ```
+   *
+   * @method fetchRecentCart
+   * @public
+   * @return {Promise|CartModel} The cart.
+   */
   fetchRecentCart() {
     return this.fetch('references', `${this.config.myShopifyDomain}.recent-cart`).then(reference => {
       const cartId = reference.referenceId;

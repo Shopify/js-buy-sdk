@@ -4,8 +4,8 @@ import { GUID_KEY } from '../metal/set-guid-for';
 const ReferenceModel = BaseModel.extend({
 
   /**
-    * Class for cart model
-    * @class CartModel
+    * Class for reference model
+    * @class ReferenceModel
     * @constructor
   */
   constructor(attrs) {
@@ -17,7 +17,7 @@ const ReferenceModel = BaseModel.extend({
   },
 
   /**
-    * get ID for current cart
+    * get the ID for current reference (not what it refers to, but its own unique identifier)
     * @property id
     * @type {String}
   */

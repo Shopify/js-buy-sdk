@@ -1,5 +1,4 @@
 import { module, test } from 'qunit';
-// import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
 import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
 import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
@@ -23,7 +22,6 @@ module('Integration | ShopClient#fetchRecentCart', {
   setup() {
     shopClient = new ShopClient(config);
     fakeLocalStorage = {};
-    // resetStep();
 
     localStorage.getItem = function (key) {
       return JSON.stringify(fakeLocalStorage[key]);
