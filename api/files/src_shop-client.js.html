@@ -133,7 +133,7 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method fetchAll
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @return {Promise|Array} a promise resolving with an array of &#x60;type&#x60;
    */
@@ -155,7 +155,7 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method fetch
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {String|Number} id a unique identifier
    * @return {Promise|BaseModel} a promise resolving with a single instance of
@@ -179,7 +179,7 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method fetchQuery
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {Object} query a query sent to the api server.
    * @return {Promise|Array} a promise resolving with an array of &#x60;type&#x60;.
@@ -193,7 +193,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-   * Create an instance of &#x60;type&#x60;, optionally including &#x60;attrs&#x60;.
+   * Create an instance of &#x60;type&#x60;, optionally including &#x60;modelAttrs&#x60;.
    *
    * &#x60;&#x60;&#x60;javascript
    * client.create(&#x27;carts&#x27;, { line_items: [ ... ] }).then(cart =&gt; {
@@ -202,10 +202,10 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method create
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
-   * @param {Object} [modelAttr={}] attributes representing the internal state
-   * of the model to be persisted to the server.
+   * @param {Object} [modelAttrs={}] attributes representing the internal state
+   * of the model to be persisted.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * &#x60;type&#x60;
    */
@@ -231,10 +231,10 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method update
-   * @public
+   * @private
    * @param {String} type The pluralized name of the type, in lower case.
    * @param {BaseModel} updatedModel The model that represents new state to
-   * to persist to the server.
+   * to persist.
    * @return {Promise|CartModel} a promise resolving with a single instance of
    * &#x60;type&#x60;
    */
@@ -281,8 +281,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Convenience wrapper for {{#crossLink &quot;ShopClient/create:method&quot;}}
-    * {{/crossLink}}.
+    * Creates a {{#crossLink &quot;CartModel&quot;}}CartModel{{/crossLink}} instance, optionally including &#x60;attrs&#x60;.
     *
     * &#x60;&#x60;&#x60;javascript
     * client.createCart().then(cart =&gt; {
@@ -290,7 +289,7 @@ const ShopClient = CoreObject.extend({
     * });
     * &#x60;&#x60;&#x60;
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method createCart
     * @public
     * @return {Promise|CartModel} - new cart instance.
@@ -308,15 +307,19 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Convenience wrapper for {{#crossLink &quot;ShopClient/update:method&quot;}}
-    * {{/crossLink}}. Equivalent to:
+    * Updates an existing {{#crossLink &quot;CartModel&quot;}}CartModel{{/crossLink}} instance and persists it to localStorage.
     *
     * &#x60;&#x60;&#x60;javascript
-    * client.update(&#x27;cart&#x27;);
+    * client.createCart().then(cart =&gt; {
+    *   cart.lineItems = [
+    *     // ...
+    *   ];
+    *   client.updateCart(cart);
+    * });
     * &#x60;&#x60;&#x60;
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to the server.
-    * @method createCart
+    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
+    * @method updateCart
     * @public
     * @return {Promise|CartModel} - updated cart instance.
   */
@@ -324,6 +327,20 @@ const ShopClient = CoreObject.extend({
     return this.update(&#x27;carts&#x27;, updatedCart);
   },
 
+  /**
+   * Retrieve a previously created cart by its key.
+   *
+   * &#x60;&#x60;&#x60;javascript
+   * client.fetchCart(&#x27;shopify-buy.1459804699118.2&#x27;).then(cart =&gt; {
+   *   console.log(cart); // The retrieved cart
+   * });
+   *
+   * @method fetchCart
+   * @public
+   * @param {String} id The cart&#x27;s unique identifier
+   * @return {Promise|CartModel} The cart model.
+   *
+   */
   fetchCart: fetchFactory(&#x27;one&#x27;, &#x27;carts&#x27;),
 
   /**
@@ -335,7 +352,7 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method fetchAllProducts
-   * @public
+   * @private
    * @return {Promise|Array} The product models.
    */
   fetchAllProducts: fetchFactory(&#x27;all&#x27;, &#x27;products&#x27;),
@@ -349,67 +366,76 @@ const ShopClient = CoreObject.extend({
    * &#x60;&#x60;&#x60;
    *
    * @method fetchAllCollections
-   * @public
+   * @private
    * @return {Promise|Array} The collection models.
    */
   fetchAllCollections: fetchFactory(&#x27;all&#x27;, &#x27;collections&#x27;),
 
   /**
-   * Convenience wrapper for {{#crossLink &quot;ShopClient/fetch:method&quot;}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetch one product by its ID.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.fetch(&#x27;products&#x27;, 123);
+   * client.fetchProduct(123).then(product =&gt; {
+   *   console.log(product); // The product with an ID of 123
+   * });
    * &#x60;&#x60;&#x60;
    *
    * @method fetchProduct
    * @public
    * @param {String|Number} id a unique identifier
-   * @return {Promise|BaseModel} The product model.
+   * @return {Promise|BaseModel} The product model with the specified ID.
    */
   fetchProduct: fetchFactory(&#x27;one&#x27;, &#x27;products&#x27;),
 
   /**
-   * Convenience wrapper for {{#crossLink &quot;ShopClient/fetch:method&quot;}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetch one collection by its ID.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.fetch(&#x27;collections&#x27;, 123);
+   * client.fetchCollection(123).then(collection =&gt; {
+   *   console.log(collection); // The collection with an ID of 123
+   * });
    * &#x60;&#x60;&#x60;
    *
    * @method fetchCollection
    * @public
    * @param {String|Number} id a unique identifier
-   * @return {Promise|BaseModel} The collection model.
+   * @return {Promise|BaseModel} The collection model with the specified ID.
    */
   fetchCollection: fetchFactory(&#x27;one&#x27;, &#x27;collections&#x27;),
 
   /**
-   * Convenience wrapper for {{#crossLink &quot;ShopClient/fetchQuery:method&quot;}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetches a list of products matching a specified query.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.fetchQuery(&#x27;products&#x27;, { query: &#x27;options&#x27; });
+   * client.fetchQueryProducts({ collection_id: 123}).then(products =&gt; {
+   *   console.log(products); // An array of products in collection 123
+   * });
    * &#x60;&#x60;&#x60;
-   *
    * @method fetchQueryProducts
    * @public
-   * @param {Object} query a query sent to the api server.
+   * @param {Object} query a query sent to the api server containing one or more of:
+   *   @param {String|Number} [query.collection_id] the ID of a collection to retrieve products from
+   *   @param {Array} [query.product_ids] a list of product IDs to retrieve
+   *   @param {String|Number} [query.page=1] the page offset number of the current lookup (based on the &#x60;limit&#x60;)
+   *   @param {String|Number} [query.limit=50] the number of products to retrieve per page
    * @return {Promise|Array} The product models.
    */
   fetchQueryProducts: fetchFactory(&#x27;query&#x27;, &#x27;products&#x27;),
 
   /**
-   * Convenience wrapper for {{#crossLink &quot;ShopClient/fetchQuery:method&quot;}}
-   * {{/crossLink}}. Equivalent to:
+   * Fetches a list of collections matching a specified query.
    *
    * &#x60;&#x60;&#x60;javascript
-   * client.fetchQuery(&#x27;collections&#x27;, { query: &#x27;options&#x27; });
+   * client.fetchQueryCollections({page: 2, limit: 20}).then(collections =&gt; {
+   *   console.log(collections); // An array of collection resources
+   * });
    * &#x60;&#x60;&#x60;
    *
    * @method fetchQueryCollections
    * @public
    * @param {Object} query a query sent to the api server.
+   *   @param {String|Number} [query.page=1] the page offset number of the current lookup (based on the &#x60;limit&#x60;)
+   *   @param {String|Number} [query.limit=50] the number of collections to retrieve per page
    * @return {Promise|Array} The collection models.
    */
   fetchQueryCollections: fetchFactory(&#x27;query&#x27;, &#x27;collections&#x27;)
