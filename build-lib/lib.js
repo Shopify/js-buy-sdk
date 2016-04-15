@@ -11,6 +11,7 @@ const pkg = require('../package.json');
 const polyfills = require('./polyfills');
 const loader = require('./loader');
 const babelConfig = require('./util/babel-config');
+const Licenser = require('./licenser');
 
 
 function sourceTree(pathConfig, moduleType) {
@@ -97,8 +98,9 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       }
     }));
 
-    tree = mergeTrees([tree, minifiedTree, nodeLibOutput]);
+    const concatenatedScripts = new Licenser([mergeTrees([tree, minifiedTree])]);
 
+    tree = mergeTrees([concatenatedScripts, nodeLibOutput]);
   } else {
     const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
       headerFiles: ['loader.js'],
