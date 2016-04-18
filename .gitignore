@@ -18,3 +18,4 @@ lib
 # Decrypted secrets
 config/secrets.json
 _site
+.nvmrc

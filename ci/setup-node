@@ -1,0 +1,26 @@
+#!/bin/bash -l
+
+set -e
+
+setup_node () {
+  nvm install $1
+  nvm alias default $1
+}
+
+case $CIRCLE_NODE_INDEX in
+  0)
+    setup_node $NODE_010_VERSION
+    ;;
+  1)
+    setup_node $NODE_012_VERSION
+    ;;
+  2)
+    setup_node $IOJS_VERSION
+    ;;
+  3)
+    setup_node $NODE_4_VERSION
+    ;;
+  *)
+    setup_node $NODE_5_VERSION
+    ;;
+esac

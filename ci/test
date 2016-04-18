@@ -1,6 +1,20 @@
 #!/bin/bash
 
-set -x
+set -e
+
+echo <<MESSAGE
+
+***********************************
+
+  -- TEST --
+
+  NODE VERSION: $(node -v)
+
+  NPM VERSION: $(npm -v)
+
+***********************************
+
+MESSAGE
 
 npm run test-ci
 
