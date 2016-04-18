@@ -1,40 +1,24 @@
 /* global require, module */
 
-const env = require('broccoli-env').getEnv();
+if (process.version < 'v4.0.0') {
+  require('babel-register')({
+    ignore: function (fileName) {
+      var whitelistedPackages = [
+        'broccoli-lint-eslint'
+      ].join('|');
 
-const mergeTrees = require('broccoli-merge-trees');
+      if (fileName.match(new RegExp(whitelistedPackages))) {
+        return false;
+      } else if (fileName.match(/node_modules/)) {
+        return true;
+      }
 
-const pathConfig = {
-  lib: './src',
-  shims: './shims',
-  tests: './tests',
-  examples: './examples'
-};
-
-const trees = [];
-
-trees.push(require('./build-lib/lib')(pathConfig, env));
-
-if (env !== 'production') {
-  trees.push(require('./build-lib/testing')(pathConfig, env));
+      return false;
+    },
+    presets: [
+      require('babel-preset-es2015')
+    ]
+  });
 }
 
-if (process.env.EXAMPLES) {
-  trees.push(require('./build-lib/examples')(pathConfig, env));
-}
-
-module.exports = mergeTrees(trees, { annotation: true });
-
-/*
-const Watcher = require('broccoli/lib/watcher');
-const broccoli = require('broccoli');
-
-const builder = new broccoli.Builder(fullTree);
-const watcher = new Watcher(builder);
-
-watcher.on('change', () => {
-  setTimeout(() => {
-    console.log('\nCrazy Town\n');
-  }, 0);
-});
-*/
+module.exports = require('./js-buy-sdk-build');
