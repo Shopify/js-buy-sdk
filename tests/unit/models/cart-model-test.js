@@ -271,3 +271,47 @@ test('it generates checkout permalinks', function (assert) {
     done();
   });
 });
+
+test('it detects google analytics and appends the cross-domain linker param', function (assert) {
+  assert.expect(2);
+
+  const done = assert.async();
+
+  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const variantId = model.lineItems[0].variant_id;
+  const quantity = model.lineItems[0].quantity;
+  const query = `api_key=${config.apiKey}`;
+  const linkerParam = 'ga=some-linker-param';
+
+  assert.equal(model.checkoutUrl, `${baseUrl}/${variantId}:${quantity}?${query}`);
+
+  const variant = singleProductFixture.product_listing.variants[1];
+
+  window.ga = function (callback) {
+    const tracker = {
+      get() {
+        return linkerParam;
+      }
+    };
+
+    callback(tracker);
+  };
+
+  model.addVariants({ variant, quantity: 1 }).then(cart => {
+    const checkoutVariantPath = cart.lineItems.map(lineItem => {
+      return `${lineItem.variant_id}:${lineItem.quantity}`;
+    }).join(',');
+
+    assert.equal(cart.checkoutUrl, `${baseUrl}/${checkoutVariantPath}?${query}&${linkerParam}`);
+
+    delete window.ga;
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+
+    delete window.ga;
+
+    done();
+  });
+});

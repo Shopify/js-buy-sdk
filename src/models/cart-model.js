@@ -74,7 +74,20 @@ const CartModel = BaseModel.extend({
       return `${item.variant_id}:${item.quantity}`;
     });
 
-    const query = `api_key=${config.apiKey}`;
+    let query = `api_key=${config.apiKey}`;
+
+    /* globals ga:true */
+    if (typeof ga === 'function') {
+      let linkerParam;
+
+      window.ga(function (tracker) {
+        linkerParam = tracker.get('linkerParam');
+      });
+
+      if (linkerParam) {
+        query += `&${linkerParam}`;
+      }
+    }
 
     return `${baseUrl}/${variantPath}?${query}`;
   },
