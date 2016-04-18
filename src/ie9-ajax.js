@@ -33,6 +33,7 @@ function authToUrl(url, opts) {
     }
   }
 
+  /* eslint newline-before-return: 0 */
   return url;
 }
 
