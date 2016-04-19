@@ -33,11 +33,11 @@ function testFrameworkTree() {
 
 function testsTree(pathConfig) {
   const html = funnel(pathConfig.tests, {
-    include: ['index.html'],
+    include: ['index.html']
   });
 
   const qunitShim = funnel(babelTranspiler(pathConfig.shims, babelConfig(null, 'amdStrict')), {
-    include: ['qunit.js'],
+    include: ['qunit.js']
   });
 
   const testJs = funnel(pathConfig.tests, {
