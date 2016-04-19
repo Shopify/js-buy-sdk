@@ -1,4 +1,5 @@
 import ie9Ajax from './ie9-ajax';
+import global from './metal/global';
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -27,7 +28,7 @@ function parseResponse(response) {
 }
 
 export default function ajax(method, url, opts = {}) {
-  if (window.XDomainRequest) {
+  if (global.XDomainRequest) {
     return ie9Ajax(...arguments);
   }
 

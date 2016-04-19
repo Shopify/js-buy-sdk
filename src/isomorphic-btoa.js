@@ -1,24 +1,12 @@
-/* global global, require, Buffer */
+/* global Buffer */
 
-let globalNamespace;
+import global from './metal/global';
+import isNodeLikeEnvironment from './metal/is-node-like-environment';
 
-if (typeof global === 'undefined') {
-  globalNamespace = window;
-} else {
-  globalNamespace = global;
-}
+const btoa = global.btoa;
 
-const btoa = globalNamespace.btoa;
-
-function isNode() {
-  const windowAbsent = typeof window === 'undefined';
-  const requirePresent = typeof require === 'function';
-
-  return windowAbsent && requirePresent;
-}
-
-if (!btoa && isNode()) {
-  globalNamespace.btoa = function (string) {
+if (!btoa && isNodeLikeEnvironment()) {
+  global.btoa = function (string) {
     return (new Buffer(string)).toString('base64');
   };
 }
