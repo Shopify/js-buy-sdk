@@ -40,16 +40,21 @@ $(function() {
     generateApiClassNavItems();
   }
 
-  var clipboard = new Clipboard('[data-clipboard-text]');
-  clipboard.on('success', function(e) {
-    var previousText = $(e.trigger).text();
-    $(e.trigger).text('Copied!');
-    setTimeout(function() {
-      $(e.trigger).text(previousText);
-    }, 2000);
-  });
-  clipboard.on('error', function(e) {
-    $(e.trigger).text('Press ⌘-C now to copy');
-  });
+  if(document.queryCommandSupported('copy')) {
+    var clipboard = new Clipboard('[data-clipboard-text]');
+    clipboard.on('success', function(e) {
+      var previousText = $(e.trigger).text();
+      $(e.trigger).text('Copied!');
+      setTimeout(function() {
+        $(e.trigger).text(previousText);
+      }, 2000);
+    });
+    clipboard.on('error', function(e) {
+      $(e.trigger).text('Press ⌘-C now to copy');
+    });
+  }
+  else {
+    $('[data-clipboard-text]').hide();
+  }
 
 });
