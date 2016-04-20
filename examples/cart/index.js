@@ -119,6 +119,7 @@ $(function() {
       event.preventDefault();
       var id = product.selectedVariant.id;
       addVariantToCart(product.selectedVariant, 1);
+      $('#checkout').focus();
     });
   }
 
