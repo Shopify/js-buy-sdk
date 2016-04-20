@@ -1,9 +1,11 @@
 import ListingsSerializer from './serializers/listings-serializer';
 import ListingsAdapter from './adapters/listings-adapter';
 import CartSerializer from './serializers/cart-serializer';
+import ReferenceSerializer from './serializers/reference-serializer';
 import LocalStorageAdapter from './adapters/local-storage-adapter';
 import CoreObject from './metal/core-object';
 import assign from './metal/assign';
+import { GUID_KEY } from './metal/set-guid-for';
 
 /**
  * @module shopify-buy
@@ -47,13 +49,15 @@ const ShopClient = CoreObject.extend({
     this.serializers = {
       products: ListingsSerializer,
       collections: ListingsSerializer,
-      carts: CartSerializer
+      carts: CartSerializer,
+      references: ReferenceSerializer
     };
 
     this.adapters = {
       products: ListingsAdapter,
       collections: ListingsAdapter,
-      carts: LocalStorageAdapter
+      carts: LocalStorageAdapter,
+      references: LocalStorageAdapter
     };
   },
 
@@ -401,7 +405,43 @@ const ShopClient = CoreObject.extend({
    *   @param {String|Number} [query.limit=50] the number of collections to retrieve per page
    * @return {Promise|Array} The collection models.
    */
-  fetchQueryCollections: fetchFactory('query', 'collections')
+  fetchQueryCollections: fetchFactory('query', 'collections'),
+
+
+  /**
+   * This method looks up a reference in localStorage to the most recent cart.
+   * If one is not found, creates one. If the cart the reference points to
+   * doesn't exist, create one and store the new reference.
+   *
+   * ```javascript
+   * client.fetchRecentCart().then(cart => {
+   *  // do stuff with the cart
+   * });
+   * ```
+   *
+   * @method fetchRecentCart
+   * @public
+   * @return {Promise|CartModel} The cart.
+   */
+  fetchRecentCart() {
+    return this.fetch('references', `${this.config.myShopifyDomain}.recent-cart`).then(reference => {
+      const cartId = reference.referenceId;
+
+      return this.fetchCart(cartId);
+    }).catch(() => {
+      return this.createCart().then(cart => {
+        const refAttrs = {
+          referenceId: cart.id
+        };
+
+        refAttrs[GUID_KEY] = `${this.config.myShopifyDomain}.recent-cart`;
+
+        this.create('references', refAttrs);
+
+        return cart;
+      });
+    });
+  }
 });
 
 export default ShopClient;
