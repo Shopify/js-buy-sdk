@@ -1,0 +1,23 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directory
+node_modules
+
+# Intermediate files
+tmp
+
+# Build artifacts
+.dist-test
+tests.xml
+
+# The following files are gitignored, but MUST be pushed to NPM
+# dist
+# lib
+
+# Decrypted secrets
+config/secrets.json
+_site
+.nvmrc
