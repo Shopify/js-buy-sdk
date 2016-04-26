@@ -1,23 +1,11 @@
-/* global global, require */
+/* global require */
 
-let globalNamespace;
+import global from './metal/global';
+import isNodeLikeEnvironment from './metal/is-node-like-environment';
 
-if (typeof global === 'undefined') {
-  globalNamespace = window;
-} else {
-  globalNamespace = global;
-}
+const fetch = global.fetch;
 
-const fetch = globalNamespace.fetch;
-
-function isNode() {
-  const windowAbsent = typeof window === 'undefined';
-  const requirePresent = typeof require === 'function';
-
-  return windowAbsent && requirePresent;
-}
-
-if (!fetch && isNode()) {
-  globalNamespace.fetch = require('node-fetch');
-  globalNamespace.Response = globalNamespace.fetch.Response;
+if (!fetch && isNodeLikeEnvironment()) {
+  global.fetch = require('node-fetch');
+  global.Response = global.fetch.Response;
 }
