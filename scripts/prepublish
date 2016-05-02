@@ -1,13 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-set -x
+/* globals require process */
+require('./util/work-from-root')();
 
-export PATH=$(npm bin):$PATH
+var cleanDirectory = require('./util/clean-directory');
+var recursiveCpdir = require('./util/recursive-cpdir');
+var buildProject = require('./util/build-project');
+var path = require('path');
 
-npm run build
+var libPath = 'lib';
+var buildPath = 'dist';
 
-if [ -d lib ]; then
-  rm -rf lib
-fi
+cleanDirectory(libPath);
+cleanDirectory(buildPath);
 
-mv dist/node-lib lib
+process.env.BROCCOLI_ENV = 'production';
+
+buildProject(buildPath, function (buildStatus) {
+  if (buildStatus === 0) {
+    var srcDir = path.join(process.cwd(), 'dist', 'node-lib');
+    var destDir = path.join(process.cwd(), 'lib');
+
+    recursiveCpdir(srcDir, destDir);
+
+    process.exit(0);
+  }
+
+  process.exit(buildStatus);
+});

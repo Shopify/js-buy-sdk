@@ -1,13 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env node
 
-set -x
+/* globals require process */
 
-export PATH=$(npm bin):$PATH
+require('./util/work-from-root')();
 
-export BROCCOLI_ENV=production
+var cleanDirectory = require('./util/clean-directory');
+var buildProject = require('./util/build-project');
 
-if [ -d dist ]; then
-  rm -rf dist
-fi
+var buildPath = 'dist';
 
-broccoli build dist
+cleanDirectory(buildPath);
+
+process.env.BROCCOLI_ENV = 'production';
+
+buildProject(buildPath, function (buildStatus) {
+  process.exit(buildStatus);
+});
