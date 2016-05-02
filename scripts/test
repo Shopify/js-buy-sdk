@@ -5,7 +5,7 @@
 require('./util/work-from-root')();
 
 var followProcess = require('./util/follow-process');
-var binPath = require('./util/node-module-bin-path');
+var binPath = require('./util/npm-bin-path');
 var cleanDirectory = require('./util/clean-directory');
 var buildProject = require('./util/build-project');
 
@@ -16,8 +16,10 @@ cleanDirectory(testBuildPath);
 
 buildProject(testBuildPath, function (buildStatus) {
   if (buildStatus === 0) {
-    followProcess('node', [binPath('testem'), 'ci'], function (testStatus) {
-      process.exit(testStatus);
+    binPath('testem', function (testemBinPath) {
+      followProcess('node', [testemBinPath, 'ci'], function (testStatus) {
+        process.exit(testStatus);
+      });
     });
   } else {
     process.exit(buildStatus);

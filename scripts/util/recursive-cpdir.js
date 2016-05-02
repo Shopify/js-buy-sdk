@@ -10,7 +10,7 @@ module.exports = function recursiveCpdir(src, dest) {
 
   fs.mkdirSync(dest);
 
-  for (var file of files) {
+  files.forEach(function (file) {
     var srcFile = path.join(src, file);
     var destFile = path.join(dest, file);
 
@@ -27,5 +27,5 @@ module.exports = function recursiveCpdir(src, dest) {
 
       fs.writeFileSync(destFile, data);
     }
-  };
+  });
 };

@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+
+/* globals require process */
+require('./util/work-from-root')();
+
+var cleanDirectory = require('./util/clean-directory');
+var recursiveCpdir = require('./util/recursive-cpdir');
+
+var libPath = 'lib';
+var buildPath = 'dist';
+
+cleanDirectory(libPath);
+cleanDirectory(buildPath);
