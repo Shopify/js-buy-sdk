@@ -36,6 +36,14 @@ test('it extends from BaseModel', function (assert) {
 });
 
 test('it updates line_price based on changing quantity', function (assert) {
-  assert.expect(/* Add a value here */);
-});
+  assert.expect(6);
 
+  assert.equal(model.quantity, 1);
+  assert.equal(model.price, '12.00');
+  assert.equal(model.line_price, '12.00');
+
+  model.quantity = 2;
+  assert.equal(model.quantity, 2);
+  assert.equal(model.price, '12.00');
+  assert.equal(model.line_price, '24.00');
+});
