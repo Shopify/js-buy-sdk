@@ -31,9 +31,18 @@ const CartLineItem = BaseModel.extend({
   },
 
   set quantity(value) {
-    this.attrs.quantity = value;
+    const parsedValue = parseInt(value, 10);
 
-    return value;
+    if (parsedValue < 0) {
+      throw new Error('Quantities must be positive');
+    } else if (parsedValue !== parseFloat(value)) {
+      /* incidentally, this covers all NaN values, because NaN !== Nan */
+      throw new Error('Quantities must be whole numbers');
+    }
+
+    this.attrs.quantity = parsedValue;
+
+    return this.attrs.quantity;
   },
 
   get properties() {

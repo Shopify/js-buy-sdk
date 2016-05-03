@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
+import assign from 'shopify-buy/metal/assign';
 import BaseModel from 'shopify-buy/models/base-model';
 
 let model;
@@ -21,7 +22,7 @@ const lineItemFixture = {
 
 module('Unit | CartLineItemModel', {
   setup() {
-    model = new CartLineItemModel(lineItemFixture);
+    model = new CartLineItemModel(assign({}, lineItemFixture));
   },
 
   teardown() {
@@ -43,7 +44,71 @@ test('it updates line_price based on changing quantity', function (assert) {
   assert.equal(model.line_price, '12.00');
 
   model.quantity = 2;
+
   assert.equal(model.quantity, 2);
   assert.equal(model.price, '12.00');
   assert.equal(model.line_price, '24.00');
+});
+
+test('it updates line_price if quantity is a numeric string', function (assert) {
+  assert.expect(6);
+
+  assert.equal(model.quantity, 1);
+  assert.equal(model.price, '12.00');
+  assert.equal(model.line_price, '12.00');
+
+  model.quantity = '2';
+
+  assert.equal(model.quantity, 2, 'quantity gets cast to a number');
+  assert.equal(model.price, '12.00');
+  assert.equal(model.line_price, '24.00');
+});
+
+test('it rejects negative quantities', function (assert) {
+  assert.expect(1);
+
+  assert.throws(function () {
+    model.quantity = -1;
+  });
+});
+
+test('it rejects decimal quantities', function (assert) {
+  assert.expect(2);
+
+  assert.throws(function () {
+    model.quantity = 1.5;
+  });
+
+  assert.throws(function () {
+    model.quantity = '1.5';
+  });
+});
+
+test('it rejects things that are in no way numbers', function (assert) {
+  assert.expect(6);
+
+  assert.throws(function () {
+    model.quantity = '';
+  });
+
+  assert.throws(function () {
+    model.quantity = null;
+  });
+
+  assert.throws(function () {
+    model.quantity = true;
+  });
+
+  assert.throws(function () {
+    model.quantity = false;
+  });
+
+  assert.throws(function () {
+    model.quantity = NaN;
+  });
+
+  assert.throws(function () {
+    /* eslint no-undefined: 0 */
+    model.quantity = undefined;
+  });
 });
