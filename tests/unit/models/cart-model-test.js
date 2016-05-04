@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import CartModel from 'shopify-buy/models/cart-model';
 import BaseModel from 'shopify-buy/models/base-model';
-import CartLineItem from 'shopify-buy/models/cart-line-item-model';
 import assign from 'shopify-buy/metal/assign';
 import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
@@ -54,14 +53,10 @@ test('it extends from BaseModel', function (assert) {
   assert.ok(BaseModel.prototype.isPrototypeOf(model));
 });
 
-test('it transforms attrs.line_items into CartLineItem class instances', function (assert) {
-  assert.expect(1 + cartFixture.cart.line_items.length);
+test('it proxies `lineItems` to the underlying line items', function (assert) {
+  assert.expect(1);
 
-  assert.deepEqual(model.lineItems.length, cartFixture.cart.line_items.length);
-
-  model.lineItems.forEach(item => {
-    assert.ok(CartLineItem.prototype.isPrototypeOf(item));
-  });
+  assert.deepEqual(model.lineItems, cartFixture.cart.line_items);
 });
 
 test('it proxies sub total from the underlying cart', function (assert) {
