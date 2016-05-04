@@ -133,3 +133,55 @@ test('it recovers from broken state when a reference exists to a non-existent ca
     done();
   });
 });
+
+test('it properly transforms line items LineItem instances when fetched', function (assert) {
+  assert.expect(7);
+
+  const done = assert.async();
+
+  const cartReferenceKey = `references.${config.myShopifyDomain}.recent-cart`;
+  const cartId = 'carts.shopify-buy.123';
+
+  const cartAttrs = {
+    cart: {
+      line_items: [{
+        id: 3,
+        image: 'http://google.com/image.png',
+        variant_id: 12345,
+        product_id: 45678,
+        title: 'Some Product',
+        quantity: 1,
+        properties: {},
+        variant_title: 'Red / Small',
+        price: '12.00',
+        compare_at_price: '',
+        line_price: '12.00',
+        grams: 4
+      }]
+    }
+  };
+
+  fakeLocalStorage[cartReferenceKey] = {};
+  fakeLocalStorage[cartReferenceKey].referenceId = cartId.replace('carts.', '');
+  fakeLocalStorage[cartReferenceKey][GUID_KEY] = cartReferenceKey;
+  fakeLocalStorage[cartId] = cartAttrs;
+
+  shopClient.fetchRecentCart().then(cart => {
+    assert.deepEqual(cart.attrs, cartAttrs.cart);
+
+    assert.equal(cart.lineItems[0].price, '12.00');
+    assert.equal(cart.lineItems[0].line_price, '12.00');
+    assert.equal(cart.lineItems[0].quantity, 1);
+
+    cart.lineItems[0].quantity = 2;
+
+    assert.equal(cart.lineItems[0].price, '12.00');
+    assert.equal(cart.lineItems[0].line_price, '24.00', 'line_price is a getter that computes from price and quantity');
+    assert.equal(cart.lineItems[0].quantity, 2);
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});

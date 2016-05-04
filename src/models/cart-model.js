@@ -1,4 +1,5 @@
 import BaseModel from './base-model';
+import CartLineItem from './cart-line-item-model';
 import assign from '../metal/assign';
 import setGuidFor from '../metal/set-guid-for';
 import { GUID_KEY } from '../metal/set-guid-for';
@@ -45,7 +46,9 @@ const CartModel = BaseModel.extend({
     * @type {Array}
   */
   get lineItems() {
-    return this.attrs.line_items || [];
+    return (this.attrs.line_items || []).map(item => {
+      return new CartLineItem(item);
+    });
   },
 
   /**
@@ -110,9 +113,6 @@ const CartModel = BaseModel.extend({
   addVariants() {
     const newLineItems = [...arguments].map(item => {
       const lineItem = {
-        get id() {
-          return this[GUID_KEY];
-        },
         image: item.variant.image,
         variant_id: item.variant.id,
         product_id: item.variant.productId,
@@ -122,9 +122,6 @@ const CartModel = BaseModel.extend({
         variant_title: item.variant.title,
         price: item.variant.price,
         compare_at_price: item.variant.compareAtPrice,
-        get line_price() {
-          return (this.quantity * parseFloat(this.price)).toFixed(2);
-        },
         grams: item.variant.grams
       };
 
@@ -132,7 +129,7 @@ const CartModel = BaseModel.extend({
 
       return lineItem;
     });
-    const existingLineItems = this.lineItems;
+    const existingLineItems = this.attrs.line_items;
 
     existingLineItems.push(...newLineItems);
 

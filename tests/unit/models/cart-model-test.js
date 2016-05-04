@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import CartModel from 'shopify-buy/models/cart-model';
 import BaseModel from 'shopify-buy/models/base-model';
+import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
 import assign from 'shopify-buy/metal/assign';
 import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
@@ -53,10 +54,14 @@ test('it extends from BaseModel', function (assert) {
   assert.ok(BaseModel.prototype.isPrototypeOf(model));
 });
 
-test('it proxies `lineItems` to the underlying line items', function (assert) {
-  assert.expect(1);
+test('it transforms attrs.line_items into CartLineItemModel class instances', function (assert) {
+  assert.expect(1 + cartFixture.cart.line_items.length);
 
-  assert.deepEqual(model.lineItems, cartFixture.cart.line_items);
+  assert.deepEqual(model.lineItems.length, cartFixture.cart.line_items.length);
+
+  model.lineItems.forEach(item => {
+    assert.ok(CartLineItemModel.prototype.isPrototypeOf(item));
+  });
 });
 
 test('it proxies sub total from the underlying cart', function (assert) {
@@ -312,6 +317,36 @@ test('it detects google analytics and appends the cross-domain linker param', fu
 
     delete window.ga;
 
+    done();
+  });
+});
+
+test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal state', function (assert) {
+  assert.expect(5);
+
+  const done = assert.async();
+
+  const quantity = 1;
+  const variantOne = singleProductFixture.product_listing.variants[0];
+  const variantTwo = singleProductFixture.product_listing.variants[1];
+
+  model.addVariants({ variant: variantOne, quantity }).then(_cart => {
+    _cart.addVariants({ variant: variantTwo, quantity }).then(cart => {
+      assert.equal(cart.lineItems.length, 2);
+
+      cart.lineItems.forEach(item => {
+        assert.ok(CartLineItemModel.prototype.isPrototypeOf(item));
+      });
+
+      cart.attrs.line_items.forEach(item => {
+        assert.notOk(CartLineItemModel.prototype.isPrototypeOf(item));
+      });
+
+      done();
+    });
+
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
     done();
   });
 });
