@@ -129,7 +129,7 @@ const CartModel = BaseModel.extend({
 
       return lineItem;
     });
-    const existingLineItems = this.lineItems;
+    const existingLineItems = this.attrs.line_items;
 
     existingLineItems.push(...newLineItems);
 
