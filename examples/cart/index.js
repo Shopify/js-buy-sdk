@@ -8,6 +8,7 @@ $(function() {
     appId: '6'
   });
 
+  var product;
   var cart;
   var cartLineItemCount;
   if(localStorage.getItem('lastCartId')) {
@@ -29,7 +30,8 @@ $(function() {
 
   /* Fetch product and init
   ============================================================ */
-  client.fetchProduct('3614436099').then(function (product) {
+  client.fetchProduct('3614436099').then(function (fetchedProduct) {
+    product = fetchedProduct;
     var selectedVariant = product.selectedVariant;
     var selectedVariantImage = product.selectedVariantImage;
     var currentOptions = product.options;
@@ -41,19 +43,9 @@ $(function() {
     updateVariantImage(selectedVariantImage);
     updateVariantTitle(selectedVariant);
     updateVariantPrice(selectedVariant);
-
-    attachBuyButtonListeners(product);
     attachOnVariantSelectListeners(product);
-
-    attachQuantityIncrementListeners(product);
-    attachQuantityDecrementListeners(product);
-
     updateCartTabButton();
-
-    attachCheckoutButtonListeners();
-
     bindEventListeners();
-
   });
 
   /* Generate DOM elements for variant selectors
@@ -67,6 +59,63 @@ $(function() {
 
     return elements;
   }
+
+
+  /* Bind Event Listeners
+  ============================================================ */
+  function bindEventListeners() {
+    /* cart close button listener */
+    $('.cart .btn--close').on('click', closeCart);
+
+    /* click away listener to close cart */
+    $(document).on('click', function(evt) {
+      if((!$(evt.target).closest('.cart').length) && (!$(evt.target).closest('.js-prevent-cart-listener').length)) {
+        closeCart();
+      }
+    });
+
+    /* escape key handler */
+    var ESCAPE_KEYCODE = 27;
+    $(document).on('keydown', function (evt) {
+      if (evt.which === ESCAPE_KEYCODE) {
+        if (previousFocusItem) {
+          $(previousFocusItem).focus();
+          previousFocusItem = ''
+        }
+        closeCart();
+      }
+    });
+
+    /* checkout button click listener */
+    $('.btn--cart-checkout').on('click', function () {
+      window.open(cart.checkoutUrl, '_self');
+    });
+
+    /* buy button click listener */
+    $('.buy-button').on('click', buyButtonClickHandler);
+
+    /* increment quantity click listener */
+    $('.cart').on('click', '.quantity-increment', function () {
+      var variantId = $(this).data('variant-id');
+      incrementQuantity(variantId);
+    });
+
+    /* decrement quantity click listener */
+    $('.cart').on('click', '.quantity-decrement', function() {
+      var variantId = $(this).data('variant-id');
+      decrementQuantity(variantId);
+    });
+
+    /* update quantity field listener */
+    $('.cart').on('keyup', '.cart-item__quantity', debounce(fieldQuantityHandler, 250));
+
+    /* cart tab click listener */
+    $('.btn--cart-tab').click(function() {
+      setPreviousFocusItem(this);
+      openCart();
+    });
+  }
+
 
   /* Variant option change handler
   ============================================================ */
@@ -114,63 +163,78 @@ $(function() {
 
   /* Attach and control listeners onto buy button
   ============================================================ */
-  function attachBuyButtonListeners(product) {
-    $('.buy-button').on('click', function (event) {
-      event.preventDefault();
-      var id = product.selectedVariant.id;
-      addOrUpdateVariant(product.selectedVariant, 1);
-      setPreviousFocusItem(this);
-      $('#checkout').focus();
-    });
+  function buyButtonClickHandler(evt) {
+    evt.preventDefault();
+    var id = product.selectedVariant.id;
+    var quantity;
+    var cartLineItem = findCartItemByVariantId(id);
+
+    quantity = cartLineItem ? cartLineItem.quantity + 1 : 1;
+
+    addOrUpdateVariant(product.selectedVariant, quantity);
+    setPreviousFocusItem(evt.target);
+    $('#checkout').focus();
   }
 
-  /* Increase product variant quantity in cart
+  /* Update product variant quantity in cart
   ============================================================ */
-  function attachQuantityIncrementListeners(product) {
-    $('.cart').on('click', '.quantity-increment', function(evt) {
-      var variantId = parseInt($(this).attr('data-variant-id'), 10);
-      var variant = product.variants.filter(function (variant) {
-        return (variant.id === variantId);
-      })[0];
-
-      addOrUpdateVariant(variant, 1);
-    });
+  function updateQuantity(fn, variantId) {
+    var variant = product.variants.filter(function (variant) {
+      return (variant.id === variantId);
+    })[0];
+    var quantity;
+    var cartLineItem = findCartItemByVariantId(variant.id);
+    if (cartLineItem) {
+      quantity = fn(cartLineItem.quantity);
+      updateVariantInCart(cartLineItem, quantity);
+    }
   }
 
-  /* Decrease product variant quantity in cart
+  /* Decrease quantity amount by 1
   ============================================================ */
-  function attachQuantityDecrementListeners(product) {
-    $('.cart').on('click', '.quantity-decrement', function(evt) {
-      var variantId = parseInt($(this).attr('data-variant-id'), 10);
-      var variant = product.variants.filter(function (variant) {
-        return (variant.id === variantId);
-      })[0];
-
-      addOrUpdateVariant(variant, -1);
-    });
+  function decrementQuantity(variantId) {
+    updateQuantity(function(quantity) {
+      return quantity - 1;
+    }, variantId);
   }
 
-  /* Bind Event Listeners
+  /* Increase quantity amount by 1
   ============================================================ */
-  function bindEventListeners() {
-    $('.cart .btn--close').on('click', closeCart);
+  function incrementQuantity(variantId) {
+    updateQuantity(function(quantity) {
+      return quantity + 1;
+    }, variantId);
+  }
 
-    $(document).on('click', function(evt) {
-      if((!$(evt.target).closest('.cart').length) && (!$(evt.target).closest('.js-preventCartListener').length)) {
-        closeCart();
-      }
-    });
+  /* Update producrt variant quantity in cart through input field
+  ============================================================ */
+  function fieldQuantityHandler(evt) {
+    var variantId = parseInt($(this).closest('.cart-item').attr('data-variant-id'), 10);
+    var variant = product.variants.filter(function (variant) {
+      return (variant.id === variantId);
+    })[0];
+    var cartLineItem = findCartItemByVariantId(variant.id);
+    var quantity = evt.target.value;
+    if (cartLineItem) {
+      updateVariantInCart(cartLineItem, quantity);
+    }
+  }
 
-    var ESCAPE_KEYCODE = 27
-    $(document).on('keydown', function (evt) {
-      if (evt.which === ESCAPE_KEYCODE) {
-        if (previousFocusItem) {
-          $(previousFocusItem).focus();
-          previousFocusItem = ''
-        }
-        closeCart();
-      }
-    });
+  /* Debounce taken from _.js
+  ============================================================ */
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    }
   }
 
   /* Open Cart
@@ -186,16 +250,22 @@ $(function() {
     $('.overlay').removeClass('js-active');
   }
 
+  /* Find Cart Line Item By Variant Id
+  ============================================================ */
+  function findCartItemByVariantId(variantId) {
+    return cart.lineItems.filter(function (item) {
+      return (item.variant_id === variantId);
+    })[0];
+  }
+
   /* Determine action for variant adding/updating/removing
   ============================================================ */
   function addOrUpdateVariant(variant, quantity) {
     openCart();
-    var foundInCart = cart.lineItems.filter(function (item) {
-      return (item.variant_id === variant.id);
-    });
+    var cartLineItem = findCartItemByVariantId(variant.id);
 
-    if (foundInCart.length) {
-      updateVariantInCart(variant, quantity, foundInCart[0]);
+    if (cartLineItem) {
+      updateVariantInCart(cartLineItem, quantity);
     } else {
       addVariantToCart(variant, quantity);
     }
@@ -205,12 +275,13 @@ $(function() {
 
   /* Update details for item already in cart. Remove if necessary
   ============================================================ */
-  function updateVariantInCart(variant, quantity, cartLineItem) {
-    cart.addVariants({ variant: variant, quantity: quantity }).then(function() {
-      var $cartItem = $('.cart').find('.cart-item[data-variant-id="' + variant.id + '"]');
-
-      if (cartLineItem.quantity > 0) {
-        $cartItem.find('.cart-item__quantity').attr('value', cartLineItem.quantity);
+  function updateVariantInCart(cartLineItem, quantity) {
+    var variantId = cartLineItem.variant_id;
+    var cartLength = cart.lineItems.length;
+    cart.updateLineItem(cartLineItem.id, quantity).then(function(updatedCart) {
+      var $cartItem = $('.cart').find('.cart-item[data-variant-id="' + variantId + '"]');
+      if (updatedCart.lineItems.length >= cartLength) {
+        $cartItem.find('.cart-item__quantity').val(cartLineItem.quantity);
         $cartItem.find('.cart-item__price').text(formatAsMoney(cartLineItem.line_price));
       } else {
         $cartItem.addClass('js-hidden').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
@@ -218,13 +289,15 @@ $(function() {
         });
       }
 
+      updateCartTabButton();
       updateTotalCartPricing();
-
+      if (updatedCart.lineItems.length < 1) {
+        closeCart();
+      }
     }).catch(function (errors) {
       console.log('Fail');
       console.error(errors);
     });
-
   }
 
   /* Add 'quantity' amount of product 'variant' to cart
@@ -252,6 +325,8 @@ $(function() {
     updateCartTabButton();
   }
 
+  /* Return required markup for single item rendering
+  ============================================================ */
   function renderCartItem(lineItem) {
     var lineItemEmptyTemplate = $('#CartItemTemplate').html();
     var $lineItemTemplate = $(lineItemEmptyTemplate);
@@ -275,7 +350,6 @@ $(function() {
     var $cartItemContainer = $('.cart-item-container');
     $cartItemContainer.empty();
     var lineItemEmptyTemplate = $('#CartItemTemplate').html();
-
     var $cartLineItems = cart.lineItems.map(function (lineItem, index) {
       return renderCartItem(lineItem);
     });
@@ -299,15 +373,6 @@ $(function() {
     return '$' + parseFloat(amount, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
   }
 
-
-  /* Checkout listener
-  ============================================================ */
-  function attachCheckoutButtonListeners() {
-    $('.btn--cart-checkout').on('click', function () {
-      window.open(cart.checkoutUrl, '_self');
-    });
-  }
-
   /* Update cart tab button
   ============================================================ */
   function updateCartTabButton() {
@@ -321,13 +386,10 @@ $(function() {
       $('.btn--cart-tab').removeClass('js-active');
       $('.cart').removeClass('js-active');
     }
-
-    $('.btn--cart-tab').click(function() {
-      setPreviousFocusItem(this);
-      openCart();
-    });
   }
 
+  /* Set previously focused item for escape handler
+  ============================================================ */
   function setPreviousFocusItem(item) {
     previousFocusItem = item;
   }
