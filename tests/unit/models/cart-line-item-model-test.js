@@ -1,12 +1,12 @@
 import { module, test } from 'qunit';
 import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
 import assign from 'shopify-buy/metal/assign';
+import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
 import BaseModel from 'shopify-buy/models/base-model';
 
 let model;
 
 const lineItemFixture = {
-  id: 3,
   image: 'http://google.com/image.png',
   variant_id: 12345,
   product_id: 45678,
@@ -19,6 +19,8 @@ const lineItemFixture = {
   line_price: '12.00',
   grams: 4
 };
+
+lineItemFixture[GUID_KEY] = 5;
 
 module('Unit | CartLineItemModel', {
   setup() {
@@ -111,4 +113,18 @@ test('it rejects things that are in no way numbers', function (assert) {
     /* eslint no-undefined: 0 */
     model.quantity = undefined;
   });
+});
+
+test('it proxies values in attrs that we would like to expose', function (assert) {
+  assert.expect(9);
+
+  assert.equal(model.id, model.attrs[GUID_KEY]);
+  assert.equal(model.variant_id, model.attrs.variant_id);
+  assert.equal(model.product_id, model.attrs.product_id);
+  assert.equal(model.image, model.attrs.image);
+  assert.equal(model.title, model.attrs.title);
+  assert.equal(model.variant_title, model.attrs.variant_title);
+  assert.equal(model.price, model.attrs.price);
+  assert.equal(model.compare_at_price, model.attrs.compare_at_price);
+  assert.equal(model.grams, model.attrs.grams);
 });

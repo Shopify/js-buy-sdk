@@ -7,7 +7,7 @@ const CartLineItem = BaseModel.extend({
   },
 
   get id() {
-    return this[GUID_KEY];
+    return this.attrs[GUID_KEY];
   },
 
   get variant_id() {
