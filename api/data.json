@@ -331,7 +331,7 @@
         {
             "file": "src/models/cart-model.js",
             "line": 82,
-            "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({id: 123, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
+            "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({variant: variantObject, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
             "itemtype": "method",
             "name": "addVariants",
             "params": [
