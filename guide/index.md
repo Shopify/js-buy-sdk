@@ -75,7 +75,7 @@ variant ID that already exists in the cart, that line item's quantity will be in
 > Note: `addVariants` accepts a variable number of arguments, each of which must be an object containing an id and quantity.
 
 ```js
-cart.addVariants({id: 123, quantity: 1}).then(function (cart) {
+cart.addVariants({variant: variantObject, quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
 ```
@@ -135,7 +135,7 @@ The product's `selectedVariant` property will now reflect the variant matching t
 
 ```js
 cart.addVariants({
-  id: product.selectedVariant.id,
+  variant: product.selectedVariant,
   quantity: 1
 }).then(function (cart) {
   cart = cart;
