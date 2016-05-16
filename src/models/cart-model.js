@@ -98,7 +98,7 @@ const CartModel = BaseModel.extend({
   /**
     * Add items to cart. Updates cart's `lineItems`
     * ```javascript
-    * cart.addVariants({id: 123, quantity: 1}).then(cart => {
+    * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {
     *   // do things with the updated cart.
     * });
     * ```
