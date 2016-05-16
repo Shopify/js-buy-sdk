@@ -45,7 +45,26 @@ const baseAttrs = {
         name: 'Enthusiasm',
         value: 'Less than tons'
       }
-    ]
+    ],
+    image: {
+      imageVariants: [
+        {
+          name: 'thumb',
+          dimensions: '50x50',
+          src: 'https://cdn.shopify.com/image-two_thumb.jpg'
+        },
+        {
+          name: 'small',
+          dimensions: '100x100',
+          src: 'https://cdn.shopify.com/image-two_small.jpg'
+        },
+        {
+          name: 'master',
+          dimensions: '100x100',
+          src: 'https://cdn.shopify.com/image-two_small.jpg'
+        }
+      ]
+    }
   }
 };
 
@@ -82,11 +101,15 @@ test('it proxies to a composite of product and variant state', function (assert)
 test('it returns the image for the variant', function (assert) {
   assert.expect(2);
 
-  assert.deepEqual(model.image, baseAttrs.product.images[1]);
+  assert.deepEqual(model.image, baseAttrs.variant.image.imageVariants[2], 'should return the `master` when no type is specified');
+  assert.deepEqual(model.image('small'), baseAttrs.variant.image.imageVariants[1], 'should return the `small` image');
+  assert.deepEqual(model.image('stupid-name'), baseAttrs.variant.image.imageVariants[2], 'should return `master` image for invalid type');
+
+  model.attrs.variant.image = null;
+  assert.deepEqual(model.image, baseAttrs.product.images[1], 'should return product level image for variant');
 
   model.attrs.variant.id = 'abc123';
-
-  assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+  assert.deepEqual(model.image, baseAttrs.product.images[0], 'should return product default image when no id matches');
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {
