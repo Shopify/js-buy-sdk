@@ -141,20 +141,7 @@ export const singleProductFixture = {
             value: 'Less than tons'
           }
         ],
-        image: {
-          imageVariants: [
-            {
-              name: 'thumb',
-              dimensions: '50x50',
-              src: 'https://cdn.shopify.com/image-two_thumb.jpg'
-            },
-            {
-              name: 'small',
-              dimensions: '100x100',
-              src: 'https://cdn.shopify.com/image-two_small.jpg'
-            }
-          ]
-        },
+        image: null,
         price: '3.00',
         compare_at_price: null,
         grams: 1000,

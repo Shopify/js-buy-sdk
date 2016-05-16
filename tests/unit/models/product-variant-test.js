@@ -98,18 +98,21 @@ test('it proxies to a composite of product and variant state', function (assert)
   assert.deepEqual(model.optionValues, baseAttrs.variant.option_values);
 });
 
-test('it returns the image for the variant', function (assert) {
-  assert.expect(2);
+test('it returns the appropriate image for the variant', function (assert) {
+  assert.expect(8);
 
-  assert.deepEqual(model.image, baseAttrs.variant.image.imageVariants[2], 'should return the `master` when no type is specified');
-  assert.deepEqual(model.image('small'), baseAttrs.variant.image.imageVariants[1], 'should return the `small` image');
-  assert.deepEqual(model.image('stupid-name'), baseAttrs.variant.image.imageVariants[2], 'should return `master` image for invalid type');
+  assert.deepEqual(model.scaledImage(), baseAttrs.variant.image.imageVariants[2], 'return the `master` when no type is specified');
+  assert.deepEqual(model.scaledImage('small'), baseAttrs.variant.image.imageVariants[1], 'return the `small` image');
+  assert.deepEqual(model.scaledImage('stupid-name'), baseAttrs.variant.image.imageVariants[2], 'return `master` image for invalid type');
+  assert.deepEqual(model.image, baseAttrs.variant.image.imageVariants[2], 'behave like `scaledImage()` for valid variant level images');
 
   model.attrs.variant.image = null;
-  assert.deepEqual(model.image, baseAttrs.product.images[1], 'should return product level image for variant');
+  assert.deepEqual(model.scaledImage(), baseAttrs.product.images[1], 'return product level image for variant');
+  assert.deepEqual(model.image, baseAttrs.product.images[1], 'behave like `scaledImage()` for product level images');
 
   model.attrs.variant.id = 'abc123';
-  assert.deepEqual(model.image, baseAttrs.product.images[0], 'should return product default image when no id matches');
+  assert.deepEqual(model.scaledImage(), baseAttrs.product.images[0], 'return product default image when no id matches');
+  assert.deepEqual(model.image, baseAttrs.product.images[0], 'behave like `scaledImage()` for invalid id and top level images');
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {
