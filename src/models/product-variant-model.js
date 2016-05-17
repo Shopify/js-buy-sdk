@@ -105,7 +105,7 @@ const ProductVariantModel = BaseModel.extend({
   /**
     * Image variants for product variant
     * @property imageVariant
-    * @type {Object}
+    * @type {Array}
   */
   get imageVariants() {
     const src = this.image.src;
