@@ -95,25 +95,25 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Gets image corresponding to a specific size.
-    * Available sizes are listed at https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters
+    * Gets image corresponding to a specific scale.
+    * Available scales are listed at https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters
     * @method scaledImage
-    * @param {String} [size = 'master'] Desired size. Defaults to `master` when available and to product image when unavailable.
+    * @param {String} [scale = 'master'] Desired scale. Defaults to `master` when available and to product image when unavailable.
     * @public
     * @return {String} Checkout URL
   */
-  scaledImage(size = 'master') {
+  scaledImage(scale = 'master') {
     const id = this.id;
     const productImages = this.attrs.product.images;
 
     if (this.attrs.variant.image) {
       const candidates = this.attrs.variant.image.imageVariants.filter(element => {
-        return element.name === size || element.name === 'master';
+        return element.name === scale || element.name === 'master';
       });
 
       if (candidates.length === 1) {
         return candidates[0];
-      } else if (candidates[0].name === size) {
+      } else if (candidates[0].name === scale) {
         return candidates[0];
       }
 
