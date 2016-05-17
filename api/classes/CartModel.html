@@ -120,7 +120,7 @@ layout: api
 	</div>
 
 	<div class="description"><p>Add items to cart. Updates cart's <code>lineItems</code></p>
-<pre class="code prettyprint"><code class="language-javascript">cart.addVariants({id: 123, quantity: 1}).then(cart =&gt; {
+<pre class="code prettyprint"><code class="language-javascript">cart.addVariants({variant: variantObject, quantity: 1}).then(cart =&gt; {
   // do things with the updated cart.
 });
 </code></pre>
