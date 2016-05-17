@@ -110,6 +110,7 @@ const ProductVariantModel = BaseModel.extend({
   get imageVariants() {
     const src = this.image.src;
     const extensionIndex = src.lastIndexOf('.');
+    const srcParts = [src.slice(0, extensionIndex), src.slice(extensionIndex)];
     const variants = [
       { name: 'pico', dimension: '16x16' },
       { name: 'icon', dimension: '32x32' },
@@ -123,11 +124,12 @@ const ProductVariantModel = BaseModel.extend({
       { name: '2048x2048', dimension: '2048x2048' }
     ];
 
-    return variants.map(variant => {
-      variant.src = `${src.slice(0, extensionIndex)}_${variant.name}${src.slice(extensionIndex)}`;
-
-      return variant;
+    variants.forEach((variant, index) => {
+      variant.src = `${srcParts[0]}_${variant.name}${srcParts[1]}`;
+      variants[index] = variant;
     });
+
+    return variants;
   },
 
   /**
