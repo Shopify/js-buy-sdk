@@ -103,6 +103,37 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
+    * Image variants available for a variant, ex [ {"name":"pico","dimension":"16x16","src":"https://cdn.shopify.com/image-two_pico.jpg"} ]
+    * See <a href="https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters"> for list of available variants.</a>
+    * @property imageVariant
+    * @type {Array}
+  */
+  get imageVariants() {
+    const src = this.image.src;
+    const extensionIndex = src.lastIndexOf('.');
+    const pathAndBasename = src.slice(0, extensionIndex);
+    const extension = src.slice(extensionIndex);
+    const variants = [
+      { name: 'pico', dimension: '16x16' },
+      { name: 'icon', dimension: '32x32' },
+      { name: 'thumb', dimension: '50x50' },
+      { name: 'small', dimension: '100x100' },
+      { name: 'compact', dimension: '160x160' },
+      { name: 'medium', dimension: '240x240' },
+      { name: 'large', dimension: '480x480' },
+      { name: 'grande', dimension: '600x600' },
+      { name: '1024x1024', dimension: '1024x1024' },
+      { name: '2048x2048', dimension: '2048x2048' }
+    ];
+
+    variants.forEach(variant => {
+      variant.src = `${pathAndBasename}_${variant.name}${extension}`;
+    });
+
+    return variants;
+  },
+
+  /**
     * Checkout URL for purchasing variant with quantity.
     * @method checkoutUrl
     * @param {Number} [quantity = 1] quantity of variant

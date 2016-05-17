@@ -79,6 +79,64 @@ test('it proxies to a composite of product and variant state', function (assert)
   assert.deepEqual(model.optionValues, baseAttrs.variant.option_values);
 });
 
+test('it returns the image variants for the variant', function (assert) {
+  assert.expect(1);
+  const expectedImageVariants = [
+    {
+      name: 'pico',
+      dimension: '16x16',
+      src: 'https://cdn.shopify.com/image-two_pico.jpg'
+    },
+    {
+      name: 'icon',
+      dimension: '32x32',
+      src: 'https://cdn.shopify.com/image-two_icon.jpg'
+    },
+    {
+      name: 'thumb',
+      dimension: '50x50',
+      src: 'https://cdn.shopify.com/image-two_thumb.jpg'
+    },
+    {
+      name: 'small',
+      dimension: '100x100',
+      src: 'https://cdn.shopify.com/image-two_small.jpg'
+    },
+    {
+      name: 'compact',
+      dimension: '160x160',
+      src: 'https://cdn.shopify.com/image-two_compact.jpg'
+    },
+    {
+      name: 'medium',
+      dimension: '240x240',
+      src: 'https://cdn.shopify.com/image-two_medium.jpg'
+    },
+    {
+      name: 'large',
+      dimension: '480x480',
+      src: 'https://cdn.shopify.com/image-two_large.jpg'
+    },
+    {
+      name: 'grande',
+      dimension: '600x600',
+      src: 'https://cdn.shopify.com/image-two_grande.jpg'
+    },
+    {
+      name: '1024x1024',
+      dimension: '1024x1024',
+      src: 'https://cdn.shopify.com/image-two_1024x1024.jpg'
+    },
+    {
+      name: '2048x2048',
+      dimension: '2048x2048',
+      src: 'https://cdn.shopify.com/image-two_2048x2048.jpg'
+    }
+  ];
+
+  assert.deepEqual(model.imageVariants, expectedImageVariants);
+});
+
 test('it returns the image for the variant', function (assert) {
   assert.expect(2);
 
