@@ -103,7 +103,8 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Image variants for product variant
+    * Image variants available for a variant, ex [ {"name":"pico","dimension":"16x16","src":"https://cdn.shopify.com/image-two_pico.jpg"} ]
+    * See https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters for list of available variants.
     * @property imageVariant
     * @type {Array}
   */
