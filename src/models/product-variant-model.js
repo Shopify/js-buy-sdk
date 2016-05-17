@@ -103,6 +103,34 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
+    * Image variants for product variant
+    * @property imageVariant
+    * @type {Object}
+  */
+  get imageVariants() {
+    const src = this.image.src;
+    const extensionIndex = src.lastIndexOf('.');
+    const variants = [
+      { name: 'pico', dimension: '16x16' },
+      { name: 'icon', dimension: '32x32' },
+      { name: 'thumb', dimension: '50x50' },
+      { name: 'small', dimension: '100x100' },
+      { name: 'compact', dimension: '160x160' },
+      { name: 'medium', dimension: '240x240' },
+      { name: 'large', dimension: '480x480' },
+      { name: 'grande', dimension: '600x600' },
+      { name: '1024x1024', dimension: '1024x1024' },
+      { name: '2048x2048', dimension: '2048x2048' }
+    ];
+
+    return variants.map(variant => {
+      variant.src = `${src.slice(0, extensionIndex)}_${variant.name}${src.slice(extensionIndex)}`;
+
+      return variant;
+    });
+  },
+
+  /**
     * Checkout URL for purchasing variant with quantity.
     * @method checkoutUrl
     * @param {Number} [quantity = 1] quantity of variant
