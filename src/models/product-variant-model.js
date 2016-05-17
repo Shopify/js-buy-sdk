@@ -125,8 +125,8 @@ const ProductVariantModel = BaseModel.extend({
       { name: '2048x2048', dimension: '2048x2048' }
     ];
 
-    variants.forEach((variant, index) => {
-      variants[index].src = `${srcParts[0]}_${variant.name}${srcParts[1]}`;
+    variants.forEach(variant => {
+      variant.src = `${srcParts[0]}_${variant.name}${srcParts[1]}`;
     });
 
     return variants;
