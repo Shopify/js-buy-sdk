@@ -66,6 +66,7 @@ export const singleProductFixture = {
             value: 'Tons'
           }
         ],
+        image: null,
         price: '4.04',
         compare_at_price: null,
         grams: 1000,
@@ -90,6 +91,7 @@ export const singleProductFixture = {
             value: 'Less than tons'
           }
         ],
+        image: null,
         price: '4.01',
         compare_at_price: null,
         grams: 1000,
@@ -114,6 +116,7 @@ export const singleProductFixture = {
             value: 'Tons'
           }
         ],
+        image: null,
         price: '5.12',
         compare_at_price: null,
         grams: 1000,
@@ -138,6 +141,7 @@ export const singleProductFixture = {
             value: 'Less than tons'
           }
         ],
+        image: null,
         price: '3.00',
         compare_at_price: null,
         grams: 1000,

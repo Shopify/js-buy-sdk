@@ -45,7 +45,26 @@ const baseAttrs = {
         name: 'Enthusiasm',
         value: 'Less than tons'
       }
-    ]
+    ],
+    image: {
+      imageVariants: [
+        {
+          name: 'thumb',
+          dimensions: '50x50',
+          src: 'https://cdn.shopify.com/image-two_thumb.jpg'
+        },
+        {
+          name: 'small',
+          dimensions: '100x100',
+          src: 'https://cdn.shopify.com/image-two_small.jpg'
+        },
+        {
+          name: 'master',
+          dimensions: '100x100',
+          src: 'https://cdn.shopify.com/image-two_small.jpg'
+        }
+      ]
+    }
   }
 };
 
@@ -79,14 +98,21 @@ test('it proxies to a composite of product and variant state', function (assert)
   assert.deepEqual(model.optionValues, baseAttrs.variant.option_values);
 });
 
-test('it returns the image for the variant', function (assert) {
-  assert.expect(2);
+test('it returns the appropriate image for the variant', function (assert) {
+  assert.expect(8);
 
-  assert.deepEqual(model.image, baseAttrs.product.images[1]);
+  assert.deepEqual(model.scaledImage(), baseAttrs.variant.image.imageVariants[2], 'return the `master` when no type is specified');
+  assert.deepEqual(model.scaledImage('small'), baseAttrs.variant.image.imageVariants[1], 'return the `small` image');
+  assert.deepEqual(model.scaledImage('stupid-name'), baseAttrs.variant.image.imageVariants[2], 'return `master` image for invalid type');
+  assert.deepEqual(model.image, baseAttrs.variant.image.imageVariants[2], 'behave like `scaledImage()` for valid variant level images');
+
+  model.attrs.variant.image = null;
+  assert.deepEqual(model.scaledImage(), baseAttrs.product.images[1], 'return product level image for variant');
+  assert.deepEqual(model.image, baseAttrs.product.images[1], 'behave like `scaledImage()` for product level images');
 
   model.attrs.variant.id = 'abc123';
-
-  assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+  assert.deepEqual(model.scaledImage(), baseAttrs.product.images[0], 'return product default image when no id matches');
+  assert.deepEqual(model.image, baseAttrs.product.images[0], 'behave like `scaledImage()` for invalid id and top level images');
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {
