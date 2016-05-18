@@ -27,15 +27,16 @@ Licenser.prototype.build = function () {
     });
 
     return fileAcc.concat(list);
-  }, []).filter(fileName => {
-    return fileName.match(/^.+\.js$/);
-  });
+  }, []);
 
   files.forEach(fileName => {
     const inputBuffer = fs.readFileSync(path.join(fileName));
+    var outputBuffer = inputBuffer;
 
-    const outputBuffer = `/*\n${LICENSE}*/\n\n${inputBuffer}`;
-
+    if (fileName.match(/^.+\.js$/)) {
+      outputBuffer = `/*\n${LICENSE}*/\n\n${inputBuffer}`;
+    }
+    
     fs.writeFileSync(path.join(this.outputPath, path.basename(fileName)), outputBuffer);
   });
 };
