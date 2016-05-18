@@ -8,6 +8,8 @@ checkout.
 
 If you're just getting started, please [read the docs](http://shopify.github.io/js-buy-sdk/).
 
+[See our example](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart).
+
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
 please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md).
