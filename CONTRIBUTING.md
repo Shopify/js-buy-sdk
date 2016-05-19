@@ -28,7 +28,8 @@ Add some tests and make your change. Re-run the tests with:
 npm run test
 ```
 
-[See our example](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart).
+## Examples
+See [here](https://github.com/Shopify/js-buy-sdk/blob/master/examples) for our examples.
 
 ## Documentation
 If your change affects how people use the project (i.e. adding or
