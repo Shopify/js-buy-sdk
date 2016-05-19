@@ -12,6 +12,7 @@ const polyfills = require('./polyfills');
 const loader = require('./loader');
 const babelConfig = require('./util/babel-config');
 const Licenser = require('./util/licenser');
+const Versioner = require('./util/versioner');
 
 
 function sourceTree(pathConfig, moduleType) {
@@ -98,7 +99,14 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       }
     }));
 
-    const concatenatedScripts = new Licenser([mergeTrees([tree, minifiedTree])]);
+    const concatenatedScripts = new Licenser([
+      new Versioner([
+        mergeTrees([
+          tree,
+          minifiedTree
+        ])
+      ], { templateString: '{{versionString}}' })
+    ]);
 
     tree = mergeTrees([concatenatedScripts, nodeLibOutput]);
   } else {
@@ -115,7 +123,14 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       sourceMapConfig: { enabled: false }
     });
 
-    tree = mergeTrees([amdOutput, polyfillTree, globalsOutput, polyFilledGlobalsOutput]);
+    tree = new Versioner([
+      mergeTrees([
+        amdOutput,
+        polyfillTree,
+        globalsOutput,
+        polyFilledGlobalsOutput
+      ])
+    ], { templateString: '{{versionString}}' });
   }
 
   return tree;
