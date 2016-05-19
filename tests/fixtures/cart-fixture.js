@@ -60,5 +60,8 @@ export const cartFixture = {
     discount: null
   }
 };
+cartFixture.cart.line_items.forEach((item, index) => {
+  item[GUID_KEY] = index;
+});
 
 cartFixture.cart[GUID_KEY] = 'abc123';
