@@ -9,7 +9,7 @@ npm install && npm run examples
 
 Once it's running, open your browser to `http://localhost:4200/examples/<example-name>/` to view the example.
 
-> Do not forget to replace `<example-name>` in the URL above.
+> eg: `/examples/cart` for the cart example
 
 The examples works in Internet Explorer 9+, Safari 5.1+, iOS 6.1+,
 Android 4.0+ and modern (current - 1) Chrome, Firefox and Opera.
