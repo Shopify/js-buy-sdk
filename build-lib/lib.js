@@ -11,7 +11,7 @@ const pkg = require('../package.json');
 const polyfills = require('./polyfills');
 const loader = require('./loader');
 const babelConfig = require('./util/babel-config');
-const Licenser = require('./licenser');
+const Licenser = require('./util/licenser');
 
 
 function sourceTree(pathConfig, moduleType) {
