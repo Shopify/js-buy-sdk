@@ -211,7 +211,9 @@ const CartModel = BaseModel.extend({
     const newLength = newLineItems.length;
 
     if (newLength < oldLength) {
-      this.attrs.line_items = newLineItems;
+      this.attrs.line_items = newLineItems.map(item => {
+        return item.attrs;
+      });
 
       return this.updateModel();
     }

@@ -350,3 +350,34 @@ test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal
     done();
   });
 });
+
+
+test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances on #removeLineItem', function (assert) {
+  assert.expect(4);
+
+  const done = assert.async();
+
+  const quantity = 1;
+  const variantOne = singleProductFixture.product_listing.variants[0];
+  const variantTwo = singleProductFixture.product_listing.variants[1];
+
+  model.addVariants({ variant: variantOne, quantity }, { variant: variantTwo, quantity }).then(cart => {
+    assert.equal(cart.lineItems.length, 2);
+    cart.removeLineItem(cart.lineItems[0].id);
+    assert.equal(cart.lineItems.length, 1);
+
+    cart.lineItems.forEach(item => {
+      assert.ok(CartLineItemModel.prototype.isPrototypeOf(item));
+    });
+
+    cart.attrs.line_items.forEach(item => {
+      assert.notOk(CartLineItemModel.prototype.isPrototypeOf(item));
+    });
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+
+});
