@@ -1,6 +1,6 @@
 import ajax from '../ajax';
 import CoreObject from '../metal/core-object';
-
+import version from '../version';
 
 const ListingsAdapter = CoreObject.extend({
   ajax,
@@ -22,7 +22,10 @@ const ListingsAdapter = CoreObject.extend({
   get headers() {
     return {
       Authorization: `Basic ${this.base64ApiKey}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-SDK-Variant': 'javascript',
+      'X-SDK-Version': version
+
     };
   },
 
