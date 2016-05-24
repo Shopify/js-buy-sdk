@@ -52,20 +52,11 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Get the total number of line items in the cart.
+    * Gets the sum of quantity of each line item
     * @property lineItemCount
-    * @type {Array}
+    * @type {Number}
   */
   get lineItemCount() {
-    return this.lineItems.length;
-  },
-
-  /**
-    * Gets the sum of quantity of each line item
-    * @property totalQuantity
-    * @type {Array}
-  */
-  get totalQuantity() {
     return this.lineItems.reduce(function (total, item) {
       return total + item.quantity;
     }, 0);
