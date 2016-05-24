@@ -5,12 +5,12 @@
   "main": "lib/shopify.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
-    "build": "./scripts/build",
-    "prepublish": "./scripts/prepublish",
+    "build": "node ./scripts/build",
+    "prepublish": "node ./scripts/prepublish",
     "doc-server": "yuidoc --server 5000",
     "start": "broccoli serve",
     "examples": "env EXAMPLES=1 broccoli serve",
-    "test": "./scripts/test",
+    "test": "node ./scripts/test",
     "test-ci": "./scripts/ci"
   },
   "author": "Shopify Inc.",
@@ -43,6 +43,7 @@
     "eslint-config-nightmare-mode": "2.3.0",
     "estraverse-fb": "1.3.1",
     "fake-xml-http-request": "1.4.0",
+    "global-npm": "0.3.0",
     "js-string-escape": "1.0.0",
     "loader.js": "3.5.0",
     "mime-types": "2.1.10",
