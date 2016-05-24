@@ -1,4 +1,5 @@
-/* global require, module, __dirname */
+/* global require, module, fs, __dirname */
+"use strict";
 
 const Plugin = require('broccoli-plugin');
 const path = require('path');
@@ -31,10 +32,12 @@ Licenser.prototype.build = function () {
 
   files.forEach(fileName => {
     const inputBuffer = fs.readFileSync(path.join(fileName));
-    var outputBuffer = inputBuffer;
+    let outputBuffer;
 
     if (fileName.match(/^.+\.js$/)) {
       outputBuffer = `/*\n${LICENSE}*/\n\n${inputBuffer}`;
+    } else {
+      outputBuffer = inputBuffer;
     }
     
     fs.writeFileSync(path.join(this.outputPath, path.basename(fileName)), outputBuffer);
