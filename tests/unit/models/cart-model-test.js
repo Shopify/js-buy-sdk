@@ -27,8 +27,10 @@ module('Unit | CartModel', {
     };
 
     model = new CartModel(assign({}, cartFixture.cart), { shopClient, config });
+    model.attrs.line_items = cartFixture.cart.line_items.map(item => {
+      return assign({}, item);
+    });
 
-    model.attrs.line_items = model.attrs.line_items.slice(0);
     localStorage.getItem = function (key) {
       return storage[key];
     };
@@ -71,7 +73,7 @@ test('it proxies sub total from the underlying cart', function (assert) {
 });
 
 test('it creates a line item when you add a variant', function (assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   const done = assert.async();
 
@@ -82,6 +84,7 @@ test('it creates a line item when you add a variant', function (assert) {
   model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
+    assert.equal(cart.lineItemCount, 3);
     assert.equal(cart.lineItems.filter(item => {
       return item.variant_id === variant.id && item.quantity === quantity;
     }).length, 1, 'the line item exists');
@@ -104,6 +107,7 @@ test('it updates line item quantities', function (assert) {
   model.updateLineItem(id, quantity).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 1, 'it doesn\'t create a new line item');
+    assert.equal(cart.lineItemCount, 4);
     assert.equal(cart.lineItems[0].quantity, quantity);
 
     done();
@@ -123,6 +127,7 @@ test('it removes a single line item by id', function (assert) {
   model.removeLineItem(id).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 0, 'it removes the only line item');
+    assert.equal(cart.lineItemCount, 0);
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -132,13 +137,14 @@ test('it removes a single line item by id', function (assert) {
 
 
 test('it removes all line items', function (assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   const done = assert.async();
 
   model.clearLineItems().then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.deepEqual(cart.lineItems, [], 'it removes all line items');
+    assert.equal(cart.lineItemCount, 0);
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -147,7 +153,7 @@ test('it removes all line items', function (assert) {
 });
 
 test('it dedupes line items with the same variant_id when added together', function (assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   const done = assert.async();
 
@@ -157,6 +163,7 @@ test('it dedupes line items with the same variant_id when added together', funct
   model.addVariants({ variant, quantity }, { variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
+    assert.equal(cart.lineItemCount, 3);
     assert.equal(cart.lineItems.filter(item => {
       return item.variant_id === variant.id && item.quantity === (quantity * 2);
     }).length, 1, 'the line item exists with summed quantities');
@@ -169,7 +176,7 @@ test('it dedupes line items with the same variant_id when added together', funct
 });
 
 test('it dedupes line items with the same variant_id when added one after another', function (assert) {
-  assert.expect(3);
+  assert.expect(4);
 
   const done = assert.async();
 
@@ -182,6 +189,7 @@ test('it dedupes line items with the same variant_id when added one after anothe
   model.addVariants({ variant, quantity, properties }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 1, 'we\'re adding to the existing line_item');
+    assert.equal(cart.lineItemCount, 2);
     assert.equal(cart.lineItems.filter(item => {
       return item.variant_id === variant.id && item.quantity === summedQuantity;
     }).length, 1, 'the line item exists with summed quantities');
@@ -194,7 +202,7 @@ test('it dedupes line items with the same variant_id when added one after anothe
 });
 
 test('it treats line_items with same variant_ids and different properties as different', function (assert) {
-  assert.expect(4);
+  assert.expect(5);
 
   const done = assert.async();
 
@@ -215,6 +223,7 @@ test('it treats line_items with same variant_ids and different properties as dif
   model.addVariants(...items).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 3);
+    assert.equal(cart.lineItemCount, 3);
     assert.equal(cart.lineItems.filter(item => {
       return item.variant_id === variant.id && item.quantity === quantity && item.properties === propertiesOne;
     }).length, 1, 'line item with props one exists');
@@ -230,7 +239,7 @@ test('it treats line_items with same variant_ids and different properties as dif
 });
 
 test('it removes the line item if the quantity isn\'t at least one', function (assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   const done = assert.async();
 
@@ -240,7 +249,7 @@ test('it removes the line item if the quantity isn\'t at least one', function (a
   model.updateLineItem(id, quantity).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 0, 'it doesn\'t create a new line item');
-
+    assert.equal(cart.lineItemCount, 0);
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -278,7 +287,7 @@ test('it generates checkout permalinks', function (assert) {
 });
 
 test('it detects google analytics and appends the cross-domain linker param', function (assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   const done = assert.async();
 
@@ -308,7 +317,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
     }).join(',');
 
     assert.equal(cart.checkoutUrl, `${baseUrl}/${checkoutVariantPath}?${query}&${linkerParam}`);
-
+    assert.equal(cart.lineItemCount, 2);
     delete window.ga;
 
     done();
@@ -322,7 +331,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
 });
 
 test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal state', function (assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   const done = assert.async();
 
@@ -341,6 +350,7 @@ test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal
       cart.attrs.line_items.forEach(item => {
         assert.notOk(CartLineItemModel.prototype.isPrototypeOf(item));
       });
+      assert.equal(cart.lineItemCount, 3);
 
       done();
     });
@@ -353,7 +363,7 @@ test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal
 
 
 test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances on #removeLineItem', function (assert) {
-  assert.expect(4);
+  assert.expect(6);
 
   const done = assert.async();
 
@@ -363,8 +373,11 @@ test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances
 
   model.addVariants({ variant: variantOne, quantity }, { variant: variantTwo, quantity }).then(cart => {
     assert.equal(cart.lineItems.length, 2);
+    assert.equal(cart.lineItemCount, 3);
+
     cart.removeLineItem(cart.lineItems[0].id);
     assert.equal(cart.lineItems.length, 1);
+    assert.equal(cart.lineItemCount, 1);
 
     cart.lineItems.forEach(item => {
       assert.ok(CartLineItemModel.prototype.isPrototypeOf(item));
