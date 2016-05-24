@@ -65,17 +65,20 @@ Versioner.prototype.versionFiles = function () {
     });
 
     return fileAcc.concat(list);
-  }, []).filter(fileName => {
-    return fileName.match(/^.+\.js$/);
-  });
+  }, []);
 
   files.forEach(fileName => {
     const inputBuffer = fs.readFileSync(path.join(fileName));
+    let outputBuffer;
 
-    const outputBuffer = this.replaceTemplateString(
-      versionString,
-      this.prependComment(versionString, inputBuffer)
-    );
+    if (fileName.match(/^.+\.js$/)) {
+      outputBuffer = this.replaceTemplateString(
+        versionString,
+        this.prependComment(versionString, inputBuffer)
+      );
+    } else {
+      outputBuffer = inputBuffer;
+    }
 
     fs.writeFileSync(path.join(this.outputPath, path.basename(fileName)), outputBuffer);
   });
