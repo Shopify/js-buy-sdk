@@ -80,7 +80,7 @@ test('it proxies to a composite of product and variant state', function (assert)
 });
 
 test('it returns the image variants for the variant', function (assert) {
-  assert.expect(1);
+  assert.expect(2);
   const expectedImageVariants = [
     {
       name: 'pico',
@@ -133,29 +133,24 @@ test('it returns the image variants for the variant', function (assert) {
       src: 'https://cdn.shopify.com/image-two_2048x2048.jpg'
     }
   ];
+  const existingProductImages = model.attrs.product.images;
 
   assert.deepEqual(model.imageVariants, expectedImageVariants);
 });
 
 test('it returns the image for the variant', function (assert) {
-  assert.expect(3);
-  const noImageObject = {
-    id: null,
-    created_at: null,
-    position: null,
-    updated_at: null,
-    product_id: null,
-    src: 'https://widgets.shopifyapps.com/assets/no-image.svg',
-    variant_ids: null
-  };
+  assert.expect(2);
 
   assert.deepEqual(model.image, baseAttrs.product.images[1]);
 
   model.attrs.variant.id = 'abc123';
   assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+});
 
-  model.attrs.product.images = [];
-  assert.deepEqual(model.image, noImageObject);
+test('it returns Shopify admin\'s no image URI', function (assert) {
+  assert.expect(1);
+
+  assert.equal(model.noImageURI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {

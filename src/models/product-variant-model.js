@@ -86,28 +86,14 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Image object for variant. It has keys `id`, `created_at`, `position`, `updated_at`, `product_id`, `src` and `variant_ids`
-    * When no image is set on the variant, The first image on the product is provided.<br>
-    * When the product has no image, an object with `id` set to null and `src` set to a default image is provided.
+    * Image for variant
     * @property image
     * @type {Object}
   */
   get image() {
+    const id = this.id;
     const images = this.attrs.product.images;
 
-    if (images.length === 0) {
-      return {
-        id: null,
-        created_at: null,
-        position: null,
-        updated_at: null,
-        product_id: null,
-        src: 'https://widgets.shopifyapps.com/assets/no-image.svg',
-        variant_ids: null
-      };
-    }
-
-    const id = this.id;
     const primaryImage = images[0];
     const variantImage = images.filter(image => {
       return image.variant_ids.indexOf(id) !== -1;
@@ -117,18 +103,23 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
+    * Returns URI to an image that can be used as default image when a variant does
+    * not have an image. i.e when `variant.image` yields an object with all keys null
+    * @property noImageURI
+    * @type {Object}
+  */
+  get noImageURI() {
+    return 'https://widgets.shopifyapps.com/assets/no-image.svg';
+  },
+
+  /**
     * Image variants available for a variant, ex [ {"name":"pico","dimension":"16x16","src":"https://cdn.shopify.com/image-two_pico.jpg"} ]
     * See <a href="https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters"> for list of available variants.</a>
     * @property imageVariant
     * @type {Array}
   */
   get imageVariants() {
-    const image = this.image;
-
-    if (image.src === null) {
-      return [];
-    }
-    const src = image.src;
+    const src = this.image.src;
     const extensionIndex = src.lastIndexOf('.');
     const pathAndBasename = src.slice(0, extensionIndex);
     const extension = src.slice(extensionIndex);
