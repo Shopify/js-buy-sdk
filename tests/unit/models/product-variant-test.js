@@ -149,6 +149,7 @@ test('it returns the image for the variant', function (assert) {
   assert.deepEqual(model.image, baseAttrs.product.images[1]);
 
   model.attrs.variant.id = 'abc123';
+
   assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
 });
 
