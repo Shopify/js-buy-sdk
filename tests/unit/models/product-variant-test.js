@@ -133,9 +133,14 @@ test('it returns the image variants for the variant', function (assert) {
       src: 'https://cdn.shopify.com/image-two_2048x2048.jpg'
     }
   ];
-  const existingProductImages = model.attrs.product.images;
 
   assert.deepEqual(model.imageVariants, expectedImageVariants);
+
+  const images = model.attrs.product.images;
+
+  model.attrs.product.images = [];
+  assert.deepEqual(model.imageVariants, []);
+  model.attrs.product.images = images;
 });
 
 test('it returns the image for the variant', function (assert) {
@@ -145,12 +150,6 @@ test('it returns the image for the variant', function (assert) {
 
   model.attrs.variant.id = 'abc123';
   assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
-});
-
-test('it returns Shopify admin\'s no image URI', function (assert) {
-  assert.expect(1);
-
-  assert.equal(model.noImageURI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {

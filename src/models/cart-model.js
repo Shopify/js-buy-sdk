@@ -96,6 +96,16 @@ const CartModel = BaseModel.extend({
   },
 
   /**
+    * Returns URI to an image that can be used as default image when a variant does
+    * not have an image. i.e when `variant.image` yields `undefined`
+    * @property noImageURI
+    * @type {String}
+  */
+  get noImageURI() {
+    return 'https://widgets.shopifyapps.com/assets/no-image.svg';
+  },
+
+  /**
     * Add items to cart. Updates cart's `lineItems`
     * ```javascript
     * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {

@@ -103,22 +103,17 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Returns URI to an image that can be used as default image when a variant does
-    * not have an image. i.e when `variant.image` yields an object with all keys null
-    * @property noImageURI
-    * @type {Object}
-  */
-  get noImageURI() {
-    return 'https://widgets.shopifyapps.com/assets/no-image.svg';
-  },
-
-  /**
     * Image variants available for a variant, ex [ {"name":"pico","dimension":"16x16","src":"https://cdn.shopify.com/image-two_pico.jpg"} ]
     * See <a href="https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters"> for list of available variants.</a>
     * @property imageVariant
     * @type {Array}
   */
   get imageVariants() {
+    const image = this.image;
+
+    if (!image) {
+      return [];
+    }
     const src = this.image.src;
     const extensionIndex = src.lastIndexOf('.');
     const pathAndBasename = src.slice(0, extensionIndex);

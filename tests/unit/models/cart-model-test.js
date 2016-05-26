@@ -381,3 +381,9 @@ test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances
   });
 
 });
+
+test('it returns Shopify admin\'s no image URI', function (assert) {
+  assert.expect(1);
+
+  assert.equal(model.noImageURI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
+});

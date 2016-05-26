@@ -96,8 +96,10 @@ $(function() {
 
   /* Update product image based on selected variant
   ============================================================ */
-  function updateVariantImage(image) {
-    $('#buy-button-1 .variant-image').attr('src', image.src);
+  function updateVariantImage(image, noImageURI) {
+    var src = image === undefined ? cart.noImageURI : image.src;
+
+    $('#buy-button-1 .variant-image').attr('src', src);
   }
 
   /* Update product variant title based on selected variant
@@ -193,7 +195,13 @@ $(function() {
     var lineItemEmptyTemplate = $('#cart-item-template').html();
     var $cartLineItems = cart.lineItems.map(function (lineItem, index) {
       var $lineItemTemplate = $(lineItemEmptyTemplate);
-      var itemImage = lineItem.image.src;
+      var itemImage;
+      if (lineItem.image) {
+        itemImage = lineItem.image.src;
+      } else {
+        itemImage = cart.noImageURI;
+      }
+
       $lineItemTemplate.find('.cart-item__img').css('background-image', 'url(' + itemImage + ')');
       $lineItemTemplate.find('.cart-item__title').text(lineItem.title);
       $lineItemTemplate.find('.cart-item__variant-title').text(lineItem.variant_title);
