@@ -97,7 +97,7 @@ $(function() {
   /* Update product image based on selected variant
   ============================================================ */
   function updateVariantImage(image) {
-    var src = image === undefined ? cart.noImageURI : image.src;
+    var src = typeof image === 'undefined' ? cart.noImageURI : image.src;
 
     $('#buy-button-1 .variant-image').attr('src', src);
   }

@@ -111,7 +111,7 @@ const ProductVariantModel = BaseModel.extend({
   get imageVariants() {
     const image = this.image;
 
-    if (!image) {
+    if (typeof image === 'undefined') {
       return [];
     }
     const src = this.image.src;
