@@ -240,8 +240,8 @@ $(function() {
   /* Update cart tab button
   ============================================================ */
   function updateCartTabButton() {
-    if (cart.lineItemCount > 0) {
-      $('.btn--cart-tab .btn__counter').html(cart.totalQuantity);
+    if (cart.lineItems.length > 0) {
+      $('.btn--cart-tab .btn__counter').html(cart.lineItemCount);
       $('.btn--cart-tab').addClass('js-active');
     } else {
       $('.btn--cart-tab').removeClass('js-active');
