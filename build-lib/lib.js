@@ -28,7 +28,7 @@ function sourceTree(pathConfig, moduleType) {
 module.exports = function (pathConfig, env) {
   let tree;
 
-  const amdTree = sourceTree(pathConfig, 'amdStrict');
+  const amdTree = sourceTree(pathConfig, 'amd');
   const polyfillTree = polyfills(env);
   const loaderTree = loader();
 
@@ -64,7 +64,7 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
       sourceMapConfig: { enabled: false }
     });
 
-    const commonTree = sourceTree(pathConfig, 'common');
+    const commonTree = sourceTree(pathConfig, 'commonjs');
     const commonOutput = concat(commonTree, {
       inputFiles: ['**/*.js'],
       outputFile: `${pkg.name}.common.js`,
