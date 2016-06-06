@@ -28,7 +28,7 @@
     "babel-register": "6.9.0",
     "broccoli": "0.16.9",
     "broccoli-asset-rev": "2.4.1",
-    "broccoli-babel-transpiler": "git+ssh://git@github.com/minasmart/broccoli-babel-transpiler.git#eb5f9e956a857bd1c729d6befa718786b34376d4",
+    "broccoli-babel-transpiler": "git+ssh://git@github.com/babel/broccoli-babel-transpiler.git#17b304da9a1c2c93ff484e3d37029f5fad0f96c9",
     "broccoli-cli": "1.0.0",
     "broccoli-concat": "2.2.0",
     "broccoli-env": "0.0.1",
