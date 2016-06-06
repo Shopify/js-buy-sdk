@@ -3,8 +3,15 @@
   "cwd": ".dist-test",
   "test_page": "index.html?hidepassed",
   "disable_watching": true,
+  "launchers": {
+    "NodeQUnit": {
+      "command": "node scripts/node-qunit.js",
+      "protocol": "tap"
+    }
+  },
   "launch_in_ci": [
-    "PhantomJS"
+    "PhantomJS",
+    "NodeQUnit"
   ],
   "launch_in_dev": [
     "PhantomJS",
