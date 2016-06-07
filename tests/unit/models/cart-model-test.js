@@ -261,6 +261,7 @@ test('it removes the line item if the quantity isn\'t at least one', function (a
   model.updateLineItem(id, quantity).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 0, 'it doesn\'t create a new line item');
+
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
@@ -328,6 +329,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
     }).join(',');
 
     assert.equal(cart.checkoutUrl, `${baseUrl}/${checkoutVariantPath}?${query}&${linkerParam}`);
+
     delete window.ga;
 
     done();
@@ -382,7 +384,6 @@ test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances
 
   model.addVariants({ variant: variantOne, quantity }, { variant: variantTwo, quantity }).then(cart => {
     assert.equal(cart.lineItems.length, 2);
-
     cart.removeLineItem(cart.lineItems[0].id);
     assert.equal(cart.lineItems.length, 1);
 
