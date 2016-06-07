@@ -80,7 +80,7 @@ test('it proxies to a composite of product and variant state', function (assert)
 });
 
 test('it returns the image variants for the variant', function (assert) {
-  assert.expect(2);
+  assert.expect(1);
   const expectedImageVariants = [
     {
       name: 'pico',
