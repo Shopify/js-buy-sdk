@@ -122,7 +122,7 @@ const ProductModel = BaseModel.extend({
 
     return this.variants.filter(variant => {
       return variant.title === variantTitle;
-    })[0];
+    })[0] || null;
   },
 
   /**
@@ -131,6 +131,10 @@ const ProductModel = BaseModel.extend({
     * @type {Object}
   */
   get selectedVariantImage() {
+    if (!this.selectedVariant) {
+      return null;
+    }
+
     return this.selectedVariant.image;
   }
 });
