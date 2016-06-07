@@ -146,7 +146,7 @@ $(function() {
   /* Update product image based on selected variant
   ============================================================ */
   function updateVariantImage(image) {
-    var src = (image) ? cart.noImageURI : image.src;
+    var src = (image) ? image.src : ShopifyBuy.NO_IMAGE_URI;
 
     $('#buy-button-1 .variant-image').attr('src', src);
   }
