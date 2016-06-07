@@ -52,7 +52,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Gets the sum of quantity of each line item
+    * Gets the sum quantity of each line item
     * @property lineItemCount
     * @type {Number}
   */
