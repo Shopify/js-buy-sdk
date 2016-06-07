@@ -96,7 +96,7 @@ test('it creates a line item when you add a variant', function (assert) {
 });
 
 test('it returns correct lineItemCount', function (assert) {
-  assert.expect();
+  assert.expect(2);
   const done = assert.async();
 
   assert.equal(model.lineItemCount, 1);
