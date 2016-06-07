@@ -134,13 +134,7 @@ test('it returns the image variants for the variant', function (assert) {
     }
   ];
 
-  assert.deepEqual(model.imageVariants, expectedImageVariants);
-
-  const images = model.attrs.product.images;
-
-  model.attrs.product.images = [];
-  assert.deepEqual(model.imageVariants, []);
-  model.attrs.product.images = images;
+  assert.deepEqual(model.imageVariants, expectedImageVariants, 'appropriate variants expected');
 });
 
 test('it returns the image for the variant', function (assert) {
@@ -151,6 +145,13 @@ test('it returns the image for the variant', function (assert) {
   model.attrs.variant.id = 'abc123';
 
   assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+});
+
+test('image variants should be empty when there\'s not image', function (assert) {
+  assert.expect(1);
+
+  model.attrs.product.images = [];
+  assert.deepEqual(model.imageVariants, []);
 });
 
 test('it generates checkout permalinks from passed quantity', function (assert) {
