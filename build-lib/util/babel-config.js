@@ -6,9 +6,14 @@ module.exports = function (namespace, moduleType) {
   const resolveModuleSource = null;
 
   return {
-    modules: moduleType,
     moduleRoot: namespace,
     moduleIds: true,
-    resolveModuleSource
+    resolveModuleSource,
+    presets: [
+      'es2015'
+    ],
+    plugins: [
+      `babel-plugin-transform-es2015-modules-${moduleType}`
+    ]
   };
 };

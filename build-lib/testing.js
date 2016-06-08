@@ -36,7 +36,7 @@ function testsTree(pathConfig) {
     include: ['index.html']
   });
 
-  const qunitShim = funnel(babelTranspiler(pathConfig.shims, babelConfig(null, 'amdStrict')), {
+  const qunitShim = funnel(babelTranspiler(pathConfig.shims, babelConfig(null, 'amd')), {
     include: ['qunit.js']
   });
 
@@ -50,7 +50,7 @@ function testsTree(pathConfig) {
     lintedTree(pathConfig.shims)
   ]);
 
-  const testModules = babelTranspiler(mergeTrees([testJs, linterTests]), babelConfig(`${pkg.name}/tests`, 'amdStrict'));
+  const testModules = babelTranspiler(mergeTrees([testJs, linterTests]), babelConfig(`${pkg.name}/tests`, 'amd'));
 
   const concatenatedTests = concat(mergeTrees([qunitShim, testModules]), {
     headerFiles: ['qunit.js'],
