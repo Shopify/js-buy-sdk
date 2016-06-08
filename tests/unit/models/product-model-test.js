@@ -95,3 +95,27 @@ test('it attaches a reference to the config on variants', function (assert) {
     assert.equal(variant.config, config);
   });
 });
+
+test('it returns null variant when there is no matching variant based on the selections', function (assert) {
+  assert.expect(1);
+
+  model.options[0].values.push('beans');
+  model.options[1].values.push('beans');
+
+  model.options[0].selected = 'beans';
+  model.options[1].selected = 'beans';
+
+  assert.equal(model.selectedVariant, null);
+});
+
+test('it returns a null image when there is no selected variant', function (assert) {
+  assert.expect(1);
+
+  model.options[0].values.push('beans');
+  model.options[1].values.push('beans');
+
+  model.options[0].selected = 'beans';
+  model.options[1].selected = 'beans';
+
+  assert.equal(model.selectedVariantImage, null);
+});
