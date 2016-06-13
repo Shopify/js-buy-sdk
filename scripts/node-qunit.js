@@ -4,14 +4,24 @@
 
 'use strict';
 
+const rootDirectory = `${__dirname}/../`;
+const tests = {};
+const Module = require('module');
+const originalRequire = Module.prototype.require;
+
 global.QUnit = require('qunitjs');
+global.localStorage = require('node-localstorage').LocalStorage(`${rootDirectory}tmp`);
+
+// used by pretender
+global.self = {
+  RouteRecognizer: require('route-recognizer'),
+  FakeXMLHttpRequest: require('fake-xml-http-request')
+};
+
 let path = require('path');
-let Module = require('module');
 let fs = require('fs');
 let index = 1;
 let tapMessage = '';
-const tests = {};
-const originalRequire = Module.prototype.require;
 
 Module.prototype.require = function () {
   const shopifyBuySrcNamespace = 'shopify-buy';
@@ -100,9 +110,8 @@ function recursiveReadDir(dir) {
 
   return files;
 }
-
-recursiveReadDir(`${__dirname}/../.dist-test/node-lib/tests`).map(function(test){
-  // console.log(test)
+// require(`${rootDirectory}.dist-test/node-lib/tests/integration/shop-client-fetch-collection-test.js`);
+recursiveReadDir(`${rootDirectory}.dist-test/node-lib/tests`).map(function(test){
   require(test);
 });
 
