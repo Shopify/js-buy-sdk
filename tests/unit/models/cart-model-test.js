@@ -27,8 +27,10 @@ module('Unit | CartModel', {
     };
 
     model = new CartModel(assign({}, cartFixture.cart), { shopClient, config });
+    model.attrs.line_items = cartFixture.cart.line_items.map(item => {
+      return assign({}, item);
+    });
 
-    model.attrs.line_items = model.attrs.line_items.slice(0);
     localStorage.getItem = function (key) {
       return storage[key];
     };
@@ -91,6 +93,25 @@ test('it creates a line item when you add a variant', function (assert) {
     assert.ok(false, 'promise should not reject');
     done();
   });
+});
+
+test('it returns correct lineItemCount', function (assert) {
+  assert.expect(2);
+  const done = assert.async();
+
+  assert.equal(model.lineItemCount, 1);
+
+  const quantity = 8;
+  const variant = singleProductFixture.product_listing.variants[1];
+
+  model.addVariants({ variant, quantity }).then(cart => {
+    assert.equal(cart.lineItemCount, 9);
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+
 });
 
 test('it updates line item quantities', function (assert) {
