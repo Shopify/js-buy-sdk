@@ -9,8 +9,10 @@ const tests = {};
 const Module = require('module');
 const originalRequire = Module.prototype.require;
 
+// used in tests
 global.QUnit = require('qunitjs');
 global.localStorage = require('node-localstorage').LocalStorage(`${rootDirectory}tmp`);
+global.btoa = require('Base64').btoa;
 
 // used in promise shim
 global.RSVP = require('rsvp');
