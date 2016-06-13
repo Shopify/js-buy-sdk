@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import ProductModel from 'shopify-buy/models/product-model';
+import ProductModel, { NO_IMAGE_URI } from 'shopify-buy/models/product-model';
 import BaseModel from 'shopify-buy/models/base-model';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 
@@ -94,6 +94,12 @@ test('it attaches a reference to the config on variants', function (assert) {
   model.variants.forEach(variant => {
     assert.equal(variant.config, config);
   });
+});
+
+test('it returns Shopify admin\'s no image URI', function (assert) {
+  assert.expect(1);
+
+  assert.equal(NO_IMAGE_URI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
 });
 
 test('it returns null variant when there is no matching variant based on the selections', function (assert) {

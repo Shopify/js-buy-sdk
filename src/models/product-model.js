@@ -3,6 +3,7 @@ import ProductOptionModel from './product-option-model';
 import ProductVariantModel from './product-variant-model';
 import uniq from '../metal/uniq';
 
+const NO_IMAGE_URI = 'https://widgets.shopifyapps.com/assets/no-image.svg';
 
 /**
    * Class for products returned by fetch('product')
@@ -140,3 +141,4 @@ const ProductModel = BaseModel.extend({
 });
 
 export default ProductModel;
+export { NO_IMAGE_URI };

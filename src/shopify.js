@@ -2,6 +2,7 @@ import Config from './config';
 import ShopClient from './shop-client';
 import './isomorphic-fetch';
 import './isomorphic-btoa';
+import { NO_IMAGE_URI } from './models/product-model';
 
 /**
  * @module shopify-buy
@@ -16,6 +17,7 @@ import './isomorphic-btoa';
 const Shopify = {
   ShopClient,
   Config,
+  NO_IMAGE_URI: NO_IMAGE_URI,
 
   /**
    * Create a ShopClient. This is the main entry point to the SDK.

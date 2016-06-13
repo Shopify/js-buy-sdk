@@ -109,6 +109,12 @@ const ProductVariantModel = BaseModel.extend({
     * @type {Array}
   */
   get imageVariants() {
+    const image = this.image;
+
+    if (!image) {
+      return [];
+    }
+
     const src = this.image.src;
     const extensionIndex = src.lastIndexOf('.');
     const pathAndBasename = src.slice(0, extensionIndex);
