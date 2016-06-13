@@ -54,7 +54,7 @@ Uploader.prototype.uploadFile = function(localPath, s3Path) {
 
 Uploader.prototype.uploadDistAssets = function () {
   this.distAssets.forEach(function (file) {
-    if (file.indexOf(FILENAME_FILTER) > -1) {
+    if (file.includes(FILENAME_FILTER)) {
       this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, tag));
       this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, 'latest'));
     }
