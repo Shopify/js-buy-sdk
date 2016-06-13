@@ -34,6 +34,15 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
+    * Product bodyHtml
+    * @property bodyHtml
+    * @type {String}
+  */
+  get bodyHtml() {
+    return this.attrs.body_html;
+  },
+
+  /**
     * All images associated with product.
     * @property images
     * @type {Array} array of image objects.
