@@ -99,7 +99,7 @@ test('it attaches a reference to the config on variants', function (assert) {
 test('it returns Shopify admin\'s no image URI', function (assert) {
   assert.expect(1);
 
-  assert.equal(NO_IMAGE_URI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
+  assert.equal(true, typeof NO_IMAGE_URI === 'string' && NO_IMAGE_URI.length !== 0, 'NO_IMAGE_URI must be a non-empty string');
 });
 
 test('it returns null variant when there is no matching variant based on the selections', function (assert) {
