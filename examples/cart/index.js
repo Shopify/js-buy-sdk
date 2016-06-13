@@ -378,11 +378,8 @@ $(function() {
   /* Update cart tab button
   ============================================================ */
   function updateCartTabButton() {
-    if (cart.lineItems.length) {
-      var totalItems = cart.lineItems.reduce(function(total, item) {
-        return total + item.quantity;
-      }, 0);
-      $('.btn--cart-tab .btn__counter').html(totalItems);
+    if (cart.lineItems.length > 0) {
+      $('.btn--cart-tab .btn__counter').html(cart.lineItemCount);
       $('.btn--cart-tab').addClass('js-active');
     } else {
       $('.btn--cart-tab').removeClass('js-active');

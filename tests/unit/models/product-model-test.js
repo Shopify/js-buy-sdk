@@ -101,3 +101,27 @@ test('it returns Shopify admin\'s no image URI', function (assert) {
 
   assert.equal(NO_IMAGE_URI, 'https://widgets.shopifyapps.com/assets/no-image.svg');
 });
+
+test('it returns null variant when there is no matching variant based on the selections', function (assert) {
+  assert.expect(1);
+
+  model.options[0].values.push('beans');
+  model.options[1].values.push('beans');
+
+  model.options[0].selected = 'beans';
+  model.options[1].selected = 'beans';
+
+  assert.equal(model.selectedVariant, null);
+});
+
+test('it returns a null image when there is no selected variant', function (assert) {
+  assert.expect(1);
+
+  model.options[0].values.push('beans');
+  model.options[1].values.push('beans');
+
+  model.options[0].selected = 'beans';
+  model.options[1].selected = 'beans';
+
+  assert.equal(model.selectedVariantImage, null);
+});

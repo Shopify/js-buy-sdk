@@ -52,6 +52,17 @@ const CartModel = BaseModel.extend({
   },
 
   /**
+    * Gets the sum quantity of each line item
+    * @property lineItemCount
+    * @type {Number}
+  */
+  get lineItemCount() {
+    return this.lineItems.reduce(function (total, item) {
+      return total + item.quantity;
+    }, 0);
+  },
+
+  /**
     * Get current subtotal price for all line items
     * @property subtotal
     * @type {String}
