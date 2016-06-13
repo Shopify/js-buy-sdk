@@ -31,7 +31,13 @@ var Uploader = function () {
   this.secrets = new Secrets();
   this.secrets.load();
   this.s3 = new AWS.S3();
+  this.tag = this.getPkgVersion();
   this.distAssets = fs.readdirSync(DIST_DIR);
+};
+
+Uploader.prototype.getPkgVersion = function () {
+  var pkg = fs.readFileSync('./package.json')
+  return JSON.parse(pkg).version;
 };
 
 Uploader.prototype.uploadFile = function(localPath, s3Path) {
@@ -53,24 +59,12 @@ Uploader.prototype.uploadFile = function(localPath, s3Path) {
 };
 
 Uploader.prototype.uploadDistAssets = function () {
-  this.getCurrentTag(function (tag) {
-    this.distAssets.forEach(function (file) {
-      if (file.indexOf(FILENAME_FILTER) > -1) {
-        this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, tag));
-        this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, 'latest'));
-      }
-    }.bind(this));
-  }.bind(this));
-};
-
-Uploader.prototype.getCurrentTag = function (cb) {
-  exec('git describe --always --tag --abbrev=0', (err, stdout) => {
-    if (err) {
-      console.error(err);
-      cb();
+  this.distAssets.forEach(function (file) {
+    if (file.indexOf(FILENAME_FILTER) > -1) {
+      this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, this.tag));
+      this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, 'latest'));
     }
-    cb(stdout.trim());
-  });
+  }.bind(this));
 };
 
 Uploader.prototype.s3PathForFile = function (localPath, tag) {
