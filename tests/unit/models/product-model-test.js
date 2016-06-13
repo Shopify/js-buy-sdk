@@ -100,7 +100,7 @@ test('it returns Shopify admin\'s no image URI', function (assert) {
   assert.expect(2);
 
   assert.ok(typeof NO_IMAGE_URI === 'string', 'NO_IMAGE_URI must be a string');
-  assert.ok(NO_IMAGE_URI.length !== 0, 'NO_IMAGE_URI must NOT be empty');
+  assert.ok(NO_IMAGE_URI.length, 'NO_IMAGE_URI must NOT be empty');
 });
 
 test('it returns null variant when there is no matching variant based on the selections', function (assert) {
