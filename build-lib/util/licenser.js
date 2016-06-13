@@ -1,10 +1,10 @@
-/* global require, module, fs */
+/* global require, module, __dirname */
 
 const Plugin = require('broccoli-plugin');
 const path = require('path');
 const fs = require('fs');
 
-const LICENSE = fs.readFileSync(path.join(__dirname, '..', 'LICENSE.txt'));
+const LICENSE = fs.readFileSync(path.join(__dirname, '..', '..', 'LICENSE.txt'));
 
 function Licenser(inputNodes, options) {
   const defaultedOptions = options || {};

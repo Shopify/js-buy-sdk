@@ -49,6 +49,7 @@
     "js-string-escape": "1.0.0",
     "loader.js": "3.5.0",
     "mime-types": "2.1.10",
+    "nodegit": "0.13.0",
     "pretender": "0.10.1",
     "qunitjs": "1.20.0",
     "route-recognizer": "0.1.9",

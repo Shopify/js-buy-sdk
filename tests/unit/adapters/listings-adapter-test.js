@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import ListingsAdapter from 'shopify-buy/adapters/listings-adapter';
+import version from 'shopify-buy/version';
 import Promise from 'promise';
 
 let adapter;
@@ -40,7 +41,9 @@ test('it builds auth headers using the base64 encoded api key', function (assert
 
   assert.deepEqual(adapter.headers, {
     Authorization: `Basic ${base64ApiKey}`,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'X-SDK-Variant': 'javascript',
+    'X-SDK-Version': version
   });
 });
 
@@ -85,7 +88,9 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple to #aj
     assert.equal(url, `${baseUrl}/collection_listings`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-SDK-Variant': 'javascript',
+      'X-SDK-Version': version
     });
 
     return resolvingPromise();
@@ -106,7 +111,9 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
     assert.equal(url, `${baseUrl}/collection_listings/${id}`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-SDK-Variant': 'javascript',
+      'X-SDK-Version': version
     });
 
     return resolvingPromise();
@@ -129,7 +136,9 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple with q
     assert.equal(url, `${baseUrl}/collection_listings?collection_ids=${encodeURIComponent(ids.join(','))}&page=${page}`);
     assert.deepEqual(opts.headers, {
       Authorization: `Basic ${base64ApiKey}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'X-SDK-Variant': 'javascript',
+      'X-SDK-Version': version
     });
 
     return resolvingPromise();

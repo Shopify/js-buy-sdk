@@ -12,9 +12,6 @@ case $CIRCLE_NODE_INDEX in
     setup_node $NODE_012_VERSION
     ;;
   1)
-    setup_node $IOJS_VERSION
-    ;;
-  2)
     setup_node $NODE_4_VERSION
     ;;
   *)

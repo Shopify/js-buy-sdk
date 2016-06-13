@@ -1,4 +1,5 @@
 import Config from './config';
+import version from './version';
 import ShopClient from './shop-client';
 import './isomorphic-fetch';
 import './isomorphic-btoa';
@@ -17,6 +18,7 @@ import { NO_IMAGE_URI } from './models/product-model';
 const Shopify = {
   ShopClient,
   Config,
+  version,
   NO_IMAGE_URI: NO_IMAGE_URI,
 
   /**

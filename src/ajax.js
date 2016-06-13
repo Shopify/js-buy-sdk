@@ -14,17 +14,15 @@ function checkStatus(response) {
 }
 
 function parseResponse(response) {
-  return response.json()
-    .then(json => {
-      return { json, originalResponse: response, isJSON: true };
-    })
-    .catch(() => {
-      const responseClone = response.clone();
+  return response.json().then(json => {
+    return { json, originalResponse: response, isJSON: true };
+  }).catch(() => {
+    const responseClone = response.clone();
 
-      return responseClone.text().then(text => {
-        return { text, originalResponse: responseClone, isText: true };
-      });
+    return responseClone.text().then(text => {
+      return { text, originalResponse: responseClone, isText: true };
     });
+  });
 }
 
 export default function ajax(method, url, opts = {}) {
