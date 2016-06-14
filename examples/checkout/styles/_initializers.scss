@@ -14,37 +14,3 @@ html {
   line-height: 18px;
   color: $color-body;
 }
-
-ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-input {
-  -webkit-appearance: textfield;
-  margin: 0;
-}
-
-.clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-}
-
-.visuallyhidden {
-  border: 0;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}

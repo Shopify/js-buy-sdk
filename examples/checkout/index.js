@@ -37,7 +37,6 @@ $(function() {
   /* Bind Event Listeners
   ============================================================ */
   function bindEventListeners() {
-    /* cart close button listener */
     $('.cart.not-empty .btn.checkout').on('click', function () {
       var checkoutWindow = window.open(cart.checkoutUrl);
       window.addEventListener("message", checkoutPostMessageListener, checkoutWindow);
