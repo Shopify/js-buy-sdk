@@ -1,0 +1,24 @@
+.btn {
+  color: white;
+  font-size: 16px;
+  background: $color-primary;
+  padding: 10px 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  border-color: $color-border-primary;
+  cursor: pointer;
+  transition: all 200ms ease;
+  max-width: 100%;
+  width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 20px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:hover,
+  &:focus {
+    background: $color-primary-hover;
+  }
+}

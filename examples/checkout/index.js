@@ -1,0 +1,71 @@
+$(function() {
+
+  /* Build new ShopifyBuy client
+  ============================================================ */
+  var client = ShopifyBuy.buildClient({
+    apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+    myShopifyDomain: 'embeds',
+    appId: '6'
+  });
+
+  var product;
+  var cart;
+
+  client.createCart().then(function (newCart) {
+    cart = newCart;
+    return client.fetchProduct('3614436099');
+  }).then(function (product) {
+    cart.addVariants({ variant: product.variants[0], quantity: 5 }, { variant: product.variants[1], quantity: 3 }).then(function() {
+      completeUIRendering();
+      bindEventListeners();
+    }).catch(function (errors) {
+      console.log('Fail');
+      console.error(errors);
+    });
+  });
+
+  /* Update UI variables
+  ============================================================ */
+  function completeUIRendering() {
+    $('.cart.empty').toggle(!cart.lineItemCount);
+    $('.cart.not-empty').toggle(cart.lineItemCount !== 0);
+
+    $('.cart.not-empty .sub-total').text(formatAsMoney(cart.subtotal));
+    $('.cart.not-empty .line-item-count').text(cart.lineItemCount);
+  }
+
+  /* Bind Event Listeners
+  ============================================================ */
+  function bindEventListeners() {
+    /* cart close button listener */
+    $('.cart.not-empty .btn.checkout').on('click', function () {
+      var checkoutWindow = window.open(cart.checkoutUrl);
+      window.addEventListener("message", checkoutPostMessageListener, checkoutWindow);
+    });
+  }
+
+  /* Event Listener handles post messages from checkout page
+  ============================================================ */
+  function checkoutPostMessageListener(event) {
+    var origin = event.origin || event.originalEvent.origin;
+    if (origin !== 'https://checkout.shopify.com') {
+      return;
+    }
+
+    var data = JSON.parse(event.data);
+    
+    if (data.current_checkout_page === '/checkout/thank_you') {
+      cart.clearLineItems();
+      completeUIRendering();
+
+      // redirect to the home page or to custom thank you page.
+    }
+  }
+
+  /* Format amount as currency
+  ============================================================ */
+  function formatAsMoney(amount) {
+    return '$' + parseFloat(amount, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+  }
+
+});
