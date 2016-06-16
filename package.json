@@ -11,6 +11,7 @@
     "start": "broccoli serve",
     "examples": "env EXAMPLES=1 broccoli serve",
     "test": "node ./scripts/test",
+    "test-examples": "node scripts/test-examples",
     "test-ci": "./scripts/ci"
   },
   "author": "Shopify Inc.",
@@ -49,12 +50,17 @@
     "js-string-escape": "1.0.0",
     "loader.js": "3.5.0",
     "mime-types": "2.1.10",
+    "mocha": "2.5.3",
     "nodegit": "0.13.0",
     "pretender": "0.10.1",
     "qunitjs": "1.20.0",
     "route-recognizer": "0.1.9",
     "rsvp": "3.1.0",
     "testem": "0.9.11",
+    "wdio-dot-reporter": "0.0.5",
+    "wdio-junit-reporter": "0.1.0",
+    "wdio-mocha-framework": "^0.3.1",
+    "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
     "yuidocjs": "0.10.0"
   }
