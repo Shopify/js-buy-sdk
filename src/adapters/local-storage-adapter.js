@@ -4,6 +4,7 @@ import { GUID_KEY } from '../metal/set-guid-for';
 
 const LocalStorageAdapter = CoreObject.extend({
   constructor() {
+    this.store = {};
   },
 
   idKeyForType(/* type */) {
@@ -15,9 +16,13 @@ const LocalStorageAdapter = CoreObject.extend({
       const stringifiedValue = localStorage.getItem(this.localStorageKey(type, id));
 
       if (stringifiedValue === null) {
-        reject(new Error(`${type}#${id} not found`));
+        const storeValue = this.store[this.localStorageKey(type, id)];
 
-        return;
+        if (storeValue === null) {
+          reject(new Error(`${type}#${id} not found`));
+        } else {
+          resolve(storeValue);
+        }
       }
 
       try {
@@ -31,13 +36,13 @@ const LocalStorageAdapter = CoreObject.extend({
   },
 
   create(type, payload) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const id = this.identify(payload);
 
       try {
         localStorage.setItem(this.localStorageKey(type, id), JSON.stringify(payload));
       } catch (e) {
-        reject(e);
+        this.store[this.localStorageKey(type, id)] = payload;
       }
 
       resolve(payload);
@@ -45,11 +50,11 @@ const LocalStorageAdapter = CoreObject.extend({
   },
 
   update(type, id, payload) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       try {
         localStorage.setItem(this.localStorageKey(type, id), JSON.stringify(payload));
       } catch (e) {
-        reject(e);
+        this.store[this.localStorageKey(type, id)] = payload;
       }
 
       resolve(payload);
