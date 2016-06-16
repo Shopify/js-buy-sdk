@@ -8,6 +8,11 @@ machine:
     PHANTOMJS_VERSION: 2.0.0
 
 dependencies:
+  cache_directories:
+      - "node_modules_0"
+      - "node_modules_1"
+      - "node_modules_2"
+      - "node_modules_3"
   pre:
     - ./ci/setup-node:
         parallel: true
