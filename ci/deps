@@ -20,4 +20,16 @@ MESSAGE
 curl -k -L -o phantomjs.tar.bz2 https://s3.amazonaws.com/travis-phantomjs/phantomjs-${PHANTOMJS_VERSION}-ubuntu-12.04.tar.bz2
 tar -jxf phantomjs.tar.bz2
 
+versioned_node_modules_path="node_modules_${CIRCLE_NODE_INDEX}"
+
+if [ ! -d "${versioned_node_modules_path}" ]; then
+  mkdir $versioned_node_modules_path
+fi
+
+if [ -L node_modules ]; then
+  rm node_modules
+fi
+
+ln -s $versioned_node_modules_path node_modules
+
 npm install
