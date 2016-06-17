@@ -49,9 +49,11 @@ test('it resolves with a new cart on ShopClient#create', function (assert) {
   delete cartAttrs[GUID_KEY];
 
   localStorage.setItem = function (key, value) {
-    assert.ok(key.match(/shopify-buy\.\d+\.\d+/));
-    assert.deepEqual(JSON.parse(value).cart.line_items, cartAttrs.line_items);
-    assert.equal(JSON.parse(value).cart.subtotal_price, cartAttrs.subtotal_price);
+    if (key !== '__storage_test__') {
+      assert.ok(key.match(/shopify-buy\.\d+\.\d+/));
+      assert.deepEqual(JSON.parse(value).cart.line_items, cartAttrs.line_items);
+      assert.equal(JSON.parse(value).cart.subtotal_price, cartAttrs.subtotal_price);
+    }
   };
 
   shopClient.createCart(cartAttrs).then(cart => {
@@ -109,11 +111,13 @@ test('it resolves with a new modified cart on ShopClient#update', function (asse
   };
 
   localStorage.setItem = function (key, value) {
-    step(3, 'runs an update', assert);
+    if (key !== '__storage_test__') {
+      step(3, 'runs an update', assert);
 
-    const payload = JSON.parse(value);
+      const payload = JSON.parse(value);
 
-    assert.deepEqual(payload.cart.line_items[0], lineItem);
+      assert.deepEqual(payload.cart.line_items[0], lineItem);
+    }
   };
 
   shopClient.fetchCart(id).then(cart => {
