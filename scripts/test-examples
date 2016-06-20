@@ -1,0 +1,154 @@
+#!/usr/bin/env node
+/* eslint-env node */
+/* eslint no-var: 0, prefer-template: 0 */
+/* globals require process */
+
+var childProcess = require('child_process');
+var path = require('path');
+var npm = require('global-npm');
+var pkg = require('../package.json');
+var npmDo = require('./util/npm-do');
+
+require('./util/work-from-root')();
+
+function log(who, what) {
+  process.stdout.write('[' + who + '] ' + what);
+}
+
+function runTests() {
+  return new Promise(function (resolve, reject) {
+    npmDo('wdio', [path.join('examples', 'cart', 'wdio.conf.js')], function (status) {
+      if (status === 0) {
+        resolve(status);
+      } else {
+        reject(status);
+      }
+    });
+  });
+}
+
+function bootSelenium() {
+  return new Promise(function (resolve, reject) {
+    var resolved = false;
+    var selenium = childProcess.exec('java -jar selenium-standalone.jar');
+
+    // Selenium outputs everything on STDERR because it's hateful
+    selenium.stderr.on('data', function (data) {
+      if (data.toString().match(/Selenium Server is up and running/) && !resolved) {
+        resolved = true;
+        resolve(selenium);
+      } else if (!resolved) {
+        log('selenium', data);
+      }
+    });
+
+    selenium.on('close', function (status) {
+      if (!resolved) {
+        log('selenium-failure', status + '\n');
+        reject(status);
+      }
+    });
+  });
+}
+
+function bootBroccoli() {
+  return new Promise(function (resolve, reject) {
+    npm.load(pkg, function () {
+      var resolved = false;
+      var broccoliBin = path.join(npm.bin, 'broccoli');
+      var examplesEnv = JSON.parse(JSON.stringify(process.env));
+
+      examplesEnv.EXAMPLES = 1;
+
+      var broccoli = childProcess.exec('node ' + broccoliBin + ' serve', { env: examplesEnv });
+
+      broccoli.stdout.on('data', function (data) {
+        log('broccoli', data);
+
+        if (data.match(/Serving on http/) && !resolved) {
+          resolved = true;
+          resolve(broccoli);
+        }
+      });
+
+      broccoli.stderr.on('data', function (data) {
+        log('broccoli-error', data);
+      });
+
+      broccoli.on('close', function (status) {
+        if (!resolved) {
+          log('broccoli-failure', status + '\n');
+          reject(status);
+        }
+      });
+    });
+  });
+}
+
+var waitToDie;
+
+Promise.all([bootBroccoli(), bootSelenium()]).then(function (processes) {
+  var broccoli = processes[0];
+  var selenium = processes[1];
+
+  waitToDie = function () {
+    return new Promise(function (resolve) {
+      var broccoliDead = false;
+      var seleniumDead = false;
+      var resolved = false;
+
+      function maybeResolveDead() {
+        if (broccoliDead && seleniumDead && !resolved) {
+          resolved = true;
+          resolve();
+        }
+      }
+
+      broccoli.on('close', function () {
+        broccoliDead = true;
+
+        maybeResolveDead(broccoli);
+      });
+      broccoli.on('exit', function () {
+        broccoliDead = true;
+
+        maybeResolveDead();
+      });
+      selenium.on('close', function () {
+        seleniumDead = true;
+
+        maybeResolveDead();
+      });
+      selenium.on('exit', function () {
+        seleniumDead = true;
+
+        maybeResolveDead();
+      });
+
+      broccoli.kill();
+      selenium.kill();
+    });
+  };
+
+  function exitAfterTests(status) {
+    var timer = setTimeout(function () {
+      process.exit();
+    }, 5000);
+
+    waitToDie().then(function () {
+      clearTimeout(timer);
+      process.exit(status);
+    });
+  }
+
+  return runTests().then(exitAfterTests).catch(exitAfterTests);
+}).catch(function (error) {
+  log('global-failure', error + '\n');
+  if (waitToDie) {
+    waitToDie().then(function () {
+      process.exit(1);
+    });
+  } else {
+    process.exit(1);
+  }
+});

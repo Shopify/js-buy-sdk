@@ -17,7 +17,9 @@ echo <<MESSAGE
 MESSAGE
 
 npm run test-ci
+npm run test-examples
 
 mkdir -p $CIRCLE_TEST_REPORTS/xunit
 
-mv tests.xml $CIRCLE_TEST_REPORTS/xunit/tests.xml
+mv tests.xml $CIRCLE_TEST_REPORTS/xunit/
+mv WDIO.*.xml $CIRCLE_TEST_REPORTS/xunit/

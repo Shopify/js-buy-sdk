@@ -3,8 +3,9 @@ logs
 *.log
 npm-debug.log*
 
-# Dependency directory
+# Dependencies
 node_modules
+selenium-standalone.jar
 
 # Intermediate files
 tmp
@@ -13,6 +14,7 @@ tmp
 dist
 .dist-test
 tests.xml
+WDIO.*.xml
 lib
 
 # Decrypted secrets
