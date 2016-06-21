@@ -17,7 +17,16 @@ $(function() {
     cart = values[0];
     product = values[1];
     
-    return cart.addVariants({ variant: product.variants[0], quantity: 5 }, { variant: product.variants[1], quantity: 3 });
+    return cart.addVariants(
+      {
+        variant: product.variants[0], 
+        quantity: 5
+      }, 
+      { 
+        variant: product.variants[1], 
+        quantity: 3 
+      }
+    );
   }).then(function () {
     completeUIRendering();
     bindEventListeners();
