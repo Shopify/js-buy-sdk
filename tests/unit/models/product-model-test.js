@@ -126,8 +126,8 @@ test('it returns a null image when there is no selected variant', function (asse
   assert.equal(model.selectedVariantImage, null);
 });
 
-test('it returns valid description in descriptionHtml', function (assert) {
+test('it returns valid description in description', function (assert) {
   assert.expect(1);
 
-  assert.equal(model.descriptionHtml, singleProductFixture.product_listing.body_html);
+  assert.equal(model.description, singleProductFixture.product_listing.body_html);
 });
