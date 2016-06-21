@@ -27,17 +27,17 @@ $(function() {
   /* Update UI variables
   ============================================================ */
   function completeUIRendering() {
-    $('.cart.empty').toggle(!cart.lineItemCount);
-    $('.cart.not-empty').toggle(cart.lineItemCount !== 0);
+    $('.cart .empty').toggle(!cart.lineItemCount);
+    $('.cart .not-empty').toggle(cart.lineItemCount !== 0);
 
-    $('.cart.not-empty .sub-total').text(formatAsMoney(cart.subtotal));
-    $('.cart.not-empty .line-item-count').text(cart.lineItemCount);
+    $('.cart .not-empty .sub-total').text(formatAsMoney(cart.subtotal));
+    $('.cart .not-empty .line-item-count').text(cart.lineItemCount);
   }
 
   /* Bind Event Listeners
   ============================================================ */
   function bindEventListeners() {
-    $('.cart.not-empty .btn.checkout').on('click', function () {
+    $('.cart .not-empty .btn.checkout').on('click', function () {
       var checkoutWindow = window.open(cart.checkoutUrl);
       window.addEventListener("message", checkoutPostMessageListener, checkoutWindow);
     });
