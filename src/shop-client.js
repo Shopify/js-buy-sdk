@@ -380,11 +380,13 @@ const ShopClient = CoreObject.extend({
    * ```
    * @method fetchQueryProducts
    * @public
-   * @param {Object} query a query sent to the api server containing one or more of:
-   *   @param {String|Number} [query.collection_id] the ID of a collection to retrieve products from
-   *   @param {Array} [query.product_ids] a list of product IDs to retrieve
-   *   @param {String|Number} [query.page=1] the page offset number of the current lookup (based on the `limit`)
-   *   @param {String|Number} [query.limit=50] the number of products to retrieve per page
+   * @param {Object} query A query sent to the api server containing one or more of:
+   *   @param {String|Number} [query.collection_id] The ID of a collection to retrieve products from
+   *   @param {Array} [query.product_ids] A list of product IDs to retrieve
+   *   @param {String|Number} [query.page=1] The page offset number of the current lookup (based on the `limit`)
+   *   @param {String|Number} [query.limit=50] The number of products to retrieve per page
+   *   @param {String} [query.handle] The handle of the product to look up
+   *   @param {String} [query.updated_at_min] Products updated since the supplied timestamp (format: 2008-12-31 03:00)
    * @return {Promise|Array} The product models.
    */
   fetchQueryProducts: fetchFactory('query', 'products'),
