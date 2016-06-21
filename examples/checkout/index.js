@@ -11,17 +11,19 @@ $(function() {
   var product;
   var cart;
 
-  client.createCart().then(function (newCart) {
-    cart = newCart;
-    return client.fetchProduct('3614436099');
-  }).then(function (product) {
-    cart.addVariants({ variant: product.variants[0], quantity: 5 }, { variant: product.variants[1], quantity: 3 }).then(function() {
-      completeUIRendering();
-      bindEventListeners();
-    }).catch(function (errors) {
-      console.log('Fail');
-      console.error(errors);
-    });
+  var cartPromise = client.createCart();
+  var productPromise = client.fetchProduct('3614436099');
+  RSVP.all([cartPromise, productPromise]).then(function (values) {
+    cart = values[0];
+    product = values[1];
+    
+    return cart.addVariants({ variant: product.variants[0], quantity: 5 }, { variant: product.variants[1], quantity: 3 });
+  }).then(function () {
+    completeUIRendering();
+    bindEventListeners();
+  }).catch(function (errors) {
+    console.log('Fail');
+    console.error(errors);
   });
 
   /* Update UI variables
