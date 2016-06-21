@@ -34,7 +34,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product description
+    * Product description. The exposes the `body_html` property on the listings API
     * @property description
     * @type {String}
   */
