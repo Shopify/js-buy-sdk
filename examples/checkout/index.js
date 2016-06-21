@@ -31,7 +31,7 @@ $(function() {
     completeUIRendering();
     bindEventListeners();
   }).catch(function (errors) {
-    console.log('Fail');
+    console.info('Something went wrong while preparing the cart');
     console.error(errors);
   });
 
