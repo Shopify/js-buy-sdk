@@ -1,9 +1,11 @@
 import CoreObject from '../metal/core-object';
 import setGuidFor from '../metal/set-guid-for';
+import Store from '../store';
 import { GUID_KEY } from '../metal/set-guid-for';
 
 const LocalStorageAdapter = CoreObject.extend({
   constructor() {
+    this.store = new Store();
   },
 
   idKeyForType(/* type */) {
@@ -12,51 +14,35 @@ const LocalStorageAdapter = CoreObject.extend({
 
   fetchSingle(type, id) {
     return new Promise((resolve, reject) => {
-      const stringifiedValue = localStorage.getItem(this.localStorageKey(type, id));
+      const value = this.store.getItem(this.storageKey(type, id));
 
-      if (stringifiedValue === null) {
+      if (value === null) {
         reject(new Error(`${type}#${id} not found`));
 
         return;
       }
 
-      try {
-        const value = JSON.parse(stringifiedValue);
-
-        resolve(value);
-      } catch (e) {
-        reject(e);
-      }
+      resolve(value);
     });
   },
 
   create(type, payload) {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       const id = this.identify(payload);
 
-      try {
-        localStorage.setItem(this.localStorageKey(type, id), JSON.stringify(payload));
-      } catch (e) {
-        reject(e);
-      }
-
+      this.store.setItem(this.storageKey(type, id), payload);
       resolve(payload);
     });
   },
 
   update(type, id, payload) {
-    return new Promise((resolve, reject) => {
-      try {
-        localStorage.setItem(this.localStorageKey(type, id), JSON.stringify(payload));
-      } catch (e) {
-        reject(e);
-      }
-
+    return new Promise(resolve => {
+      this.store.setItem(this.storageKey(type, id), payload);
       resolve(payload);
     });
   },
 
-  localStorageKey(type, id) {
+  storageKey(type, id) {
     return `${type}.${id}`;
   },
 

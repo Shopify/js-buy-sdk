@@ -24,10 +24,10 @@ module('Integration | ShopClient#fetchRecentCart', {
     fakeLocalStorage = {};
 
     localStorage.getItem = function (key) {
-      return JSON.stringify(fakeLocalStorage[key]);
+      return fakeLocalStorage[key];
     };
     localStorage.setItem = function (key, value) {
-      fakeLocalStorage[key] = JSON.parse(value);
+      fakeLocalStorage[key] = value;
     };
     localStorage.removeItem = function (key) {
       delete fakeLocalStorage[key];
@@ -56,10 +56,13 @@ test('it resolves with an exisitng cart when a reference and corresponding cart 
     }
   };
 
-  fakeLocalStorage[cartReferenceKey] = {};
-  fakeLocalStorage[cartReferenceKey].referenceId = cartId.replace('carts.', '');
-  fakeLocalStorage[cartReferenceKey][GUID_KEY] = cartReferenceKey;
-  fakeLocalStorage[cartId] = cartAttrs;
+  const cartRef = {
+    referenceId: cartId.replace('carts.', ''),
+    [GUID_KEY]: cartReferenceKey
+  };
+
+  fakeLocalStorage[cartReferenceKey] = JSON.stringify(cartRef);
+  fakeLocalStorage[cartId] = JSON.stringify(cartAttrs);
 
   shopClient.fetchRecentCart().then(cart => {
     assert.deepEqual(cart.attrs, cartAttrs.cart);
@@ -106,10 +109,12 @@ test('it recovers from broken state when a reference exists to a non-existent ca
   const cartReferenceKey = `references.${config.myShopifyDomain}.recent-cart`;
   const cartId = 'carts.shopify-buy.123';
 
+  const cartRef = {
+    referenceId: cartId.replace('carts.', ''),
+    [GUID_KEY]: cartReferenceKey
+  };
 
-  fakeLocalStorage[cartReferenceKey] = {};
-  fakeLocalStorage[cartReferenceKey].referenceId = cartId.replace('carts.', '');
-  fakeLocalStorage[cartReferenceKey][GUID_KEY] = cartReferenceKey;
+  fakeLocalStorage[cartReferenceKey] = JSON.stringify(cartRef);
 
   assert.equal(Object.keys(fakeLocalStorage).length, 1);
 
@@ -161,10 +166,13 @@ test('it properly transforms line items LineItem instances when fetched', functi
     }
   };
 
-  fakeLocalStorage[cartReferenceKey] = {};
-  fakeLocalStorage[cartReferenceKey].referenceId = cartId.replace('carts.', '');
-  fakeLocalStorage[cartReferenceKey][GUID_KEY] = cartReferenceKey;
-  fakeLocalStorage[cartId] = cartAttrs;
+  const cartRef = {
+    referenceId: cartId.replace('carts.', ''),
+    [GUID_KEY]: cartReferenceKey
+  };
+
+  fakeLocalStorage[cartReferenceKey] = JSON.stringify(cartRef);
+  fakeLocalStorage[cartId] = JSON.stringify(cartAttrs);
 
   shopClient.fetchRecentCart().then(cart => {
     assert.deepEqual(cart.attrs, cartAttrs.cart);

@@ -17,7 +17,7 @@ module('Unit | LocalStorageAdapter', {
   }
 });
 
-test('it calls `getItem` on localStorage with the framework name, type, and id on #fetchSingle', function (assert) {
+test('it calls `getItem` on store with the framework name, type, and id on #fetchSingle', function (assert) {
   assert.expect(2);
 
   const done = assert.async();
@@ -27,10 +27,10 @@ test('it calls `getItem` on localStorage with the framework name, type, and id o
 
   const cartJson = { cart: { id } };
 
-  localStorage.getItem = function (key) {
+  adapter.store.getItem = function (key) {
     assert.equal(key, `${type}.${id}`, 'uses correct key');
 
-    return JSON.stringify(cartJson);
+    return cartJson;
   };
 
   adapter.fetchSingle(type, id).then(result => {
@@ -43,7 +43,7 @@ test('it calls `getItem` on localStorage with the framework name, type, and id o
 });
 
 test('it calls `setItem` on localStorage with the proper key name, and json payload on #create', function (assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   const done = assert.async();
 
@@ -52,9 +52,8 @@ test('it calls `setItem` on localStorage with the proper key name, and json payl
   const cartAttrs = {};
   const cartJson = { cart: cartAttrs };
 
-  localStorage.setItem = function (key, value) {
+  adapter.store.setItem = function (key) {
     assert.ok(key.match(/carts\.shopify-buy\.\d+.\d+/), 'creates an id');
-    assert.equal(value, JSON.stringify(cartJson));
   };
 
   adapter.create(type, cartJson).then(result => {
@@ -67,7 +66,7 @@ test('it calls `setItem` on localStorage with the proper key name, and json payl
 });
 
 test('it calls setItem on #update', function (assert) {
-  assert.expect(3);
+  assert.expect(2);
 
   const done = assert.async();
 
@@ -76,9 +75,8 @@ test('it calls setItem on #update', function (assert) {
 
   const cartJson = { cart: { id } };
 
-  localStorage.setItem = function (key, value) {
+  adapter.store.setItem = function (key) {
     assert.equal(key, `${type}.${cartJson.cart.id}`);
-    assert.equal(value, JSON.stringify(cartJson));
   };
 
   adapter.update(type, id, cartJson).then(result => {
