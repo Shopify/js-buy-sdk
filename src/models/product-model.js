@@ -34,11 +34,11 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product bodyHtml
-    * @property bodyHtml
+    * Product descriptionHtml
+    * @property descriptionHtml
     * @type {String}
   */
-  get bodyHtml() {
+  get descriptionHtml() {
     return this.attrs.body_html;
   },
 
