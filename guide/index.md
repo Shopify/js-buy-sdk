@@ -56,11 +56,11 @@ shopClient.createCart().then(function (cart) {
 });
 ```
 
-Variants can be passed in during initalization to create a non-empty cart with those variants.
+Line items can be passed in during initalization to create a non-empty cart with those variants.
 
 ```js
 var cart;
-shopClient.createCart({id: 123, quantity: 1}).then(function (cart) {
+shopClient.createCart({line_items: [{id: 123, quantity: 1}]}).then(function (cart) {
   cart = cart;
   // do something with cart
 });
