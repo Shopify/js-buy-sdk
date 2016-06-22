@@ -34,6 +34,15 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
+    * Product description. The exposes the `body_html` property on the listings API
+    * @property description
+    * @type {String}
+  */
+  get description() {
+    return this.attrs.body_html;
+  },
+
+  /**
     * All images associated with product.
     * @property images
     * @type {Array} array of image objects.
