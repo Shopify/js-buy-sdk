@@ -6,6 +6,7 @@ require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
+var buildDoc = require('./util/build-doc');
 
 var buildPath = 'dist';
 
@@ -15,4 +16,10 @@ process.env.BROCCOLI_ENV = 'production';
 
 buildProject(buildPath, function (buildStatus) {
   process.exit(buildStatus);
+});
+
+buildDoc(function (error) {
+	if (error) {
+		console.error(error);
+	}
 });
