@@ -11,6 +11,7 @@ selenium-standalone.jar
 tmp
 
 # Build artifacts
+documentations
 dist
 .dist-test
 tests.xml
