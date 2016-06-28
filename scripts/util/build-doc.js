@@ -143,7 +143,7 @@ module.exports = {
         checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
       });
     }).catch(function (error) {
-      console.error(`Unable to perform checkout and commit to "${DOCUMENTATION_BRANCH_NAME}"`)
+      console.error(`Error encountered while attempting to commit docs to "${DOCUMENTATION_BRANCH_NAME}"`)
       console.error(error);
     });
   }
