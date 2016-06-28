@@ -150,7 +150,3 @@ module.exports = {
   }
 
 }
-
-NodeGit.Repository.open('.').then(function (_repo) {
-  module.exports.checkoutGHPagesAndCommitDocs(_repo);
-});
