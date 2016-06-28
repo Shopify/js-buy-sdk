@@ -131,7 +131,7 @@ module.exports = {
       return repo.getCommit(head);
     }).then(function(parent) {
       var dateObject = new Date();
-      var time = new dateObject.getTime();
+      var time = dateObject.getTime();
       var timeOffset = dateObject.getTimezoneOffset();
       var author = NodeGit.Signature.create("Auto Docs",
         "docs@shopify.com", time, timeOffset);
