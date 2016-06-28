@@ -32,15 +32,15 @@ function buildTreePromise(commitPromise, name) {
 /** This function checks out trees synchronously. 
   * Important because attempting to checkout async causes errors
   */
-function checkoutTrees(datum, rest, cb, paths) {
+function checkoutTrees(datum, rest, callback, paths) {
   paths = paths || [];
   checkoutOptions.targetDirectory = path.join(repo.workdir(), DOCUMENTATION_DIRECTORY, datum.name);
   NodeGit.Checkout.tree(repo, datum.tree, checkoutOptions).then(function () {
     if (rest.length) {
       paths.push(checkoutOptions.targetDirectory)
-      checkoutTrees(rest.shift(), rest, cb, paths);
-    } else if (cb) {
-      cb(paths);
+      checkoutTrees(rest.shift(), rest, callback, paths);
+    } else if (callback) {
+      callback(paths);
     }
   }).catch(function (error){
     error.message = `Unable to checkout "${datum.name}" | ${error.message}`
@@ -48,7 +48,7 @@ function checkoutTrees(datum, rest, cb, paths) {
   });
 }
 
-module.exports = function (cb) {
+module.exports = function (callback) {
   NodeGit.Repository.open('.').then(function (_repo) {
     repo = _repo;
     return repo.getReferences(NodeGit.Reference.TYPE.OID);
@@ -76,7 +76,7 @@ module.exports = function (cb) {
     var paths = [];
 
     checkoutTrees(treesData.shift(), treesData, function (paths) {
-      yuidoc.generate(paths, cb);
+      yuidoc.generate(paths, callback);
     });
 
   }).catch(function(err){

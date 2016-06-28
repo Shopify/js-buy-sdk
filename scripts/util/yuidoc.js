@@ -13,7 +13,7 @@ var options = project.options;
   options.themedir = path.dirname(require.resolve(path.join('yuidoc-lucid-theme', 'theme.json')));
   options.helpers = [path.join(options.themedir, 'helpers', 'helpers.js')];
 
-function buildDocSync(directory, rest, cb) {
+function buildDocSync(directory, rest, callback) {
   options.paths = [ path.join(directory, 'src') ];
   options.outdir = path.join(directory, 'api');
   options.project.version = path.basename(directory);
@@ -25,22 +25,22 @@ function buildDocSync(directory, rest, cb) {
   builder.compile(function () {
     Y.log("----------------\n\n", 'info', 'yuidoc');
     if (rest.length) {
-      buildDocSync(rest.shift(), rest, cb);
+      buildDocSync(rest.shift(), rest, callback);
     } else {
-      cb();
+      callback();
     }
   });
 }
 
 module.exports = {
-  generate: function (versionPaths, cb) {
+  generate: function (versionPaths, callback) {
     var starttime = (new Date()).getTime();
 
     buildDocSync(versionPaths.shift(), versionPaths, function () {
       var endtime = (new Date()).getTime();
       Y.log('Completed in ' + ((endtime - starttime) / 1000) + ' seconds', 'info', 'yuidoc');
-      if (cb) {
-        cb()
+      if (callback) {
+        callback()
       }
     });
   }
