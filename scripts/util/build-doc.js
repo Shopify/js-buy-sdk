@@ -109,11 +109,15 @@ module.exports = {
 
     repo.getCurrentBranch().then(function (reference) {
       currentBranchReference = reference;
+
       return repo.checkoutBranch(DOCUMENTATION_BRANCH_NAME, { 
         checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
       });
     }).then(function () {
-      console.log('checked out')
+      var indexEntry = new NodeGit.IndexEntry();
+      indexEntry.path = 'docs';
+      NodeGit.Index.entryStage(indexEntry);
+      // commit changes
     }).catch(function (error) {
       console.error(`Unable to perform checkout and commit to "${DOCUMENTATION_BRANCH_NAME}"`)
       console.error(error);
