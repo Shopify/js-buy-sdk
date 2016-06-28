@@ -106,6 +106,8 @@ module.exports = {
   },
   checkoutGHPagesAndCommitDocs: function (repo, callback) {
     var currentBranchReference;
+    var index;
+    var treeOid;
 
     repo.getCurrentBranch().then(function (reference) {
       currentBranchReference = reference;
@@ -114,10 +116,32 @@ module.exports = {
         checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
       });
     }).then(function () {
-      var indexEntry = new NodeGit.IndexEntry();
-      indexEntry.path = 'docs';
-      NodeGit.Index.entryStage(indexEntry);
-      // commit changes
+      return repo.refreshIndex();
+    }).then(function (_index) {
+      index = _index;
+      return index.addAll(`${DOCUMENTATION_DIRECTORY}/`);
+    }).then(function () {
+      return index.write();
+    }).then(function () {
+      return index.writeTree();
+    }).then(function (oidResult) {
+      treeOid = oidResult;
+      return NodeGit.Reference.nameToId(repo, "HEAD");
+    }).then(function(head) {
+      return repo.getCommit(head);
+    }).then(function(parent) {
+      var time = new Date().getTime();
+      var timeOffset = time.getTimezoneOffset();
+      var author = NodeGit.Signature.create("Auto Docs",
+        "docs@shopify.com", time, timeOffset);
+      var committer = NodeGit.Signature.create("Auto Docs",
+        "scott@github.com", time, timeOffset);
+
+      return repo.createCommit("HEAD", author, committer, "message", treeOid, [parent]);
+    }).then(function() {
+      repo.checkoutBranch(currentBranchReference.shorthand(), { 
+        checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
+      });
     }).catch(function (error) {
       console.error(`Unable to perform checkout and commit to "${DOCUMENTATION_BRANCH_NAME}"`)
       console.error(error);
