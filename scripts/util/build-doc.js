@@ -4,14 +4,15 @@ var path = require('path');
 var fs = require('fs');
 var yuidoc = require('./yuidoc');
 var NodeGit = require('nodegit');
-var checkoutOptions = new NodeGit.CheckoutOptions();
-  checkoutOptions.checkoutStrategy = NodeGit.Checkout.STRATEGY.FORCE + NodeGit.Checkout.STRATEGY.DONT_WRITE_INDEX;
-  checkoutOptions.paths = 'src';
+var checkoutOptions = {
+  checkoutStrategy: ( NodeGit.Checkout.STRATEGY.FORCE + NodeGit.Checkout.STRATEGY.DONT_WRITE_INDEX ),
+  paths: 'src'
+}
 
 var repo;
 
 const MASTER_BRANCH_NAME = 'master';
-const DOCUMENTATION_BRANCH_NAME = 'gh-pages';
+const DOCUMENTATION_BRANCH_NAME = 'gh-pages-test';
 const DOCUMENTATION_DIRECTORY = path.join('docs');
 
 if (!fs.existsSync(DOCUMENTATION_DIRECTORY)) {
@@ -48,39 +49,79 @@ function checkoutTrees(datum, rest, callback, paths) {
   });
 }
 
-module.exports = function (callback) {
-  NodeGit.Repository.open('.').then(function (_repo) {
-    repo = _repo;
-    return repo.getReferences(NodeGit.Reference.TYPE.OID);
-  }).then(function(references){
-    var treesDataPromises = [];
-    references.forEach(function(reference){
-      var target = reference.targetPeel() || reference.target();
-      var name = reference.shorthand();
-      var commitPromise;
+module.exports = {
+  createSrc: function (options, callback) {
+    var self = this;
 
-      if(reference.isTag()) {
-        commitPromise = repo.getCommit(target);
-      } else if (reference.isBranch() && reference.shorthand() === MASTER_BRANCH_NAME) {
-        commitPromise = repo.getBranchCommit(name);
-      } else {
-        return;
-      }
+    if (!callback) {
+      callback = options;
+      options = {};
+    }
 
-      treesDataPromises.push(buildTreePromise(commitPromise, name));
+    options = assign({ commit_to_gh_pages: false }, options);
+
+    NodeGit.Repository.open('.').then(function (_repo) {
+      repo = _repo;
+      return repo.getReferences(NodeGit.Reference.TYPE.OID);
+    }).then(function(references){
+      var treesDataPromises = [];
+      references.forEach(function(reference){
+        var target = reference.targetPeel() || reference.target();
+        var name = reference.shorthand();
+        var commitPromise;
+
+        if(reference.isTag()) {
+          commitPromise = repo.getCommit(target);
+        } else if (reference.isBranch() && reference.shorthand() === MASTER_BRANCH_NAME) {
+          commitPromise = repo.getBranchCommit(name);
+        } else {
+          return;
+        }
+
+        treesDataPromises.push(buildTreePromise(commitPromise, name));
+      });
+
+      return Promise.all(treesDataPromises);
+
+    }).then(function(treesData){
+      var paths = [];
+
+      checkoutTrees(treesData.shift(), treesData, function (paths) {
+        self.generetaDocs(paths, function () {
+          if (options.commit_to_gh_pages) {
+            self.checkoutGHPagesAndCommitDocs(repo, callback);
+          } else if (callback) {
+            callback();
+          }
+        });
+      });
+
+    }).catch(function(err){
+      console.error("Error building doc");
+      console.error(err);
     });
+  },
+  generetaDocs: function (paths, callback) {
+    yuidoc.generate(paths, callback);
+  },
+  checkoutGHPagesAndCommitDocs: function (repo, callback) {
+    var currentBranchReference;
 
-    return Promise.all(treesDataPromises);
-
-  }).then(function(treesData){
-    var paths = [];
-
-    checkoutTrees(treesData.shift(), treesData, function (paths) {
-      yuidoc.generate(paths, callback);
+    repo.getCurrentBranch().then(function (reference) {
+      currentBranchReference = reference;
+      return repo.checkoutBranch(DOCUMENTATION_BRANCH_NAME, { 
+        checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
+      });
+    }).then(function () {
+      console.log('checked out')
+    }).catch(function (error) {
+      console.error(`Unable to perform checkout and commit to "${DOCUMENTATION_BRANCH_NAME}"`)
+      console.error(error);
     });
+  }
 
-  }).catch(function(err){
-    console.error("Error building doc");
-    console.error(err);
-  });
 }
+
+NodeGit.Repository.open('.').then(function (_repo) {
+  module.exports.checkoutGHPagesAndCommitDocs(_repo);
+});
