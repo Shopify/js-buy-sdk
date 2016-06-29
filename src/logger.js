@@ -1,5 +1,17 @@
 import CoreObject from './metal/core-object';
 
+function wrapConsole(logCommand) {
+  return function () {
+    const args = Array.prototype.slice.call(arguments);
+
+    args.unshift('[JS-BUY-SDK]: ');
+    /* eslint-disable no-console */
+    console[logCommand](...args);
+    /* eslint-enable no-console */
+  };
+}
+
+
 const Logger = CoreObject.extend({
   /**
    * Wrapper around the console log so in the future we can have better dev output.
@@ -9,37 +21,10 @@ const Logger = CoreObject.extend({
    */
   constructor() {
   },
-
-  /* eslint-disable no-console */
-  log() {
-    console.log(...this.tagLog(...arguments));
-  },
-
-  debug() {
-    console.debug(...this.tagLog(...arguments));
-  },
-
-  info() {
-    console.info(...this.tagLog(...arguments));
-  },
-
-  warn() {
-    console.warn(...this.tagLog(...arguments));
-  },
-
-  error() {
-    console.error(...this.tagLog(...arguments));
-  },
-
-  tagLog() {
-    const args = Array.prototype.slice.call(arguments);
-
-    args.unshift('[JS-BUY-SDK]: ');
-
-    return args;
-  }
-  /* eslint-enable no-console */
-
+  debug: wrapConsole('debug'),
+  info: wrapConsole('info'),
+  warn: wrapConsole('warn'),
+  error: wrapConsole('error')
 });
 
 export default new Logger();
