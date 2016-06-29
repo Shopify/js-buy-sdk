@@ -15,7 +15,7 @@ const Config = CoreObject.extend({
    * @param {String} attrs.appId The app whose listings the client will be
    * using. If you are just modifying a buy button, the buy-button's app id is
    * 6. Otherwise, obtain the app id of the app you're modifying or extending.
-   * @param {String} attrs.domain Your shop's full domain.
+   * @param {String} attrs.domain Your shop's full domain. (i.e. `craftedgoods.myshopify.com`)
    */
   constructor(attrs) {
     Object.keys(this.deprecatedProperties).forEach(key => {
