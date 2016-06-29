@@ -45,7 +45,7 @@ test('it should convert myShopifyDomain to domain', function (assert) {
   assert.equal(config.domain, 'krundle.myshopify.com', 'domain should be myshopify.com domain');
 });
 
-test('it output a deprecation warning when using myShopifyDomain', function (assert) {
+test('it should output a deprecation warning when using myShopifyDomain', function (assert) {
   assert.expect(4);
 
   /* eslint-disable no-console */

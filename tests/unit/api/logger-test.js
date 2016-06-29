@@ -7,7 +7,7 @@ const testOutput = 'test output';
 
 module('Unit | Logger');
 
-['log', 'debug', 'info', 'warn', 'error'].forEach(method => {
+['debug', 'info', 'warn', 'error'].forEach(method => {
   test(`it should wrap ${method}`, function (assert) {
     assert.expect(2);
 
@@ -24,4 +24,3 @@ module('Unit | Logger');
     /* eslint-enable no-console */
   });
 });
-
