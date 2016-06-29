@@ -1,4 +1,5 @@
 import CoreObject from './metal/core-object';
+import logger from './logger';
 
 /**
  * @module shopify-buy
@@ -57,7 +58,7 @@ const Config = CoreObject.extend({
    * @return {Object} the transformed config attributes.
    */
   transformMyShopifyDomain(subdomain, attrs) {
-    console.warn('Config - ',
+    logger.warn('Config - ',
        `myShopifyDomain is deprecated,
        please use domain and provide the whole myshopify.com domain.`);
     attrs.domain = `${subdomain}.myshopify.com`;
