@@ -5,7 +5,7 @@ import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
 import CartModel from 'shopify-buy/models/cart-model';
 
 const configAttrs = {
-  myShopifyDomain: 'buckets-o-stuff',
+  domain: 'buckets-o-stuff.myshopify.com',
   apiKey: 'abc123',
   appId: 6
 };
@@ -47,7 +47,7 @@ test('it resolves with an exisitng cart when a reference and corresponding cart 
 
   const done = assert.async();
 
-  const cartReferenceKey = `references.${config.myShopifyDomain}.recent-cart`;
+  const cartReferenceKey = `references.${config.domain}.recent-cart`;
   const cartId = 'carts.shopify-buy.123';
 
   const cartAttrs = {
@@ -106,7 +106,7 @@ test('it recovers from broken state when a reference exists to a non-existent ca
 
   const done = assert.async();
 
-  const cartReferenceKey = `references.${config.myShopifyDomain}.recent-cart`;
+  const cartReferenceKey = `references.${config.domain}.recent-cart`;
   const cartId = 'carts.shopify-buy.123';
 
   const cartRef = {
@@ -144,7 +144,7 @@ test('it properly transforms line items LineItem instances when fetched', functi
 
   const done = assert.async();
 
-  const cartReferenceKey = `references.${config.myShopifyDomain}.recent-cart`;
+  const cartReferenceKey = `references.${config.domain}.recent-cart`;
   const cartId = 'carts.shopify-buy.123';
 
   const cartAttrs = {

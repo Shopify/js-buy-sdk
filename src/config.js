@@ -17,6 +17,14 @@ const Config = CoreObject.extend({
    * @param {String} attrs.myShopifyDomain You shop's `myshopify.com` domain.
    */
   constructor(attrs) {
+    Object.keys(this.deprecatedProperties).forEach(key => {
+      const transformName = this.deprecatedProperties[key];
+      const transform = this[transformName];
+
+      if (attrs.hasOwnProperty(key)) {
+        transform(attrs[key], attrs);
+      }
+    });
     this.requiredProperties.forEach(key => {
       if (!attrs.hasOwnProperty(key)) {
         throw new Error(`new Config() requires the option '${key}'`);
@@ -27,8 +35,37 @@ const Config = CoreObject.extend({
   },
 
   /**
-   * The apiKey for authenticating against shopify. This is your api client's
-   * public api token. Not the shared secret. Set during initialation.
+   * An object with keys for deprecated properties and values as functions that
+   * will transform the value into a usable value.
+   * @attribute deprecatedProperties
+   * @default { myShopifyDomain: this.transformMyShopifyDomain }
+   * @type Object
+   * @private
+   */
+  deprecatedProperties: {
+    myShopifyDomain: 'transformMyShopifyDomain'
+  },
+
+  /**
+   * Transform the myShopifyDomain config to a domain config.
+   * @method transformMyShopifyDomain
+   * @static
+   * @private
+   * @param {String} subdomain The original subdomain on myshopify.com
+   * @param {Object} attrs. The config attributes to be transformed to a
+   * non-deprecated state.
+   * @return {Object} the transformed config attributes.
+   */
+  transformMyShopifyDomain(subdomain, attrs) {
+    console.warn('Config - ',
+       `myShopifyDomain is deprecated,
+       please use domain and provide the whole myshopify.com domain.`);
+    attrs.domain = `${subdomain}.myshopify.com`;
+    delete attrs.myShopifyDomain;
+  },
+
+  /**
+   * Properties that must be set on initializations
    * @attribute requiredProperties
    * @default ['apiKey', 'appId', 'myShopifyDomain']
    * @type Array
@@ -37,7 +74,7 @@ const Config = CoreObject.extend({
   requiredProperties: [
     'apiKey',
     'appId',
-    'myShopifyDomain'
+    'domain'
   ],
 
 
@@ -60,12 +97,13 @@ const Config = CoreObject.extend({
   appId: '',
 
   /**
-   * @attribute myShopifyDomain
+   * The domain that all the api requests will go to
+   * @attribute domain
    * @default ''
    * @type String
    * @public
    */
-  myShopifyDomain: ''
+  domain: ''
 });
 
 export default Config;

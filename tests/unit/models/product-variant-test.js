@@ -50,7 +50,7 @@ const baseAttrs = {
 };
 
 const config = {
-  myShopifyDomain: 'buckets-o-stuff',
+  domain: 'buckets-o-stuff.myshopify.com',
   apiKey: 'abc123'
 };
 
@@ -157,7 +157,7 @@ test('image variants should be empty when there\'s not image', function (assert)
 test('it generates checkout permalinks from passed quantity', function (assert) {
   assert.expect(4);
 
-  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const baseUrl = `https://${config.domain}/cart`;
   const query = `api_key=${config.apiKey}`;
 
   assert.equal(model.checkoutUrl(), `${baseUrl}/${model.id}:1?${query}`, 'defaults to 1');

@@ -7,7 +7,7 @@ import CartModel from 'shopify-buy/models/cart-model';
 import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
 
 const configAttrs = {
-  myShopifyDomain: 'buckets-o-stuff',
+  domain: 'buckets-o-stuff.myshopify.com',
   apiKey: 123,
   appId: 6
 };
@@ -588,7 +588,7 @@ test('it fetches a reference, then a cart on #fetchRecentCart when one exists', 
     if (type === 'references') {
       step(1, 'fetches a reference', assert);
 
-      assert.equal(idOrQuery, `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(idOrQuery, `${config.domain}.recent-cart`);
 
       return new Promise(resolve => {
         resolve({ referenceId: cartId });
@@ -632,7 +632,7 @@ test('it fetches a reference and creates a cart on #fetchRecentCart when one doe
     if (type === 'references') {
       step(1, 'fetches a reference', assert);
 
-      assert.equal(idOrQuery, `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(idOrQuery, `${config.domain}.recent-cart`);
 
       return new Promise((resolve, reject) => {
         reject({});
@@ -656,7 +656,7 @@ test('it fetches a reference and creates a cart on #fetchRecentCart when one doe
       });
     } else if (type === 'references') {
       step(3, 'it creates a reference with the cart id', assert);
-      assert.equal(attrs[GUID_KEY], `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(attrs[GUID_KEY], `${config.domain}.recent-cart`);
       assert.equal(attrs.referenceId, cartModel.id);
 
       return new Promise(resolve => {
@@ -726,7 +726,7 @@ test('it fetches a reference and creates a cart on #fetchRecentCart with broken 
     } else if (type === 'references') {
       step(4, 'it saves a new reference to the cart', assert);
 
-      assert.equal(attrs[GUID_KEY], `${config.myShopifyDomain}.recent-cart`);
+      assert.equal(attrs[GUID_KEY], `${config.domain}.recent-cart`);
       assert.equal(attrs.referenceId, cartModel.id);
 
       return new Promise(resolve => {

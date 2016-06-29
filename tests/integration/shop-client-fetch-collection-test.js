@@ -5,14 +5,14 @@ import Pretender from 'pretender';
 import { singleCollectionFixture, multipleCollectionsFixture } from '../fixtures/collection-fixture';
 
 const configAttrs = {
-  myShopifyDomain: 'buckets-o-stuff',
+  domain: 'buckets-o-stuff.myshopify.com',
   apiKey: 1,
   appId: 6
 };
 
 const config = new Config(configAttrs);
 
-const baseUrl = `https://${configAttrs.myShopifyDomain}.myshopify.com/api/apps/${configAttrs.appId}`;
+const baseUrl = `https://${configAttrs.domain}/api/apps/${configAttrs.appId}`;
 
 function apiUrl(path) {
   return `${baseUrl}${path}`;
