@@ -6,7 +6,7 @@ require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
-var buildDoc = require('./util/build-doc');
+var docBuilder = require('./util/build-doc');
 
 var buildPath = 'dist';
 
@@ -14,12 +14,21 @@ fsExtra.removeSync(buildPath);
 
 process.env.BROCCOLI_ENV = 'production';
 
+console.log('Building ....');
 buildProject(buildPath, function (buildStatus) {
-  process.exit(buildStatus);
-});
+  console.log('Done building');
+  if (buildStatus !== 0) {
+    return process.exit(buildStatus);
+  }
 
-buildDoc(function (error) {
-	if (error) {
-		console.error(error);
-	}
+  console.log('Creating build files')
+  docBuilder.createSrc(function (error, paths) {
+   if (error) {
+     console.log(error);
+   } else {
+      docBuilder.generateDocs(paths, true, function () { 
+
+      });
+   }
+  });
 });

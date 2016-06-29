@@ -12,7 +12,7 @@ var checkoutOptions = {
 var repo;
 
 const MASTER_BRANCH_NAME = 'master';
-const DOCUMENTATION_BRANCH_NAME = 'gh-pages-test';
+const DOCUMENTATION_BRANCH_NAME = 'gh-pages';
 const DOCUMENTATION_DIRECTORY = path.join('docs');
 
 if (!fs.existsSync(DOCUMENTATION_DIRECTORY)) {
@@ -50,15 +50,8 @@ function checkoutTrees(datum, rest, callback, paths) {
 }
 
 module.exports = {
-  createSrc: function (options, callback) {
+  createSrc: function (callback) {
     var self = this;
-
-    if (!callback) {
-      callback = options;
-      options = {};
-    }
-
-    options = assign({ commit_to_gh_pages: false }, options);
 
     NodeGit.Repository.open('.').then(function (_repo) {
       repo = _repo;
@@ -87,48 +80,51 @@ module.exports = {
       var paths = [];
 
       checkoutTrees(treesData.shift(), treesData, function (paths) {
-        self.generetaDocs(paths, function () {
-          if (options.commit_to_gh_pages) {
-            self.checkoutGHPagesAndCommitDocs(repo, callback);
-          } else if (callback) {
-            callback();
-          }
-        });
+        if (callback) {
+          callback(null, paths);
+        }
       });
 
-    }).catch(function(err){
+    }).catch(function(error){
       console.error("Error building doc");
-      console.error(err);
+      console.error(error);
+      if (callback) {
+        callback(error)
+      }
     });
   },
-  generetaDocs: function (paths, callback) {
-    yuidoc.generate(paths, callback);
+  generateDocs: function (paths, commit, callback) {
+    var self = this;
+    yuidoc.generate(paths, function () {
+      if (commit) {
+        self.checkoutGHPagesAndCommitDocs(callback);
+      } else if (callback) {
+        callback();
+      }
+    });
   },
-  checkoutGHPagesAndCommitDocs: function (repo, callback) {
-    var currentBranchReference;
+  checkoutGHPagesAndCommitDocs: function (callback) {
     var index;
     var treeOid;
+    var repo;
 
-    repo.getCurrentBranch().then(function (reference) {
-      currentBranchReference = reference;
+    NodeGit.Repository.open('.').then(function (_repo) {
+      repo = _repo;
 
-      return repo.checkoutBranch(DOCUMENTATION_BRANCH_NAME, { 
-        checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
-      });
-    }).then(function () {
       return repo.refreshIndex();
     }).then(function (_index) {
       index = _index;
+      console.log(`Adding "${DOCUMENTATION_DIRECTORY}" directory to the staging area`);
       return index.addAll(`${DOCUMENTATION_DIRECTORY}/`);
     }).then(function () {
+      console.log(`Writing out the added files to the staging area`);
       return index.write();
     }).then(function () {
       return index.writeTree();
     }).then(function (oidResult) {
       treeOid = oidResult;
-      return NodeGit.Reference.nameToId(repo, "HEAD");
-    }).then(function(head) {
-      return repo.getCommit(head);
+      console.log(`Getting the "${DOCUMENTATION_BRANCH_NAME}" latest commit`);
+      return repo.getBranchCommit(DOCUMENTATION_BRANCH_NAME);
     }).then(function(parent) {
       var dateObject = new Date();
       var time = dateObject.getTime();
@@ -136,17 +132,21 @@ module.exports = {
       var author = NodeGit.Signature.create("Auto Docs",
         "docs@shopify.com", time, timeOffset);
       var committer = NodeGit.Signature.create("Auto Docs",
-        "scott@github.com", time, timeOffset);
+        "docs@shopify.com", time, timeOffset);
 
-      return repo.createCommit("HEAD", author, committer, "message", treeOid, [parent]);
-    }).then(function() {
-      repo.checkoutBranch(currentBranchReference.shorthand(), { 
-        checkoutStrategy: NodeGit.Checkout.STRATEGY.SAFE_CREATE
-      });
+      console.log(`Committing "${DOCUMENTATION_DIRECTORY}" to "${DOCUMENTATION_BRANCH_NAME}"`);
+      return repo.createCommit(`refs/heads/${DOCUMENTATION_BRANCH_NAME}`, author, committer, 'Docs auto updated during build process', treeOid, [parent]); 
+    }).then(function(commitId) {
+      console.log(`New commit created: ${commitId}`);
+      if (callback) {
+        callback();
+      }
     }).catch(function (error) {
       console.error(`Error encountered while attempting to commit docs to "${DOCUMENTATION_BRANCH_NAME}"`)
       console.error(error);
+      if (callback) {
+        callback(error);
+      }
     });
   }
-
 }
