@@ -19,10 +19,10 @@ const Config = CoreObject.extend({
    */
   constructor(attrs) {
     Object.keys(this.deprecatedProperties).forEach(key => {
-      const transformName = this.deprecatedProperties[key];
-      const transform = this[transformName];
-
       if (attrs.hasOwnProperty(key)) {
+        const transformName = this.deprecatedProperties[key];
+        const transform = this[transformName];
+
         transform(attrs[key], attrs);
       }
     });
