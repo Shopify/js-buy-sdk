@@ -62,7 +62,6 @@ const Config = CoreObject.extend({
     logger.warn('Config - ',
        'myShopifyDomain is deprecated, please use domain and provide the full shop domain.');
     attrs.domain = `${subdomain}.myshopify.com`;
-    delete attrs.myShopifyDomain;
   },
 
   /**
@@ -104,7 +103,7 @@ const Config = CoreObject.extend({
    * @type String
    * @public
    */
-  domain: ''
+  domain: '',
 
   /**
    * The subdomain of myshopify.io that all the api requests will go to
