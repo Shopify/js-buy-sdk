@@ -37,7 +37,8 @@ const Config = CoreObject.extend({
 
   /**
    * An object with keys for deprecated properties and values as functions that
-   * will transform the value into a usable value.
+   * will transform the value into a usable value. A depracation transform should
+   * have the value signature function(deprecated_value, config_to_be_transformed)
    * @attribute deprecatedProperties
    * @default { myShopifyDomain: this.transformMyShopifyDomain }
    * @type Object
@@ -59,8 +60,7 @@ const Config = CoreObject.extend({
    */
   transformMyShopifyDomain(subdomain, attrs) {
     logger.warn('Config - ',
-       `myShopifyDomain is deprecated,
-       please use domain and provide the whole myshopify.com domain.`);
+       'myShopifyDomain is deprecated, please use domain and provide the full shop domain.');
     attrs.domain = `${subdomain}.myshopify.com`;
     delete attrs.myShopifyDomain;
   },
