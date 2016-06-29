@@ -10,6 +10,7 @@ var options = project.options;
   delete project.options;
   options.project = project;
   options.nocode = true;
+  options.quiet = true;
   options.themedir = path.dirname(require.resolve(path.join('yuidoc-lucid-theme', 'theme.json')));
   options.helpers = [path.join(options.themedir, 'helpers', 'helpers.js')];
 
@@ -18,12 +19,11 @@ function buildDocSync(directory, rest, callback) {
   options.outdir = path.join(directory, 'api');
   options.project.version = path.basename(directory);
 
-  Y.log(`Generating docs for ${options.project.version}`, 'info', 'yuidoc');
+  console.log(`Generating docs for ${options.project.version}`, 'info', 'yuidoc');
 
   var json = (new Y.YUIDoc(options)).run();
   var builder = new Y.DocBuilder(options, json);
   builder.compile(function () {
-    Y.log("----------------\n\n", 'info', 'yuidoc');
     if (rest.length) {
       buildDocSync(rest.shift(), rest, callback);
     } else {
