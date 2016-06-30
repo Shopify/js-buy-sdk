@@ -60,9 +60,11 @@ function DocBuilder(options) {
 
 DocBuilder.prototype.checkoutDocsBranch = function (callback) {
   var self = this;
-  if (!fs.existsSync(self.options.docsDirName)) {
-    fs.mkdirSync(self.options.docsDirName)
+  if (fs.existsSync(self.options.docsDirName)) {
+    recursiveRmdir(self.options.docsDirName);
   }
+
+  fs.mkdirSync(self.options.docsDirName)
 
   var repo;
 
