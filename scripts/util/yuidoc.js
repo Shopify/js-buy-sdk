@@ -33,8 +33,10 @@ function buildDocSync(directory, rest, callback) {
 }
 
 module.exports = {
-  generate: function (versionPaths, callback) {
+  generate: function (_options, callback) {
     var starttime = (new Date()).getTime();
+    var versionPaths = _options.paths;
+    options.themedir = _options.themeDir || options.themedir;
 
     buildDocSync(versionPaths.shift(), versionPaths, function () {
       var endtime = (new Date()).getTime();

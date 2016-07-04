@@ -48,14 +48,18 @@ function DocBuilder(options) {
     masterBranchName: 'master',
     docsBranchName: 'gh-pages',
     docsDirName: 'docs',
-    apiDirName: 'api',
+    versionsDirName: 'versions',
     srcDirName: 'src',
     rmSrcDir: false,
     commitDocs: false,
     checkoutStrategy: ( NodeGit.Checkout.STRATEGY.FORCE + NodeGit.Checkout.STRATEGY.DONT_WRITE_INDEX ),
   }, options);
 
-  this.options.apiDirPath = path.join(this.options.docsDirName, this.options.apiDirName);
+  if (!this.options.themeDir) {
+    this.options.themeDir = path.join(this.options.docsDirName, 'yuidoc', 'theme');
+  }
+
+  this.options.apiDirPath = path.join(this.options.docsDirName, this.options.versionsDirName);
 }
 
 DocBuilder.prototype.checkoutDocsBranch = function (callback) {
@@ -163,7 +167,7 @@ DocBuilder.prototype.generateAPIDocs = function (paths, callback) {
   var self = this;
 
   console.info(`\nGenerating API docs`);
-  yuidoc.generate(paths, function () {
+  yuidoc.generate({paths: paths, themeDir: self.options.themeDir}, function () {
     console.info(`Done generating API docs`);
     if (callback) {
       callback();
@@ -177,7 +181,7 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
   var index;
   var docsBranchCommit;
   var docsBranchResolvedName;
-  var apiTempDir = path.join('.', self.options.apiDirName);
+  var apiTempDir = path.join('.', self.options.versionsDirName);
   var indexTreeId;
 
   console.info(`\nCommiting API Docs`);
@@ -206,8 +210,8 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
     console.info(`Loading the tree into the staging area`);
     return index.readTree(tree);
   }).then(function () {
-    console.info(`Staging '${self.options.apiDirName}' to '${self.options.docsBranchName}'`);
-    return index.addAll(`${self.options.apiDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
+    console.info(`Staging '${self.options.versionsDirName}' to '${self.options.docsBranchName}'`);
+    return index.addAll(`${self.options.versionsDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
   }).then(function () {
     return repo.getReference(self.options.docsBranchName);
   }).then(function (reference) {
@@ -228,12 +232,12 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
     return repo.createCommit(`${docsBranchResolvedName}`, author, committer, 'Docs auto updated during build process', treeId, [docsBranchCommit]); 
   }).then(function(commitId) {
     console.info(`New commit created: ${commitId}`);
-    console.info(`Deleting ${self.options.apiDirName} from the root directory`);
-    recursiveRmdir(path.join('.', self.options.apiDirName));
+    console.info(`Deleting ${self.options.versionsDirName} from the root directory`);
+    recursiveRmdir(path.join('.', self.options.versionsDirName));
 
     console.info(`Done commiting API docs`);
     if (callback) {
-      callback(null, entryCount);
+      callback(null);
     }
   }).catch(function (error) {
     console.error(`Error encountered while attempting to commit docs to "${self.options.docsBranchName}"`)
