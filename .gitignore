@@ -9,4 +9,5 @@ tmp
 tests.xml
 dist
 lib
+docs
 .dist-test
