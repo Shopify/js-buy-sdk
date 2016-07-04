@@ -175,7 +175,7 @@ const CartModel = BaseModel.extend({
   /**
     * Update line item quantity
     * ```javascript
-    * cart.updateLineItem(123, 2}).then(cart => {
+    * cart.updateLineItem(123, 2).then(cart => {
     *   // do things with the updated cart.
     * });
     * ```
