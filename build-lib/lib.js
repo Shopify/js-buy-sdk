@@ -13,6 +13,7 @@ const loader = require('./loader');
 const babelConfig = require('./util/babel-config');
 const Licenser = require('./util/licenser');
 const Versioner = require('./util/versioner');
+const LokkaBuilder = require('./util/lokka-builder');
 
 
 function sourceTree(pathConfig, moduleType) {
@@ -22,116 +23,73 @@ function sourceTree(pathConfig, moduleType) {
     funnel(pathConfig.shims, { include: ['fetch.js', 'promise.js'] }),
     babelConfig(null, moduleType)
   );
+  const lokka = babelTranspiler(
+    (new LokkaBuilder({ outputPath: '.' })),
+    babelConfig(null, moduleType)
+  );
 
-  return mergeTrees([lib, shims]);
+  return mergeTrees([lib, lokka, shims]);
 }
 
 module.exports = function (pathConfig, env) {
-  let tree;
-
-  const amdTree = sourceTree(pathConfig, 'amd');
   const polyfillTree = polyfills(env);
   const loaderTree = loader();
 
-  const globalsOutput = concat(mergeTrees([amdTree, loaderTree]), {
-    header: ';(function () {',
-    headerFiles: ['loader.js'],
-    inputFiles: ['**/*.js'],
-    footer: `
-window.ShopifyBuy = require('shopify-buy/shopify').default;
-})();`,
-    outputFile: `${pkg.name}.globals.js`,
-    sourceMapConfig: { enabled: false }
+  const trees = [{
+    name: 'amd',
+    moduleType: 'amd',
+    additionalTrees: [],
+    concatOptions: {}
+  }, {
+    name: 'commonjs',
+    moduleType: 'commonjs',
+    additionalTrees: [],
+    concatOptions: {}
+  }, {
+    name: 'globals',
+    moduleType: 'amd',
+    additionalTrees: [loaderTree],
+    concatOptions: {
+      header: ';(function () {',
+      headerFiles: ['loader.js'],
+      footer: `
+        window.ShopifyBuy = require('shopify-buy/shopify').default;
+        })();
+      `
+    }
+  }].map(config => {
+    const baseTree = sourceTree(pathConfig, config.moduleType);
+
+    const bareTree = concat(mergeTrees([baseTree].concat(config.additionalTrees)), Object.assign({
+      inputFiles: ['**/*.js'],
+      outputFile: `${pkg.name}.${config.name}.js`,
+      sourceMapConfig: { enabled: false }
+    }, config.concatOptions));
+
+    const polyfilledLibTree = concat(mergeTrees([polyfillTree, bareTree]), {
+      headerFiles: ['polyfills.js'],
+      inputFiles: `${pkg.name}.${config.name}.js`,
+      outputFile: `${pkg.name}.polyfilled.${config.name}.js`,
+      sourceMapConfig: { enabled: false }
+    });
+
+    return mergeTrees([bareTree, polyfilledLibTree]);
   });
 
-  if (env === 'production') {
-    const amdOutput = concat(amdTree, {
-      inputFiles: ['**/*.js'],
-      outputFile: `${pkg.name}.amd.js`,
-      sourceMapConfig: { enabled: false }
-    });
+  const nodeTree = funnel(sourceTree(pathConfig, 'commonjs'), {
+    srcDir: '.',
+    destDir: './node-lib'
+  });
 
-    const polyFilledAmdOutput = concat(mergeTrees([amdOutput, polyfillTree]), {
-      headerFiles: ['polyfills.js'],
-      inputFiles: `${pkg.name}.amd.js`,
-      outputFile: `${pkg.name}.polyfilled.amd.js`,
-      sourceMapConfig: { enabled: false }
-    });
-
-    const polyFilledGlobalsOutput = concat(mergeTrees([globalsOutput, polyfillTree]), {
-      headerFiles: ['polyfills.js'],
-      inputFiles: `${pkg.name}.globals.js`,
-      outputFile: `${pkg.name}.polyfilled.globals.js`,
-      sourceMapConfig: { enabled: false }
-    });
-
-    const commonTree = sourceTree(pathConfig, 'commonjs');
-    const commonOutput = concat(commonTree, {
-      inputFiles: ['**/*.js'],
-      outputFile: `${pkg.name}.common.js`,
-      sourceMapConfig: { enabled: false }
-    });
-
-    const polyFilledCommonOutput = concat(mergeTrees([commonOutput, polyfillTree]), {
-      headerFiles: ['polyfills.js'],
-      inputFiles: `${pkg.name}.common.js`,
-      outputFile: `${pkg.name}.polyfilled.common.js`,
-      sourceMapConfig: { enabled: false }
-    });
-
-    const nodeLibOutput = funnel(commonTree, {
-      srcDir: '.',
-      destDir: './node-lib'
-    });
-
-    tree = mergeTrees([
-      amdOutput,
-      polyFilledAmdOutput,
-      globalsOutput,
-      polyFilledGlobalsOutput,
-      commonOutput,
-      polyFilledCommonOutput
-    ]);
-
-    const minifiedTree = uglifyJavaScript(funnel(tree, {
+  if (env.production) {
+    trees.push(uglifyJavaScript(funnel(trees, {
       getDestinationPath: function (path) {
         return path.replace(/\.js/, '.min.js');
       }
-    }));
-
-    const concatenatedScripts = new Licenser([
-      new Versioner([
-        mergeTrees([
-          tree,
-          minifiedTree
-        ])
-      ], { templateString: '{{versionString}}' })
-    ]);
-
-    tree = mergeTrees([concatenatedScripts, nodeLibOutput]);
-  } else {
-    const amdOutput = concat(mergeTrees([amdTree, loaderTree]), {
-      headerFiles: ['loader.js'],
-      inputFiles: ['**/*.js'],
-      outputFile: `${pkg.name}.amd.js`
-    });
-
-    const polyFilledGlobalsOutput = concat(mergeTrees([globalsOutput, polyfillTree]), {
-      headerFiles: ['polyfills.js'],
-      inputFiles: `${pkg.name}.globals.js`,
-      outputFile: `${pkg.name}.polyfilled.globals.js`,
-      sourceMapConfig: { enabled: false }
-    });
-
-    tree = new Versioner([
-      mergeTrees([
-        amdOutput,
-        polyfillTree,
-        globalsOutput,
-        polyFilledGlobalsOutput
-      ])
-    ], { templateString: '{{versionString}}' });
+    })));
   }
 
-  return tree;
+  return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
+    new Versioner(trees, { templateString: '{{versionString}}' })
+  ])]);
 };
