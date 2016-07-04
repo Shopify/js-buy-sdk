@@ -7,6 +7,7 @@ const fs = require('fs');
 const rollup = require('rollup').rollup;
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
+const strip = require('rollup-plugin-strip');
 
 const nodeResolver = nodeResolve({
   jsnext: true,  // Default: false
@@ -38,9 +39,12 @@ function bundleLokkaTransport() {
     entry: transportHttpEntry,
     plugins: [
       nodeResolver,
-      {
+      strip({
+        functions: ['require'],
+        sourceMap: false
+      }), {
         load(moduleId) {
-          if (moduleId.match(/lokka\/transport/)) {
+          if (moduleId.match(/\/lokka\/transport\.js$/)) {
             return transportBaseJs;
           }
 
@@ -72,17 +76,15 @@ LokkaBuilder.prototype.build = function () {
     const lokka = bundles[0];
     const lokkaTransportHttp = bundles[1];
 
-
-    lokka.write({
+    return Promise.all([lokka.write({
       format: 'es',
       exports: 'named',
       dest: path.join(this.outputPath, 'lokka.js')
-    });
-    lokkaTransportHttp.write({
+    }), lokkaTransportHttp.write({
       format: 'es',
       exports: 'named',
       dest: path.join(this.outputPath, 'lokka-transport-http.js')
-    });
+    })]);
   });
 };
 
