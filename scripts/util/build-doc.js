@@ -78,7 +78,7 @@ DocBuilder.prototype.checkoutDocsBranch = function (callback) {
     console.info(`Getting ${self.options.docsBranchName}'s latest commit`);
     return repo.getBranchCommit(self.options.docsBranchName);
   }).then(function (commit) {
-    console.info(`Getting it's working tree`);
+    console.info(`Getting its working tree`);
     return commit.getTree();
   }).then(function (tree) {
     var options = {
