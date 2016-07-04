@@ -176,9 +176,9 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
   var repo;
   var index;
   var docsBranchCommit;
-  var currentTreeId;
   var docsBranchResolvedName;
   var apiTempDir = path.join('.', self.options.apiDirName);
+  var indexTreeId;
 
   console.info(`\nCommiting API Docs`);
   if (fs.existsSync(apiTempDir)) {
@@ -195,29 +195,25 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
     return repo.index();
   }).then(function (_index) {
     index = _index;
-    console.info(`Getting the staging area oID`);
-    return index.writeTree();
-  }).then(function (treeId) {
-    currentTreeId = treeId;
+
     console.info(`Getting ${self.options.docsBranchName}'s latest commit`);
     return repo.getBranchCommit(self.options.docsBranchName);
   }).then(function (commit) {
     docsBranchCommit = commit;
-    console.info(`Getting commit's tree`);
+    console.info(`Getting the commit's tree`);
     return commit.getTree();
   }).then(function (tree) {
     console.info(`Loading the tree into the staging area`);
-    return index.readTree(tree)
+    return index.readTree(tree);
+  }).then(function () {
+    console.info(`Staging '${self.options.apiDirName}' to '${self.options.docsBranchName}'`);
+    return index.addAll(`${self.options.apiDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
   }).then(function () {
     return repo.getReference(self.options.docsBranchName);
   }).then(function (reference) {
     docsBranchResolvedName = reference.name();
     console.info(`Blew up ${self.options.docsBranchName} into ${docsBranchResolvedName}`);
-    console.info(`Staging ${self.options.apiDirName}`);
-    return index.addAll(`${self.options.apiDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
-  }).then(function () {
-    return index.write();
-  }).then(function () {
+    console.info(`Getting the staging area tree id`);
     return index.writeTree();
   }).then(function (treeId) {
     var dateObject = new Date();
@@ -228,28 +224,16 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
     var committer = NodeGit.Signature.create("Auto Docs",
       "docs@shopify.com", time, timeOffset);
 
-    console.info(`Committing "${docsBranchResolvedName}" to "${self.options.docsBranchName}"`);
+    console.info(`Committing changes to '${docsBranchResolvedName}'`);
     return repo.createCommit(`${docsBranchResolvedName}`, author, committer, 'Docs auto updated during build process', treeId, [docsBranchCommit]); 
   }).then(function(commitId) {
     console.info(`New commit created: ${commitId}`);
-    console.info(`Now getting HEAD's commit in order to load tree back to the staging area`);
-    return repo.getHeadCommit();
-  }).then(function(commit) {
-    console.info(`Now getting HEAD's tree`);
-    return commit.getTree();
-  }).then(function(tree) {
-    console.info(`Setting staging area's working tree to HEAD's tree`);
-    index.readTree(tree)
-  }).then(function() {
-    console.info(`Persisting staging area changes`);
-    return index.write();
-  }).then(function() {
-    console.info(`Staging area restored back to old state`);
-    console.info(`Delete ${self.options.apiDirName} from the root directory`);
-    console.info(`Done commiting API docs`);
+    console.info(`Deleting ${self.options.apiDirName} from the root directory`);
     recursiveRmdir(path.join('.', self.options.apiDirName));
+
+    console.info(`Done commiting API docs`);
     if (callback) {
-      callback();
+      callback(null, entryCount);
     }
   }).catch(function (error) {
     console.error(`Error encountered while attempting to commit docs to "${self.options.docsBranchName}"`)
