@@ -6,7 +6,11 @@ require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
-var docBuilder = require('./util/build-doc')({ docsBranchName: 'gh-pages-6', commitDocs: true, rmSrcDir: true });
+var docBuilder = require('./util/build-doc')({
+	docsBranchName: 'gh-pages',
+	rmSrcDir: true,
+	commitDocs: true
+});
 
 var buildPath = 'dist';
 
