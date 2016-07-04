@@ -240,8 +240,6 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
   }).then(function(tree) {
     index.readTree(tree)
   }).then(function() {
-    return index.write();
-  }).then(function() {
     return index.writeTree();
   }).then(function() {
     console.log(`Staging area restored back to old state`);
