@@ -6,7 +6,7 @@ require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
-var docBuilder = require('./util/build-doc')({
+var docBuilder = require('./util/doc-builder')({
   docsBranchName: 'patch/yuidoc-theme',
   rmSrcDir: true,
   commitDocs: true
