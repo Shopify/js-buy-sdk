@@ -19,7 +19,7 @@ function buildDocSync(directory, rest, callback) {
   options.outdir = path.join(directory, 'api');
   options.project.version = path.basename(directory);
 
-  console.log(`Generating docs for ${options.project.version}`, 'info', 'yuidoc');
+  console.log('Generating docs for ' + options.project.version, 'info', 'yuidoc');
 
   var json = (new Y.YUIDoc(options)).run();
   var builder = new Y.DocBuilder(options, json);
