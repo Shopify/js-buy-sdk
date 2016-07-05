@@ -3,4 +3,3 @@ deploy:
     - npm install --no-progress
     - ejson decrypt -o config/secrets.json config/secrets.ejson
     - scripts/deploy
-    - git push origin gh-pages:gh-pages
