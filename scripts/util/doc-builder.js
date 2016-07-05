@@ -80,29 +80,27 @@ DocBuilder.prototype.checkoutDocsBranch = function (callback) {
 
   fs.mkdirSync(self.options.docsDirName);
 
-  var repo;
-
   self.log('info', '\nChecking out ', self.options.docsBranchName, ' branch');
-  NodeGit.Repository.open('.').then(function (_repo) {
-    repo = _repo;
-    self.log('info', 'Getting ', self.options.docsBranchName, '\'s latest commit');
-    return repo.getBranchCommit(self.options.docsBranchName);
-  }).then(function (commit) {
-    self.log('info', 'Getting its working tree');
-    return commit.getTree();
-  }).then(function (tree) {
-    var options = {
-      checkoutStrategy: self.options.checkoutStrategy,
-      targetDirectory: path.join(repo.workdir(), self.options.docsDirName)
-    };
+  NodeGit.Repository.open('.').then(function (repo) {
 
-    self.log('info', 'Checking out the tree to ', options.targetDirectory);
-    return NodeGit.Checkout.tree(repo, tree, options);
-  }).then(function () {
-    self.log('info', 'Done checking out ', self.options.docsBranchName);
-    if (callback) {
-      callback();
-    }
+    self.log('info', 'Getting ', self.options.docsBranchName, '\'s latest commit');
+    return repo.getBranchCommit(self.options.docsBranchName).then(function (commit) {
+      self.log('info', 'Getting its working tree');
+      return commit.getTree();
+    }).then(function (tree) {
+      var options = {
+        checkoutStrategy: self.options.checkoutStrategy,
+        targetDirectory: path.join(repo.workdir(), self.options.docsDirName)
+      };
+
+      self.log('info', 'Checking out the tree to ', options.targetDirectory);
+      return NodeGit.Checkout.tree(repo, tree, options);
+    }).then(function () {
+      self.log('info', 'Done checking out ', self.options.docsBranchName);
+      if (callback) {
+        callback();
+      }
+    });
   }).catch(function (error) {
     self.log('info', 'Error checking out Documentations Branch');
     console.error(error);
@@ -118,52 +116,47 @@ DocBuilder.prototype.checkoutAPISrc = function (callback) {
     fs.mkdirSync(self.options.apiDirPath);
   }
 
-  var repo;
-
   self.log('info', '\nChecking out source code for each version tag and the ', self.options.masterBranchName, ' branch');
-  NodeGit.Repository.open('.').then(function (_repo) {
-    repo = _repo;
+  NodeGit.Repository.open('.').then(function (repo) {
 
     self.log('info', 'Getting available references within the repo');
-    return repo.getReferences(NodeGit.Reference.TYPE.OID);
-  }).then(function(references){
-    var treesDataPromises = [];
+    return repo.getReferences(NodeGit.Reference.TYPE.OID).then(function(references){
+      var treesDataPromises = [];
 
-    self.log('info', 'Filtering them to include only tags and the ', self.options.masterBranchName, ' branch.');
-    references.forEach(function(reference){
-      var target = reference.targetPeel() || reference.target();
-      var name = reference.shorthand();
-      var commitPromise;
+      self.log('info', 'Filtering them to include only tags and the ', self.options.masterBranchName, ' branch.');
+      references.forEach(function(reference){
+        var target = reference.targetPeel() || reference.target();
+        var name = reference.shorthand();
+        var commitPromise;
 
-      if(reference.isTag()) {
-        commitPromise = repo.getCommit(target);
-      } else if (reference.isBranch() && reference.shorthand() === self.options.masterBranchName) {
-        commitPromise = repo.getBranchCommit(name);
-      } else {
-        return;
-      }
-      self.log('info', 'Gotten a promise for commit for ', name);
-      self.log('info', 'Adding a promise to get commit tree for ', name);
-      treesDataPromises.push(buildTreePromise(commitPromise, name));
+        if(reference.isTag()) {
+          commitPromise = repo.getCommit(target);
+        } else if (reference.isBranch() && reference.shorthand() === self.options.masterBranchName) {
+          commitPromise = repo.getBranchCommit(name);
+        } else {
+          return;
+        }
+        self.log('info', 'Gotten a promise for commit for ', name);
+        self.log('info', 'Adding a promise to get commit tree for ', name);
+        treesDataPromises.push(buildTreePromise(commitPromise, name));
+      });
+
+      self.log('info', 'Resolving commit tree promises');
+      return Promise.all(treesDataPromises);
+    }).then(function(treesData){
+      var paths = [];
+      var options = JSON.parse(JSON.stringify(self.options));
+      options.repo = repo;
+
+      self.log('info', 'Checking out commit trees');
+      checkoutTrees(treesData.shift(), treesData, options, function (paths) {
+        self.log('info', 'Done checking out source code');
+
+        if (callback) {
+          callback(null, paths);
+        }
+      });
     });
-
-    self.log('info', 'Resolving commit tree promises');
-    return Promise.all(treesDataPromises);
-
-  }).then(function(treesData){
-    var paths = [];
-    var options = JSON.parse(JSON.stringify(self.options));
-    options.repo = repo;
-
-    self.log('info', 'Checking out commit trees');
-    checkoutTrees(treesData.shift(), treesData, options, function (paths) {
-      self.log('info', 'Done checking out source code');
-
-      if (callback) {
-        callback(null, paths);
-      }
-    });
-
   }).catch(function(error){
     console.error("Error building doc");
     console.error(error);
@@ -187,12 +180,7 @@ DocBuilder.prototype.generateAPIDocs = function (paths, callback) {
 
 DocBuilder.prototype.commitAPIDocs = function (callback) {
   var self = this;
-  var repo;
-  var index;
-  var docsBranchCommit;
-  var docsBranchResolvedName;
   var apiTempDir = path.join('.', self.options.versionsDirName);
-  var indexTreeId;
 
   self.log('info', '\nCommiting API Docs');
   if (fs.existsSync(apiTempDir)) {
@@ -202,53 +190,49 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
   self.log('info', 'Copying ', self.options.apiDirPath, ' to root directory');
   recursiveCpdir(self.options.apiDirPath, apiTempDir);
 
-  NodeGit.Repository.open('.').then(function (_repo) {
-    repo = _repo;
+  NodeGit.Repository.open('.').then(function (repo) {
 
     self.log('info', 'Getting repo\'s current staging area');
-    return repo.index();
-  }).then(function (_index) {
-    index = _index;
+    return repo.index().then(function (index) {
+      self.log('info', 'Getting ', self.options.docsBranchName, '\'s latest commit');
+      return repo.getBranchCommit(self.options.docsBranchName).then(function (docsBranchCommit) {
+        self.log('info', 'Getting the commit\'s tree');
+        return docsBranchCommit.getTree().then(function (tree) {
+          self.log('info', 'Loading the tree into the staging area');
+          return index.readTree(tree);
+        }).then(function () {
+          self.log('info', 'Staging \'', self.options.versionsDirName, '\' to \'', self.options.docsBranchName, '\'');
+          return index.addAll(`${self.options.versionsDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
+        }).then(function () {
+          return repo.getReference(self.options.docsBranchName);
+        }).then(function (reference) {
+          var docsBranchResolvedName = reference.name();
+          self.log('info', 'Blew up ', self.options.docsBranchName, ' into ', docsBranchResolvedName);
+          self.log('info', 'Getting the staging area tree id');
+          return index.writeTree().then(function (treeId) {
+            var dateObject = new Date();
+            var time = dateObject.getTime() / 1000;
+            var timeOffset = dateObject.getTimezoneOffset();
+            var author = NodeGit.Signature.create("Auto Docs",
+              "docs@shopify.com", time, timeOffset);
+            var committer = NodeGit.Signature.create("Auto Docs",
+              "docs@shopify.com", time, timeOffset);
 
-    self.log('info', 'Getting ', self.options.docsBranchName, '\'s latest commit');
-    return repo.getBranchCommit(self.options.docsBranchName);
-  }).then(function (commit) {
-    docsBranchCommit = commit;
-    self.log('info', 'Getting the commit\'s tree');
-    return commit.getTree();
-  }).then(function (tree) {
-    self.log('info', 'Loading the tree into the staging area');
-    return index.readTree(tree);
-  }).then(function () {
-    self.log('info', 'Staging \'', self.options.versionsDirName, '\' to \'', self.options.docsBranchName, '\'');
-    return index.addAll(`${self.options.versionsDirName}`, NodeGit.Index.ADD_OPTION.ADD_FORCE);
-  }).then(function () {
-    return repo.getReference(self.options.docsBranchName);
-  }).then(function (reference) {
-    docsBranchResolvedName = reference.name();
-    self.log('info', 'Blew up ', self.options.docsBranchName, ' into ', docsBranchResolvedName);
-    self.log('info', 'Getting the staging area tree id');
-    return index.writeTree();
-  }).then(function (treeId) {
-    var dateObject = new Date();
-    var time = dateObject.getTime() / 1000;
-    var timeOffset = dateObject.getTimezoneOffset();
-    var author = NodeGit.Signature.create("Auto Docs",
-      "docs@shopify.com", time, timeOffset);
-    var committer = NodeGit.Signature.create("Auto Docs",
-      "docs@shopify.com", time, timeOffset);
+            self.log('info', 'Committing changes to \'', docsBranchResolvedName, '\'');
+            return repo.createCommit(`${docsBranchResolvedName}`, author, committer, 'Docs auto updated during build process', treeId, [docsBranchCommit]); 
+          }).then(function(commitId) {
+            self.log('info', 'New commit created: ', commitId);
+            self.log('info', 'Deleting ', self.options.versionsDirName, ' from the root directory');
+            recursiveRmdir(path.join('.', self.options.versionsDirName));
 
-    self.log('info', 'Committing changes to \'', docsBranchResolvedName, '\'');
-    return repo.createCommit(`${docsBranchResolvedName}`, author, committer, 'Docs auto updated during build process', treeId, [docsBranchCommit]); 
-  }).then(function(commitId) {
-    self.log('info', 'New commit created: ', commitId);
-    self.log('info', 'Deleting ', self.options.versionsDirName, ' from the root directory');
-    recursiveRmdir(path.join('.', self.options.versionsDirName));
-
-    self.log('info', 'Done commiting API docs');
-    if (callback) {
-      callback(null);
-    }
+            self.log('info', 'Done commiting API docs');
+            if (callback) {
+              callback(null);
+            }
+          });
+        });
+      });
+    });
   }).catch(function (error) {
     console.error('Error encountered while attempting to commit docs to "', self.options.docsBranchName, '"');
     console.error(error);
