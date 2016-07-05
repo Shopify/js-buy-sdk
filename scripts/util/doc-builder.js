@@ -207,6 +207,7 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
           return repo.getReference(self.options.docsBranchName);
         }).then(function (reference) {
           var docsBranchResolvedName = reference.name();
+
           self.log('info', 'Blew up ', self.options.docsBranchName, ' into ', docsBranchResolvedName);
           self.log('info', 'Getting the staging area tree id');
           return index.writeTree().then(function (treeId) {

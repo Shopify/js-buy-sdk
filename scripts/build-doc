@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+/* globals require process */
+
+require('./util/work-from-root')();
+
+var docBuilder = require('./util/doc-builder')({
+  docsBranchName: 'gh-pages',
+  rmSrcDir: true,
+  commitDocs: true
+});
+
+console.log('Building ....');
+docBuilder.build(function () {
+  console.log('\nDone building');
+});
