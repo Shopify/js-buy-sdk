@@ -72,6 +72,49 @@ DocBuilder.prototype.log = function () {
   console[type](argumentsArray.join(''));
 }
 
+DocBuilder.prototype.ensureDocsBranchExists = function (callback) {
+  var self = this;
+
+  self.log('info', 'Ensuring \'', self.options.docsBranchName, '\' branch exists');
+  NodeGit.Repository.open('.').then(function (repo) {
+    return repo.getReferences(NodeGit.Reference.TYPE.OID).then(function (references) {
+      var docsBranchReference;
+      var regex = new RegExp('/' + self.options.docsBranchName + '$'); //ensure reference name ends with the provided branch name
+
+      for (key in references) {
+        if (references[key].name().match(regex)) {
+          docsBranchReference = references[key];
+          if (!references[key].isRemote()) {
+            break;
+          }
+        }
+      };
+
+      if (!docsBranchReference) {
+        throw new Error(self.options.docsBranchName + ' could not be found');
+      }
+
+      if (docsBranchReference.isRemote()) {
+        self.log('info', self.options.docsBranchName, ' is not available locally. But found in remote. Attempting to create');
+        return repo.getCommit(docsBranchReference.targetPeel() || docsBranchReference.target()).then(function (commit) {
+          return repo.createBranch(self.options.docsBranchName, commit, false, repo.defaultSignature(), 'Created docs branch in local repo');
+        }).then(function () {
+          self.log('info', 'Branch created successfully');
+        });
+      }
+    });
+  }).then(function () {
+    self.log('info', self.options.docsBranchName, ' has been confirmed to exist');
+    callback();
+  }).catch(function (error) {
+    self.log('info', 'Error verifying if \'', self.options.docsBranchName, '\' branch exists');
+    console.error(error);
+    if (callback) {
+      callback(error);
+    }
+  });
+}
+
 DocBuilder.prototype.checkoutDocsBranch = function (callback) {
   var self = this;
   if (fs.existsSync(self.options.docsDirName)) {
@@ -207,7 +250,6 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
           return repo.getReference(self.options.docsBranchName);
         }).then(function (reference) {
           var docsBranchResolvedName = reference.name();
-
           self.log('info', 'Blew up ', self.options.docsBranchName, ' into ', docsBranchResolvedName);
           self.log('info', 'Getting the staging area tree id');
           return index.writeTree().then(function (treeId) {
@@ -246,7 +288,7 @@ DocBuilder.prototype.commitAPIDocs = function (callback) {
 DocBuilder.prototype.build = function (callback) {
   var self = this;
 
-  self.checkoutDocsBranch(function (error) {
+  self.ensureDocsBranchExists(function (error) {
     if (error) {
       if (callback) {
         callback(error);
@@ -254,7 +296,7 @@ DocBuilder.prototype.build = function (callback) {
       return;
     }
 
-    self.checkoutAPISrc(function (error, paths) {
+    self.checkoutDocsBranch(function (error) {
       if (error) {
         if (callback) {
           callback(error);
@@ -262,22 +304,31 @@ DocBuilder.prototype.build = function (callback) {
         return;
       }
 
-      self.generateAPIDocs(JSON.parse(JSON.stringify(paths)), function () {
-
-        if (self.options.rmSrcDir) {
-          self.log('info', '\nRemoving source directories');
-          paths.forEach(function (item) {
-            var srcPath = path.join(item, self.options.srcDirName);
-            self.log('info', 'Removing ', srcPath);
-            recursiveRmdir(srcPath);
-          });
+      self.checkoutAPISrc(function (error, paths) {
+        if (error) {
+          if (callback) {
+            callback(error);
+          }
+          return;
         }
 
-        if (self.options.commitDocs) {
-          self.commitAPIDocs(callback);
-        } else if (callback) {
-          callback();
-        }
+        self.generateAPIDocs(JSON.parse(JSON.stringify(paths)), function () {
+
+          if (self.options.rmSrcDir) {
+            self.log('info', '\nRemoving source directories');
+            paths.forEach(function (item) {
+              var srcPath = path.join(item, self.options.srcDirName);
+              self.log('info', 'Removing ', srcPath);
+              recursiveRmdir(srcPath);
+            });
+          }
+
+          if (self.options.commitDocs) {
+            self.commitAPIDocs(callback);
+          } else if (callback) {
+            callback();
+          }
+        });
       });
     });
   });
