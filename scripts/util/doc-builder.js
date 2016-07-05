@@ -98,8 +98,10 @@ DocBuilder.prototype.ensureDocsBranchExists = function (callback) {
         self.log('info', self.options.docsBranchName, ' is not available locally. But found in remote. Attempting to create');
         return repo.getCommit(docsBranchReference.targetPeel() || docsBranchReference.target()).then(function (commit) {
           return repo.createBranch(self.options.docsBranchName, commit, false, repo.defaultSignature(), 'Created docs branch in local repo');
-        }).then(function () {
+        }).then(function (reference) {
           self.log('info', 'Branch created successfully');
+          self.log('info', 'Setting up ', reference.shorthand(), ' to track ', docsBranchReference.shorthand());
+          return NodeGit.Branch.setUpstream(reference, docsBranchReference.shorthand());
         });
       }
     });
