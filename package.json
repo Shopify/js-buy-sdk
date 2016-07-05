@@ -6,6 +6,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "node ./scripts/build",
+    "build-doc": "node ./scripts/build-doc",
     "prepublish": "node ./scripts/prepublish",
     "doc-build": "./scripts/yuidoc",
     "doc-serve": "jekyll serve -s docs",
