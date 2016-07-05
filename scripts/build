@@ -6,25 +6,12 @@ require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
-var docBuilder = require('./util/doc-builder')({
-  docsBranchName: 'patch/yuidoc-theme',
-  rmSrcDir: true,
-  commitDocs: true
-});
-
 var buildPath = 'dist';
 
 fsExtra.removeSync(buildPath);
 
 process.env.BROCCOLI_ENV = 'production';
 
-console.log('Building ....');
 buildProject(buildPath, function (buildStatus) {
-  if (buildStatus !== 0) {
-    return process.exit(buildStatus);
-  }
-
-  docBuilder.build(function () {
-    console.log('\nDone building');
-  });
+  process.exit(buildStatus);
 });
