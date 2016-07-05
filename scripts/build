@@ -26,6 +26,5 @@ buildProject(buildPath, function (buildStatus) {
 
   docBuilder.build(function () {
     console.log('\nDone building');
-  })
-
+  });
 });
