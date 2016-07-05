@@ -1,11 +1,11 @@
-var Y = require('yuidocjs');
+var yuidoc = require('yuidocjs');
 var fs = require('fs');
 var path = require('path');
 
 /** prepare options in format required by YUIDOC
-  * It is based on logic in Y.Project.init
+  * It is based on logic in yuidoc.Project.init
   */
-var project = Y.Files.getJSON('./yuidoc.json');
+var project = yuidoc.Files.getJSON('./yuidoc.json');
 var options = project.options;
   delete project.options;
   options.project = project;
@@ -21,8 +21,8 @@ function buildDocSync(directory, rest, callback) {
 
   console.log('Generating docs for ' + options.project.version, 'info', 'yuidoc');
 
-  var json = (new Y.YUIDoc(options)).run();
-  var builder = new Y.DocBuilder(options, json);
+  var json = (new yuidoc.YUIDoc(options)).run();
+  var builder = new yuidoc.DocBuilder(options, json);
   builder.compile(function () {
     if (rest.length) {
       buildDocSync(rest.shift(), rest, callback);
@@ -40,7 +40,7 @@ module.exports = {
 
     buildDocSync(versionPaths.shift(), versionPaths, function () {
       var endtime = (new Date()).getTime();
-      Y.log('Completed in ' + ((endtime - starttime) / 1000) + ' seconds', 'info', 'yuidoc');
+      yuidoc.log('Completed in ' + ((endtime - starttime) / 1000) + ' seconds', 'info', 'yuidoc');
       if (callback) {
         callback()
       }
