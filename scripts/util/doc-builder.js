@@ -10,27 +10,27 @@ var recursiveCpdir = require('./recursive-cpdir');
 
 function buildTreePromise(commitPromise, name) {
   return commitPromise.then(function (commit){
-    return commit.getTree();
-  }).then(function (tree){
-    return {
-      name: name,
-      tree: tree
-    }
+    return commit.getTree().then(function (tree){
+      return {
+        name: name,
+        tree: tree
+      }
+    });
   });
 }
 
 /** This function checks out trees synchronously. 
   * Important because attempting to checkout async causes errors
   */
-function checkoutTrees(datum, rest, options, callback, paths) {
+function checkoutTrees(treeInfo, rest, options, callback, paths) {
   paths = paths || [];
   var checkoutOptions = {
     checkoutStrategy: options.checkoutStrategy,
     paths: options.srcDirName,
-    targetDirectory: path.join(options.repo.workdir(), options.apiDirPath, datum.name)
+    targetDirectory: path.join(options.repo.workdir(), options.apiDirPath, treeInfo.name)
   };
 
-  NodeGit.Checkout.tree(options.repo, datum.tree, checkoutOptions).then(function () {
+  NodeGit.Checkout.tree(options.repo, treeInfo.tree, checkoutOptions).then(function () {
     paths.push(checkoutOptions.targetDirectory)
     if (rest.length) {
       checkoutTrees(rest.shift(), rest, options, callback, paths);
@@ -38,7 +38,7 @@ function checkoutTrees(datum, rest, options, callback, paths) {
       callback(paths);
     }
   }).catch(function (error){
-    error.message = `Unable to checkout "${datum.name}" | ${error.message}`
+    error.message = `Unable to checkout "${treeInfo.name}" | ${error.message}`
     console.error(error);
   });
 }
