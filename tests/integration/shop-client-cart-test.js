@@ -152,7 +152,7 @@ test('it has a checkout url reflecting the line items in the cart', function (as
     quantity: 1,
     variant_id: 12345
   };
-  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const baseUrl = `https://${config.domain}/cart`;
   const lineItemPath = `${lineItem.variant_id}:${lineItem.quantity}`;
   const query = `api_key=${config.apiKey}`;
 

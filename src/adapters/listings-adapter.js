@@ -14,9 +14,9 @@ const ListingsAdapter = CoreObject.extend({
   },
 
   get baseUrl() {
-    const { myShopifyDomain, appId } = this.config;
+    const { domain, appId } = this.config;
 
-    return `https://${myShopifyDomain}.myshopify.com/api/apps/${appId}`;
+    return `https://${domain}/api/apps/${appId}`;
   },
 
   get headers() {

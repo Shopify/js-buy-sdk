@@ -12,7 +12,7 @@ let shopClient;
 const { getItem, setItem, removeItem } = localStorage;
 const storage = {};
 const config = {
-  myShopifyDomain: 'buckets-o-stuff',
+  domain: 'buckets-o-stuff.myshopify.com',
   apiKey: 'abc123'
 };
 
@@ -274,7 +274,7 @@ test('it generates checkout permalinks', function (assert) {
 
   const done = assert.async();
 
-  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const baseUrl = `https://${config.domain}/cart`;
   const variantId = model.lineItems[0].variant_id;
   const quantity = model.lineItems[0].quantity;
   const query = `api_key=${config.apiKey}`;
@@ -303,7 +303,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
 
   const done = assert.async();
 
-  const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+  const baseUrl = `https://${config.domain}/cart`;
   const variantId = model.lineItems[0].variant_id;
   const quantity = model.lineItems[0].quantity;
   const query = `api_key=${config.apiKey}`;

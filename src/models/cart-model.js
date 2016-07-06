@@ -82,7 +82,7 @@ const CartModel = BaseModel.extend({
   */
   get checkoutUrl() {
     const config = this.config;
-    const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+    const baseUrl = `https://${config.domain}/cart`;
 
     const variantPath = this.lineItems.map(item => {
       return `${item.variant_id}:${item.quantity}`;

@@ -6,8 +6,8 @@ import Promise from 'promise';
 let adapter;
 
 const appId = 6;
-const myShopifyDomain = 'buckets-o-stuff';
-const baseUrl = `https://${myShopifyDomain}.myshopify.com/api/apps/${appId}`;
+const domain = 'buckets-o-stuff.myshopify.com';
+const baseUrl = `https://${domain}/api/apps/${appId}`;
 const apiKey = 'abc123def456ghi';
 const base64ApiKey = btoa(apiKey);
 
@@ -29,7 +29,7 @@ module('Unit | ListingsAdapter', {
 test('it builds an appropriate baseUrl based on configured values', function (assert) {
   assert.expect(1);
 
-  adapter.config = { myShopifyDomain, appId };
+  adapter.config = { domain, appId };
 
   assert.equal(adapter.baseUrl, baseUrl);
 });
@@ -50,7 +50,7 @@ test('it builds auth headers using the base64 encoded api key', function (assert
 test('it builds the url for all collections', function (assert) {
   assert.expect(1);
 
-  adapter.config = { myShopifyDomain, appId };
+  adapter.config = { domain, appId };
 
   assert.equal(adapter.buildUrl('multiple', 'collections'), `${baseUrl}/collection_listings`);
 });
@@ -60,7 +60,7 @@ test('it builds the url for a single product', function (assert) {
 
   const id = 123;
 
-  adapter.config = { myShopifyDomain, appId };
+  adapter.config = { domain, appId };
 
   assert.equal(adapter.buildUrl('single', 'products', id), `${baseUrl}/product_listings/${id}`);
 });
@@ -71,7 +71,7 @@ test('it builds the url for a query', function (assert) {
   const id = 134;
   const page = 88;
 
-  adapter.config = { myShopifyDomain, appId };
+  adapter.config = { domain, appId };
 
   const expectedUrl = `${baseUrl}/product_listings?collection_id=${id}&page=${page}`;
 
@@ -81,7 +81,7 @@ test('it builds the url for a query', function (assert) {
 test('it sends a GET, the correct url, and auth headers for fetchMultiple to #ajax', function (assert) {
   assert.expect(3);
 
-  adapter.config = { myShopifyDomain, appId, apiKey };
+  adapter.config = { domain, appId, apiKey };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'GET');
@@ -104,7 +104,7 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
 
   const id = 123;
 
-  adapter.config = { myShopifyDomain, appId, apiKey };
+  adapter.config = { domain, appId, apiKey };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'GET');
@@ -128,7 +128,7 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple with q
   const ids = [123, 456, 789];
   const page = 88;
 
-  adapter.config = { myShopifyDomain, appId, apiKey };
+  adapter.config = { domain, appId, apiKey };
 
   adapter.ajax = function (method, url, opts) {
     // Should resolve with a promise

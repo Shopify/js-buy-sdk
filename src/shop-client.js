@@ -426,7 +426,7 @@ const ShopClient = CoreObject.extend({
    * @return {Promise|CartModel} The cart.
    */
   fetchRecentCart() {
-    return this.fetch('references', `${this.config.myShopifyDomain}.recent-cart`).then(reference => {
+    return this.fetch('references', `${this.config.domain}.recent-cart`).then(reference => {
       const cartId = reference.referenceId;
 
       return this.fetchCart(cartId);
@@ -436,7 +436,7 @@ const ShopClient = CoreObject.extend({
           referenceId: cart.id
         };
 
-        refAttrs[GUID_KEY] = `${this.config.myShopifyDomain}.recent-cart`;
+        refAttrs[GUID_KEY] = `${this.config.domain}.recent-cart`;
 
         this.create('references', refAttrs);
 

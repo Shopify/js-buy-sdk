@@ -148,7 +148,7 @@ const ProductVariantModel = BaseModel.extend({
   */
   checkoutUrl(quantity = 1) {
     const config = this.config;
-    const baseUrl = `https://${config.myShopifyDomain}.myshopify.com/cart`;
+    const baseUrl = `https://${config.domain}/cart`;
 
     const variantPath = `${this.id}:${parseInt(quantity, 10)}`;
 
