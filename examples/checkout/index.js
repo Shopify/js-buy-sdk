@@ -74,8 +74,18 @@ $(function() {
 
   /* Format amount as currency
   ============================================================ */
-  function formatAsMoney(amount) {
-    return '$' + parseFloat(amount, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+  function formatAsMoney(amount, currency, thousandSeparator, decimalSeparator, localeDecimalSeparator) {
+    amount = 1000.3
+    currency = currency || '$';
+    thousandSeparator = thousandSeparator || ',';
+    decimalSeparator = decimalSeparator || '.';
+    localeDecimalSeparator = localeDecimalSeparator || '.';
+    var regex = new RegExp('(\\d)(?=(\\d{3})+\\.)', 'g');
+
+    return currency + parseFloat(amount, 10).toFixed(2)
+      .replace(localeDecimalSeparator, decimalSeparator)
+      .replace(regex, '$1' + thousandSeparator)
+      .toString();
   }
 
 });
