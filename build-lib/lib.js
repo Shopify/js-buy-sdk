@@ -85,6 +85,7 @@ window.ShopifyBuy = require('shopify-buy/shopify').default;
     });
 
     tree = mergeTrees([
+      polyfillTree,
       amdOutput,
       polyFilledAmdOutput,
       globalsOutput,
