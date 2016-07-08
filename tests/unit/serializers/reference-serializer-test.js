@@ -64,7 +64,7 @@ test('it transforms a model into a payload on #serialize using the root key', fu
 test('it attaches a reference to the config', function (assert) {
   assert.expect(1);
 
-  const model = serializer.deserializeSingle('references', referenceFixture, {});
+  const model = serializer.deserializeSingle('references', referenceFixture, { config });
 
   assert.equal(model.config, config);
 });
