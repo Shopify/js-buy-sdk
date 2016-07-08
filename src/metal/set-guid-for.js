@@ -50,7 +50,7 @@ function setGuidFor(obj) {
         id = stringCache[obj];
 
         if (!id) {
-          id = numberCache[obj] = `st${uuid()}`;
+          id = stringCache[obj] = `st${uuid()}`;
         }
 
         break;
