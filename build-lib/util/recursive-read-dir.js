@@ -4,18 +4,19 @@ const fs = require('fs');
 const path = require('path');
 
 function recursiveReadDir (dir) {
-  let files = [];
 
-  fs.readdirSync(dir).forEach(fileName => {
+  const filesArray = fs.readdirSync(dir).map(fileName => {
     const file = path.join(dir, fileName);
+
     if (fs.statSync(file).isDirectory()) {
-      files = files.concat(recursiveReadDir(file));
-    } else {
-      files.push(file);
+
+      return files.concat(recursiveReadDir(file));
     }
+
+    return file;
   });
-  
-  return files;
+
+  return [].concat(...filesArray)
 }
 
 module.exports = recursiveReadDir;

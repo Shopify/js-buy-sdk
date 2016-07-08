@@ -9,6 +9,7 @@ function ensureDirExists (fullPath) {
     if (ensureDirExists(path.dirname(fullPath))) {
       fs.mkdirSync(fullPath);
     } else {
+
       return false;
     }
   }
@@ -19,6 +20,7 @@ function ensureDirExists (fullPath) {
 module.exports = function (fullPath, content) {
   if(ensureDirExists(path.dirname(fullPath))) {
     fs.writeFileSync(fullPath, content);
+
     return true;
   }
 
