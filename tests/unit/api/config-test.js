@@ -2,6 +2,7 @@
 
 import { module, test } from 'qunit';
 import Config from 'shopify-buy/config';
+import logger from 'shopify-buy/logger';
 
 module('Unit | Config');
 
@@ -46,13 +47,12 @@ test('it should convert myShopifyDomain to domain', function (assert) {
 });
 
 test('it should output a deprecation warning when using myShopifyDomain', function (assert) {
-  assert.expect(4);
+  assert.expect(3);
 
-  /* eslint-disable no-console */
-  const oldLog = console.warn;
+  const oldLog = logger.warn;
   let output = [];
 
-  console.warn = function () {
+  logger.warn = function () {
     output = Array.prototype.slice.call(arguments);
   };
 
@@ -62,12 +62,10 @@ test('it should output a deprecation warning when using myShopifyDomain', functi
     appId: 6
   });
 
-  assert.equal(output.length, 3, 'logging should have a tag for config');
-  assert.equal(output[0], '[JS-BUY-SDK]: ', 'the deprecation warning should be tagged');
-  assert.equal(output[1], 'Config - ', 'the deprecation warning should say it\'s from config');
-  assert.notEqual(output[2].indexOf('deprecated'), -1, 'the deprecation warning should describe the problem');
-  console.warn = oldLog;
-  /* eslint-enable no-console */
+  assert.equal(output.length, 2, 'logging should have a tag for config');
+  assert.equal(output[0], 'Config - ', 'the deprecation warning should say it\'s from config');
+  assert.notEqual(output[1].indexOf('deprecated'), -1, 'the deprecation warning should describe the problem');
+  logger.warn = oldLog;
 });
 
 test('it should set domain', function (assert) {
