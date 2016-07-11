@@ -27,7 +27,7 @@ Licenser.prototype.constructor = Licenser;
 
 Licenser.prototype.build = function () {
 
-  const fileDescriptions = Array.prototype.concat.apply([], this.inputPaths.map(dirname => {
+  const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
     return recursiveReadDir(dirname).map(fileName => {
       return {
         baseDirectory: dirname,
