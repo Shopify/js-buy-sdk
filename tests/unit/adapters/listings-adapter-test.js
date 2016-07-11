@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import ListingsAdapter from 'shopify-buy/adapters/listings-adapter';
 import version from 'shopify-buy/version';
-import Promise from 'promise';
 
 let adapter;
 
