@@ -13,7 +13,7 @@ $(function() {
 
   var cartPromise = client.createCart();
   var productPromise = client.fetchProduct('3614436099');
-  RSVP.all([cartPromise, productPromise]).then(function (values) {
+  Promise.all([cartPromise, productPromise]).then(function (values) {
     cart = values[0];
     product = values[1];
     
