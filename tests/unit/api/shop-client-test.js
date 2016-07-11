@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
 import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
-import Promise from 'promise';
 import CartModel from 'shopify-buy/models/cart-model';
 import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
 
