@@ -6,7 +6,7 @@ import isNodeLikeEnvironment from './metal/is-node-like-environment';
 const fetch = global.fetch;
 
 if (!fetch && isNodeLikeEnvironment()) {
-  /* global.require is only available in the REPL 
+  /* global.require is only available in the REPL
    * and Babel fails when you use require() explicitly
    */
   const localRequire = require;
