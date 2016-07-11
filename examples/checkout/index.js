@@ -75,7 +75,6 @@ $(function() {
   /* Format amount as currency
   ============================================================ */
   function formatAsMoney(amount, currency, thousandSeparator, decimalSeparator, localeDecimalSeparator) {
-    amount = 1000.3
     currency = currency || '$';
     thousandSeparator = thousandSeparator || ',';
     decimalSeparator = decimalSeparator || '.';
