@@ -18,12 +18,7 @@ const Versioner = require('./util/versioner');
 function sourceTree(pathConfig, moduleType) {
   const lib = babelTranspiler(pathConfig.lib, babelConfig(pkg.name, moduleType));
 
-  const shims = babelTranspiler(
-    funnel(pathConfig.shims, { include: ['fetch.js', 'promise.js'] }),
-    babelConfig(null, moduleType)
-  );
-
-  return mergeTrees([lib, shims]);
+  return mergeTrees([lib]);
 }
 
 module.exports = function (pathConfig, env) {
