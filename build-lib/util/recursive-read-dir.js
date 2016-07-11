@@ -15,7 +15,7 @@ function recursiveReadDir(dir) {
     return file;
   });
 
-  return Array.prototype.concat.apply([], filesArray);
+  return [].concat(...filesArray);
 }
 
 module.exports = recursiveReadDir;

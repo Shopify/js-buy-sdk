@@ -60,7 +60,7 @@ Versioner.prototype.replaceTemplateString = function (versionString, buffer) {
 
 Versioner.prototype.versionFiles = function () {
   const versionString = `v${this.constructor.VERSION}-${this.constructor.HEAD_COMMIT}`;
-  const fileDescriptions = Array.prototype.concat.apply([], this.inputPaths.map(dirname => {
+  const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
     return recursiveReadDir(dirname).map(fileName => {
       return {
         baseDirectory: dirname,
