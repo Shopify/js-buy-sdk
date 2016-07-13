@@ -2,6 +2,7 @@ import BaseModel from './base-model';
 import CartLineItem from './cart-line-item-model';
 import assign from '../metal/assign';
 import setGuidFor from '../metal/set-guid-for';
+import global from '../metal/global';
 import { GUID_KEY } from '../metal/set-guid-for';
 
 function objectsEqual(one, two) {
@@ -90,11 +91,10 @@ const CartModel = BaseModel.extend({
 
     let query = `api_key=${config.apiKey}`;
 
-    /* globals ga:true */
-    if (typeof ga === 'function') {
+    if (typeof global.ga === 'function') {
       let linkerParam;
 
-      window.ga(function (tracker) {
+      global.ga(function (tracker) {
         linkerParam = tracker.get('linkerParam');
       });
 
