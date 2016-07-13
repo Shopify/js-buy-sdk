@@ -1,3 +1,4 @@
+import global from './metal/global';
 import CoreObject from './metal/core-object';
 
 const Store = CoreObject.extend({
@@ -32,7 +33,7 @@ const Store = CoreObject.extend({
 
   storageAvailable(type) {
     try {
-      const storage = window[type];
+      const storage = global[type];
       const x = '__storage_test__';
 
       storage.setItem(x, x);
