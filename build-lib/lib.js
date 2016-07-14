@@ -16,9 +16,7 @@ const Versioner = require('./util/versioner');
 
 
 function sourceTree(pathConfig, moduleType) {
-  const lib = babelTranspiler(pathConfig.lib, babelConfig(pkg.name, moduleType));
-
-  return mergeTrees([lib]);
+  return babelTranspiler(pathConfig.lib, babelConfig(pkg.name, moduleType));
 }
 
 module.exports = function (pathConfig, env) {
