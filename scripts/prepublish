@@ -3,7 +3,7 @@
 /* globals require process */
 require('./util/work-from-root')();
 
-var cleanDirectory = require('./util/clean-directory');
+var fse = require('fs-extra');
 var recursiveCpdir = require('./util/recursive-cpdir');
 var buildProject = require('./util/build-project');
 var path = require('path');
@@ -11,8 +11,8 @@ var path = require('path');
 var libPath = 'lib';
 var buildPath = 'dist';
 
-cleanDirectory(libPath);
-cleanDirectory(buildPath);
+fse.removeSync(libPath);
+fse.removeSync(buildPath);
 
 process.env.BROCCOLI_ENV = 'production';
 

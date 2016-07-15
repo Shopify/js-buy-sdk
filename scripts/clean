@@ -3,11 +3,11 @@
 /* globals require process */
 require('./util/work-from-root')();
 
-var cleanDirectory = require('./util/clean-directory');
+var fse = require('fs-extra');
 var recursiveCpdir = require('./util/recursive-cpdir');
 
 var libPath = 'lib';
 var buildPath = 'dist';
 
-cleanDirectory(libPath);
-cleanDirectory(buildPath);
+fse.removeSync(libPath);
+fse.removeSync(buildPath);
