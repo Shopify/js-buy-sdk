@@ -52,9 +52,14 @@ $(function() {
   ============================================================ */
   function generateSelectors(product) {
     var elements = product.options.map(function(option) {
-      return '<select name="' + option.name + '">' + option.values.map(function(value) {
+      var optionsHtml = option.values.map(function(value) {
         return '<option value="' + value + '">' + value + '</option>';
-      }) + '</select>';
+      });
+
+      return '<div class="shopify-select">\
+                <select class="select" name="' + option.name + '">' + optionsHtml + '</select>\
+                <svg class="shopify-select-icon" viewBox="0 0 24 24"><path d="M21 5.176l-9.086 9.353L3 5.176.686 7.647 12 19.382 23.314 7.647 21 5.176z"></path></svg>\
+              </div>'
     });
 
     return elements;
