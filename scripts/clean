@@ -3,10 +3,10 @@
 /* globals require process */
 require('./util/work-from-root')();
 
-var fse = require('fs-extra');
+var fsExtra = require('fs-extra');
 
 var libPath = 'lib';
 var buildPath = 'dist';
 
-fse.removeSync(libPath);
-fse.removeSync(buildPath);
+fsExtra.removeSync(libPath);
+fsExtra.removeSync(buildPath);
