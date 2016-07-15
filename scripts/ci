@@ -5,6 +5,7 @@
 require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
+var fs = require('fs');
 var buildProject = require('./util/build-project');
 var npmDo = require('./util/npm-do');
 
@@ -14,7 +15,7 @@ fsExtra.removeSync(testBuildPath);
 
 buildProject(testBuildPath, function (buildStatus) {
   if (buildStatus === 0) {
-    var xunitWriteStream = fsExtra.createWriteStream('tests.xml');
+    var xunitWriteStream = fs.createWriteStream('tests.xml');
 
     xunitWriteStream.on('open', function() {
       npmDo('testem', ['ci', '-R', 'xunit'], function (testStatus) {
