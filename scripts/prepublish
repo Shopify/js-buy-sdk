@@ -4,7 +4,6 @@
 require('./util/work-from-root')();
 
 var fse = require('fs-extra');
-var recursiveCpdir = require('./util/recursive-cpdir');
 var buildProject = require('./util/build-project');
 var path = require('path');
 
@@ -21,7 +20,7 @@ buildProject(buildPath, function (buildStatus) {
     var srcDir = path.join(process.cwd(), 'dist', 'node-lib');
     var destDir = path.join(process.cwd(), 'lib');
 
-    recursiveCpdir(srcDir, destDir);
+    fse.copySync(srcDir, destDir);
 
     process.exit(0);
   }
