@@ -374,14 +374,15 @@ const ShopClient = CoreObject.extend({
    * Fetches a list of products matching a specified query.
    *
    * ```javascript
-   * client.fetchQueryProducts({ collection_id: 123}).then(products => {
-   *   console.log(products); // An array of products in collection 123
+   * client.fetchQueryProducts({ collection_id: 123, tag: ['hats'] }).then(products => {
+   *   console.log(products); // An array of products in collection `123` having the tag `hats`
    * });
    * ```
    * @method fetchQueryProducts
    * @public
    * @param {Object} query A query sent to the api server containing one or more of:
    *   @param {String|Number} [query.collection_id] The ID of a collection to retrieve products from
+   *   @param {Array} [query.tag] A list of tags to filter the products by. Accepts up to 10 tags.
    *   @param {Array} [query.product_ids] A list of product IDs to retrieve
    *   @param {String|Number} [query.page=1] The page offset number of the current lookup (based on the `limit`)
    *   @param {String|Number} [query.limit=50] The number of products to retrieve per page
