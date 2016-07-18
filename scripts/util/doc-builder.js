@@ -50,7 +50,7 @@ DocBuilder.prototype.ensureDocsBranchExists = function () {
         console.info('info:', this.options.docsBranchName, 'is not available locally. But found in remote. Attempting to create');
         return repo.getCommit(docsBranchReference.targetPeel() || docsBranchReference.target()).then(commit => {
           return repo.createBranch(this.options.docsBranchName, commit, false, repo.defaultSignature(), 'Created docs branch in local repo');
-        }).then(function (reference) {
+        }).then(reference => {
           console.info('info:', 'Branch created successfully');
           console.info('info:', 'Setting up', reference.shorthand(), 'to track', docsBranchReference.shorthand());
           return NodeGit.Branch.setUpstream(reference, docsBranchReference.shorthand());
@@ -113,14 +113,14 @@ DocBuilder.prototype.checkoutAPISrc = function () {
           return;
         }
 
-        promise = promise.then(function() {
+        promise = promise.then(() => {
           console.info('info:', 'Getting commit for', name);
           if(isMasterBranch) {
             return repo.getBranchCommit(name);
           }
 
           return repo.getCommit(target);
-        }).then(function(commit) {
+        }).then(commit => {
           console.info('info:', 'Getting tree associated with commit on', name);
 
           return commit.getTree();
@@ -138,7 +138,7 @@ DocBuilder.prototype.checkoutAPISrc = function () {
         });
       });
 
-      return promise.then(function() {
+      return promise.then(() => {
         console.info('info:', 'Done checking out source code');
         return paths;
       });
@@ -147,12 +147,9 @@ DocBuilder.prototype.checkoutAPISrc = function () {
 }
 
 DocBuilder.prototype.generateAPIDocs = function (paths) {
-  return new Promise((resolve, reject) => {
-    console.info('\ninfo:', 'Generating API docs');
-    yuidoc.generate({paths: paths, themeDir: this.options.themeDir}, function () {
-      console.info('info:', 'Done generating API docs');
-      resolve();
-    });
+  console.info('\ninfo:', 'Generating API docs');
+  return yuidoc.generate({paths: paths, themeDir: this.options.themeDir}).then(() => {
+    console.info('info:', 'Done generating API docs');
   });
 
 }
@@ -220,7 +217,7 @@ DocBuilder.prototype.build = function () {
     return this.generateAPIDocs(paths).then(() => {
       if (this.options.rmSrcDir) {
         console.info('\ninfo:', 'Removing source directories');
-        paths.forEach(function (item) {
+        paths.forEach(item => {
           var srcPath = path.join(item, this.options.srcDirName);
           console.info('info:', 'Removing', srcPath);
           fsExtra.removeSync(srcPath);
