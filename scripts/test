@@ -4,13 +4,13 @@
 
 require('./util/work-from-root')();
 
-var cleanDirectory = require('./util/clean-directory');
+var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
 var npmDo = require('./util/npm-do');
 
 var testBuildPath = '.dist-test';
 
-cleanDirectory(testBuildPath);
+fsExtra.removeSync(testBuildPath);
 
 
 buildProject(testBuildPath, function (buildStatus) {

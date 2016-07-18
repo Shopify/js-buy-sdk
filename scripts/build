@@ -4,12 +4,12 @@
 
 require('./util/work-from-root')();
 
-var cleanDirectory = require('./util/clean-directory');
+var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
 
 var buildPath = 'dist';
 
-cleanDirectory(buildPath);
+fsExtra.removeSync(buildPath);
 
 process.env.BROCCOLI_ENV = 'production';
 
