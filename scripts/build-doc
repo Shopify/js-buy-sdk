@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* globals require process */
+/* eslint-env node */
 
 require('./util/work-from-root')();
 

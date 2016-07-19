@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-/* globals require process */
+/* eslint-env node */
 
 require('./util/work-from-root')();
 
 var fsExtra = require('fs-extra');
 var buildProject = require('./util/build-project');
+
 var buildPath = 'dist';
 
 fsExtra.removeSync(buildPath);
