@@ -11,8 +11,8 @@ var docBuilder = require('./util/doc-builder')({
 });
 
 console.log('Building ....');
-docBuilder.build().then(function () {
+docBuilder.build().then(() => {
   console.log('\nDone building');
-}).catch(function(error) {
+}).catch(error => {
   console.error('error', error);
 });
