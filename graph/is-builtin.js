@@ -5,7 +5,6 @@ const builtins = [
   'Int',
   'Money',
   'Node',
-  'PageInfo',
   'String',
   'URL'
 ];
