@@ -144,12 +144,44 @@ function exportTypesToFiles(types) {
   return rest.map(typeToFile('types')).concat(typeToFile('.')(queryRoot));
 }
 
+function exportBundle(types) {
+  const moduleName = 'schema';
+
+  const imports = types.map(type => {
+    return `import ${type.name} from './${path.join(type.path).replace(/\.js$/, '')}';`;
+  }).join('\n');
+
+  const declaration = `const ${moduleName} = {}`;
+
+  const assignments = types.map(type => {
+    return `${moduleName}['${dasherize(type.name)}'] = ${type.name};`;
+  }).join('\n');
+
+  const body = `${imports}
+${declaration}
+${assignments}
+
+export default ${moduleName}`;
+
+  return types.concat({
+    path: `${moduleName}.js`,
+    name: moduleName,
+    body
+  });
+}
+
 let cachedSchema;
 
 function cacheSchema(schema) {
   cachedSchema = schema;
 
   return Promise.resolve(cachedSchema);
+}
+
+function reportError(error) {
+  console.error(error);
+
+  process.exit(1);
 }
 
 export default function generateSchemaModules() {
@@ -159,9 +191,13 @@ export default function generateSchemaModules() {
     /* eslint-enable no-underscore-dangle */
   };
 
+  let schemaPromise;
+
   if (cachedSchema) {
-    return Promise.resolve(cachedSchema).then(processSchema).then(exportTypesToFiles);
+    schemaPromise = Promise.resolve(cachedSchema);
+  } else {
+    schemaPromise = fetchSchema().then(cacheSchema);
   }
 
-  return fetchSchema().then(cacheSchema).then(processSchema).then(exportTypesToFiles);
+  return schemaPromise.then(processSchema).then(exportTypesToFiles).then(exportBundle).catch(reportError);
 }
