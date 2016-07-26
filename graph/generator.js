@@ -125,6 +125,7 @@ function typeToFile(basePath) {
 
     return {
       path: fileName,
+      name: type.name,
       body: `const ${type.name} = ${JSON.stringify(type, jsonSanitizer, 2)};
 export default ${type.name};`
     };
