@@ -133,9 +133,9 @@ export default ${type.name};`
 }
 
 function exportTypesToFiles(types) {
-  const queryRoot = types.find(type => {
+  const queryRoot = types.filter(type => {
     return (type.name === 'QueryRoot');
-  });
+  })[0];
 
   const rest = types.filter(type => {
     return (type.name !== 'QueryRoot');
