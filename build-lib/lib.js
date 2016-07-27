@@ -17,12 +17,13 @@ const GraphSchema = require('./graph-schema');
 
 function sourceTree(pathConfig, moduleType) {
   const lib = babelTranspiler(pathConfig.lib, babelConfig(pkg.name, moduleType));
+
   const schema = babelTranspiler(
     (new GraphSchema()),
     babelConfig('graph', moduleType)
   );
 
-  return mergeTrees([lib, shims]);
+  return mergeTrees([lib, schema]);
 }
 
 module.exports = function (pathConfig, env) {
