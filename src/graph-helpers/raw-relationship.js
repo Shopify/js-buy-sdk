@@ -1,4 +1,5 @@
 import graphSchema from 'graph/schema';
+import join from './join';
 
 function formatArgPair(key, hash) {
   return `${key}: ${hash[key]}`;
@@ -9,7 +10,7 @@ function formatArgs(argumentHash) {
     return formatArgPair(key, argumentHash);
   });
 
-  return `(${formattedArgs.join(', ')})`;
+  return `(${join(formattedArgs)})`;
 }
 
 export function parseArgs(args) {
@@ -49,5 +50,9 @@ export default function rawRelationship(/* schema, relationshipKey, requestArgsH
     body = '';
   }
 
-  return [relationshipKey, requestArgs, body].join(' ').trim();
+  const parts = [relationshipKey, requestArgs, body].filter(part => {
+    return part.length > 0;
+  });
+
+  return parts.join(' ').trim();
 }
