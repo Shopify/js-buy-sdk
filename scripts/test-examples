@@ -61,11 +61,16 @@ function bootBroccoli() {
       examplesEnv.EXAMPLES = 1;
 
       var broccoli = childProcess.exec('node ' + broccoliBin + ' serve', { env: examplesEnv });
+      var broccoliOutput = "";
 
       broccoli.stdout.on('data', function (data) {
-        log('broccoli', data);
+        broccoliOutput += data;
+      });
 
-        if (data.match(/Serving on http/) && !resolved) {
+      broccoli.stdout.on('end', function () {
+        log('broccoli', broccoliOutput);
+
+        if (broccoliOutput.match(/Serving on http/) && !resolved) {
           resolved = true;
           resolve(broccoli);
         }
