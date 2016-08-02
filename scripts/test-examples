@@ -33,7 +33,9 @@ function bootSelenium() {
     var selenium = childProcess.exec('java -jar selenium-standalone.jar');
 
     // Selenium outputs everything on STDERR because it's hateful
-    selenium.stderr.on('data', function (data) {
+    selenium.stderr.on('data', function (rawData) {
+      var data = rawData.toString();
+
       if (data.toString().match(/Selenium Server is up and running/) && !resolved) {
         resolved = true;
         resolve(selenium);
