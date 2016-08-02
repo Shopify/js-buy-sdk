@@ -61,7 +61,6 @@ function bootBroccoli() {
       examplesEnv.EXAMPLES = 1;
 
       var broccoli = childProcess.exec('node ' + broccoliBin + ' serve', { env: examplesEnv });
-      var broccoliOutput = "";
 
       broccoli.stdout.on('data', function (data) {
         data = data.toString();
