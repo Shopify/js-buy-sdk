@@ -64,13 +64,10 @@ function bootBroccoli() {
       var broccoliOutput = "";
 
       broccoli.stdout.on('data', function (data) {
-        broccoliOutput += data;
-      });
+        data = data.toString();
+        log('broccoli', data);
 
-      broccoli.stdout.on('end', function () {
-        log('broccoli', broccoliOutput);
-
-        if (broccoliOutput.match(/Serving on http/) && !resolved) {
+        if (data.match(/Serving on http/) && !resolved) {
           resolved = true;
           resolve(broccoli);
         }
