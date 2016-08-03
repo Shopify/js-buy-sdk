@@ -22,7 +22,7 @@ exports.config = {
   coloredLogs: true,
   screenshotPath: './errorShots/',
   baseUrl: 'http://localhost:4200/examples/cart',
-  waitforTimeout: 30000,
+  waitforTimeout: 60000,
   connectionRetryTimeout: 90000,
   connectionRetryCount: 3,
   framework: 'mocha',

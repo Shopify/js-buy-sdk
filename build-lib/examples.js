@@ -4,7 +4,7 @@
 
 const funnel = require('broccoli-funnel');
 const mergeTrees = require('broccoli-merge-trees');
-const sass = require('broccoli-sass');
+const sass = require('broccoli-sass-source-maps');
 
 module.exports = function (pathConfig) {
   const staticFiles = funnel(pathConfig.examples, {
@@ -12,7 +12,7 @@ module.exports = function (pathConfig) {
     destDir: 'examples'
   });
 
-  const css = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css');
+  const css = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css', {});
 
   return mergeTrees([staticFiles, css]);
 };
