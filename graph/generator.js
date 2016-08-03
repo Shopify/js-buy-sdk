@@ -161,7 +161,7 @@ function exportBundle(types) {
 ${declaration}
 ${assignments}
 
-export default ${moduleName}`;
+export default Object.freeze(${moduleName})`;
 
   return types.concat({
     path: `${moduleName}.js`,
