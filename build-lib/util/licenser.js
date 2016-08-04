@@ -39,7 +39,7 @@ Licenser.prototype.build = function () {
     } else {
       outputBuffer = inputBuffer;
     }
-    
+
     fs.writeFileSync(path.join(this.outputPath, path.basename(fileName)), outputBuffer);
   });
 };
