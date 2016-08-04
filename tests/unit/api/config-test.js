@@ -53,7 +53,7 @@ test('it should output a deprecation warning when using myShopifyDomain', functi
   let output = [];
 
   console.warn = function () {
-    output = Array.prototype.slice.call(arguments);
+    output = [...arguments];
   };
 
   new Config({
