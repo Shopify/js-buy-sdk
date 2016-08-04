@@ -12,7 +12,8 @@ module.exports = function (pathConfig) {
     destDir: 'examples'
   });
 
-  const css = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css', {});
+  const cartCss = sass(['examples/cart/styles'], 'styles.scss', 'examples/cart/index.css', {});
+  const checkoutCss = sass(['examples/checkout/styles'], 'styles.scss', 'examples/checkout/index.css', {});
 
-  return mergeTrees([staticFiles, css]);
+  return mergeTrees([staticFiles, cartCss, checkoutCss]);
 };

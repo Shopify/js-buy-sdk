@@ -1,0 +1,16 @@
+.cart {
+  max-width: 400px;
+  box-shadow: 0 0 100px 10px $color-box-shadow;
+  padding: 30px;
+  margin: 40px auto;
+  line-height: 1;
+  text-align: center;
+
+  .empty {
+    display: none;
+  }
+
+  h1, h2 {
+    margin-bottom:25px;
+  }
+}

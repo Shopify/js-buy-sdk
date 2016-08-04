@@ -52,9 +52,14 @@ $(function() {
   ============================================================ */
   function generateSelectors(product) {
     var elements = product.options.map(function(option) {
-      return '<select name="' + option.name + '">' + option.values.map(function(value) {
+      var optionsHtml = option.values.map(function(value) {
         return '<option value="' + value + '">' + value + '</option>';
-      }) + '</select>';
+      });
+
+      return '<div class="shopify-select">\
+                <select class="select" name="' + option.name + '">' + optionsHtml + '</select>\
+                <svg class="shopify-select-icon" viewBox="0 0 24 24"><path d="M21 5.176l-9.086 9.353L3 5.176.686 7.647 12 19.382 23.314 7.647 21 5.176z"></path></svg>\
+              </div>'
     });
 
     return elements;
@@ -371,8 +376,17 @@ $(function() {
 
   /* Format amount as currency
   ============================================================ */
-  function formatAsMoney(amount) {
-    return '$' + parseFloat(amount, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
+  function formatAsMoney(amount, currency, thousandSeparator, decimalSeparator, localeDecimalSeparator) {
+    currency = currency || '$';
+    thousandSeparator = thousandSeparator || ',';
+    decimalSeparator = decimalSeparator || '.';
+    localeDecimalSeparator = localeDecimalSeparator || '.';
+    var regex = new RegExp('(\\d)(?=(\\d{3})+\\.)', 'g');
+
+    return currency + parseFloat(amount, 10).toFixed(2)
+      .replace(localeDecimalSeparator, decimalSeparator)
+      .replace(regex, '$1' + thousandSeparator)
+      .toString();
   }
 
   /* Update cart tab button
