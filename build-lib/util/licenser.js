@@ -1,4 +1,4 @@
-/* global require, module, fs, __dirname */
+/* global require, module, __dirname */
 "use strict";
 
 const Plugin = require('broccoli-plugin');
