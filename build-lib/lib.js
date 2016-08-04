@@ -58,14 +58,12 @@ module.exports = function (pathConfig, env) {
     const bareTree = concat(mergeTrees([baseTree].concat(config.additionalTrees)), Object.assign({
       inputFiles: ['**/*.js'],
       outputFile: `${pkg.name}.${config.name}.js`,
-      sourceMapConfig: { enabled: false }
     }, config.concatOptions));
 
     const polyfilledLibTree = concat(mergeTrees([polyfillTree, bareTree]), {
       headerFiles: ['polyfills.js'],
-      inputFiles: `${pkg.name}.${config.name}.js`,
+      inputFiles: ['**/*.js'],
       outputFile: `${pkg.name}.polyfilled.${config.name}.js`,
-      sourceMapConfig: { enabled: false }
     });
 
     return mergeTrees([bareTree, polyfilledLibTree]);
