@@ -8,7 +8,7 @@ const mkdirp = require('./mkdirp');
 const Plugin = require('broccoli-plugin');
 const path = require('path');
 const fs = require('fs');
-var fsExtra = require('fs-extra');
+const fsExtra = require('fs-extra');
 
 const LICENSE = fs.readFileSync(path.join(__dirname, '..', '..', 'LICENSE.txt'));
 
