@@ -71,31 +71,6 @@ Licenser.prototype.build = function () {
     });
 
   });
-
-  const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
-    return recursiveReadDir(dirname).map(fileName => {
-      return {
-        baseDirectory: dirname,
-        fileName: fileName
-      }
-    });
-  }));
-
-  fileDescriptions.forEach(description => {
-    const inputBuffer = fs.readFileSync(path.join(description.fileName));
-    let outputBuffer;
-
-    if (description.fileName.match(/^.+\.js$/)) {
-      outputBuffer = `/*\n${LICENSE}*/\n\n${inputBuffer}`;
-    } else {
-      outputBuffer = inputBuffer;
-    }
-
-    const destination = description.fileName.replace(description.baseDirectory, this.outputPath);
-
-    mkdirp(path.dirname(destination));
-    fs.writeFileSync(destination, outputBuffer);
-  });
 };
 
 module.exports = Licenser;
