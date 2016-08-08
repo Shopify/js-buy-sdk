@@ -4,10 +4,10 @@
 "use strict";
 
 const recursiveReadDir = require('./recursive-read-dir');
-const mkdirp = require('./mkdirp');
 const Plugin = require('broccoli-plugin');
 const path = require('path');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 
 const LICENSE = fs.readFileSync(path.join(__dirname, '..', '..', 'LICENSE.txt'));
 
@@ -27,28 +27,26 @@ Licenser.prototype.constructor = Licenser;
 Licenser.prototype.build = function () {
 
   const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
-    return recursiveReadDir(dirname).map(fileName => {
+    return recursiveReadDir(dirname).map(path => {
       return {
         baseDirectory: dirname,
-        fileName: fileName
+        path: path
       }
     });
   }));
 
-  fileDescriptions.forEach(description => {
-    const inputBuffer = fs.readFileSync(path.join(description.fileName));
+  fileDescriptions.forEach(file => {
+    const inputBuffer = fs.readFileSync(path.join(file.path));
+    const destination = file.path.replace(file.baseDirectory, this.outputPath);
     let outputBuffer;
 
-    if (description.fileName.match(/^.+\.js$/)) {
+    if (file.path.match(/^.+\.js$/)) {
       outputBuffer = `/*\n${LICENSE}*/\n\n${inputBuffer}`;
     } else {
       outputBuffer = inputBuffer;
     }
 
-    const destination = description.fileName.replace(description.baseDirectory, this.outputPath);
-
-    mkdirp(path.dirname(destination));
-    fs.writeFileSync(destination, outputBuffer);
+    fsExtra.outputFileSync(destination, outputBuffer);
   });
 };
 

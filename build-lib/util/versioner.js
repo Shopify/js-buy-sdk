@@ -3,10 +3,10 @@
 "use strict";
 
 const recursiveReadDir = require('./recursive-read-dir');
-const mkdirp = require('./mkdirp');
 const Plugin = require('broccoli-plugin');
 const path = require('path');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 const git = require('nodegit');
 
 const pkg = require('../../package.json');
@@ -71,6 +71,7 @@ Versioner.prototype.versionFiles = function () {
 
   fileDescriptions.forEach(description => {
     const inputBuffer = fs.readFileSync(path.join(description.fileName));
+    const destination = description.fileName.replace(description.baseDirectory, this.outputPath);
     let outputBuffer;
 
     if (description.fileName.match(/^.+\.js$/)) {
@@ -82,10 +83,7 @@ Versioner.prototype.versionFiles = function () {
       outputBuffer = inputBuffer;
     }
 
-    const destination = description.fileName.replace(description.baseDirectory, this.outputPath);
-
-    mkdirp(path.dirname(destination));
-    fs.writeFileSync(destination, outputBuffer);
+    fsExtra.outputFileSync(destination, outputBuffer);
   });
 };
 
