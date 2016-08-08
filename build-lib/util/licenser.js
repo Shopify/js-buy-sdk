@@ -26,7 +26,7 @@ Licenser.prototype.constructor = Licenser;
 
 Licenser.prototype.build = function () {
 
-  const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
+  const files = [].concat(...this.inputPaths.map(dirname => {
     return recursiveReadDir(dirname).map(path => {
       return {
         baseDirectory: dirname,
@@ -35,7 +35,7 @@ Licenser.prototype.build = function () {
     });
   }));
 
-  fileDescriptions.forEach(file => {
+  files.forEach(file => {
     const inputBuffer = fs.readFileSync(path.join(file.path));
     const destination = file.path.replace(file.baseDirectory, this.outputPath);
     let outputBuffer;

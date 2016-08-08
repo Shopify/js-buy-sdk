@@ -60,21 +60,21 @@ Versioner.prototype.replaceTemplateString = function (versionString, buffer) {
 
 Versioner.prototype.versionFiles = function () {
   const versionString = `v${this.constructor.VERSION}-${this.constructor.HEAD_COMMIT}`;
-  const fileDescriptions = [].concat(...this.inputPaths.map(dirname => {
-    return recursiveReadDir(dirname).map(fileName => {
+  const files = [].concat(...this.inputPaths.map(dirname => {
+    return recursiveReadDir(dirname).map(path => {
       return {
         baseDirectory: dirname,
-        fileName: fileName
+        path: path
       }
     });
   }));
 
-  fileDescriptions.forEach(description => {
-    const inputBuffer = fs.readFileSync(path.join(description.fileName));
-    const destination = description.fileName.replace(description.baseDirectory, this.outputPath);
+  files.forEach(file => {
+    const inputBuffer = fs.readFileSync(path.join(file.path));
+    const destination = file.path.replace(file.baseDirectory, this.outputPath);
     let outputBuffer;
 
-    if (description.fileName.match(/^.+\.js$/)) {
+    if (file.path.match(/^.+\.js$/)) {
       outputBuffer = this.replaceTemplateString(
         versionString,
         this.prependComment(versionString, inputBuffer)
