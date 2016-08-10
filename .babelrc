@@ -1,5 +1,8 @@
 { 
   "env": {
+    "commonjs": {
+      "presets": ["es2015"]
+    },
     "umd": {
       "resolveModuleSource": null,
       "presets": ["es2015"],

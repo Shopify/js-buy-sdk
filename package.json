@@ -16,12 +16,12 @@
 
     "test-build2": "npm run build2; cp dist/shopify-buy.amd.js .dist-test/shopify-buy.amd.js; testem ci",
     
-    "build2": "npm run rm-dist; npm run mk-dist; npm run amd; npm run umd",
+    "build2": "npm run rm-dist; npm run mk-dist; npm run amd; npm run umd; npm run commonjs",
     "amd": "npm run build-amd; npm run header-amd",
     "umd": "npm run build-umd; npm run header-umd",
+    "commonjs": "cross-env BABEL_ENV=commonjs babel -d lib/ src/; node scripts/addVersion lib/version.js",
     "header-amd": "node scripts/addHeaderToSource.js dist/shopify-buy.amd.js",
     "header-umd": "node scripts/addHeaderToSource.js dist/shopify-buy.umd.js",
-    "header-cjs": "node scripts/addHeaderToSource.js dist/shopify-buy.commonjs.js",
     "build-amd": "cross-env BABEL_ENV=amd babel src/ > dist/shopify-buy.amd.js src/",
     "build-umd": "rollup -f cjs src/shopify.js | node scripts/runBabel umd > dist/shopify-buy.umd.js",
     "mk-dist": "mkdir dist/",
