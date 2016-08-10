@@ -59,21 +59,24 @@ module.exports = function (pathConfig, env) {
       outputFile: `${pkg.name}.polyfilled.${config.name}.js`,
     });
 
-    return mergeTrees([bareTree, polyfilledLibTree]);
+    let mergedTree = mergeTrees([bareTree, polyfilledLibTree]);
+
+    if (env === 'production') {
+      mergedTree = mergeTrees([mergedTree, uglifyJavaScript(funnel(mergedTree, {
+        getDestinationPath: function (path) {
+          return path.replace(/\.js/, '.min.js');
+        },
+        exclude: ['**/*.map']
+      }))]);
+    }
+
+    return mergedTree;
   });
 
   const nodeTree = funnel(sourceTree(pathConfig, 'commonjs'), {
     srcDir: '.',
     destDir: './node-lib'
   });
-
-  if (env.production) {
-    trees.push(uglifyJavaScript(funnel(trees, {
-      getDestinationPath: function (path) {
-        return path.replace(/\.js/, '.min.js');
-      }
-    })));
-  }
 
   return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
     new Versioner(trees, { templateString: '{{versionString}}' })
