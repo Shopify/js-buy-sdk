@@ -13,10 +13,9 @@
     "test": "node ./scripts/test",
     "test-examples": "node scripts/test-examples",
     "test-ci": "./scripts/ci",
-
     "test-build2": "npm run build2; cp dist/shopify-buy.amd.js .dist-test/shopify-buy.amd.js; testem ci",
-    
-    "build2": "npm run rm-dist; npm run mk-dist; npm run amd; npm run umd; npm run commonjs",
+    "build-production": "npm run build-dev; npm run minify",
+    "build-dev": "npm run rm-dist; npm run mk-dist; npm run amd; npm run umd; npm run commonjs",
     "amd": "npm run build-amd; npm run header-amd",
     "umd": "npm run build-umd; npm run header-umd",
     "commonjs": "cross-env BABEL_ENV=commonjs babel -d lib/ src/; node scripts/addVersion lib/version.js",
@@ -24,6 +23,9 @@
     "header-umd": "node scripts/addHeaderToSource.js dist/shopify-buy.umd.js",
     "build-amd": "cross-env BABEL_ENV=amd babel src/ > dist/shopify-buy.amd.js src/",
     "build-umd": "rollup -f cjs src/shopify.js | node scripts/runBabel umd > dist/shopify-buy.umd.js",
+    "minify": "npm run minify-amd; npm run minify-umd",
+    "minify-amd": "uglifyjs --compress --mangle -o dist/shopify-buy.amd.min.js -- dist/shopify-buy.amd.js",
+    "minify-umd": "uglifyjs --compress --mangle -o dist/shopify-buy.umd.min.js -- dist/shopify-buy.umd.js",
     "mk-dist": "mkdir dist/",
     "rm-dist": "rimraf dist/"
   },
@@ -79,6 +81,7 @@
     "route-recognizer": "0.1.9",
     "rsvp": "3.1.0",
     "testem": "0.9.11",
+    "uglify-js": "^2.7.0",
     "wdio-dot-reporter": "0.0.5",
     "wdio-junit-reporter": "0.1.0",
     "wdio-mocha-framework": "^0.3.1",
