@@ -1,5 +1,4 @@
 import { module, test } from 'qunit';
-// import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
 import Pretender from 'pretender';
 import sendQuery from 'shopify-buy/send-query';
 
