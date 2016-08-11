@@ -1,21 +1,21 @@
 import CoreObject from './metal/core-object';
 
 function wrapConsole(logCommand) {
-  let logMethod;
-
-  /* eslint-disable no-console */
-  try {
-    logMethod = Function.prototype.bind.call(console[logCommand], console);
-  } catch (e) {
-    logMethod = Function.prototype.bind.call(console.log, console);
-  }
-  /* eslint-enable no-console */
+  const logMethod = function () {
+    /* eslint-disable no-console */
+    if (console[logCommand]) {
+      console[logCommand](...arguments);
+    } else {
+      console.log(...arguments);
+    }
+    /* eslint-enable no-console */
+  };
 
   return function () {
-    const args = Array.prototype.slice.call(arguments);
+    const args = [...arguments];
 
     args.unshift('[JS-BUY-SDK]: ');
-    logMethod.apply(console, args);
+    logMethod(...args);
   };
 }
 
