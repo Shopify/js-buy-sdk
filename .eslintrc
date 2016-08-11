@@ -18,5 +18,8 @@
     "prefer-rest-params": 0,
     "prefer-reflect": 0,
     "valid-jsdoc": 0
+  },
+  "globals": {
+    "global": true
   }
 }
