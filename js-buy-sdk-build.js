@@ -11,9 +11,12 @@ const pathConfig = {
   examples: './examples'
 };
 
-const trees = [];
+const loaderTree = require('./build-lib/loader')();
+const polyfillTree = require('./build-lib/polyfills')();
 
-trees.push(require('./build-lib/lib')(pathConfig, env));
+const trees = [ loaderTree, polyfillTree ];
+
+// trees.push(require('./build-lib/lib')(pathConfig, env));
 
 if (env !== 'production') {
   trees.push(require('./build-lib/testing')(pathConfig, env));
