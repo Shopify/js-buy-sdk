@@ -1,13 +1,21 @@
 import CoreObject from './metal/core-object';
 
 function wrapConsole(logCommand) {
+  const logMethod = function () {
+    /* eslint-disable no-console */
+    if (console[logCommand]) {
+      console[logCommand](...arguments);
+    } else {
+      console.log(...arguments);
+    }
+    /* eslint-enable no-console */
+  };
+
   return function () {
-    const args = Array.prototype.slice.call(arguments);
+    const args = [...arguments];
 
     args.unshift('[JS-BUY-SDK]: ');
-    /* eslint-disable no-console */
-    console[logCommand](...args);
-    /* eslint-enable no-console */
+    logMethod(...args);
   };
 }
 
@@ -19,12 +27,12 @@ const Logger = CoreObject.extend({
    * @class Logger
    * @constructor
    */
-  constructor() {
-  },
+  constructor() { },
   debug: wrapConsole('debug'),
   info: wrapConsole('info'),
   warn: wrapConsole('warn'),
   error: wrapConsole('error')
 });
 
+export { wrapConsole };
 export default new Logger();
