@@ -8,15 +8,15 @@ const querySplitter = /\s+/;
 module('Unit | GraphHelpers | fields');
 
 test('it extracts and formats fields from the schema, for a query', function (assert) {
-  assert.expect(ProductSchema.fields.length + 1);
+  assert.expect(Object.keys(ProductSchema.fields).length + 1);
 
   const query = `product {
     ${fields(ProductSchema)}
   }`;
 
-  ProductSchema.fields.forEach(field => {
+  Object.keys(ProductSchema.fields).forEach(field => {
     assert.ok(query.match(field), `query does not include ${field} from the schema`);
   });
 
-  assert.equal(query.split(querySplitter).length, ProductSchema.fields.length + 3, 'query is not properly formatted');
+  assert.equal(query.split(querySplitter).length, Object.keys(ProductSchema.fields).length + 3, 'query is not properly formatted');
 });
