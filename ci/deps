@@ -35,4 +35,8 @@ fi
 
 ln -s $versioned_node_modules_path node_modules
 
+# See: https://github.com/npm/npm/issues/11283
+npm set progress=false
+
+# Install deps
 npm install
