@@ -10,11 +10,18 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
+  <script src="/sdk-testing.js"></script>
+  <script src="shopify-buy.umd.polyfilled.js"></script>
+  <script src="/shopify-buy.amd.js"></script>
+  <script src="/tests.js"></script>
+
+  <!--
   <script src="/loader.js"></script>
   <script src="/shopify-buy.amd.js"></script>
   <script src="/sdk-testing.js"></script>
   <script src="/polyfills.js"></script>
   <script src="/tests.js"></script>
+  -->
   <script>
     Object.keys(require.entries).filter(function(name) {
       return !!name.match(/-test$/);

@@ -1,16 +1,29 @@
 /**
- * This script bundles some scripts used for testing
+ * This script bundles some scripts used for testing:
+ * - amd loader
+ * - polyfills
+ *   + fetch
+ *   + promises
+ *   + bace64 encoding
+ * - then deps for the testing framework
  */
 const fs = require('fs');
 
 const sourceModules = getSourceFromModules([
+  // umd module loader
+  'loader.js',
+  // original testing sdk deps
   'route-recognizer',
   'fake-xml-http-request',
   'pretender'
 ]);
 
-const outSource = `;window.fetch = null;
-${sourceModules.join('\n')}
+const outSource = `
+${sourceModules[0]}
+(function (self) {
+;self.fetch = null;
+${sourceModules.slice(1).join('\n')}
+}(window));
 `;
 
 console.log(outSource);
