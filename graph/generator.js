@@ -5,6 +5,7 @@ import path from 'path';
 import dasherize from './dasherize';
 import isBuiltin from './is-builtin';
 import getBaseType from './get-base-type';
+import hasListType from './has-list-type';
 import fetchSchema from './fetch-schema';
 
 function transformArgument(arg) {
@@ -12,22 +13,32 @@ function transformArgument(arg) {
 }
 
 function transformField(field) {
-  return field.name;
+  return {
+    fieldName: field.name,
+    isList: hasListType(field.type)
+  };
+}
+
+function objectifyField(acc, field) {
+  const descriptor = {};
+
+  Object.keys(field).filter(key => {
+    return (key !== 'fieldName');
+  }).forEach(key => {
+    descriptor[key] = field[key];
+  });
+
+  acc[field.fieldName] = descriptor;
+
+  return acc;
 }
 
 function transformFieldWithArgs(field) {
   return {
     fieldName: field.name,
+    isList: hasListType(field.type),
     args: field.args.map(transformArgument)
   };
-}
-
-function reduceFieldWithArgs(acc, field) {
-  acc[field.fieldName] = {
-    args: field.args
-  };
-
-  return acc;
 }
 
 function transformRelationship(field) {
@@ -40,25 +51,17 @@ function transformRelationship(field) {
   }
 
   const type = getBaseType(field.type);
+  const isList = hasListType(field.type);
 
   const relationship = {
     fieldName: field.name,
+    isList,
     type,
     args,
     schemaModule: dasherize(type)
   };
 
   return relationship;
-}
-
-function reduceRelationships(acc, relationship) {
-  acc[relationship.fieldName] = {
-    type: relationship.type,
-    args: relationship.args,
-    schemaModule: relationship.schemaModule
-  };
-
-  return acc;
 }
 
 function getParents(typeName, typeList) {
@@ -107,9 +110,9 @@ function extractTypeData(types) {
     return {
       name: type.name,
       isBuiltin: isBuiltin(type.name),
-      fields: fields.map(transformField),
-      fieldsWithArgs: fieldsWithArgs.map(transformFieldWithArgs).reduce(reduceFieldWithArgs, {}),
-      relationships: relationships.map(transformRelationship).reduce(reduceRelationships, {}),
+      fields: fields.map(transformField).reduce(objectifyField, {}),
+      fieldsWithArgs: fieldsWithArgs.map(transformFieldWithArgs).reduce(objectifyField, {}),
+      relationships: relationships.map(transformRelationship).reduce(objectifyField, {}),
       fieldOf: getParents(type.name, types)
     };
   });
