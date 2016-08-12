@@ -19,6 +19,22 @@
       "presets": ["es2015"],
       "plugins": ["transform-es2015-modules-amd"],
       "sourceRoot": "src/"
+    },
+    "amd-tests": {
+      "moduleRoot": "shopify-buy/tests",
+      "moduleIds": true,
+      "resolveModuleSource": null,
+      "presets": ["es2015"],
+      "plugins": ["transform-es2015-modules-amd"],
+      "sourceRoot": "tests/"
+    },
+    "amd-test-qunit-shim": {
+      "moduleRoot": null,
+      "moduleIds": true,
+      "resolveModuleSource": null,
+      "presets": ["es2015"],
+      "plugins": ["transform-es2015-modules-amd"],
+      "sourceRoot": "shims/"
     }
   }
 }

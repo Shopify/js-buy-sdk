@@ -1,5 +1,13 @@
 'use strict';
 
+/**
+ * This script exists here because you cannot set BABEL_ENV while piping
+ * data to the babel-cli. So this script is able to accept data being piped
+ * in and also set BABEL_ENV. If no data is piped in then it is expected that
+ * the second argument passed to this script will be the src to be run through
+ * babel.
+ */
+
 const babel = require('babel-core');
 const getStdin = require('get-stdin');
 
