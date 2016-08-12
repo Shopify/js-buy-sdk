@@ -29,9 +29,9 @@ test('it passes the rawRelationship\'s schema', function (assert) {
 
   rawRelationship(QueryRoot, 'shop', shopSchema => {
     assert.ok(typeof shopSchema === 'object');
-    assert.ok(Array.isArray(shopSchema.fields));
-    assert.ok(typeof shopSchema.fieldsWithArgs);
-    assert.ok(typeof shopSchema.rawRelationships);
+    assert.ok(typeof shopSchema.fields === 'object');
+    assert.ok(typeof shopSchema.fieldsWithArgs === 'object');
+    assert.ok(typeof shopSchema.relationships === 'object');
   });
 });
 
@@ -39,7 +39,7 @@ test('it returns an enumerable schema that can extract fields', function (assert
   let shopFields;
 
   const shopQuery = rawRelationship(QueryRoot, 'shop', shopSchema => {
-    shopFields = shopSchema.fields;
+    shopFields = Object.keys(shopSchema.fields);
 
     return fields(shopSchema);
   });
@@ -50,7 +50,7 @@ test('it returns an enumerable schema that can extract fields', function (assert
     assert.ok(shopQuery.match(field), `query does not include field ${field}`);
   });
 
-  assert.equal(splitQuery(shopQuery).length, shopFields.length + 3, 'query is not properrly formatted');
+  assert.equal(splitQuery(shopQuery).length, shopFields.length + 3, 'query is not properly formatted');
 });
 
 test('it takes args', function (assert) {
