@@ -30,20 +30,21 @@ DocBuilder.prototype.ensureDocsBranchExists = function () {
   console.info('info:', 'Ensuring \'' + this.options.docsBranchName + '\' branch exists');
   return NodeGit.Repository.open('.').then(repo => {
     return repo.getReferences(NodeGit.Reference.TYPE.OID).then(references => {
-      var docsBranchReference;
       var regex = new RegExp('/' + this.options.docsBranchName + '$'); //ensure reference name ends with the provided branch name
+      var docsBranchReferences = Object.keys(references).map(function(key) {
+        return references[key];
+      }).filter(function(branch) {
+        return branch.name().match(regex);
+      });
 
-      for (key in references) {
-        if (references[key].name().match(regex)) {
-          docsBranchReference = references[key];
-          if (!references[key].isRemote()) {
-            break;
-          }
-        }
-      };
-
-      if (!docsBranchReference) {
+      if (!docsBranchReferences.length) {
         throw new Error(this.options.docsBranchName + ' could not be found');
+      }
+
+      var docsBranchReference = docsBranchReferences[0];
+
+      if(docsBranchReferences.length > 1 && docsBranchReferences[0].isRemote()) {
+        docsBranchReference = docsBranchReferences[1];
       }
 
       if (docsBranchReference.isRemote()) {
