@@ -14,5 +14,5 @@ console.log('Building ....');
 docBuilder.build().then(() => {
   console.log('\nDone building');
 }).catch(error => {
-  console.error('error', error);
+  console.error('\nError', error);
 });
