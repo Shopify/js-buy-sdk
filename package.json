@@ -15,6 +15,7 @@
     "test-ci": "./scripts/ci",
     "------ New NPM script based builds start here": null,
     "build2": "npm run dir-setup-dist && npm run build-all && npm run minify-all",
+    "prepublish2": "npm run commonjs",
     "start2": "npm run dir-setup-dist-test && npm run dir-setup-dist && concurrently 'npm run watch-test' 'npm run build-test-sdk' 'http-server -p 4200 .dist-test/'",
     "test2": "npm run dir-setup-dist-test && npm run dir-setup-dist && npm run build-test && npm run build-test-sdk && testem ci",
     "test-examples2": "npm run dir-setup-dist-test && npm run dir-setup-dist && eslint src/ && npm run build-test && npm run build-test-sdk && npm run cp-examples && npm run css-examples && npm run run-example",
