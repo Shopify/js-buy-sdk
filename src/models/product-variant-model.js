@@ -86,6 +86,15 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
+    * Variant in stock (always true if inventory tracking is disabled)
+    * @property available
+    * @type {Boolean}
+  */
+  get available() {
+    return this.attrs.variant.available;
+  },
+
+  /**
     * Image for variant
     * @property image
     * @type {Object}
