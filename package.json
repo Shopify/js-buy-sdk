@@ -6,6 +6,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "node ./scripts/build",
+    "build-doc": "node ./scripts/build-doc",
     "prepublish": "node ./scripts/prepublish",
     "doc-server": "yuidoc --server 5000",
     "start": "broccoli serve",
@@ -64,6 +65,7 @@
     "wdio-mocha-framework": "^0.3.1",
     "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
+    "yuidoc-lucid-theme": "0.1.2",
     "yuidocjs": "0.10.0"
   }
 }
