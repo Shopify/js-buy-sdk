@@ -8,22 +8,25 @@
 
 const path = require('path');
 const fs = require('fs');
-const templateVersion = require('./util/templateVersion');
-const VERSION_TEMPLATE_STRING = require('./util/versionTemplateString');
+const getStdin = require('get-stdin');
 
-const pathSource = path.join(process.cwd(), process.argv[ 2 ]);
-const pathLicense = path.join(process.cwd(), 'LICENSE.txt');
 
-const license = fs.readFileSync(pathLicense, 'utf8');
-const header = `/*\n${license}\n*/\n\n/* version: ${VERSION_TEMPLATE_STRING} */`;
+getStdin()
+.then(source => {
+  const templateVersion = require('./util/templateVersion');
+  const VERSION_TEMPLATE_STRING = require('./util/versionTemplateString');
 
-let source = fs.readFileSync(pathSource, 'utf8');
+  const pathLicense = path.join(process.cwd(), 'LICENSE.txt');
 
-// add in the header to the source
-source = `${header}\n\n${source}`;
+  const license = fs.readFileSync(pathLicense, 'utf8');
+  const header = `/*\n${license}\n*/\n\n/* version: ${VERSION_TEMPLATE_STRING} */`;
 
-// now drop in the current version
-templateVersion(source, (err, sourceVersioned) => {
-  // write the templated js file to disk
-  fs.writeFileSync(pathSource, sourceVersioned);
+  // add in the header to the source
+  source = `${header}\n\n${source}`;
+
+  // now drop in the current version
+  templateVersion(source, (err, sourceVersioned) => {
+    // write the templated js file to disk
+    console.log(sourceVersioned);
+  });
 });
