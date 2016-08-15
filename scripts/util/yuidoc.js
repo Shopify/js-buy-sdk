@@ -18,13 +18,11 @@ var options = project.options;
 
 module.exports = {
   generate: function (_options) {
-    options = util._extend(options, _options);
+    options = Object.assign({}, options, _options);
     var starttime = (new Date()).getTime();
-    var promise = Promise.resolve();
-
     var promises = options.paths.map((currentPath) => {
       var currentOptions = JSON.parse(JSON.stringify(options));
-      currentOptions = util._extend(currentOptions, {
+      currentOptions = Object.assign({}, currentOptions, {
         paths: [ path.join(currentPath, 'src') ],
         outdir: path.join(currentPath, 'api'),
         project: {
