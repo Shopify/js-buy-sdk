@@ -22,7 +22,7 @@ module.exports = {
     var starttime = (new Date()).getTime();
     var promise = Promise.resolve();
 
-    options.paths.forEach((currentPath) => {
+    var promises = options.paths.map((currentPath) => {
       var currentOptions = JSON.parse(JSON.stringify(options));
       currentOptions = util._extend(currentOptions, {
         paths: [ path.join(currentPath, 'src') ],
@@ -35,17 +35,15 @@ module.exports = {
       var json = (new yuidoc.YUIDoc(currentOptions)).run();
       var builder = new yuidoc.DocBuilder(currentOptions, json);
 
-      promise = promise.then(() => {
-        return new Promise((resolve, reject) => {
-          console.info('info: Generating docs for ' + currentOptions.project.version, 'info', 'yuidoc');
-          builder.compile(function () {
-            resolve();
-          });
-        })
-      });
+      return new Promise((resolve, reject) => {
+        console.info('info: Generating docs for ' + currentOptions.project.version, 'info', 'yuidoc');
+        builder.compile(function () {
+          resolve();
+        });
+      })
     });
 
-    return promise.then(() => {
+    return Promise.all(promises).then(() => {
       var endtime = (new Date()).getTime();
       console.info('info: Completed in ' + ((endtime - starttime) / 1000) + ' seconds', 'info', 'yuidoc');
     });
