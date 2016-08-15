@@ -3,12 +3,17 @@
 /* eslint-env node */
 
 require('./util/work-from-root')();
-
-var docBuilder = require('./util/doc-builder')({
+var buildOptions = {
   docsBranchName: 'gh-pages',
   rmSrcDir: true,
-  commitDocs: true
-});
+  commitDocs: false
+};
+
+buildOptions.commitDocs = process.argv.filter(function(argument) {
+	return argument == 'commit';
+}).length == 0 ? false : true;
+
+var docBuilder = require('./util/doc-builder')(buildOptions);
 
 console.log('Building ....');
 docBuilder.build().then(() => {
