@@ -57,12 +57,8 @@
     "minify-umd": "uglifyjs --compress --mangle -o dist/shopify-buy.umd.min.js -- dist/shopify-buy.umd.js",
     "minify-umd-polyfilled": "uglifyjs --compress --mangle -o dist/shopify-buy.umd.polyfilled.min.js -- dist/shopify-buy.umd.polyfilled.js",
     "------ The following are all file system operations used to make, and copy existing files": null,
-    "dir-setup-dist": "npm run rm-dist && npm run mk-dist",
-    "dir-setup-dist-test": "npm run rm-dist-test && npm run mk-dist-test",
-    "mk-dist": "mkdir dist/",
-    "rm-dist": "rimraf dist/",
-    "mk-dist-test": "mkdir .dist-test/",
-    "rm-dist-test": "rimraf .dist-test/"
+    "dir-setup-dist": "rimraf dist/ && mkdir dist/",
+    "dir-setup-dist-test": "rimraf .dist-test/ && mkdir .dist-test/"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
