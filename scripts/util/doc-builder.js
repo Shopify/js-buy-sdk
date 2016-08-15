@@ -43,7 +43,7 @@ DocBuilder.prototype.ensureDocsBranchExists = function () {
 
       var docsBranchReference = docsBranchReferences[0];
 
-      if(docsBranchReferences.length == 2 && docsBranchReferences[0].isRemote()) {
+      if(docsBranchReferences.length > 1 && docsBranchReferences[0].isRemote()) {
         docsBranchReference = docsBranchReferences[1];
       }
 
