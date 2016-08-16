@@ -3,8 +3,8 @@ import rawTypeForField from 'shopify-buy/graph-helpers/raw-type-for-field';
 
 module('Unit | GraphHelpers | rawTypeForField');
 
-test('', function (assert) {
-  assert.expect(12);
+test('it returns the exact field type', function (assert) {
+  assert.expect(14);
 
   const shopType = rawTypeForField('shop', 'query-root');
   const productType = rawTypeForField('product', 'query-root');
