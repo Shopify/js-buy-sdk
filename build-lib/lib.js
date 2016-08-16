@@ -80,6 +80,6 @@ module.exports = function (pathConfig, env) {
   });
 
   return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
-    new Versioner(trees, { templateString: '{{versionString}}' })
+    new Versioner([ mergedTree ], { templateString: '{{versionString}}' })
   ])]);
 };
