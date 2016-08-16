@@ -14,6 +14,8 @@ test('it returns the exact field type', function (assert) {
   const shopProductsType = rawTypeForField('products', 'shop');
   const shopCollectionsType = rawTypeForField('collections', 'shop');
 
+  const productImagesType = rawTypeForField('images', 'product');
+
   assert.equal(shopType.name, 'Shop', 'shop\'s type');
   assert.equal(shopType.isList, false, 'shop isList');
   assert.equal(productType.name, 'Product', 'product\'s type');
@@ -27,4 +29,7 @@ test('it returns the exact field type', function (assert) {
   assert.equal(shopProductsType.isList, false, 'shopProduct isList');
   assert.equal(shopCollectionsType.name, 'CollectionConnection', 'shopCollection\'s type');
   assert.equal(shopCollectionsType.isList, false, 'shopCollection isList');
+
+  assert.equal(productImagesType.name, 'Image', 'productImage\'s type');
+  assert.equal(productImagesType.isList, true, 'productImage isList');
 });
