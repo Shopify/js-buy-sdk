@@ -23,7 +23,7 @@ module.exports = function (pathConfig, env) {
   const polyfillTree = polyfills(env);
   const loaderTree = loader();
 
-  const trees = [{
+  let trees = [{
     name: 'amd',
     moduleType: 'amd',
     additionalTrees: [],
@@ -67,12 +67,14 @@ module.exports = function (pathConfig, env) {
     destDir: './node-lib'
   });
 
-  if (env.production) {
-    trees.push(uglifyJavaScript(funnel(trees, {
-      getDestinationPath: function (path) {
-        return path.replace(/\.js/, '.min.js');
-      }
-    })));
+  if (env == 'production') {
+    trees = [
+      uglifyJavaScript(funnel(mergeTrees(trees), {
+          getDestinationPath: function (path) {
+            return path.replace(/\.js/, '.min.js');
+          }
+      }))
+    ];
   }
 
   return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
