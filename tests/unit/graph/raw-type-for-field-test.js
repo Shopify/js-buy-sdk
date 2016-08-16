@@ -23,7 +23,7 @@ test('it returns the exact field type', function (assert) {
   assert.equal(collectionType.name, 'Collection', 'collection\'s type');
   assert.equal(collectionType.isList, false, 'collection isList');
 
-  assert.equal(shopNameType.name, 'Literal', 'shopName\'s type');
+  assert.equal(shopNameType.name, 'Scalar', 'shopName\'s type');
   assert.equal(shopNameType.isList, false, 'shopName isList');
   assert.equal(shopProductsType.name, 'ProductConnection', 'shopProduct\'s type');
   assert.equal(shopProductsType.isList, false, 'shopProduct isList');

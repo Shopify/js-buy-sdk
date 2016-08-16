@@ -5,7 +5,7 @@ function findInFields(property, type) {
 
   if (propertyDescriptor) {
     return {
-      name: 'Literal',
+      name: 'Scalar',
       isList: propertyDescriptor.isList
     };
   }
@@ -18,7 +18,7 @@ function findInFieldsWithArgs(property, type) {
 
   if (propertyDescriptor) {
     return {
-      name: 'Literal',
+      name: 'Scalar',
       isList: propertyDescriptor.isList
     };
   }

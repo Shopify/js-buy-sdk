@@ -4,7 +4,7 @@ import typeForField from 'shopify-buy/graph-helpers/type-for-field';
 module('Unit | GraphHelpers | typeForField');
 
 test('it returns the exact field type for fields representing singular', function (assert) {
-  assert.expect(14);
+  assert.expect(8);
 
   const shopType = typeForField('shop', 'query-root');
   const productType = typeForField('product', 'query-root');
@@ -19,7 +19,7 @@ test('it returns the exact field type for fields representing singular', functio
   assert.equal(collectionType.name, 'Collection');
   assert.equal(collectionType.isList, false);
 
-  assert.equal(shopNameType.name, 'Literal');
+  assert.equal(shopNameType.name, 'Scalar');
   assert.equal(shopNameType.isList, false);
 });
 
