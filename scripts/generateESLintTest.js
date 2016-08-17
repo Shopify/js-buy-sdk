@@ -21,6 +21,8 @@ ${results.map(generateAssert).join('\n')}
 });
 `;
 
+// output to stdout so that we can
+// easily modify the output/output location via cli
 console.log(source);
 
 

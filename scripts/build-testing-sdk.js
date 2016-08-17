@@ -26,6 +26,8 @@ ${sourceModules.slice(1).join('\n')}
 }(window));
 `;
 
+// output to stdout so that we can
+// easily modify the output/output location via cli
 console.log(outSource);
 
 function getSourceFromModules(modules) {

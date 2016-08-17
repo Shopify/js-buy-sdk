@@ -26,7 +26,8 @@ getStdin()
 
   // now drop in the current version
   templateVersion(source, (err, sourceVersioned) => {
-    // write the templated js file to disk
+    // output to stdout so that we can
+    // easily modify the output/output location via cli
     console.log(sourceVersioned);
   });
 });
