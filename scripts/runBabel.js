@@ -10,9 +10,10 @@
 
 const babel = require('babel-core');
 const getStdin = require('get-stdin');
+const path = require('path');
 
 // set the environment variable on which babel should run
-process.env.BABEL_ENV = process.env.BABEL_ENV || process.argv[ 2 ];
+process.env.BABEL_ENV = process.env.BABEL_ENV || process.argv[2];
 
 // check that BABEL_ENV was set
 if(process.env.BABEL_ENV === undefined) {
@@ -27,17 +28,17 @@ getStdin()
   if(input !== '') {
     // run babel on the piped in data
     code = babel.transform(input, {
-      extends: process.cwd() + '/' + '.babelrc'
+      extends: path.join(process.cwd(), '.babelrc')
     }).code;
   } else {
-    const source = process.argv[ 3 ];
+    const source = process.argv[3];
     
     if(source === undefined) {
       throw new Error('since nothing was piped to runBabel.js it\'s expected that babels source will be the 2nd parameter');
     }
 
     code = babel.transformFileSync(source, {
-      extends: process.cwd() + '/' + '.babelrc'
+      extends: path.join(process.cwd(), '.babelrc')
     }).code;
   }
 

@@ -30,8 +30,7 @@ console.log(outSource);
 
 function getSourceFromModules(modules) {
 
-  return modules
-  .map((nameModule) => {
+  return modules.map((nameModule) => {
     const pathModule = require.resolve(nameModule);
 
     return fs.readFileSync(pathModule, 'utf8');
