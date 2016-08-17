@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * The purpose of this script is to template in a version number into source.
  * The template string will look like this '{{versionString}}'.

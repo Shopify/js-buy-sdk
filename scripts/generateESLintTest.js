@@ -1,3 +1,8 @@
+/**
+ * The purpose of this script is to generate qunit tests based on eslint passing/failing.
+ * It will output to the generated script to stdout
+ */
+
 const CLIEngine = require('eslint').CLIEngine;
 const glob = require('glob');
 const jsStringEscape = require('js-string-escape');
