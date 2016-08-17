@@ -26,7 +26,10 @@
       "resolveModuleSource": null,
       "presets": ["es2015"],
       "plugins": ["transform-es2015-modules-amd"],
-      "sourceRoot": "tests/"
+      "sourceRoot": "tests/",
+      "ignore": [
+        "tests/shims/**/*.js"
+      ]
     },
     "amd-lint-tests": {
       "moduleRoot": "shopify-buy/tests",
@@ -34,7 +37,10 @@
       "resolveModuleSource": null,
       "presets": ["es2015"],
       "plugins": ["transform-es2015-modules-amd"],
-      "sourceRoot": "tests/"
+      "sourceRoot": "tests/",
+      "ignore": [
+        "tests/shims/**/*.js"
+      ]
     },
     "amd-test-qunit-shim": {
       "moduleRoot": null,
@@ -42,7 +48,7 @@
       "resolveModuleSource": null,
       "presets": ["es2015"],
       "plugins": ["transform-es2015-modules-amd"],
-      "sourceRoot": "shims/"
+      "sourceRoot": "tests/shims/"
     }
   }
 }

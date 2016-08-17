@@ -27,7 +27,7 @@
     "build-tests": "npm run build-tests-qunit-shim && npm run build-test-eslint && npm run build-tests-amd",
     "watch-tests": "npm run build-tests-qunit-shim && npm run watch-tests-amd",
     "build-tests-polyfill": "npm run umd-polyfilled && npm run copy-umd-build",
-    "build-tests-qunit-shim": "cross-env BABEL_ENV=amd-test-qunit-shim babel shims/ > .dist-test/qunit-shim.js",
+    "build-tests-qunit-shim": "cross-env BABEL_ENV=amd-test-qunit-shim babel tests/shims/ > .dist-test/qunit-shim.js",
     "build-tests-amd": "cross-env BABEL_ENV=amd-tests babel tests/ > .dist-test/tests.js",
     "watch-tests-amd": "nodemon --exec 'npm run build-tests-amd && npm run build-test-eslint' -w src/",
     "build-test-eslint": "node scripts/generateESLintTest.js | node scripts/runBabel.js amd-lint-tests > .dist-test/eslint-tests.js",

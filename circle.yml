@@ -16,12 +16,12 @@ dependencies:
       - "node_modules_2"
       - "node_modules_3"
   pre:
-    - ./ci/setup-node:
+    - ./scripts/ci/setup-node:
         parallel: true
   override:
-    - ./ci/deps:
+    - ./scripts/ci/deps:
         parallel: true
 test:
   override:
-    - ./ci/test:
+    - ./scripts/ci/test:
         parallel: true
