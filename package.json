@@ -6,7 +6,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "npm run dir-setup-dist && npm run build-all && npm run minify-all",
-    "prepublish": "npm run clean; npm run commonjs",
+    "prepublish": "npm run commonjs",
     "doc-server": "yuidoc --server 5000",
     "start": "npm run dir-setup-dist-test && npm run dir-setup-dist && concurrently 'npm run watch-test' 'npm run build-test-sdk' 'http-server -p 4200 .dist-test/'",
     "examples": "npm run dir-setup-dist-test && npm run dir-setup-dist && npm run cp-examples && npm run css-examples && http-server -p 4200 .dist-test/",
