@@ -62,6 +62,11 @@ module.exports = function (pathConfig, env) {
     return mergeTrees([bareTree, polyfilledLibTree]);
   });
 
+  const nodeTree = funnel(sourceTree(pathConfig, 'commonjs'), {
+    srcDir: '.',
+    destDir: './node-lib'
+  });
+
   let mergedTree;
 
   if (env == 'production') {
@@ -73,11 +78,6 @@ module.exports = function (pathConfig, env) {
   } else {
     mergedTree = mergeTrees(trees);
   }
-
-  const nodeTree = funnel(sourceTree(pathConfig, 'commonjs'), {
-    srcDir: '.',
-    destDir: './node-lib'
-  });
 
   return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
     new Versioner([ mergedTree ], { templateString: '{{versionString}}' })
