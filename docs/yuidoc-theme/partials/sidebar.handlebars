@@ -1,0 +1,65 @@
+{{#if name}}
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+        {{#publicClasses classes}}
+            <li><a href="{{../projectRoot}}classes/{{name}}.html">{{displayName}}</a></li>
+        {{/publicClasses}}
+    </ul>
+    <ul>
+		{{#hasInstanceMethods methods}}
+		<li>
+      <h2>Methods</h2>
+			<ul>
+				{{#methods}}
+				{{#if static}}
+				{{else}}
+				<li><a href="#method-{{name}}"><span class="im">{{name}}</span></a></li>
+				{{/if}}
+				{{/methods}}
+			</ul>
+		</li>
+		{{/hasInstanceMethods}}
+
+		{{#if properties}}
+		<li>
+			<h2>Properties</h2>
+			<ul>
+				{{#properties}}
+				<li><a href="#prop-{{name}}"><span class="ip">{{name}}</span></a></li>
+				{{/properties}}
+			</ul>
+		</li>
+		{{/if}}
+
+		{{#if attrs}}
+		<li>
+			<h2>Attributes</h2>
+			<ul>
+				{{#attrs}}
+				<li><a href="#attr-{{name}}"><span class="iattr">{{name}}</span></a></li>
+				{{/attrs}}
+			</ul>
+		</li>
+		{{/if}}
+
+		{{#hasStaticMethods methods}}
+		<li>
+			<h2>Static Methods</h2>
+			<ul>
+				{{#methods}}
+				{{#if static}}
+				<li><a href="#method-{{name}}"><span class="im">{{class}}.{{name}}</span></a></li>
+				{{/if}}
+				{{/methods}}
+			</ul>
+		</li>
+		{{/hasStaticMethods}}
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+			{{/if}}
