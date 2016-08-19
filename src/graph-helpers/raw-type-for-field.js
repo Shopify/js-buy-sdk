@@ -1,4 +1,5 @@
 import graphSchema from 'graph/schema';
+import assign from '../metal/assign';
 
 function findInFields(property, type) {
   const propertyDescriptor = type.fields[property];
@@ -32,7 +33,7 @@ function findInRelationships(property, type) {
   if (propertyDescriptor) {
     const propertyType = graphSchema[propertyDescriptor.schemaModule];
 
-    return Object.assign({ isList: propertyDescriptor.isList }, propertyType);
+    return assign({ isList: propertyDescriptor.isList }, propertyType);
   }
 
   return null;

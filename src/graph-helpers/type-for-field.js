@@ -1,4 +1,5 @@
 import rawTypeForField from './raw-type-for-field';
+import assign from '../metal/assign';
 
 export default function typeForField(/* field, typeModuleName */) {
   const rawType = rawTypeForField(...arguments);
@@ -7,7 +8,7 @@ export default function typeForField(/* field, typeModuleName */) {
     const edgeType = rawTypeForField('edges', rawType.moduleName);
     const nodeType = rawTypeForField('node', edgeType.moduleName);
 
-    return Object.assign(nodeType, { isList: edgeType.isList });
+    return assign(nodeType, { isList: edgeType.isList });
   }
 
   return rawType;
