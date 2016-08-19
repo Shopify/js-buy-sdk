@@ -1,3 +1,27 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependencies
+node_modules
+selenium-standalone.jar
+
+# Intermediate files
+tmp
+
+# Build artifacts
+dist
+.dist-test
+tests.xml
+WDIO.*.xml
+lib
+
+# Decrypted secrets
+config/secrets.json
+_site
+.nvmrc
+
 docs/_site
 docs/.sass-cache
 docs/.jekyll-metadata
