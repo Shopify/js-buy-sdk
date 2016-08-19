@@ -21,3 +21,6 @@ tests.xml
 config/secrets.json
 _site
 .nvmrc
+
+# Docs
+docs
