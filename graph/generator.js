@@ -109,6 +109,7 @@ function extractTypeData(types) {
 
     return {
       name: type.name,
+      moduleName: dasherize(type.name),
       isBuiltin: isBuiltin(type.name),
       fields: fields.map(transformField).reduce(objectifyField, {}),
       fieldsWithArgs: fieldsWithArgs.map(transformFieldWithArgs).reduce(objectifyField, {}),
