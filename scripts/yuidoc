@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -x
+
+export PATH=$(npm bin):$PATH
+
+git checkout --work-tree=./docs master -- src
+
+yuidoc -t ./docs/yuidoc/theme
+
+rm -rf ./docs/src
+
+git reset -- docs/src
+
+for file in $(find docs/api -name '*.html'); do
+  echo "---\nlayout: api\n---\n\n\n$(cat $file)" > $file
+done
