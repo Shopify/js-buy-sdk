@@ -65,6 +65,7 @@
     "wdio-mocha-framework": "^0.3.1",
     "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
-    "yuidocjs": "0.10.0"
+    "yuidocjs": "0.10.0",
+    "yuidoc-lucid-theme": "0.1.2"
   }
 }

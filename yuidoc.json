@@ -3,11 +3,13 @@
   "version": "0.0.1",
   "options": {
     "linkNatives": true,
-    "paths": "./src",
-    "outdir": "./doc",
+    "paths": "./docs/src",
+    "outdir": "./docs/api",
+    "themedir": "./docs/yuidoc/theme",
     "ignorePaths": [
       "node_modules",
       "tests"
     ]
-  }
+  },
+  "helpers" : ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
 }

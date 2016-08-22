@@ -4,9 +4,9 @@ set -x
 
 export PATH=$(npm bin):$PATH
 
-git checkout --work-tree=./docs master -- src
+git --work-tree=./docs checkout master -- src
 
-yuidoc -t ./docs/yuidoc/theme
+yuidoc
 
 rm -rf ./docs/src
 
