@@ -1,0 +1,27 @@
+# In order to test all node versions, Set up circle with a parallelism value of 5
+
+machine:
+  node:
+    version: v5.5.0
+  environment:
+    NODE_012_VERSION: v0.12.0
+    NODE_4_VERSION: v4.2.2
+    NODE_5_VERSION: v5.5.0
+    PHANTOMJS_VERSION: 2.0.0
+
+dependencies:
+  cache_directories:
+      - "node_modules_0"
+      - "node_modules_1"
+      - "node_modules_2"
+      - "node_modules_3"
+  pre:
+    - ./ci/setup-node:
+        parallel: true
+  override:
+    - ./ci/deps:
+        parallel: true
+test:
+  override:
+    - ./ci/test:
+        parallel: true
