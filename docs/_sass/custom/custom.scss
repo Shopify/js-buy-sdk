@@ -73,8 +73,10 @@ kbd,
 samp,
 pre,
 pre.code,
-pre.prettyprint {
-  font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;;
+pre.prettyprint,
+.pln {
+  font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+  font-size: 13px;
   color: $docs--code;
 }
 
