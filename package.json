@@ -66,6 +66,6 @@
     "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
     "yuidocjs": "0.10.0",
-    "yuidoc-lucid-theme": "0.1.2"
+    "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#js-buy-sdk"
   }
 }
