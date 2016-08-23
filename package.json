@@ -6,9 +6,9 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "node ./scripts/build",
-    "build-yuidoc": "./scripts/yuidoc",
     "prepublish": "node ./scripts/prepublish",
-    "doc-server": "yuidoc --server 5000",
+    "doc-build": "./scripts/yuidoc",
+    "doc-serve": "jekyll serve -s docs",
     "start": "broccoli serve",
     "examples": "env EXAMPLES=1 broccoli serve",
     "test": "node ./scripts/test",
