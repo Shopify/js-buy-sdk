@@ -5,7 +5,7 @@
     "linkNatives": true,
     "paths": "./docs/src",
     "outdir": "./docs/api",
-    "themedir": "./docs/yuidoc/theme",
+    "themedir": "./node_modules/yuidoc-lucid-theme/",
     "ignorePaths": [
       "node_modules",
       "tests"
