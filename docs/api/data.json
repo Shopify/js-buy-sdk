@@ -1,0 +1,1199 @@
+{
+    "project": {
+        "name": "Shopify's JS Buy SDK",
+        "version": "0.0.1",
+        "helpers": [
+            "node_modules/yuidoc-lucid-theme/helpers/helpers.js"
+        ],
+        "description": "Documentation for the Shopify JS Buy SDK"
+    },
+    "files": {
+        "src/models/cart-model.js": {
+            "name": "src/models/cart-model.js",
+            "modules": {},
+            "classes": {
+                "CartModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-model.js": {
+            "name": "src/models/product-model.js",
+            "modules": {},
+            "classes": {
+                "ProductModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-option-model.js": {
+            "name": "src/models/product-option-model.js",
+            "modules": {},
+            "classes": {
+                "Option": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/models/product-variant-model.js": {
+            "name": "src/models/product-variant-model.js",
+            "modules": {},
+            "classes": {
+                "ProductVariantModel": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/config.js": {
+            "name": "src/config.js",
+            "modules": {
+                "config": 1
+            },
+            "classes": {
+                "Config": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/shop-client.js": {
+            "name": "src/shop-client.js",
+            "modules": {
+                "shop-client": 1
+            },
+            "classes": {
+                "ShopClient": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/shopify.js": {
+            "name": "src/shopify.js",
+            "modules": {
+                "shopify": 1
+            },
+            "classes": {
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "shopify-buy": {
+            "name": "shopify-buy",
+            "submodules": {
+                "config": 1,
+                "shop-client": 1,
+                "shopify": 1
+            },
+            "elements": {},
+            "classes": {
+                "CartModel": 1,
+                "ProductModel": 1,
+                "Option": 1,
+                "ProductVariantModel": 1,
+                "Config": 1,
+                "ShopClient": 1,
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "namespaces": {},
+            "file": "src/shopify.js",
+            "line": 11
+        },
+        "config": {
+            "name": "config",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Config": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "shopify-buy",
+            "namespace": "",
+            "file": "src/config.js",
+            "line": 9
+        },
+        "shop-client": {
+            "name": "shop-client",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "ShopClient": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "shopify-buy",
+            "namespace": "",
+            "file": "src/shop-client.js",
+            "line": 38
+        },
+        "shopify": {
+            "name": "shopify",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "ShopifyBuy": 1
+            },
+            "fors": {
+                "ShopifyBuy": 1
+            },
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "shopify-buy",
+            "namespace": "",
+            "file": "src/shopify.js",
+            "line": 11,
+            "description": "This namespace contains all globally accessible classes"
+        }
+    },
+    "classes": {
+        "CartModel": {
+            "name": "CartModel",
+            "shortname": "CartModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/cart-model.js",
+            "line": 24,
+            "description": "Class for cart model",
+            "is_constructor": 1
+        },
+        "ProductModel": {
+            "name": "ProductModel",
+            "shortname": "ProductModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/product-model.js",
+            "line": 7,
+            "description": "Class for products returned by fetch('product')",
+            "is_constructor": 1
+        },
+        "Option": {
+            "name": "Option",
+            "shortname": "Option",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/product-option-model.js",
+            "line": 5,
+            "description": "Class for product option",
+            "is_constructor": 1
+        },
+        "ProductVariantModel": {
+            "name": "ProductVariantModel",
+            "shortname": "ProductVariantModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "src/models/product-variant-model.js",
+            "line": 4,
+            "description": "Model for product variant",
+            "is_constructor": 1
+        },
+        "Config": {
+            "name": "Config",
+            "shortname": "Config",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "submodule": "config",
+            "namespace": "",
+            "file": "src/config.js",
+            "line": 9,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "An object of required config data.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "apiKey",
+                            "description": "Your api client's public token",
+                            "type": "String"
+                        },
+                        {
+                            "name": "appId",
+                            "description": "The app whose listings the client will be\nusing. If you are just modifying a buy button, the buy-button's app id is\n6. Otherwise, obtain the app id of the app you're modifying or extending.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "myShopifyDomain",
+                            "description": "You shop's `myshopify.com` domain.",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ]
+        },
+        "ShopClient": {
+            "name": "ShopClient",
+            "shortname": "ShopClient",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "submodule": "shop-client",
+            "namespace": "",
+            "file": "src/shop-client.js",
+            "line": 38,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "config",
+                    "description": "Config data to be used throughout all API\ninteraction",
+                    "type": "Config",
+                    "optional": true
+                }
+            ]
+        },
+        "ShopifyBuy": {
+            "name": "ShopifyBuy",
+            "shortname": "ShopifyBuy",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "submodule": "shopify",
+            "namespace": "",
+            "file": "src/shopify.js",
+            "line": 11,
+            "description": "This namespace contains all globally accessible classes",
+            "static": 1
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "src/models/cart-model.js",
+            "line": 33,
+            "description": "get ID for current cart",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 42,
+            "description": "Get current line items for cart",
+            "itemtype": "property",
+            "name": "lineItems",
+            "type": "{Array}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 51,
+            "description": "Get current subtotal price for all line items",
+            "itemtype": "property",
+            "name": "subtotal",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 64,
+            "description": "Get checkout URL for current cart",
+            "itemtype": "property",
+            "name": "checkoutUrl",
+            "type": "{String}",
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 82,
+            "description": "Add items to cart. Updates cart's `lineItems`\n```javascript\ncart.addVariants({variant: variantObject, quantity: 1}).then(cart => {\n  // do things with the updated cart.\n});\n```",
+            "itemtype": "method",
+            "name": "addVariants",
+            "params": [
+                {
+                    "name": "item",
+                    "description": "- One or more variants",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "variant",
+                            "description": "- variant object",
+                            "type": "Object"
+                        },
+                        {
+                            "name": "quantity",
+                            "description": "- quantity",
+                            "type": "Number"
+                        }
+                    ]
+                },
+                {
+                    "name": "nextItem...",
+                    "description": "- further lineItems may be passed",
+                    "type": "Object",
+                    "optional": true
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 154,
+            "description": "Update line item quantity\n```javascript\ncart.updateLineItem(123, 2}).then(cart => {\n  // do things with the updated cart.\n});\n```",
+            "itemtype": "method",
+            "name": "updateLineItem",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- line item ID",
+                    "type": "Number"
+                },
+                {
+                    "name": "quantity",
+                    "description": "- new quantity for line item",
+                    "type": "Number"
+                }
+            ],
+            "throws": {
+                "description": "if line item with ID is not in cart.",
+                "type": "Error"
+            },
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 188,
+            "description": "Remove line item from cart",
+            "itemtype": "method",
+            "name": "removeLineItem",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "- line item ID",
+                    "type": "Number"
+                }
+            ],
+            "throws": {
+                "description": "if line item with ID is not in cart.",
+                "type": "Error"
+            },
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 214,
+            "description": "Remove all line items from cart",
+            "itemtype": "method",
+            "name": "clearLineItems",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/cart-model.js",
+            "line": 226,
+            "description": "force update of cart model on server",
+            "itemtype": "method",
+            "name": "updateModel",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance",
+                "type": "Promise|CartModel"
+            },
+            "class": "CartModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 17,
+            "description": "Product unique ID",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 26,
+            "description": "Product title",
+            "itemtype": "property",
+            "name": "title",
+            "type": "{String}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 35,
+            "description": "All images associated with product.",
+            "itemtype": "property",
+            "name": "images",
+            "type": "{Array} array of image objects.",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 50,
+            "description": "Get array of options with nested values. Useful for creating UI for selecting options.\n\n ```javascript\nvar elements = product.options.map(function(option) {\n  return '<select name=\"' + option.name + '\">' + option.values.map(function(value) {\n    return '<option value=\"' + value + '\">' + value + '</option>';\n  }) + '</select>';\n});\n ```",
+            "itemtype": "attribute",
+            "name": "options",
+            "type": "{Array|Option}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 93,
+            "description": "All variants of a product.",
+            "itemtype": "property",
+            "name": "variants",
+            "type": "{Array|ProductVariantModel} array of ProductVariantModel instances.",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 104,
+            "description": "Retrieve currently selected option values.",
+            "itemtype": "attribute",
+            "name": "selections",
+            "type": "{Option}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 115,
+            "description": "Retrieve variant for currently selected options",
+            "itemtype": "attribute",
+            "name": "selectedVariant",
+            "type": "{Object}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-model.js",
+            "line": 128,
+            "description": "Retrieve image for currently selected variantImage",
+            "itemtype": "attribute",
+            "name": "selectedVariantImage",
+            "type": "{Object}",
+            "class": "ProductModel"
+        },
+        {
+            "file": "src/models/product-option-model.js",
+            "line": 17,
+            "description": "name of option (ex. \"Size\", \"Color\")",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-option-model.js",
+            "line": 26,
+            "description": "possible values for selection",
+            "itemtype": "property",
+            "name": "values",
+            "type": "Array",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-option-model.js",
+            "line": 35,
+            "description": "get/set selected option value (ex. \"Large\"). Setting this will update the\nselected value on the model. Throws {Error} if setting selected to value that does not exist for option",
+            "itemtype": "property",
+            "name": "selected",
+            "type": "String",
+            "class": "Option"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 14,
+            "description": "Variant unique ID",
+            "itemtype": "property",
+            "name": "id",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 23,
+            "description": "ID of product variant belongs to",
+            "itemtype": "property",
+            "name": "productId",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 32,
+            "description": "Title of variant",
+            "itemtype": "property",
+            "name": "title",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 41,
+            "description": "Title of product variant belongs to",
+            "itemtype": "property",
+            "name": "productTitle",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 50,
+            "description": "<a href=\"https://docs.shopify.com/manual/products/promoting-marketing/sales\">\nCompare at</a> price for variant formatted as currency.",
+            "itemtype": "property",
+            "name": "compareAtPrice",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 61,
+            "description": "Price of variant, formatted as currency",
+            "itemtype": "property",
+            "name": "price",
+            "type": "{String}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 70,
+            "description": "Variant weight in grams",
+            "itemtype": "property",
+            "name": "grams",
+            "type": "{Number}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 79,
+            "description": "Option values associated with this variant, ex {name: \"color\", value: \"Blue\"}",
+            "itemtype": "property",
+            "name": "optionValues",
+            "type": "{Array|Object}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 88,
+            "description": "Image for variant",
+            "itemtype": "property",
+            "name": "image",
+            "type": "{Object}",
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/models/product-variant-model.js",
+            "line": 105,
+            "description": "Checkout URL for purchasing variant with quantity.",
+            "itemtype": "method",
+            "name": "checkoutUrl",
+            "params": [
+                {
+                    "name": "quantity ",
+                    "description": "quantity of variant",
+                    "type": "Number",
+                    "optional": true,
+                    "optdefault": " 1"
+                }
+            ],
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "Checkout URL",
+                "type": "String"
+            },
+            "class": "ProductVariantModel"
+        },
+        {
+            "file": "src/config.js",
+            "line": 29,
+            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
+            "itemtype": "attribute",
+            "name": "requiredProperties",
+            "default": "['apiKey', 'appId', 'myShopifyDomain']",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Config",
+            "module": "shopify-buy",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 44,
+            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
+            "itemtype": "attribute",
+            "name": "apiKey",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "shopify-buy",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 54,
+            "itemtype": "attribute",
+            "name": "appId",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "shopify-buy",
+            "submodule": "config"
+        },
+        {
+            "file": "src/config.js",
+            "line": 62,
+            "itemtype": "attribute",
+            "name": "myShopifyDomain",
+            "default": "''",
+            "type": "String",
+            "access": "public",
+            "tagname": "",
+            "class": "Config",
+            "module": "shopify-buy",
+            "submodule": "config"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 62,
+            "itemtype": "attribute",
+            "name": "",
+            "default": "{\n products: ListingsAdapter,\n collections: ListingsAdapter,\n carts: CartAdapter\n}",
+            "type": "Object",
+            "access": "protected",
+            "tagname": "",
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 89,
+            "description": "Fetch all of a `type`, returning a promise.\n\n```javascript\nclient.fetchAll('products').then(products => {\n  // do things with products\n});\n```",
+            "itemtype": "method",
+            "name": "fetchAll",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with an array of `type`",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 111,
+            "description": "Fetch one of a `type`, returning a promise.\n\n```javascript\nclient.fetch('products', 123).then(product => {\n  // do things with the product\n});\n```",
+            "itemtype": "method",
+            "name": "fetch",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type` expressed as a `BaseModel`.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 135,
+            "description": "Fetch many of a `type`, that match `query`\n\n```javascript\nclient.fetchQuery('products', { collection_id: 456 }).then(products => {\n  // do things with the products\n});\n```",
+            "itemtype": "method",
+            "name": "fetchQuery",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with an array of `type`.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 158,
+            "description": "Create an instance of `type`, optionally including `modelAttrs`.\n\n```javascript\nclient.create('carts', { line_items: [ ... ] }).then(cart => {\n  // do things with the cart.\n});\n```",
+            "itemtype": "method",
+            "name": "create",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "modelAttrs",
+                    "description": "attributes representing the internal state\nof the model to be persisted.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type`",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 187,
+            "description": "Create an instance of `type`, optionally including `attrs`.\n\n```javascript\nclient.create('carts', { line_items: [ ... ] }).then(cart => {\n  // do things with the cart.\n});\n```",
+            "itemtype": "method",
+            "name": "update",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "updatedModel",
+                    "description": "The model that represents new state to\nto persist.",
+                    "type": "BaseModel"
+                }
+            ],
+            "return": {
+                "description": "a promise resolving with a single instance of\n`type`",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 215,
+            "description": "Proxy to serializer's deserialize.",
+            "itemtype": "method",
+            "name": "deserialize",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "The pluralized name of the type, in lower case.",
+                    "type": "String"
+                },
+                {
+                    "name": "payload",
+                    "description": "The raw payload returned by the adapter.",
+                    "type": "Object"
+                },
+                {
+                    "name": "adapter",
+                    "description": "The adapter that yielded the payload.",
+                    "type": "BaseAdapter"
+                },
+                {
+                    "name": "existingSerializer",
+                    "description": "The serializer to attach. If\nnone is passed, then `this.deserialize` will create one for the type.",
+                    "type": "BaseSerializer"
+                },
+                {
+                    "name": "opts",
+                    "description": "Options that determine which deserialization method to\nuse.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "multiple",
+                            "description": "true when the payload represents multiple\nmodels",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "single",
+                            "description": "true when the payload represents one model.",
+                            "type": "Boolean"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "an instance of `type` reified into a model.",
+                "type": "BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 246,
+            "description": "Creates a {{#crossLink \"CartModel\"}}CartModel{{/crossLink}} instance, optionally including `attrs`.\n\n```javascript\nclient.createCart().then(cart => {\n  // do something with cart\n});\n```",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "attributes representing the internal state of the cart to be persisted to localStorage.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "itemtype": "method",
+            "name": "createCart",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- new cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 272,
+            "description": "Updates an existing {{#crossLink \"CartModel\"}}CartModel{{/crossLink}} instance and persists it to localStorage.\n\n```javascript\nclient.createCart().then(cart => {\n  cart.lineItems = [\n    // ...\n  ];\n  client.updateCart(cart);\n});\n```",
+            "params": [
+                {
+                    "name": "attrs",
+                    "description": "attributes representing the internal state of the cart to be persisted to localStorage.",
+                    "type": "Object",
+                    "optional": true,
+                    "optdefault": "{}"
+                }
+            ],
+            "itemtype": "method",
+            "name": "updateCart",
+            "access": "public",
+            "tagname": "",
+            "return": {
+                "description": "- updated cart instance.",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 293,
+            "description": "Retrieve a previously created cart by its key.\n\n```javascript\nclient.fetchCart('shopify-buy.1459804699118.2').then(cart => {\n  console.log(cart); // The retrieved cart\n});",
+            "itemtype": "method",
+            "name": "fetchCart",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The cart's unique identifier",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The cart model.",
+                "type": "Promise|CartModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 309,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('products');\n```",
+            "itemtype": "method",
+            "name": "fetchAllProducts",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "The product models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 323,
+            "description": "Convenience wrapper for {{#crossLink \"ShopClient/fetchAll:method\"}}\n{{/crossLink}}. Equivalent to:\n\n```javascript\nclient.fetchAll('collections');\n```",
+            "itemtype": "method",
+            "name": "fetchAllCollections",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "The collection models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 337,
+            "description": "Fetch one product by its ID.\n\n```javascript\nclient.fetchProduct(123).then(product => {\n  console.log(product); // The product with an ID of 123\n});\n```",
+            "itemtype": "method",
+            "name": "fetchProduct",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "The product model with the specified ID.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 353,
+            "description": "Fetch one collection by its ID.\n\n```javascript\nclient.fetchCollection(123).then(collection => {\n  console.log(collection); // The collection with an ID of 123\n});\n```",
+            "itemtype": "method",
+            "name": "fetchCollection",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "a unique identifier",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "The collection model with the specified ID.",
+                "type": "Promise|BaseModel"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 369,
+            "description": "Fetches a list of products matching a specified query.\n\n```javascript\nclient.fetchQueryProducts({ collection_id: 123}).then(products => {\n  console.log(products); // An array of products in collection 123\n});\n```",
+            "itemtype": "method",
+            "name": "fetchQueryProducts",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server containing one or more of:",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "collection_id",
+                            "description": "the ID of a collection to retrieve products from",
+                            "type": "String|Number",
+                            "optional": true
+                        },
+                        {
+                            "name": "product_ids",
+                            "description": "a list of product IDs to retrieve",
+                            "type": "Array",
+                            "optional": true
+                        },
+                        {
+                            "name": "page",
+                            "description": "the page offset number of the current lookup (based on the `limit`)",
+                            "type": "String|Number",
+                            "optional": true,
+                            "optdefault": "1"
+                        },
+                        {
+                            "name": "limit",
+                            "description": "the number of products to retrieve per page",
+                            "type": "String|Number",
+                            "optional": true,
+                            "optdefault": "50"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "The product models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shop-client.js",
+            "line": 388,
+            "description": "Fetches a list of collections matching a specified query.\n\n```javascript\nclient.fetchQueryCollections({page: 2, limit: 20}).then(collections => {\n  console.log(collections); // An array of collection resources\n});\n```",
+            "itemtype": "method",
+            "name": "fetchQueryCollections",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "a query sent to the api server.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "page",
+                            "description": "the page offset number of the current lookup (based on the `limit`)",
+                            "type": "String|Number",
+                            "optional": true,
+                            "optdefault": "1"
+                        },
+                        {
+                            "name": "limit",
+                            "description": "the number of collections to retrieve per page",
+                            "type": "String|Number",
+                            "optional": true,
+                            "optdefault": "50"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "The collection models.",
+                "type": "Promise|Array"
+            },
+            "class": "ShopClient",
+            "module": "shopify-buy",
+            "submodule": "shop-client"
+        },
+        {
+            "file": "src/shopify.js",
+            "line": 20,
+            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  apiKey: 'abc123',\n  appId: 123456,\n  myShopifyDomain: 'myshop'\n});\n```",
+            "itemtype": "method",
+            "name": "buildClient",
+            "static": 1,
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "configAttrs",
+                    "description": "An object of required config data.",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "apiKey",
+                            "description": "Your api client's public token.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "appId",
+                            "description": "The app whose listings the client will be\nusing. If you are just modifying a buy button, the buy-button's app id is\n6. Otherwise, obtain the app id of the app you're modifying or extending.",
+                            "type": "String"
+                        },
+                        {
+                            "name": "myShopifyDomain",
+                            "description": "You shop's `myshopify.com`\ndomain.",
+                            "type": "String"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "a client for the shop using your api credentials.",
+                "type": "ShopClient"
+            },
+            "class": "ShopifyBuy",
+            "module": "shopify-buy",
+            "submodule": "shopify"
+        }
+    ],
+    "warnings": []
+}

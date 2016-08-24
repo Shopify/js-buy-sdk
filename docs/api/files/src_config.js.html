@@ -1,0 +1,175 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>src/config.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import CoreObject from &#x27;./metal/core-object&#x27;;
+
+/**
+ * @module shopify-buy
+ * @submodule config
+ */
+
+const Config = CoreObject.extend({
+  /**
+   * @class Config
+   * @constructor
+   * @param {Object} attrs An object of required config data.
+   * @param {String} attrs.apiKey Your api client&#x27;s public token
+   * @param {String} attrs.appId The app whose listings the client will be
+   * using. If you are just modifying a buy button, the buy-button&#x27;s app id is
+   * 6. Otherwise, obtain the app id of the app you&#x27;re modifying or extending.
+   * @param {String} attrs.myShopifyDomain You shop&#x27;s &#x60;myshopify.com&#x60; domain.
+   */
+  constructor(attrs) {
+    this.requiredProperties.forEach(key =&gt; {
+      if (!attrs.hasOwnProperty(key)) {
+        throw new Error(&#x60;new Config() requires the option &#x27;${key}&#x27;&#x60;);
+      } else {
+        this[key] = attrs[key];
+      }
+    });
+  },
+
+  /**
+   * The apiKey for authenticating against shopify. This is your api client&#x27;s
+   * public api token. Not the shared secret. Set during initialation.
+   * @attribute requiredProperties
+   * @default [&#x27;apiKey&#x27;, &#x27;appId&#x27;, &#x27;myShopifyDomain&#x27;]
+   * @type Array
+   * @private
+   */
+  requiredProperties: [
+    &#x27;apiKey&#x27;,
+    &#x27;appId&#x27;,
+    &#x27;myShopifyDomain&#x27;
+  ],
+
+
+  /**
+   * The apiKey for authenticating against shopify. This is your api client&#x27;s
+   * public api token. Not the shared secret. Set during initialation.
+   * @attribute apiKey
+   * @default &#x27;&#x27;
+   * @type String
+   * @public
+   */
+  apiKey: &#x27;&#x27;,
+
+  /**
+   * @attribute appId
+   * @default &#x27;&#x27;
+   * @type String
+   * @public
+   */
+  appId: &#x27;&#x27;,
+
+  /**
+   * @attribute myShopifyDomain
+   * @default &#x27;&#x27;
+   * @type String
+   * @public
+   */
+  myShopifyDomain: &#x27;&#x27;
+});
+
+export default Config;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>

@@ -1,0 +1,38 @@
+<div class="docs-title heading--1"><a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a></div>
+<ul class="docs-nav">
+  <li>
+    <a class="docs-nav__link {% if page.url == '/' %}active{% endif %}" href="{{ '/' | prepend: site.baseurl }}">Getting started</a>
+  </li>
+  <li>
+    <a class="docs-nav__link {% if page.url == '/guide/' %}active{% endif %}" href="{{ '/guide' | prepend: site.baseurl }}">Guide</a>
+  </li>
+  <li class="nav-item--reference">
+    <a class="docs-nav__link {% if page.url contains '/api/' %}active{% endif %}" href="{{ '/api/classes/ShopifyBuy.html' | prepend: site.baseurl }}">Reference</a>
+  </li>
+  <li>
+    <a class="docs-nav__link {% if page.url == '/examples/' %}active{% endif %}" href="{{ '/examples' | prepend: site.baseurl }}">Examples</a>
+    <ul class="docs-sub-nav">
+      <li>
+        <a href="{{ '/examples/#product-checkout' | prepend: site.baseurl }}" class="docs-sub-nav__link" id="product-checkout-link">Product Checkout</a>
+      </li>
+      <li>
+        <a href="{{ '/examples/#product-add-to-cart' | prepend: site.baseurl }}" class="docs-sub-nav__link" id="product-add-to-cart-link">Product Add-To-Cart</a>
+      </li>
+      <li>
+        <a href="{{ '/examples/#showhide-cart' | prepend: site.baseurl }}" class="docs-sub-nav__link" id="showhide-cart-link">Show/Hide Cart</a>
+      </li>
+      <li>
+        <a href="https://github.com/Shopify/js-buy-sdk/tree/master/examples/cart" class="docs-sub-nav__link" id="showhide-cart-link" target="_blank">Cart example in Github</a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a href="{{ '/downloads' | prepend: site.baseurl }}" class="docs-nav__link {% if page.url == '/downloads/' %}active{% endif %}">Downloads</a>
+  </li>
+</ul>
+<div class="docs-shopify-logo">
+  <a href="https://docs.shopify.com/api/sdks/js-buy-sdk">
+    <img src="{{ "/assets/images/shopify-logo-large.png" | prepend: site.baseurl }}" alt="Shopify" />
+  </a>
+  <p><a href="mailto:buybutton@shopify.com">Provide feedback</a></p>
+</div>

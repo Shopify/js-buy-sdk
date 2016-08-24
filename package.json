@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node ./scripts/build",
     "prepublish": "node ./scripts/prepublish",
-    "doc-server": "yuidoc --server 5000",
+    "doc-build": "./scripts/yuidoc",
+    "doc-serve": "jekyll serve -s docs",
     "start": "broccoli serve",
     "examples": "env EXAMPLES=1 broccoli serve",
     "test": "node ./scripts/test",
@@ -64,6 +65,7 @@
     "wdio-mocha-framework": "^0.3.1",
     "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
-    "yuidocjs": "0.10.0"
+    "yuidocjs": "0.10.0",
+    "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#master"
   }
 }

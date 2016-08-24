@@ -1,0 +1,14 @@
+# Site settings
+title:  JavaScript Buy SDK
+email: buybutton@shopify.com
+description: > # this means to ignore newlines until "baseurl:"
+  The Shopify JavaScript Buy SDK is a lightweight library that allows you to build ecommerce
+  into any website. It is based on Shopify's API and provides the ability to work with products,
+  collections, carts and checkouts from anywhere.
+baseurl: "/js-buy-sdk"
+url: "https://shopify.github.io"
+sass:
+  cache: true
+
+# Build settings
+markdown: kramdown

@@ -1,0 +1,242 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>src/models/product-model.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import BaseModel from &#x27;./base-model&#x27;;
+import ProductOptionModel from &#x27;./product-option-model&#x27;;
+import ProductVariantModel from &#x27;./product-variant-model&#x27;;
+import uniq from &#x27;../metal/uniq&#x27;;
+
+
+/**
+   * Class for products returned by fetch(&#x27;product&#x27;)
+   * @class ProductModel
+   * @constructor
+ */
+const ProductModel = BaseModel.extend({
+  constructor() {
+    this.super(...arguments);
+  },
+
+  /**
+    * Product unique ID
+    * @property id
+    * @type {String}
+  */
+  get id() {
+    return this.attrs.product_id;
+  },
+
+  /**
+    * Product title
+    * @property title
+    * @type {String}
+  */
+  get title() {
+    return this.attrs.title;
+  },
+
+  /**
+    * All images associated with product.
+    * @property images
+    * @type {Array} array of image objects.
+  */
+  get images() {
+    return this.attrs.images;
+  },
+
+  get memoized() {
+    this._memoized = this._memoized || {};
+
+    return this._memoized;
+  },
+
+  /**
+     *  Get array of options with nested values. Useful for creating UI for selecting options.
+     *
+     * &#x60;&#x60;&#x60;javascript
+     *  var elements = product.options.map(function(option) {
+     *    return &#x27;&lt;select name=&quot;&#x27; + option.name + &#x27;&quot;&gt;&#x27; + option.values.map(function(value) {
+     *      return &#x27;&lt;option value=&quot;&#x27; + value + &#x27;&quot;&gt;&#x27; + value + &#x27;&lt;/option&gt;&#x27;;
+     *    }) + &#x27;&lt;/select&gt;&#x27;;
+     *  });
+     * &#x60;&#x60;&#x60;
+     *
+     * @attribute options
+     * @type {Array|Option}
+   */
+  get options() {
+    if (this.memoized.options) {
+      return this.memoized.options;
+    }
+
+    const baseOptions = this.attrs.options;
+    const variants = this.variants;
+
+    this.memoized.options = baseOptions.map(option =&gt; {
+      const name = option.name;
+
+      const dupedValues = variants.reduce((valueList, variant) =&gt; {
+        const optionValueForOption = variant.optionValues.filter(optionValue =&gt; {
+          return optionValue.name === option.name;
+        })[0];
+
+        valueList.push(optionValueForOption.value);
+
+        return valueList;
+      }, []);
+
+      const values = uniq(dupedValues);
+
+      return new ProductOptionModel({ name, values });
+    });
+
+    return this.memoized.options;
+  },
+
+  /**
+    * All variants of a product.
+    * @property variants
+    * @type {Array|ProductVariantModel} array of ProductVariantModel instances.
+  */
+  get variants() {
+    return this.attrs.variants.map(variant =&gt; {
+      return new ProductVariantModel({ variant, product: this }, { config: this.config });
+    });
+  },
+
+  /**
+    * Retrieve currently selected option values.
+    * @attribute selections
+    * @type {Option}
+  */
+  get selections() {
+    return this.options.map(option =&gt; {
+      return option.selected;
+    });
+  },
+
+  /**
+    * Retrieve variant for currently selected options
+    * @attribute selectedVariant
+    * @type {Object}
+  */
+  get selectedVariant() {
+    const variantTitle = this.selections.join(&#x27; / &#x27;);
+
+    return this.variants.filter(variant =&gt; {
+      return variant.title === variantTitle;
+    })[0];
+  },
+
+  /**
+    * Retrieve image for currently selected variantImage
+    * @attribute selectedVariantImage
+    * @type {Object}
+  */
+  get selectedVariantImage() {
+    return this.selectedVariant.image;
+  }
+});
+
+export default ProductModel;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>

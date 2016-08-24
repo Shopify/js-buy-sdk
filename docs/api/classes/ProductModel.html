@@ -1,0 +1,401 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>ProductModel</h1>
+</div>
+
+
+
+	<div class="well well-small">
+            Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
+    </div>
+
+
+
+<div class="yuidoc-class-description">
+<p>Class for products returned by fetch('product')</p>
+
+</div>
+
+
+<!-- details -->
+
+    <div class="constructor yuidoc-class-constructor page-section">
+        <h2>Constructor</h2>
+        <div class="item-list">
+<div id="method-ProductModel" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>ProductModel</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/models/product-model.js#L7"><code>src&#x2F;models&#x2F;product-model.js:7</code></a>
+		</p>
+
+
+
+	</div>
+
+
+
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="properties" class="page-section">
+        <h2 class="off-left">Properties</h2>
+
+        <div class="item-list">
+<div id="prop-id" class="property item">
+    <h3 class="name"><code>id</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l17"><code>src&#x2F;models&#x2F;product-model.js:17</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Product unique ID</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-images" class="property item">
+    <h3 class="name"><code>images</code></h3>
+    <span class="type">Array array of image objects.</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l35"><code>src&#x2F;models&#x2F;product-model.js:35</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>All images associated with product.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-title" class="property item">
+    <h3 class="name"><code>title</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l26"><code>src&#x2F;models&#x2F;product-model.js:26</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Product title</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-variants" class="property item">
+    <h3 class="name"><code>variants</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | ProductVariantModel array of ProductVariantModel instances.</span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l93"><code>src&#x2F;models&#x2F;product-model.js:93</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>All variants of a product.</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+    <div id="attrs" class="page-section">
+        <h2 class="off-left">Attributes</h2>
+
+<div id="attr-options" class="attr item">
+    <a name="config_options"></a> 
+    <h3 class="name"><code>options</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/Option.html" class="crosslink">Option</a></span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l50"><code>src&#x2F;models&#x2F;product-model.js:50</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Get array of options with nested values. Useful for creating UI for selecting options.</p>
+<pre class="code prettyprint"><code class="language-javascript">var elements = product.options.map(function(option) {
+ return '&lt;select name="' + option.name + '"&gt;' + option.values.map(function(value) {
+   return '&lt;option value="' + value + '"&gt;' + value + '&lt;/option&gt;';
+ }) + '&lt;/select&gt;';
+});
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="attr-selectedVariant" class="attr item">
+    <a name="config_selectedVariant"></a> 
+    <h3 class="name"><code>selectedVariant</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l115"><code>src&#x2F;models&#x2F;product-model.js:115</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Retrieve variant for currently selected options</p>
+
+    </div>
+
+
+
+</div>
+<div id="attr-selectedVariantImage" class="attr item">
+    <a name="config_selectedVariantImage"></a> 
+    <h3 class="name"><code>selectedVariantImage</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l128"><code>src&#x2F;models&#x2F;product-model.js:128</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Retrieve image for currently selected variantImage</p>
+
+    </div>
+
+
+
+</div>
+<div id="attr-selections" class="attr item">
+    <a name="config_selections"></a> 
+    <h3 class="name"><code>selections</code></h3>
+    <span class="type"><a href="../classes/Option.html" class="crosslink">Option</a></span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_models_product-model.js.html#l104"><code>src&#x2F;models&#x2F;product-model.js:104</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Retrieve currently selected option values.</p>
+
+    </div>
+
+
+
+</div>
+    </div>
+
+
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+		<li>
+			<h2>Properties</h2>
+			<ul>
+				<li><a href="#prop-id"><span class="ip">id</span></a></li>
+				<li><a href="#prop-images"><span class="ip">images</span></a></li>
+				<li><a href="#prop-title"><span class="ip">title</span></a></li>
+				<li><a href="#prop-variants"><span class="ip">variants</span></a></li>
+			</ul>
+		</li>
+
+		<li>
+			<h2>Attributes</h2>
+			<ul>
+				<li><a href="#attr-options"><span class="iattr">options</span></a></li>
+				<li><a href="#attr-selectedVariant"><span class="iattr">selectedVariant</span></a></li>
+				<li><a href="#attr-selectedVariantImage"><span class="iattr">selectedVariantImage</span></a></li>
+				<li><a href="#attr-selections"><span class="iattr">selections</span></a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>
