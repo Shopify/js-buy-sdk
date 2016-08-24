@@ -6,6 +6,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "build": "node ./scripts/build",
+    "build-doc": "node ./scripts/build-doc",
     "prepublish": "node ./scripts/prepublish",
     "doc-build": "./scripts/yuidoc",
     "doc-serve": "jekyll serve -s docs",
@@ -44,6 +45,7 @@
     "broccoli-static-compiler": "0.2.2",
     "broccoli-uglify-js": "0.1.3",
     "broccoli-uglify-sourcemap": "1.1.1",
+    "commander": "2.9.0",
     "escope": "3.3.0",
     "eslint-config-nightmare-mode": "2.3.0",
     "estraverse-fb": "1.3.1",
