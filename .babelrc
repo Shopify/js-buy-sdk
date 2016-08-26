@@ -1,4 +1,7 @@
 { 
+  "plugins": [
+    "add-shopify-header"
+  ],
   "env": {
     "commonjs": {
       "presets": ["es2015"]
