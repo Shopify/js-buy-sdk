@@ -4,12 +4,13 @@
 require('./util/work-from-root')();
 
 const docBuilder = require('./util/doc-builder');
-const package = require('../package.json');
-const commandLineOptions = require('commander');
+const commandLineOptions = require('commander')
   .option('-r, --references <items>', 'Comma separated list of references', val => val.split(','))
   .parse(process.argv);
 
-let docBuilderOptions = {};
+let docBuilderOptions = {
+	requestedReferenceNames: 'current'
+};
 
 if(commandLineOptions.references) {
   docBuilderOptions.requestedReferenceNames = commandLineOptions.references;

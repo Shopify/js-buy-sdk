@@ -9,10 +9,12 @@
     "paths": "./src",
     "outdir": "./docs/api",
     "themedir": "./node_modules/yuidoc-lucid-theme/",
+    "nocode": true,
+    "quiet": true,
     "ignorePaths": [
       "node_modules",
       "tests"
-    ]
-  },
-  "helpers" : ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
+    ],
+    "helpers" : ["node_modules/yuidoc-lucid-theme/helpers/helpers.js"]
+  }
 }
