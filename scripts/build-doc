@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+"use strict";
+
+require('./util/work-from-root')();
+
+const docBuilder = require('./util/doc-builder');
+const package = require('../package.json');
+const commandLineOptions = require('commander');
+  .option('-r, --references <items>', 'Comma separated list of references', val => val.split(','))
+  .parse(process.argv);
+
+let docBuilderOptions = {};
+
+if(commandLineOptions.references) {
+  docBuilderOptions.requestedReferenceNames = commandLineOptions.references;
+}
+
+console.log('Building ....\n');
+docBuilder(docBuilderOptions).build().then(() => {
+  console.log('\nDone building');
+}).catch(error => {
+  console.error('\nError', error);
+});
