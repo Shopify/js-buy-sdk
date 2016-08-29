@@ -28,7 +28,7 @@ const Shopify = {
    * const client = ShopifyBuy.buildClient({
    *   apiKey: 'abc123',
    *   appId: 123456,
-   *   myShopifyDomain: 'myshop', //Deprecated. Use `domain` instead
+   *   myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use `domain` instead
    *   domain: 'myshop.myshopify.com'
    * });
    * ```
