@@ -1,9 +1,12 @@
 {
   "name": "Shopify's JS Buy SDK",
   "version": "0.0.1",
+  "jekyllFrontMatter": {
+    "layout": "api"
+  },
   "options": {
     "linkNatives": true,
-    "paths": "./docs/src",
+    "paths": "./src",
     "outdir": "./docs/api",
     "themedir": "./node_modules/yuidoc-lucid-theme/",
     "ignorePaths": [
