@@ -43,7 +43,7 @@ const Shopify = {
    * using. If you are just modifying a buy button, the buy-button's app id is 6.
    * Otherwise, obtain the app id of the app you're modifying or extending.
    * @param {String} configAttrs.myShopifyDomain You shop's `myshopify.com` domain.
-   * @deprecated Use configAttrs.domain
+   * [deprecated Use configAttrs.domain]
    * @param {String} configAttrs.domain You shop's full `myshopify.com` domain.
    * @return {ShopClient} a client for the shop using your api credentials.
    */
