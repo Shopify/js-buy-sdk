@@ -46,7 +46,7 @@ begin making requests. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/get
 ```js
 var shopClient = ShopifyBuy.buildClient({
   apiKey: 'your-api-key',
-  myShopifyDomain: 'your-myshopify-domain',
+  domain: 'your-shops-myshopify.com-domain-name',
   appId: '6'
 });
 ```
