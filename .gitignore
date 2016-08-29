@@ -23,7 +23,8 @@ _site
 .nvmrc
 
 # Docs / Jekyll generated files
-docs/src
+docs/api
+!docs/api/current
 _site
 .sass-cache
 .jekyll-metadata
