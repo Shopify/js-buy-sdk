@@ -1,6 +1,6 @@
 {
-  "extends": "nightmare-mode/browser",
-  "parser": 'babel-eslint',
+  "extends": "./node_modules/eslint-config-nightmare-mode/browser.js",
+  "parser": "babel-eslint",
   "rules": {
     "arrow-spacing": [2, { "before": true, "after": true }],
     "camelcase": [2, { "properties": "never" }],

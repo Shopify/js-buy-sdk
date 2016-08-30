@@ -21,3 +21,6 @@ lib
 config/secrets.json
 _site
 .nvmrc
+
+# Junk
+.DS_Store
