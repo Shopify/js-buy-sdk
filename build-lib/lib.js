@@ -67,15 +67,19 @@ module.exports = function (pathConfig, env) {
     destDir: './node-lib'
   });
 
-  if (env.production) {
-    trees.push(uglifyJavaScript(funnel(trees, {
+  let mergedTree;
+
+  if (env == 'production') {
+    mergedTree = uglifyJavaScript(funnel(mergeTrees(trees), {
       getDestinationPath: function (path) {
         return path.replace(/\.js/, '.min.js');
       }
-    })));
+    }));
+  } else {
+    mergedTree = mergeTrees(trees);
   }
 
   return mergeTrees([nodeTree, loaderTree, polyfillTree, new Licenser([
-    new Versioner(trees, { templateString: '{{versionString}}' })
+    new Versioner([ mergedTree ], { templateString: '{{versionString}}' })
   ])]);
 };
