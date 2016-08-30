@@ -57,8 +57,7 @@ function transformRelationship(field) {
     fieldName: field.name,
     isList,
     type,
-    args,
-    schemaModule: dasherize(type)
+    args
   };
 
   return relationship;
@@ -75,8 +74,7 @@ function getParents(typeName, typeList) {
     }).length > 0);
   }).map(parent => {
     return {
-      type: parent.name,
-      schemaModule: dasherize(parent.name)
+      type: parent.name
     };
   });
 }
@@ -109,7 +107,6 @@ function extractTypeData(types) {
 
     return {
       name: type.name,
-      moduleName: dasherize(type.name),
       isBuiltin: isBuiltin(type.name),
       fields: fields.map(transformField).reduce(objectifyField, {}),
       fieldsWithArgs: fieldsWithArgs.map(transformFieldWithArgs).reduce(objectifyField, {}),
@@ -158,7 +155,7 @@ function exportBundle(types) {
   const declaration = `const ${moduleName} = {}`;
 
   const assignments = types.map(type => {
-    return `${moduleName}['${dasherize(type.name)}'] = ${type.name};`;
+    return `${moduleName}['${type.name}'] = ${type.name};`;
   }).join('\n');
 
   const body = `${imports}
