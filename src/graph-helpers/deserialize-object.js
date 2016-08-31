@@ -1,5 +1,6 @@
 import descriptorForField from './descriptor-for-field';
 import ClassRegistry from './class-registry';
+import assign from '../metal/assign';
 
 function extractDescriptors(objectGraph, typeName) {
   return Object.keys(objectGraph).map(fieldName => {
@@ -7,16 +8,16 @@ function extractDescriptors(objectGraph, typeName) {
   });
 }
 
+function isAttr(descriptor) {
+  return descriptor.typeName === 'Scalar';
+}
+
 function isSingularRelationship(descriptor) {
-  return !(descriptor.typeName === 'Scalar' || descriptor.isList);
+  return !(descriptor.isList || isAttr(descriptor));
 }
 
 function isRelationshipList(descriptor) {
-  return descriptor.typeName !== 'Scalar' && descriptor.isList;
-}
-
-function isAttr(descriptor) {
-  return descriptor.typeName === 'Scalar';
+  return descriptor.isList && !isAttr(descriptor);
 }
 
 export default function deserializeObject(objectGraph, typeName, registry = new ClassRegistry()) {
@@ -53,7 +54,7 @@ export default function deserializeObject(objectGraph, typeName, registry = new 
 
   const model = new (registry.classForType(typeName))(attrs);
 
-  Object.assign(model, relationships, relationshipLists);
+  assign(model, relationships, relationshipLists);
 
   return model;
 }
