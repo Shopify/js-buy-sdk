@@ -32,7 +32,7 @@ export function parseArgs(args) {
 export default function rawRelationship(/* schema, relationshipKey, requestArgsHash, bodyCallback */) {
   const [schema, relationshipKey, requestArgsHash, bodyCallback] = parseArgs(arguments);
 
-  const relationshipModuleName = schema.relationships[relationshipKey].schemaModule;
+  const relationshipModuleName = schema.relationships[relationshipKey].type;
   const relationshipSchema = graphSchema[relationshipModuleName];
 
   let requestArgs;
