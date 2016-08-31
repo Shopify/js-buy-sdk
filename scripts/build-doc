@@ -9,7 +9,7 @@ const commandLineOptions = require('commander')
   .parse(process.argv);
 
 let docBuilderOptions = {
-	requestedReferenceNames: 'current'
+  requestedReferenceNames: 'current'
 };
 
 if(commandLineOptions.references) {
