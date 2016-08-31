@@ -3,7 +3,9 @@
     "commonjs": {
       "presets": ["es2015"],
       "plugins": [
-        "add-shopify-header",
+        ["add-shopify-header", {
+          "files": [ "src/shopify.js" ]
+        }],
         "transform-inline-environment-variables"
       ]
     },
