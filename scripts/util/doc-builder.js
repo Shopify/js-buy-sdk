@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 
-const currentVersion = "v" + require('../../package.json').version;
+const latestVersion = "v" + require('../../package.json').version;
 const path = require('path');
 const fs = require('fs');
 const yuidoc = require('./yuidoc');
@@ -13,19 +13,20 @@ class DocBuilder {
   constructor(options) {
     this.options = Object.assign({}, {
       apiDirRelPath: path.join('docs', 'api'),
-      requestedReferenceNames: ['master'],
+      srcDirRelPath: path.join('docs', 'src'),
+      requestedReferenceNames: ['latest'],
       checkoutStrategy: ( NodeGit.Checkout.STRATEGY.FORCE + NodeGit.Checkout.STRATEGY.DONT_WRITE_INDEX ),
     }, options);
+    
+    this.options.requestedLatest = this.options.requestedReferenceNames.indexOf('latest') != -1;
   }
 
   checkoutSrcDirectories() {
     console.info('info:', 'Getting all references within the repo');
     return this.repo.getReferences(NodeGit.Reference.TYPE.OID).then(references => {
-      const requestedCurrent = this.options.requestedReferenceNames.indexOf('current') != -1;
-
       console.info('info:', 'Picking objects for each requested references');
       const foundReferences = references.filter(reference => {
-        if(requestedCurrent && currentVersion == reference.shorthand()) {
+        if(this.options.requestedLatest && latestVersion == reference.shorthand()) {
           return true;
         }
 
@@ -44,15 +45,12 @@ class DocBuilder {
         throw(new Error('No reference found or can be checked out'));
       }
 
-      const directoryPaths = [];
+      const apiDocsMeta = [];
 
       return foundReferences.reduce((promise, reference) => {
         const target = reference.targetPeel() || reference.target();
         let name = reference.shorthand();
 
-        if(requestedCurrent && name == currentVersion) {
-          name = "current";
-        }
 
         return promise.then(() => {
           return this.repo.getCommit(target);
@@ -61,42 +59,52 @@ class DocBuilder {
 
           return commit.getTree();
         }).then(tree => {
-          const targetDirectory = path.join(this.repo.workdir(), this.options.apiDirRelPath, name);
+          let apiName = name;
+
+          if(this.options.requestedLatest && name == latestVersion) {
+            apiName = '';
+          }
+
+          const srcRelativePath = path.join(this.options.srcDirRelPath, name);
+          const srcFullPath = path.join(this.repo.workdir(), srcRelativePath);
+          const apiRelativePath = path.join(this.options.apiDirRelPath, apiName);
           const options = {
             checkoutStrategy: this.options.checkoutStrategy,
             paths: 'src',
-            targetDirectory: targetDirectory
+            targetDirectory: srcFullPath
           };
 
-          if (fs.existsSync(targetDirectory)) {
-            fsExtra.removeSync(targetDirectory);
+          if (fs.existsSync(srcFullPath)) {
+            fsExtra.removeSync(srcFullPath);
           }
-          fsExtra.mkdirsSync(targetDirectory);
-          directoryPaths.push(targetDirectory);
+
+          fsExtra.mkdirsSync(srcFullPath);
+
+          apiDocsMeta.push({
+            version: name,
+            srcFullPath: srcFullPath,
+            srcRelativePath: srcRelativePath,
+            apiPath: apiRelativePath
+          });
 
           console.info('info:', 'Checking out', name);
           return NodeGit.Checkout.tree(this.repo, tree, options);
         })
-      }, Promise.resolve()).then(() => directoryPaths);
+      }, Promise.resolve()).then(() => apiDocsMeta);
     });
   }
 
-  generateYUIDoc(directoryPaths) {
+  generateYUIDoc(apiDocsMeta) {
     console.info('\ninfo:', 'Generating API docs');
-    const options = { paths: directoryPaths };
-    return yuidoc.generate({paths: directoryPaths}).then(() => {
-      return directoryPaths;
+    return yuidoc.generate(apiDocsMeta).then(() => {
+      return apiDocsMeta;
     });
   }
 
-  deleteSrcDirectories(directoryPaths) {
+  deleteSrcDirectories() {
     console.info('\ninfo:', 'Deleting SRC directories');
     return Promise.resolve().then(() => {
-      directoryPaths.map(directoryPath => {
-        const srcPath = path.join(directoryPath, 'src')
-        console.info('info:', 'Removing', path.join(path.basename(directoryPath), 'src'));
-        fsExtra.removeSync(srcPath);
-      });
+        fsExtra.removeSync(this.options.srcDirRelPath);
     });
   }
 
