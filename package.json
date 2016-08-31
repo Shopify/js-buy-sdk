@@ -19,7 +19,7 @@
     "build-all": "concurrently 'npm run umd' 'npm run umd-polyfilled' 'npm run commonjs'",
     "umd": "rollup -f cjs src/shopify.js | node scripts/runBabel umd > dist/shopify-buy.umd.js",
     "umd-polyfilled": "rollup --config .rollup.config.umd.polfilled.js | node scripts/runBabel umd > dist/shopify-buy.umd.polyfilled.js",
-    "commonjs": "cross-env BABEL_ENV=commonjs VERSION=$(get-project-version --template v{{version}}-{{commit}}) babel -d lib/ src/ && node scripts/addVersion lib/version.js",
+    "commonjs": "cross-env BABEL_ENV=commonjs VERSION=$(get-project-version --template v{{version}}-{{commit}}) babel -d lib/ src/",
     "------ Scripts to compile JS for testing": null,
     "build-test": "concurrently 'npm run build-tests-polyfill' 'npm run amd' 'npm run build-tests'",
     "watch-test": "concurrently 'npm run build-tests-polyfill' 'npm run watch-amd' 'npm run watch-tests'",
