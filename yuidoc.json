@@ -10,6 +10,7 @@
     "outdir": "./docs/api",
     "themedir": "./node_modules/yuidoc-lucid-theme/",
     "nocode": true,
+    "nodeleteout": true,
     "quiet": true,
     "ignorePaths": [
       "node_modules",
