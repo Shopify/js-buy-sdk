@@ -27,7 +27,9 @@
       "presets": ["es2015"],
       "plugins": [
         "transform-es2015-modules-amd",
-        "add-shopify-header",
+        ["add-shopify-header", {
+          "files": [ "src/shopify.js" ]
+        }],
         "transform-inline-environment-variables"
       ],
       "sourceRoot": "src/"
