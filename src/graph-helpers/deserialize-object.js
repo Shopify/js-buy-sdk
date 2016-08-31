@@ -31,8 +31,6 @@ export default function deserializeObject(objectGraph, typeName, registry = new 
     return attrAcc;
   }, {});
 
-  const model = new (registry.classForType(typeName))(attrs);
-
   const relationships = relationshipDescriptors.reduce((relationshipAcc, descriptor) => {
     relationshipAcc[descriptor.fieldName] = deserializeObject(objectGraph[descriptor.fieldName], descriptor.typeName, registry);
 
@@ -52,6 +50,8 @@ export default function deserializeObject(objectGraph, typeName, registry = new 
 
     return relationshipListsAcc;
   }, {});
+
+  const model = new (registry.classForType(typeName))(attrs);
 
   Object.assign(model, relationships, relationshipLists);
 
