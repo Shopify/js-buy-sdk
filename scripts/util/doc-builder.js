@@ -46,7 +46,6 @@ function checkoutSrcDirectories() {
       const target = reference.targetPeel() || reference.target();
       let name = reference.shorthand();
 
-
       return promise.then(() => {
         return repo.getCommit(target);
       }).then(commit => {
