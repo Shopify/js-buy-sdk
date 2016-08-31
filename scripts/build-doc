@@ -8,9 +8,7 @@ const commandLineOptions = require('commander')
   .option('-r, --references <items>', 'Comma separated list of references', val => val.split(','))
   .parse(process.argv);
 
-let docBuilderOptions = {
-  requestedReferenceNames: 'current'
-};
+let docBuilderOptions = {};
 
 if(commandLineOptions.references) {
   docBuilderOptions.requestedReferenceNames = commandLineOptions.references;
