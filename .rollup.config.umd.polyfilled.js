@@ -14,7 +14,6 @@ export default {
 
     commonjs({
       include: 'node_modules/**',
-      exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
       sourceMap: false
     })
   ]
