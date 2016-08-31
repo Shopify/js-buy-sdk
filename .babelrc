@@ -2,7 +2,10 @@
   "env": {
     "commonjs": {
       "presets": ["es2015"],
-      "plugins": ["add-shopify-header"]
+      "plugins": [
+        "add-shopify-header",
+        "transform-inline-environment-variables"
+      ]
     },
     "umd": {
       "resolveModuleSource": null,
@@ -10,7 +13,8 @@
       "plugins": [
         "transform-es2015-modules-umd",
         ["rename-umd-globals", { "shopifyBuy": "ShopifyBuy" }],
-        "add-shopify-header"
+        "add-shopify-header",
+        "transform-inline-environment-variables"
       ],
       "moduleId": "shopify-buy"
     },
@@ -21,7 +25,8 @@
       "presets": ["es2015"],
       "plugins": [
         "transform-es2015-modules-amd",
-        "add-shopify-header"
+        "add-shopify-header",
+        "transform-inline-environment-variables"
       ],
       "sourceRoot": "src/"
     },
