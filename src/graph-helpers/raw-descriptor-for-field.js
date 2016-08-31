@@ -5,7 +5,8 @@ function findInFields(fieldName, type) {
 
   if (fieldDescriptor) {
     return {
-      name: 'Scalar',
+      fieldName,
+      typeName: 'Scalar',
       isList: fieldDescriptor.isList
     };
   }
@@ -18,7 +19,8 @@ function findInFieldsWithArgs(fieldName, type) {
 
   if (fieldDescriptor) {
     return {
-      name: 'Scalar',
+      fieldName,
+      typeName: 'Scalar',
       isList: fieldDescriptor.isList
     };
   }
@@ -30,10 +32,11 @@ function findInRelationships(fieldName, type) {
   const fieldDescriptor = type.relationships[fieldName];
 
   if (fieldDescriptor) {
-    const fieldType = graphSchema[fieldDescriptor.schemaModule];
+    const fieldType = graphSchema[fieldDescriptor.type];
 
     return {
-      name: fieldType.name,
+      fieldName,
+      typeName: fieldType.name,
       isList: fieldDescriptor.isList,
       type: fieldType
     };
@@ -52,6 +55,10 @@ function find(fieldName, type) {
 
 export default function rawDescriptorForField(fieldName, typeModuleName) {
   const containerType = graphSchema[typeModuleName];
+
+  if (!containerType) {
+    throw new Error(`Unknown parent GraphQL type ${typeModuleName}`);
+  }
 
   return find(fieldName, containerType);
 }

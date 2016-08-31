@@ -1,16 +1,19 @@
 import rawDescriptorForField from './raw-descriptor-for-field';
 
-export default function descriptorForField(/* field, typeModuleName */) {
+export default function descriptorForField(fieldName/* , typeModuleName */) {
   const rawDescriptor = rawDescriptorForField(...arguments);
 
-  if (rawDescriptor.name.match(/Connection$/)) {
-    const edgeDescriptor = rawDescriptorForField('edges', rawDescriptor.type.moduleName);
-    const nodeDescriptor = rawDescriptorForField('node', edgeDescriptor.type.moduleName);
+  if (rawDescriptor.typeName.match(/Connection$/)) {
+
+    const edgeDescriptor = rawDescriptorForField('edges', rawDescriptor.typeName);
+    const nodeDescriptor = rawDescriptorForField('node', edgeDescriptor.typeName);
 
     return {
-      name: nodeDescriptor.name,
+      fieldName,
+      typeName: nodeDescriptor.typeName,
       isList: edgeDescriptor.isList,
-      type: nodeDescriptor.type
+      type: nodeDescriptor.type,
+      isPaginated: true
     };
   }
 
