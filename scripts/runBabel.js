@@ -33,7 +33,7 @@ getStdin()
   } else {
     const source = process.argv[3];
     
-    if (source === undefined) {
+    if (!source) {
       throw new Error('since nothing was piped to runBabel.js it\'s expected that babels source will be the 2nd parameter');
     }
 
