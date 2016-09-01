@@ -9,10 +9,10 @@ setup_node () {
 
 case $CIRCLE_NODE_INDEX in
   0)
-    setup_node $NODE_012_VERSION
+    setup_node $NODE_4_VERSION
     ;;
   1)
-    setup_node $NODE_4_VERSION
+    setup_node $NODE_5_VERSION
     ;;
   *)
     setup_node $NODE_5_VERSION
