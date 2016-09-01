@@ -33,7 +33,9 @@ function bootSelenium() {
     var selenium = childProcess.exec('java -jar selenium-standalone.jar');
 
     // Selenium outputs everything on STDERR because it's hateful
-    selenium.stderr.on('data', function (data) {
+    selenium.stderr.on('data', function (rawData) {
+      var data = rawData.toString();
+
       if (data.toString().match(/Selenium Server is up and running/) && !resolved) {
         resolved = true;
         resolve(selenium);
@@ -62,7 +64,9 @@ function bootBroccoli() {
 
       var broccoli = childProcess.exec('node ' + broccoliBin + ' serve', { env: examplesEnv });
 
-      broccoli.stdout.on('data', function (data) {
+      broccoli.stdout.on('data', function (rawData) {
+        var data = rawData.toString();
+
         log('broccoli', data);
 
         if (data.match(/Serving on http/) && !resolved) {
@@ -71,7 +75,9 @@ function bootBroccoli() {
         }
       });
 
-      broccoli.stderr.on('data', function (data) {
+      broccoli.stderr.on('data', function (rawData) {
+        var data = rawData.toString();
+
         log('broccoli-error', data);
       });
 
