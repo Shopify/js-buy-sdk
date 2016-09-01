@@ -16,7 +16,7 @@ const path = require('path');
 process.env.BABEL_ENV = process.env.BABEL_ENV || process.argv[2];
 
 // check that BABEL_ENV was set
-if(process.env.BABEL_ENV === undefined) {
+if (process.env.BABEL_ENV === undefined) {
   throw new Error('BABEL_ENV is not set. This can be set either by passing in a value to runBabel.js or set via command line');
 }
 
@@ -25,7 +25,7 @@ getStdin()
 .then(input => {
   let code;
 
-  if(input !== '') {
+  if (input !== '') {
     // run babel on the piped in data
     code = babel.transform(input, {
       extends: path.join(process.cwd(), '.babelrc')
@@ -33,7 +33,7 @@ getStdin()
   } else {
     const source = process.argv[3];
     
-    if(source === undefined) {
+    if (source === undefined) {
       throw new Error('since nothing was piped to runBabel.js it\'s expected that babels source will be the 2nd parameter');
     }
 
