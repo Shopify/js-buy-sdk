@@ -1,0 +1,231 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>ShopifyBuy</h1>
+</div>
+
+
+
+	<div class="well well-small">
+            Module: <a href="../modules/shopify.html">shopify</a><br>
+            Parent Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
+    </div>
+
+
+
+<div class="yuidoc-class-description">
+<p>This namespace contains all globally accessible classes</p>
+
+</div>
+
+
+<!-- details -->
+
+
+
+
+
+
+    <div id="static-methods" class="page-section">
+        <h2 class="off-left">Static Methods</h2>
+        <div class="item-list">
+<div id="method-buildClient" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>ShopifyBuy.buildClient</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>configAttrs</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="../classes/ShopClient.html" class="crosslink">ShopClient</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shopify.js#L20"><code>src&#x2F;shopify.js:20</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Create a ShopClient. This is the main entry point to the SDK.</p>
+<pre class="code prettyprint"><code class="language-javascript">const client = ShopifyBuy.buildClient({
+  apiKey: 'abc123',
+  appId: 123456,
+  myShopifyDomain: 'myshop'
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">configAttrs</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>An object of required config data.</p>
+</div>
+
+						<ul class="params-list">
+							<li class="param">
+									<code class="param-name">apiKey</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>Your api client's public token.</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">appId</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>The app whose listings the client will be
+using. If you are just modifying a buy button, the buy-button's app id is</p>
+<ol start="6">
+<li>Otherwise, obtain the app id of the app you're modifying or extending.</li>
+</ol>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">myShopifyDomain</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>You shop's <code>myshopify.com</code>
+domain.</p>
+</div>
+
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="../classes/ShopClient.html" class="crosslink">ShopClient</a></span>:
+					<p>a client for the shop using your api credentials.</p>
+
+			</div>
+		</div>
+
+</div>
+        </div>
+    </div>
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+
+
+		<li>
+			<h2>Static Methods</h2>
+			<ul>
+				<li><a href="#method-buildClient"><span class="im">ShopifyBuy.buildClient</span></a></li>
+			</ul>
+		</li>
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>

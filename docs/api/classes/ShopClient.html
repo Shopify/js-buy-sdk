@@ -1,0 +1,1369 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>ShopClient</h1>
+</div>
+
+
+
+	<div class="well well-small">
+            Module: <a href="../modules/shop-client.html">shop-client</a><br>
+            Parent Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
+    </div>
+
+
+
+
+
+<!-- details -->
+
+    <div class="constructor yuidoc-class-constructor page-section">
+        <h2>Constructor</h2>
+        <div class="item-list">
+<div id="method-ShopClient" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>ShopClient</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">config</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L38"><code>src&#x2F;shop-client.js:38</code></a>
+		</p>
+
+
+
+	</div>
+
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[config]</code>
+						<span class="type"><a href="../classes/Config.html" class="crosslink">Config</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>Config data to be used throughout all API
+interaction</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+
+</div>
+        </div>
+    </div>
+
+    <div id="methods" class="page-section">
+        <h2 class="off-left">Methods</h2>
+        <div class="item-list">
+<div id="method-create" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>create</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+				<li class="arg">
+						<code class="optional">modelAttrs={}</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L158"><code>src&#x2F;shop-client.js:158</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Create an instance of <code>type</code>, optionally including <code>modelAttrs</code>.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.create('carts', { line_items: [ ... ] }).then(cart =&gt; {
+  // do things with the cart.
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name optional">[modelAttrs={}]</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>attributes representing the internal state
+of the model to be persisted.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<p>a promise resolving with a single instance of
+<code>type</code></p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-createCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>createCart</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">attrs={}</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L246"><code>src&#x2F;shop-client.js:246</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Creates a <a href="../classes/CartModel.html" class="crosslink">CartModel</a> instance, optionally including <code>attrs</code>.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.createCart().then(cart =&gt; {
+  // do something with cart
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[attrs={}]</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to localStorage.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<ul>
+<li>new cart instance.</li>
+</ul>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-deserialize" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>deserialize</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+				<li class="arg">
+						<code>payload</code>
+				</li>
+				<li class="arg">
+						<code>adapter</code>
+				</li>
+				<li class="arg">
+						<code>existingSerializer</code>
+				</li>
+				<li class="arg">
+						<code>opts</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type">BaseModel</span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L215"><code>src&#x2F;shop-client.js:215</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Proxy to serializer's deserialize.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">payload</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>The raw payload returned by the adapter.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">adapter</code>
+						<span class="type">BaseAdapter</span>
+
+
+					<div class="param-description"><p>The adapter that yielded the payload.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">existingSerializer</code>
+						<span class="type">BaseSerializer</span>
+
+
+					<div class="param-description"><p>The serializer to attach. If
+none is passed, then <code>this.deserialize</code> will create one for the type.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">opts</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>Options that determine which deserialization method to
+use.</p>
+</div>
+
+						<ul class="params-list">
+							<li class="param">
+									<code class="param-name">multiple</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+								<div class="param-description"><p>true when the payload represents multiple
+models</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">single</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+								<div class="param-description"><p>true when the payload represents one model.</p>
+</div>
+
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type">BaseModel</span>:
+					<p>an instance of <code>type</code> reified into a model.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetch" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>fetch</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L111"><code>src&#x2F;shop-client.js:111</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetch one of a <code>type</code>, returning a promise.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetch('products', 123).then(product =&gt; {
+  // do things with the product
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+					<div class="param-description"><p>a unique identifier</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>:
+					<p>a promise resolving with a single instance of
+<code>type</code> expressed as a <code>BaseModel</code>.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchAll" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>fetchAll</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L89"><code>src&#x2F;shop-client.js:89</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetch all of a <code>type</code>, returning a promise.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchAll('products').then(products =&gt; {
+  // do things with products
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>a promise resolving with an array of <code>type</code></p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchAllCollections" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>fetchAllCollections</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L323"><code>src&#x2F;shop-client.js:323</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_fetchAll" class="crosslink">fetchAll</a>. Equivalent to:</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchAll('collections');
+</code></pre>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>The collection models.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchAllProducts" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>fetchAllProducts</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L309"><code>src&#x2F;shop-client.js:309</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_fetchAll" class="crosslink">fetchAll</a>. Equivalent to:</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchAll('products');
+</code></pre>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>The product models.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchCart</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L293"><code>src&#x2F;shop-client.js:293</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Retrieve a previously created cart by its key.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchCart('shopify-buy.1459804699118.2').then(cart =&gt; {
+  console.log(cart); // The retrieved cart
+});</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The cart's unique identifier</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<p>The cart model.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchCollection" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchCollection</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L353"><code>src&#x2F;shop-client.js:353</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetch one collection by its ID.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchCollection(123).then(collection =&gt; {
+  console.log(collection); // The collection with an ID of 123
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+					<div class="param-description"><p>a unique identifier</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>:
+					<p>The collection model with the specified ID.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchProduct" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchProduct</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>id</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L337"><code>src&#x2F;shop-client.js:337</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetch one product by its ID.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchProduct(123).then(product =&gt; {
+  console.log(product); // The product with an ID of 123
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">id</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+					<div class="param-description"><p>a unique identifier</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  BaseModel</span>:
+					<p>The product model with the specified ID.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchQuery" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>fetchQuery</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+				<li class="arg">
+						<code>query</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L135"><code>src&#x2F;shop-client.js:135</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetch many of a <code>type</code>, that match <code>query</code></p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchQuery('products', { collection_id: 456 }).then(products =&gt; {
+  // do things with the products
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">query</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>a query sent to the api server.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>a promise resolving with an array of <code>type</code>.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchQueryCollections" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchQueryCollections</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>query</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L388"><code>src&#x2F;shop-client.js:388</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetches a list of collections matching a specified query.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchQueryCollections({page: 2, limit: 20}).then(collections =&gt; {
+  console.log(collections); // An array of collection resources
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">query</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>a query sent to the api server.</p>
+</div>
+
+						<ul class="params-list">
+							<li class="param">
+									<code class="param-name optional">[page=1]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>the page offset number of the current lookup (based on the <code>limit</code>)</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[limit=50]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>the number of collections to retrieve per page</p>
+</div>
+
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>The collection models.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchQueryProducts" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchQueryProducts</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>query</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L369"><code>src&#x2F;shop-client.js:369</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Fetches a list of products matching a specified query.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchQueryProducts({ collection_id: 123}).then(products =&gt; {
+  console.log(products); // An array of products in collection 123
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">query</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>a query sent to the api server containing one or more of:</p>
+</div>
+
+						<ul class="params-list">
+							<li class="param">
+									<code class="param-name optional">[collection_id]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>the ID of a collection to retrieve products from</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[product_ids]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>a list of product IDs to retrieve</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[page=1]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>the page offset number of the current lookup (based on the <code>limit</code>)</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[limit=50]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>the number of products to retrieve per page</p>
+</div>
+
+							</li>
+						</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+					<p>The product models.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-update" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>update</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>type</code>
+				</li>
+				<li class="arg">
+						<code>updatedModel</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L187"><code>src&#x2F;shop-client.js:187</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Create an instance of <code>type</code>, optionally including <code>attrs</code>.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.create('carts', { line_items: [ ... ] }).then(cart =&gt; {
+  // do things with the cart.
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">type</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The pluralized name of the type, in lower case.</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">updatedModel</code>
+						<span class="type">BaseModel</span>
+
+
+					<div class="param-description"><p>The model that represents new state to
+to persist.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<p>a promise resolving with a single instance of
+<code>type</code></p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-updateCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>updateCart</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code class="optional">attrs={}</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+				Defined in
+		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L272"><code>src&#x2F;shop-client.js:272</code></a>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Updates an existing <a href="../classes/CartModel.html" class="crosslink">CartModel</a> instance and persists it to localStorage.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.createCart().then(cart =&gt; {
+  cart.lineItems = [
+    // ...
+  ];
+  client.updateCart(cart);
+});
+</code></pre>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name optional">[attrs={}]</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+						<span class="flag optional" title="This parameter is optional.">optional</span>
+
+
+					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to localStorage.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<ul>
+<li>updated cart instance.</li>
+</ul>
+
+			</div>
+		</div>
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="attrs" class="page-section">
+        <h2 class="off-left">Attributes</h2>
+
+<div id="attr-" class="attr item protected">
+    <a name="config_"></a> 
+    <h3 class="name"><code></code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+        <span class="flag protected">protected</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/src_shop-client.js.html#l62"><code>src&#x2F;shop-client.js:62</code></a>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <p><strong>Default:</strong> {
+ products: ListingsAdapter,
+ collections: ListingsAdapter,
+ carts: CartAdapter
+}</p>
+
+
+</div>
+    </div>
+
+
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+		<li>
+      <h2>Methods</h2>
+			<ul>
+				<li><a href="#method-create"><span class="im">create</span></a></li>
+				<li><a href="#method-createCart"><span class="im">createCart</span></a></li>
+				<li><a href="#method-deserialize"><span class="im">deserialize</span></a></li>
+				<li><a href="#method-fetch"><span class="im">fetch</span></a></li>
+				<li><a href="#method-fetchAll"><span class="im">fetchAll</span></a></li>
+				<li><a href="#method-fetchAllCollections"><span class="im">fetchAllCollections</span></a></li>
+				<li><a href="#method-fetchAllProducts"><span class="im">fetchAllProducts</span></a></li>
+				<li><a href="#method-fetchCart"><span class="im">fetchCart</span></a></li>
+				<li><a href="#method-fetchCollection"><span class="im">fetchCollection</span></a></li>
+				<li><a href="#method-fetchProduct"><span class="im">fetchProduct</span></a></li>
+				<li><a href="#method-fetchQuery"><span class="im">fetchQuery</span></a></li>
+				<li><a href="#method-fetchQueryCollections"><span class="im">fetchQueryCollections</span></a></li>
+				<li><a href="#method-fetchQueryProducts"><span class="im">fetchQueryProducts</span></a></li>
+				<li><a href="#method-update"><span class="im">update</span></a></li>
+				<li><a href="#method-updateCart"><span class="im">updateCart</span></a></li>
+			</ul>
+		</li>
+
+
+		<li>
+			<h2>Attributes</h2>
+			<ul>
+				<li><a href="#attr-"><span class="iattr"></span></a></li>
+			</ul>
+		</li>
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>

@@ -1,0 +1,228 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>src/models/product-variant-model.js <small>File</small></h1>
+</div>
+
+<div class="file">
+    <pre class="prettyprint linenums">
+import BaseModel from &#x27;./base-model&#x27;;
+
+
+/**
+  * Model for product variant
+  * @class ProductVariantModel
+  * @constructor
+*/
+const ProductVariantModel = BaseModel.extend({
+  constructor() {
+    this.super(...arguments);
+  },
+
+  /**
+    * Variant unique ID
+    * @property id
+    * @type {String}
+  */
+  get id() {
+    return this.attrs.variant.id;
+  },
+
+  /**
+    * ID of product variant belongs to
+    * @property productId
+    * @type {String}
+  */
+  get productId() {
+    return this.attrs.product.id;
+  },
+
+  /**
+    * Title of variant
+    * @property title
+    * @type {String}
+  */
+  get title() {
+    return this.attrs.variant.title;
+  },
+
+  /**
+    * Title of product variant belongs to
+    * @property productTitle
+    * @type {String}
+  */
+  get productTitle() {
+    return this.attrs.product.title;
+  },
+
+  /**
+    * &lt;a href=&quot;https://docs.shopify.com/manual/products/promoting-marketing/sales&quot;&gt;
+    * Compare at&lt;/a&gt; price for variant formatted as currency.
+    * @property compareAtPrice
+    * @type {String}
+  */
+  get compareAtPrice() {
+    return this.attrs.variant.compare_at_price;
+  },
+
+
+  /**
+    * Price of variant, formatted as currency
+    * @property price
+    * @type {String}
+  */
+  get price() {
+    return this.attrs.variant.price;
+  },
+
+  /**
+    * Variant weight in grams
+    * @property grams
+    * @type {Number}
+  */
+  get grams() {
+    return this.attrs.variant.grams;
+  },
+
+  /**
+    * Option values associated with this variant, ex {name: &quot;color&quot;, value: &quot;Blue&quot;}
+    * @property optionValues
+    * @type {Array|Object}
+  */
+  get optionValues() {
+    return this.attrs.variant.option_values;
+  },
+
+  /**
+    * Image for variant
+    * @property image
+    * @type {Object}
+  */
+  get image() {
+    const id = this.id;
+    const images = this.attrs.product.images;
+
+    const primaryImage = images[0];
+    const variantImage = images.filter(image =&gt; {
+      return image.variant_ids.indexOf(id) !== -1;
+    })[0];
+
+    return (variantImage || primaryImage);
+  },
+
+  /**
+    * Checkout URL for purchasing variant with quantity.
+    * @method checkoutUrl
+    * @param {Number} [quantity = 1] quantity of variant
+    * @public
+    * @return {String} Checkout URL
+  */
+  checkoutUrl(quantity = 1) {
+    const config = this.config;
+    const baseUrl = &#x60;https://${config.myShopifyDomain}.myshopify.com/cart&#x60;;
+
+    const variantPath = &#x60;${this.id}:${parseInt(quantity, 10)}&#x60;;
+
+    const query = &#x60;api_key=${config.apiKey}&#x60;;
+
+    return &#x60;${baseUrl}/${variantPath}?${query}&#x60;;
+  }
+});
+
+export default ProductVariantModel;
+
+    </pre>
+</div>
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/Config.html">Config</a></li>
+            <li><a href="../classes/Option.html">Option</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Config',
+      url: '../classes/Config.html'
+    })
+    YUIDocs.classes.push({
+      name: 'Option',
+      url: '../classes/Option.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>

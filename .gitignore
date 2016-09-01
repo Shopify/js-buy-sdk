@@ -22,5 +22,12 @@ config/secrets.json
 _site
 .nvmrc
 
+# Docs / Jekyll generated files
+docs/src
+_site
+.sass-cache
+.jekyll-metadata
+
 # Junk
 .DS_Store
+
