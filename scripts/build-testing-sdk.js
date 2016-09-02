@@ -9,6 +9,15 @@
  */
 const fs = require('fs');
 
+function getSourceFromModules(modules) {
+
+  return modules.map((nameModule) => {
+    const pathModule = require.resolve(nameModule);
+
+    return fs.readFileSync(pathModule, 'utf8');
+  });
+}
+
 const sourceModules = getSourceFromModules([
   // umd module loader
   'loader.js',
@@ -29,12 +38,3 @@ ${sourceModules.slice(1).join('\n')}
 // output to stdout so that we can
 // easily modify the output/output location via cli
 console.log(outSource);
-
-function getSourceFromModules(modules) {
-
-  return modules.map((nameModule) => {
-    const pathModule = require.resolve(nameModule);
-
-    return fs.readFileSync(pathModule, 'utf8');
-  });
-}
