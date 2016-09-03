@@ -5,7 +5,7 @@
   "main": "lib/shopify.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
-    "start": "npm run dir-setup-dist-test && npm run dir-setup-dist && concurrently 'npm run build-test-sdk' 'npm run watch-test' 'http-server -p 4200 .dist-test/'",
+    "start": "npm run dir-setup-dist-test && npm run dir-setup-dist && concurrently 'npm run build-test-sdk' 'npm run watch-test' 'http-server -p 4200 .dist-test/' 'npm run -s start-ready'",
     "test": "npm run test-setup && testem ci",
     "test-examples": "npm run test-setup && npm run cp-examples && npm run css-examples && npm run test-run-example",
     "test-ci": "npm run test-setup && testem ci -R xunit > tests.xml",
@@ -17,6 +17,7 @@
     "doc-serve": "jekyll serve -s docs",
     "clean": "rimraf dist/; rimraf .dist-test/; rimraf lib/",
     "lint": "eslint src/",
+    "start-ready": "wait-on file:.dist-test/sdk-testing.js file:.dist-test/tests.js tcp:4200 && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
     "------ Scripts used to build JS for distribution": null,
     "build-all": "concurrently 'npm run umd' 'npm run umd-polyfilled' 'npm run commonjs'",
     "umd": "rollup -f cjs src/shopify.js | node scripts/runBabel umd > dist/shopify-buy.umd.js",
