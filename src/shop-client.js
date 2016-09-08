@@ -40,8 +40,6 @@ const ShopClient = CoreObject.extend({
   /**
    * @class ShopClient
    * @constructor
-   * @param {Config} [config] Config data to be used throughout all API
-   * interaction
    */
   constructor(config) {
     this.config = config;
