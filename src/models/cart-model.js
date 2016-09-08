@@ -4,6 +4,7 @@ import assign from '../metal/assign';
 import setGuidFor from '../metal/set-guid-for';
 import globalVars from '../metal/global-vars';
 import { GUID_KEY } from '../metal/set-guid-for';
+import logger from '../logger';
 
 function objectsEqual(one, two) {
   if (one === two) {
@@ -21,13 +22,11 @@ function objectsEqual(one, two) {
   });
 }
 
+/**
+* Class for cart model
+* @class CartModel
+*/
 const CartModel = BaseModel.extend({
-
-  /**
-    * Class for cart model
-    * @class CartModel
-    * @constructor
-  */
   constructor() {
     this.super(...arguments);
   },
@@ -35,6 +34,7 @@ const CartModel = BaseModel.extend({
   /**
     * get ID for current cart
     * @property id
+    * @readOnly
     * @type {String}
   */
   get id() {
@@ -44,6 +44,7 @@ const CartModel = BaseModel.extend({
   /**
     * Get current line items for cart
     * @property lineItems
+    * @readOnly
     * @type {Array}
   */
   get lineItems() {
@@ -55,6 +56,7 @@ const CartModel = BaseModel.extend({
   /**
     * Gets the sum quantity of each line item
     * @property lineItemCount
+    * @readOnly
     * @type {Number}
   */
   get lineItemCount() {
@@ -66,6 +68,7 @@ const CartModel = BaseModel.extend({
   /**
     * Get current subtotal price for all line items
     * @property subtotal
+    * @readOnly
     * @type {String}
   */
   get subtotal() {
@@ -79,6 +82,7 @@ const CartModel = BaseModel.extend({
   /**
     * Get checkout URL for current cart
     * @property checkoutUrl
+    * @readOnly
     * @type {String}
   */
   get checkoutUrl() {
@@ -108,21 +112,43 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Add items to cart. Updates cart's `lineItems`
+    * Add items to the cart. Updates cart's `lineItems` based on variants passed in.
     * ```javascript
     * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {
     *   // do things with the updated cart.
     * });
     * ```
+    * @deprecated `createLineItemsFromVariants` will be used in the future as it's more descriptive
     * @method addVariants
     * @param {Object} item - One or more variants
-    * @param {Object} item.variant - variant object
+    * @param {ProductVariantModel} item.variant - variant object
     * @param {Number} item.quantity - quantity
-    * @param {Object} [nextItem...] - further lineItems may be passed
+    * @param {Object} [moreItems...] - further objects defining `variant` and `quantity` maybe passed in
     * @public
     * @return {Promise|CartModel} - updated cart instance.
   */
   addVariants() {
+    logger.warn('CartModel - ', 'addVariants is deprecated, please use createLineItemsFromVariants instead');
+
+    return this.createLineItemsFromVariants(...arguments);
+  },
+
+  /**
+    * Add items to the cart. Updates cart's `lineItems` based on variants passed in.
+    * ```javascript
+    * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {
+    *   // do things with the updated cart.
+    * });
+    * ```
+    * @method createLineItemsFromVariants
+    * @param {Object} item - One or more variants
+    * @param {ProductVariantModel} item.variant - variant object
+    * @param {Number} item.quantity - quantity
+    * @param {Object} [moreItems...] - further objects defining `variant` and `quantity` maybe passed in
+    * @public
+    * @return {Promise|CartModel} - updated cart instance.
+  */
+  createLineItemsFromVariants() {
     const newLineItems = [...arguments].map(item => {
       const lineItem = {
         image: item.variant.image,
