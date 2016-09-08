@@ -42,7 +42,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Get current line items for cart
+    * Get an `Array` of current line items for the cart
     * @property lineItems
     * @readOnly
     * @type {Array}
@@ -54,7 +54,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Gets the sum quantity of each line item
+    * Gets the total sum quantity of all line items. Example: you've added two variants with quantities 3 and 2. `lineItemCount` will be 5.
     * @property lineItemCount
     * @readOnly
     * @type {Number}
@@ -66,7 +66,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Get current subtotal price for all line items
+    * Get current subtotal price for all line items. Example: two items have been added to the cart that cost $1.25 then the subtotal will be `2.50`
     * @property subtotal
     * @readOnly
     * @type {String}
@@ -115,7 +115,7 @@ const CartModel = BaseModel.extend({
     * Add items to the cart. Updates cart's `lineItems` based on variants passed in.
     * ```javascript
     * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {
-    *   // do things with the updated cart.
+    *   // the cart has created line items
     * });
     * ```
     * @deprecated `createLineItemsFromVariants` will be used in the future as it's more descriptive
@@ -124,8 +124,8 @@ const CartModel = BaseModel.extend({
     * @param {ProductVariantModel} item.variant - variant object
     * @param {Number} item.quantity - quantity
     * @param {Object} [moreItems...] - further objects defining `variant` and `quantity` maybe passed in
-    * @public
-    * @return {Promise|CartModel} - updated cart instance.
+    * @private
+    * @return {Promise|CartModel} - the cart instance.
   */
   addVariants() {
     logger.warn('CartModel - ', 'addVariants is deprecated, please use createLineItemsFromVariants instead');
@@ -136,8 +136,8 @@ const CartModel = BaseModel.extend({
   /**
     * Add items to the cart. Updates cart's `lineItems` based on variants passed in.
     * ```javascript
-    * cart.addVariants({variant: variantObject, quantity: 1}).then(cart => {
-    *   // do things with the updated cart.
+    * cart.createLineItemsFromVariants({variant: variantObject, quantity: 1}).then(cart => {
+    *   // the cart has created line items
     * });
     * ```
     * @method createLineItemsFromVariants
@@ -146,7 +146,7 @@ const CartModel = BaseModel.extend({
     * @param {Number} item.quantity - quantity
     * @param {Object} [moreItems...] - further objects defining `variant` and `quantity` maybe passed in
     * @public
-    * @return {Promise|CartModel} - updated cart instance.
+    * @return {Promise|CartModel} - the cart instance.
   */
   createLineItemsFromVariants() {
     const newLineItems = [...arguments].map(item => {
@@ -200,18 +200,21 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Update line item quantity
+    * Update a line item quantity based on line item id
     * ```javascript
-    * cart.updateLineItem(123, 2).then(cart => {
-    *   // do things with the updated cart.
+    * // This example changes the quantity for the first line item to 2
+    * const firstLineItemId = cart.lineItems[0].id;
+    *
+    * cart.updateLineItem(firstLineItemId, 2).then(cart => {
+    *   // the cart has updated the line item
     * });
     * ```
     * @method updateLineItem
-    * @param {Number} id - line item ID
+    * @param {String} id - line item ID
     * @param {Number} quantity - new quantity for line item
     * @throws {Error} if line item with ID is not in cart.
     * @public
-    * @return {Promise|CartModel} - updated cart instance
+    * @return {Promise|CartModel} - the cart instance
   */
   updateLineItem(id, quantity) {
     if (quantity < 1) {
@@ -234,12 +237,21 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Remove line item from cart
+    * Remove a line item from cart based on line item id
+    * ```javascript
+    * // This example removes the first line item
+    * const firstLineItemId = cart.lineItems[0].id;
+    *
+    * cart.removeLineItem(firstLineItemId).then(cart => {
+    *   // the cart has removed the line item
+    * });
+    * ```
+    *
     * @method removeLineItem
-    * @param {Number} id - line item ID
+    * @param {String} id - line item ID
     * @throws {Error} if line item with ID is not in cart.
     * @public
-    * @return {Promise|CartModel} - updated cart instance
+    * @return {Promise|CartModel} - the cart instance
   */
   removeLineItem(id) {
     const oldLength = this.lineItems.length;
@@ -263,9 +275,14 @@ const CartModel = BaseModel.extend({
 
   /**
     * Remove all line items from cart
+    * ```javascript
+    * // This example removes all line items from the cart
+    * cart.clearLineItems().then(cart => {
+    *   // the cart has removed all line items
+    * });
     * @method clearLineItems
     * @public
-    * @return {Promise|CartModel} - updated cart instance
+    * @return {Promise|CartModel} - the cart instance
   */
   clearLineItems() {
     this.attrs.line_items = [];
@@ -274,10 +291,16 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * force update of cart model on server
+    * Force update of cart model on server. This function will only be used in advanced situations and does not need to be called
+    * explicitly to update line items. It is automatically called after
+    * {{#crossLink "CartModel/createLineItemsFromVariants"}}{{/crossLink}},
+    * {{#crossLink "CartModel/updateLineItem"}}{{/crossLink}},
+    * {{#crossLink "CartModel/removeLineItem"}}{{/crossLink}},
+    * and {{#crossLink "CartModel/removeLineItem"}}{{/crossLink}}
+    * 
     * @method updateModel
     * @public
-    * @return {Promise|CartModel} - updated cart instance
+    * @return {Promise|CartModel} - the cart instance
   */
   updateModel() {
     return this.shopClient.update('carts', this).then(updateCart => {
