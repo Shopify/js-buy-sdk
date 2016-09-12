@@ -57,7 +57,7 @@
     "babel-cli": "6.11.4",
     "babel-core": "6.13.2",
     "babel-eslint": "6.1.2",
-    "babel-plugin-add-shopify-header": "1.0.3",
+    "babel-plugin-add-shopify-header": "1.0.5",
     "babel-plugin-eslint-test-generator": "1.0.1",
     "babel-plugin-rename-umd-globals": "0.0.3",
     "babel-plugin-transform-es2015-modules-amd": "6.8.0",
