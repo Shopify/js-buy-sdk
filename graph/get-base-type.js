@@ -3,5 +3,5 @@ export default function getBaseType(typeDescriptor) {
     return getBaseType(typeDescriptor.ofType);
   }
 
-  return typeDescriptor.name;
+  return typeDescriptor;
 }

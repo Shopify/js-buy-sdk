@@ -3,7 +3,9 @@
 import path from 'path';
 
 import dasherize from './dasherize';
-import isBuiltin from './is-builtin';
+import isScalar from './is-scalar';
+import isObject from './is-object';
+import isConnection from './is-connection';
 import getBaseType from './get-base-type';
 import hasListType from './has-list-type';
 import fetchSchema from './fetch-schema';
@@ -14,53 +16,26 @@ function transformArgument(arg) {
 
 function transformField(field) {
   return {
+    type: getBaseType(field.type).name,
+    kind: getBaseType(field.type).kind,
     fieldName: field.name,
-    isList: hasListType(field.type)
+    isList: hasListType(field.type),
+    args: (field.args || []).map(transformArgument)
   };
 }
 
 function objectifyField(acc, field) {
-  const descriptor = {};
-
-  Object.keys(field).filter(key => {
+  const descriptor = Object.keys(field).filter(key => {
     return (key !== 'fieldName');
-  }).forEach(key => {
-    descriptor[key] = field[key];
-  });
+  }).reduce((descriptorAcc, key) => {
+    descriptorAcc[key] = field[key];
+
+    return descriptorAcc;
+  }, {});
 
   acc[field.fieldName] = descriptor;
 
   return acc;
-}
-
-function transformFieldWithArgs(field) {
-  return {
-    fieldName: field.name,
-    isList: hasListType(field.type),
-    args: field.args.map(transformArgument)
-  };
-}
-
-function transformRelationship(field) {
-  let args;
-
-  if (field.args) {
-    args = field.args.map(transformArgument);
-  } else {
-    args = [];
-  }
-
-  const type = getBaseType(field.type);
-  const isList = hasListType(field.type);
-
-  const relationship = {
-    fieldName: field.name,
-    isList,
-    type,
-    args
-  };
-
-  return relationship;
 }
 
 function getParents(typeName, typeList) {
@@ -79,38 +54,28 @@ function getParents(typeName, typeList) {
   });
 }
 
-function jsonSanitizer(key, value) {
-  if (key === 'isBuiltin') {
-    /* eslint-disable no-undefined */
-    return undefined;
-    /* eslint-enable no-undefined */
-  }
-
-  return value;
-}
-
 function extractTypeData(types) {
-  return types.map(type => {
-    const allFields = type.fields || [];
-
-    const fields = allFields.filter(field => {
-      return (isBuiltin(getBaseType(field.type)) && field.args.length === 0);
+  return types.filter(type => {
+    return type.kind === 'OBJECT';
+  }).map(type => {
+    const scalars = type.fields.filter(field => {
+      return isScalar(getBaseType(field));
     });
 
-    const fieldsWithArgs = allFields.filter(field => {
-      return (isBuiltin(getBaseType(field.type)) && field.args.length < 0);
+    const objects = type.fields.filter(field => {
+      return isObject(getBaseType(field)) && !isConnection(field);
     });
 
-    const relationships = allFields.filter(field => {
-      return !isBuiltin(getBaseType(field.type));
+    const connections = type.fields.filter(field => {
+      return isConnection(field);
     });
 
     return {
       name: type.name,
-      isBuiltin: isBuiltin(type.name),
-      fields: fields.map(transformField).reduce(objectifyField, {}),
-      fieldsWithArgs: fieldsWithArgs.map(transformFieldWithArgs).reduce(objectifyField, {}),
-      relationships: relationships.map(transformRelationship).reduce(objectifyField, {}),
+      kind: type.kind,
+      scalars: scalars.map(transformField).reduce(objectifyField, {}),
+      objects: objects.map(transformField).reduce(objectifyField, {}),
+      connections: connections.map(transformField).reduce(objectifyField, {}),
       fieldOf: getParents(type.name, types)
     };
   });
@@ -127,7 +92,7 @@ function typeToFile(basePath) {
     return {
       path: fileName,
       name: type.name,
-      body: `const ${type.name} = ${JSON.stringify(type, jsonSanitizer, 2)};
+      body: `const ${type.name} = ${JSON.stringify(type, null, 2)};
 export default ${type.name};`
     };
   };
