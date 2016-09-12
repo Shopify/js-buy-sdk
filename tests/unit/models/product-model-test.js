@@ -132,3 +132,12 @@ test('it returns valid description in description', function (assert) {
 
   assert.equal(model.description, singleProductFixture.product_listing.body_html);
 });
+
+test('returns imageVariant for selected variant image based on query', function (assert) {
+  assert.expect(1);
+  assert.deepEqual(model.getSelectedVariantImage({ name: 'thumb' }), {
+    name: 'thumb',
+    dimension: '50x50',
+    src: 'https://cdn.shopify.com/image-one_thumb.jpg'
+  });
+});

@@ -146,6 +146,18 @@ const ProductModel = BaseModel.extend({
     }
 
     return this.selectedVariant.image;
+  },
+
+  getSelectedVariantImage(query) {
+    if (!this.selectedVariant) {
+      return null;
+    }
+
+    const key = Object.keys(query)[0];
+
+    return this.selectedVariant.imageVariants.find(imageVariant => {
+      return imageVariant[key] === query[key];
+    }) || null;
   }
 });
 
