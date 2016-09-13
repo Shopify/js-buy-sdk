@@ -26,7 +26,8 @@ function parseResponse(response) {
 }
 
 export default function ajax(method, url, opts = {}) {
-  if (global.XDomainRequest) {
+  var xhr = new XMLHttpRequest();
+  if (!'withCredentials' in xhr) {
     return ie9Ajax(...arguments);
   }
 
