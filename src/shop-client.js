@@ -309,29 +309,31 @@ const ShopClient = CoreObject.extend({
   fetchCart: fetchFactory('one', 'carts'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
-   * {{/crossLink}}. Equivalent to:
-   *
-   * ```javascript
-   * client.fetchAll('products');
+   * This function will return an `Array` of products from your store
    * ```
-   *
+   * client.fetchAllProducts()
+   * .then(function(products) {
+   *   // all products in store
+   * });
+   * ```
+   * 
    * @method fetchAllProducts
-   * @private
+   * @public
    * @return {Promise|Array} The product models.
    */
   fetchAllProducts: fetchFactory('all', 'products'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
-   * {{/crossLink}}. Equivalent to:
-   *
-   * ```javascript
-   * client.fetchAll('collections');
+   * This function will return an `Array` of collections from your store
    * ```
-   *
+   * client.fetchAllCollections()
+   * .then(function(collections) {
+   *   
+   * });
+   * ```
+   * 
    * @method fetchAllCollections
-   * @private
+   * @public
    * @return {Promise|Array} The collection models.
    */
   fetchAllCollections: fetchFactory('all', 'collections'),
