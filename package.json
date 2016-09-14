@@ -19,7 +19,7 @@
     "umd-shopify-buy:minify": "uglifyjs --compress --mangle -o dist/shopify-buy.umd.min.js -- dist/shopify-buy.umd.js",
     "umd-shopify-buy-polyfilled:build": "rollup -f cjs --config .rollup.config.umd.polyfilled.js src/shopify-polyfilled.js | node scripts/runBabel umd > dist/shopify-buy.umd.polyfilled.js",
     "umd-shopify-buy-polyfilled:minify": "uglifyjs --compress --mangle -o dist/shopify-buy.umd.polyfilled.min.js -- dist/shopify-buy.umd.polyfilled.js",
-    "commonjs:build": "cross-env BABEL_ENV=commonjs:build VERSION=$(get-project-version --template v{{version}}-{{commit}}) babel -d lib/ src/",
+    "commonjs:build": "cross-env BABEL_ENV=commonjs VERSION=$(get-project-version --template v{{version}}-{{commit}}) babel -d lib/ src/",
     "------ Scripts to compile JS for testing": null,
     "test:setup": "npm run test-sdk:build && npm run test:build",
     "test:build": "concurrently 'npm run tests-polyfill:build' 'npm run amd-shopify-buy:build' 'npm run tests:build'",
