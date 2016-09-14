@@ -27,8 +27,6 @@ const Logger = CoreObject.extend({
   /**
    * Wrapper around the console log so in the future we can have better dev output.
    * Also allows us to disable output in production.
-   * @class Logger
-   * @constructor
    */
   constructor() { },
   debug: wrapConsole('debug'),
