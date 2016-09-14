@@ -2,12 +2,15 @@ import CoreObject from './metal/core-object';
 
 function wrapConsole(logCommand) {
   const logMethod = function () {
+    let log;
+
     /* eslint-disable no-console */
     if (console[logCommand]) {
-      console[logCommand](...arguments);
+      log = Function.prototype.bind.call(console[logCommand], console);
     } else {
-      console.log(...arguments);
+      log = Function.prototype.bind.call(console.log, console);
     }
+    log(...arguments);
     /* eslint-enable no-console */
   };
 
