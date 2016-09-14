@@ -1,5 +1,4 @@
 import ie9Ajax from './ie9-ajax';
-import global from './metal/global';
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -26,8 +25,9 @@ function parseResponse(response) {
 }
 
 export default function ajax(method, url, opts = {}) {
-  var xhr = new XMLHttpRequest();
-  if (!'withCredentials' in xhr) {
+  const xhr = new XMLHttpRequest();
+
+  if (!('withCredentials' in xhr)) {
     return ie9Ajax(...arguments);
   }
 
