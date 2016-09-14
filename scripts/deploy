@@ -55,8 +55,11 @@ Uploader.prototype.uploadFile = function(localPath, s3Path) {
 Uploader.prototype.uploadDistAssets = function () {
   this.distAssets.forEach(function (file) {
     if (file.includes(FILENAME_FILTER)) {
+      var major = /(\d+).(\d+).(\d+)/.exec(tag)[ 1 ];
+      var t = '/v' + major + '/latest';
+
       this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, tag));
-      this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, 'latest'));
+      this.uploadFile(path.join(DIST_DIR, file), this.s3PathForFile(file, '/v' + major + '/latest'));
     }
   }.bind(this));
 };
