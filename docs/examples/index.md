@@ -83,7 +83,7 @@ This example illustrates the use of a cart to manage multiple products and varia
     <button class="buy-button button">Add To Cart</button>
   </div>
 
-First, the app makes a call to retrieve the product, and sets a view variables to store the default selected variant, the selected variant's image and the variant options available for the product.
+First, the app makes a call to retrieve the product. Then, it sets a few variables to store the default selected variant, the selected variant's image and the variant options available for the product.
 
 ```js
 var selectedVariant = product.selectedVariant;
