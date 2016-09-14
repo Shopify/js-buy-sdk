@@ -5,26 +5,6 @@
   <meta name="viewport" content="width=device-width">
   <title>JS Buy SDK Example -- Cart 001</title>
   <link rel="stylesheet" href="index.css">
-  <script>
-
-  if (typeof Function.prototype.bind != 'function') {
-    Function.prototype.bind = function bind(obj) {
-      var args = Array.prototype.slice.call(arguments, 1),
-        self = this,
-        nop = function() {},
-        bound = function() {
-          return self.apply(
-            this instanceof nop ? this : (obj || {}), args.concat(
-              Array.prototype.slice.call(arguments)
-            )
-          );
-        };
-      nop.prototype = this.prototype || {};
-      bound.prototype = new nop();
-      return bound;
-    };
-  }
-  </script>
   <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
   <script src="/shopify-buy.polyfilled.globals.js"></script>
   <script src="/examples/cart/index.js"></script>
