@@ -45,7 +45,7 @@ function getParents(typeName, typeList) {
     }
 
     return (potentialParent.fields.filter(field => {
-      return getBaseType(field.type) === typeName;
+      return getBaseType(field.type).name === typeName;
     }).length > 0);
   }).map(parent => {
     return {
@@ -59,15 +59,17 @@ function extractTypeData(types) {
     return type.kind === 'OBJECT';
   }).map(type => {
     const scalars = type.fields.filter(field => {
-      return isScalar(getBaseType(field));
+      return isScalar(getBaseType(field.type));
     });
 
     const objects = type.fields.filter(field => {
-      return isObject(getBaseType(field)) && !isConnection(field);
+      const baseType = getBaseType(field.type);
+
+      return isObject(baseType) && !isConnection(baseType);
     });
 
     const connections = type.fields.filter(field => {
-      return isConnection(field);
+      return isConnection(getBaseType(field.type));
     });
 
     return {
@@ -79,10 +81,6 @@ function extractTypeData(types) {
       fieldOf: getParents(type.name, types)
     };
   });
-}
-
-function rejectBuiltins(type) {
-  return !type.isBuiltin;
 }
 
 function typeToFile(basePath) {
@@ -153,7 +151,7 @@ function reportError(error) {
 export default function generateSchemaModules() {
   const processSchema = schema => {
     /* eslint-disable no-underscore-dangle */
-    return extractTypeData(schema.data.__schema.types).filter(rejectBuiltins);
+    return extractTypeData(schema.data.__schema.types);
     /* eslint-enable no-underscore-dangle */
   };
 
