@@ -8,53 +8,54 @@ function extractDescriptors(objectGraph, typeName) {
   });
 }
 
-function isAttr(descriptor) {
-  return descriptor.typeName === 'Scalar';
+function isScalar(descriptor) {
+  return descriptor.kind === 'SCALAR';
 }
 
-function isSingularRelationship(descriptor) {
-  return !(descriptor.isList || isAttr(descriptor));
+function isObject(descriptor) {
+  return descriptor.kind === 'OBJECT' && !descriptor.isConnection;
 }
 
-function isRelationshipList(descriptor) {
-  return descriptor.isList && !isAttr(descriptor);
+function isConnection(descriptor) {
+  return descriptor.isConnection;
 }
 
 export default function deserializeObject(objectGraph, typeName, registry = new ClassRegistry()) {
   const descriptors = extractDescriptors(objectGraph, typeName);
-  const relationshipDescriptors = descriptors.filter(isSingularRelationship);
-  const relationshipListDescriptors = descriptors.filter(isRelationshipList);
-  const attrDescriptors = descriptors.filter(isAttr);
 
-  const attrs = attrDescriptors.reduce((attrAcc, descriptor) => {
-    attrAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName];
+  const scalarDescriptors = descriptors.filter(isScalar);
+  const objectDescriptors = descriptors.filter(isObject);
+  const connectionDescriptors = descriptors.filter(isConnection);
 
-    return attrAcc;
+  const scalars = scalarDescriptors.reduce((scalarAcc, descriptor) => {
+    scalarAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName];
+
+    return scalarAcc;
   }, {});
 
-  const relationships = relationshipDescriptors.reduce((relationshipAcc, descriptor) => {
-    relationshipAcc[descriptor.fieldName] = deserializeObject(objectGraph[descriptor.fieldName], descriptor.typeName, registry);
-
-    return relationshipAcc;
-  }, {});
-
-  const relationshipLists = relationshipListDescriptors.reduce((relationshipListsAcc, descriptor) => {
-    if (descriptor.isPaginated) {
-      relationshipListsAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].edges.map(object => {
-        return deserializeObject(object.node, descriptor.typeName, registry);
+  const objects = objectDescriptors.reduce((objectAcc, descriptor) => {
+    if (descriptor.isList) {
+      objectAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].map(object => {
+        return deserializeObject(object, descriptor.type, registry);
       });
     } else {
-      relationshipListsAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].map(object => {
-        return deserializeObject(object, descriptor.typeName, registry);
-      });
+      objectAcc[descriptor.fieldName] = deserializeObject(objectGraph[descriptor.fieldName], descriptor.type, registry);
     }
 
-    return relationshipListsAcc;
+    return objectAcc;
   }, {});
 
-  const model = new (registry.classForType(typeName))(attrs);
+  const connections = connectionDescriptors.reduce((connectionsAcc, descriptor) => {
+    connectionsAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].edges.map(object => {
+      return deserializeObject(object.node, descriptor.type, registry);
+    });
 
-  assign(model, relationships, relationshipLists);
+    return connectionsAcc;
+  }, {});
+
+  const model = new (registry.classForType(typeName))(scalars);
+
+  assign(model, objects, connections);
 
   return model;
 }

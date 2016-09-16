@@ -1,45 +1,46 @@
-import graphSchema from 'graph/schema';
+import schemaForType from './schema-for-type';
+import assign from '../metal/assign';
 
-function findInFields(fieldName, type) {
-  const fieldDescriptor = type.fields[fieldName];
+function findInScalars(fieldName, type) {
+  const fieldDescriptor = type.scalars[fieldName];
 
   if (fieldDescriptor) {
-    return {
+    return assign({
+      schema: {
+        kind: 'SCALAR',
+        name: fieldDescriptor.type
+      },
       fieldName,
-      typeName: 'Scalar',
-      isList: fieldDescriptor.isList
-    };
+      onType: type.name
+    }, fieldDescriptor);
   }
 
   return null;
 }
 
-function findInFieldsWithArgs(fieldName, type) {
-  const fieldDescriptor = type.fieldsWithArgs[fieldName];
+function findInObjects(fieldName, type) {
+  const fieldDescriptor = type.objects[fieldName];
 
   if (fieldDescriptor) {
-    return {
+    return assign({
+      schema: schemaForType(fieldDescriptor.type),
       fieldName,
-      typeName: 'Scalar',
-      isList: fieldDescriptor.isList
-    };
+      onType: type.name
+    }, fieldDescriptor);
   }
 
   return null;
 }
 
-function findInRelationships(fieldName, type) {
-  const fieldDescriptor = type.relationships[fieldName];
+function findInConnections(fieldName, type) {
+  const fieldDescriptor = type.connections[fieldName];
 
   if (fieldDescriptor) {
-    const fieldType = graphSchema[fieldDescriptor.type];
-
-    return {
+    return assign({
+      schema: schemaForType(fieldDescriptor.type),
       fieldName,
-      typeName: fieldType.name,
-      isList: fieldDescriptor.isList,
-      type: fieldType
-    };
+      onType: type.name
+    }, fieldDescriptor);
   }
 
   return null;
@@ -47,14 +48,14 @@ function findInRelationships(fieldName, type) {
 
 function find(fieldName, type) {
   return (
-    findInFields(fieldName, type) ||
-    findInFieldsWithArgs(fieldName, type) ||
-    findInRelationships(fieldName, type)
+    findInScalars(fieldName, type) ||
+    findInObjects(fieldName, type) ||
+    findInConnections(fieldName, type)
   );
 }
 
 export default function rawDescriptorForField(fieldName, typeModuleName) {
-  const containerType = graphSchema[typeModuleName];
+  const containerType = schemaForType(typeModuleName);
 
   if (!containerType) {
     throw new Error(`Unknown parent GraphQL type ${typeModuleName}`);

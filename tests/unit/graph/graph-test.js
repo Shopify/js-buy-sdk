@@ -85,3 +85,15 @@ test('it adds connections with pagination info', function (assert) {
     }
   }`));
 });
+
+/*
+test('', function (assert) {
+  const graph.toQuery(); // 'query { shop { name, products(first: 10) { handle } } }
+
+  graph.fetch().then(objects => {
+    objects.shop.products.nextQuery(); // query { shop { products(first: 10, after: 'blah') { handle } } }
+    //objects.shop.products.fetchNext();
+    //objects.shop.products.fetchPrevious();
+  });
+});
+*/

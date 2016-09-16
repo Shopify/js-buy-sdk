@@ -3,17 +3,17 @@ import rawDescriptorForField from './raw-descriptor-for-field';
 export default function descriptorForField(fieldName/* , typeModuleName */) {
   const rawDescriptor = rawDescriptorForField(...arguments);
 
-  if (rawDescriptor.typeName.match(/Connection$/)) {
+  if (rawDescriptor.type.match(/Connection$/)) {
 
-    const edgeDescriptor = rawDescriptorForField('edges', rawDescriptor.typeName);
-    const nodeDescriptor = rawDescriptorForField('node', edgeDescriptor.typeName);
+    const edgeDescriptor = rawDescriptorForField('edges', rawDescriptor.type);
+    const nodeDescriptor = rawDescriptorForField('node', edgeDescriptor.type);
 
     return {
       fieldName,
-      typeName: nodeDescriptor.typeName,
-      isList: edgeDescriptor.isList,
+      schema: nodeDescriptor.schema,
       type: nodeDescriptor.type,
-      isPaginated: true
+      isList: edgeDescriptor.isList,
+      isConnection: true
     };
   }
 

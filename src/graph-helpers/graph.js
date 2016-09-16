@@ -1,16 +1,6 @@
 import join from './join';
-import graphSchema from 'graph/schema';
 import rawDescriptorForField from './raw-descriptor-for-field';
-
-function schemaForType(typeName) {
-  const type = graphSchema[typeName];
-
-  if (type) {
-    return type;
-  }
-
-  throw new Error(`No type of ${typeName} found in schema`);
-}
+import schemaForType from './schema-for-type';
 
 function formatArgPair(key, hash) {
   return `${key}: ${JSON.stringify(hash[key])}`;
@@ -31,13 +21,11 @@ function formatArgs(argumentHash) {
 }
 
 export default class Graph {
-  constructor(typeName = 'QueryRoot', parent) {
-    if (typeName === 'Scalar') {
-      this.type = {
-        name: 'Scalar'
-      };
+  constructor(type = 'QueryRoot', parent) {
+    if (typeof type === 'string') {
+      this.typeSchema = schemaForType(type);
     } else {
-      this.type = schemaForType(typeName);
+      this.typeSchema = type;
     }
 
     this.parent = parent;
@@ -45,15 +33,15 @@ export default class Graph {
   }
 
   get label() {
-    if (this.type.name === 'QueryRoot') {
+    if (this.typeSchema.name === 'QueryRoot') {
       return 'query';
     }
 
-    return `fragment on ${this.type.name}`;
+    return `fragment on ${this.typeSchema.name}`;
   }
 
   get body() {
-    if (this.type.name === 'Scalar') {
+    if (this.typeSchema.kind === 'SCALAR') {
       return '';
     }
 
@@ -75,8 +63,8 @@ export default class Graph {
   }
 
   addField(name, args = {}, fieldTypeCb = function () {}) {
-    const fieldDescriptor = rawDescriptorForField(name, this.type.name);
-    const node = new Graph(fieldDescriptor.typeName, this);
+    const fieldDescriptor = rawDescriptorForField(name, this.typeSchema.name);
+    const node = new Graph(fieldDescriptor.schema, this);
 
     fieldTypeCb(node);
 
@@ -84,8 +72,8 @@ export default class Graph {
   }
 
   addConnection(name, args = {}, fieldTypeCb = function () {}) {
-    const fieldDescriptor = rawDescriptorForField(name, this.type.name);
-    const node = new Graph(fieldDescriptor.typeName, this);
+    const fieldDescriptor = rawDescriptorForField(name, this.typeSchema.name);
+    const node = new Graph(fieldDescriptor.schema, this);
 
     node.addField('pageInfo', {}, pageInfo => {
       pageInfo.addField('hasNextPage');
