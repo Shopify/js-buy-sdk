@@ -82,7 +82,7 @@ const ProductModel = BaseModel.extend({
      *  });
      * ```
      *
-     * @attribute options
+     * @property options
      * @type {Array|Option}
    */
   get options() {
@@ -127,7 +127,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Retrieve currently selected option values.
-    * @attribute selections
+    * @property selections
     * @type {Option}
   */
   get selections() {
@@ -138,7 +138,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Retrieve variant for currently selected options
-    * @attribute selectedVariant
+    * @property selectedVariant
     * @type {Object}
   */
   get selectedVariant() {
@@ -151,7 +151,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Retrieve image for currently selected variantImage
-    * @attribute selectedVariantImage
+    * @property selectedVariantImage
     * @type {Object}
   */
   get selectedVariantImage() {
