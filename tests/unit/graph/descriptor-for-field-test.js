@@ -4,59 +4,64 @@ import graphSchema from 'graph/schema';
 
 module('Unit | GraphHelpers | descriptorForField');
 
-test('it returns the exact field type for fields representing singular resources', function (assert) {
-  assert.expect(16);
+test('it can generate descriptors for fields of the query root', function (assert) {
+  assert.expect(15);
 
   const shopDescriptor = descriptorForField('shop', 'QueryRoot');
   const productDescriptor = descriptorForField('product', 'QueryRoot');
   const collectionDescriptor = descriptorForField('collection', 'QueryRoot');
 
+  assert.equal(shopDescriptor.fieldName, 'shop', 'shop\'s field name');
+  assert.equal(shopDescriptor.type, 'Shop', 'shop\'s type name');
+  assert.equal(shopDescriptor.kind, 'OBJECT', 'shopDescriptor\'s type kind');
+  assert.equal(shopDescriptor.isList, false, 'shop isList');
+  assert.deepEqual(shopDescriptor.schema, graphSchema.Shop, 'shop\'s schema');
+
+  assert.equal(productDescriptor.fieldName, 'product', 'product\'s field name');
+  assert.equal(productDescriptor.type, 'Product', 'product\'s type name');
+  assert.equal(productDescriptor.kind, 'OBJECT', 'productDescriptor\'s type kind');
+  assert.equal(productDescriptor.isList, false, 'product isList');
+  assert.deepEqual(productDescriptor.schema, graphSchema.Product, 'shop schema');
+
+  assert.equal(collectionDescriptor.fieldName, 'collection', 'collection\'s field name');
+  assert.equal(collectionDescriptor.type, 'Collection', 'collection\'s type name');
+  assert.equal(productDescriptor.kind, 'OBJECT', 'productDescriptor\'s type kind');
+  assert.equal(collectionDescriptor.isList, false, 'collection isList');
+  assert.deepEqual(collectionDescriptor.schema, graphSchema.Collection, 'collection\'s schema');
+});
+
+test('it can describe scalars', function (assert) {
+  assert.expect(5);
+
   const shopNameDescriptor = descriptorForField('name', 'Shop');
 
-  assert.equal(shopDescriptor.fieldName, 'shop');
-  assert.equal(shopDescriptor.type, 'Shop');
-  assert.equal(shopDescriptor.isList, false);
-  assert.deepEqual(shopDescriptor.schema, graphSchema.Shop);
-  assert.equal(productDescriptor.fieldName, 'product');
-  assert.equal(productDescriptor.type, 'Product');
-  assert.equal(productDescriptor.isList, false);
-  assert.deepEqual(productDescriptor.schema, graphSchema.Product);
-  assert.equal(collectionDescriptor.fieldName, 'collection');
-  assert.equal(collectionDescriptor.type, 'Collection');
-  assert.equal(collectionDescriptor.isList, false);
-  assert.deepEqual(collectionDescriptor.schema, graphSchema.Collection);
-
-  assert.equal(shopNameDescriptor.fieldName, 'name');
-  assert.equal(shopNameDescriptor.type, 'String');
-  assert.equal(shopNameDescriptor.kind, 'SCALAR');
-  assert.equal(shopNameDescriptor.isList, false);
+  assert.equal(shopNameDescriptor.fieldName, 'name', 'shopName\'s field name');
+  assert.equal(shopNameDescriptor.type, 'String', 'shopName\'s type name');
+  assert.equal(shopNameDescriptor.kind, 'SCALAR', 'shopName\'s type kind');
+  assert.equal(shopNameDescriptor.isList, false, 'shopName isList');
+  assert.deepEqual(shopNameDescriptor.schema, { name: 'String', kind: 'SCALAR' }, 'shopName schema');
 });
 
-test('it returns the wrapped type for paginated lists', function (assert) {
-  assert.expect(10);
-
-  const shopProductsDescriptor = descriptorForField('products', 'Shop');
-  const shopCollectionsDescriptor = descriptorForField('collections', 'Shop');
-
-  assert.equal(shopProductsDescriptor.fieldName, 'products');
-  assert.equal(shopProductsDescriptor.type, 'Product');
-  assert.equal(shopProductsDescriptor.isList, true);
-  assert.equal(shopProductsDescriptor.isConnection, true);
-  assert.deepEqual(shopProductsDescriptor.schema, graphSchema.Product);
-  assert.equal(shopCollectionsDescriptor.fieldName, 'collections');
-  assert.equal(shopCollectionsDescriptor.type, 'Collection');
-  assert.equal(shopCollectionsDescriptor.isList, true);
-  assert.equal(shopCollectionsDescriptor.isConnection, true);
-  assert.deepEqual(shopCollectionsDescriptor.schema, graphSchema.Collection);
-});
-
-test('it returns the exact type field for basic lists', function (assert) {
-  assert.expect(4);
+test('it can describe lists', function (assert) {
+  assert.expect(5);
 
   const productImagesDescriptor = descriptorForField('images', 'Product');
 
-  assert.equal(productImagesDescriptor.fieldName, 'images', 'productImage\'s type');
-  assert.equal(productImagesDescriptor.type, 'Image', 'productImage\'s type');
+  assert.equal(productImagesDescriptor.fieldName, 'images', 'productImage\'s field name');
+  assert.equal(productImagesDescriptor.type, 'Image', 'productImage\'s type name');
+  assert.equal(productImagesDescriptor.kind, 'OBJECT', 'productImage\'s type kind ');
   assert.equal(productImagesDescriptor.isList, true, 'productImage isList');
-  assert.deepEqual(productImagesDescriptor.schema, graphSchema.Image);
+  assert.deepEqual(productImagesDescriptor.schema, graphSchema.Image, 'productImage\'s schema');
+});
+
+test('it can describe connections', function (assert) {
+  assert.expect(5);
+
+  const shopProductsDescriptor = descriptorForField('products', 'Shop');
+
+  assert.equal(shopProductsDescriptor.fieldName, 'products', 'shopProduct\'s field name');
+  assert.equal(shopProductsDescriptor.type, 'ProductConnection', 'shopProduct\'s type name');
+  assert.equal(shopProductsDescriptor.kind, 'OBJECT', 'shopProduct\'s type kind ');
+  assert.equal(shopProductsDescriptor.isList, false, 'shopProduct isList');
+  assert.deepEqual(shopProductsDescriptor.schema, graphSchema.ProductConnection, 'shopProduct\'s schema');
 });

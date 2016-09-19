@@ -1,5 +1,5 @@
 import join from './join';
-import rawDescriptorForField from './raw-descriptor-for-field';
+import descriptorForField from './descriptor-for-field';
 import schemaForType from './schema-for-type';
 
 function formatArgPair(key, hash) {
@@ -63,7 +63,7 @@ export default class Graph {
   }
 
   addField(name, args = {}, fieldTypeCb = function () {}) {
-    const fieldDescriptor = rawDescriptorForField(name, this.typeSchema.name);
+    const fieldDescriptor = descriptorForField(name, this.typeSchema.name);
     const node = new Graph(fieldDescriptor.schema, this);
 
     fieldTypeCb(node);
@@ -72,7 +72,7 @@ export default class Graph {
   }
 
   addConnection(name, args = {}, fieldTypeCb = function () {}) {
-    const fieldDescriptor = rawDescriptorForField(name, this.typeSchema.name);
+    const fieldDescriptor = descriptorForField(name, this.typeSchema.name);
     const node = new Graph(fieldDescriptor.schema, this);
 
     node.addField('pageInfo', {}, pageInfo => {

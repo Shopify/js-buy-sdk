@@ -13,49 +13,68 @@ function isScalar(descriptor) {
 }
 
 function isObject(descriptor) {
-  return descriptor.kind === 'OBJECT' && !descriptor.isConnection;
+  return descriptor.kind === 'OBJECT' && !descriptor.type.match(/.+Connection$/);
 }
 
 function isConnection(descriptor) {
-  return descriptor.isConnection;
+  return Boolean(descriptor.type.match(/.+Connection$/));
 }
 
-export default function deserializeObject(objectGraph, typeName, registry = new ClassRegistry()) {
-  const descriptors = extractDescriptors(objectGraph, typeName);
-
+function extractScalars(objectGraph, descriptors) {
   const scalarDescriptors = descriptors.filter(isScalar);
-  const objectDescriptors = descriptors.filter(isObject);
-  const connectionDescriptors = descriptors.filter(isConnection);
 
-  const scalars = scalarDescriptors.reduce((scalarAcc, descriptor) => {
+  return scalarDescriptors.reduce((scalarAcc, descriptor) => {
     scalarAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName];
 
     return scalarAcc;
   }, {});
+}
 
-  const objects = objectDescriptors.reduce((objectAcc, descriptor) => {
+function extractObjects(objectGraph, descriptors, registry) {
+  const objectDescriptors = descriptors.filter(isObject);
+
+  return objectDescriptors.reduce((objectAcc, descriptor) => {
     if (descriptor.isList) {
       objectAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].map(object => {
+        // eslint-disable-next-line no-use-before-define
         return deserializeObject(object, descriptor.type, registry);
       });
     } else {
+      // eslint-disable-next-line no-use-before-define
       objectAcc[descriptor.fieldName] = deserializeObject(objectGraph[descriptor.fieldName], descriptor.type, registry);
     }
 
     return objectAcc;
   }, {});
+}
 
-  const connections = connectionDescriptors.reduce((connectionsAcc, descriptor) => {
+function extractConnections(objectGraph, descriptors, registry) {
+  const connectionDescriptors = descriptors.filter(isConnection);
+
+  return connectionDescriptors.reduce((connectionsAcc, descriptor) => {
+    const edgeDescriptor = descriptorForField('edges', descriptor.type);
+    const nodeDescriptor = descriptorForField('node', edgeDescriptor.type);
+
     connectionsAcc[descriptor.fieldName] = objectGraph[descriptor.fieldName].edges.map(object => {
-      return deserializeObject(object.node, descriptor.type, registry);
+      // eslint-disable-next-line no-use-before-define
+      return deserializeObject(object.node, nodeDescriptor.type, registry);
     });
 
     return connectionsAcc;
   }, {});
+}
+
+export default function deserializeObject(objectGraph, typeName, registry = new ClassRegistry()) {
+  const descriptors = extractDescriptors(objectGraph, typeName);
+
+  const scalars = extractScalars(objectGraph, descriptors);
+  const objects = extractObjects(objectGraph, descriptors, registry);
+  const connections = extractConnections(objectGraph, descriptors, registry);
 
   const model = new (registry.classForType(typeName))(scalars);
 
   assign(model, objects, connections);
 
   return model;
+
 }

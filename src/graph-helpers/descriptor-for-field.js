@@ -1,21 +1,65 @@
-import rawDescriptorForField from './raw-descriptor-for-field';
+import schemaForType from './schema-for-type';
+import assign from '../metal/assign';
 
-export default function descriptorForField(fieldName/* , typeModuleName */) {
-  const rawDescriptor = rawDescriptorForField(...arguments);
+function findInScalars(fieldName, type) {
+  const fieldDescriptor = type.scalars[fieldName];
 
-  if (rawDescriptor.type.match(/Connection$/)) {
-
-    const edgeDescriptor = rawDescriptorForField('edges', rawDescriptor.type);
-    const nodeDescriptor = rawDescriptorForField('node', edgeDescriptor.type);
-
-    return {
+  if (fieldDescriptor) {
+    return assign({
+      schema: {
+        kind: 'SCALAR',
+        name: fieldDescriptor.type
+      },
       fieldName,
-      schema: nodeDescriptor.schema,
-      type: nodeDescriptor.type,
-      isList: edgeDescriptor.isList,
-      isConnection: true
-    };
+      onType: type.name
+    }, fieldDescriptor);
   }
 
-  return rawDescriptor;
+  return null;
+}
+
+function findInObjects(fieldName, type) {
+  const fieldDescriptor = type.objects[fieldName];
+
+  if (fieldDescriptor) {
+    return assign({
+      schema: schemaForType(fieldDescriptor.type),
+      fieldName,
+      onType: type.name
+    }, fieldDescriptor);
+  }
+
+  return null;
+}
+
+function findInConnections(fieldName, type) {
+  const fieldDescriptor = type.connections[fieldName];
+
+  if (fieldDescriptor) {
+    return assign({
+      schema: schemaForType(fieldDescriptor.type),
+      fieldName,
+      onType: type.name
+    }, fieldDescriptor);
+  }
+
+  return null;
+}
+
+function find(fieldName, type) {
+  return (
+    findInScalars(fieldName, type) ||
+    findInObjects(fieldName, type) ||
+    findInConnections(fieldName, type)
+  );
+}
+
+export default function descriptorForField(fieldName, typeModuleName) {
+  const containerType = schemaForType(typeModuleName);
+
+  if (!containerType) {
+    throw new Error(`Unknown parent GraphQL type ${typeModuleName}`);
+  }
+
+  return find(fieldName, containerType);
 }
