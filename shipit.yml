@@ -1,6 +1,6 @@
 deploy:
   override:
     - npm install --no-progress
-    - npm build
+    - npm run build
     - ejson decrypt -o secrets.json secrets.ejson
     - scripts/deploy
