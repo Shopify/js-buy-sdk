@@ -17,6 +17,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Product unique ID
+    * 
     * @property id
     * @type {String}
   */
@@ -25,7 +26,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product title
+    * The product title
     * @property title
     * @type {String}
   */
@@ -34,7 +35,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product description. The exposes the `body_html` property on the listings API
+    * A product description.
     * @property description
     * @type {String}
   */
@@ -43,7 +44,20 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * All images associated with product.
+    * An `Array` of `Objects` that contain meta data about an image including `src` of the images.
+    *
+    * An example image `Object`:
+    * ```
+    * {
+    *   created_at: "2016-08-29T12:35:09-04:00",
+    *   id: 17690553350,
+    *   position: 1,
+    *   product_id: 8291029446,
+    *   src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+    *   updated_at: "2016-08-29T12:35:09-04:00",
+    *   variant_ids: [ 27690103238 ]
+    * }
+    * ```
     * @property images
     * @type {Array} array of image objects.
   */
@@ -101,7 +115,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * All variants of a product.
+    * An `Array` of {{#crossLink "ProductVariantModel"}}ProductVariantModel's{{/crossLink}}
     * @property variants
     * @type {Array|ProductVariantModel} array of ProductVariantModel instances.
   */
