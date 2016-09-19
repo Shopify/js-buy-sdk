@@ -8,6 +8,28 @@ checkout.
 
 If you're just getting started, please [read the docs](http://shopify.github.io/js-buy-sdk/).
 
+## Example
+```javascript
+const shopClient = ShopifyBuy.buildClient({
+  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  appId: 6,
+  domain: 'embeds.myshopify.com'
+});
+
+// fetch a product using resource id
+shopClient.fetchAllProducts()
+  .then(function (products) {
+    console.log(products);
+  })
+  .catch(function () {
+    console.log('Request failed');
+  });
+```
+
+## Documentation
+
+For full API documentation go checkout the [API docs](http://shopify.github.io/js-buy-sdk/).
+
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
 please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md).

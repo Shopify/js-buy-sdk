@@ -63,7 +63,14 @@ or `fetchCollection`, or an array of `Cart` or `Collection` models for `fetchAll
 To request an individual resource, you will need to pass that resource's ID as the first argument. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#retrieving-products" target="_blank">How do I find my resource ID?</a>
 
 ```js
-shopClient.fetchProduct(1234)
+const shopClient = ShopifyBuy.buildClient({
+  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  appId: 6,
+  domain: 'embeds.myshopify.com'
+});
+
+// fetch a product using resource id
+shopClient.fetchProduct('8569911558')
   .then(function (product) {
     console.log(product);
   })
