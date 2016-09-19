@@ -1,9 +1,10 @@
 {
-  "extends": "nightmare-mode/browser",
-  "parser": 'babel-eslint',
+  "extends": "./node_modules/eslint-config-nightmare-mode/browser.js",
+  "parser": "babel-eslint",
   "rules": {
     "arrow-spacing": [2, { "before": true, "after": true }],
     "camelcase": [2, { "properties": "never" }],
+    "eol-last": 2,
     "func-names": 0,
     "global-require": 0,
     "newline-per-chained-call": 0,
@@ -18,5 +19,7 @@
     "prefer-rest-params": 0,
     "prefer-reflect": 0,
     "valid-jsdoc": 0
+  },
+  "globals": {
   }
 }
