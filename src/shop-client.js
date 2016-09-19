@@ -342,8 +342,8 @@ const ShopClient = CoreObject.extend({
    * Fetch one product by its ID.
    *
    * ```javascript
-   * client.fetchProduct(123).then(product => {
-   *   console.log(product); // The product with an ID of 123
+   * client.fetchProduct('8569911558').then(product => {
+   *   console.log(product); // The product with an ID of '8569911558'
    * });
    * ```
    *
@@ -358,8 +358,8 @@ const ShopClient = CoreObject.extend({
    * Fetch one collection by its ID.
    *
    * ```javascript
-   * client.fetchCollection(123).then(collection => {
-   *   console.log(collection); // The collection with an ID of 123
+   * client.fetchCollection('336903494').then(collection => {
+   *   console.log(collection); // The collection with an ID of '336903494'
    * });
    * ```
    *
@@ -374,8 +374,8 @@ const ShopClient = CoreObject.extend({
    * Fetches a list of products matching a specified query.
    *
    * ```javascript
-   * client.fetchQueryProducts({ collection_id: 123, tag: ['hats'] }).then(products => {
-   *   console.log(products); // An array of products in collection `123` having the tag `hats`
+   * client.fetchQueryProducts({ collection_id: '336903494', tag: ['hats'] }).then(products => {
+   *   console.log(products); // An array of products in collection '336903494' having the tag 'hats'
    * });
    * ```
    * @method fetchQueryProducts
