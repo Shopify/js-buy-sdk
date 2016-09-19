@@ -42,7 +42,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Get an `Array` of current line items for the cart
+    * Get an `Array` of {{#crossLink "CartLineItemModel"}}CartLineItemModel's{{/crossLink}}
     * @property lineItems
     * @readOnly
     * @type {Array}
@@ -54,7 +54,7 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Gets the total sum quantity of all line items. Example: you've added two variants with quantities 3 and 2. `lineItemCount` will be 5.
+    * Gets the total quantity of all line items. Example: you've added two variants with quantities 3 and 2. `lineItemCount` will be 5.
     * @property lineItemCount
     * @readOnly
     * @type {Number}

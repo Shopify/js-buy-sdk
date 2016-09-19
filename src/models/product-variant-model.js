@@ -48,7 +48,7 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Compare at price for variant formatted as currency. The `compareAtPrice` would be
+    * Compare at price for variant. The `compareAtPrice` would be
     * the price of the product previously before the product went on sale. For more info 
     * go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.
     *
