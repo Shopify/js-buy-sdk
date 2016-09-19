@@ -16,7 +16,7 @@ var Secrets = function() {
 };
 
 Secrets.prototype.load = function () {
-  var config = fs.readFileSync('config/secrets.json');
+  var config = fs.readFileSync('secrets.json');
   if (config) {
     config = JSON.parse(config);
     this.bucket = config.bucket;

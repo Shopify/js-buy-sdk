@@ -19,6 +19,6 @@ tests.xml
 # lib
 
 # Decrypted secrets
-config/secrets.json
+secrets.json
 _site
 .nvmrc
