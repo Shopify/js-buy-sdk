@@ -13,11 +13,11 @@ function isScalar(descriptor) {
 }
 
 function isObject(descriptor) {
-  return descriptor.kind === 'OBJECT' && !descriptor.type.match(/.+Connection$/);
+  return descriptor.kind === 'OBJECT' && !descriptor.isConnection;
 }
 
 function isConnection(descriptor) {
-  return Boolean(descriptor.type.match(/.+Connection$/));
+  return descriptor.isConnection;
 }
 
 function extractScalars(objectGraph, descriptors) {

@@ -11,7 +11,8 @@ function findInScalars(fieldName, type) {
         name: fieldDescriptor.type
       },
       fieldName,
-      onType: type.name
+      onType: type.name,
+      isConnection: false
     }, fieldDescriptor);
   }
 
@@ -25,7 +26,8 @@ function findInObjects(fieldName, type) {
     return assign({
       schema: schemaForType(fieldDescriptor.type),
       fieldName,
-      onType: type.name
+      onType: type.name,
+      isConnection: false
     }, fieldDescriptor);
   }
 
@@ -39,7 +41,8 @@ function findInConnections(fieldName, type) {
     return assign({
       schema: schemaForType(fieldDescriptor.type),
       fieldName,
-      onType: type.name
+      onType: type.name,
+      isConnection: true
     }, fieldDescriptor);
   }
 
