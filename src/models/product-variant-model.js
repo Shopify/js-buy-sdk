@@ -158,9 +158,16 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Checkout URL for purchasing variant with quantity.
+    * Get a checkout url for a specific product variant. You can
+    * optionally pass a quantity. If no quantity is passed then quantity
+    * will default to 1. The example below will grab a checkout url for
+    * 3 copies of the first variant:
+    * ```
+    * const checkoutURL = product.variants[ 0 ].checkoutUrl(3);
+    * ```
+    * 
     * @method checkoutUrl
-    * @param {Number} [quantity = 1] quantity of variant
+    * @param {Number} [quantity = 1] quantity of variants
     * @public
     * @return {String} Checkout URL
   */
