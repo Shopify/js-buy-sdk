@@ -114,7 +114,7 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Variant in stock (always true if inventory tracking is disabled)
+    * Variant in stock. Always `true` if inventory tracking is disabled.
     * @property available
     * @type {Boolean}
   */
