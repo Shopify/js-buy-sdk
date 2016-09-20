@@ -33,6 +33,7 @@ const baseAttrs = {
     title: 'Long / Less than tons',
     compare_at_price: null,
     price: '3.00',
+    formatted_price: '$3.00',
     grams: 1000,
     available: true,
     option_values: [
@@ -68,7 +69,7 @@ test('it extends from BaseModel', function (assert) {
 });
 
 test('it proxies to a composite of product and variant state', function (assert) {
-  assert.expect(9);
+  assert.expect(10);
 
   assert.equal(model.id, baseAttrs.variant.id);
   assert.equal(model.productId, baseAttrs.product.id);
@@ -76,6 +77,7 @@ test('it proxies to a composite of product and variant state', function (assert)
   assert.equal(model.productTitle, baseAttrs.product.title);
   assert.equal(model.compareAtPrice, baseAttrs.variant.compare_at_price);
   assert.equal(model.price, baseAttrs.variant.price);
+  assert.equal(model.formattedPrice, baseAttrs.variant.formatted_price);
   assert.equal(model.grams, baseAttrs.variant.grams);
   assert.equal(model.available, baseAttrs.variant.available);
   assert.deepEqual(model.optionValues, baseAttrs.variant.option_values);
