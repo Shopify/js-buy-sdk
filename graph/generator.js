@@ -16,8 +16,8 @@ function transformArgument(arg) {
 
 function transformField(field) {
   return {
-    type: getBaseType(field.type).name,
-    kind: getBaseType(field.type).kind,
+    type: field.baseType.name,
+    kind: field.baseType.kind,
     fieldName: field.name,
     isList: hasListType(field.type),
     args: (field.args || []).map(transformArgument)
@@ -44,9 +44,9 @@ function getParents(typeName, typeList) {
       return false;
     }
 
-    return (potentialParent.fields.filter(field => {
+    return potentialParent.fields.some(field => {
       return getBaseType(field.type).name === typeName;
-    }).length > 0);
+    });
   }).map(parent => {
     return {
       type: parent.name
@@ -58,18 +58,20 @@ function extractTypeData(types) {
   return types.filter(type => {
     return type.kind === 'OBJECT';
   }).map(type => {
-    const scalars = type.fields.filter(field => {
-      return isScalar(getBaseType(field.type));
+    const fieldsWithBaseTypes = type.fields.map(field => {
+      return Object.assign({ baseType: getBaseType(field.type) }, field);
     });
 
-    const objects = type.fields.filter(field => {
-      const baseType = getBaseType(field.type);
-
-      return isObject(baseType) && !isConnection(baseType);
+    const scalars = fieldsWithBaseTypes.filter(field => {
+      return isScalar(field.baseType);
     });
 
-    const connections = type.fields.filter(field => {
-      return isConnection(getBaseType(field.type));
+    const objects = fieldsWithBaseTypes.filter(field => {
+      return isObject(field.baseType) && !isConnection(field.baseType);
+    });
+
+    const connections = fieldsWithBaseTypes.filter(field => {
+      return isConnection(field.baseType);
     });
 
     return {
