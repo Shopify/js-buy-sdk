@@ -141,9 +141,9 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Retrieve currently selected option values.
+    * An Array of Strings represented currently selected option values. eg. `["Large", "Red"]`
     * @property selections
-    * @type {ProductOptionModel}
+    * @type {Array | String}
   */
   get selections() {
     return this.options.map(option => {

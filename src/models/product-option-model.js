@@ -4,7 +4,7 @@ import includes from '../metal/includes';
 
 /**
   * Class for product option
-  * @class Option
+  * @class ProductOptionModel
   * @constructor
 */
 const ProductOptionModel = BaseModel.extend({
@@ -15,8 +15,9 @@ const ProductOptionModel = BaseModel.extend({
   },
 
   /**
-    * name of option (ex. "Size", "Color")
+    * name of option. Example values: `"Size"`, `"Color"`, etc.
     * @property name
+    * @readOnly
     * @type String
   */
   get name() {
@@ -24,8 +25,11 @@ const ProductOptionModel = BaseModel.extend({
   },
 
   /**
-    * possible values for selection
+    * an Array possible values for option. For instance if this option is a "Size" option an example value 
+    * for values could be: `["Large", "Medium", "Small"]`
+    * 
     * @property values
+    * @readOnly
     * @type Array
   */
   get values() {
@@ -33,8 +37,10 @@ const ProductOptionModel = BaseModel.extend({
   },
 
   /**
-    * get/set selected option value (ex. "Large"). Setting this will update the
-    * selected value on the model. Throws {Error} if setting selected to value that does not exist for option
+    * get/set the currently selected option value with one of the values from the {{#crossLink "ProductOptionModel/values"}}ProductOptionModel.values{{/crossLink}} array. For 
+    * instance if the option values array had the following `["Large", "Medium", "Small"]` setting `selected` to be 
+    * `"Large"`, `"Medium"`, or `"Small"` would be valid any other value would throw an `Error`.
+    * 
     * @property selected
     * @type String
   */

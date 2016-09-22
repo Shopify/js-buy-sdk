@@ -5,6 +5,7 @@ $(function() {
       'ShopClient',
       'ProductModel',
       'ProductVariantModel',
+      'ProductOptionModel',
       'CartModel',
       'CartLineItemModel'
     ];
