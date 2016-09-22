@@ -17,7 +17,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Product unique ID
-    * 
+    *
     * @property id
     * @type {String}
   */
@@ -72,11 +72,12 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-   *  Get an array of {{#crossLink "ProductOptionModel"}}ProductOptionModels{{/crossLink}}. 
+   *  Get an array of {{#crossLink "ProductOptionModel"}}ProductOptionModels{{/crossLink}}.
    *  {{#crossLink "ProductOptionModel"}}ProductOptionModels{{/crossLink}} can be used to
-   *  define the currently `selectedVariant` from which you can get a checkout url ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or can
+   *  define the currently `selectedVariant` from which you can get a checkout url
+   *  ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or can
    *  be added to a cart ({{#crossLink "CartModel/createLineItemsFromVariants"}}CartModel.createLineItemsFromVariants{{/crossLink}}).
-   *  
+   *
    *  Below is an example on how to create html for option selections:
    * ```javascript
    *  // the following will create an Array of HTML to create multiple select inputs
@@ -155,9 +156,10 @@ const ProductModel = BaseModel.extend({
     * Retrieve variant for currently selected options. By default the first value in each
     * option is selected which means `selectedVariant` will never be `null`.
     *
-    * With a `selectedVariant` you can create checkout url ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or it can
+    * With a `selectedVariant` you can create checkout url
+    * ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or it can
     * be added to a cart ({{#crossLink "CartModel/createLineItemsFromVariants"}}CartModel.createLineItemsFromVariants{{/crossLink}}).
-    * 
+    *
     * @property selectedVariant
     * @type {ProductVariantModel}
   */
@@ -182,7 +184,7 @@ const ProductModel = BaseModel.extend({
     *   variant_ids: [ 27690103238 ]
     * }
     * ```
-    * 
+    *
     * @property selectedVariantImage
     * @type {Object}
   */

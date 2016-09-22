@@ -49,7 +49,7 @@ const ProductVariantModel = BaseModel.extend({
 
   /**
     * Compare at price for variant. The `compareAtPrice` would be
-    * the price of the product previously before the product went on sale. For more info 
+    * the price of the product previously before the product went on sale. For more info
     * go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.
     *
     * If no `compareAtPrice` is set then this value will be `null`. An example value: `"5.00"`
@@ -63,7 +63,7 @@ const ProductVariantModel = BaseModel.extend({
 
   /**
     * Price of the variant. The price will be in the following form: `"10.00"`
-    * 
+    *
     * @property price
     * @type {String}
   */
@@ -72,8 +72,10 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Price of variant, formatted according to shop currency format string
-    * @property price
+    * Price of variant, formatted according to shop currency format string.
+    * For instance `"$10.00"`
+    *
+    * @property formattedPrice
     * @type {String}
   */
   get formattedPrice() {
@@ -105,7 +107,7 @@ const ProductVariantModel = BaseModel.extend({
     *   }
     * ]
     * ````
-    * 
+    *
     * @property optionValues
     * @type {Array|Object}
   */
@@ -210,7 +212,7 @@ const ProductVariantModel = BaseModel.extend({
     * ```
     * const checkoutURL = product.variants[ 0 ].checkoutUrl(3);
     * ```
-    * 
+    *
     * @method checkoutUrl
     * @param {Number} [quantity = 1] quantity of variants
     * @public

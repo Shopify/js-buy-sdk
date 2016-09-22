@@ -15,7 +15,7 @@ const CartLineItemModel = BaseModel.extend({
    * A line item ID.
    * @property id
    * @readOnly
-   * @type {String} 
+   * @type {String}
    */
   get id() {
     return this.attrs[GUID_KEY];
@@ -98,15 +98,17 @@ const CartLineItemModel = BaseModel.extend({
   },
 
   /**
-   * Customization information for a product. 
-   * <a href="https://help.shopify.com/themes/customization/products/get-customization-information-for-products" target="_blank">See here for more info</a>.
+   * Customization information for a product.
+   * <a href="https://help.shopify.com/themes/customization/products/get-customization-information-for-products" target="_blank">
+   * See here for more info
+   * </a>.
    * @property properties
    * @type {Object}
    * @private
    */
   get properties() {
     return this.attrs.properties || {};
-  },  
+  },
 
   set properties(value) {
     this.attrs.properties = value || {};
@@ -136,7 +138,7 @@ const CartLineItemModel = BaseModel.extend({
 
   /**
     * Compare at price for variant. The `compareAtPrice` would be
-    * the price of the product previously before the product went on sale. For more info 
+    * the price of the product previously before the product went on sale. For more info
     * go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.
     *
     * If no `compareAtPrice` is set then this value will be `null`. An example value: `"5.00"`.

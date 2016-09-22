@@ -25,9 +25,9 @@ const ProductOptionModel = BaseModel.extend({
   },
 
   /**
-    * an Array possible values for option. For instance if this option is a "Size" option an example value 
+    * an Array possible values for option. For instance if this option is a "Size" option an example value
     * for values could be: `["Large", "Medium", "Small"]`
-    * 
+    *
     * @property values
     * @readOnly
     * @type Array
@@ -37,10 +37,11 @@ const ProductOptionModel = BaseModel.extend({
   },
 
   /**
-    * get/set the currently selected option value with one of the values from the {{#crossLink "ProductOptionModel/values"}}ProductOptionModel.values{{/crossLink}} array. For 
-    * instance if the option values array had the following `["Large", "Medium", "Small"]` setting `selected` to be 
+    * get/set the currently selected option value with one of the values from the
+    * {{#crossLink "ProductOptionModel/values"}}ProductOptionModel.values{{/crossLink}} array. For
+    * instance if the option values array had the following `["Large", "Medium", "Small"]` setting `selected` to be
     * `"Large"`, `"Medium"`, or `"Small"` would be valid any other value would throw an `Error`.
-    * 
+    *
     * @property selected
     * @type String
   */

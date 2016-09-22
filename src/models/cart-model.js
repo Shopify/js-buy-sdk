@@ -66,7 +66,9 @@ const CartModel = BaseModel.extend({
   },
 
   /**
-    * Get current subtotal price for all line items. Example: two items have been added to the cart that cost $1.25 then the subtotal will be `2.50`
+    * Get current subtotal price for all line items. Example: two items have been added to the cart that cost $1.25
+    * then the subtotal will be `2.50`
+    *
     * @property subtotal
     * @readOnly
     * @type {String}
@@ -297,7 +299,7 @@ const CartModel = BaseModel.extend({
     * {{#crossLink "CartModel/updateLineItem"}}{{/crossLink}},
     * {{#crossLink "CartModel/removeLineItem"}}{{/crossLink}},
     * and {{#crossLink "CartModel/removeLineItem"}}{{/crossLink}}
-    * 
+    *
     * @method updateModel
     * @public
     * @return {Promise|CartModel} - the cart instance

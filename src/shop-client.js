@@ -316,7 +316,7 @@ const ShopClient = CoreObject.extend({
    *   // all products in store
    * });
    * ```
-   * 
+   *
    * @method fetchAllProducts
    * @public
    * @return {Promise|Array} The product models.
@@ -328,10 +328,10 @@ const ShopClient = CoreObject.extend({
    * ```
    * client.fetchAllCollections()
    * .then(function(collections) {
-   *   
+   *
    * });
    * ```
-   * 
+   *
    * @method fetchAllCollections
    * @public
    * @return {Promise|Array} The collection models.
