@@ -78,15 +78,22 @@ test('it deprecates addVariants to createLineItemsFromVariants', function (asser
 
   const done = assert.async();
 
-  const quantity = 2;
-
   const variant = singleProductFixture.product_listing.variants[1];
+  const quantity = 2;
+  const initialLineItems = model.lineItems.filter(lineItem => {
+    return lineItem.variant_id === variant.id;
+  });
+  let quantityInitial = 0;
+
+  if (initialLineItems.length === 1) {
+    quantityInitial = initialLineItems[0].quantity;
+  }
 
   model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === variant.id && item.quantity === quantity;
+      return item.variant_id === variant.id && item.quantity === quantity + quantityInitial;
     }).length, 1, 'the line item exists');
 
     done();
@@ -101,15 +108,22 @@ test('it creates a line item when you add a variant', function (assert) {
 
   const done = assert.async();
 
-  const quantity = 2;
-
   const variant = singleProductFixture.product_listing.variants[1];
+  const quantity = 2;
+  const initialLineItems = model.lineItems.filter(lineItem => {
+    return lineItem.variant_id === variant.id;
+  });
+  let quantityInitial = 0;
 
-  model.createLineItemsFromVariants({ variant, quantity }).then(cart => {
+  if (initialLineItems.length === 1) {
+    quantityInitial = initialLineItems[0].quantity;
+  }
+
+  model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === variant.id && item.quantity === quantity;
+      return item.variant_id === variant.id && item.quantity === quantity + quantityInitial;
     }).length, 1, 'the line item exists');
 
     done();
