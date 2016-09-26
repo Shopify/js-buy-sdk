@@ -18,12 +18,12 @@ const shopClient = ShopifyBuy.buildClient({
 
 // fetch a product using resource id
 shopClient.fetchAllProducts()
-  .then(function (products) {
-    console.log(products);
-  })
-  .catch(function () {
-    console.log('Request failed');
-  });
+.then(function (products) {
+  console.log(products);
+})
+.catch(function () {
+  console.log('Request failed');
+});
 ```
 
 ## Documentation

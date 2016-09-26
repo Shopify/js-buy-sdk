@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   function filterOrderSideNavItem(pageUrl, items) {
     var ORDER = [
       'ShopifyBuy',
@@ -10,12 +10,14 @@ $(function() {
       'CartLineItemModel'
     ];
 
-    var newItems = ORDER.map(function(key) {
-      return items.find(function(docClass) {
+    var newItems = ORDER.map(function (key) {
+      return items.find(function (docClass) {
+        console.log(docClass.name);
+
         return docClass.name === key;
       });
     })
-    .filter(function(value) {
+    .filter(function (value) {
       return value;
     });
 
@@ -23,7 +25,7 @@ $(function() {
   }
 
   function getHTMLForSideNavItems(pageUrl, items) {
-    return items.map(function(docClass) {
+    return items.map(function (docClass) {
       var activeClass = "";
       if (pageUrl.includes(docClass.url.slice(2))) {
         activeClass = "active";
@@ -45,7 +47,7 @@ $(function() {
   };
   highlightSubNavItem();
 
-  $(window).bind( 'hashchange', function(e) {
+  $(window).bind( 'hashchange', function (e) {
     highlightSubNavItem();
   });
 
@@ -65,14 +67,14 @@ $(function() {
 
   if(document.queryCommandSupported('copy')) {
     var clipboard = new Clipboard('[data-clipboard-text]');
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function (e) {
       var previousText = $(e.trigger).text();
       $(e.trigger).text('Copied!');
-      setTimeout(function() {
+      setTimeout(function () {
         $(e.trigger).text(previousText);
       }, 2000);
     });
-    clipboard.on('error', function(e) {
+    clipboard.on('error', function (e) {
       $(e.trigger).text('Press ⌘-C now to copy');
     });
   }
