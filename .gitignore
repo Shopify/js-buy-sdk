@@ -28,6 +28,7 @@ _site
 # Docs / Jekyll generated files
 docs/src
 docs/api/v*
+docs/api/master
 _site
 .sass-cache
 .jekyll-metadata
