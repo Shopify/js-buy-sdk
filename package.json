@@ -105,7 +105,7 @@
     "wdio-mocha-framework": "0.3.1",
     "webdriverio": "4.0.9",
     "whatwg-fetch": "0.10.1",
-    "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#master",
+    "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#0b226d5",
     "yuidocjs": "0.10.2"
   },
   "browser": {
