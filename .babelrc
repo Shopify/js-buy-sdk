@@ -1,4 +1,9 @@
 { 
+  "plugins": [
+    "transform-es5-property-mutators",
+    "transform-es3-member-expression-literals",
+    "transform-es3-property-literals"
+  ],
   "env": {
     "commonjs": {
       "presets": ["es2015"],
@@ -35,6 +40,24 @@
       "sourceRoot": "src/"
     },
     "amd-tests": {
+      "moduleRoot": "shopify-buy/tests",
+      "moduleIds": true,
+      "resolveModuleSource": null,
+      "presets": ["es2015"],
+      "plugins": [
+        "transform-es2015-modules-amd",
+        ["eslint-test-generator", {
+          "template": "qunit",
+          "paths": "./src/",
+          "file": "tests/unit/lint/lint-test.js"
+        }]
+      ],
+      "sourceRoot": "tests/",
+      "ignore": [
+        "tests/shims/**/*.js"
+      ]
+    },
+    "amd-tests-ie": {
       "moduleRoot": "shopify-buy/tests",
       "moduleIds": true,
       "resolveModuleSource": null,
