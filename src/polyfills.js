@@ -3,6 +3,8 @@ import promisePoly from 'core-js/fn/promise';
 import base64 from 'Base64/base64.js';
 import scope from './metal/global';
 
+console.log(scope);
+
 // drop in polyfills from base64
 if (!scope.btoa) {
   scope.btoa = base64.btoa;
