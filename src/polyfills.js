@@ -1,7 +1,7 @@
 import 'whatwg-fetch/fetch.js';
 import promisePoly from 'core-js/fn/promise';
 import base64 from 'Base64/base64.js';
-import scope, { add } from './metal/global';
+import { add } from './metal/global';
 
 // drop in polyfills from base64
 add('btoa', base64.btoa);
