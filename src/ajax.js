@@ -1,4 +1,5 @@
 import ie9Ajax from './ie9-ajax';
+import isNodeLikeEnvironment from './metal/is-node-like-environment';
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -25,10 +26,14 @@ function parseResponse(response) {
 }
 
 export default function ajax(method, url, opts = {}) {
-  const xhr = new XMLHttpRequest();
+  // we need to check that we're not running in Node
+  // before we should check if this is ie9
+  if (!isNodeLikeEnvironment()) {
+    const xhr = new XMLHttpRequest();
 
-  if (!('withCredentials' in xhr)) {
-    return ie9Ajax(...arguments);
+    if (!('withCredentials' in xhr)) {
+      return ie9Ajax(...arguments);
+    }
   }
 
   opts.method = method;
