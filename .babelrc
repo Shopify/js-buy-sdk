@@ -57,24 +57,6 @@
         "tests/shims/**/*.js"
       ]
     },
-    "amd-tests-ie": {
-      "moduleRoot": "shopify-buy/tests",
-      "moduleIds": true,
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": [
-        "transform-es2015-modules-amd",
-        ["eslint-test-generator", {
-          "template": "qunit",
-          "paths": "./src/",
-          "file": "tests/unit/lint/lint-test.js"
-        }]
-      ],
-      "sourceRoot": "tests/",
-      "ignore": [
-        "tests/shims/**/*.js"
-      ]
-    },
     "amd-lint-tests": {
       "moduleRoot": "shopify-buy/tests",
       "moduleId": "eslint-test",
