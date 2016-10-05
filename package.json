@@ -74,7 +74,7 @@
     "eslint": "3.3.1",
     "eslint-config-nightmare-mode": "2.3.0",
     "fake-xml-http-request": "1.4.0",
-    "get-project-version": "1.0.2",
+    "get-project-version": "1.0.3",
     "get-stdin": "5.0.1",
     "git-rev": "0.2.1",
     "glob": "7.0.5",
