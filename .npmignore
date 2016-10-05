@@ -13,22 +13,6 @@ tmp
 # Build artifacts
 .dist-test
 tests.xml
-.babelrc
-.eslintrc.json
-.gitignore
-.npmignore
-.rollup.config.umd.polyfilled.js
-.sass-cache
-DEPLOYING.md
-circle.yml
-examples
-scripts
-service.yml
-shipit.yml
-src
-testem.json
-tests
-yuidoc.json
 
 # The following files are gitignored, but MUST be pushed to NPM
 # dist
