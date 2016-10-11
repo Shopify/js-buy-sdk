@@ -1,9 +1,11 @@
-import promisePoly from 'core-js/fn/promise';
 import 'whatwg-fetch/fetch.js';
-import 'Base64/base64.js';
-import scope from './metal/global';
+import promisePoly from 'core-js/fn/promise';
+import base64 from 'Base64/base64.js';
+import { add } from './metal/global';
 
-// write polyfills to global scope
-if (!scope.Promise) {
-  scope.Promise = promisePoly;
-}
+// drop in polyfills from base64
+add('btoa', base64.btoa);
+add('atob', base64.atob);
+
+// drop in polyfills from Promise
+add('Promise', promisePoly);
