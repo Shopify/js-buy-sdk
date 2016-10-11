@@ -39,7 +39,7 @@
     // The following will run actual tests.
     // What we will do is get all modules defined. Pick up only modules that define tests
     // based on the name of the module (module name ends in "-test")
-    
+
     // It would be nice to just do `var moduleName = Object.keys(require.entries)`
     // however IE<9 does not support Object keys so we'll need to use for(var i in require.entries)
     // instead.
@@ -49,7 +49,7 @@
       // this moduleName is not defined in a proto
       if (modules.hasOwnProperty(moduleName)) {
         // is this module a test if so we'll require it
-        if(!!moduleName.match(/-test$/)) {
+        if(moduleName.match(/-test$/)) {
           require(moduleName);
         }
       }
