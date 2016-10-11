@@ -16,6 +16,9 @@ dist
 tests.xml
 WDIO.*.xml
 lib
+/node.js
+/polyfilled.js
+
 
 # Decrypted secrets
 secrets.json

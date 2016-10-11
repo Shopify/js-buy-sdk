@@ -6,7 +6,8 @@
         ["add-shopify-header", {
           "files": [ "src/shopify.js" ]
         }],
-        "transform-inline-environment-variables"
+        "transform-inline-environment-variables",
+        "add-module-exports"
       ]
     },
     "umd": {
