@@ -88,19 +88,17 @@ function checkoutSrcDirectories() {
   });
 }
 
-function copyHeadSrcDirectory() {
-  const version = 'head';
-  const srcRelativePath = path.join(options.srcDirRelPath, version);
-  const srcFullPath = path.join(process.cwd(), srcRelativePath);
-  const apiRelativePath = path.join(options.apiDirRelPath, version);
+function copySrcDirectory() {
+  const version = latestVersion;
+  const srcFullPath = path.join(process.cwd(), options.srcDirRelPath);
 
   fsExtra.copySync('./src', path.join(srcFullPath, 'src'));
 
   return Promise.resolve([{
     version: version,
     srcFullPath: srcFullPath,
-    srcRelativePath: srcRelativePath,
-    apiPath: apiRelativePath
+    srcRelativePath: options.srcDirRelPath,
+    apiPath: options.apiDirRelPath
   }]);
 }
 
@@ -121,20 +119,19 @@ function deleteSrcDirectories() {
 function build(sentOptions) {
   options = Object.assign({}, options, sentOptions);
 
-  if(options.generateForHead) {
-    return copyHeadSrcDirectory()
+  if(options.requestedReferenceNames) {
+    options.requestedLatest = options.requestedReferenceNames.indexOf('latest') != -1;
+
+    return NodeGit.Repository.open('.')
+      .then(repoObject => repo = repoObject)
+      .then(checkoutSrcDirectories)
+      .then(generateYUIDoc)
+      .then(deleteSrcDirectories);
+  } else {
+    return copySrcDirectory()
       .then(generateYUIDoc)
       .then(deleteSrcDirectories);
   }
-
-  options.requestedReferenceNames = options.requestedReferenceNames || ['latest'];
-  options.requestedLatest = options.requestedReferenceNames.indexOf('latest') != -1;
-
-  return NodeGit.Repository.open('.')
-    .then(repoObject => repo = repoObject)
-    .then(checkoutSrcDirectories)
-    .then(generateYUIDoc)
-    .then(deleteSrcDirectories);
 }
 
 module.exports = build;
