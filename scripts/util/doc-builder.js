@@ -88,6 +88,22 @@ function checkoutSrcDirectories() {
   });
 }
 
+function copyHeadSrcDirectory() {
+  const version = 'head';
+  const srcRelativePath = path.join(options.srcDirRelPath, version);
+  const srcFullPath = path.join(process.cwd(), srcRelativePath);
+  const apiRelativePath = path.join(options.apiDirRelPath, version);
+
+  fsExtra.copySync('./src', path.join(srcFullPath, 'src'));
+
+  return Promise.resolve([{
+    version: version,
+    srcFullPath: srcFullPath,
+    srcRelativePath: srcRelativePath,
+    apiPath: apiRelativePath
+  }]);
+}
+
 function generateYUIDoc(apiDocsMeta) {
   console.info('\ninfo:', 'Generating API docs');
   return yuidoc.generate(apiDocsMeta).then(() => {
@@ -104,7 +120,13 @@ function deleteSrcDirectories() {
 
 function build(sentOptions) {
   options = Object.assign({}, options, sentOptions);
-  
+
+  if(options.generateForHead) {
+    return copyHeadSrcDirectory()
+      .then(generateYUIDoc)
+      .then(deleteSrcDirectories);
+  }
+
   options.requestedReferenceNames = options.requestedReferenceNames || ['latest'];
   options.requestedLatest = options.requestedReferenceNames.indexOf('latest') != -1;
 

@@ -4,10 +4,12 @@
 const docBuilder = require('./util/doc-builder');
 const commandLineOptions = require('commander')
   .option('-r, --references <items>', 'Comma separated list of GIT tags or branches. For example, to generate docs for master, v0.2.1 and v0.2.2, use, `npm run doc:build -- --references master,v0.2.1,v0.2.2`', val => val.split(','))
+  .option('-d, --head', 'Use this to generate docs for HEAD. It copies `src` directory instead of checking out the `src` using `git`')
   .parse(process.argv);
 
 let docBuilderOptions = {
-  requestedReferenceNames: commandLineOptions.references
+  requestedReferenceNames: commandLineOptions.references,
+  generateForHead: commandLineOptions.head
 };
 
 console.log('Building ....\n');
