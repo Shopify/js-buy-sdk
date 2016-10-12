@@ -1,6 +1,10 @@
 ---
 layout: default
 ---
+
+{% assign versionSplit = site.data.package.version | split: "." %}
+{% assign majorVersion = versionSplit[ 0 ] %}
+
 # Shopify JavaScript Buy SDK
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website.
@@ -28,8 +32,10 @@ This tool is intended for use by developers who are experienced with JavaScript.
 ## Including the Buy SDK
 
 ```html
-<script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js"></script>
+<script src="http://sdks.shopifycdn.com/js-buy-sdk/v{{majorVersion}}/latest/shopify-buy.umd.polyfilled.min.js"></script>
 ```
+
+<button class="marketing-button copy-button" data-clipboard-text="<script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js&quot;></script>">Copy to clipboard</button>
 
 ## Creating a Shop Client
 
