@@ -129,8 +129,11 @@ shopClient.createCart({id: 123, quantity: 1})
 
 ## Selecting variants
 
-A product's options are accessed through `product.options`. Each option has a `values` property which is an array of possible values.
-To generate a `<select>` menus for a product's options, you would have to loop over the `product.options` array and the `values` array for each option.
+A product's options are accessed through `product.options`. Options are used to determine which variant is selected.
+
+Each option has a `values` Array which contains all possible valuse for a products option. For instance if an option is Size values could be: Small, Medium, Large.
+
+Here is an example to generate `<select>` menus for a product's options:
 
 ```js
 var selects = product.options.map(function (option) {
@@ -139,35 +142,65 @@ var selects = product.options.map(function (option) {
       return '<option value="' + value + '">' + value + '</option>';
     }).join('\n') +
   '</select>';
-})
+});
 ```
+
+If this product only had one option: Size. `selects[0]` would be as follows:
+
+```html
+<select name="Size">
+  <option value="Small">Small</option>
+  <option value="Medium">Medium</option>
+  <option value="Large">Large</option>
+</select>
+```
+
+
 
 You can also use buttons or radio inputs to allow customers to select options, but in any case you will need to update the selected variant based
 on the user's selection.
 
 ### Updating selected variant
 
-When a customer selects an option, you will need to set the `selected` property for that option to the selected value. For example:
+When a customer selects an option, you will need to set the `value` property for that option to the selected value. 
+
+The example below builds on the example above. A series of `<select>` elements is created but this time we add an `onchange` listener which updates the products selected options:
 
 ```js
-var optionName, selectedValue;
-// option Name and selected value obtained from DOM/user interaction
+// handleChange will be called whenever one of the selects
+// values are changed
+function handleChange(select) {
+  var optionName = select.name;
+  var selectedValue = select.value;
 
-var option = product.options.filter(function (option) {
-  return option.name === optionName;
-})[0];
+  var option = product.options.filter(function (option) {
+    return option.name === optionName;
+  })[0];
 
-option.value = selectedValue;
+  option.selected = selectedValue;
+}
+
+// the following is the code from the above example showing how to
+// create a select from a products options
+var selects = product.options.map(function (option) {
+  return '<select name="' + option.name + '" onchange="handleChange">' + 
+    option.values.map(function(value) {
+      return '<option value="' + value + '">' + value + '</option>';
+    }).join('\n') +
+  '</select>';
+});
 ```
 
-The product's `selectedVariant` property will now reflect the variant matching the selected options.
+The product's `selectedVariant` property will be updated to reflect the variant matching the selected options.
+
+`selectedVariant` can be quickly used to create line items for a cart like this:
 
 ```js
 cart.createLineItemsFromVariants({
   variant: product.selectedVariant,
   quantity: 1
 }).then(function (cart) {
-  cart = cart;
+  // do something with the cart such as create a checkout url
 });
 ```
 
