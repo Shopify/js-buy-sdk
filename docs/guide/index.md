@@ -116,17 +116,6 @@ cart.clearLineItems()
   });
 ```
 
-### Initializing a cart with a Variant
-
-Above we showed an example on how to initialize an empty cart. Alternately variants can be passed in during initalization to create a non-empty cart with those variants.
-
-```js
-shopClient.createCart({id: 123, quantity: 1})
-  .then(function (cart) {
-    // do something with cart
-  });
-```
-
 ## Selecting variants
 
 A product's options are accessed through `product.options`. Options are used to determine which variant is selected.
