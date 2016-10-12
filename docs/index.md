@@ -31,6 +31,12 @@ This tool is intended for use by developers who are experienced with JavaScript.
 
 ## Including the Buy SDK
 
+### via NPM
+```
+npm install shopify-buy
+```
+
+### via CDN
 ```html
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/v{{majorVersion}}/latest/shopify-buy.umd.polyfilled.min.js"></script>
 ```
@@ -65,7 +71,7 @@ To request an individual resource, you will need to pass that resource's ID as t
 ```js
 const shopClient = ShopifyBuy.buildClient({
   apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
-  appId: 6,
+  appId: '6',
   domain: 'embeds.myshopify.com'
 });
 
