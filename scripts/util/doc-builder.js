@@ -43,11 +43,12 @@ function checkoutSrcDirectories() {
     const apiDocsMeta = [];
 
     return foundReferences.reduce((promise, reference) => {
-      const target = reference.targetPeel() || reference.target();
       let name = reference.shorthand();
 
       return promise.then(() => {
-        return repo.getCommit(target);
+        return reference.peel(NodeGit.Object.TYPE.COMMIT);
+      }).then(object => {
+        return repo.getCommit(object.id());
       }).then(commit => {
         console.info('\ninfo:', 'Getting tree for', name);
 
