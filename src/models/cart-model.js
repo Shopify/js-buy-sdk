@@ -2,7 +2,7 @@ import BaseModel from './base-model';
 import CartLineItem from './cart-line-item-model';
 import assign from '../metal/assign';
 import setGuidFor from '../metal/set-guid-for';
-import global from '../metal/global';
+import globalVars from '../metal/global-vars';
 import { GUID_KEY } from '../metal/set-guid-for';
 
 function objectsEqual(one, two) {
@@ -84,6 +84,7 @@ const CartModel = BaseModel.extend({
   get checkoutUrl() {
     const config = this.config;
     const baseUrl = `https://${config.domain}/cart`;
+    const ga = globalVars.get('ga');
 
     const variantPath = this.lineItems.map(item => {
       return `${item.variant_id}:${item.quantity}`;
@@ -91,10 +92,10 @@ const CartModel = BaseModel.extend({
 
     let query = `api_key=${config.apiKey}`;
 
-    if (typeof global.ga === 'function') {
+    if (typeof ga === 'function') {
       let linkerParam;
 
-      global.ga(function (tracker) {
+      ga(function (tracker) {
         linkerParam = tracker.get('linkerParam');
       });
 

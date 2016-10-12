@@ -8,11 +8,14 @@ if (typeof global === 'undefined') {
   globalNamespace = global;
 }
 
-function add(key, value) {
+function set(key, value) {
   if (!globalNamespace[key]) {
     globalNamespace[key] = value;
   }
 }
 
-export default globalNamespace;
-export { add };
+function get(key) {
+  return globalNamespace[key];
+}
+
+export default { set, get };
