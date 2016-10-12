@@ -3,7 +3,7 @@ import CartModel from 'shopify-buy/models/cart-model';
 import BaseModel from 'shopify-buy/models/base-model';
 import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
 import assign from 'shopify-buy/metal/assign';
-import global from 'shopify-buy/metal/global';
+import globalVars from 'shopify-buy/metal/global-vars';
 import { cartFixture } from '../../fixtures/cart-fixture';
 import { singleProductFixture } from '../../fixtures/product-fixture';
 
@@ -314,7 +314,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
 
   const variant = singleProductFixture.product_listing.variants[1];
 
-  global.ga = function (callback) {
+  globalVars.set('ga', function (callback) {
     const tracker = {
       get() {
         return linkerParam;
@@ -322,7 +322,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
     };
 
     callback(tracker);
-  };
+  });
 
   model.addVariants({ variant, quantity: 1 }).then(cart => {
     const checkoutVariantPath = cart.lineItems.map(lineItem => {
@@ -331,13 +331,13 @@ test('it detects google analytics and appends the cross-domain linker param', fu
 
     assert.equal(cart.checkoutUrl, `${baseUrl}/${checkoutVariantPath}?${query}&${linkerParam}`);
 
-    delete global.ga;
+    globalVars.set('ga', null);
 
     done();
   }).catch(() => {
     assert.ok(false, 'promise should not reject');
 
-    delete global.ga;
+    globalVars.set('ga', null);
 
     done();
   });
