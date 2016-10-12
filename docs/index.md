@@ -109,7 +109,7 @@ cart.addVariants({variant: product.selectedVariant, quantity: 1}).then(function 
 });
 ```
 
-### Creating a checkout URL
+### Creating a cart checkout URL
 
 You can generate a checkout URL for a given cart at any time by retrieving the `cart.checkoutUrl`.
 
