@@ -134,9 +134,11 @@ To generate a `<select>` menus for a product's options, you would have to loop o
 
 ```js
 var selects = product.options.map(function (option) {
-  return '<select name="' + option.name + '">' + option.values.map(function(value) {
-    return '<option value="' + value + '">' + value + '</option>';
-  });
+  return '<select name="' + option.name + '">' + 
+    option.values.map(function(value) {
+      return '<option value="' + value + '">' + value + '</option>';
+    }).join('\n') +
+  '</select>';
 })
 ```
 
