@@ -35,14 +35,26 @@ See [here](https://github.com/Shopify/js-buy-sdk/blob/master/examples) for our e
 If your change affects how people use the project (i.e. adding or
 changing arguments to a function, adding a new function, changing the
 return value, etc), please ensure the documentation is also updated to
-reflect this. The docs live inside the `gh-pages` branch and are hosted
-at `shopify.github.io/js-buy-sdk`.
+reflect this. The docs live inside the `docs/` folder and are hosted
+at `http://shopify.github.io/js-buy-sdk`.
 
+To generate docs run the following:
 ```
-git checkout -b my-feature-branch gh-pages
-script/yuidoc
-jekyll serve
+npm run doc:build
 ```
 
-The documentation will then be visible at
-`http://localhost:4000/js-buy-sdk/index.html`
+To preview the built docs run:
+```
+npm run doc:serve
+```
+
+The documentation will then be visible at:
+`http://127.0.0.1:4000/js-buy-sdk/`
+
+If ever you'd like to view API docs for a specific version of the `js-buy-sdk` run the following command (replace `*VERSION NUMBER*` with a proper version such as `v0.3.2`):
+```
+npm run doc:build -- --references *VERSION NUMBER*
+```
+
+When serving you should now be able to view:
+`http://127.0.0.1:4000/js-buy-sdk/api/v0.3.2/`
