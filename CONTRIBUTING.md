@@ -51,15 +51,10 @@ npm run doc:serve
 The documentation will then be visible at:
 `http://127.0.0.1:4000/js-buy-sdk/`
 
-If ever you'd like to view API docs for a specific version of the `js-buy-sdk` run the following command:
+If ever you'd like to view API docs for a specific version of the `js-buy-sdk` run the following command (replace `*VERSION NUMBER*` with a proper version such as `v0.3.2`):
 ```
 npm run doc:build -- --references *VERSION NUMBER*
 ```
 
-Replace `*VERSION NUMBER*` with a proper version:
-```
-npm run doc:build -- --references v0.3.0
-```
-
 When serving you should now be able to view:
-`http://127.0.0.1:4000/js-buy-sdk/api/v0.3.0/`
+`http://127.0.0.1:4000/js-buy-sdk/api/v0.3.2/`
