@@ -1,6 +1,6 @@
 {
   "name": "shopify-buy",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website. It is based on Shopify's API and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.",
   "main": "lib/shopify.js",
   "jsnext:main": "src/shopify.js",
