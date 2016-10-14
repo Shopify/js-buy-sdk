@@ -19,13 +19,45 @@ Install the project's dependencies:
 npm install
 ```
 
-Run the server:
+To see documentation about npm scripts used in this project run:
+```
+npm run info
+```
+
+While developing the following command will run tests in browser at http://localhost:4200. It also watches the src/ and tests/ directory and rebuilds as needed:
 ```
 npm start
 ```
-Add some tests and make your change. Re-run the tests with:
+
+If you'd simply like to manually run tests do:
 ```
 npm run test
+```
+
+## Folder Structure
+
+The following documents the folder structure for this project and what the purpose of each folder is:
+```
+ +-- docs/ ** API documentation that lives at http://shopify.github.io/
+ +-- scripts/ ** Scripts used for development such as build and CI scripts
+ | +-- ci/ ** Scripts used to setup/run CI
+ +-- src/ ** Contains all JS used by the JS buy SDK
+ | +-- adapters/
+ | +-- metal/
+ | +-- models/
+ | +-- serializers/
+ +-- tests/ ** Contains tests used to ensure the js-buy-sdk works as intended
+   +-- fixtures/
+   +-- helpers/
+   +-- integration/
+   +-- shims/
+   +-- unit/
+     +-- adapters/
+     +-- api/
+     +-- lint/
+     +-- metal/
+     +-- models/
+     +-- serializers/
 ```
 
 ## Examples
