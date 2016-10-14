@@ -38,7 +38,7 @@ npm run test
 
 The following documents the folder structure for this project and what the purpose of each folder is:
 ```
- +-- docs/ ** API documentation that lives at http://shopify.github.io/
+ +-- docs/ ** API docs that live at http://shopify.github.io/js-buy-sdk
  +-- scripts/ ** Scripts used for development such as build and CI scripts
  | +-- ci/ ** Scripts used to setup/run CI
  +-- src/ ** Contains all JS used by the JS buy SDK
