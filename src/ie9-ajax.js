@@ -51,15 +51,25 @@ function ie9Ajax(method, url, opts) {
       }
     };
 
-    function handleError() {
-      reject(new Error('There was an error with the XDR'));
+    function handleError(error) {
+      // we should be calling reject but in browsers below ie9 it is better to do console.error
+      reject(`There was an error with the XDR\n${JSON.stringify(error, null, '  ')}`);
     }
 
     xdr.onerror = handleError;
     xdr.ontimeout = handleError;
 
-    xdr.open(method, authToUrl(url, opts));
-    xdr.send(opts.data);
+    try {
+      xdr.open(method, authToUrl(url, opts));
+      xdr.send(opts.data);
+    } catch (error) {
+      // using trim because the error message has a bunch of white space for some reason
+      if (error.message.trim() === 'Access is denied.') {
+        reject('Please ensure Shopify JavaScript Buy SDK is run over https');
+      } else {
+        reject(`There was an error when running XDR\n${error.message}`);
+      }
+    }
   });
 }
 
