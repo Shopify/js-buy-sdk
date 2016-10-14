@@ -13,6 +13,7 @@ let repo;
 let options = {
   apiDirRelPath: path.join('docs', 'api'),
   srcDirRelPath: path.join('docs', 'src'),
+  docsPackageJSONRelPath: path.join('docs', '_data', 'package.json'),
   checkoutStrategy: ( NodeGit.Checkout.STRATEGY.FORCE + NodeGit.Checkout.STRATEGY.DONT_WRITE_INDEX ),
 }
 
@@ -89,11 +90,18 @@ function checkoutSrcDirectories() {
   });
 }
 
+function copyPackageJSON(apiDocsMeta) {
+  console.info('info:', 'Copying over package.json to docs/_data/package.json');
+  fsExtra.copySync('package.json', options.docsPackageJSONRelPath);
+
+  return apiDocsMeta;
+}
+
 function copySrcDirectory() {
   const version = latestVersion;
   const srcFullPath = path.join(process.cwd(), options.srcDirRelPath);
 
-  fsExtra.copySync('./src', path.join(srcFullPath, 'src'));
+  fsExtra.copySync(path.join(process.cwd(), 'src'), path.join(srcFullPath, 'src'));
 
   return Promise.resolve([{
     version: version,
@@ -130,6 +138,7 @@ function build(sentOptions) {
       .then(deleteSrcDirectories);
   } else {
     return copySrcDirectory()
+      .then(copyPackageJSON)
       .then(generateYUIDoc)
       .then(deleteSrcDirectories);
   }
