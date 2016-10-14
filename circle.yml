@@ -4,8 +4,8 @@ machine:
   node:
     version: v5.5.0
   environment:
-    NODE_LTS: v4.5.0
-    NODE_CURRENT: v6.6.0
+    NODE_LTS: v4.6.0
+    NODE_CURRENT: v6.8.0
     PHANTOMJS_VERSION: 2.0.0
 
 dependencies:
