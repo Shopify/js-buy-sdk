@@ -48,8 +48,11 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales">
-    * Compare at</a> price for variant formatted as currency.
+    * Compare at price for variant formatted as currency. The `compareAtPrice` would be
+    * the price of the product previously before the product went on sale. For more info 
+    * go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.
+    *
+    * If no `compareAtPrice` is set then this value will be `null`. An example value: `"5.00"`
     * @property compareAtPrice
     * @type {String}
   */
@@ -59,7 +62,8 @@ const ProductVariantModel = BaseModel.extend({
 
 
   /**
-    * Price of variant, formatted as currency
+    * Price of the variant. The price will be in the following form: `"10.00"`
+    * 
     * @property price
     * @type {String}
   */
@@ -77,7 +81,7 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Variant weight in grams
+    * Variant weight in grams. If no weight is defined grams will be `0`.
     * @property grams
     * @type {Number}
   */
@@ -86,7 +90,22 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Option values associated with this variant, ex {name: "color", value: "Blue"}
+    * Option values associated with this variant. Example `optionValues`:
+    * ```
+    * [
+    *   {
+    *     "name": "Size",
+    *     "option_id": 9165336518,
+    *     "value": "small"
+    *   },
+    *   {
+    *     "name": "Color",
+    *     "option_id": 9640532358,
+    *     "value": "blue"
+    *   }
+    * ]
+    * ````
+    * 
     * @property optionValues
     * @type {Array|Object}
   */
@@ -104,7 +123,19 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Image for variant
+    * Image for variant. An example image `Object`:
+    * ```
+    * {
+    *   created_at: "2016-08-29T12:35:09-04:00",
+    *   id: 17690553350,
+    *   position: 1,
+    *   product_id: 8291029446,
+    *   src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+    *   updated_at: "2016-08-29T12:35:09-04:00",
+    *   variant_ids: [ 27690103238 ]
+    * }
+    * ```
+    *
     * @property image
     * @type {Object}
   */
@@ -121,8 +152,22 @@ const ProductVariantModel = BaseModel.extend({
   },
 
   /**
-    * Image variants available for a variant, ex [ {"name":"pico","dimension":"16x16","src":"https://cdn.shopify.com/image-two_pico.jpg"} ]
-    * See <a href="https://help.shopify.com/themes/liquid/filters/url-filters#size-parameters"> for list of available variants.</a>
+    * Image variants available for a variant. An example value of `imageVariant`:
+    * ```
+    * [
+    *   {
+    *     "name": "pico",
+    *     "dimensions": "16x16",
+    *     "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423"
+    *   },
+    *   {
+    *     "name": "compact",
+    *     "dimensions": "160x160",
+    *     "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423"
+    *   }
+    * ]
+    * ```
+    *
     * @property imageVariant
     * @type {Array}
   */
