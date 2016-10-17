@@ -85,3 +85,21 @@ test('it adds connections with pagination info', function (assert) {
     }
   }`));
 });
+
+test('it adds inline fragments', function (assert) {
+  const graph = new Graph();
+
+  graph.addField('shop', {}, function (shop) {
+    shop.addInlineFragmentOn('Shop', function (fragment) {
+      fragment.addField('name');
+    });
+  });
+
+  assert.deepEqual(splitQuery(graph.toQuery()), splitQuery(`query {
+    shop {
+      ... on Shop {
+        name
+      }
+    }
+  }`));
+});

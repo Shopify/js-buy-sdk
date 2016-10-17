@@ -20,6 +20,27 @@ function formatArgs(argumentHash) {
   return ` (${join(formattedArgs)})`;
 }
 
+class Field {
+  constructor(name, args, selectionSet) {
+    this.name = name;
+    this.args = args;
+    this.selectionSet = selectionSet;
+  }
+  toQuery() {
+    return `${this.name}${formatArgs(this.args)}${this.selectionSet.toQuery()}`;
+  }
+}
+
+class InlineFragment {
+  constructor(typeName, selectionSet) {
+    this.typeName = typeName;
+    this.selectionSet = selectionSet;
+  }
+  toQuery() {
+    return `... on ${this.typeName}${this.selectionSet.toQuery()}`;
+  }
+}
+
 export default class Graph {
   constructor(type = 'QueryRoot', parent) {
     if (typeof type === 'string') {
@@ -50,7 +71,7 @@ export default class Graph {
 
   get selections() {
     return join(this.fields.map(field => {
-      return `${field.name}${formatArgs(field.args)}${field.node.toQuery()}`;
+      return field.toQuery();
     }));
   }
 
@@ -64,27 +85,34 @@ export default class Graph {
 
   addField(name, args = {}, fieldTypeCb = function () {}) {
     const fieldDescriptor = descriptorForField(name, this.typeSchema.name);
-    const node = new Graph(fieldDescriptor.schema, this);
+    const selectionSet = new Graph(fieldDescriptor.schema, this);
 
-    fieldTypeCb(node);
+    fieldTypeCb(selectionSet);
 
-    this.fields.push({ name, args, node, fieldTypeCb });
+    this.fields.push(new Field(name, args, selectionSet));
   }
 
   addConnection(name, args = {}, fieldTypeCb = function () {}) {
     const fieldDescriptor = descriptorForField(name, this.typeSchema.name);
-    const node = new Graph(fieldDescriptor.schema, this);
+    const selectionSet = new Graph(fieldDescriptor.schema, this);
 
-    node.addField('pageInfo', {}, pageInfo => {
+    selectionSet.addField('pageInfo', {}, pageInfo => {
       pageInfo.addField('hasNextPage');
       pageInfo.addField('hasPreviousPage');
     });
 
-    node.addField('edges', {}, edges => {
+    selectionSet.addField('edges', {}, edges => {
       edges.addField('cursor');
       edges.addField('node', {}, fieldTypeCb);
     });
 
-    this.fields.push({ name, args, node, fieldTypeCb });
+    this.fields.push(new Field(name, args, selectionSet));
+  }
+
+  addInlineFragmentOn(typeName, fieldTypeCb = function () {}) {
+    const selectionSet = new Graph(schemaForType(typeName), this);
+
+    fieldTypeCb(selectionSet);
+    this.fields.push(new InlineFragment(typeName, selectionSet));
   }
 }
