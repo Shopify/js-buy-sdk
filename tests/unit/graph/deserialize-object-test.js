@@ -43,14 +43,28 @@ const productFixture = {
     product: {
       id: 'gid://shopify/Product/3677189889',
       handle: 'aluminum-pole',
-      images: [
+      options: [
         {
-          src: 'https://cdn.shopify.com/s/files/1/1090/1932/products/festivus-pole-the-strike-seinfeld.jpg?v=1449866700'
+          name: 'Color'
         },
         {
-          src: 'https://cdn.shopify.com/s/files/1/1090/1932/products/giphy.gif?v=1450204755'
+          name: 'Size'
         }
-      ]
+      ],
+      images: {
+        edges: [
+          {
+            node: {
+              src: 'https://cdn.shopify.com/s/files/1/1090/1932/products/festivus-pole-the-strike-seinfeld.jpg?v=1449866700'
+            }
+          },
+          {
+            node: {
+              src: 'https://cdn.shopify.com/s/files/1/1090/1932/products/giphy.gif?v=1450204755'
+            }
+          }
+        ]
+      }
     }
   }
 };
@@ -99,8 +113,8 @@ test('it creates an array from lists of non-paginated relationships', function (
 
   const graph = deserializeObject(productFixture.data, 'QueryRoot');
 
-  assert.ok(Array.isArray(graph.product.images), 'products images are in an array');
-  assert.equal(graph.product.images.length, 2, 'there are two images');
+  assert.ok(Array.isArray(graph.product.options), 'products images are in an array');
+  assert.equal(graph.product.options.length, 2, 'there are two options');
 });
 
 test('it instantiates basic list members as models', function (assert) {
@@ -108,8 +122,8 @@ test('it instantiates basic list members as models', function (assert) {
 
   const graph = deserializeObject(productFixture.data, 'QueryRoot');
 
-  assert.ok(GraphModel.prototype.isPrototypeOf(graph.product.images[0]));
-  assert.equal(graph.product.images[0].src, productFixture.data.product.images[0].src);
+  assert.ok(GraphModel.prototype.isPrototypeOf(graph.product.options[0]));
+  assert.equal(graph.product.options[0].name, productFixture.data.product.options[0].name);
 });
 
 test('it instantiates types with their registered models', function (assert) {

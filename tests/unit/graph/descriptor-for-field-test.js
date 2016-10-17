@@ -49,14 +49,14 @@ test('it can describe scalars', function (assert) {
 test('it can describe lists', function (assert) {
   assert.expect(6);
 
-  const productImagesDescriptor = descriptorForField('images', 'Product');
+  const productOptionsDescriptor = descriptorForField('options', 'Product');
 
-  assert.equal(productImagesDescriptor.fieldName, 'images', 'productImage\'s field name');
-  assert.equal(productImagesDescriptor.type, 'Image', 'productImage\'s type name');
-  assert.equal(productImagesDescriptor.kind, 'OBJECT', 'productImage\'s type kind ');
-  assert.equal(productImagesDescriptor.isList, true, 'productImage isList');
-  assert.equal(productImagesDescriptor.isConnection, false, 'productImagesDescriptor isConnection');
-  assert.deepEqual(productImagesDescriptor.schema, graphSchema.Image, 'productImage\'s schema');
+  assert.equal(productOptionsDescriptor.fieldName, 'options', 'Product.options field name');
+  assert.equal(productOptionsDescriptor.type, 'ProductOption', 'Product.options type name');
+  assert.equal(productOptionsDescriptor.kind, 'OBJECT', 'Product.options kind ');
+  assert.equal(productOptionsDescriptor.isList, true, 'Product.options isList');
+  assert.equal(productOptionsDescriptor.isConnection, false, 'Product.options isConnection');
+  assert.deepEqual(productOptionsDescriptor.schema, graphSchema.ProductOption, 'Product.options schema');
 });
 
 test('it can describe connections', function (assert) {
