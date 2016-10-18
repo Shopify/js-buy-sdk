@@ -284,7 +284,7 @@ const ShopClient = CoreObject.extend({
     *
     * @param {CartModel} updatedCart an updated CartModel
     * @method updateCart
-    * @public
+    * @private
     * @return {Promise|CartModel} - updated cart instance.
   */
   updateCart(updatedCart) {
