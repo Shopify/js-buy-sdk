@@ -142,7 +142,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * An Array of Strings represented currently selected option values. eg. `["Large", "Red"]`
+    * A read only `Array` of Strings represented currently selected option values. eg. `["Large", "Red"]`
     * @property selections
     * @type {Array | String}
   */
