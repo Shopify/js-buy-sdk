@@ -246,7 +246,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Creates a {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance, optionally including `attrs`.
+    * Creates a {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance.
     *
     * ```javascript
     * client.createCart().then(cart => {
@@ -254,7 +254,6 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method createCart
     * @public
     * @return {Promise|CartModel} - new cart instance.
@@ -283,7 +282,7 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
+    * @param {CartModel} updatedCart an updated CartModel
     * @method updateCart
     * @public
     * @return {Promise|CartModel} - updated cart instance.
@@ -388,6 +387,11 @@ const ShopClient = CoreObject.extend({
    *   @param {String|Number} [query.limit=50] The number of products to retrieve per page
    *   @param {String} [query.handle] The handle of the product to look up
    *   @param {String} [query.updated_at_min] Products updated since the supplied timestamp (format: 2008-12-31 03:00)
+   *   @param {String} [query.sort_by] Will modify how products are ordered. Possible values are:
+   *                                   `"updated_at"`, `"best-selling"`, `"title-ascending"`, `"title-descending"`,
+   *                                   `"price-descending"`, `"price-ascending"`, `"created-descending"`, `"created-ascending"`,
+   *                                   or `"collection-default"`. Using `"collection-default"` means that products will be ordered
+   *                                   the using the custom ordering defined in your Shopify Admin. Default value `"collection-default"`.
    * @return {Promise|Array} The product models.
    */
   fetchQueryProducts: fetchFactory('query', 'products'),
