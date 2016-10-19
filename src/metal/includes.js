@@ -9,7 +9,7 @@ if (!Array.prototype.includes) {
       return false;
     }
 
-    const startIndex = parseInt(arguments[1], 10) || 0;
+    const startIndex = parseInt(arguments[2], 10) || 0;
     let index;
 
     if (startIndex >= 0) {
