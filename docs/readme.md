@@ -11,10 +11,10 @@
 - `npm install`
 
 ### Update the API docs
-- `npm run doc-build`
+- `npm run doc:build`
 
 ### Serve the documentation
-- `npm run doc-serve`
+- `npm run doc:serve`
 
 ## Deployment
 Changes to the `docs` directory will automatically be deployed to http://shopify.github.io/js-buy-sdk/ when added to `master` (remote).
