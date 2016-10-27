@@ -240,6 +240,7 @@ $(function() {
 
     setUpWidgets();
     setUpHashChange();
+    setUpOptionsCheckboxes();
     if (window.location.hash) {
         moveToWindowHash();
     }

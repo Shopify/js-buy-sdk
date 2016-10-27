@@ -1,25 +1,23 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "CartLineItemModel",
         "CartModel",
-        "Config",
-        "Option",
+        "Logger",
         "ProductModel",
+        "ProductOptionModel",
         "ProductVariantModel",
+        "ReferenceModel",
         "ShopClient",
         "ShopifyBuy"
     ],
     "modules": [
-        "config",
         "shop-client",
         "shopify",
-        "shopify-buy"
+        "shopify-buy",
+        "version"
     ],
     "allModules": [
-        {
-            "displayName": "config",
-            "name": "config"
-        },
         {
             "displayName": "shop-client",
             "name": "shop-client"
@@ -27,11 +25,15 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "shopify",
             "name": "shopify",
-            "description": "This namespace contains all globally accessible classes"
+            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:apiKey\"}}`apiKey`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}."
         },
         {
             "displayName": "shopify-buy",
             "name": "shopify-buy"
+        },
+        {
+            "displayName": "version",
+            "name": "version"
         }
     ],
     "elements": []

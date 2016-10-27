@@ -36,9 +36,6 @@ layout: api
 <div class="clearfix well well-small">
 
 
-        <div class="foundat">
-            Defined in: <a href="../files/src_shopify.js.html#l11"><code>src&#x2F;shopify.js:11</code></a>
-        </div>
 
 </div>
 
@@ -54,18 +51,18 @@ layout: api
 
             <ul class="module-classes">
                 <li class="module-class">
+                    <a href="../classes/CartLineItemModel.html">
+                        CartLineItemModel
+                    </a>
+                </li>
+                <li class="module-class">
                     <a href="../classes/CartModel.html">
                         CartModel
                     </a>
                 </li>
                 <li class="module-class">
-                    <a href="../classes/Config.html">
-                        Config
-                    </a>
-                </li>
-                <li class="module-class">
-                    <a href="../classes/Option.html">
-                        Option
+                    <a href="../classes/Logger.html">
+                        Logger
                     </a>
                 </li>
                 <li class="module-class">
@@ -74,8 +71,18 @@ layout: api
                     </a>
                 </li>
                 <li class="module-class">
+                    <a href="../classes/ProductOptionModel.html">
+                        ProductOptionModel
+                    </a>
+                </li>
+                <li class="module-class">
                     <a href="../classes/ProductVariantModel.html">
                         ProductVariantModel
+                    </a>
+                </li>
+                <li class="module-class">
+                    <a href="../classes/ReferenceModel.html">
+                        ReferenceModel
                     </a>
                 </li>
                 <li class="module-class">
@@ -96,15 +103,6 @@ layout: api
 
             <ul class="module-submodules">
                 <li class="module-submodule">
-                    <a href="../modules/config.html">
-                        config
-                    </a>
-
-                    <div class="module-submodule-description">
-                        
-                    </div>
-                </li>
-                <li class="module-submodule">
                     <a href="../modules/shop-client.html">
                         shop-client
                     </a>
@@ -119,7 +117,21 @@ layout: api
                     </a>
 
                     <div class="module-submodule-description">
-                        This namespace contains all globally accessible classes
+                        <code>ShopifyBuy</code> only defines one function {{#crossLink "ShopifyBuy/buildClient"}}{{/crossLink}} which can
+be used to build a {{#crossLink "ShopClient"}}{{/crossLink}} to query your store using the
+provided
+{{#crossLink "ShopifyBuy/buildClient/configAttrs:apiKey"}}<code>apiKey</code>{{/crossLink}},
+{{#crossLink "ShopifyBuy/buildClient/configAttrs:appId"}}<code>appId</code>{{/crossLink}},
+and {{#crossLink "ShopifyBuy/buildClient/configAttrs:domain"}}<code>domain</code>{{/crossLink}}.
+                    </div>
+                </li>
+                <li class="module-submodule">
+                    <a href="../modules/version.html">
+                        version
+                    </a>
+
+                    <div class="module-submodule-description">
+                        
                     </div>
                 </li>
             </ul>
@@ -132,10 +144,10 @@ layout: api
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
             <li><a href="../classes/CartModel.html">CartModel</a></li>
-            <li><a href="../classes/Config.html">Config</a></li>
-            <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
             <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
@@ -160,20 +172,20 @@ layout: api
     classes: []
   };
     YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
       name: 'CartModel',
       url: '../classes/CartModel.html'
     })
     YUIDocs.classes.push({
-      name: 'Config',
-      url: '../classes/Config.html'
-    })
-    YUIDocs.classes.push({
-      name: 'Option',
-      url: '../classes/Option.html'
-    })
-    YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
     })
     YUIDocs.classes.push({
       name: 'ProductVariantModel',

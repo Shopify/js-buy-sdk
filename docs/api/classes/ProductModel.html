@@ -66,8 +66,6 @@ layout: api
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/models/product-model.js#L7"><code>src&#x2F;models&#x2F;product-model.js:7</code></a>
 		</p>
 
 
@@ -86,6 +84,29 @@ layout: api
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
+<div id="prop-description" class="property item">
+    <h3 class="name"><code>description</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>A product description.</p>
+
+    </div>
+
+
+
+</div>
 <div id="prop-id" class="property item">
     <h3 class="name"><code>id</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
@@ -96,8 +117,6 @@ layout: api
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l17"><code>src&#x2F;models&#x2F;product-model.js:17</code></a>
         </p>
 
 
@@ -121,15 +140,152 @@ layout: api
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l35"><code>src&#x2F;models&#x2F;product-model.js:35</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>All images associated with product.</p>
+        <p>An <code>Array</code> of <code>Objects</code> that contain meta data about an image including <code>src</code> of the images.</p>
+<p>An example image <code>Object</code>:</p>
+<pre class="code prettyprint"><code>{
+  created_at: "2016-08-29T12:35:09-04:00",
+  id: 17690553350,
+  position: 1,
+  product_id: 8291029446,
+  src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+  updated_at: "2016-08-29T12:35:09-04:00",
+  variant_ids: [ 27690103238 ]
+}
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="prop-options" class="property item">
+    <h3 class="name"><code>options</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/ProductOptionModel.html" class="crosslink">ProductOptionModel</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Get an array of <a href="../classes/ProductOptionModel.html" class="crosslink">ProductOptionModels</a>.
+<a href="../classes/ProductOptionModel.html" class="crosslink">ProductOptionModels</a> can be used to
+define the currently <code>selectedVariant</code> from which you can get a checkout url
+(<a href="../classes/ProductVariantModel.html#method_checkoutUrl" class="crosslink">ProductVariantModel.checkoutUrl</a>) or can
+be added to a cart (<a href="../classes/CartModel.html#method_createLineItemsFromVariants" class="crosslink">CartModel.createLineItemsFromVariants</a>).</p>
+<p>Below is an example on how to create html for option selections:</p>
+<pre class="code prettyprint"><code class="language-javascript">// the following will create an Array of HTML to create multiple select inputs
+// global callbacks are also created which will set the option as selected
+var elements = product.options.map(function(option) {
+ // we'll create a callback in global scope
+ // which will be called when the select's value changes
+ var callBackName = option.name + 'onChange';
+ window[ callBackName ] = function(select) {
+   // set the products option to be selected
+   option.selected = select.value;
+ };
+
+ // return a string which will be HTML for the select
+ return '&lt;select name="' + option.name + '" onchange="'callBackName'(this)"&gt;' + option.values.map(function(value) {
+   return '&lt;option value="' + value + '"&gt;' + value + '&lt;/option&gt;';
+ }) + '&lt;/select&gt;';
+});
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="prop-selectedVariant" class="property item">
+    <h3 class="name"><code>selectedVariant</code></h3>
+    <span class="type"><a href="../classes/ProductVariantModel.html" class="crosslink">ProductVariantModel</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Retrieve variant for currently selected options. By default the first value in each
+option is selected which means <code>selectedVariant</code> will never be <code>null</code>.</p>
+<p>With a <code>selectedVariant</code> you can create checkout url
+(<a href="../classes/ProductVariantModel.html#method_checkoutUrl" class="crosslink">ProductVariantModel.checkoutUrl</a>) or it can
+be added to a cart (<a href="../classes/CartModel.html#method_createLineItemsFromVariants" class="crosslink">CartModel.createLineItemsFromVariants</a>).</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-selectedVariantImage" class="property item">
+    <h3 class="name"><code>selectedVariantImage</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Retrieve image for currently selected variantImage. An example image Object would look like this:</p>
+<pre class="code prettyprint"><code>{
+  created_at: "2016-08-29T12:35:09-04:00",
+  id: 17690553350,
+  position: 1,
+  product_id: 8291029446,
+  src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+  updated_at: "2016-08-29T12:35:09-04:00",
+  variant_ids: [ 27690103238 ]
+}
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="prop-selections" class="property item">
+    <h3 class="name"><code>selections</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>A read only <code>Array</code> of Strings represented currently selected option values. eg. <code>["Large", "Red"]</code></p>
 
     </div>
 
@@ -146,15 +302,13 @@ layout: api
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l26"><code>src&#x2F;models&#x2F;product-model.js:26</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Product title</p>
+        <p>The product title</p>
 
     </div>
 
@@ -171,15 +325,13 @@ layout: api
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l93"><code>src&#x2F;models&#x2F;product-model.js:93</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>All variants of a product.</p>
+        <p>An <code>Array</code> of <a href="../classes/ProductVariantModel.html" class="crosslink">ProductVariantModel's</a></p>
 
     </div>
 
@@ -189,132 +341,6 @@ layout: api
         </div>
     </div>
 
-    <div id="attrs" class="page-section">
-        <h2 class="off-left">Attributes</h2>
-
-<div id="attr-options" class="attr item">
-    <a name="config_options"></a> 
-    <h3 class="name"><code>options</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a> | <a href="../classes/Option.html" class="crosslink">Option</a></span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l50"><code>src&#x2F;models&#x2F;product-model.js:50</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Get array of options with nested values. Useful for creating UI for selecting options.</p>
-<pre class="code prettyprint"><code class="language-javascript">var elements = product.options.map(function(option) {
- return '&lt;select name="' + option.name + '"&gt;' + option.values.map(function(value) {
-   return '&lt;option value="' + value + '"&gt;' + value + '&lt;/option&gt;';
- }) + '&lt;/select&gt;';
-});
-</code></pre>
-
-    </div>
-
-
-
-</div>
-<div id="attr-selectedVariant" class="attr item">
-    <a name="config_selectedVariant"></a> 
-    <h3 class="name"><code>selectedVariant</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l115"><code>src&#x2F;models&#x2F;product-model.js:115</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Retrieve variant for currently selected options</p>
-
-    </div>
-
-
-
-</div>
-<div id="attr-selectedVariantImage" class="attr item">
-    <a name="config_selectedVariantImage"></a> 
-    <h3 class="name"><code>selectedVariantImage</code></h3>
-    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l128"><code>src&#x2F;models&#x2F;product-model.js:128</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Retrieve image for currently selected variantImage</p>
-
-    </div>
-
-
-
-</div>
-<div id="attr-selections" class="attr item">
-    <a name="config_selections"></a> 
-    <h3 class="name"><code>selections</code></h3>
-    <span class="type"><a href="../classes/Option.html" class="crosslink">Option</a></span>
-
-
-
-
-
-
-
-
-    <div class="meta">
-                <p>
-                Defined in
-        <a href="../files/src_models_product-model.js.html#l104"><code>src&#x2F;models&#x2F;product-model.js:104</code></a>
-        </p>
-
-
-    </div>
-
-    <div class="description">
-        <p>Retrieve currently selected option values.</p>
-
-    </div>
-
-
-
-</div>
-    </div>
 
 
                     </div>
@@ -324,10 +350,10 @@ layout: api
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
             <li><a href="../classes/CartModel.html">CartModel</a></li>
-            <li><a href="../classes/Config.html">Config</a></li>
-            <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
             <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
@@ -337,22 +363,18 @@ layout: api
 		<li>
 			<h2>Properties</h2>
 			<ul>
-				<li><a href="#prop-id"><span class="ip">id</span></a></li>
-				<li><a href="#prop-images"><span class="ip">images</span></a></li>
-				<li><a href="#prop-title"><span class="ip">title</span></a></li>
-				<li><a href="#prop-variants"><span class="ip">variants</span></a></li>
+				<li class=""><a href="#prop-description"><span class="ip">description</span></a></li>
+				<li class=""><a href="#prop-id"><span class="ip">id</span></a></li>
+				<li class=""><a href="#prop-images"><span class="ip">images</span></a></li>
+				<li class=""><a href="#prop-options"><span class="ip">options</span></a></li>
+				<li class=""><a href="#prop-selectedVariant"><span class="ip">selectedVariant</span></a></li>
+				<li class=""><a href="#prop-selectedVariantImage"><span class="ip">selectedVariantImage</span></a></li>
+				<li class=""><a href="#prop-selections"><span class="ip">selections</span></a></li>
+				<li class=""><a href="#prop-title"><span class="ip">title</span></a></li>
+				<li class=""><a href="#prop-variants"><span class="ip">variants</span></a></li>
 			</ul>
 		</li>
 
-		<li>
-			<h2>Attributes</h2>
-			<ul>
-				<li><a href="#attr-options"><span class="iattr">options</span></a></li>
-				<li><a href="#attr-selectedVariant"><span class="iattr">selectedVariant</span></a></li>
-				<li><a href="#attr-selectedVariantImage"><span class="iattr">selectedVariantImage</span></a></li>
-				<li><a href="#attr-selections"><span class="iattr">selections</span></a></li>
-			</ul>
-		</li>
 
 	</ul>
 
@@ -370,20 +392,20 @@ layout: api
     classes: []
   };
     YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
       name: 'CartModel',
       url: '../classes/CartModel.html'
     })
     YUIDocs.classes.push({
-      name: 'Config',
-      url: '../classes/Config.html'
-    })
-    YUIDocs.classes.push({
-      name: 'Option',
-      url: '../classes/Option.html'
-    })
-    YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
     })
     YUIDocs.classes.push({
       name: 'ProductVariantModel',

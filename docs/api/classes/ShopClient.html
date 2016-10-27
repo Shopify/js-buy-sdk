@@ -53,13 +53,7 @@ layout: api
 	<div class="method-signature">
 	<span class="name"><code>ShopClient</code></span>
 
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code class="optional">config</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
+		<span class="paren">()</span>
 	</div>
 
 
@@ -69,8 +63,6 @@ layout: api
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L38"><code>src&#x2F;shop-client.js:38</code></a>
 		</p>
 
 
@@ -78,23 +70,6 @@ layout: api
 	</div>
 
 
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name optional">[config]</code>
-						<span class="type"><a href="../classes/Config.html" class="crosslink">Config</a></span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>Config data to be used throughout all API
-interaction</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
 
 
 </div>
@@ -131,8 +106,6 @@ interaction</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L158"><code>src&#x2F;shop-client.js:158</code></a>
 		</p>
 
 
@@ -189,13 +162,7 @@ of the model to be persisted.</p>
 	<div class="method-signature">
 	<span class="name"><code>createCart</code></span>
 
-		<div class="args">
-			<span class="paren">(</span><ul class="args-list inline commas">
-				<li class="arg">
-						<code class="optional">attrs={}</code>
-				</li>
-			</ul><span class="paren">)</span>
-		</div>
+		<span class="paren">()</span>
 		<span class="returns-inline">
 			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
 		</span>
@@ -209,37 +176,19 @@ of the model to be persisted.</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L246"><code>src&#x2F;shop-client.js:246</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Creates a <a href="../classes/CartModel.html" class="crosslink">CartModel</a> instance, optionally including <code>attrs</code>.</p>
+	<div class="description"><p>Creates a <a href="../classes/CartModel.html" class="crosslink">CartModel</a> instance.</p>
 <pre class="code prettyprint"><code class="language-javascript">client.createCart().then(cart =&gt; {
   // do something with cart
 });
 </code></pre>
 </div>
 
-		<div class="params">
-			<h4>Parameters:</h4>
-
-			<ul class="params-list">
-				<li class="param">
-						<code class="param-name optional">[attrs={}]</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
-
-
-					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to localStorage.</p>
-</div>
-
-				</li>
-			</ul>
-		</div>
 
 		<div class="returns">
 			<h4>Returns:</h4>
@@ -290,8 +239,6 @@ of the model to be persisted.</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L215"><code>src&#x2F;shop-client.js:215</code></a>
 		</p>
 
 
@@ -412,8 +359,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L111"><code>src&#x2F;shop-client.js:111</code></a>
 		</p>
 
 
@@ -488,8 +433,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L89"><code>src&#x2F;shop-client.js:89</code></a>
 		</p>
 
 
@@ -530,7 +473,7 @@ models</p>
 		</div>
 
 </div>
-<div id="method-fetchAllCollections" class="method item private">
+<div id="method-fetchAllCollections" class="method item public">
 	<div class="method-signature">
 	<span class="name"><code>fetchAllCollections</code></span>
 
@@ -541,23 +484,24 @@ models</p>
 	</div>
 
 
-		<span class="flag private">private</span>
+		<span class="flag public">public</span>
 
 
 
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L323"><code>src&#x2F;shop-client.js:323</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_fetchAll" class="crosslink">fetchAll</a>. Equivalent to:</p>
-<pre class="code prettyprint"><code class="language-javascript">client.fetchAll('collections');
+	<div class="description"><p>This function will return an <code>Array</code> of collections from your store</p>
+<pre class="code prettyprint"><code>client.fetchAllCollections()
+.then(function(collections) {
+
+});
 </code></pre>
 </div>
 
@@ -573,7 +517,7 @@ models</p>
 		</div>
 
 </div>
-<div id="method-fetchAllProducts" class="method item private">
+<div id="method-fetchAllProducts" class="method item public">
 	<div class="method-signature">
 	<span class="name"><code>fetchAllProducts</code></span>
 
@@ -584,23 +528,24 @@ models</p>
 	</div>
 
 
-		<span class="flag private">private</span>
+		<span class="flag public">public</span>
 
 
 
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L309"><code>src&#x2F;shop-client.js:309</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Convenience wrapper for <a href="../classes/ShopClient.html#method_fetchAll" class="crosslink">fetchAll</a>. Equivalent to:</p>
-<pre class="code prettyprint"><code class="language-javascript">client.fetchAll('products');
+	<div class="description"><p>This function will return an <code>Array</code> of products from your store</p>
+<pre class="code prettyprint"><code>client.fetchAllProducts()
+.then(function(products) {
+  // all products in store
+});
 </code></pre>
 </div>
 
@@ -640,8 +585,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L293"><code>src&#x2F;shop-client.js:293</code></a>
 		</p>
 
 
@@ -705,8 +648,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L353"><code>src&#x2F;shop-client.js:353</code></a>
 		</p>
 
 
@@ -714,8 +655,8 @@ models</p>
 	</div>
 
 	<div class="description"><p>Fetch one collection by its ID.</p>
-<pre class="code prettyprint"><code class="language-javascript">client.fetchCollection(123).then(collection =&gt; {
-  console.log(collection); // The collection with an ID of 123
+<pre class="code prettyprint"><code class="language-javascript">client.fetchCollection('336903494').then(collection =&gt; {
+  console.log(collection); // The collection with an ID of '336903494'
 });
 </code></pre>
 </div>
@@ -771,8 +712,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L337"><code>src&#x2F;shop-client.js:337</code></a>
 		</p>
 
 
@@ -780,8 +719,8 @@ models</p>
 	</div>
 
 	<div class="description"><p>Fetch one product by its ID.</p>
-<pre class="code prettyprint"><code class="language-javascript">client.fetchProduct(123).then(product =&gt; {
-  console.log(product); // The product with an ID of 123
+<pre class="code prettyprint"><code class="language-javascript">client.fetchProduct('8569911558').then(product =&gt; {
+  console.log(product); // The product with an ID of '8569911558'
 });
 </code></pre>
 </div>
@@ -840,8 +779,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L135"><code>src&#x2F;shop-client.js:135</code></a>
 		</p>
 
 
@@ -915,8 +852,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L388"><code>src&#x2F;shop-client.js:388</code></a>
 		</p>
 
 
@@ -1001,8 +936,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L369"><code>src&#x2F;shop-client.js:369</code></a>
 		</p>
 
 
@@ -1010,8 +943,8 @@ models</p>
 	</div>
 
 	<div class="description"><p>Fetches a list of products matching a specified query.</p>
-<pre class="code prettyprint"><code class="language-javascript">client.fetchQueryProducts({ collection_id: 123}).then(products =&gt; {
-  console.log(products); // An array of products in collection 123
+<pre class="code prettyprint"><code class="language-javascript">client.fetchQueryProducts({ collection_id: '336903494', tag: ['hats'] }).then(products =&gt; {
+  console.log(products); // An array of products in collection '336903494' having the tag 'hats'
 });
 </code></pre>
 </div>
@@ -1025,7 +958,7 @@ models</p>
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
-					<div class="param-description"><p>a query sent to the api server containing one or more of:</p>
+					<div class="param-description"><p>A query sent to the api server containing one or more of:</p>
 </div>
 
 						<ul class="params-list">
@@ -1034,7 +967,16 @@ models</p>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 									<span class="flag optional" title="This parameter is optional.">optional</span>
 
-								<div class="param-description"><p>the ID of a collection to retrieve products from</p>
+								<div class="param-description"><p>The ID of a collection to retrieve products from</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[tag]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>A list of tags to filter the products by. Accepts up to 10 tags.</p>
 </div>
 
 							</li>
@@ -1043,7 +985,7 @@ models</p>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
 									<span class="flag optional" title="This parameter is optional.">optional</span>
 
-								<div class="param-description"><p>a list of product IDs to retrieve</p>
+								<div class="param-description"><p>A list of product IDs to retrieve</p>
 </div>
 
 							</li>
@@ -1052,7 +994,7 @@ models</p>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 									<span class="flag optional" title="This parameter is optional.">optional</span>
 
-								<div class="param-description"><p>the page offset number of the current lookup (based on the <code>limit</code>)</p>
+								<div class="param-description"><p>The page offset number of the current lookup (based on the <code>limit</code>)</p>
 </div>
 
 							</li>
@@ -1061,7 +1003,38 @@ models</p>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
 									<span class="flag optional" title="This parameter is optional.">optional</span>
 
-								<div class="param-description"><p>the number of products to retrieve per page</p>
+								<div class="param-description"><p>The number of products to retrieve per page</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[handle]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>The handle of the product to look up</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[updated_at_min]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>Products updated since the supplied timestamp (format: 2008-12-31 03:00)</p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name optional">[sort_by]</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+									<span class="flag optional" title="This parameter is optional.">optional</span>
+
+								<div class="param-description"><p>Will modify how products are ordered. Possible values are:
+<code>"updated_at"</code>, <code>"best-selling"</code>, <code>"title-ascending"</code>, <code>"title-descending"</code>,
+<code>"price-descending"</code>, <code>"price-ascending"</code>, <code>"created-descending"</code>, <code>"created-ascending"</code>,
+or <code>"collection-default"</code>. Using <code>"collection-default"</code> means that products will be ordered
+the using the custom ordering defined in your Shopify Admin. Default value <code>"collection-default"</code>.</p>
 </div>
 
 							</li>
@@ -1076,6 +1049,51 @@ models</p>
 			<div class="returns-description">
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
 					<p>The product models.</p>
+
+			</div>
+		</div>
+
+</div>
+<div id="method-fetchRecentCart" class="method item public">
+	<div class="method-signature">
+	<span class="name"><code>fetchRecentCart</code></span>
+
+		<span class="paren">()</span>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag public">public</span>
+
+
+
+
+	<div class="meta">
+				<p>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>This method looks up a reference in localStorage to the most recent cart.
+If one is not found, creates one. If the cart the reference points to
+doesn't exist, create one and store the new reference.</p>
+<pre class="code prettyprint"><code class="language-javascript">client.fetchRecentCart().then(cart =&gt; {
+ // do stuff with the cart
+});
+</code></pre>
+</div>
+
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" class="crosslink external" target="_blank">Promise</a>  |  <a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>:
+					<p>The cart.</p>
 
 			</div>
 		</div>
@@ -1108,8 +1126,6 @@ models</p>
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L187"><code>src&#x2F;shop-client.js:187</code></a>
 		</p>
 
 
@@ -1161,14 +1177,14 @@ to persist.</p>
 		</div>
 
 </div>
-<div id="method-updateCart" class="method item public">
+<div id="method-updateCart" class="method item private">
 	<div class="method-signature">
 	<span class="name"><code>updateCart</code></span>
 
 		<div class="args">
 			<span class="paren">(</span><ul class="args-list inline commas">
 				<li class="arg">
-						<code class="optional">attrs={}</code>
+						<code>updatedCart</code>
 				</li>
 			</ul><span class="paren">)</span>
 		</div>
@@ -1178,15 +1194,13 @@ to persist.</p>
 	</div>
 
 
-		<span class="flag public">public</span>
+		<span class="flag private">private</span>
 
 
 
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shop-client.js#L272"><code>src&#x2F;shop-client.js:272</code></a>
 		</p>
 
 
@@ -1208,12 +1222,11 @@ to persist.</p>
 
 			<ul class="params-list">
 				<li class="param">
-						<code class="param-name optional">[attrs={}]</code>
-						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-						<span class="flag optional" title="This parameter is optional.">optional</span>
+						<code class="param-name">updatedCart</code>
+						<span class="type"><a href="../classes/CartModel.html" class="crosslink">CartModel</a></span>
 
 
-					<div class="param-description"><p>attributes representing the internal state of the cart to be persisted to localStorage.</p>
+					<div class="param-description"><p>an updated CartModel</p>
 </div>
 
 				</li>
@@ -1255,8 +1268,6 @@ to persist.</p>
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_shop-client.js.html#l62"><code>src&#x2F;shop-client.js:62</code></a>
         </p>
 
 
@@ -1284,10 +1295,10 @@ to persist.</p>
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
             <li><a href="../classes/CartModel.html">CartModel</a></li>
-            <li><a href="../classes/Config.html">Config</a></li>
-            <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
             <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
@@ -1296,21 +1307,22 @@ to persist.</p>
 		<li>
       <h2>Methods</h2>
 			<ul>
-				<li><a href="#method-create"><span class="im">create</span></a></li>
-				<li><a href="#method-createCart"><span class="im">createCart</span></a></li>
-				<li><a href="#method-deserialize"><span class="im">deserialize</span></a></li>
-				<li><a href="#method-fetch"><span class="im">fetch</span></a></li>
-				<li><a href="#method-fetchAll"><span class="im">fetchAll</span></a></li>
-				<li><a href="#method-fetchAllCollections"><span class="im">fetchAllCollections</span></a></li>
-				<li><a href="#method-fetchAllProducts"><span class="im">fetchAllProducts</span></a></li>
-				<li><a href="#method-fetchCart"><span class="im">fetchCart</span></a></li>
-				<li><a href="#method-fetchCollection"><span class="im">fetchCollection</span></a></li>
-				<li><a href="#method-fetchProduct"><span class="im">fetchProduct</span></a></li>
-				<li><a href="#method-fetchQuery"><span class="im">fetchQuery</span></a></li>
-				<li><a href="#method-fetchQueryCollections"><span class="im">fetchQueryCollections</span></a></li>
-				<li><a href="#method-fetchQueryProducts"><span class="im">fetchQueryProducts</span></a></li>
-				<li><a href="#method-update"><span class="im">update</span></a></li>
-				<li><a href="#method-updateCart"><span class="im">updateCart</span></a></li>
+				<li class="private"><a href="#method-create"><span class="im">create</span></a></li>
+				<li class="public"><a href="#method-createCart"><span class="im">createCart</span></a></li>
+				<li class="private"><a href="#method-deserialize"><span class="im">deserialize</span></a></li>
+				<li class="private"><a href="#method-fetch"><span class="im">fetch</span></a></li>
+				<li class="private"><a href="#method-fetchAll"><span class="im">fetchAll</span></a></li>
+				<li class="public"><a href="#method-fetchAllCollections"><span class="im">fetchAllCollections</span></a></li>
+				<li class="public"><a href="#method-fetchAllProducts"><span class="im">fetchAllProducts</span></a></li>
+				<li class="public"><a href="#method-fetchCart"><span class="im">fetchCart</span></a></li>
+				<li class="public"><a href="#method-fetchCollection"><span class="im">fetchCollection</span></a></li>
+				<li class="public"><a href="#method-fetchProduct"><span class="im">fetchProduct</span></a></li>
+				<li class="private"><a href="#method-fetchQuery"><span class="im">fetchQuery</span></a></li>
+				<li class="public"><a href="#method-fetchQueryCollections"><span class="im">fetchQueryCollections</span></a></li>
+				<li class="public"><a href="#method-fetchQueryProducts"><span class="im">fetchQueryProducts</span></a></li>
+				<li class="public"><a href="#method-fetchRecentCart"><span class="im">fetchRecentCart</span></a></li>
+				<li class="private"><a href="#method-update"><span class="im">update</span></a></li>
+				<li class="private"><a href="#method-updateCart"><span class="im">updateCart</span></a></li>
 			</ul>
 		</li>
 
@@ -1318,7 +1330,7 @@ to persist.</p>
 		<li>
 			<h2>Attributes</h2>
 			<ul>
-				<li><a href="#attr-"><span class="iattr"></span></a></li>
+				<li class="protected"><a href="#attr-"><span class="iattr"></span></a></li>
 			</ul>
 		</li>
 
@@ -1338,20 +1350,20 @@ to persist.</p>
     classes: []
   };
     YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
       name: 'CartModel',
       url: '../classes/CartModel.html'
     })
     YUIDocs.classes.push({
-      name: 'Config',
-      url: '../classes/Config.html'
-    })
-    YUIDocs.classes.push({
-      name: 'Option',
-      url: '../classes/Option.html'
-    })
-    YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
     })
     YUIDocs.classes.push({
       name: 'ProductVariantModel',
