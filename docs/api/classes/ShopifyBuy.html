@@ -43,7 +43,12 @@ layout: api
 
 
 <div class="yuidoc-class-description">
-<p>This namespace contains all globally accessible classes</p>
+<p><code>ShopifyBuy</code> only defines one function <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink">buildClient</a> which can
+be used to build a <a href="../classes/ShopClient.html" class="crosslink">ShopClient</a> to query your store using the
+provided
+<a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>apiKey</code></a>,
+<a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>appId</code></a>,
+and <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>domain</code></a>.</p>
 
 </div>
 
@@ -82,8 +87,6 @@ layout: api
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/shopify.js#L20"><code>src&#x2F;shopify.js:20</code></a>
 		</p>
 
 
@@ -92,9 +95,10 @@ layout: api
 
 	<div class="description"><p>Create a ShopClient. This is the main entry point to the SDK.</p>
 <pre class="code prettyprint"><code class="language-javascript">const client = ShopifyBuy.buildClient({
-  apiKey: 'abc123',
-  appId: 123456,
-  myShopifyDomain: 'myshop'
+  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  appId: 6,
+  myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use <code>domain</code> instead
+  domain: 'embeds.myshopify.com'
 });
 </code></pre>
 </div>
@@ -108,7 +112,7 @@ layout: api
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
-					<div class="param-description"><p>An object of required config data.</p>
+					<div class="param-description"><p>An object of required config data such as: <code>apiKey</code>, <code>appId</code>, <code>domain</code></p>
 </div>
 
 						<ul class="params-list">
@@ -116,7 +120,8 @@ layout: api
 									<code class="param-name">apiKey</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>Your api client's public token.</p>
+								<div class="param-description"><p>An API Key for your store. Documentation how to get an API Key:
+<a href="https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key">https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key</a></p>
 </div>
 
 							</li>
@@ -124,11 +129,16 @@ layout: api
 									<code class="param-name">appId</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>The app whose listings the client will be
-using. If you are just modifying a buy button, the buy-button's app id is</p>
-<ol start="6">
-<li>Otherwise, obtain the app id of the app you're modifying or extending.</li>
-</ol>
+								<div class="param-description"><p>Typically will be 6 which is the Buy Button App Id. For more info on App Id see:
+<a href="https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id">https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id</a></p>
+</div>
+
+							</li>
+							<li class="param">
+									<code class="param-name">domain</code>
+									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+								<div class="param-description"><p>Your shop's full <code>myshopify.com</code> domain. For example: <code>embeds.myshopify.com</code></p>
 </div>
 
 							</li>
@@ -136,8 +146,7 @@ using. If you are just modifying a buy button, the buy-button's app id is</p>
 									<code class="param-name">myShopifyDomain</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>You shop's <code>myshopify.com</code>
-domain.</p>
+								<div class="param-description"><p>You shop's <code>myshopify.com</code> domain. [deprecated Use configAttrs.domain]</p>
 </div>
 
 							</li>
@@ -151,7 +160,7 @@ domain.</p>
 
 			<div class="returns-description">
 						<span class="type"><a href="../classes/ShopClient.html" class="crosslink">ShopClient</a></span>:
-					<p>a client for the shop using your api credentials.</p>
+					<p>a client for the shop using your api credentials which you can use to query your store.</p>
 
 			</div>
 		</div>
@@ -166,10 +175,10 @@ domain.</p>
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
             <li><a href="../classes/CartModel.html">CartModel</a></li>
-            <li><a href="../classes/Config.html">Config</a></li>
-            <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
             <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
@@ -181,7 +190,7 @@ domain.</p>
 		<li>
 			<h2>Static Methods</h2>
 			<ul>
-				<li><a href="#method-buildClient"><span class="im">ShopifyBuy.buildClient</span></a></li>
+				<li class="public"><a href="#method-buildClient"><span class="im">ShopifyBuy.buildClient</span></a></li>
 			</ul>
 		</li>
 	</ul>
@@ -200,20 +209,20 @@ domain.</p>
     classes: []
   };
     YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
       name: 'CartModel',
       url: '../classes/CartModel.html'
     })
     YUIDocs.classes.push({
-      name: 'Config',
-      url: '../classes/Config.html'
-    })
-    YUIDocs.classes.push({
-      name: 'Option',
-      url: '../classes/Option.html'
-    })
-    YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
     })
     YUIDocs.classes.push({
       name: 'ProductVariantModel',

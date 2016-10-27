@@ -66,8 +66,6 @@ layout: api
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/models/product-variant-model.js#L4"><code>src&#x2F;models&#x2F;product-variant-model.js:4</code></a>
 		</p>
 
 
@@ -108,15 +106,18 @@ layout: api
 
 	<div class="meta">
 				<p>
-				Defined in
-		<a href="https://github.com/Shopify/js-buy-sdk/tree/master/src/models/product-variant-model.js#L105"><code>src&#x2F;models&#x2F;product-variant-model.js:105</code></a>
 		</p>
 
 
 
 	</div>
 
-	<div class="description"><p>Checkout URL for purchasing variant with quantity.</p>
+	<div class="description"><p>Get a checkout url for a specific product variant. You can
+optionally pass a quantity. If no quantity is passed then quantity
+will default to 1. The example below will grab a checkout url for
+3 copies of the first variant:</p>
+<pre class="code prettyprint"><code>const checkoutURL = product.variants[ 0 ].checkoutUrl(3);
+</code></pre>
 </div>
 
 		<div class="params">
@@ -129,7 +130,7 @@ layout: api
 						<span class="flag optional" title="This parameter is optional.">optional</span>
 
 
-					<div class="param-description"><p>quantity of variant</p>
+					<div class="param-description"><p>quantity of variants</p>
 </div>
 
 				</li>
@@ -154,6 +155,29 @@ layout: api
         <h2 class="off-left">Properties</h2>
 
         <div class="item-list">
+<div id="prop-available" class="property item">
+    <h3 class="name"><code>available</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Variant in stock. Always <code>true</code> if inventory tracking is disabled.</p>
+
+    </div>
+
+
+
+</div>
 <div id="prop-compareAtPrice" class="property item">
     <h3 class="name"><code>compareAtPrice</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
@@ -164,16 +188,41 @@ layout: api
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l50"><code>src&#x2F;models&#x2F;product-variant-model.js:50</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales">
-Compare at</a> price for variant formatted as currency.
+        <p>Compare at price for variant. The <code>compareAtPrice</code> would be
+the price of the product previously before the product went on sale. For more info
+go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.</p>
+<p>If no <code>compareAtPrice</code> is set then this value will be <code>null</code>. An example value: <code>"5.00"</code></p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-formattedPrice" class="property item">
+    <h3 class="name"><code>formattedPrice</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Price of variant, formatted according to shop currency format string.
+For instance <code>"$10.00"</code></p>
+
     </div>
 
 
@@ -189,15 +238,13 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l70"><code>src&#x2F;models&#x2F;product-variant-model.js:70</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Variant weight in grams</p>
+        <p>Variant weight in grams. If no weight is defined grams will be <code>0</code>.</p>
 
     </div>
 
@@ -214,8 +261,6 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l14"><code>src&#x2F;models&#x2F;product-variant-model.js:14</code></a>
         </p>
 
 
@@ -239,15 +284,59 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l88"><code>src&#x2F;models&#x2F;product-variant-model.js:88</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Image for variant</p>
+        <p>Image for variant. An example image <code>Object</code>:</p>
+<pre class="code prettyprint"><code>{
+  created_at: "2016-08-29T12:35:09-04:00",
+  id: 17690553350,
+  position: 1,
+  product_id: 8291029446,
+  src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+  updated_at: "2016-08-29T12:35:09-04:00",
+  variant_ids: [ 27690103238 ]
+}
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="prop-imageVariant" class="property item">
+    <h3 class="name"><code>imageVariant</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Image variants available for a variant. An example value of <code>imageVariant</code>:</p>
+<pre class="code prettyprint"><code>[
+  {
+    "name": "pico",
+    "dimensions": "16x16",
+    "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423"
+  },
+  {
+    "name": "compact",
+    "dimensions": "160x160",
+    "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423"
+  }
+]
+</code></pre>
 
     </div>
 
@@ -264,15 +353,26 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l79"><code>src&#x2F;models&#x2F;product-variant-model.js:79</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Option values associated with this variant, ex {name: "color", value: "Blue"}</p>
+        <p>Option values associated with this variant. Example <code>optionValues</code>:</p>
+<pre class="code prettyprint"><code>[
+  {
+    "name": "Size",
+    "option_id": 9165336518,
+    "value": "small"
+  },
+  {
+    "name": "Color",
+    "option_id": 9640532358,
+    "value": "blue"
+  }
+]
+</code></pre>
 
     </div>
 
@@ -289,15 +389,13 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l61"><code>src&#x2F;models&#x2F;product-variant-model.js:61</code></a>
         </p>
 
 
     </div>
 
     <div class="description">
-        <p>Price of variant, formatted as currency</p>
+        <p>Price of the variant. The price will be in the following form: <code>"10.00"</code></p>
 
     </div>
 
@@ -314,8 +412,6 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l23"><code>src&#x2F;models&#x2F;product-variant-model.js:23</code></a>
         </p>
 
 
@@ -339,8 +435,6 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l41"><code>src&#x2F;models&#x2F;product-variant-model.js:41</code></a>
         </p>
 
 
@@ -364,8 +458,6 @@ Compare at</a> price for variant formatted as currency.
 
     <div class="meta">
                 <p>
-                Defined in
-        <a href="../files/src_models_product-variant-model.js.html#l32"><code>src&#x2F;models&#x2F;product-variant-model.js:32</code></a>
         </p>
 
 
@@ -391,10 +483,10 @@ Compare at</a> price for variant formatted as currency.
     <div id="classes">
 	<h2>Classes</h2>
     <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
             <li><a href="../classes/CartModel.html">CartModel</a></li>
-            <li><a href="../classes/Config.html">Config</a></li>
-            <li><a href="../classes/Option.html">Option</a></li>
             <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
             <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
             <li><a href="../classes/ShopClient.html">ShopClient</a></li>
             <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
@@ -403,22 +495,25 @@ Compare at</a> price for variant formatted as currency.
 		<li>
       <h2>Methods</h2>
 			<ul>
-				<li><a href="#method-checkoutUrl"><span class="im">checkoutUrl</span></a></li>
+				<li class="public"><a href="#method-checkoutUrl"><span class="im">checkoutUrl</span></a></li>
 			</ul>
 		</li>
 
 		<li>
 			<h2>Properties</h2>
 			<ul>
-				<li><a href="#prop-compareAtPrice"><span class="ip">compareAtPrice</span></a></li>
-				<li><a href="#prop-grams"><span class="ip">grams</span></a></li>
-				<li><a href="#prop-id"><span class="ip">id</span></a></li>
-				<li><a href="#prop-image"><span class="ip">image</span></a></li>
-				<li><a href="#prop-optionValues"><span class="ip">optionValues</span></a></li>
-				<li><a href="#prop-price"><span class="ip">price</span></a></li>
-				<li><a href="#prop-productId"><span class="ip">productId</span></a></li>
-				<li><a href="#prop-productTitle"><span class="ip">productTitle</span></a></li>
-				<li><a href="#prop-title"><span class="ip">title</span></a></li>
+				<li class=""><a href="#prop-available"><span class="ip">available</span></a></li>
+				<li class=""><a href="#prop-compareAtPrice"><span class="ip">compareAtPrice</span></a></li>
+				<li class=""><a href="#prop-formattedPrice"><span class="ip">formattedPrice</span></a></li>
+				<li class=""><a href="#prop-grams"><span class="ip">grams</span></a></li>
+				<li class=""><a href="#prop-id"><span class="ip">id</span></a></li>
+				<li class=""><a href="#prop-image"><span class="ip">image</span></a></li>
+				<li class=""><a href="#prop-imageVariant"><span class="ip">imageVariant</span></a></li>
+				<li class=""><a href="#prop-optionValues"><span class="ip">optionValues</span></a></li>
+				<li class=""><a href="#prop-price"><span class="ip">price</span></a></li>
+				<li class=""><a href="#prop-productId"><span class="ip">productId</span></a></li>
+				<li class=""><a href="#prop-productTitle"><span class="ip">productTitle</span></a></li>
+				<li class=""><a href="#prop-title"><span class="ip">title</span></a></li>
 			</ul>
 		</li>
 
@@ -439,20 +534,20 @@ Compare at</a> price for variant formatted as currency.
     classes: []
   };
     YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
       name: 'CartModel',
       url: '../classes/CartModel.html'
     })
     YUIDocs.classes.push({
-      name: 'Config',
-      url: '../classes/Config.html'
-    })
-    YUIDocs.classes.push({
-      name: 'Option',
-      url: '../classes/Option.html'
-    })
-    YUIDocs.classes.push({
       name: 'ProductModel',
       url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
     })
     YUIDocs.classes.push({
       name: 'ProductVariantModel',

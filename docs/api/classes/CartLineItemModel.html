@@ -1,0 +1,467 @@
+---
+layout: api
+---
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+    <form id="options-form" class="form-inline pull-right">
+        Show:
+        <label for="api-show-inherited" class="checkbox">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected" class="checkbox">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private" class="checkbox">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated" class="checkbox">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </form>
+
+<div class="page-header">
+    <h1>CartLineItemModel</h1>
+</div>
+
+
+
+	<div class="well well-small">
+            Module: <a href="../modules/shopify-buy.html">shopify-buy</a>
+    </div>
+
+
+
+<div class="yuidoc-class-description">
+<p>A cart stores an Array of <code>CartLineItemModel</code>'s in it's <code>lineItems</code> property.</p>
+
+</div>
+
+
+<!-- details -->
+
+    <div class="constructor yuidoc-class-constructor page-section">
+        <h2>Constructor</h2>
+        <div class="item-list">
+<div id="method-CartLineItemModel" class="method item">
+	<div class="method-signature">
+	<span class="name"><code>CartLineItemModel</code></span>
+
+		<span class="paren">()</span>
+	</div>
+
+
+
+
+
+
+	<div class="meta">
+				<p>
+		</p>
+
+
+
+	</div>
+
+
+
+
+</div>
+        </div>
+    </div>
+
+
+    <div id="properties" class="page-section">
+        <h2 class="off-left">Properties</h2>
+
+        <div class="item-list">
+<div id="prop-compareAtPrice" class="property item">
+    <h3 class="name"><code>compareAtPrice</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Compare at price for variant. The <code>compareAtPrice</code> would be
+the price of the product previously before the product went on sale. For more info
+go <a href="https://docs.shopify.com/manual/products/promoting-marketing/sales" target="_blank">here</a>.</p>
+<p>If no <code>compareAtPrice</code> is set then this value will be <code>null</code>. An example value: <code>"5.00"</code>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-grams" class="property item">
+    <h3 class="name"><code>grams</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Variant's weight in grams. If no weight is set then <code>0</code> is returned.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-id" class="property item">
+    <h3 class="name"><code>id</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>A line item ID.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-image" class="property item">
+    <h3 class="name"><code>image</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Variant's image.
+Example <code>Object</code> returned:</p>
+<pre class="code prettyprint"><code>{
+   "id": 18723183238,
+   "created_at": "2016-09-14T17:12:12-04:00",
+   "position": 1,
+   "updated_at": "2016-09-14T17:12:12-04:00",
+   "product_id": 8569911558,
+   "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/Mop__three_different_mop_handles.jpg?v=1473887532",
+   "variant_ids": []
+ }
+</code></pre>
+
+    </div>
+
+
+
+</div>
+<div id="prop-line_price" class="property item">
+    <h3 class="name"><code>line_price</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The total price for this line item. For instance if the variant costs <code>1.50</code> and you have a quantity
+of 2 then <code>line_price</code> will be <code>3.00</code>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-price" class="property item">
+    <h3 class="name"><code>price</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Price of the variant. For example: <code>"5.00"</code>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-product_id" class="property item">
+    <h3 class="name"><code>product_id</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>ID of variant's product.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-properties" class="property item private">
+    <h3 class="name"><code>properties</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Customization information for a product.
+<a href="https://help.shopify.com/themes/customization/products/get-customization-information-for-products" target="_blank">
+See here for more info
+</a>.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-quantity" class="property item">
+    <h3 class="name"><code>quantity</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Count of variants to order.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-title" class="property item">
+    <h3 class="name"><code>title</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Product title of variant's parent product.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-variant_id" class="property item">
+    <h3 class="name"><code>variant_id</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>ID of line item variant.</p>
+
+    </div>
+
+
+
+</div>
+<div id="prop-variant_title" class="property item">
+    <h3 class="name"><code>variant_title</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>Title of variant.</p>
+
+    </div>
+
+
+
+</div>
+        </div>
+    </div>
+
+
+
+                    </div>
+                </div>
+        </div>
+  <div id="sidebar" class="apidocs__sidebar">
+    <div id="classes">
+	<h2>Classes</h2>
+    <ul id="api-classes" class="nav nav-list">
+            <li><a href="../classes/CartLineItemModel.html">CartLineItemModel</a></li>
+            <li><a href="../classes/CartModel.html">CartModel</a></li>
+            <li><a href="../classes/ProductModel.html">ProductModel</a></li>
+            <li><a href="../classes/ProductOptionModel.html">ProductOptionModel</a></li>
+            <li><a href="../classes/ProductVariantModel.html">ProductVariantModel</a></li>
+            <li><a href="../classes/ShopClient.html">ShopClient</a></li>
+            <li><a href="../classes/ShopifyBuy.html">ShopifyBuy</a></li>
+    </ul>
+    <ul>
+
+		<li>
+			<h2>Properties</h2>
+			<ul>
+				<li class=""><a href="#prop-compareAtPrice"><span class="ip">compareAtPrice</span></a></li>
+				<li class=""><a href="#prop-grams"><span class="ip">grams</span></a></li>
+				<li class=""><a href="#prop-id"><span class="ip">id</span></a></li>
+				<li class=""><a href="#prop-image"><span class="ip">image</span></a></li>
+				<li class=""><a href="#prop-line_price"><span class="ip">line_price</span></a></li>
+				<li class=""><a href="#prop-price"><span class="ip">price</span></a></li>
+				<li class=""><a href="#prop-product_id"><span class="ip">product_id</span></a></li>
+				<li class="private"><a href="#prop-properties"><span class="ip">properties</span></a></li>
+				<li class=""><a href="#prop-quantity"><span class="ip">quantity</span></a></li>
+				<li class=""><a href="#prop-title"><span class="ip">title</span></a></li>
+				<li class=""><a href="#prop-variant_id"><span class="ip">variant_id</span></a></li>
+				<li class=""><a href="#prop-variant_title"><span class="ip">variant_title</span></a></li>
+			</ul>
+		</li>
+
+
+	</ul>
+
+<!-- details -->
+    </div>
+    </div>
+
+<script src="../assets/vendor/jquery/jquery-1.8.2.min.js"></script>
+<script src="../assets/vendor/bootstrap/js/bootstrap.js"></script>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script src="../assets/js/yuidoc-bootstrap.js"></script>
+
+<script>
+  window.YUIDocs = {
+    classes: []
+  };
+    YUIDocs.classes.push({
+      name: 'CartLineItemModel',
+      url: '../classes/CartLineItemModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'CartModel',
+      url: '../classes/CartModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductModel',
+      url: '../classes/ProductModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductOptionModel',
+      url: '../classes/ProductOptionModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ProductVariantModel',
+      url: '../classes/ProductVariantModel.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopClient',
+      url: '../classes/ShopClient.html'
+    })
+    YUIDocs.classes.push({
+      name: 'ShopifyBuy',
+      url: '../classes/ShopifyBuy.html'
+    })
+</script>
+<script>prettyPrint();</script>
