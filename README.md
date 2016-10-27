@@ -16,7 +16,6 @@ const shopClient = ShopifyBuy.buildClient({
   domain: 'embeds.myshopify.com'
 });
 
-// fetch a product using resource id
 shopClient.fetchAllProducts()
 .then(function (products) {
   console.log(products);
