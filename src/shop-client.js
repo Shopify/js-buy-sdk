@@ -40,8 +40,6 @@ const ShopClient = CoreObject.extend({
   /**
    * @class ShopClient
    * @constructor
-   * @param {Config} [config] Config data to be used throughout all API
-   * interaction
    */
   constructor(config) {
     this.config = config;
@@ -248,7 +246,7 @@ const ShopClient = CoreObject.extend({
   },
 
   /**
-    * Creates a {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance, optionally including `attrs`.
+    * Creates a {{#crossLink "CartModel"}}CartModel{{/crossLink}} instance.
     *
     * ```javascript
     * client.createCart().then(cart => {
@@ -256,7 +254,6 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
     * @method createCart
     * @public
     * @return {Promise|CartModel} - new cart instance.
@@ -285,9 +282,9 @@ const ShopClient = CoreObject.extend({
     * });
     * ```
     *
-    * @param {Object}[attrs={}] attributes representing the internal state of the cart to be persisted to localStorage.
+    * @param {CartModel} updatedCart an updated CartModel
     * @method updateCart
-    * @public
+    * @private
     * @return {Promise|CartModel} - updated cart instance.
   */
   updateCart(updatedCart) {
@@ -311,29 +308,31 @@ const ShopClient = CoreObject.extend({
   fetchCart: fetchFactory('one', 'carts'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
-   * {{/crossLink}}. Equivalent to:
-   *
-   * ```javascript
-   * client.fetchAll('products');
+   * This function will return an `Array` of products from your store
+   * ```
+   * client.fetchAllProducts()
+   * .then(function(products) {
+   *   // all products in store
+   * });
    * ```
    *
    * @method fetchAllProducts
-   * @private
+   * @public
    * @return {Promise|Array} The product models.
    */
   fetchAllProducts: fetchFactory('all', 'products'),
 
   /**
-   * Convenience wrapper for {{#crossLink "ShopClient/fetchAll:method"}}
-   * {{/crossLink}}. Equivalent to:
+   * This function will return an `Array` of collections from your store
+   * ```
+   * client.fetchAllCollections()
+   * .then(function(collections) {
    *
-   * ```javascript
-   * client.fetchAll('collections');
+   * });
    * ```
    *
    * @method fetchAllCollections
-   * @private
+   * @public
    * @return {Promise|Array} The collection models.
    */
   fetchAllCollections: fetchFactory('all', 'collections'),
@@ -342,8 +341,8 @@ const ShopClient = CoreObject.extend({
    * Fetch one product by its ID.
    *
    * ```javascript
-   * client.fetchProduct(123).then(product => {
-   *   console.log(product); // The product with an ID of 123
+   * client.fetchProduct('8569911558').then(product => {
+   *   console.log(product); // The product with an ID of '8569911558'
    * });
    * ```
    *
@@ -358,8 +357,8 @@ const ShopClient = CoreObject.extend({
    * Fetch one collection by its ID.
    *
    * ```javascript
-   * client.fetchCollection(123).then(collection => {
-   *   console.log(collection); // The collection with an ID of 123
+   * client.fetchCollection('336903494').then(collection => {
+   *   console.log(collection); // The collection with an ID of '336903494'
    * });
    * ```
    *
@@ -374,8 +373,8 @@ const ShopClient = CoreObject.extend({
    * Fetches a list of products matching a specified query.
    *
    * ```javascript
-   * client.fetchQueryProducts({ collection_id: 123, tag: ['hats'] }).then(products => {
-   *   console.log(products); // An array of products in collection `123` having the tag `hats`
+   * client.fetchQueryProducts({ collection_id: '336903494', tag: ['hats'] }).then(products => {
+   *   console.log(products); // An array of products in collection '336903494' having the tag 'hats'
    * });
    * ```
    * @method fetchQueryProducts
@@ -388,6 +387,11 @@ const ShopClient = CoreObject.extend({
    *   @param {String|Number} [query.limit=50] The number of products to retrieve per page
    *   @param {String} [query.handle] The handle of the product to look up
    *   @param {String} [query.updated_at_min] Products updated since the supplied timestamp (format: 2008-12-31 03:00)
+   *   @param {String} [query.sort_by] Will modify how products are ordered. Possible values are:
+   *                                   `"updated_at"`, `"best-selling"`, `"title-ascending"`, `"title-descending"`,
+   *                                   `"price-descending"`, `"price-ascending"`, `"created-descending"`, `"created-ascending"`,
+   *                                   or `"collection-default"`. Using `"collection-default"` means that products will be ordered
+   *                                   the using the custom ordering defined in your Shopify Admin. Default value `"collection-default"`.
    * @return {Promise|Array} The product models.
    */
   fetchQueryProducts: fetchFactory('query', 'products'),

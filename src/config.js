@@ -1,22 +1,7 @@
 import CoreObject from './metal/core-object';
 import logger from './logger';
 
-/**
- * @module shopify-buy
- * @submodule config
- */
-
 const Config = CoreObject.extend({
-  /**
-   * @class Config
-   * @constructor
-   * @param {Object} attrs An object of required config data.
-   * @param {String} attrs.apiKey Your api client's public token
-   * @param {String} attrs.appId The app whose listings the client will be
-   * using. If you are just modifying a buy button, the buy-button's app id is
-   * 6. Otherwise, obtain the app id of the app you're modifying or extending.
-   * @param {String} attrs.domain Your shop's full domain. (i.e. `craftedgoods.myshopify.com`)
-   */
   constructor(attrs) {
     Object.keys(this.deprecatedProperties).forEach(key => {
       if (attrs.hasOwnProperty(key)) {
@@ -84,7 +69,7 @@ const Config = CoreObject.extend({
    * @attribute apiKey
    * @default ''
    * @type String
-   * @public
+   * @private
    */
   apiKey: '',
 
@@ -92,7 +77,7 @@ const Config = CoreObject.extend({
    * @attribute appId
    * @default ''
    * @type String
-   * @public
+   * @private
    */
   appId: '',
 
@@ -101,7 +86,7 @@ const Config = CoreObject.extend({
    * @attribute domain
    * @default ''
    * @type String
-   * @public
+   * @private
    */
   domain: '',
 
@@ -110,7 +95,7 @@ const Config = CoreObject.extend({
    * @attribute myShopifyDomain
    * @default ''
    * @type String
-   * @public
+   * @private
    * @deprecated Use `config.domain` instead.
    */
   myShopifyDomain: ''

@@ -17,6 +17,7 @@ const ProductModel = BaseModel.extend({
 
   /**
     * Product unique ID
+    *
     * @property id
     * @type {String}
   */
@@ -25,7 +26,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product title
+    * The product title
     * @property title
     * @type {String}
   */
@@ -34,7 +35,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Product description. The exposes the `body_html` property on the listings API
+    * A product description.
     * @property description
     * @type {String}
   */
@@ -43,7 +44,20 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * All images associated with product.
+    * An `Array` of `Objects` that contain meta data about an image including `src` of the images.
+    *
+    * An example image `Object`:
+    * ```
+    * {
+    *   created_at: "2016-08-29T12:35:09-04:00",
+    *   id: 17690553350,
+    *   position: 1,
+    *   product_id: 8291029446,
+    *   src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+    *   updated_at: "2016-08-29T12:35:09-04:00",
+    *   variant_ids: [ 27690103238 ]
+    * }
+    * ```
     * @property images
     * @type {Array} array of image objects.
   */
@@ -58,18 +72,34 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-     *  Get array of options with nested values. Useful for creating UI for selecting options.
-     *
-     * ```javascript
-     *  var elements = product.options.map(function(option) {
-     *    return '<select name="' + option.name + '">' + option.values.map(function(value) {
-     *      return '<option value="' + value + '">' + value + '</option>';
-     *    }) + '</select>';
-     *  });
-     * ```
-     *
-     * @attribute options
-     * @type {Array|Option}
+   *  Get an array of {{#crossLink "ProductOptionModel"}}ProductOptionModels{{/crossLink}}.
+   *  {{#crossLink "ProductOptionModel"}}ProductOptionModels{{/crossLink}} can be used to
+   *  define the currently `selectedVariant` from which you can get a checkout url
+   *  ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or can
+   *  be added to a cart ({{#crossLink "CartModel/createLineItemsFromVariants"}}CartModel.createLineItemsFromVariants{{/crossLink}}).
+   *
+   *  Below is an example on how to create html for option selections:
+   * ```javascript
+   *  // the following will create an Array of HTML to create multiple select inputs
+   *  // global callbacks are also created which will set the option as selected
+   *  var elements = product.options.map(function(option) {
+   *    // we'll create a callback in global scope
+   *    // which will be called when the select's value changes
+   *    var callBackName = option.name + 'onChange';
+   *    window[ callBackName ] = function(select) {
+   *      // set the products option to be selected
+   *      option.selected = select.value;
+   *    };
+   *
+   *    // return a string which will be HTML for the select
+   *    return '<select name="' + option.name + '" onchange="'callBackName'(this)">' + option.values.map(function(value) {
+   *      return '<option value="' + value + '">' + value + '</option>';
+   *    }) + '</select>';
+   *  });
+   * ```
+   *
+   * @property options
+   * @type {Array|ProductOptionModel}
    */
   get options() {
     if (this.memoized.options) {
@@ -101,7 +131,7 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * All variants of a product.
+    * An `Array` of {{#crossLink "ProductVariantModel"}}ProductVariantModel's{{/crossLink}}
     * @property variants
     * @type {Array|ProductVariantModel} array of ProductVariantModel instances.
   */
@@ -112,9 +142,9 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Retrieve currently selected option values.
-    * @attribute selections
-    * @type {Option}
+    * A read only `Array` of Strings represented currently selected option values. eg. `["Large", "Red"]`
+    * @property selections
+    * @type {Array | String}
   */
   get selections() {
     return this.options.map(option => {
@@ -123,9 +153,15 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Retrieve variant for currently selected options
-    * @attribute selectedVariant
-    * @type {Object}
+    * Retrieve variant for currently selected options. By default the first value in each
+    * option is selected which means `selectedVariant` will never be `null`.
+    *
+    * With a `selectedVariant` you can create checkout url
+    * ({{#crossLink "ProductVariantModel/checkoutUrl"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or it can
+    * be added to a cart ({{#crossLink "CartModel/createLineItemsFromVariants"}}CartModel.createLineItemsFromVariants{{/crossLink}}).
+    *
+    * @property selectedVariant
+    * @type {ProductVariantModel}
   */
   get selectedVariant() {
     const variantTitle = this.selections.join(' / ');
@@ -136,8 +172,20 @@ const ProductModel = BaseModel.extend({
   },
 
   /**
-    * Retrieve image for currently selected variantImage
-    * @attribute selectedVariantImage
+    * Retrieve image for currently selected variantImage. An example image Object would look like this:
+    * ```
+    * {
+    *   created_at: "2016-08-29T12:35:09-04:00",
+    *   id: 17690553350,
+    *   position: 1,
+    *   product_id: 8291029446,
+    *   src: "https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509",
+    *   updated_at: "2016-08-29T12:35:09-04:00",
+    *   variant_ids: [ 27690103238 ]
+    * }
+    * ```
+    *
+    * @property selectedVariantImage
     * @type {Object}
   */
   get selectedVariantImage() {

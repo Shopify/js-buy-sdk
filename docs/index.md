@@ -31,6 +31,12 @@ This tool is intended for use by developers who are experienced with JavaScript.
 
 ## Including the Buy SDK
 
+### via NPM
+```
+npm install shopify-buy
+```
+
+### via CDN
 ```html
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/v{{majorVersion}}/latest/shopify-buy.umd.polyfilled.min.js"></script>
 ```
@@ -63,7 +69,14 @@ or `fetchCollection`, or an array of `Cart` or `Collection` models for `fetchAll
 To request an individual resource, you will need to pass that resource's ID as the first argument. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/getting-started#retrieving-products" target="_blank">How do I find my resource ID?</a>
 
 ```js
-shopClient.fetchProduct(1234)
+const shopClient = ShopifyBuy.buildClient({
+  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  appId: '6',
+  domain: 'embeds.myshopify.com'
+});
+
+// fetch a product using resource id
+shopClient.fetchProduct('8569911558')
   .then(function (product) {
     console.log(product);
   })
@@ -96,7 +109,7 @@ cart.addVariants({variant: product.selectedVariant, quantity: 1}).then(function 
 });
 ```
 
-### Creating a checkout URL
+### Creating a cart checkout URL
 
 You can generate a checkout URL for a given cart at any time by retrieving the `cart.checkoutUrl`.
 

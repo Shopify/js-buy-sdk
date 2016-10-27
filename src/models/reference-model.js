@@ -5,6 +5,7 @@ const ReferenceModel = BaseModel.extend({
 
   /**
     * Class for reference model
+    * @private
     * @class ReferenceModel
     * @constructor
   */

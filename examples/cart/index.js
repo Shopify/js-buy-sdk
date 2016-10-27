@@ -312,7 +312,7 @@ $(function() {
   function addVariantToCart(variant, quantity) {
     openCart();
 
-    cart.addVariants({ variant: variant, quantity: quantity }).then(function() {
+    cart.createLineItemsFromVariants({ variant: variant, quantity: quantity }).then(function() {
       var cartItem = cart.lineItems.filter(function (item) {
         return (item.variant_id === variant.id);
       })[0];

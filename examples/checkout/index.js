@@ -17,7 +17,7 @@ $(function() {
     cart = values[0];
     product = values[1];
     
-    return cart.addVariants(
+    return cart.createLineItemsFromVariants(
       {
         variant: product.variants[0], 
         quantity: 5

@@ -73,20 +73,57 @@ test('it proxies sub total from the underlying cart', function (assert) {
   assert.equal(model.subtotal, cartFixture.cart.subtotal_price);
 });
 
-test('it creates a line item when you add a variant', function (assert) {
+test('it deprecates addVariants to createLineItemsFromVariants', function (assert) {
   assert.expect(3);
 
   const done = assert.async();
 
-  const quantity = 2;
-
   const variant = singleProductFixture.product_listing.variants[1];
+  const quantity = 2;
+  const initialLineItems = model.lineItems.filter(lineItem => {
+    return lineItem.variant_id === variant.id;
+  });
+  let quantityInitial = 0;
+
+  if (initialLineItems.length === 1) {
+    quantityInitial = initialLineItems[0].quantity;
+  }
 
   model.addVariants({ variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
-      return item.variant_id === variant.id && item.quantity === quantity;
+      return item.variant_id === variant.id && item.quantity === quantity + quantityInitial;
+    }).length, 1, 'the line item exists');
+
+    done();
+  }).catch(() => {
+    assert.ok(false, 'promise should not reject');
+    done();
+  });
+});
+
+test('it creates a line item when you add a variant', function (assert) {
+  assert.expect(3);
+
+  const done = assert.async();
+
+  const variant = singleProductFixture.product_listing.variants[1];
+  const quantity = 2;
+  const initialLineItems = model.lineItems.filter(lineItem => {
+    return lineItem.variant_id === variant.id;
+  });
+  let quantityInitial = 0;
+
+  if (initialLineItems.length === 1) {
+    quantityInitial = initialLineItems[0].quantity;
+  }
+
+  model.addVariants({ variant, quantity }).then(cart => {
+    assert.equal(cart, model, 'it should be the same model, with updated attrs');
+    assert.equal(cart.lineItems.length, 2);
+    assert.equal(cart.lineItems.filter(item => {
+      return item.variant_id === variant.id && item.quantity === quantity + quantityInitial;
     }).length, 1, 'the line item exists');
 
     done();
@@ -105,7 +142,7 @@ test('it returns correct lineItemCount', function (assert) {
   const quantity = 8;
   const variant = singleProductFixture.product_listing.variants[1];
 
-  model.addVariants({ variant, quantity }).then(cart => {
+  model.createLineItemsFromVariants({ variant, quantity }).then(cart => {
     assert.equal(cart.lineItemCount, 9);
     done();
   }).catch(() => {
@@ -176,7 +213,7 @@ test('it dedupes line items with the same variant_id when added together', funct
   const quantity = 1;
   const variant = singleProductFixture.product_listing.variants[1];
 
-  model.addVariants({ variant, quantity }, { variant, quantity }).then(cart => {
+  model.createLineItemsFromVariants({ variant, quantity }, { variant, quantity }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 2);
     assert.equal(cart.lineItems.filter(item => {
@@ -201,7 +238,7 @@ test('it dedupes line items with the same variant_id when added one after anothe
   const summedQuantity = quantity + cartFixture.cart.line_items[0].quantity;
   const properties = assign({}, cartFixture.cart.line_items[0].properties);
 
-  model.addVariants({ variant, quantity, properties }).then(cart => {
+  model.createLineItemsFromVariants({ variant, quantity, properties }).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 1, 'we\'re adding to the existing line_item');
     assert.equal(cart.lineItems.filter(item => {
@@ -234,7 +271,7 @@ test('it treats line_items with same variant_ids and different properties as dif
     properties: propertiesTwo
   }];
 
-  model.addVariants(...items).then(cart => {
+  model.createLineItemsFromVariants(...items).then(cart => {
     assert.equal(cart, model, 'it should be the same model, with updated attrs');
     assert.equal(cart.lineItems.length, 3);
     assert.equal(cart.lineItems.filter(item => {
@@ -284,7 +321,7 @@ test('it generates checkout permalinks', function (assert) {
 
   const variant = singleProductFixture.product_listing.variants[1];
 
-  model.addVariants({ variant, quantity: 1 }).then(cart => {
+  model.createLineItemsFromVariants({ variant, quantity: 1 }).then(cart => {
     const checkoutVariantPath = cart.lineItems.map(lineItem => {
       return `${lineItem.variant_id}:${lineItem.quantity}`;
     }).join(',');
@@ -324,7 +361,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
     callback(tracker);
   });
 
-  model.addVariants({ variant, quantity: 1 }).then(cart => {
+  model.createLineItemsFromVariants({ variant, quantity: 1 }).then(cart => {
     const checkoutVariantPath = cart.lineItems.map(lineItem => {
       return `${lineItem.variant_id}:${lineItem.quantity}`;
     }).join(',');
@@ -352,8 +389,8 @@ test('it keeps line_item attrs hashes, and doesn\'t inject classes into internal
   const variantOne = singleProductFixture.product_listing.variants[0];
   const variantTwo = singleProductFixture.product_listing.variants[1];
 
-  model.addVariants({ variant: variantOne, quantity }).then(_cart => {
-    _cart.addVariants({ variant: variantTwo, quantity }).then(cart => {
+  model.createLineItemsFromVariants({ variant: variantOne, quantity }).then(_cart => {
+    _cart.createLineItemsFromVariants({ variant: variantTwo, quantity }).then(cart => {
       assert.equal(cart.lineItems.length, 2);
 
       cart.lineItems.forEach(item => {
@@ -383,7 +420,7 @@ test('it doesn\'t pollute "attrs.line_items" with "CartLineItem" class instances
   const variantOne = singleProductFixture.product_listing.variants[0];
   const variantTwo = singleProductFixture.product_listing.variants[1];
 
-  model.addVariants({ variant: variantOne, quantity }, { variant: variantTwo, quantity }).then(cart => {
+  model.createLineItemsFromVariants({ variant: variantOne, quantity }, { variant: variantTwo, quantity }).then(cart => {
     assert.equal(cart.lineItems.length, 2);
     cart.removeLineItem(cart.lineItems[0].id);
     assert.equal(cart.lineItems.length, 1);
