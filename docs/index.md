@@ -41,7 +41,7 @@ npm install shopify-buy
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/v{{majorVersion}}/latest/shopify-buy.umd.polyfilled.min.js"></script>
 ```
 
-<button class="marketing-button copy-button" data-clipboard-text="<script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js&quot;></script>">Copy to clipboard</button>
+<button class="marketing-button copy-button" data-clipboard-text="<script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/v{{majorVersion}}/latest/shopify-buy.umd.polyfilled.min.js&quot;></script>">Copy to clipboard</button>
 
 ## Creating a Shop Client
 
