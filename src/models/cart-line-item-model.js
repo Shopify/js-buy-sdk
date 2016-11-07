@@ -1,5 +1,5 @@
 import BaseModel from './base-model';
-import { GUID_KEY } from '../metal/set-guid-for';
+import GUID_KEY from '../metal/guid-key';
 
 /**
  * A cart stores an Array of `CartLineItemModel`'s in it's `lineItems` property.
