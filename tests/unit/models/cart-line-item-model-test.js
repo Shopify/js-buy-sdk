@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
 import assign from 'shopify-buy/metal/assign';
-import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
+import GUID_KEY from 'shopify-buy/metal/guid-key';
 import BaseModel from 'shopify-buy/models/base-model';
 
 let model;

@@ -3,7 +3,7 @@ import CartLineItem from './cart-line-item-model';
 import assign from '../metal/assign';
 import setGuidFor from '../metal/set-guid-for';
 import globalVars from '../metal/global-vars';
-import { GUID_KEY } from '../metal/set-guid-for';
+import GUID_KEY from '../metal/guid-key';
 import logger from '../logger';
 
 function objectsEqual(one, two) {

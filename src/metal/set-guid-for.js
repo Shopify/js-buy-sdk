@@ -1,6 +1,5 @@
 /* eslint no-undefined: 0 complexity: 0 */
-
-const GUID_KEY = 'shopify-buy-uuid';
+import GUID_KEY from './guid-key';
 
 const GUID_PREFIX = `shopify-buy.${Date.now()}`;
 
@@ -89,4 +88,3 @@ function setGuidFor(obj) {
 }
 
 export default setGuidFor;
-export { GUID_KEY };

@@ -1,7 +1,7 @@
 import CoreObject from '../metal/core-object';
 import setGuidFor from '../metal/set-guid-for';
 import Store from '../store';
-import { GUID_KEY } from '../metal/set-guid-for';
+import GUID_KEY from '../metal/guid-key';
 
 const LocalStorageAdapter = CoreObject.extend({
   constructor() {

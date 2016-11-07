@@ -5,7 +5,7 @@ import ReferenceSerializer from './serializers/reference-serializer';
 import LocalStorageAdapter from './adapters/local-storage-adapter';
 import CoreObject from './metal/core-object';
 import assign from './metal/assign';
-import { GUID_KEY } from './metal/set-guid-for';
+import GUID_KEY from './metal/guid-key';
 
 /**
  * @module shopify-buy

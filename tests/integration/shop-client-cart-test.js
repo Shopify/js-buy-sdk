@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { step, resetStep } from 'shopify-buy/tests/helpers/assert-step';
 import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
-import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
+import GUID_KEY from 'shopify-buy/metal/guid-key';
 import assign from 'shopify-buy/metal/assign';
 
 const configAttrs = {

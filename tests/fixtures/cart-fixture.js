@@ -1,4 +1,4 @@
-import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
+import GUID_KEY from 'shopify-buy/metal/guid-key';
 
 export const cartFixture = {
   cart: {

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import ShopClient from 'shopify-buy/shop-client';
 import Config from 'shopify-buy/config';
-import { GUID_KEY } from 'shopify-buy/metal/set-guid-for';
+import GUID_KEY from 'shopify-buy/metal/guid-key';
 import CartModel from 'shopify-buy/models/cart-model';
 
 const configAttrs = {
