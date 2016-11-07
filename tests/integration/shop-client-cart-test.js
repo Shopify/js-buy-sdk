@@ -154,7 +154,7 @@ test('it has a checkout url reflecting the line items in the cart', function (as
   };
   const baseUrl = `https://${config.domain}/cart`;
   const lineItemPath = `${lineItem.variant_id}:${lineItem.quantity}`;
-  const query = `api_key=${config.apiKey}`;
+  const query = `api_key=${config.apiKey}&_fd=0`;
 
 
   shopClient.fetchCart(id).then(cart => {
