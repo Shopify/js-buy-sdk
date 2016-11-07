@@ -15,6 +15,14 @@
         "add-module-exports"
       ]
     },
+    "jsnext": {
+      "plugins": [
+        ["add-shopify-header", {
+          "files": [ "src/shopify.js" ]
+        }],
+        "transform-inline-environment-variables"
+      ]
+    },
     "umd": {
       "resolveModuleSource": null,
       "presets": ["es2015"],
