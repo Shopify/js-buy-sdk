@@ -119,7 +119,6 @@
     "wdio-junit-reporter": "0.1.0",
     "wdio-mocha-framework": "0.3.1",
     "webdriverio": "4.0.9",
-    "whatwg-fetch": "0.10.1",
     "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#c9c62ba",
     "yuidocjs": "0.10.2"
   },
