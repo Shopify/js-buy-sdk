@@ -14,10 +14,15 @@ const path = require('path');
 
 // set the environment variable on which babel should run
 process.env.BABEL_ENV = process.env.BABEL_ENV || process.argv[2];
+process.env.VERSION = process.env.VERSION || process.argv[3];
 
 // check that BABEL_ENV was set
 if (process.env.BABEL_ENV === undefined) {
   throw new Error('BABEL_ENV is not set. This can be set either by passing in a value to runBabel.js or set via command line');
+}
+
+if (process.env.VERSION === undefined) {
+  throw new Error('VERSION is not set. This can be set either by passing in a value to runBabel.js as the second param or set via command line'); 
 }
 
 // read in data piped to this done app

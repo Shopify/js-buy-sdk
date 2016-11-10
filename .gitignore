@@ -16,6 +16,7 @@ dist
 tests.xml
 WDIO.*.xml
 lib
+es
 /node.js
 /polyfilled.js
 
