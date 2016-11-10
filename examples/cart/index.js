@@ -213,7 +213,7 @@ $(function() {
     }, variantId);
   }
 
-  /* Update producrt variant quantity in cart through input field
+  /* Update product variant quantity in cart through input field
   ============================================================ */
   function fieldQuantityHandler(evt) {
     var variantId = parseInt($(this).closest('.cart-item').attr('data-variant-id'), 10);
