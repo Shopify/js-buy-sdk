@@ -4,7 +4,7 @@ $(function() {
   ============================================================ */
   var client = ShopifyBuy.buildClient({
     apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
-    myShopifyDomain: 'embeds',
+    domain: 'embeds',
     appId: '6'
   });
 
