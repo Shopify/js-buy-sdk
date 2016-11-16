@@ -91,7 +91,7 @@ var selectedVariantImage = product.selectedVariantImage;
 var currentOptions = product.options;
 ```
 
-The demo then updates the HTML structure for the product using the `updateProductTitle()`, `updateVariantImage()`, `updateVariantTitle()`, and `updateVariantPrice()` functions, and builds out `select` elements for the product's variant options and appends them to the product's HTML markup.
+The demo then updates the HTML structure for the product using the [updateProductTitle](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L147), [updateVariantImage](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L153), [updateVariantTitle](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L161), and [updateVariantPrice](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L167) functions, and builds out `<select>` elements for the product's variant options and appends them to the product's HTML markup.
 
 ```js
 var variantSelectors = generateSelectors(product);
@@ -109,7 +109,7 @@ function generateSelectors(product) {
 }
 ```
 
-Various listener functions are called to watch for 'Add to Cart' button clicks, variant option changes, and increment/decrement buttons for the variants in the cart. The `attachOnVariantSelectListeners` function updates the `product.options` when an a selected option is changed, then calls the various update functions with the new selected variant and selected variant's image.
+Various listener functions are called to watch for 'Add to Cart' button clicks, variant option changes, and increment/decrement buttons for the variants in the cart. The [attachOnVariantSelectListeners](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L127) function updates the `product.options` when an a selected option is changed, then calls the various update functions with the new selected variant and selected variant's image.
 
 ```js
 function attachOnVariantSelectListeners(product) {
@@ -130,7 +130,7 @@ function attachOnVariantSelectListeners(product) {
 }
 ```
 
-When a product variant is added to, or removed from, the cart, the `addVariantToCart` function handles a series of things. First, it updates the cart model. It then uses the line items in the cart to build the required markup to display the cart items in the DOM.
+In our example application when a product variant is added to the cart, the [addVariantToCart](https://github.com/Shopify/js-buy-sdk/blob/master/examples/cart/index.js#L312) function handles a series of things. First, it updates the cart model. It then uses the line items in the cart to build the required markup to display the cart items in the DOM.
 
 ```js
 ...
