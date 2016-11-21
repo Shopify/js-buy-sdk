@@ -154,6 +154,7 @@ const CartModel = BaseModel.extend({
     const newLineItems = [...arguments].map(item => {
       const lineItem = {
         image: item.variant.image,
+        image_variants: item.variant.imageVariants,
         variant_id: item.variant.id,
         product_id: item.variant.productId,
         title: item.variant.productTitle,

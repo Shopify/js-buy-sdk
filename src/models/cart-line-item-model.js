@@ -64,6 +64,30 @@ const CartLineItemModel = BaseModel.extend({
   },
 
   /**
+    * Image variants available for a variant. An example value of `imageVariant`:
+    * ```
+    * [
+    *   {
+    *     "name": "pico",
+    *     "dimensions": "16x16",
+    *     "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423"
+    *   },
+    *   {
+    *     "name": "compact",
+    *     "dimensions": "160x160",
+    *     "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423"
+    *   }
+    * ]
+    * ```
+    *
+    * @property imageVariant
+    * @type {Array}
+  */
+  get imageVariants() {
+    return this.attrs.image_variants;
+  },
+
+  /**
    * Product title of variant's parent product.
    * @property title
    * @readOnly
