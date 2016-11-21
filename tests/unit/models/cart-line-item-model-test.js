@@ -8,6 +8,9 @@ let model;
 
 const lineItemFixture = {
   image: 'http://google.com/image.png',
+  image_variants: [
+    'http://google.com/image.png',
+  ],
   variant_id: 12345,
   product_id: 45678,
   title: 'Some Product',
@@ -122,6 +125,7 @@ test('it proxies values in attrs that we would like to expose', function (assert
   assert.equal(model.variant_id, model.attrs.variant_id);
   assert.equal(model.product_id, model.attrs.product_id);
   assert.equal(model.image, model.attrs.image);
+  assert.equal(model.image_variants, model.attrs.image_variants);
   assert.equal(model.title, model.attrs.title);
   assert.equal(model.variant_title, model.attrs.variant_title);
   assert.equal(model.price, model.attrs.price);
