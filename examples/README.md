@@ -4,7 +4,8 @@ To run the examples locally, you must first install the SDK's
 dependencies and start a server to serve these files from:
 
 ```bash
-npm install && npm run examples
+npm install
+npm run examples:serve
 ```
 
 Once it's running, open your browser to `http://localhost:4200/examples/<example-name>/` to view the example.
