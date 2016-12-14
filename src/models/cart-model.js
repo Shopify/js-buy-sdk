@@ -96,7 +96,7 @@ const CartModel = BaseModel.extend({
       return `${item.variant_id}:${item.quantity}`;
     });
 
-    let query = `api_key=${config.apiKey}&_fd=0`;
+    let query = `access_token=${config.apiKey}&_fd=0`;
 
     if (typeof ga === 'function') {
       let linkerParam;
