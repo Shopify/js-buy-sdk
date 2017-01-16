@@ -1,26 +1,9 @@
-# In order to test all node versions, Set up circle with a parallelism value of 5
-
 machine:
   node:
-    version: v5.5.0
-  environment:
-    NODE_LTS: v4.6.0
-    NODE_CURRENT: v6.8.0
-    PHANTOMJS_VERSION: 2.0.0
-
+    version: v6.7.0
 dependencies:
-  cache_directories:
-      - "node_modules_0"
-      - "node_modules_1"
-      - "node_modules_2"
-      - "node_modules_3"
   pre:
-    - ./scripts/ci/setup-node:
-        parallel: true
-  override:
-    - ./scripts/ci/deps:
-        parallel: true
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
 test:
-  override:
-    - ./scripts/ci/test:
-        parallel: true
+  pre:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
