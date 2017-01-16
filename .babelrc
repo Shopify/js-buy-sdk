@@ -1,89 +1,21 @@
-{ 
-  "plugins": [
-    "transform-es5-property-mutators",
-    "transform-es3-member-expression-literals",
-    "transform-es3-property-literals"
+{
+  "presets": [
+    "es2015-rollup"
   ],
   "env": {
-    "commonjs": {
-      "presets": ["es2015"],
-      "plugins": [
-        ["add-shopify-header", {
-          "files": [ "src/shopify.js" ]
-        }],
-        "transform-inline-environment-variables",
-        "add-module-exports"
-      ]
-    },
-    "jsnext": {
-      "plugins": [
-        ["add-shopify-header", {
-          "files": [ "src/shopify.js" ]
-        }],
-        "transform-inline-environment-variables"
-      ]
-    },
-    "umd": {
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": [
-        "transform-es2015-modules-umd",
-        ["rename-umd-globals", { "shopifyBuy": "ShopifyBuy" }],
-        "add-shopify-header",
-        "transform-inline-environment-variables"
-      ],
-      "moduleId": "shopify-buy"
-    },
-    "amd": {
-      "moduleRoot": "shopify-buy",
-      "moduleIds": true,
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": [
-        "transform-es2015-modules-amd",
-        ["add-shopify-header", {
-          "files": [ "src/shopify.js" ]
-        }],
-        "transform-inline-environment-variables"
-      ],
-      "sourceRoot": "src/"
-    },
-    "amd-tests": {
-      "moduleRoot": "shopify-buy/tests",
-      "moduleIds": true,
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": [
-        "transform-es2015-modules-amd",
-        ["eslint-test-generator", {
-          "template": "qunit",
-          "paths": "./src/",
-          "file": "tests/unit/lint/lint-test.js"
+    "browser": {
+      "presets": [
+        ["shopify/web", {
+          "modules": false
         }]
-      ],
-      "sourceRoot": "tests/",
-      "ignore": [
-        "tests/shims/**/*.js"
       ]
     },
-    "amd-lint-tests": {
-      "moduleRoot": "shopify-buy/tests",
-      "moduleId": "eslint-test",
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": ["transform-es2015-modules-amd"],
-      "sourceRoot": "tests/",
-      "ignore": [
-        "tests/shims/**/*.js"
+    "node": {
+      "presets": [
+        ["shopify/node", {
+          "modules": false
+        }]
       ]
-    },
-    "amd-test-qunit-shim": {
-      "moduleRoot": null,
-      "moduleIds": true,
-      "resolveModuleSource": null,
-      "presets": ["es2015"],
-      "plugins": ["transform-es2015-modules-amd"],
-      "sourceRoot": "tests/shims/"
     }
   }
 }
