@@ -8,7 +8,8 @@ node_modules
 selenium-standalone.jar
 
 # Intermediate files
-tmp
+.tmp
+types.js
 
 # Build artifacts
 dist
