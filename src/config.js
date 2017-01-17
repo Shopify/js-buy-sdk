@@ -18,6 +18,11 @@ const Config = CoreObject.extend({
         this[key] = attrs[key];
       }
     });
+    this.optionalProperties.forEach(key => {
+      if (attrs.hasOwnProperty(key)) {
+        this[key] = attrs[key];
+      }
+    });
   },
 
   /**
@@ -62,6 +67,16 @@ const Config = CoreObject.extend({
     'domain'
   ],
 
+  /**
+   * Properties that may be set on initializations
+   * @attribute requiredProperties
+   * @default ['ajaxHeaders']
+   * @type Array
+   * @private
+   */
+  optionalProperties: [
+    'ajaxHeaders'
+  ],
 
   /**
    * The apiKey for authenticating against shopify. This is your api client's
@@ -98,7 +113,15 @@ const Config = CoreObject.extend({
    * @private
    * @deprecated Use `config.domain` instead.
    */
-  myShopifyDomain: ''
+  myShopifyDomain: '',
+
+  /**
+   * @attribute ajaxHeaders
+   * @default {}
+   * @type Object
+   * @private
+   */
+  ajaxHeaders: {}
 });
 
 export default Config;

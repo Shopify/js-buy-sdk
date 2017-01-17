@@ -36,13 +36,19 @@ test('it builds an appropriate baseUrl based on configured values', function (as
 test('it builds auth headers using the base64 encoded api key', function (assert) {
   assert.expect(1);
 
-  adapter.config = { apiKey };
+  adapter.config = {
+    apiKey,
+    ajaxHeaders: {
+      'test': 'test-string'
+    }
+  };
 
   assert.deepEqual(adapter.headers, {
     Authorization: `Basic ${base64ApiKey}`,
     'Content-Type': 'application/json',
     'X-SDK-Variant': 'javascript',
-    'X-SDK-Version': version
+    'X-SDK-Version': version,
+    'test': 'test-string'
   });
 });
 
