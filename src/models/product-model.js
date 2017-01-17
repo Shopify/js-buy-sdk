@@ -1,6 +1,7 @@
 import BaseModel from './base-model';
 import ProductOptionModel from './product-option-model';
 import ProductVariantModel from './product-variant-model';
+import ImageModel from './image-model';
 import uniq from '../metal/uniq';
 
 const NO_IMAGE_URI = 'https://widgets.shopifyapps.com/assets/no-image.svg';
@@ -62,7 +63,9 @@ const ProductModel = BaseModel.extend({
     * @type {Array} array of image objects.
   */
   get images() {
-    return this.attrs.images;
+    return this.attrs.images.map(image => {
+      return new ImageModel(image);
+    });
   },
 
   get memoized() {
