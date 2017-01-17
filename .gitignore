@@ -34,3 +34,5 @@ docs/api/master
 _site
 .sass-cache
 .jekyll-metadata
+types.js
+.tmp
