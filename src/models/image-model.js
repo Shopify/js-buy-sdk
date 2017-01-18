@@ -37,7 +37,7 @@ const ImageModel = CoreObject.extend({
     * ]
     * ```
     *
-    * @property imageVariant
+    * @attribute variants
     * @type {Array}
   */
   get variants() {
