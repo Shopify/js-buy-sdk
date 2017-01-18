@@ -144,11 +144,11 @@ test('it returns the image variants for the variant', function (assert) {
 test('it returns the image for the variant', function (assert) {
   assert.expect(2);
 
-  assert.deepEqual(model.image, baseAttrs.product.images[1]);
+  assert.equal(model.image.id, baseAttrs.product.images[1].id);
 
   model.attrs.variant.id = 'abc123';
 
-  assert.deepEqual(model.image, baseAttrs.product.images[0], 'the first image is default when no id matches');
+  assert.equal(model.image.id, baseAttrs.product.images[0].id, 'the first image is default when no id matches');
 });
 
 test('image variants should be empty when there\'s not image', function (assert) {

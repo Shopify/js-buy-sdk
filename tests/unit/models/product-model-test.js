@@ -68,7 +68,7 @@ test('it proxies attrs for most commonly used props', function (assert) {
 
   assert.equal(model.id, singleProductFixture.product_listing.product_id);
   assert.equal(model.title, singleProductFixture.product_listing.title);
-  assert.deepEqual(model.images, singleProductFixture.product_listing.images);
+  assert.equal(model.images[0].id, singleProductFixture.product_listing.images[0].id);
 
   // Variants are now rich models, so we just want to guarantee that same-state
   // is represented.
