@@ -1,4 +1,5 @@
 import ajax from '../ajax';
+import assign from '../metal/assign';
 import CoreObject from '../metal/core-object';
 import version from '../version';
 
@@ -20,13 +21,13 @@ const ListingsAdapter = CoreObject.extend({
   },
 
   get headers() {
-    return {
+    return assign({}, {
       Authorization: `Basic ${this.base64ApiKey}`,
       'Content-Type': 'application/json',
       'X-SDK-Variant': 'javascript',
       'X-SDK-Version': version
 
-    };
+    }, this.config.ajaxHeaders);
   },
 
   pathForType(type) {
