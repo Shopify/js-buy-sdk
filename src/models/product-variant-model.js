@@ -150,13 +150,13 @@ const ProductVariantModel = BaseModel.extend({
       return image.variant_ids.indexOf(id) !== -1;
     })[0];
 
-    const productImage = variantImage || primaryImage;
+    const image = variantImage || primaryImage;
 
-    if (!productImage) {
+    if (!image) {
       return null;
     }
 
-    return new ImageModel(productImage);
+    return new ImageModel(image);
   },
 
   /**
