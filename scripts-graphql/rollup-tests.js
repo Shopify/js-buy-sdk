@@ -6,12 +6,14 @@ const multiEntry = require('rollup-plugin-multi-entry');
 const builtins = require('rollup-plugin-node-builtins');
 const globals = require('rollup-plugin-node-globals');
 const babel = require('rollup-plugin-babel');
-const remap = require('@shopify/rollup-plugin-remap').default;
+const json = require('rollup-plugin-json');
+const remap = require('@shopify/rollup-plugin-remap');
 const eslintTestGenerator = require('./rollup-plugin-eslint-test-generator');
 
 function envRollupInfo({browser, withDependencyTracking}) {
   const format = (browser) ? 'iife' : 'cjs';
   const plugins = [
+    json(),
     eslintTestGenerator({
       paths: [
         'src-graphql',
@@ -43,6 +45,10 @@ function envRollupInfo({browser, withDependencyTracking}) {
 
   if (browser) {
     plugins.unshift(globals(), builtins());
+    plugins.unshift(remap({
+      originalPath: './test-graphql/fetch-mock-node.js',
+      targetPath: './test-graphql/fetch-mock-browser.js'
+    }));
   } else {
     external.push('assert');
   }
