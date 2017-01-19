@@ -3,10 +3,9 @@ import GraphQLJSClient from '@shopify/graphql-js-client';
 import Config from '../src-graphql/config';
 import Client from '../src-graphql/client';
 import types from '../types';
-import base64 from '../src-graphql/base64';
+import base64Encode from '../src-graphql/base64encode';
 
 suite('client-test', () => {
-
   test('it instantiates a GraphQL client with the given config', () => {
     let passedTypeBundle;
     let passedUrl;
@@ -29,7 +28,7 @@ suite('client-test', () => {
 
     assert.equal(passedTypeBundle, types);
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
-    assert.deepEqual(passedFetchOptions, {headers: `Authorization: Basic ${base64('abc123')}`});
+    assert.deepEqual(passedFetchOptions, {headers: `Authorization: Basic ${base64Encode('abc123')}`});
   });
 
   test('it creates an instance of the GraphQLJSClient by default', () => {
