@@ -4,16 +4,11 @@ import Config from '../src-graphql/config';
 import Client from '../src-graphql/client';
 import types from '../types';
 import base64Encode from '../src-graphql/base64encode';
-import {singleProductFixture, multipleProductsFixture} from '../fixtures/product-fixture';
-import {fetchMock} from './fetch-mock-node';
+import singleProductFixture from '../fixtures/product-fixture';
+import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
+import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 
 suite('client-test', () => {
-  const querySplitter = /[\s,]+/;
-
-  function tokens(queryString) {
-    return queryString.split(querySplitter).filter((token) => Boolean(token));
-  }
-
   test('it instantiates a GraphQL client with the given config', () => {
     let passedTypeBundle;
     let passedUrl;
@@ -32,7 +27,7 @@ suite('client-test', () => {
       storefrontAccessToken: 'abc123'
     });
 
-    new Client(config, FakeGraphQLJSClient);  // eslint-disable-line no-new
+    new Client(config, FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.equal(passedTypeBundle, types);
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
@@ -64,80 +59,17 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://multiple-products.myshopify.com/api/graphql', multipleProductsFixture);
+    fetchMock.post('https://multiple-products.myshopify.com/api/graphql', shopWithProductsFixture);
 
     return client.fetchAllProducts().then((products) => {
       assert.ok(Array.isArray(products), 'products is an array');
       assert.equal(products.length, 2, 'there are two products');
 
-      const passedArgs = fetchMock.lastCall('https://multiple-products.myshopify.com/api/graphql');
+      const [firstProduct, secondProduct] = products;
+      const [firstProductFixture, secondProductFixture] = shopWithProductsFixture.data.shop.products.edges;
 
-      const passedQuery = JSON.parse(passedArgs[1].body).query;
-
-      assert.deepEqual(tokens(passedQuery.toString()), tokens(
-      `query {
-        shop {
-          products (first: 10) {
-            pageInfo {
-             hasNextPage
-             hasPreviousPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                createdAt
-                updatedAt
-                bodyHtml
-                handle
-                productType
-                title
-                vendor
-                tags
-                publishedAt
-                images (first: 10) {
-                  pageInfo {
-                    hasNextPage
-                    hasPreviousPage
-                  }
-                  edges {
-                    cursor
-                    node {
-                      id
-                      src
-                      altText
-                    }
-                  }
-                }
-                options {
-                  id
-                  name
-                  values
-                }
-                variants (first: 10) {
-                  pageInfo {
-                    hasNextPage
-                    hasPreviousPage
-                  }
-                  edges {
-                    cursor
-                    node {
-                      id
-                      title
-                      selectedOptions {
-                        name
-                        value
-                      }
-                      price
-                      weight
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }`));
+      assert.equal(firstProduct.id, firstProductFixture.node.id);
+      assert.equal(secondProduct.id, secondProductFixture.node.id);
     });
   });
 
@@ -153,65 +85,7 @@ suite('client-test', () => {
 
     return client.fetchProduct('7857989384').then((product) => {
       assert.ok(Array.isArray(product) === false, 'products is not an array');
-
-      const passedArgs = fetchMock.lastCall('https://single-product.myshopify.com/api/graphql');
-
-      const passedQuery = JSON.parse(passedArgs[1].body).query;
-
-      assert.deepEqual(tokens(passedQuery.toString()), tokens(
-      `query {
-        product (id: "gid://shopify/Product/7857989384") {
-          id
-          createdAt
-          updatedAt
-          bodyHtml
-          handle
-          productType
-          title
-          vendor
-          tags
-          publishedAt
-          images (first: 10) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                src
-                altText
-              }
-            }
-          }
-          options {
-            id
-            name
-            values
-          }
-          variants (first: 10) {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                title
-                selectedOptions {
-                  name
-                  value
-                }
-                price
-                weight
-              }
-            }
-          }
-        }
-      }`));
+      assert.equal(product.id, singleProductFixture.data.product.id);
     });
   });
 });
-

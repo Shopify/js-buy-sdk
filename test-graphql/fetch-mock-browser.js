@@ -1,1 +1,1 @@
-export {default as fetchMock} from 'fetch-mock/es5/client';
+export {default} from 'fetch-mock/es5/client';

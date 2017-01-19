@@ -36,7 +36,7 @@ export default class Client {
 
   fetchProduct(id) {
     const query = this.graphQLClient.query((root) => {
-      root.add('product', {args: {id: `gid://shopify/Product/${id}`}}, (product) => {
+      root.add('product', {args: {id: createGid('Product', id)}}, (product) => {
         addProductFields(product);
       });
     });
@@ -45,6 +45,10 @@ export default class Client {
       return response.model.product;
     });
   }
+}
+
+function createGid(type, id) {
+  return `gid://shopify/${type}/${id}`;
 }
 
 function addProductFields(product) {

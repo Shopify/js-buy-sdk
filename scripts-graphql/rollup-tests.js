@@ -46,11 +46,15 @@ function envRollupInfo({browser, withDependencyTracking}) {
   if (browser) {
     plugins.unshift(globals(), builtins());
     plugins.unshift(remap({
-      originalPath: './test-graphql/fetch-mock-node.js',
+      originalPath: './test-graphql/isomorphic-fetch-mock.js',
       targetPath: './test-graphql/fetch-mock-browser.js'
     }));
   } else {
     external.push('assert');
+    plugins.unshift(remap({
+      originalPath: './test-graphql/isomorphic-fetch-mock.js',
+      targetPath: './test-graphql/fetch-mock-node.js'
+    }));
   }
 
   return {plugins, external, format};

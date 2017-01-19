@@ -1,1 +1,1 @@
-export {default as fetchMock} from 'fetch-mock';
+export {default} from 'fetch-mock';
