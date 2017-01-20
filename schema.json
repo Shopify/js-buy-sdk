@@ -3304,6 +3304,59 @@
               "deprecationReason": null
             },
             {
+              "name": "image",
+              "description": null,
+              "args": [
+                {
+                  "name": "maxWidth",
+                  "description": "Image width in pixels between 1 and 2048",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "maxHeight",
+                  "description": "Image width in pixels between 1 and 2048",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "crop",
+                  "description": "If specified, crop the image keeping the specified region",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "CropRegion",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "scale",
+                  "description": "Image size multiplier retina displays. Must be between 1 and 3",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": "1"
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Image",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "products",
               "description": null,
               "args": [
