@@ -6,6 +6,8 @@ import types from '../types';
 import base64Encode from '../src-graphql/base64encode';
 import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
+import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
+import singleCollectionFixture from '../fixtures/collection-fixture';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 
 suite('client-test', () => {
@@ -51,7 +53,7 @@ suite('client-test', () => {
     assert.ok(GraphQLJSClient.prototype.isPrototypeOf(client.graphQLClient));
   });
 
-  test('it resolves with an array of products on Client#fetchAll', () => {
+  test('it resolves with an array of products on Client#fetchAllProducts', () => {
     const config = new Config({
       domain: 'multiple-products.myshopify.com',
       storefrontAccessToken: 'abc123'
@@ -73,7 +75,7 @@ suite('client-test', () => {
     });
   });
 
-  test('it resolves with a single product on Client#fetch', () => {
+  test('it resolves with a single product on Client#fetchProduct', () => {
     const config = new Config({
       domain: 'single-product.myshopify.com',
       storefrontAccessToken: '0dc0448815bdf506934101c6d39ec244'
@@ -84,8 +86,46 @@ suite('client-test', () => {
     fetchMock.post('https://single-product.myshopify.com/api/graphql', singleProductFixture);
 
     return client.fetchProduct('7857989384').then((product) => {
-      assert.ok(Array.isArray(product) === false, 'products is not an array');
+      assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, singleProductFixture.data.product.id);
+    });
+  });
+
+  test('it resolves with an array of collections on Client#fetchAllCollections', () => {
+    const config = new Config({
+      domain: 'multiple-collections.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.post('https://multiple-collections.myshopify.com/api/graphql', shopWithCollectionsFixture);
+
+    return client.fetchAllCollections().then((collections) => {
+      assert.ok(Array.isArray(collections), 'collections is an array');
+      assert.equal(collections.length, 2, 'there are two collections');
+
+      const [firstCollection, secondCollection] = collections;
+      const [firstCollectionFixture, secondCollectionFixture] = shopWithCollectionsFixture.data.shop.collections.edges;
+
+      assert.equal(firstCollection.id, firstCollectionFixture.node.id);
+      assert.equal(secondCollection.id, secondCollectionFixture.node.id);
+    });
+  });
+
+  test('it resolves with a single collection on Client#fetchCollection', () => {
+    const config = new Config({
+      domain: 'single-collection.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.post('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
+
+    return client.fetchCollection('369312584').then((collection) => {
+      assert.ok(Array.isArray(collection) === false, 'collection is not an array');
+      assert.equal(collection.id, singleCollectionFixture.data.collection.id);
     });
   });
 });
