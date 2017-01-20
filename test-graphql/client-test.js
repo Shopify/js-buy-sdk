@@ -9,13 +9,13 @@ suite('client-test', () => {
   test('it instantiates a GraphQL client with the given config', () => {
     let passedTypeBundle;
     let passedUrl;
-    let passedFetchOptions;
+    let passedFetcherOptions;
 
     class FakeGraphQLJSClient {
-      constructor(typeBundle, url, fetchOptions) {
+      constructor(typeBundle, {url, fetcherOptions}) {
         passedTypeBundle = typeBundle;
         passedUrl = url;
-        passedFetchOptions = fetchOptions;
+        passedFetcherOptions = fetcherOptions;
       }
     }
 
@@ -28,7 +28,7 @@ suite('client-test', () => {
 
     assert.equal(passedTypeBundle, types);
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
-    assert.deepEqual(passedFetchOptions, {headers: `Authorization: Basic ${base64Encode('abc123')}`});
+    assert.deepEqual(passedFetcherOptions, {headers: `Authorization: Basic ${base64Encode('abc123')}`});
   });
 
   test('it creates an instance of the GraphQLJSClient by default', () => {
