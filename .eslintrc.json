@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
     "newline-before-return": ["error"],
     "newline-after-var": ["error", "always"],
