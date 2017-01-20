@@ -45,6 +45,32 @@ export default class Client {
       return response.model.product;
     });
   }
+
+  fetchAllCollections() {
+    const query = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        shop.addConnection('collections', {args: {first: 10}}, (collections) => {
+          addCollectionFields(collections);
+        });
+      });
+    });
+
+    return this.graphQLClient.send(query).then((response) => {
+      return response.model.shop.collections;
+    });
+  }
+
+  fetchCollection(id) {
+    const query = this.graphQLClient.query((root) => {
+      root.add('collection', {args: {id: createGid('Collection', id)}}, (collection) => {
+        addCollectionFields(collection);
+      });
+    });
+
+    return this.graphQLClient.send(query).then((response) => {
+      return response.model.collection;
+    });
+  }
 }
 
 function createGid(type, id) {
@@ -82,4 +108,11 @@ function addProductFields(product) {
     variants.add('price');
     variants.add('weight');
   });
+}
+
+function addCollectionFields(collection) {
+  collection.add('id');
+  collection.add('handle');
+  collection.add('updatedAt');
+  collection.add('title');
 }
