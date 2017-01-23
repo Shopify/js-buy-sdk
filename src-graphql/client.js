@@ -7,6 +7,9 @@ export default class Client {
     const apiUrl = `https://${config.domain}/api/graphql`;
     const authHeader = `Authorization: Basic ${base64Encode(config.storefrontAccessToken)}`;
 
-    this.graphQLClient = new GraphQLClientClass(types, apiUrl, {headers: authHeader});
+    this.graphQLClient = new GraphQLClientClass(types, {
+      url: apiUrl,
+      fetcherOptions: {headers: authHeader}
+    });
   }
 }
