@@ -6,7 +6,7 @@ import CartModel from 'shopify-buy/models/cart-model';
 
 const configAttrs = {
   domain: 'buckets-o-stuff.myshopify.com',
-  apiKey: 'abc123',
+  accessToken: 'abc123',
   appId: 6
 };
 

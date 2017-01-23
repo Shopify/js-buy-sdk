@@ -7,7 +7,7 @@ import GUID_KEY from 'shopify-buy/metal/guid-key';
 
 const configAttrs = {
   domain: 'buckets-o-stuff.myshopify.com',
-  apiKey: 123,
+  accessToken: 123,
   appId: 6
 };
 

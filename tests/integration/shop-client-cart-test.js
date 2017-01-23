@@ -6,9 +6,9 @@ import GUID_KEY from 'shopify-buy/metal/guid-key';
 import assign from 'shopify-buy/metal/assign';
 
 const configAttrs = {
-  myShopifyDomain: 'buckets-o-stuff',
-  apiKey: 'abc123',
-  appId: 6
+  accessToken: 'abc123',
+  appId: 6,
+  myShopifyDomain: 'buckets-o-stuff'
 };
 
 
@@ -154,7 +154,7 @@ test('it has a checkout url reflecting the line items in the cart', function (as
   };
   const baseUrl = `https://${config.domain}/cart`;
   const lineItemPath = `${lineItem.variant_id}:${lineItem.quantity}`;
-  const query = `access_token=${config.apiKey}&_fd=0`;
+  const query = `access_token=${config.accessToken}&_fd=0`;
 
 
   shopClient.fetchCart(id).then(cart => {

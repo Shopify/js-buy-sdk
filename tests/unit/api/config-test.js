@@ -18,7 +18,7 @@ test('it throws an error with some but not all params', function (assert) {
   assert.expect(1);
 
   assert.throws(function () {
-    new Config({ apiKey: 123 });
+    new Config({ accessToken: 123 });
   }, 'some but not all required params should produce an error');
 });
 
@@ -26,8 +26,8 @@ test('it doesn\'t throw when all required params are specified', function (asser
   assert.expect(1);
 
   const config = new Config({
-    myShopifyDomain: 'krundle',
-    apiKey: 123,
+    domain: 'krundle.com',
+    accessToken: 123,
     appId: 6
   });
 
@@ -39,11 +39,11 @@ test('it should convert myShopifyDomain to domain', function (assert) {
 
   const config = new Config({
     myShopifyDomain: 'krundle',
-    apiKey: 123,
+    accessToken: 123,
     appId: 6
   });
 
-  assert.equal(config.domain, 'krundle.myshopify.com', 'domain should be myshopify.com domain');
+  assert.equal(config.domain, 'krundle.myshopify.com', 'domain should append myshopify.com');
 });
 
 test('it should output a deprecation warning when using myShopifyDomain', function (assert) {
@@ -58,7 +58,7 @@ test('it should output a deprecation warning when using myShopifyDomain', functi
 
   new Config({
     myShopifyDomain: 'krundle',
-    apiKey: 123,
+    accessToken: 123,
     appId: 6
   });
 
@@ -73,9 +73,43 @@ test('it should set domain', function (assert) {
 
   const config = new Config({
     domain: 'krundle.com',
-    apiKey: 123,
+    accessToken: 123,
     appId: 6
   });
 
   assert.equal(config.domain, 'krundle.com', 'domain should be krundle.com domain');
+});
+
+test('it should convert apiKey to accessToken', function (assert) {
+  assert.expect(1);
+
+  const config = new Config({
+    domain: 'krundle.com',
+    apiKey: 123,
+    appId: 6
+  });
+
+  assert.equal(config.accessToken, 123, 'accessToken should be 123 apiKey');
+});
+
+test('it should output a deprecation warning when using apiKey', function (assert) {
+  assert.expect(3);
+
+  const oldLog = logger.warn;
+  let output = [];
+
+  logger.warn = function () {
+    output = Array.prototype.slice.call(arguments);
+  };
+
+  new Config({
+    domain: 'krundle.com',
+    apiKey: 123,
+    appId: 6
+  });
+
+  assert.equal(output.length, 2, 'logging should have a tag for config');
+  assert.equal(output[0], 'Config - ', 'the deprecation warning should say it\'s from config');
+  assert.notEqual(output[1].indexOf('deprecated'), -1, 'the deprecation warning should describe the problem');
+  logger.warn = oldLog;
 });

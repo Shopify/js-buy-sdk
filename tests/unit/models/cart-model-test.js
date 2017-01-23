@@ -14,7 +14,7 @@ const { getItem, setItem, removeItem } = localStorage;
 const storage = {};
 const config = {
   domain: 'buckets-o-stuff.myshopify.com',
-  apiKey: 'abc123'
+  accessToken: 'abc123'
 };
 
 module('Unit | CartModel', {
@@ -315,7 +315,7 @@ test('it generates checkout permalinks', function (assert) {
   const baseUrl = `https://${config.domain}/cart`;
   const variantId = model.lineItems[0].variant_id;
   const quantity = model.lineItems[0].quantity;
-  const query = `access_token=${config.apiKey}&_fd=0`;
+  const query = `access_token=${config.accessToken}&_fd=0`;
 
   assert.equal(model.checkoutUrl, `${baseUrl}/${variantId}:${quantity}?${query}`);
 
@@ -344,7 +344,7 @@ test('it detects google analytics and appends the cross-domain linker param', fu
   const baseUrl = `https://${config.domain}/cart`;
   const variantId = model.lineItems[0].variant_id;
   const quantity = model.lineItems[0].quantity;
-  const query = `access_token=${config.apiKey}&_fd=0`;
+  const query = `access_token=${config.accessToken}&_fd=0`;
   const linkerParam = 'ga=some-linker-param';
 
   assert.equal(model.checkoutUrl, `${baseUrl}/${variantId}:${quantity}?${query}`);

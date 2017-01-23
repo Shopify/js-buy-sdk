@@ -30,11 +30,12 @@ const Config = CoreObject.extend({
    * will transform the value into a usable value. A depracation transform should
    * have the value signature function(deprecated_value, config_to_be_transformed)
    * @attribute deprecatedProperties
-   * @default { myShopifyDomain: this.transformMyShopifyDomain }
+   * @default { apiKey: this.transformApiKey, myShopifyDomain: this.transformMyShopifyDomain }
    * @type Object
    * @private
    */
   deprecatedProperties: {
+    apiKey: 'transformApiKey',
     myShopifyDomain: 'transformMyShopifyDomain'
   },
 
@@ -55,14 +56,30 @@ const Config = CoreObject.extend({
   },
 
   /**
+   * Transform the apiKey config to an accessToken config.
+   * @method transformApiKey
+   * @static
+   * @private
+   * @param {String} apiKey The original api key
+   * @param {Object} attrs. The config attributes to be transformed to a
+   * non-deprecated state.
+   * @return {Object} the transformed config attributes.
+   */
+  transformApiKey(apiKey, attrs) {
+    logger.warn('Config - ',
+       'apiKey is deprecated, please use accessToken instead.');
+    attrs.accessToken = apiKey;
+  },
+
+  /**
    * Properties that must be set on initializations
    * @attribute requiredProperties
-   * @default ['apiKey', 'appId', 'myShopifyDomain']
+   * @default ['accessToken', 'appId', 'myShopifyDomain']
    * @type Array
    * @private
    */
   requiredProperties: [
-    'apiKey',
+    'accessToken',
     'appId',
     'domain'
   ],
@@ -79,12 +96,23 @@ const Config = CoreObject.extend({
   ],
 
   /**
+   * The accessToken for authenticating against shopify. This is your api client's
+   * storefront access token. Not the shared secret. Set during initialization.
+   * @attribute accessToken
+   * @default ''
+   * @type String
+   * @private
+   */
+  accessToken: '',
+
+  /**
    * The apiKey for authenticating against shopify. This is your api client's
-   * public api token. Not the shared secret. Set during initialation.
+   * public api token. Not the shared secret. Set during initialization.
    * @attribute apiKey
    * @default ''
    * @type String
    * @private
+   * @deprecated Use `config.accessToken` instead.
    */
   apiKey: '',
 
