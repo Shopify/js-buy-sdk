@@ -89,9 +89,7 @@ function addProductFields(product) {
   product.add('tags');
   product.add('publishedAt');
   product.addConnection('images', {args: {first: 10}}, (images) => {
-    images.add('id');
-    images.add('src');
-    images.add('altText');
+    addImageFields(images);
   });
   product.add('options', (options) => {
     options.add('id');
@@ -115,4 +113,14 @@ function addCollectionFields(collection) {
   collection.add('handle');
   collection.add('updatedAt');
   collection.add('title');
+  collection.add('image', (image) => {
+    addImageFields(image);
+  });
 }
+
+function addImageFields(image) {
+  image.add('id');
+  image.add('src');
+  image.add('altText');
+}
+
