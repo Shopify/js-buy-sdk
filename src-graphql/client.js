@@ -2,6 +2,10 @@ import GraphQLJSClient from '@shopify/graphql-js-client';
 import types from '../types';
 import base64Encode from './base64encode';
 import './isomorphic-fetch';
+import productQuery from './product-query';
+import productConnectionQuery from './product-connection-query';
+import collectionQuery from './collection-query';
+import collectionConnectionQuery from './collection-connection-query';
 
 export default class Client {
   constructor(config, GraphQLClientClass = GraphQLJSClient) {
@@ -12,115 +16,33 @@ export default class Client {
       url: apiUrl,
       fetcherOptions: {
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
           Authorization: authHeader
         }
       }
     });
   }
 
-  fetchAllProducts() {
-    const query = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        shop.addConnection('products', {args: {first: 10}}, (products) => {
-          addProductFields(products);
-        });
-      });
-    });
-
-    return this.graphQLClient.send(query).then((response) => {
+  fetchAllProducts(query = productConnectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient)).then((response) => {
       return response.model.shop.products;
     });
   }
 
-  fetchProduct(id) {
-    const query = this.graphQLClient.query((root) => {
-      root.add('product', {args: {id: createGid('Product', id)}}, (product) => {
-        addProductFields(product);
-      });
-    });
-
-    return this.graphQLClient.send(query).then((response) => {
-      return response.model.product;
+  fetchProduct(id, query = productQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
+      return response.model.node;
     });
   }
 
-  fetchAllCollections() {
-    const query = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        shop.addConnection('collections', {args: {first: 10}}, (collections) => {
-          addCollectionFields(collections);
-        });
-      });
-    });
-
-    return this.graphQLClient.send(query).then((response) => {
+  fetchAllCollections(query = collectionConnectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient)).then((response) => {
       return response.model.shop.collections;
     });
   }
 
-  fetchCollection(id) {
-    const query = this.graphQLClient.query((root) => {
-      root.add('collection', {args: {id: createGid('Collection', id)}}, (collection) => {
-        addCollectionFields(collection);
-      });
-    });
-
-    return this.graphQLClient.send(query).then((response) => {
-      return response.model.collection;
+  fetchCollection(id, query = collectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
+      return response.model.node;
     });
   }
 }
-
-function createGid(type, id) {
-  return `gid://shopify/${type}/${id}`;
-}
-
-function addProductFields(product) {
-  product.add('id');
-  product.add('createdAt');
-  product.add('updatedAt');
-  product.add('bodyHtml');
-  product.add('handle');
-  product.add('productType');
-  product.add('title');
-  product.add('vendor');
-  product.add('tags');
-  product.add('publishedAt');
-  product.addConnection('images', {args: {first: 10}}, (images) => {
-    addImageFields(images);
-  });
-  product.add('options', (options) => {
-    options.add('id');
-    options.add('name');
-    options.add('values');
-  });
-  product.addConnection('variants', {args: {first: 10}}, (variants) => {
-    variants.add('id');
-    variants.add('title');
-    variants.add('selectedOptions', (selectedOptions) => {
-      selectedOptions.add('name');
-      selectedOptions.add('value');
-    });
-    variants.add('price');
-    variants.add('weight');
-  });
-}
-
-function addCollectionFields(collection) {
-  collection.add('id');
-  collection.add('handle');
-  collection.add('updatedAt');
-  collection.add('title');
-  collection.add('image', (image) => {
-    addImageFields(image);
-  });
-}
-
-function addImageFields(image) {
-  image.add('id');
-  image.add('src');
-  image.add('altText');
-}
-
