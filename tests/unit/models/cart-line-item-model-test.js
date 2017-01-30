@@ -1,5 +1,6 @@
 import { module, test } from 'qunit';
 import CartLineItemModel from 'shopify-buy/models/cart-line-item-model';
+import { variants } from 'shopify-buy/models/image-model';
 import assign from 'shopify-buy/metal/assign';
 import GUID_KEY from 'shopify-buy/metal/guid-key';
 import BaseModel from 'shopify-buy/models/base-model';
@@ -124,7 +125,7 @@ test('it proxies values in attrs that we would like to expose', function (assert
   assert.equal(model.variant_id, model.attrs.variant_id);
   assert.equal(model.product_id, model.attrs.product_id);
   assert.equal(model.image.id, model.attrs.image.id);
-  assert.equal(model.imageVariants.length, 10);
+  assert.equal(model.imageVariants.length, variants.length);
   assert.equal(model.title, model.attrs.title);
   assert.equal(model.variant_title, model.attrs.variant_title);
   assert.equal(model.price, model.attrs.price);

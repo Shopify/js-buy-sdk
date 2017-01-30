@@ -1,6 +1,6 @@
 import CoreObject from '../metal/core-object';
 
-const variants = [
+export const variants = [
   { name: 'pico', dimension: '16x16' },
   { name: 'icon', dimension: '32x32' },
   { name: 'thumb', dimension: '50x50' },

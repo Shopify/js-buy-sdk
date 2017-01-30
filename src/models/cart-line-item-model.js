@@ -64,6 +64,7 @@ const CartLineItemModel = BaseModel.extend({
     if (!this.attrs.image) {
       return null;
     }
+
     return new ImageModel(this.attrs.image);
   },
 
