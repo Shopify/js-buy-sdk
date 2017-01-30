@@ -12,19 +12,17 @@ export default class Client {
       url: apiUrl,
       fetcherOptions: {
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
           Authorization: authHeader
         }
       }
     });
   }
 
-  fetchAllProducts() {
+  fetchAllProducts(productQuery) {
     const query = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
-        shop.addConnection('products', {args: {first: 10}}, (products) => {
-          addProductFields(products);
+        shop.addConnection('products', {args: {first: 20}}, (products) => {
+          addProductFields(products, productQuery);
         });
       });
     });
@@ -34,10 +32,10 @@ export default class Client {
     });
   }
 
-  fetchProduct(id) {
+  fetchProduct(id, productQuery) {
     const query = this.graphQLClient.query((root) => {
       root.add('product', {args: {id: createGid('Product', id)}}, (product) => {
-        addProductFields(product);
+        addProductFields(product, productQuery);
       });
     });
 
@@ -46,11 +44,11 @@ export default class Client {
     });
   }
 
-  fetchAllCollections() {
+  fetchAllCollections(collectionQuery) {
     const query = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
-        shop.addConnection('collections', {args: {first: 10}}, (collections) => {
-          addCollectionFields(collections);
+        shop.addConnection('collections', {args: {first: 20}}, (collections) => {
+          addCollectionFields(collections, collectionQuery);
         });
       });
     });
@@ -60,10 +58,10 @@ export default class Client {
     });
   }
 
-  fetchCollection(id) {
+  fetchCollection(id, collectionQuery) {
     const query = this.graphQLClient.query((root) => {
       root.add('collection', {args: {id: createGid('Collection', id)}}, (collection) => {
-        addCollectionFields(collection);
+        addCollectionFields(collection, collectionQuery);
       });
     });
 
@@ -77,50 +75,41 @@ function createGid(type, id) {
   return `gid://shopify/${type}/${id}`;
 }
 
-function addProductFields(product) {
-  product.add('id');
-  product.add('createdAt');
-  product.add('updatedAt');
-  product.add('bodyHtml');
-  product.add('handle');
-  product.add('productType');
-  product.add('title');
-  product.add('vendor');
-  product.add('tags');
-  product.add('publishedAt');
-  product.addConnection('images', {args: {first: 10}}, (images) => {
-    addImageFields(images);
+function addScalars(object, scalars) {
+  scalars.forEach((scalar) => {
+    object.add(scalar);
   });
-  product.add('options', (options) => {
-    options.add('id');
-    options.add('name');
-    options.add('values');
-  });
-  product.addConnection('variants', {args: {first: 10}}, (variants) => {
-    variants.add('id');
-    variants.add('title');
-    variants.add('selectedOptions', (selectedOptions) => {
-      selectedOptions.add('name');
-      selectedOptions.add('value');
+}
+
+function addProductFields(product, productQuery) {
+  addScalars(product, productQuery.scalars);
+  if (productQuery.images) {
+    product.addConnection('images', {args: {first: 20}}, (images) => {
+      addScalars(images, productQuery.images.scalars);
     });
-    variants.add('price');
-    variants.add('weight');
-  });
+  }
+  if (productQuery.options) {
+    product.add('options', (options) => {
+      addScalars(options, productQuery.options.scalars);
+    });
+  }
+  if (productQuery.variants) {
+    product.addConnection('variants', (variants) => {
+      addScalars(variants, productQuery.variants.scalars);
+      if (productQuery.variants.selectedOptions) {
+        variants.add('selectedOptions', (selectedOptions) => {
+          addScalars(selectedOptions, productQuery.variants.selectedOptions.scalars);
+        });
+      }
+    });
+  }
 }
 
-function addCollectionFields(collection) {
-  collection.add('id');
-  collection.add('handle');
-  collection.add('updatedAt');
-  collection.add('title');
-  collection.add('image', (image) => {
-    addImageFields(image);
-  });
+function addCollectionFields(collection, collectionQuery) {
+  addScalars(collection, collectionQuery.scalars);
+  if (collectionQuery.image) {
+    collection.add('image', (image) => {
+      addScalars(image, collectionQuery.image.scalars);
+    });
+  }
 }
-
-function addImageFields(image) {
-  image.add('id');
-  image.add('src');
-  image.add('altText');
-}
-

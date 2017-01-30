@@ -8,7 +8,11 @@ import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
 import singleCollectionFixture from '../fixtures/collection-fixture';
+import dynamicProductFixture from '../fixtures/dynamic-product-fixture';
+import dynamicCollectionFixture from '../fixtures/dynamic-collection-fixture';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
+import productQuery from '../src-graphql/product-query';
+import collectionQuery from '../src-graphql/collection-query';
 
 suite('client-test', () => {
   test('it instantiates a GraphQL client with the given config', () => {
@@ -35,8 +39,6 @@ suite('client-test', () => {
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
     assert.deepEqual(passedFetcherOptions, {
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
         Authorization: `Basic ${base64Encode(config.storefrontAccessToken)}`
       }
     });
@@ -63,7 +65,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://multiple-products.myshopify.com/api/graphql', shopWithProductsFixture);
 
-    return client.fetchAllProducts().then((products) => {
+    return client.fetchAllProducts(productQuery()).then((products) => {
       assert.ok(Array.isArray(products), 'products is an array');
       assert.equal(products.length, 2, 'there are two products');
 
@@ -85,7 +87,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://single-product.myshopify.com/api/graphql', singleProductFixture);
 
-    return client.fetchProduct('7857989384').then((product) => {
+    return client.fetchProduct('7857989384', productQuery()).then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, singleProductFixture.data.product.id);
     });
@@ -101,7 +103,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://multiple-collections.myshopify.com/api/graphql', shopWithCollectionsFixture);
 
-    return client.fetchAllCollections().then((collections) => {
+    return client.fetchAllCollections(collectionQuery()).then((collections) => {
       assert.ok(Array.isArray(collections), 'collections is an array');
       assert.equal(collections.length, 2, 'there are two collections');
 
@@ -123,9 +125,44 @@ suite('client-test', () => {
 
     fetchMock.post('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
 
-    return client.fetchCollection('369312584').then((collection) => {
+    return client.fetchCollection('369312584', collectionQuery()).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.id, singleCollectionFixture.data.collection.id);
+    });
+  });
+
+  test('it accepts product queries with dynamic fields', () => {
+    const config = new Config({
+      domain: 'dynamic-product-fields.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.post('https://dynamic-product-fields.myshopify.com/api/graphql', dynamicProductFixture);
+
+    return client.fetchProduct('7857989384', productQuery('id', 'handle', 'title', 'updatedAt', {images: {fields: ['id', 'src']}},
+      {options: {fields: ['name']}}, {variants: {fields: ['price', 'weight']}})).then((product) => {
+        assert.ok(Array.isArray(product) === false, 'product is not an array');
+        assert.equal(product.id, dynamicProductFixture.data.product.id);
+        assert.ok(typeof product.createdAt === 'undefined', 'unspecified fields are not queried');
+      });
+  });
+
+  test('it accepts collection queries with dynamic fields', () => {
+    const config = new Config({
+      domain: 'dynamic-collection-fields.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.post('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
+
+    return client.fetchCollection('369312584', collectionQuery('title', 'updatedAt', {image: {fields: ['src']}})).then((collection) => {
+      assert.ok(Array.isArray(collection) === false, 'collection is not an array');
+      assert.equal(collection.updatedAt, dynamicCollectionFixture.data.collection.updatedAt);
+      assert.ok(typeof collection.id === 'undefined', 'unspecified fields are not queried');
     });
   });
 });
