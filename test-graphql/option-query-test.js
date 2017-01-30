@@ -10,7 +10,7 @@ suite('option-query-test', () => {
   });
 
   test('it returns using specified fields', () => {
-    const query = optionQuery('values');
+    const query = optionQuery(['values']);
 
     assert.deepEqual(query.scalars, ['values']);
   });

@@ -1,18 +1,11 @@
-export default function variantQuery(...specifiedFields) {
+export default function variantQuery(specifiedScalars, specifiedObject) {
   let scalars;
   let selectedOptions;
 
-  if (specifiedFields.length) {
-    scalars = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) === '[object String]';
-    });
-
-    const [specifiedObject] = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) !== '[object String]';
-    });
-
+  if (specifiedScalars || specifiedObject) {
+    scalars = specifiedScalars;
     if (specifiedObject) {
-      selectedOptions = selectedOptionQuery(...specifiedObject.selectedOptions.fields);
+      selectedOptions = specifiedObject.selectedOptions;
     }
   } else {
     scalars = ['id', 'title', 'price', 'weight'];
@@ -22,8 +15,8 @@ export default function variantQuery(...specifiedFields) {
   return {scalars, selectedOptions};
 }
 
-function selectedOptionQuery(...specifiedFields) {
-  const scalars = specifiedFields.length ? specifiedFields : ['name', 'value'];
+function selectedOptionQuery(specifiedFields) {
+  const scalars = specifiedFields ? specifiedFields : ['name', 'value'];
 
   return {scalars};
 }

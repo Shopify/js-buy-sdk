@@ -2,30 +2,19 @@ import optionQuery from './option-query';
 import imageQuery from './image-query';
 import variantQuery from './variant-query';
 
-export default function productQuery(...specifiedFields) {
+export default function productQuery(specifiedScalars, specifiedObjects) {
   let scalars;
   let options;
   let images;
   let variants;
 
-  if (specifiedFields.length) {
-    scalars = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) === '[object String]';
-    });
-
-    const specifiedObjects = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) !== '[object String]';
-    });
-
-    specifiedObjects.forEach((object) => {
-      if (object.options) {
-        options = optionQuery(...object.options.fields);
-      } else if (object.images) {
-        images = imageQuery(...object.images.fields);
-      } else {
-        variants = variantQuery(...object.variants.fields);
-      }
-    });
+  if (specifiedScalars || specifiedObjects) {
+    scalars = specifiedScalars;
+    if (specifiedObjects) {
+      options = specifiedObjects.options;
+      images = specifiedObjects.images;
+      variants = specifiedObjects.variants;
+    }
   } else {
     scalars = ['id', 'createdAt', 'updatedAt', 'bodyHtml', 'handle', 'productType', 'title', 'vendor', 'tags', 'publishedAt'];
     options = optionQuery();

@@ -1,5 +1,5 @@
-export default function optionQuery(...specifiedFields) {
-  const scalars = specifiedFields.length ? specifiedFields : ['id', 'name', 'values'];
+export default function optionQuery(specifiedScalars) {
+  const scalars = specifiedScalars ? specifiedScalars : ['id', 'name', 'values'];
 
   return {scalars};
 }

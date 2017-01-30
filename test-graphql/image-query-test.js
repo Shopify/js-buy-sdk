@@ -10,7 +10,7 @@ suite('image-query-test', () => {
   });
 
   test('it returns using specified fields', () => {
-    const query = imageQuery('id');
+    const query = imageQuery(['id']);
 
     assert.deepEqual(query.scalars, ['id']);
   });

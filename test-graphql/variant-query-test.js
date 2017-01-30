@@ -7,11 +7,11 @@ suite('variant-query-test', () => {
     const defaults = ['id', 'title', 'price', 'weight'];
 
     assert.deepEqual(query.scalars, defaults);
-    assert.deepEqual(query.selectedOptions, {scalars: ['name', 'value']});
+    assert.deepEqual(query.selectedOptions.scalars, ['name', 'value']);
   });
 
   test('it returns with specified fields', () => {
-    const query = variantQuery('price', 'weight');
+    const query = variantQuery(['price', 'weight']);
 
     assert.deepEqual(query.scalars, ['price', 'weight']);
   });

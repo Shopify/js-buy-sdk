@@ -1,20 +1,13 @@
 import imageQuery from './image-query';
 
-export default function collectionQuery(...specifiedFields) {
+export default function collectionQuery(specifiedScalars, specifiedObject) {
   let scalars;
   let image;
 
-  if (specifiedFields.length) {
-    scalars = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) === '[object String]';
-    });
-
-    const [specifiedObject] = specifiedFields.filter((field) => {
-      return Object.prototype.toString.call(field) !== '[object String]';
-    });
-
+  if (specifiedScalars || specifiedObject) {
+    scalars = specifiedScalars;
     if (specifiedObject) {
-      image = imageQuery(...specifiedObject.image.fields);
+      image = specifiedObject.image;
     }
   } else {
     scalars = ['id', 'handle', 'updatedAt', 'title'];
