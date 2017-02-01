@@ -1,26 +1,19 @@
 import optionQuery from './option-query';
 import imageQuery from './image-query';
 import variantQuery from './variant-query';
+import parseFields from './parse-fields';
 
-export default function productQuery(specifiedScalars, specifiedObjects) {
+export default function productQuery(specifiedFields) {
   let scalars;
-  let options;
-  let images;
-  let variants;
+  let query;
 
-  if (specifiedScalars || specifiedObjects) {
-    scalars = specifiedScalars;
-    if (specifiedObjects) {
-      options = specifiedObjects.options;
-      images = specifiedObjects.images;
-      variants = specifiedObjects.variants;
-    }
+  if (specifiedFields) {
+    [scalars, query] = parseFields(specifiedFields);
   } else {
     scalars = ['id', 'createdAt', 'updatedAt', 'bodyHtml', 'handle', 'productType', 'title', 'vendor', 'tags', 'publishedAt'];
-    options = optionQuery();
-    images = imageQuery();
-    variants = variantQuery();
+    query = {options: optionQuery(), images: imageQuery(), variants: variantQuery()};
   }
+  query.scalars = scalars;
 
-  return {scalars, options, images, variants};
+  return query;
 }

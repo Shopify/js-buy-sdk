@@ -1,18 +1,17 @@
 import imageQuery from './image-query';
+import parseFields from './parse-fields';
 
-export default function collectionQuery(specifiedScalars, specifiedObject) {
+export default function collectionQuery(specifiedFields) {
   let scalars;
-  let image;
+  let query;
 
-  if (specifiedScalars || specifiedObject) {
-    scalars = specifiedScalars;
-    if (specifiedObject) {
-      image = specifiedObject.image;
-    }
+  if (specifiedFields) {
+    [scalars, query] = parseFields(specifiedFields);
   } else {
     scalars = ['id', 'handle', 'updatedAt', 'title'];
-    image = imageQuery();
+    query = {image: imageQuery()};
   }
+  query.scalars = scalars;
 
-  return {scalars, image};
+  return query;
 }

@@ -17,7 +17,7 @@ suite('collection-query-test', () => {
   });
 
   test('it returns with only the specified image fields', () => {
-    const query = collectionQuery([], {image: imageQuery(['altText'])});
+    const query = collectionQuery([['image', imageQuery(['altText'])]]);
 
     assert.deepEqual(query.image.scalars, ['altText']);
   });

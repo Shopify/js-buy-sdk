@@ -2,6 +2,8 @@ import GraphQLJSClient from '@shopify/graphql-js-client';
 import types from '../types';
 import base64Encode from './base64encode';
 import './isomorphic-fetch';
+import productQuery from './product-query';
+import collectionQuery from './collection-query';
 
 export default class Client {
   constructor(config, GraphQLClientClass = GraphQLJSClient) {
@@ -18,11 +20,11 @@ export default class Client {
     });
   }
 
-  fetchAllProducts(productQuery) {
+  fetchAllProducts(queryFields = productQuery()) {
     const query = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
         shop.addConnection('products', {args: {first: 20}}, (products) => {
-          addProductFields(products, productQuery);
+          addProductFields(products, queryFields);
         });
       });
     });
@@ -32,10 +34,10 @@ export default class Client {
     });
   }
 
-  fetchProduct(id, productQuery) {
+  fetchProduct(id, queryFields = productQuery()) {
     const query = this.graphQLClient.query((root) => {
       root.add('product', {args: {id: createGid('Product', id)}}, (product) => {
-        addProductFields(product, productQuery);
+        addProductFields(product, queryFields);
       });
     });
 
@@ -44,11 +46,11 @@ export default class Client {
     });
   }
 
-  fetchAllCollections(collectionQuery) {
+  fetchAllCollections(queryFields = collectionQuery()) {
     const query = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
         shop.addConnection('collections', {args: {first: 20}}, (collections) => {
-          addCollectionFields(collections, collectionQuery);
+          addCollectionFields(collections, queryFields);
         });
       });
     });
@@ -58,10 +60,10 @@ export default class Client {
     });
   }
 
-  fetchCollection(id, collectionQuery) {
+  fetchCollection(id, queryFields = collectionQuery()) {
     const query = this.graphQLClient.query((root) => {
       root.add('collection', {args: {id: createGid('Collection', id)}}, (collection) => {
-        addCollectionFields(collection, collectionQuery);
+        addCollectionFields(collection, queryFields);
       });
     });
 
@@ -81,35 +83,35 @@ function addScalars(object, scalars) {
   });
 }
 
-function addProductFields(product, productQuery) {
-  addScalars(product, productQuery.scalars);
-  if (productQuery.images) {
+function addProductFields(product, queryFields) {
+  addScalars(product, queryFields.scalars);
+  if (queryFields.images) {
     product.addConnection('images', {args: {first: 20}}, (images) => {
-      addScalars(images, productQuery.images.scalars);
+      addScalars(images, queryFields.images.scalars);
     });
   }
-  if (productQuery.options) {
+  if (queryFields.options) {
     product.add('options', (options) => {
-      addScalars(options, productQuery.options.scalars);
+      addScalars(options, queryFields.options.scalars);
     });
   }
-  if (productQuery.variants) {
+  if (queryFields.variants) {
     product.addConnection('variants', (variants) => {
-      addScalars(variants, productQuery.variants.scalars);
-      if (productQuery.variants.selectedOptions) {
+      addScalars(variants, queryFields.variants.scalars);
+      if (queryFields.variants.selectedOptions) {
         variants.add('selectedOptions', (selectedOptions) => {
-          addScalars(selectedOptions, productQuery.variants.selectedOptions.scalars);
+          addScalars(selectedOptions, queryFields.variants.selectedOptions.scalars);
         });
       }
     });
   }
 }
 
-function addCollectionFields(collection, collectionQuery) {
-  addScalars(collection, collectionQuery.scalars);
-  if (collectionQuery.image) {
+function addCollectionFields(collection, queryFields) {
+  addScalars(collection, queryFields.scalars);
+  if (queryFields.image) {
     collection.add('image', (image) => {
-      addScalars(image, collectionQuery.image.scalars);
+      addScalars(image, queryFields.image.scalars);
     });
   }
 }

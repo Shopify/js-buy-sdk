@@ -1,22 +1,22 @@
-export default function variantQuery(specifiedScalars, specifiedObject) {
-  let scalars;
-  let selectedOptions;
+import parseFields from './parse-fields';
 
-  if (specifiedScalars || specifiedObject) {
-    scalars = specifiedScalars;
-    if (specifiedObject) {
-      selectedOptions = specifiedObject.selectedOptions;
-    }
+export default function variantQuery(specifiedFields) {
+  let scalars;
+  let query;
+
+  if (specifiedFields) {
+    [scalars, query] = parseFields(specifiedFields);
   } else {
     scalars = ['id', 'title', 'price', 'weight'];
-    selectedOptions = selectedOptionQuery();
+    query = {selectedOptions: selectedOptionQuery()};
   }
+  query.scalars = scalars;
 
-  return {scalars, selectedOptions};
+  return query;
 }
 
-function selectedOptionQuery(specifiedFields) {
-  const scalars = specifiedFields ? specifiedFields : ['name', 'value'];
+function selectedOptionQuery(specifiedFields = ['name', 'value']) {
+  const scalars = specifiedFields;
 
   return {scalars};
 }

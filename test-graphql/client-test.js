@@ -68,7 +68,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://multiple-products.myshopify.com/api/graphql', shopWithProductsFixture);
 
-    return client.fetchAllProducts(productQuery()).then((products) => {
+    return client.fetchAllProducts().then((products) => {
       assert.ok(Array.isArray(products), 'products is an array');
       assert.equal(products.length, 2, 'there are two products');
 
@@ -90,7 +90,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://single-product.myshopify.com/api/graphql', singleProductFixture);
 
-    return client.fetchProduct('7857989384', productQuery()).then((product) => {
+    return client.fetchProduct('7857989384').then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, singleProductFixture.data.product.id);
     });
@@ -106,7 +106,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://multiple-collections.myshopify.com/api/graphql', shopWithCollectionsFixture);
 
-    return client.fetchAllCollections(collectionQuery()).then((collections) => {
+    return client.fetchAllCollections().then((collections) => {
       assert.ok(Array.isArray(collections), 'collections is an array');
       assert.equal(collections.length, 2, 'there are two collections');
 
@@ -128,7 +128,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
 
-    return client.fetchCollection('369312584', collectionQuery()).then((collection) => {
+    return client.fetchCollection('369312584').then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.id, singleCollectionFixture.data.collection.id);
     });
@@ -144,8 +144,8 @@ suite('client-test', () => {
 
     fetchMock.post('https://dynamic-product-fields.myshopify.com/api/graphql', dynamicProductFixture);
 
-    return client.fetchProduct('7857989384', productQuery(['id', 'handle', 'title', 'updatedAt'], {images: imageQuery(['id', 'src']),
-      options: optionQuery(['name']), variants: variantQuery(['price', 'weight'])})).then((product) => {
+    return client.fetchProduct('7857989384', productQuery(['id', 'handle', 'title', 'updatedAt', ['images', imageQuery(['id', 'src'])],
+      ['options', optionQuery(['name'])], ['variants', variantQuery(['price', 'weight'])]])).then((product) => {
         assert.ok(Array.isArray(product) === false, 'product is not an array');
         assert.equal(product.id, dynamicProductFixture.data.product.id);
         assert.ok(typeof product.createdAt === 'undefined', 'unspecified fields are not queried');
@@ -162,7 +162,7 @@ suite('client-test', () => {
 
     fetchMock.post('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
 
-    return client.fetchCollection('369312584', collectionQuery(['title', 'updatedAt'], {image: imageQuery(['src'])})).then((collection) => {
+    return client.fetchCollection('369312584', collectionQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.updatedAt, dynamicCollectionFixture.data.collection.updatedAt);
       assert.ok(typeof collection.id === 'undefined', 'unspecified fields are not queried');

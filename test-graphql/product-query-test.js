@@ -21,8 +21,7 @@ suite('product-query-test', () => {
   });
 
   test('it returns with only the specified object fields', () => {
-    const query = productQuery([], {options: optionQuery(['name', 'id']), images: imageQuery(['id']),
-      variants: variantQuery(['price', 'weight'])});
+    const query = productQuery([['options', optionQuery(['name', 'id'])], ['images', imageQuery(['id'])], ['variants', variantQuery(['price', 'weight'])]]);
 
     assert.equal(query.scalars.length, 0);
     assert.deepEqual(query.options.scalars, ['name', 'id']);
