@@ -3,7 +3,9 @@ import types from '../types';
 import base64Encode from './base64encode';
 import './isomorphic-fetch';
 import productQuery from './product-query';
+import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
+import collectionConnectionQuery from './collection-connection-query';
 
 export default class Client {
   constructor(config, GraphQLClientClass = GraphQLJSClient) {
@@ -20,27 +22,27 @@ export default class Client {
     });
   }
 
-  fetchAllProducts(query = productQuery({client: this.graphQLClient})) {
-    return this.graphQLClient.send(query).then((response) => {
+  fetchAllProducts(query = productConnectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient)).then((response) => {
       return response.model.shop.products;
     });
   }
 
-  fetchProduct(query) {
-    return this.graphQLClient.send(query).then((response) => {
-      return response.model.product;
+  fetchProduct(id, query = productQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
+      return response.model.node;
     });
   }
 
-  fetchAllCollections(query = collectionQuery({client: this.graphQLClient})) {
-    return this.graphQLClient.send(query).then((response) => {
+  fetchAllCollections(query = collectionConnectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient)).then((response) => {
       return response.model.shop.collections;
     });
   }
 
-  fetchCollection(query) {
-    return this.graphQLClient.send(query).then((response) => {
-      return response.model.collection;
+  fetchCollection(id, query = collectionQuery()) {
+    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
+      return response.model.node;
     });
   }
 }

@@ -1,6 +1,6 @@
 export default {
   "data": {
-    "product": {
+    "node": {
       "id": "gid://shopify/Product/7857989384",
       "handle": "cat",
       "title": "Cat",

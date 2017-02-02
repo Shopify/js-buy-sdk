@@ -1,6 +1,6 @@
 export default {
   "data": {
-    "product": {
+    "node": {
       "id": "gid://shopify/Product/7857989384",
       "createdAt": "2016-09-25T21:31:33Z",
       "updatedAt": "2017-01-16T15:42:21Z",
@@ -11,6 +11,17 @@ export default {
       "vendor": "sendmecats",
       "tags": [],
       "publishedAt": "2016-09-25T21:29:00Z",
+      "options": [
+        {
+          "id": "gid://shopify/ProductOption/9417004808",
+          "name": "Fur",
+          "values": [
+            "Fluffy",
+            "Extra Fluffy",
+            "Mega Fluff"
+          ]
+        }
+      ],
       "images": {
         "pageInfo": {
           "hasNextPage": false,
@@ -43,17 +54,6 @@ export default {
           }
         ]
       },
-      "options": [
-        {
-          "id": "gid://shopify/ProductOption/9417004808",
-          "name": "Fur",
-          "values": [
-            "Fluffy",
-            "Extra Fluffy",
-            "Mega Fluff"
-          ]
-        }
-      ],
       "variants": {
         "pageInfo": {
           "hasNextPage": false,
@@ -65,14 +65,14 @@ export default {
             "node": {
               "id": "gid://shopify/ProductVariant/25602235976",
               "title": "Fluffy",
+              "price": "0.00",
+              "weight": 18,
               "selectedOptions": [
                 {
                   "name": "Fur",
                   "value": "Fluffy"
                 }
-              ],
-              "price": "0.00",
-              "weight": 18
+              ]
             }
           },
           {
@@ -80,14 +80,14 @@ export default {
             "node": {
               "id": "gid://shopify/ProductVariant/25602236040",
               "title": "Extra Fluffy",
+              "price": "0.00",
+              "weight": 18,
               "selectedOptions": [
                 {
                   "name": "Fur",
                   "value": "Extra Fluffy"
                 }
-              ],
-              "price": "0.00",
-              "weight": 18
+              ]
             }
           },
           {
@@ -95,14 +95,14 @@ export default {
             "node": {
               "id": "gid://shopify/ProductVariant/25602236104",
               "title": "Mega Fluff",
+              "price": "0.00",
+              "weight": 0,
               "selectedOptions": [
                 {
                   "name": "Fur",
                   "value": "Mega Fluff"
                 }
-              ],
-              "price": "0.00",
-              "weight": 0
+              ]
             }
           }
         ]
