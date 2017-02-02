@@ -1,22 +1,25 @@
-import parseFields from './parse-fields';
+export default function variantQuery(fields = ['id', 'title', 'price', 'weight', ['selectedOptions', selectedOptionQuery()]]) {
+  return function(parentQuery, fieldName) {
+    parentQuery.addConnection(fieldName, {args: {first: 20}}, (variant) => {
+      fields.forEach((field) => {
+        if (Object.prototype.toString.call(field) === '[object String]') {
+          variant.add(field);
+        } else {
+          const [variantFieldName, builder] = field;
 
-export default function variantQuery(specifiedFields) {
-  let scalars;
-  let query;
-
-  if (specifiedFields) {
-    [scalars, query] = parseFields(specifiedFields);
-  } else {
-    scalars = ['id', 'title', 'price', 'weight'];
-    query = {selectedOptions: selectedOptionQuery()};
-  }
-  query.scalars = scalars;
-
-  return query;
+          builder(variant, variantFieldName);
+        }
+      });
+    });
+  };
 }
 
-function selectedOptionQuery(specifiedFields = ['name', 'value']) {
-  const scalars = specifiedFields;
-
-  return {scalars};
+function selectedOptionQuery(fields = ['name', 'value']) {
+  return function(parentQuery, fieldName) {
+    parentQuery.add(fieldName, (selectedOptions) => {
+      fields.forEach((field) => {
+        selectedOptions.add(field);
+      });
+    });
+  };
 }

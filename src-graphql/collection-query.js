@@ -1,17 +1,36 @@
 import imageQuery from './image-query';
-import parseFields from './parse-fields';
+import createGid from './create-gid';
 
-export default function collectionQuery(specifiedFields) {
-  let scalars;
+export default function collectionQuery({client, id}, fields = ['id', 'handle', 'updatedAt', 'title', ['image', imageQuery()]]) {
   let query;
 
-  if (specifiedFields) {
-    [scalars, query] = parseFields(specifiedFields);
+  if (id) {
+    query = client.query((root) => {
+      root.add('collection', {args: {id: createGid('Collection', id)}}, (collection) => {
+        addCollectionFields(collection, fields);
+      });
+    });
   } else {
-    scalars = ['id', 'handle', 'updatedAt', 'title'];
-    query = {image: imageQuery()};
+    query = client.query((root) => {
+      root.add('shop', (shop) => {
+        shop.addConnection('collections', {args: {first: 20}}, (collections) => {
+          addCollectionFields(collections, fields);
+        });
+      });
+    });
   }
-  query.scalars = scalars;
 
   return query;
+}
+
+function addCollectionFields(collection, collectionFields) {
+  collectionFields.forEach((field) => {
+    if (Object.prototype.toString.call(field) === '[object String]') {
+      collection.add(field);
+    } else {
+      const [fieldName, builder] = field;
+
+      builder(collection, fieldName);
+    }
+  });
 }

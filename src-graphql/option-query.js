@@ -1,5 +1,9 @@
-export default function optionQuery(specifiedFields = ['id', 'name', 'values']) {
-  const scalars = specifiedFields;
-
-  return {scalars};
+export default function optionQuery(fields = ['id', 'name', 'values']) {
+  return function(parentQuery, fieldName) {
+    parentQuery.add(fieldName, (option) => {
+      fields.forEach((field) => {
+        option.add(field);
+      });
+    });
+  };
 }
