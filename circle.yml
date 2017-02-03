@@ -7,3 +7,5 @@ dependencies:
 test:
   pre:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
+  override:
+    - yarn test
