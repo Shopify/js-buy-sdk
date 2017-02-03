@@ -20,7 +20,7 @@
     "mocha": "mocha -u tdd $(yarn run mocha:reporter-args 2>&1 >/dev/null) .tmp/test/node-tests.js",
     "mocha:reporter-args": "test -n \"${CI}\" && >&2 echo --reporter xunit --reporter-options output=$CIRCLE_TEST_REPORTS/junit/mocha.xml || true",
     "lint": "eslint --max-warnings 0 -c .eslintrc.json $(yarn run lint:reporter-args 2>&1 >/dev/null) src-graphql/ test-graphql/",
-    "lint:reporter-args": "test -n \"${CI}\" && >&s echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
+    "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 file:types.js && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
     "schema:refresh": "rimraf types.js && yarn run schema:fetch && yarn run schema:transform-to-types",
     "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/graphql' --header 'Authorization: Basic MzUxYzEyMjAxN2QwZjJhOTU3ZDMyYWU3MjhhZDc0OWM=' | jq '.' > schema.json",
