@@ -1,12 +1,18 @@
 import createGid from './create-gid';
-import addProductFields, {defaultFields} from './product-fields';
+import optionQuery from './option-query';
+import imageConnectionQuery from './image-connection-query';
+import variantConnectionQuery from './variant-connection-query';
+import addFields from './add-fields';
+
+const defaultFields = ['id', 'createdAt', 'updatedAt', 'bodyHtml', 'handle', 'productType', 'title', 'vendor', 'tags',
+  'publishedAt', ['options', optionQuery()], ['images', imageConnectionQuery()], ['variants', variantConnectionQuery()]];
 
 export default function productQuery(fields = defaultFields) {
   return function(client, id) {
     return client.query((root) => {
       root.add('node', {args: {id: createGid('Product', id)}}, (node) => {
         node.addInlineFragmentOn('Product', (product) => {
-          addProductFields(product, fields);
+          addFields(product, fields);
         });
       });
     });
