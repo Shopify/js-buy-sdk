@@ -1,6 +1,6 @@
 export default function selectedOptionQuery(fields = ['name', 'value']) {
-  return function(parentQuery, fieldName) {
-    parentQuery.add(fieldName, (selectedOption) => {
+  return function(parentSelection, fieldName) {
+    parentSelection.add(fieldName, (selectedOption) => {
       fields.forEach((field) => {
         selectedOption.add(field);
       });
