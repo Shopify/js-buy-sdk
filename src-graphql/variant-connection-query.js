@@ -5,7 +5,7 @@ const defaultFields = ['id', 'title', 'price', 'weight', ['selectedOptions', sel
 
 export default function variantConnectionQuery(fields = defaultFields) {
   return function(parentSelection, fieldName) {
-    parentSelection.addConnection(fieldName, {args: {first: 20}}, (variant) => {
+    parentSelection.addConnection(fieldName, {args: {first: 250}}, (variant) => {
       addFields(variant, fields);
     });
   };
