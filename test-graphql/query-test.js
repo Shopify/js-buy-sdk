@@ -50,7 +50,7 @@ suite('query-test', () => {
                 name,
                 values
               },
-              images (first: 20) {
+              images (first: 250) {
                 pageInfo {
                   hasNextPage,
                   hasPreviousPage
@@ -64,7 +64,7 @@ suite('query-test', () => {
                   }
                 }
               },
-              variants (first: 20) {
+              variants (first: 250) {
                 pageInfo {
                   hasNextPage,
                   hasPreviousPage
@@ -107,7 +107,7 @@ suite('query-test', () => {
               id,
               tags,
               vendor,
-              images (first: 20) {
+              images (first: 250) {
                 pageInfo {
                   hasNextPage,
                   hasPreviousPage
@@ -123,7 +123,7 @@ suite('query-test', () => {
                 id,
                 name
               },
-              variants (first: 20) {
+              variants (first: 250) {
                 pageInfo {
                   hasNextPage,
                   hasPreviousPage

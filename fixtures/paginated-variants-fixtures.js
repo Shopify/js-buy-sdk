@@ -61,3 +61,19 @@ export const thirdPageVariantsFixture = {
     }
   }
 };
+
+export const emptyPageVariantsFixture = {
+  "data": {
+    "node": {
+      "__typename": "Product",
+      "id": "gid://shopify/Product/7857989384",
+      "variants": {
+        "pageInfo": {
+          "hasNextPage": false,
+          "hasPreviousPage": false
+        },
+        "edges": []
+      }
+    }
+  }
+};
