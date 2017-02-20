@@ -186,11 +186,8 @@ $(function() {
   /* Update product variant quantity in cart
   ============================================================ */
   function updateQuantity(fn, variantId) {
-    var variant = product.variants.filter(function (variant) {
-      return (variant.id === variantId);
-    })[0];
     var quantity;
-    var cartLineItem = findCartItemByVariantId(variant.id);
+    var cartLineItem = findCartItemByVariantId(variantId);
     if (cartLineItem) {
       quantity = fn(cartLineItem.quantity);
       updateVariantInCart(cartLineItem, quantity);
