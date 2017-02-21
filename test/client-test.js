@@ -20,6 +20,8 @@ import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
 import optionQuery from '../src/option-query';
 import variantConnectionQuery from '../src/variant-connection-query';
+import productConnectionQuery from '../src/product-connection-query';
+import collectionConnectionQuery from '../src/collection-connection-query';
 import collectionQuery from '../src/collection-query';
 import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
@@ -269,6 +271,40 @@ suite('client-test', () => {
 
     return client.fetchProduct('7857989384', productQuery([['images', imageConnectionQuery()]])).then((product) => {
       assert.equal(product.images.length, 0);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch products with the query arg', () => {
+    const config = new Config({
+      domain: 'query-products.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://query-products.myshopify.com/api/graphql', {data: {shop: {products: {edges: [{node: {title: 'Cat'}}], pageInfo: {hasNextPage: false, hasPreviousPage: false}}}}});
+
+    return client.fetchQueryProducts({title: 'Cat', limit: 10}, productConnectionQuery(['title'])).then((products) => {
+      assert.equal(products.length, 1);
+      assert.equal(products[0].title, 'Cat');
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch collections with the query arg', () => {
+    const config = new Config({
+      domain: 'query-collections.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://query-collections.myshopify.com/api/graphql', {data: {shop: {collections: {edges: [{node: {title: 'Cat Collection'}}], pageInfo: {hasNextPage: false, hasPreviousPage: false}}}}});
+
+    return client.fetchQueryCollections({title: 'Cat Collection', limit: 10}, collectionConnectionQuery(['title'])).then((collections) => {
+      assert.equal(collections.length, 1);
+      assert.equal(collections[0].title, 'Cat Collection');
       assert.ok(fetchMock.done());
     });
   });
