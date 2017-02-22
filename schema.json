@@ -973,18 +973,6 @@
           "description": null,
           "fields": [
             {
-              "name": "bodyHtml",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "collections",
               "description": null,
               "args": [
@@ -1045,6 +1033,38 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionHtml",
+              "description": "The description of the product, complete with HTML formatting.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionPlainSummary",
+              "description": "Stripped description of the product, single line with HTML tags removed truncated to 60 characters.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               },
@@ -1475,6 +1495,38 @@
           "name": "Collection",
           "description": null,
           "fields": [
+            {
+              "name": "descriptionHtml",
+              "description": "The description of the collection, complete with HTML formatting.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "descriptionPlainSummary",
+              "description": "Stripped description of the collection, single line with HTML tags removed truncated to 60 characters.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "handle",
               "description": null,
@@ -2953,12 +3005,16 @@
             },
             {
               "name": "displayName",
-              "description": "Customer's name or email",
+              "description": "Customer's name, email or phone number",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -4226,6 +4282,12 @@
             {
               "name": "KRW",
               "description": "South Korean Won (KRW)",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SBD",
+              "description": "Solomon Islands Dollar (SBD)",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6722,6 +6784,16 @@
           "description": null,
           "fields": null,
           "inputFields": [
+            {
+              "name": "id",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
             {
               "name": "address1",
               "description": null,
