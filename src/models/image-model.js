@@ -13,6 +13,10 @@ export const variants = [
   { name: '2048x2048', dimension: '2048x2048' }
 ];
 
+/**
+* Class for image model
+* @class ImageModel
+*/
 const ImageModel = CoreObject.extend({
   constructor(attrs) {
     Object.keys(attrs).forEach(key => {
