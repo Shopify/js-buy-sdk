@@ -1,7 +1,7 @@
 {
     "project": {
         "name": "Shopify's JS Buy SDK",
-        "version": "v0.3.4",
+        "version": "v0.6.2",
         "jekyllFrontMatter": {
             "layout": "api"
         }
@@ -22,6 +22,13 @@
             "classes": {
                 "CartModel": 1
             },
+            "fors": {},
+            "namespaces": {}
+        },
+        "docs/src/src/models/image-model.js": {
+            "name": "docs/src/src/models/image-model.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -74,13 +81,6 @@
             "classes": {
                 "Logger": 1
             },
-            "fors": {},
-            "namespaces": {}
-        },
-        "docs/src/src/polyfilled.js": {
-            "name": "docs/src/src/polyfilled.js",
-            "modules": {},
-            "classes": {},
             "fors": {},
             "namespaces": {}
         },
@@ -203,7 +203,7 @@
             "extension_for": [],
             "module": "shopify-buy",
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 4,
+            "line": 5,
             "description": "A cart stores an Array of `CartLineItemModel`'s in it's `lineItems` property.",
             "is_constructor": 1
         },
@@ -230,7 +230,7 @@
             "extension_for": [],
             "module": "shopify-buy",
             "file": "docs/src/src/models/product-model.js",
-            "line": 8,
+            "line": 9,
             "description": "Class for products returned by fetch('product')",
             "is_constructor": 1
         },
@@ -330,7 +330,7 @@
     "classitems": [
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 14,
+            "line": 15,
             "description": "A line item ID.",
             "itemtype": "property",
             "name": "id",
@@ -340,7 +340,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 24,
+            "line": 25,
             "description": "ID of line item variant.",
             "itemtype": "property",
             "name": "variant_id",
@@ -350,7 +350,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 34,
+            "line": 35,
             "description": "ID of variant's product.",
             "itemtype": "property",
             "name": "product_id",
@@ -360,7 +360,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 44,
+            "line": 45,
             "description": "Variant's image.\nExample `Object` returned:\n```\n{\n   \"id\": 18723183238,\n   \"created_at\": \"2016-09-14T17:12:12-04:00\",\n   \"position\": 1,\n   \"updated_at\": \"2016-09-14T17:12:12-04:00\",\n   \"product_id\": 8569911558,\n   \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/Mop__three_different_mop_handles.jpg?v=1473887532\",\n   \"variant_ids\": []\n }\n```",
             "itemtype": "property",
             "name": "image",
@@ -370,7 +370,16 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 66,
+            "line": 71,
+            "description": "Image variants available for a variant. An example value of `imageVariant`:\n```\n[\n  {\n    \"name\": \"pico\",\n    \"dimensions\": \"16x16\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423\"\n  },\n  {\n    \"name\": \"compact\",\n    \"dimensions\": \"160x160\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423\"\n  }\n]\n```",
+            "itemtype": "property",
+            "name": "imageVariant",
+            "type": "{Array}",
+            "class": "CartLineItemModel"
+        },
+        {
+            "file": "docs/src/src/models/cart-line-item-model.js",
+            "line": 99,
             "description": "Product title of variant's parent product.",
             "itemtype": "property",
             "name": "title",
@@ -380,7 +389,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 76,
+            "line": 109,
             "description": "Count of variants to order.",
             "itemtype": "property",
             "name": "quantity",
@@ -389,7 +398,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 100,
+            "line": 133,
             "description": "Customization information for a product.\n<a href=\"https://help.shopify.com/themes/customization/products/get-customization-information-for-products\" target=\"_blank\">\nSee here for more info\n</a>.",
             "itemtype": "property",
             "name": "properties",
@@ -400,7 +409,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 119,
+            "line": 152,
             "description": "Title of variant.",
             "itemtype": "property",
             "name": "variant_title",
@@ -410,7 +419,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 129,
+            "line": 162,
             "description": "Price of the variant. For example: `\"5.00\"`.",
             "itemtype": "property",
             "name": "price",
@@ -420,7 +429,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 139,
+            "line": 172,
             "description": "Compare at price for variant. The `compareAtPrice` would be\nthe price of the product previously before the product went on sale. For more info\ngo <a href=\"https://docs.shopify.com/manual/products/promoting-marketing/sales\" target=\"_blank\">here</a>.\n\nIf no `compareAtPrice` is set then this value will be `null`. An example value: `\"5.00\"`.",
             "itemtype": "property",
             "name": "compareAtPrice",
@@ -430,7 +439,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 153,
+            "line": 186,
             "description": "The total price for this line item. For instance if the variant costs `1.50` and you have a quantity\nof 2 then `line_price` will be `3.00`.",
             "itemtype": "property",
             "name": "line_price",
@@ -440,7 +449,7 @@
         },
         {
             "file": "docs/src/src/models/cart-line-item-model.js",
-            "line": 164,
+            "line": 197,
             "description": "Variant's weight in grams. If no weight is set then `0` is returned.",
             "itemtype": "property",
             "name": "grams",
@@ -580,7 +589,7 @@
         },
         {
             "file": "docs/src/src/models/cart-model.js",
-            "line": 204,
+            "line": 205,
             "description": "Update a line item quantity based on line item id\n```javascript\n// This example changes the quantity for the first line item to 2\nconst firstLineItemId = cart.lineItems[0].id;\n\ncart.updateLineItem(firstLineItemId, 2).then(cart => {\n  // the cart has updated the line item\n});\n```",
             "itemtype": "method",
             "name": "updateLineItem",
@@ -610,7 +619,7 @@
         },
         {
             "file": "docs/src/src/models/cart-model.js",
-            "line": 241,
+            "line": 242,
             "description": "Remove a line item from cart based on line item id\n```javascript\n// This example removes the first line item\nconst firstLineItemId = cart.lineItems[0].id;\n\ncart.removeLineItem(firstLineItemId).then(cart => {\n  // the cart has removed the line item\n});\n```",
             "itemtype": "method",
             "name": "removeLineItem",
@@ -635,7 +644,7 @@
         },
         {
             "file": "docs/src/src/models/cart-model.js",
-            "line": 278,
+            "line": 279,
             "description": "Remove all line items from cart\n```javascript\n// This example removes all line items from the cart\ncart.clearLineItems().then(cart => {\n  // the cart has removed all line items\n});",
             "itemtype": "method",
             "name": "clearLineItems",
@@ -649,7 +658,7 @@
         },
         {
             "file": "docs/src/src/models/cart-model.js",
-            "line": 295,
+            "line": 296,
             "description": "Force update of cart model on server. This function will only be used in advanced situations and does not need to be called\nexplicitly to update line items. It is automatically called after\n{{#crossLink \"CartModel/createLineItemsFromVariants\"}}{{/crossLink}},\n{{#crossLink \"CartModel/updateLineItem\"}}{{/crossLink}},\n{{#crossLink \"CartModel/removeLineItem\"}}{{/crossLink}},\nand {{#crossLink \"CartModel/removeLineItem\"}}{{/crossLink}}",
             "itemtype": "method",
             "name": "updateModel",
@@ -662,8 +671,17 @@
             "class": "CartModel"
         },
         {
+            "file": "docs/src/src/models/image-model.js",
+            "line": 23,
+            "description": "Image variants available for an image. An example value of `imageVariant`:\n```\n[\n  {\n    \"name\": \"pico\",\n    \"dimensions\": \"16x16\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423\"\n  },\n  {\n    \"name\": \"compact\",\n    \"dimensions\": \"160x160\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423\"\n  }\n]\n```",
+            "itemtype": "attribute",
+            "name": "variants",
+            "type": "{Array}",
+            "class": "ProductModel"
+        },
+        {
             "file": "docs/src/src/models/product-model.js",
-            "line": 18,
+            "line": 19,
             "description": "Product unique ID",
             "itemtype": "property",
             "name": "id",
@@ -672,7 +690,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 28,
+            "line": 29,
             "description": "The product title",
             "itemtype": "property",
             "name": "title",
@@ -681,7 +699,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 37,
+            "line": 38,
             "description": "A product description.",
             "itemtype": "property",
             "name": "description",
@@ -690,7 +708,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 46,
+            "line": 47,
             "description": "An `Array` of `Objects` that contain meta data about an image including `src` of the images.\n\nAn example image `Object`:\n```\n{\n  created_at: \"2016-08-29T12:35:09-04:00\",\n  id: 17690553350,\n  position: 1,\n  product_id: 8291029446,\n  src: \"https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509\",\n  updated_at: \"2016-08-29T12:35:09-04:00\",\n  variant_ids: [ 27690103238 ]\n}\n```",
             "itemtype": "property",
             "name": "images",
@@ -699,7 +717,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 74,
+            "line": 77,
             "description": "Get an array of {{#crossLink \"ProductOptionModel\"}}ProductOptionModels{{/crossLink}}.\n{{#crossLink \"ProductOptionModel\"}}ProductOptionModels{{/crossLink}} can be used to\ndefine the currently `selectedVariant` from which you can get a checkout url\n({{#crossLink \"ProductVariantModel/checkoutUrl\"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or can\nbe added to a cart ({{#crossLink \"CartModel/createLineItemsFromVariants\"}}CartModel.createLineItemsFromVariants{{/crossLink}}).\n\nBelow is an example on how to create html for option selections:\n ```javascript\n// the following will create an Array of HTML to create multiple select inputs\n// global callbacks are also created which will set the option as selected\nvar elements = product.options.map(function(option) {\n  // we'll create a callback in global scope\n  // which will be called when the select's value changes\n  var callBackName = option.name + 'onChange';\n  window[ callBackName ] = function(select) {\n    // set the products option to be selected\n    option.selected = select.value;\n  };\n\n  // return a string which will be HTML for the select\n  return '<select name=\"' + option.name + '\" onchange=\"'callBackName'(this)\">' + option.values.map(function(value) {\n    return '<option value=\"' + value + '\">' + value + '</option>';\n  }) + '</select>';\n});\n ```",
             "itemtype": "property",
             "name": "options",
@@ -708,7 +726,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 133,
+            "line": 136,
             "description": "An `Array` of {{#crossLink \"ProductVariantModel\"}}ProductVariantModel's{{/crossLink}}",
             "itemtype": "property",
             "name": "variants",
@@ -717,7 +735,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 144,
+            "line": 147,
             "description": "A read only `Array` of Strings represented currently selected option values. eg. `[\"Large\", \"Red\"]`",
             "itemtype": "property",
             "name": "selections",
@@ -726,7 +744,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 155,
+            "line": 158,
             "description": "Retrieve variant for currently selected options. By default the first value in each\noption is selected which means `selectedVariant` will never be `null`.\n\nWith a `selectedVariant` you can create checkout url\n({{#crossLink \"ProductVariantModel/checkoutUrl\"}}ProductVariantModel.checkoutUrl{{/crossLink}}) or it can\nbe added to a cart ({{#crossLink \"CartModel/createLineItemsFromVariants\"}}CartModel.createLineItemsFromVariants{{/crossLink}}).",
             "itemtype": "property",
             "name": "selectedVariant",
@@ -735,7 +753,7 @@
         },
         {
             "file": "docs/src/src/models/product-model.js",
-            "line": 174,
+            "line": 177,
             "description": "Retrieve image for currently selected variantImage. An example image Object would look like this:\n```\n{\n  created_at: \"2016-08-29T12:35:09-04:00\",\n  id: 17690553350,\n  position: 1,\n  product_id: 8291029446,\n  src: \"https://cdn.shopify.com/s/files/1/1019/0495/products/i11_c3334325-2d67-4623-8cd4-0a6b08aa1b83.jpg?v=1472488509\",\n  updated_at: \"2016-08-29T12:35:09-04:00\",\n  variant_ids: [ 27690103238 ]\n}\n```",
             "itemtype": "property",
             "name": "selectedVariantImage",
@@ -872,7 +890,7 @@
         },
         {
             "file": "docs/src/src/models/product-variant-model.js",
-            "line": 156,
+            "line": 162,
             "description": "Image variants available for a variant. An example value of `imageVariant`:\n```\n[\n  {\n    \"name\": \"pico\",\n    \"dimensions\": \"16x16\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423\"\n  },\n  {\n    \"name\": \"compact\",\n    \"dimensions\": \"160x160\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423\"\n  }\n]\n```",
             "itemtype": "property",
             "name": "imageVariant",
@@ -881,7 +899,7 @@
         },
         {
             "file": "docs/src/src/models/product-variant-model.js",
-            "line": 207,
+            "line": 190,
             "description": "Get a checkout url for a specific product variant. You can\noptionally pass a quantity. If no quantity is passed then quantity\nwill default to 1. The example below will grab a checkout url for\n3 copies of the first variant:\n```\nconst checkoutURL = product.variants[ 0 ].checkoutUrl(3);\n```",
             "itemtype": "method",
             "name": "checkoutUrl",
@@ -913,7 +931,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 23,
+            "line": 28,
             "description": "An object with keys for deprecated properties and values as functions that\nwill transform the value into a usable value. A depracation transform should\nhave the value signature function(deprecated_value, config_to_be_transformed)",
             "itemtype": "attribute",
             "name": "deprecatedProperties",
@@ -925,7 +943,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 36,
+            "line": 41,
             "description": "Transform the myShopifyDomain config to a domain config.",
             "itemtype": "method",
             "name": "transformMyShopifyDomain",
@@ -952,7 +970,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 52,
+            "line": 57,
             "description": "Properties that must be set on initializations",
             "itemtype": "attribute",
             "name": "requiredProperties",
@@ -964,7 +982,19 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 66,
+            "line": 70,
+            "description": "Properties that may be set on initializations",
+            "itemtype": "attribute",
+            "name": "optionalProperties",
+            "default": "['ajaxHeaders']",
+            "type": "Array",
+            "access": "private",
+            "tagname": "",
+            "class": "Logger"
+        },
+        {
+            "file": "docs/src/src/config.js",
+            "line": 81,
             "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
             "itemtype": "attribute",
             "name": "apiKey",
@@ -976,7 +1006,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 76,
+            "line": 91,
             "itemtype": "attribute",
             "name": "appId",
             "default": "''",
@@ -987,7 +1017,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 84,
+            "line": 99,
             "description": "The domain that all the api requests will go to",
             "itemtype": "attribute",
             "name": "domain",
@@ -999,7 +1029,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 93,
+            "line": 108,
             "description": "The subdomain of myshopify.io that all the api requests will go to",
             "itemtype": "attribute",
             "name": "myShopifyDomain",
@@ -1012,10 +1042,15 @@
             "class": "Logger"
         },
         {
-            "file": "docs/src/src/polyfilled.js",
-            "line": 1,
-            "description": "It should be noted that this script will be transpiled into the root of\nthe js-buy-sdk on prepublish",
-            "class": "ShopClient"
+            "file": "docs/src/src/config.js",
+            "line": 118,
+            "itemtype": "attribute",
+            "name": "ajaxHeaders",
+            "default": "{}",
+            "type": "Object",
+            "access": "private",
+            "tagname": "",
+            "class": "Logger"
         },
         {
             "file": "docs/src/src/shop-client.js",
@@ -1539,10 +1574,5 @@
             "submodule": "shopify"
         }
     ],
-    "warnings": [
-        {
-            "message": "Missing item type\nIt should be noted that this script will be transpiled into the root of\nthe js-buy-sdk on prepublish",
-            "line": " docs/src/src/polyfilled.js:1"
-        }
-    ]
+    "warnings": []
 }

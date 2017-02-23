@@ -69,7 +69,7 @@ const Config = CoreObject.extend({
 
   /**
    * Properties that may be set on initializations
-   * @attribute requiredProperties
+   * @attribute optionalProperties
    * @default ['ajaxHeaders']
    * @type Array
    * @private
