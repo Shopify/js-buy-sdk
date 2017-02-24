@@ -86,6 +86,36 @@ Also allows us to disable output in production.</p>
     <div id="attrs" class="page-section">
         <h2 class="off-left">Attributes</h2>
 
+<div id="attr-accessToken" class="attr item private">
+    <a name="config_accessToken"></a> 
+    <h3 class="name"><code>accessToken</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+        <span class="flag private">private</span>
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+        </p>
+
+
+    </div>
+
+    <div class="description">
+        <p>The accessToken for authenticating against shopify. This is your api client's
+storefront access token. Not the shared secret. Set during initialization.</p>
+
+    </div>
+
+        <p><strong>Default:</strong> &#x27;&#x27;</p>
+
+
+</div>
 <div id="attr-ajaxHeaders" class="attr item private">
     <a name="config_ajaxHeaders"></a> 
     <h3 class="name"><code>ajaxHeaders</code></h3>
@@ -114,11 +144,12 @@ Also allows us to disable output in production.</p>
 
 
 </div>
-<div id="attr-apiKey" class="attr item private">
+<div id="attr-apiKey" class="attr item private deprecated">
     <a name="config_apiKey"></a> 
     <h3 class="name"><code>apiKey</code></h3>
     <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
+        <span class="flag deprecated" title="Use &#x60;config.accessToken&#x60; instead.">deprecated</span>
 
         <span class="flag private">private</span>
 
@@ -131,12 +162,13 @@ Also allows us to disable output in production.</p>
                 <p>
         </p>
 
+            <p>Deprecated: Use &#x60;config.accessToken&#x60; instead.</p>
 
     </div>
 
     <div class="description">
         <p>The apiKey for authenticating against shopify. This is your api client's
-public api token. Not the shared secret. Set during initialation.</p>
+public api token. Not the shared secret. Set during initialization.</p>
 
     </div>
 
@@ -199,7 +231,7 @@ have the value signature function(deprecated_value, config_to_be_transformed)</p
 
     </div>
 
-        <p><strong>Default:</strong> { myShopifyDomain: this.transformMyShopifyDomain }</p>
+        <p><strong>Default:</strong> { apiKey: this.transformApiKey, myShopifyDomain: this.transformMyShopifyDomain }</p>
 
 
 </div>
@@ -317,7 +349,7 @@ have the value signature function(deprecated_value, config_to_be_transformed)</p
 
     </div>
 
-        <p><strong>Default:</strong> [&#x27;apiKey&#x27;, &#x27;appId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
+        <p><strong>Default:</strong> [&#x27;accessToken&#x27;, &#x27;appId&#x27;, &#x27;myShopifyDomain&#x27;]</p>
 
 
 </div>
@@ -327,6 +359,79 @@ have the value signature function(deprecated_value, config_to_be_transformed)</p
     <div id="static-methods" class="page-section">
         <h2 class="off-left">Static Methods</h2>
         <div class="item-list">
+<div id="method-transformApiKey" class="method item private">
+	<div class="method-signature">
+	<span class="name"><code>Logger.transformApiKey</code></span>
+
+		<div class="args">
+			<span class="paren">(</span><ul class="args-list inline commas">
+				<li class="arg">
+						<code>apiKey</code>
+				</li>
+				<li class="arg">
+						<code>attrs.</code>
+				</li>
+			</ul><span class="paren">)</span>
+		</div>
+		<span class="returns-inline">
+			<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+		</span>
+	</div>
+
+
+		<span class="flag private">private</span>
+
+
+
+
+	<div class="meta">
+				<p>
+		</p>
+
+
+
+	</div>
+
+	<div class="description"><p>Transform the apiKey config to an accessToken config.</p>
+</div>
+
+		<div class="params">
+			<h4>Parameters:</h4>
+
+			<ul class="params-list">
+				<li class="param">
+						<code class="param-name">apiKey</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+
+					<div class="param-description"><p>The original api key</p>
+</div>
+
+				</li>
+				<li class="param">
+						<code class="param-name">attrs.</code>
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+					<div class="param-description"><p>The config attributes to be transformed to a
+non-deprecated state.</p>
+</div>
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="returns">
+			<h4>Returns:</h4>
+
+			<div class="returns-description">
+						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+					<p>the transformed config attributes.</p>
+
+			</div>
+		</div>
+
+</div>
 <div id="method-transformMyShopifyDomain" class="method item private">
 	<div class="method-signature">
 	<span class="name"><code>Logger.transformMyShopifyDomain</code></span>
@@ -424,6 +529,7 @@ non-deprecated state.</p>
 		<li>
 			<h2>Attributes</h2>
 			<ul>
+				<li class="private"><a href="#attr-accessToken"><span class="iattr">accessToken</span></a></li>
 				<li class="private"><a href="#attr-ajaxHeaders"><span class="iattr">ajaxHeaders</span></a></li>
 				<li class="private"><a href="#attr-apiKey"><span class="iattr">apiKey</span></a></li>
 				<li class="private"><a href="#attr-appId"><span class="iattr">appId</span></a></li>
@@ -438,6 +544,7 @@ non-deprecated state.</p>
 		<li>
 			<h2>Static Methods</h2>
 			<ul>
+				<li class="private"><a href="#method-transformApiKey"><span class="im">Logger.transformApiKey</span></a></li>
 				<li class="private"><a href="#method-transformMyShopifyDomain"><span class="im">Logger.transformMyShopifyDomain</span></a></li>
 			</ul>
 		</li>

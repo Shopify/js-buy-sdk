@@ -46,7 +46,7 @@ layout: api
 <p><code>ShopifyBuy</code> only defines one function <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink">buildClient</a> which can
 be used to build a <a href="../classes/ShopClient.html" class="crosslink">ShopClient</a> to query your store using the
 provided
-<a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>apiKey</code></a>,
+<a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>accessToken</code></a>,
 <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>appId</code></a>,
 and <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><code>domain</code></a>.</p>
 
@@ -95,7 +95,7 @@ and <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><c
 
 	<div class="description"><p>Create a ShopClient. This is the main entry point to the SDK.</p>
 <pre class="code prettyprint"><code class="language-javascript">const client = ShopifyBuy.buildClient({
-  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  accessToken: 'bf081e860bc9dc1ce0654fdfbc20892d',
   appId: 6,
   myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use <code>domain</code> instead
   domain: 'embeds.myshopify.com'
@@ -112,16 +112,16 @@ and <a href="../classes/ShopifyBuy.html#method_buildClient" class="crosslink"><c
 						<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
 
 
-					<div class="param-description"><p>An object of required config data such as: <code>apiKey</code>, <code>appId</code>, <code>domain</code></p>
+					<div class="param-description"><p>An object of required config data such as: <code>accessToken</code>, <code>appId</code>, <code>domain</code></p>
 </div>
 
 						<ul class="params-list">
 							<li class="param">
-									<code class="param-name">apiKey</code>
+									<code class="param-name">accessToken</code>
 									<span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
 
-								<div class="param-description"><p>An API Key for your store. Documentation how to get an API Key:
-<a href="https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key">https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key</a></p>
+								<div class="param-description"><p>An access token for your store. Documentation how to get a token:
+<a href="https://help.shopify.com/api/sdks/custom-storefront/js-buy-sdk/getting-started#generate-javascript-buy-sdk-credentials">https://help.shopify.com/api/sdks/custom-storefront/js-buy-sdk/getting-started#generate-javascript-buy-sdk-credentials</a></p>
 </div>
 
 							</li>
