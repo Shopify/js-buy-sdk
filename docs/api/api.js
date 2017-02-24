@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "CartLineItemModel",
         "CartModel",
+        "ImageModel",
         "Logger",
         "ProductModel",
         "ProductOptionModel",

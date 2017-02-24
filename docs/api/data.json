@@ -28,7 +28,9 @@
         "docs/src/src/models/image-model.js": {
             "name": "docs/src/src/models/image-model.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "ImageModel": 1
+            },
             "fors": {},
             "namespaces": {}
         },
@@ -130,6 +132,7 @@
             "classes": {
                 "CartLineItemModel": 1,
                 "CartModel": 1,
+                "ImageModel": 1,
                 "ProductModel": 1,
                 "ProductOptionModel": 1,
                 "ProductVariantModel": 1,
@@ -219,6 +222,19 @@
             "file": "docs/src/src/models/cart-model.js",
             "line": 25,
             "description": "Class for cart model"
+        },
+        "ImageModel": {
+            "name": "ImageModel",
+            "shortname": "ImageModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "shopify-buy",
+            "file": "docs/src/src/models/image-model.js",
+            "line": 16,
+            "description": "Class for image model"
         },
         "ProductModel": {
             "name": "ProductModel",
@@ -672,12 +688,12 @@
         },
         {
             "file": "docs/src/src/models/image-model.js",
-            "line": 23,
+            "line": 27,
             "description": "Image variants available for an image. An example value of `imageVariant`:\n```\n[\n  {\n    \"name\": \"pico\",\n    \"dimensions\": \"16x16\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_pico.jpg?v=1469046423\"\n  },\n  {\n    \"name\": \"compact\",\n    \"dimensions\": \"160x160\",\n    \"src\": \"https://cdn.shopify.com/s/files/1/1019/0495/products/alien_146ef7c1-26e9-4e96-96e6-9d37128d0005_compact.jpg?v=1469046423\"\n  }\n]\n```",
             "itemtype": "attribute",
             "name": "variants",
             "type": "{Array}",
-            "class": "ProductModel"
+            "class": "ImageModel"
         },
         {
             "file": "docs/src/src/models/product-model.js",

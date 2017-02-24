@@ -7,7 +7,8 @@ $(function () {
       'ProductVariantModel',
       'ProductOptionModel',
       'CartModel',
-      'CartLineItemModel'
+      'CartLineItemModel',
+      'ImageModel'
     ];
 
     var newItems = ORDER.map(function (key) {
