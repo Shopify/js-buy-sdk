@@ -16,10 +16,6 @@ echo <<MESSAGE
 
 MESSAGE
 
-# Versions differ intentionally. NPM package at 2.1.6 contains phantom 2.1.1
-curl -k -L -o phantomjs.tar.bz2 https://s3.amazonaws.com/travis-phantomjs/phantomjs-${PHANTOMJS_VERSION}-ubuntu-12.04.tar.bz2
-tar -jxf phantomjs.tar.bz2
-
 versioned_node_modules_path="node_modules_${CIRCLE_NODE_INDEX}"
 
 if [ ! -d "${versioned_node_modules_path}" ]; then
