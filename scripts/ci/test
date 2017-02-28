@@ -18,7 +18,7 @@ MESSAGE
 
 (npm run test-ci)
 qunit_tests_status=$?
-(npm run test-examples)
+(npm run test-example)
 wdio_tests_status=$?
 
 mkdir -p $CIRCLE_TEST_REPORTS/xunit

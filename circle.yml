@@ -2,18 +2,15 @@
 
 machine:
   node:
-    version: v5.5.0
+    version: v6.10.0
   environment:
-    NODE_LTS: v4.6.0
-    NODE_CURRENT: v6.8.0
-    PHANTOMJS_VERSION: 2.0.0
+    NODE_LTS: v6.10.0
+    NODE_CURRENT: v7.6.0
 
 dependencies:
   cache_directories:
-      - "node_modules_0"
-      - "node_modules_1"
-      - "node_modules_2"
-      - "node_modules_3"
+      - "node_modules_v6.10.0"
+      - "node_modules_v7.6.0"
   pre:
     - ./scripts/ci/setup-node:
         parallel: true
