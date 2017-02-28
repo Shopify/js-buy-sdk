@@ -10,8 +10,8 @@ const ListingsAdapter = CoreObject.extend({
     this.config = config;
   },
 
-  get base64ApiKey() {
-    return btoa(this.config.apiKey);
+  get base64AccessToken() {
+    return btoa(this.config.accessToken);
   },
 
   get baseUrl() {
@@ -22,7 +22,7 @@ const ListingsAdapter = CoreObject.extend({
 
   get headers() {
     return assign({}, {
-      Authorization: `Basic ${this.base64ApiKey}`,
+      Authorization: `Basic ${this.base64AccessToken}`,
       'Content-Type': 'application/json',
       'X-SDK-Variant': 'javascript',
       'X-SDK-Version': version

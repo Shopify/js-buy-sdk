@@ -53,7 +53,7 @@ const baseAttrs = {
 
 const config = {
   domain: 'buckets-o-stuff.myshopify.com',
-  apiKey: 'abc123'
+  accessToken: 'abc123'
 };
 
 module('Unit | ProductVariantModel', {

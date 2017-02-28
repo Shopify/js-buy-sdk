@@ -12,7 +12,7 @@ To use any of the examples, we first have to set up a Shopify Client in our Java
 ```js
 $(function() {
   var client = ShopifyBuy.buildClient({
-    apiKey: 'your-api-key',
+    accessToken: 'your-access-token',
     domain: 'your-shop-subdomain.myshopify.com',
     appId: '6'
   });

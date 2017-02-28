@@ -50,7 +50,7 @@
     "qunit-shim:build": "cross-env BABEL_ENV=amd-test-qunit-shim babel tests/shims/ > .dist-test/qunit-shim.js",
     "qunit:copy": "cp node_modules/qunitjs/qunit/qunit.js .dist-test/qunit.js && cp node_modules/qunitjs/qunit/qunit.css .dist-test/qunit.css",
     "------ Scripts for testing-examples": null,
-    "test-example:run": "concurrently -k --success first 'selenium-standalone start -- -log selenium.log' 'http-server -p 4200 .dist-test/' 'npm run wdio:run'",
+    "test-example:run": "concurrently -k --success last 'selenium-standalone start -- -log selenium.log' 'http-server -p 4200 .dist-test/' 'npm run wdio:run'",
     "test-example:build": "",
     "wdio:run": "wait-on tcp:4444 && wait-on tcp:4200 && wdio --logLevel silent .dist-test/examples/cart/wdio.conf.js",
     "examples:build": "npm run examples:copy && npm run examples-css:build",

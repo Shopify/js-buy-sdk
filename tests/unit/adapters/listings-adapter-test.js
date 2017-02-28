@@ -7,8 +7,8 @@ let adapter;
 const appId = 6;
 const domain = 'buckets-o-stuff.myshopify.com';
 const baseUrl = `https://${domain}/api/apps/${appId}`;
-const apiKey = 'abc123def456ghi';
-const base64ApiKey = btoa(apiKey);
+const accessToken = 'abc123def456ghi';
+const base64AccessToken = btoa(accessToken);
 
 function resolvingPromise() {
   return new Promise(function (resolve) {
@@ -37,14 +37,14 @@ test('it builds auth headers using the base64 encoded api key', function (assert
   assert.expect(1);
 
   adapter.config = {
-    apiKey,
+    accessToken,
     ajaxHeaders: {
       'test': 'test-string'
     }
   };
 
   assert.deepEqual(adapter.headers, {
-    Authorization: `Basic ${base64ApiKey}`,
+    Authorization: `Basic ${base64AccessToken}`,
     'Content-Type': 'application/json',
     'X-SDK-Variant': 'javascript',
     'X-SDK-Version': version,
@@ -86,13 +86,13 @@ test('it builds the url for a query', function (assert) {
 test('it sends a GET, the correct url, and auth headers for fetchMultiple to #ajax', function (assert) {
   assert.expect(3);
 
-  adapter.config = { domain, appId, apiKey };
+  adapter.config = { domain, appId, accessToken };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_listings`);
     assert.deepEqual(opts.headers, {
-      Authorization: `Basic ${base64ApiKey}`,
+      Authorization: `Basic ${base64AccessToken}`,
       'Content-Type': 'application/json',
       'X-SDK-Variant': 'javascript',
       'X-SDK-Version': version
@@ -109,13 +109,13 @@ test('it sends a GET, the correct url, and auth headers for fetchSingle to #ajax
 
   const id = 123;
 
-  adapter.config = { domain, appId, apiKey };
+  adapter.config = { domain, appId, accessToken };
 
   adapter.ajax = function (method, url, opts) {
     assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_listings/${id}`);
     assert.deepEqual(opts.headers, {
-      Authorization: `Basic ${base64ApiKey}`,
+      Authorization: `Basic ${base64AccessToken}`,
       'Content-Type': 'application/json',
       'X-SDK-Variant': 'javascript',
       'X-SDK-Version': version
@@ -133,14 +133,14 @@ test('it sends a GET, the correct url, and auth headers for fetchMultiple with q
   const ids = [123, 456, 789];
   const page = 88;
 
-  adapter.config = { domain, appId, apiKey };
+  adapter.config = { domain, appId, accessToken };
 
   adapter.ajax = function (method, url, opts) {
     // Should resolve with a promise
     assert.equal(method, 'GET');
     assert.equal(url, `${baseUrl}/collection_listings?collection_ids=${encodeURIComponent(ids.join(','))}&page=${page}`);
     assert.deepEqual(opts.headers, {
-      Authorization: `Basic ${base64ApiKey}`,
+      Authorization: `Basic ${base64AccessToken}`,
       'Content-Type': 'application/json',
       'X-SDK-Variant': 'javascript',
       'X-SDK-Version': version

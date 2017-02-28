@@ -51,7 +51,7 @@ begin making requests. <a href="https://docs.shopify.com/api/sdks/js-buy-sdk/get
 
 ```js
 var shopClient = ShopifyBuy.buildClient({
-  apiKey: 'your-api-key',
+  accessToken: 'your-access-token',
   domain: 'your-shop-subdomain.myshopify.com',
   appId: '6'
 });
@@ -70,7 +70,7 @@ To request an individual resource, you will need to pass that resource's ID as t
 
 ```js
 const shopClient = ShopifyBuy.buildClient({
-  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  accessToken: 'bf081e860bc9dc1ce0654fdfbc20892d',
   appId: '6',
   domain: 'embeds.myshopify.com'
 });

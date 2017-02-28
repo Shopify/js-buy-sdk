@@ -6,7 +6,7 @@ import { singleProductFixture, multipleProductsFixture } from '../fixtures/produ
 
 const configAttrs = {
   domain: 'buckets-o-stuff.myshopify.com',
-  apiKey: 1,
+  accessToken: 1,
   appId: 6
 };
 

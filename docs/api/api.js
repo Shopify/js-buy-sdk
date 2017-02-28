@@ -26,7 +26,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "shopify",
             "name": "shopify",
-            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:apiKey\"}}`apiKey`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}."
+            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:accessToken\"}}`accessToken`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}."
         },
         {
             "displayName": "shopify-buy",

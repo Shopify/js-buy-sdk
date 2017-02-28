@@ -11,7 +11,7 @@ If you're just getting started, please [read the docs](http://shopify.github.io/
 ## Example
 ```javascript
 const shopClient = ShopifyBuy.buildClient({
-  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+  accessToken: 'bf081e860bc9dc1ce0654fdfbc20892d',
   appId: 6,
   domain: 'embeds.myshopify.com'
 });

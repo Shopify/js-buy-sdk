@@ -179,7 +179,7 @@
             "namespace": "",
             "file": "docs/src/src/shopify.js",
             "line": 13,
-            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:apiKey\"}}`apiKey`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}."
+            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:accessToken\"}}`accessToken`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}."
         },
         "version": {
             "name": "version",
@@ -338,7 +338,7 @@
             "namespace": "",
             "file": "docs/src/src/shopify.js",
             "line": 13,
-            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:apiKey\"}}`apiKey`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}.",
+            "description": "`ShopifyBuy` only defines one function {{#crossLink \"ShopifyBuy/buildClient\"}}{{/crossLink}} which can\nbe used to build a {{#crossLink \"ShopClient\"}}{{/crossLink}} to query your store using the\nprovided\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:accessToken\"}}`accessToken`{{/crossLink}},\n{{#crossLink \"ShopifyBuy/buildClient/configAttrs:appId\"}}`appId`{{/crossLink}},\nand {{#crossLink \"ShopifyBuy/buildClient/configAttrs:domain\"}}`domain`{{/crossLink}}.",
             "static": 1
         }
     },
@@ -951,7 +951,7 @@
             "description": "An object with keys for deprecated properties and values as functions that\nwill transform the value into a usable value. A depracation transform should\nhave the value signature function(deprecated_value, config_to_be_transformed)",
             "itemtype": "attribute",
             "name": "deprecatedProperties",
-            "default": "{ myShopifyDomain: this.transformMyShopifyDomain }",
+            "default": "{ apiKey: this.transformApiKey, myShopifyDomain: this.transformMyShopifyDomain }",
             "type": "Object",
             "access": "private",
             "tagname": "",
@@ -959,7 +959,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 41,
+            "line": 42,
             "description": "Transform the myShopifyDomain config to a domain config.",
             "itemtype": "method",
             "name": "transformMyShopifyDomain",
@@ -986,11 +986,38 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 57,
+            "line": 58,
+            "description": "Transform the apiKey config to an accessToken config.",
+            "itemtype": "method",
+            "name": "transformApiKey",
+            "static": 1,
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "apiKey",
+                    "description": "The original api key",
+                    "type": "String"
+                },
+                {
+                    "name": "attrs.",
+                    "description": "The config attributes to be transformed to a\nnon-deprecated state.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "the transformed config attributes.",
+                "type": "Object"
+            },
+            "class": "Logger"
+        },
+        {
+            "file": "docs/src/src/config.js",
+            "line": 74,
             "description": "Properties that must be set on initializations",
             "itemtype": "attribute",
             "name": "requiredProperties",
-            "default": "['apiKey', 'appId', 'myShopifyDomain']",
+            "default": "['accessToken', 'appId', 'myShopifyDomain']",
             "type": "Array",
             "access": "private",
             "tagname": "",
@@ -998,7 +1025,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 70,
+            "line": 87,
             "description": "Properties that may be set on initializations",
             "itemtype": "attribute",
             "name": "optionalProperties",
@@ -1010,10 +1037,10 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 81,
-            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialation.",
+            "line": 98,
+            "description": "The accessToken for authenticating against shopify. This is your api client's\nstorefront access token. Not the shared secret. Set during initialization.",
             "itemtype": "attribute",
-            "name": "apiKey",
+            "name": "accessToken",
             "default": "''",
             "type": "String",
             "access": "private",
@@ -1022,7 +1049,21 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 91,
+            "line": 108,
+            "description": "The apiKey for authenticating against shopify. This is your api client's\npublic api token. Not the shared secret. Set during initialization.",
+            "itemtype": "attribute",
+            "name": "apiKey",
+            "default": "''",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "deprecated": true,
+            "deprecationMessage": "Use `config.accessToken` instead.",
+            "class": "Logger"
+        },
+        {
+            "file": "docs/src/src/config.js",
+            "line": 119,
             "itemtype": "attribute",
             "name": "appId",
             "default": "''",
@@ -1033,7 +1074,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 99,
+            "line": 127,
             "description": "The domain that all the api requests will go to",
             "itemtype": "attribute",
             "name": "domain",
@@ -1045,7 +1086,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 108,
+            "line": 136,
             "description": "The subdomain of myshopify.io that all the api requests will go to",
             "itemtype": "attribute",
             "name": "myShopifyDomain",
@@ -1059,7 +1100,7 @@
         },
         {
             "file": "docs/src/src/config.js",
-            "line": 118,
+            "line": 146,
             "itemtype": "attribute",
             "name": "ajaxHeaders",
             "default": "{}",
@@ -1546,7 +1587,7 @@
         {
             "file": "docs/src/src/shopify.js",
             "line": 29,
-            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',\n  appId: 6,\n  myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use `domain` instead\n  domain: 'embeds.myshopify.com'\n});\n```",
+            "description": "Create a ShopClient. This is the main entry point to the SDK.\n\n```javascript\nconst client = ShopifyBuy.buildClient({\n  accessToken: 'bf081e860bc9dc1ce0654fdfbc20892d',\n  appId: 6,\n  myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use `domain` instead\n  domain: 'embeds.myshopify.com'\n});\n```",
             "itemtype": "method",
             "name": "buildClient",
             "static": 1,
@@ -1555,17 +1596,17 @@
             "params": [
                 {
                     "name": "configAttrs",
-                    "description": "An object of required config data such as: `apiKey`, `appId`, `domain`",
+                    "description": "An object of required config data such as: `accessToken`, `appId`, `domain`",
                     "type": "Object",
                     "props": [
                         {
-                            "name": "apiKey",
-                            "description": "An API Key for your store. Documentation how to get an API Key:\n                                   https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key",
+                            "name": "accessToken",
+                            "description": "An access token for your store. Documentation how to get a token:\n  https://help.shopify.com/api/sdks/custom-storefront/js-buy-sdk/getting-started#generate-javascript-buy-sdk-credentials",
                             "type": "String"
                         },
                         {
                             "name": "appId",
-                            "description": "Typically will be 6 which is the Buy Button App Id. For more info on App Id see:\n                                  https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id",
+                            "description": "Typically will be 6 which is the Buy Button App Id. For more info on App Id see:\n  https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id",
                             "type": "String"
                         },
                         {

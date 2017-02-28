@@ -14,7 +14,7 @@ import { NO_IMAGE_URI } from './models/product-model';
  * `ShopifyBuy` only defines one function {{#crossLink "ShopifyBuy/buildClient"}}{{/crossLink}} which can
  * be used to build a {{#crossLink "ShopClient"}}{{/crossLink}} to query your store using the
  * provided
- * {{#crossLink "ShopifyBuy/buildClient/configAttrs:apiKey"}}`apiKey`{{/crossLink}},
+ * {{#crossLink "ShopifyBuy/buildClient/configAttrs:accessToken"}}`accessToken`{{/crossLink}},
  * {{#crossLink "ShopifyBuy/buildClient/configAttrs:appId"}}`appId`{{/crossLink}},
  * and {{#crossLink "ShopifyBuy/buildClient/configAttrs:domain"}}`domain`{{/crossLink}}.
  * @class ShopifyBuy
@@ -31,7 +31,7 @@ const Shopify = {
    *
    * ```javascript
    * const client = ShopifyBuy.buildClient({
-   *   apiKey: 'bf081e860bc9dc1ce0654fdfbc20892d',
+   *   accessToken: 'bf081e860bc9dc1ce0654fdfbc20892d',
    *   appId: 6,
    *   myShopifyDomain: 'your-shop-subdomain.myshopify.com', //Deprecated. Use `domain` instead
    *   domain: 'embeds.myshopify.com'
@@ -42,11 +42,11 @@ const Shopify = {
    * @for ShopifyBuy
    * @static
    * @public
-   * @param {Object} configAttrs An object of required config data such as: `apiKey`, `appId`, `domain`
-   * @param {String} configAttrs.apiKey An API Key for your store. Documentation how to get an API Key:
-   *                                    https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#api-key
+   * @param {Object} configAttrs An object of required config data such as: `accessToken`, `appId`, `domain`
+   * @param {String} configAttrs.accessToken An access token for your store. Documentation how to get a token:
+   *   https://help.shopify.com/api/sdks/custom-storefront/js-buy-sdk/getting-started#generate-javascript-buy-sdk-credentials
    * @param {String} configAttrs.appId Typically will be 6 which is the Buy Button App Id. For more info on App Id see:
-   *                                   https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id
+   *   https://help.shopify.com/api/sdks/js-buy-sdk/getting-started#app-id
    * @param {String} configAttrs.domain Your shop's full `myshopify.com` domain. For example: `embeds.myshopify.com`
    * @param {String} configAttrs.myShopifyDomain You shop's `myshopify.com` domain. [deprecated Use configAttrs.domain]
    * @return {ShopClient} a client for the shop using your api credentials which you can use to query your store.
