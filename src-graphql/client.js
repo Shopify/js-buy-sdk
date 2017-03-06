@@ -7,7 +7,7 @@ import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
 
-function fetchAll(paginatedModels, client) {
+function fetchAllPages(paginatedModels, client) {
   return client.fetchNextPage(paginatedModels).then(({model}) => {
     // Until we know how hasNextPage will be exposed, we query until the result is empty
     if (model.length === 0) {
@@ -16,18 +16,22 @@ function fetchAll(paginatedModels, client) {
 
     paginatedModels.push(...model);
 
-    return fetchAll(paginatedModels, client);
+    return fetchAllPages(paginatedModels, client);
   });
 }
 
-function saturateProducts(promises, productData, product, client) {
+function fetchAllProductResources(productData, product, client) {
+  const promises = [];
+
   if (productData.images && productData.images.pageInfo.hasNextPage) {
-    promises.push(fetchAll(product.images, client));
+    promises.push(fetchAllPages(product.images, client));
   }
 
   if (productData.variants && productData.variants.pageInfo.hasNextPage) {
-    promises.push(fetchAll(product.variants, client));
+    promises.push(fetchAllPages(product.variants, client));
   }
+
+  return promises;
 }
 
 export default class Client {
@@ -51,9 +55,7 @@ export default class Client {
         const productData = data.shop.products.edges[i].node;
 
         // Fetch the rest of the images and variants for this product
-        saturateProducts(promiseAcc, productData, product, this.graphQLClient);
-
-        return promiseAcc;
+        return promiseAcc.concat(fetchAllProductResources(productData, product, this.graphQLClient));
       }, []);
 
       return Promise.all(promises).then(() => {
@@ -64,11 +66,10 @@ export default class Client {
 
   fetchProduct(id, query = productQuery()) {
     return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
-      const promises = [];
       const productData = response.data.node;
 
       // Fetch the rest of the images and variants for this product
-      saturateProducts(promises, productData, response.model.node, this.graphQLClient);
+      const promises = fetchAllProductResources(productData, response.model.node, this.graphQLClient);
 
       return Promise.all(promises).then(() => {
         return response.model.node;
