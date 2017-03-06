@@ -10,6 +10,10 @@ import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixtur
 import singleCollectionFixture from '../fixtures/collection-fixture';
 import dynamicProductFixture from '../fixtures/dynamic-product-fixture';
 import dynamicCollectionFixture from '../fixtures/dynamic-collection-fixture';
+import productWithPaginatedImagesFixture from '../fixtures/product-with-paginated-images-fixture';
+import {secondPageImagesFixture, thirdPageImagesFixture, emptyPageImagesFixture} from '../fixtures/paginated-images-fixtures';
+import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
+import {secondPageVariantsFixture, thirdPageVariantsFixture, emptyPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 import productQuery from '../src-graphql/product-query';
 import imageQuery from '../src-graphql/image-query';
@@ -19,6 +23,10 @@ import variantConnectionQuery from '../src-graphql/variant-connection-query';
 import collectionQuery from '../src-graphql/collection-query';
 
 suite('client-test', () => {
+  teardown(() => {
+    fetchMock.restore();
+  });
+
   test('it instantiates a GraphQL client with the given config', () => {
     let passedTypeBundle;
     let passedUrl;
@@ -67,7 +75,7 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://multiple-products.myshopify.com/api/graphql', shopWithProductsFixture);
+    fetchMock.postOnce('https://multiple-products.myshopify.com/api/graphql', shopWithProductsFixture);
 
     return client.fetchAllProducts().then((products) => {
       assert.ok(Array.isArray(products), 'products is an array');
@@ -78,22 +86,24 @@ suite('client-test', () => {
 
       assert.equal(firstProduct.id, firstProductFixture.node.id);
       assert.equal(secondProduct.id, secondProductFixture.node.id);
+      assert.ok(fetchMock.done());
     });
   });
 
   test('it resolves with a single product on Client#fetchProduct', () => {
     const config = new Config({
       domain: 'single-product.myshopify.com',
-      storefrontAccessToken: '0dc0448815bdf506934101c6d39ec244'
+      storefrontAccessToken: 'abc123'
     });
 
     const client = new Client(config);
 
-    fetchMock.post('https://single-product.myshopify.com/api/graphql', singleProductFixture);
+    fetchMock.postOnce('https://single-product.myshopify.com/api/graphql', singleProductFixture);
 
     return client.fetchProduct('7857989384').then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, singleProductFixture.data.node.id);
+      assert.ok(fetchMock.done());
     });
   });
 
@@ -105,7 +115,7 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://multiple-collections.myshopify.com/api/graphql', shopWithCollectionsFixture);
+    fetchMock.postOnce('https://multiple-collections.myshopify.com/api/graphql', shopWithCollectionsFixture);
 
     return client.fetchAllCollections().then((collections) => {
       assert.ok(Array.isArray(collections), 'collections is an array');
@@ -116,6 +126,7 @@ suite('client-test', () => {
 
       assert.equal(firstCollection.id, firstCollectionFixture.node.id);
       assert.equal(secondCollection.id, secondCollectionFixture.node.id);
+      assert.ok(fetchMock.done());
     });
   });
 
@@ -127,11 +138,12 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
+    fetchMock.postOnce('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
 
     return client.fetchCollection('369312584').then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.id, singleCollectionFixture.data.node.id);
+      assert.ok(fetchMock.done());
     });
   });
 
@@ -143,14 +155,16 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://dynamic-product-fields.myshopify.com/api/graphql', dynamicProductFixture);
+    fetchMock.postOnce('https://dynamic-product-fields.myshopify.com/api/graphql', dynamicProductFixture);
 
-    return client.fetchProduct('7857989384', productQuery(['id', 'handle', 'title', 'updatedAt', ['images', imageConnectionQuery(['id', 'src'])],
-      ['options', optionQuery(['name'])], ['variants', variantConnectionQuery(['price', 'weight'])]])).then((product) => {
-        assert.ok(Array.isArray(product) === false, 'product is not an array');
-        assert.equal(product.id, dynamicProductFixture.data.node.id);
-        assert.ok(typeof product.createdAt === 'undefined', 'unspecified fields are not queried');
-      });
+    const queryFields = ['id', 'handle', 'title', 'updatedAt', ['images', imageConnectionQuery(['id', 'src'])], ['options', optionQuery(['name'])], ['variants', variantConnectionQuery(['price', 'weight'])]];
+
+    return client.fetchProduct('7857989384', productQuery(queryFields)).then((product) => {
+      assert.ok(Array.isArray(product) === false, 'product is not an array');
+      assert.equal(product.id, dynamicProductFixture.data.node.id);
+      assert.equal(typeof product.createdAt, 'undefined', 'unspecified fields are not queried');
+      assert.ok(fetchMock.done());
+    });
   });
 
   test('it accepts collection queries with dynamic fields', () => {
@@ -161,12 +175,81 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.post('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
+    fetchMock.postOnce('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
 
     return client.fetchCollection('369312584', collectionQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.updatedAt, dynamicCollectionFixture.data.node.updatedAt);
-      assert.ok(typeof collection.id === 'undefined', 'unspecified fields are not queried');
+      assert.equal(typeof collection.id, 'undefined', 'unspecified fields are not queried');
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all images on products', () => {
+    const config = new Config({
+      domain: 'paginated-images.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://paginated-images.myshopify.com/api/graphql', productWithPaginatedImagesFixture)
+      .postOnce('https://paginated-images.myshopify.com/api/graphql', secondPageImagesFixture)
+      .postOnce('https://paginated-images.myshopify.com/api/graphql', thirdPageImagesFixture)
+      .postOnce('https://paginated-images.myshopify.com/api/graphql', emptyPageImagesFixture);
+
+    return client.fetchAllProducts().then((products) => {
+      const images = products[0].images;
+
+      assert.ok(Array.isArray(images), 'images is an array');
+      // Each image page fixture only contains 1 image rather than 20 for simplicity
+      assert.equal(images.length, 3, 'all three pages of images are returned');
+      assert.equal(images[0].id, productWithPaginatedImagesFixture.data.shop.products.edges[0].node.images.edges[0].node.id);
+      assert.equal(images[1].id, secondPageImagesFixture.data.node.images.edges[0].node.id);
+      assert.equal(images[2].id, thirdPageImagesFixture.data.node.images.edges[0].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all variants on products', () => {
+    const config = new Config({
+      domain: 'paginated-variants.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://paginated-variants.myshopify.com/api/graphql', productWithPaginatedVariantsFixture)
+      .postOnce('https://paginated-variants.myshopify.com/api/graphql', secondPageVariantsFixture)
+      .postOnce('https://paginated-variants.myshopify.com/api/graphql', thirdPageVariantsFixture)
+      .postOnce('https://paginated-variants.myshopify.com/api/graphql', emptyPageVariantsFixture);
+
+    return client.fetchProduct('7857989384').then((product) => {
+      const variants = product.variants;
+
+      assert.ok(Array.isArray(variants), 'variants is an array');
+      // Each variant page fixture only contains 1 variant rather than 20 for simplicity
+      assert.equal(variants.length, 3, 'all three pages of variants are returned');
+      assert.equal(variants[0].id, productWithPaginatedVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.equal(variants[1].id, secondPageVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.equal(variants[2].id, thirdPageVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it does not fetch paginated images if images are not requested', () => {
+    const config = new Config({
+      domain: 'no-pagination.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {id: 'gid://shopify/Product/7857989384'}}});
+
+    return client.fetchProduct('7857989384', productQuery(['id'])).then((product) => {
+      assert.equal(typeof product.images, 'undefined', 'images are not queried');
+      assert.ok(fetchMock.done());
     });
   });
 });
