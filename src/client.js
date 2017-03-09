@@ -187,6 +187,35 @@ export default class Client {
     if (queryObject.limit) {
       options.first = queryObject.limit;
     }
+    if (queryObject.sortBy) {
+      let sortKey;
+
+      switch (queryObject.sortBy) {
+        case 'title-ascending':
+          sortKey = this.graphQLClient.enum('TITLE');
+          break;
+        case 'title-descending':
+          sortKey = this.graphQLClient.enum('TITLE');
+          options.reverse = true;
+          break;
+        case 'updated-ascending':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          break;
+        case 'updated-descending':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          options.reverse = true;
+          break;
+        case 'created-ascending':
+          sortKey = this.graphQLClient.enum('CREATED_AT');
+          break;
+        case 'created-descending':
+          sortKey = this.graphQLClient.enum('CREATED_AT');
+          options.reverse = true;
+          break;
+      }
+
+      options.sortKey = sortKey;
+    }
 
     options.query = queryArgStrings.join(' ');
 
@@ -228,6 +257,28 @@ export default class Client {
     }
     if (queryObject.limit) {
       options.first = queryObject.limit;
+    }
+    if (queryObject.sortBy) {
+      let sortKey;
+
+      switch (queryObject.sortBy) {
+        case 'title-ascending':
+          sortKey = this.graphQLClient.enum('TITLE');
+          break;
+        case 'title-descending':
+          sortKey = this.graphQLClient.enum('TITLE');
+          options.reverse = true;
+          break;
+        case 'updated-ascending':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          break;
+        case 'updated-descending':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          options.reverse = true;
+          break;
+      }
+
+      options.sortKey = sortKey;
     }
 
     options.query = queryArgStrings.join(' ');

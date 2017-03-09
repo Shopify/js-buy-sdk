@@ -16,6 +16,8 @@ import productWithPaginatedVariantsFixture from '../fixtures/product-with-pagina
 import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import queryProductFixture from '../fixtures/query-product-fixture';
 import queryCollectionFixture from '../fixtures/query-collection-fixture';
+import shopWithSortedProductsFixture from '../fixtures/shop-with-sorted-products-fixture';
+import shopWithSortedCollectionsFixture from '../fixtures/shop-with-sorted-collections-fixture';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 import productQuery from '../src/product-query';
 import imageQuery from '../src/image-query';
@@ -366,6 +368,42 @@ suite('client-test', () => {
       assert.equal(collections[0].title, queryCollectionFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[0].updatedAt, queryCollectionFixture.data.shop.collections.edges[0].node.updatedAt);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can return queried products sorted', () => {
+    const config = new Config({
+      domain: 'sorted-query.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedProductsFixture);
+
+    return client.fetchQueryProducts({sortBy: 'updated-descending'}, productConnectionQuery(['updatedAt'])).then((products) => {
+      assert.equal(products.length, 3);
+      assert.equal(products[0].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[0].node.updatedAt);
+      assert.equal(products[1].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[1].node.updatedAt);
+      assert.equal(products[2].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[2].node.updatedAt);
+    });
+  });
+
+  test('it can return queried collections sorted', () => {
+    const config = new Config({
+      domain: 'sorted-query.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedCollectionsFixture);
+
+    return client.fetchQueryCollections({sortBy: 'title-descending'}, collectionConnectionQuery(['title'])).then((collections) => {
+      assert.equal(collections.length, 3);
+      assert.equal(collections[0].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[0].node.title);
+      assert.equal(collections[1].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[1].node.title);
+      assert.equal(collections[2].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[2].node.title);
     });
   });
 
