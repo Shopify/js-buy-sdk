@@ -9,8 +9,8 @@ const targets = [];
 // eslint-disable-next-line no-process-env
 if (process.env.BUILD_MODE === 'production') {
   plugins.push(remap({
-    originalPath: './src-graphql/graphl-client',
-    targetPath: './src-graphql/graphl-client-dev'
+    originalPath: './src/graphl-client',
+    targetPath: './src/graphl-client-dev'
   }));
 
   targets.push(

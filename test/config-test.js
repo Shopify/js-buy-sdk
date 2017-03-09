@@ -1,5 +1,5 @@
 import assert from 'assert';
-import Config from '../src-graphql/config';
+import Config from '../src/config';
 
 
 suite('config-test', () => {

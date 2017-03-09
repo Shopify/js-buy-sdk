@@ -16,8 +16,8 @@ function envRollupInfo({browser, withDependencyTracking}) {
     json(),
     eslintTestGenerator({
       paths: [
-        'src-graphql',
-        'test-graphql'
+        'src',
+        'test'
       ]
     }),
     commonjs({
@@ -38,16 +38,16 @@ function envRollupInfo({browser, withDependencyTracking}) {
   // eslint-disable-next-line no-process-env
   if (!withDependencyTracking) {
     plugins.unshift(remap({
-      originalPath: './src-graphql/graphl-client',
-      targetPath: './src-graphql/graphl-client-dev'
+      originalPath: './src/graphl-client',
+      targetPath: './src/graphl-client-dev'
     }));
   }
 
   if (browser) {
     plugins.unshift(globals(), builtins());
     plugins.unshift(remap({
-      originalPath: './test-graphql/isomorphic-fetch-mock.js',
-      targetPath: './test-graphql/fetch-mock-browser.js'
+      originalPath: './test/isomorphic-fetch-mock.js',
+      targetPath: './test/fetch-mock-browser.js'
     }));
   } else {
     external.push(
@@ -62,8 +62,8 @@ function envRollupInfo({browser, withDependencyTracking}) {
       'string_decoder'
     );
     plugins.unshift(remap({
-      originalPath: './test-graphql/isomorphic-fetch-mock.js',
-      targetPath: './test-graphql/fetch-mock-node.js'
+      originalPath: './test/isomorphic-fetch-mock.js',
+      targetPath: './test/fetch-mock-node.js'
     }));
   }
 
@@ -74,7 +74,7 @@ function rollupTests({dest, withDependencyTracking, cache, browser}) {
   const {plugins, external, format} = envRollupInfo({withDependencyTracking, browser});
 
   return rollup.rollup({
-    entry: 'test-graphql/**/*-test.js',
+    entry: 'test/**/*-test.js',
     plugins,
     external,
     cache
