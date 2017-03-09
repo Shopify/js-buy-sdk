@@ -1,7 +1,7 @@
 import assert from 'assert';
 import GraphQLJSClient, {decode} from '@shopify/graphql-js-client';
-import productQuery from '../src-graphql/product-query';
-import ProductHelpers from '../src-graphql/product-helpers';
+import productQuery from '../src/product-query';
+import ProductHelpers from '../src/product-helpers';
 import singleProductFixture from '../fixtures/product-fixture';
 import types from '../types';
 

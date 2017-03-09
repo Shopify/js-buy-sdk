@@ -14,7 +14,7 @@ function notifyReload() {
   fetch(reloadUri);
 }
 
-watcher([['src-graphql', 'js'], ['test-graphql', 'js']], () => {
+watcher([['src', 'js'], ['test', 'js']], () => {
   const start = Date.now();
 
   rollupTests({dest, withDependencyTracking, cache: bundle, browser: true}).then((newBundle) => {

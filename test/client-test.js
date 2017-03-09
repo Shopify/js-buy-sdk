@@ -1,9 +1,9 @@
 import assert from 'assert';
 import GraphQLJSClient from '@shopify/graphql-js-client';
-import Config from '../src-graphql/config';
-import Client from '../src-graphql/client';
+import Config from '../src/config';
+import Client from '../src/client';
 import types from '../types';
-import base64Encode from '../src-graphql/base64encode';
+import base64Encode from '../src/base64encode';
 import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
@@ -15,12 +15,12 @@ import {secondPageImagesFixture, thirdPageImagesFixture} from '../fixtures/pagin
 import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
 import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
-import productQuery from '../src-graphql/product-query';
-import imageQuery from '../src-graphql/image-query';
-import imageConnectionQuery from '../src-graphql/image-connection-query';
-import optionQuery from '../src-graphql/option-query';
-import variantConnectionQuery from '../src-graphql/variant-connection-query';
-import collectionQuery from '../src-graphql/collection-query';
+import productQuery from '../src/product-query';
+import imageQuery from '../src/image-query';
+import imageConnectionQuery from '../src/image-connection-query';
+import optionQuery from '../src/option-query';
+import variantConnectionQuery from '../src/variant-connection-query';
+import collectionQuery from '../src/collection-query';
 
 suite('client-test', () => {
   teardown(() => {
