@@ -47,19 +47,3 @@ export const thirdPageImagesFixture = {
     }
   }
 };
-
-export const emptyPageImagesFixture = {
-  "data": {
-    "node": {
-      "__typename": "Product",
-      "id": "gid://shopify/Product/7857989384",
-      "images": {
-        "pageInfo": {
-          "hasNextPage": false,
-          "hasPreviousPage": false
-        },
-        "edges": []
-      }
-    }
-  }
-};

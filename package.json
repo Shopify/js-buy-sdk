@@ -30,7 +30,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "@shopify/graphql-js-client": "0.2.0",
+    "@shopify/graphql-js-client": "0.3.0",
     "@shopify/graphql-js-schema": "0.2.3",
     "@shopify/graphql-js-schema-fetch": "1.1.0",
     "@shopify/rollup-plugin-remap": "0.0.3",
