@@ -9,25 +9,26 @@ import collectionConnectionQuery from './collection-connection-query';
 
 function fetchAllPages(paginatedModels, client) {
   return client.fetchNextPage(paginatedModels).then(({model}) => {
-    // Until we know how hasNextPage will be exposed, we query until the result is empty
-    if (model.length === 0) {
+    paginatedModels.push(...model);
+
+    if (!model[model.length - 1].hasNextPage.valueOf()) {
       return paginatedModels;
     }
-
-    paginatedModels.push(...model);
 
     return fetchAllPages(paginatedModels, client);
   });
 }
 
-function fetchAllProductResources(productData, product, client) {
+function fetchAllProductResources(product, client) {
   const promises = [];
+  const images = product.images;
+  const variants = product.variants;
 
-  if (productData.images && productData.images.pageInfo.hasNextPage) {
+  if (images && images[images.length - 1].hasNextPage.valueOf()) {
     promises.push(fetchAllPages(product.images, client));
   }
 
-  if (productData.variants && productData.variants.pageInfo.hasNextPage) {
+  if (variants && variants[variants.length - 1].hasNextPage.valueOf()) {
     promises.push(fetchAllPages(product.variants, client));
   }
 
@@ -50,12 +51,10 @@ export default class Client {
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient)).then(({model, data}) => {
-      const promises = model.shop.products.reduce((promiseAcc, product, i) => {
-        const productData = data.shop.products.edges[i].node;
-
+    return this.graphQLClient.send(query(this.graphQLClient)).then(({model}) => {
+      const promises = model.shop.products.reduce((promiseAcc, product) => {
         // Fetch the rest of the images and variants for this product
-        return promiseAcc.concat(fetchAllProductResources(productData, product, this.graphQLClient));
+        return promiseAcc.concat(fetchAllProductResources(product, this.graphQLClient));
       }, []);
 
       return Promise.all(promises).then(() => {
@@ -65,14 +64,12 @@ export default class Client {
   }
 
   fetchProduct(id, query = productQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
-      const productData = response.data.node;
-
+    return this.graphQLClient.send(query(this.graphQLClient, id)).then(({model}) => {
       // Fetch the rest of the images and variants for this product
-      const promises = fetchAllProductResources(productData, response.model.node, this.graphQLClient);
+      const promises = fetchAllProductResources(model.node, this.graphQLClient);
 
       return Promise.all(promises).then(() => {
-        return response.model.node;
+        return model.node;
       });
     });
   }
