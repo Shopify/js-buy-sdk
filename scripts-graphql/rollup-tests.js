@@ -20,13 +20,13 @@ function envRollupInfo({browser, withDependencyTracking}) {
         'test-graphql'
       ]
     }),
+    commonjs({
+      include: 'node_modules/**'
+    }),
     nodeResolve({
       jsnext: true,
-      main: true
-    }),
-    commonjs({
-      include: 'node_modules/**',
-      sourceMap: false
+      main: true,
+      preferBuiltins: !browser
     }),
     multiEntry({
       exports: false
@@ -50,7 +50,17 @@ function envRollupInfo({browser, withDependencyTracking}) {
       targetPath: './test-graphql/fetch-mock-browser.js'
     }));
   } else {
-    external.push('assert');
+    external.push(
+      'assert',
+      'url',
+      'http',
+      'https',
+      'zlib',
+      'stream',
+      'buffer',
+      'util',
+      'string_decoder'
+    );
     plugins.unshift(remap({
       originalPath: './test-graphql/isomorphic-fetch-mock.js',
       targetPath: './test-graphql/fetch-mock-node.js'
