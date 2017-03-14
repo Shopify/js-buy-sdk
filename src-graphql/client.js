@@ -6,6 +6,7 @@ import productQuery from './product-query';
 import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
+import ProductHelpers from './product-helpers';
 
 function fetchAllPages(paginatedModels, client) {
   return client.fetchNextPage(paginatedModels).then(({model}) => {
@@ -48,6 +49,9 @@ export default class Client {
         }
       }
     });
+
+    this.Product = {};
+    this.Product.Helpers = new ProductHelpers();
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
