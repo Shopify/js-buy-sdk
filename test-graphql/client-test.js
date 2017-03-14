@@ -250,4 +250,20 @@ suite('client-test', () => {
       assert.ok(fetchMock.done());
     });
   });
+
+  test('it does not fetch paginated images if the images query result was empty', () => {
+    const config = new Config({
+      domain: 'no-pagination.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {images: {edges: [], pageInfo: {hasNextPage: false, hasPreviousPage: false}}}}});
+
+    return client.fetchProduct('7857989384', productQuery([['images', imageConnectionQuery()]])).then((product) => {
+      assert.equal(product.images.length, 0);
+      assert.ok(fetchMock.done());
+    });
+  });
 });
