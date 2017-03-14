@@ -24,11 +24,11 @@ function fetchAllProductResources(product, client) {
   const images = product.images;
   const variants = product.variants;
 
-  if (images && images[images.length - 1].hasNextPage.valueOf()) {
+  if (images && images.length && images[images.length - 1].hasNextPage.valueOf()) {
     promises.push(fetchAllPages(product.images, client));
   }
 
-  if (variants && variants[variants.length - 1].hasNextPage.valueOf()) {
+  if (variants && variants.length && variants[variants.length - 1].hasNextPage.valueOf()) {
     promises.push(fetchAllPages(product.variants, client));
   }
 
