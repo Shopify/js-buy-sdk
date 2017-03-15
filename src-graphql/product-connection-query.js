@@ -7,13 +7,9 @@ const defaultFields = ['id', 'createdAt', 'updatedAt', 'descriptionHtml', 'descr
   'publishedAt', ['options', optionQuery()], ['images', imageConnectionQuery()], ['variants', variantConnectionQuery()]];
 
 export default function productConnectionQuery(fields = defaultFields) {
-  return function(client) {
-    return client.query((root) => {
-      root.add('shop', (shop) => {
-        shop.addConnection('products', {args: {first: 20}}, (products) => {
-          addFields(products, fields);
-        });
-      });
+  return function(parentSelection, fieldName) {
+    parentSelection.addConnection(fieldName, {args: {first: 20}}, (products) => {
+      addFields(products, fields);
     });
   };
 }

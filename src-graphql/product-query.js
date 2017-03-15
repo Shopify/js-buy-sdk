@@ -8,12 +8,10 @@ const defaultFields = ['id', 'createdAt', 'updatedAt', 'descriptionHtml', 'descr
   'publishedAt', ['options', optionQuery()], ['images', imageConnectionQuery()], ['variants', variantConnectionQuery()]];
 
 export default function productQuery(fields = defaultFields) {
-  return function(client, id) {
-    return client.query((root) => {
-      root.add('node', {args: {id: createGid('Product', id)}}, (node) => {
-        node.addInlineFragmentOn('Product', (product) => {
-          addFields(product, fields);
-        });
+  return function(parentSelection, fieldName, id) {
+    parentSelection.add(fieldName, {args: {id: createGid('Product', id)}}, (node) => {
+      node.addInlineFragmentOn('Product', (product) => {
+        addFields(product, fields);
       });
     });
   };

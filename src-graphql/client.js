@@ -51,7 +51,13 @@ export default class Client {
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient)).then(({model}) => {
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'products');
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then(({model}) => {
       const promises = model.shop.products.reduce((promiseAcc, product) => {
         // Fetch the rest of the images and variants for this product
         return promiseAcc.concat(fetchAllProductResources(product, this.graphQLClient));
@@ -64,7 +70,11 @@ export default class Client {
   }
 
   fetchProduct(id, query = productQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient, id)).then(({model}) => {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'node', id);
+    });
+
+    return this.graphQLClient.send(rootQuery).then(({model}) => {
       // Fetch the rest of the images and variants for this product
       const promises = fetchAllProductResources(model.node, this.graphQLClient);
 
@@ -75,13 +85,23 @@ export default class Client {
   }
 
   fetchAllCollections(query = collectionConnectionQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient)).then((response) => {
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'collections');
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then((response) => {
       return response.model.shop.collections;
     });
   }
 
   fetchCollection(id, query = collectionQuery()) {
-    return this.graphQLClient.send(query(this.graphQLClient, id)).then((response) => {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'node', id);
+    });
+
+    return this.graphQLClient.send(rootQuery).then((response) => {
       return response.model.node;
     });
   }
