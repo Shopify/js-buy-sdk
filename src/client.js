@@ -7,6 +7,7 @@ import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
 import ProductHelpers from './product-helpers';
+import CheckoutMutations from './checkout-mutations';
 
 function fetchAllPages(paginatedModels, client) {
   return client.fetchNextPage(paginatedModels).then(({model}) => {
@@ -52,6 +53,8 @@ export default class Client {
 
     this.Product = {};
     this.Product.Helpers = new ProductHelpers();
+    this.Checkout = {};
+    this.Checkout.Mutations = new CheckoutMutations(this.graphQLClient);
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
