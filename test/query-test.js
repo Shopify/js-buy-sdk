@@ -8,6 +8,12 @@ import optionQuery from '../src/option-query';
 import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
 import collectionQuery from '../src/collection-query';
+import collectionQuery from '../src/collection-query';
+import checkoutQuery from '../src/checkout-query';
+import attributeQuery from '../src/attribute-query';
+import lineItemConnectionQuery from '../src/line-item-connection-query';
+import shippingRateQuery from '../src/shipping-rate-query';
+import mailingAddressQuery from '../src/mailing-address-query';
 
 suite('query-test', () => {
   const querySplitter = /[\s,]+/;
@@ -304,6 +310,115 @@ suite('query-test', () => {
                       }
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    }`;
+
+    assert.deepEqual(tokens(query.toString()), tokens(queryString));
+  });
+
+  test('it creates checkout queries (within a mutation) with default fields', () => {
+    const defaultQuery = checkoutQuery();
+    const query = client.graphQLClient.mutation((root) => {
+      root.add('checkoutCreate', (checkoutCreate) => {
+        defaultQuery(checkoutCreate, 'checkout');
+      });
+    });
+
+    const queryString = `mutation {
+      checkoutCreate {
+        checkout {
+          id
+          createdAt
+          updatedAt
+          requiresShipping
+          shippingLine {
+            handle
+            price
+            title
+          }
+          shippingAddress {
+            address1
+            address2
+            city
+            company
+            country
+            firstName
+            formatted
+            lastName
+            latitude
+            longitude
+            phone
+            province
+            zip
+            name
+            countryCode
+            provinceCode
+            id
+          }
+          lineItems (first: 250) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                title
+                variant {
+                  id
+                }
+                quantity
+                customAttributes {
+                  key
+                  value
+                }
+              }
+            }
+          }
+        }
+      }
+    }`;
+
+    assert.deepEqual(tokens(query.toString()), tokens(queryString));
+  });
+
+  test('it creates checkout queries (within a mutation) with specified fields', () => {
+    const customQuery = checkoutQuery(['id', 'createdAt', ['shippingLine', shippingRateQuery(['price'])],
+      ['shippingAddress', mailingAddressQuery(['address1'])],
+      ['lineItems', lineItemConnectionQuery(['title', ['customAttributes', attributeQuery(['value'])]])]]);
+    const query = client.graphQLClient.mutation((root) => {
+      root.add('checkoutCreate', (checkoutCreate) => {
+        customQuery(checkoutCreate, 'checkout');
+      });
+    });
+
+    const queryString = `mutation {
+      checkoutCreate {
+        checkout {
+          id
+          createdAt
+          shippingLine {
+            price
+          }
+          shippingAddress {
+            address1
+          }
+          lineItems (first: 250) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                title
+                customAttributes {
+                  value
                 }
               }
             }
