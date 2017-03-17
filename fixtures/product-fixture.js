@@ -68,6 +68,7 @@ export default {
               "title": "Fluffy",
               "price": "0.00",
               "weight": 18,
+              "image": null,
               "selectedOptions": [
                 {
                   "name": "Fur",
@@ -83,6 +84,7 @@ export default {
               "title": "Extra Fluffy",
               "price": "0.00",
               "weight": 18,
+              "image": null,
               "selectedOptions": [
                 {
                   "name": "Fur",
@@ -98,6 +100,7 @@ export default {
               "title": "Mega Fluff",
               "price": "0.00",
               "weight": 0,
+              "image": null,
               "selectedOptions": [
                 {
                   "name": "Fur",
