@@ -21,6 +21,9 @@ import imageConnectionQuery from '../src/image-connection-query';
 import optionQuery from '../src/option-query';
 import variantConnectionQuery from '../src/variant-connection-query';
 import collectionQuery from '../src/collection-query';
+import checkoutFixture from '../fixtures/checkout-fixture';
+import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
+import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 
 suite('client-test', () => {
   teardown(() => {
@@ -264,6 +267,70 @@ suite('client-test', () => {
     return client.fetchProduct('7857989384', productQuery([['images', imageConnectionQuery()]])).then((product) => {
       assert.equal(product.images.length, 0);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can create a checkout', () => {
+    const config = new Config({
+      domain: 'checkout.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    const input = {
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]}
+      ],
+      shippingAddress: {
+        address1: '123 Cat Road',
+        city: 'Cat Land',
+        company: 'Catmart',
+        country: 'Canada',
+        firstName: 'Meow',
+        lastName: 'Meowington',
+        phone: '4161234566',
+        province: 'ON',
+        zip: 'M3O 0W1'
+      }
+    };
+
+    fetchMock.postOnce('https://checkout.myshopify.com/api/graphql', checkoutFixture);
+
+    return client.createCheckout(input).then((checkout) => {
+      assert.equal(checkout.id, checkoutFixture.data.checkoutCreate.checkout.id);
+      assert.equal(checkout.lineItems[0].title, 'Intelligent Granite Table');
+      assert.equal(checkout.lineItems[0].quantity, 5);
+      assert.equal(checkout.shippingAddress.address1, '123 Cat Road');
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all paginated line items on the checkout', () => {
+    const config = new Config({
+      domain: 'paginated-checkout.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    const input = {
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
+        {variantId: 'gid://shopify/ProductVariant/2', quantity: 10, customAttributes: [{key: 'bye', value: 'hi'}]},
+        {variantId: 'gid://shopify/ProductVariant/3', quantity: 15, customAttributes: [{key: 'bing', value: 'bong'}]}
+      ]
+    };
+
+    fetchMock.postOnce('https://paginated-checkout.myshopify.com/api/graphql', checkoutWithPaginatedLineItemsFixture)
+      .postOnce('https://paginated-checkout.myshopify.com/api/graphql', secondPageLineItemsFixture)
+      .postOnce('https://paginated-checkout.myshopify.com/api/graphql', thirdPageLineItemsFixture);
+
+    return client.createCheckout(input).then((checkout) => {
+      assert.equal(checkout.lineItems.length, 3, 'all three pages of line items are returned');
+      assert.equal(checkout.lineItems[0].id, checkoutWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.id);
+      assert.equal(checkout.lineItems[1].id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.id);
+      assert.equal(checkout.lineItems[2].id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.id);
     });
   });
 });
