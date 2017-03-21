@@ -1,38 +1,28 @@
 import assert from 'assert';
-import Config from '../src-graphql/config';
-import Client from '../src-graphql/client';
+import GraphQLJSClient, {decode} from '@shopify/graphql-js-client';
+import productQuery from '../src-graphql/product-query';
 import ProductHelpers from '../src-graphql/product-helpers';
 import singleProductFixture from '../fixtures/product-fixture';
-import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
+import types from '../types';
 
 suite('product-helpers-test', () => {
   const productHelpers = new ProductHelpers();
-  const config = new Config({
-    domain: 'single-product.myshopify.com',
-    storefrontAccessToken: 'abc123'
+  const query = productQuery();
+  const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});
+  const rootQuery = graphQLClient.query((root) => {
+    query(root, 'node', '7857989384');
   });
-
-  const client = new Client(config);
+  const productModel = decode(rootQuery, singleProductFixture.data);
 
   test('it returns the variant based on options given', () => {
-    fetchMock.postOnce('https://single-product.myshopify.com/api/graphql', singleProductFixture);
+    const variant = productHelpers.variantForOptions(productModel.node, {Fur: 'Fluffy', Size: 'Medium'});
 
-    return client.fetchProduct('7857989384').then((product) => {
-      const variant = productHelpers.variantForOptions(product, {Fur: 'Fluffy', Size: 'Medium'});
-
-      assert.equal(variant.id, 'gid://shopify/ProductVariant/25602235976');
-      assert.ok(fetchMock.done());
-    });
+    assert.equal(variant.id, 'gid://shopify/ProductVariant/25602235976');
   });
 
   test('it returns undefined if the variant does not exist', () => {
-    fetchMock.postOnce('https://single-product.myshopify.com/api/graphql', singleProductFixture);
+    const variant = productHelpers.variantForOptions(productModel.node, {Fur: 'Fluffy', Size: 'Small'});
 
-    return client.fetchProduct('7857989384').then((product) => {
-      const variant = productHelpers.variantForOptions(product, {Fur: 'Fluffy', Size: 'Small'});
-
-      assert.equal(typeof variant, 'undefined');
-      assert.ok(fetchMock.done());
-    });
+    assert.equal(typeof variant, 'undefined');
   });
 });
