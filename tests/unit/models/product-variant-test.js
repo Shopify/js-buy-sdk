@@ -162,7 +162,7 @@ test('it generates checkout permalinks from passed quantity', function (assert) 
   assert.expect(4);
 
   const baseUrl = `https://${config.domain}/cart`;
-  const query = `access_token=${config.apiKey}&_fd=0`;
+  const query = `access_token=${config.accessToken}&_fd=0`;
 
   assert.equal(model.checkoutUrl(), `${baseUrl}/${model.id}:1?${query}`, 'defaults to 1');
   assert.equal(model.checkoutUrl(27), `${baseUrl}/${model.id}:27?${query}`, 'respects passed quantity');
