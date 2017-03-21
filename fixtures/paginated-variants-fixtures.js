@@ -16,6 +16,7 @@ export const secondPageVariantsFixture = {
               "title": "Extra Fluffy",
               "price": "0.00",
               "weight": 18,
+              "image": null,
               "selectedOptions": [
                 {
                   "name": "Fur",
@@ -48,6 +49,7 @@ export const thirdPageVariantsFixture = {
               "title": "Mega Fluff",
               "price": "0.00",
               "weight": 0,
+              "image": null,
               "selectedOptions": [
                 {
                   "name": "Fur",

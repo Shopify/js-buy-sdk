@@ -83,6 +83,11 @@ suite('query-test', () => {
                     title,
                     price,
                     weight,
+                    image {
+                      id,
+                      src,
+                      altText
+                    },
                     selectedOptions {
                       name,
                       value
@@ -288,6 +293,11 @@ suite('query-test', () => {
                       title,
                       price,
                       weight,
+                      image {
+                        id,
+                        src,
+                        altText
+                      },
                       selectedOptions {
                         name,
                         value
