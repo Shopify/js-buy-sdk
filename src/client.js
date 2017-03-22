@@ -15,11 +15,11 @@ function fetchAllProductResources(product, client) {
   const images = product.images;
   const variants = product.variants;
 
-  if (images && images.length && images[images.length - 1].hasNextPage.valueOf()) {
+  if (images && images.length && images[images.length - 1].hasNextPage) {
     promises.push(fetchAllPages(images, client));
   }
 
-  if (variants && variants.length && variants[variants.length - 1].hasNextPage.valueOf()) {
+  if (variants && variants.length && variants[variants.length - 1].hasNextPage) {
     promises.push(fetchAllPages(variants, client));
   }
 
@@ -139,7 +139,7 @@ export default class Client {
       const promises = [];
       const lineItems = result.model.checkoutCreate.checkout.lineItems;
 
-      if (lineItems && lineItems.length && lineItems[lineItems.length - 1].hasNextPage.valueOf()) {
+      if (lineItems && lineItems.length && lineItems[lineItems.length - 1].hasNextPage) {
         promises.push(fetchAllPages(lineItems, this.graphQLClient));
       }
 
