@@ -337,7 +337,11 @@ suite('query-test', () => {
           note
           createdAt
           updatedAt
-          requiresShipping
+          requiresShipping,
+          customAttributes {
+            key
+            value
+          }
           shippingLine {
             handle
             price
