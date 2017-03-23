@@ -8,23 +8,6 @@ import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
 import ProductHelpers from './product-helpers';
 import checkoutQuery from './checkout-query';
-import fetchAllPages from './fetch-all-pages';
-
-function fetchAllProductResources(product, client) {
-  const promises = [];
-  const images = product.images;
-  const variants = product.variants;
-
-  if (images && images.length && images[images.length - 1].hasNextPage) {
-    promises.push(fetchAllPages(images, client));
-  }
-
-  if (variants && variants.length && variants[variants.length - 1].hasNextPage) {
-    promises.push(fetchAllPages(variants, client));
-  }
-
-  return promises;
-}
 
 /**
  * @class Client
@@ -57,7 +40,15 @@ export default class Client {
     return this.graphQLClient.send(rootQuery).then(({model}) => {
       const promises = model.shop.products.reduce((promiseAcc, product) => {
         // Fetch the rest of the images and variants for this product
-        return promiseAcc.concat(fetchAllProductResources(product, this.graphQLClient));
+        promiseAcc.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
+          product.attrs.images = images;
+        }));
+
+        promiseAcc.push(this.graphQLClient.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
+          product.attrs.variants = variants;
+        }));
+
+        return promiseAcc;
       }, []);
 
       return Promise.all(promises).then(() => {
@@ -72,8 +63,15 @@ export default class Client {
     });
 
     return this.graphQLClient.send(rootQuery).then(({model}) => {
-      // Fetch the rest of the images and variants for this product
-      const promises = fetchAllProductResources(model.node, this.graphQLClient);
+      const promises = [];
+
+      promises.push(this.graphQLClient.fetchAllPages(model.node.images, {pageSize: 250}).then((images) => {
+        model.node.attrs.images = images;
+      }));
+
+      promises.push(this.graphQLClient.fetchAllPages(model.node.variants, {pageSize: 250}).then((variants) => {
+        model.node.attrs.variants = variants;
+      }));
 
       return Promise.all(promises).then(() => {
         return model.node;
@@ -135,15 +133,9 @@ export default class Client {
     });
 
     return this.graphQLClient.send(mutation).then((result) => {
-      // Paginate on line items
-      const promises = [];
-      const lineItems = result.model.checkoutCreate.checkout.lineItems;
+      return this.graphQLClient.fetchAllPages(result.model.checkoutCreate.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+        result.model.checkoutCreate.checkout.attrs.lineItems = lineItems;
 
-      if (lineItems && lineItems.length && lineItems[lineItems.length - 1].hasNextPage) {
-        promises.push(fetchAllPages(lineItems, this.graphQLClient));
-      }
-
-      return Promise.all(promises).then(() => {
         return result.model.checkoutCreate.checkout;
       });
     });
