@@ -1,8 +1,8 @@
 import addFields from './add-fields';
-import attributeQuery from './attribute-query';
+import customAttributeQuery from './custom-attribute-query';
 import variantQuery from './variant-query';
 
-const defaultFields = ['title', ['variant', variantQuery()], 'quantity', ['customAttributes', attributeQuery()]];
+const defaultFields = ['title', ['variant', variantQuery()], 'quantity', ['customAttributes', customAttributeQuery()]];
 
 export default function lineItemsConnectionQuery(fields = defaultFields) {
   return function(parentSelection, fieldName) {

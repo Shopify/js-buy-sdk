@@ -2,7 +2,7 @@ import lineItemConnectionQuery from './line-item-connection-query';
 import shippingRateQuery from './shipping-rate-query';
 import mailingAddressQuery from './mailing-address-query';
 import baseQuery from './base-query';
-import attributeQuery from './attribute-query';
+import customAttributeQuery from './custom-attribute-query';
 
 const defaultFields = [
   'id',
@@ -11,7 +11,7 @@ const defaultFields = [
   'createdAt',
   'updatedAt',
   'requiresShipping',
-  ['customAttributes', attributeQuery()],
+  ['customAttributes', customAttributeQuery()],
   ['shippingLine', shippingRateQuery()],
   ['shippingAddress', mailingAddressQuery()],
   ['lineItems', lineItemConnectionQuery()]
