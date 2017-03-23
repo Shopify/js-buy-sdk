@@ -8,7 +8,6 @@ import optionQuery from '../src/option-query';
 import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
 import collectionQuery from '../src/collection-query';
-import collectionQuery from '../src/collection-query';
 import checkoutQuery from '../src/checkout-query';
 import attributeQuery from '../src/attribute-query';
 import lineItemConnectionQuery from '../src/line-item-connection-query';
@@ -408,7 +407,7 @@ suite('query-test', () => {
   test('it creates checkout queries (within a mutation) with specified fields', () => {
     const customQuery = checkoutQuery(['id', 'createdAt', ['shippingLine', shippingRateQuery(['price'])],
       ['shippingAddress', mailingAddressQuery(['address1'])],
-      ['lineItems', lineItemConnectionQuery(['title', ['customAttributes', attributeQuery(['value'])]])]]);
+      ['lineItems', lineItemConnectionQuery(['title', ['customAttributes', customAttributeQuery(['value'])]])]]);
     const query = client.graphQLClient.mutation((root) => {
       root.add('checkoutCreate', (checkoutCreate) => {
         customQuery(checkoutCreate, 'checkout');
