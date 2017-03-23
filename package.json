@@ -69,13 +69,7 @@
     "selenium-standalone": "5.5.0",
     "tiny-lr": "1.0.2",
     "wait-on": "1.5.3",
-    "wdio-dot-reporter": "0.0.5",
-    "wdio-junit-reporter": "0.1.0",
-    "wdio-mocha-framework": "0.3.1",
-    "webdriverio": "4.0.9",
-    "whatwg-fetch": "0.10.1",
-    "yuidoc-lucid-theme": "git+ssh://git@github.com/Shopify/yuidoc-lucid-theme.git#c9c62ba",
-    "yuidocjs": "0.10.2"
+    "whatwg-fetch": "0.10.1"
   },
   "livereloadPort": 35729
 }
