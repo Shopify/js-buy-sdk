@@ -4,6 +4,8 @@ machine:
 dependencies:
   pre:
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+  override:
+    - yarn install
 test:
   pre:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
