@@ -1,4 +1,6 @@
 machine:
+  environment:
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
     version: v7.4.0
 dependencies:
@@ -6,6 +8,8 @@ dependencies:
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
   override:
     - yarn install
+  cache_directories:
+    - ~/.cache/yarn
 test:
   pre:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
