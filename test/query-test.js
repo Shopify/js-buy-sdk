@@ -9,7 +9,7 @@ import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
 import collectionQuery from '../src/collection-query';
 import checkoutQuery from '../src/checkout-query';
-import attributeQuery from '../src/attribute-query';
+import customAttributeQuery from '../src/custom-attribute-query';
 import lineItemConnectionQuery from '../src/line-item-connection-query';
 import shippingRateQuery from '../src/shipping-rate-query';
 import mailingAddressQuery from '../src/mailing-address-query';

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import fetchAllPages from '../src-graphql/fetch-all-pages';
+import fetchAllPages from '../src/fetch-all-pages';
 
 suite('fetch-all-pages-test', () => {
   const client = {
