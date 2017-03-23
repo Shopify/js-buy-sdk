@@ -6,10 +6,12 @@ machine:
 dependencies:
   pre:
     - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+    - 'curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.21.3'
   override:
     - yarn install
   cache_directories:
     - ~/.cache/yarn
+    - ~/.yarn
 test:
   pre:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
