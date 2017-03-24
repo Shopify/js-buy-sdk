@@ -140,4 +140,42 @@ export default class Client {
       });
     });
   }
+
+
+  /**
+ * Adds line items to an existing checkout.
+ *
+ * ```javascript
+ * client.addLineItems({checkoutId: ..., lineItems:[ ... ]}).then(checkout => {
+ *   // do something with the updated checkout
+ * });
+ * ```
+ *
+ * @method addLineItems
+ * @public
+ * @param {Object} input An input object containing:
+ *   @param {String} input.checkoutId The ID of the checkout to add line items to
+ *   @param {Array} [input.lineItems] A list of line items to add to the checkout
+ * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+ * @return {Promise|GraphModel} A promise resolving with the created checkout.
+ */
+  addLineItems(input, query = checkoutQuery()) {
+    const mutation = this.graphQLClient.mutation((root) => {
+      root.add('checkoutAddLineItems', {args: {input}}, (checkoutAddLineItems) => {
+        checkoutAddLineItems.add('userErrors', (userErrors) => {
+          userErrors.add('message');
+          userErrors.add('field');
+        });
+        query(checkoutAddLineItems, 'checkout');
+      });
+    });
+
+    return this.graphQLClient.send(mutation).then((result) => {
+      return this.graphQLClient.fetchAllPages(result.model.checkoutAddLineItems.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+        result.model.checkoutAddLineItems.checkout.attrs.lineItems = lineItems;
+
+        return result.model.checkoutAddLineItems.checkout;
+      });
+    });
+  }
 }
