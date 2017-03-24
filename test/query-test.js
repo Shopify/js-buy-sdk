@@ -338,38 +338,6 @@ suite('query-test', () => {
         checkout {
           id
           ready
-          note
-          createdAt
-          updatedAt
-          requiresShipping,
-          customAttributes {
-            key
-            value
-          }
-          shippingLine {
-            handle
-            price
-            title
-          }
-          shippingAddress {
-            address1
-            address2
-            city
-            company
-            country
-            firstName
-            formatted
-            lastName
-            latitude
-            longitude
-            phone
-            province
-            zip
-            name
-            countryCode
-            provinceCode
-            id
-          }
           lineItems (first: 250) {
             pageInfo {
               hasNextPage
@@ -402,6 +370,117 @@ suite('query-test', () => {
               }
             }
           }
+          shippingAddress {
+            address1
+            address2
+            city
+            company
+            country
+            firstName
+            formatted
+            lastName
+            latitude
+            longitude
+            phone
+            province
+            zip
+            name
+            countryCode
+            provinceCode
+            id
+          }
+          shippingLine {
+            handle
+            price
+            title
+          }
+          requiresShipping
+          customAttributes {
+            key
+            value
+          }
+          note
+          paymentDue
+          webUrl
+          order {
+            id
+            cancelReason
+            cancelledAt
+            createdAt
+            updatedAt
+            processedAt
+            orderNumber
+            subtotalPrice
+            totalShippingPrice
+            totalTax
+            totalPrice
+            currencyCode
+            totalRefunded
+            displayFulfillmentStatus
+            displayFinancialStatus
+            customerUrl
+            shippingAddress {
+              address1
+              address2
+              city
+              company
+              country
+              firstName
+              formatted
+              lastName
+              latitude
+              longitude
+              phone
+              province
+              zip
+              name
+              countryCode
+              provinceCode
+              id
+            }
+            lineItems (first: 250) {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+              }
+              edges {
+                cursor
+                node {
+                  title
+                  variant {
+                    id
+                    title
+                    price
+                    weight
+                    image {
+                      id
+                      src
+                      altText
+                    }
+                    selectedOptions {
+                      name
+                      value
+                    }
+                  }
+                  quantity
+                  customAttributes {
+                    key
+                    value
+                  }
+                }
+              }
+            }
+          }
+          orderStatusUrl
+          taxExempt
+          taxesIncluded
+          currencyCode
+          totalTax
+          subtotalPrice
+          totalPrice
+          completedAt
+          createdAt
+          updatedAt
         }
       }
     }`;
@@ -433,6 +512,7 @@ suite('query-test', () => {
             price
           }
           shippingAddress {
+            id
             address1
           }
           lineItems (first: 250) {

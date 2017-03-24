@@ -24,6 +24,7 @@ import collectionQuery from '../src/collection-query';
 import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
+import checkoutAddLineItemsFixture from '../fixtures/checkout-add-line-items-fixture';
 
 suite('client-test', () => {
   teardown(() => {
@@ -328,9 +329,35 @@ suite('client-test', () => {
 
     return client.createCheckout(input).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'all three pages of line items are returned');
-      assert.equal(checkout.lineItems[0].id, checkoutWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.id);
-      assert.equal(checkout.lineItems[1].id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.id);
-      assert.equal(checkout.lineItems[2].id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.id);
+      assert.equal(checkout.lineItems[0].variant.id, checkoutWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.variant.id);
+      assert.equal(checkout.lineItems[1].variant.id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
+      assert.equal(checkout.lineItems[2].variant.id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
+    });
+  });
+
+  test('it can add line items to a checkout', () => {
+    const config = new Config({
+      domain: 'add-line-items.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    const input = {
+      checkoutId: 'gid://shopify/Checkout/89427726abd2543894550baae32065d6',
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/2', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
+        {variantId: 'gid://shopify/ProductVariant/3', quantity: 5}
+      ]
+    };
+
+    fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutAddLineItemsFixture); // fix this fixture
+
+    return client.addLineItems(input).then((checkout) => {
+      assert.equal(checkout.lineItems.length, 3, 'two more line items were added');
+      assert.equal(checkout.id, 'gid://shopify/Checkout/89427726abd2543894550baae32065d6');
+      assert.equal(checkout.lineItems[1].variant.id, 'gid://shopify/ProductVariant/2');
+      assert.equal(checkout.lineItems[2].variant.id, 'gid://shopify/ProductVariant/3');
     });
   });
 });

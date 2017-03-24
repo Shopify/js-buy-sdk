@@ -3,18 +3,30 @@ import shippingRateQuery from './shipping-rate-query';
 import mailingAddressQuery from './mailing-address-query';
 import baseQuery from './base-query';
 import customAttributeQuery from './custom-attribute-query';
+import orderQuery from './order-query';
 
 const defaultFields = [
   'id',
   'ready',
-  'note',
-  'createdAt',
-  'updatedAt',
+  ['lineItems', lineItemConnectionQuery()],
+  ['shippingAddress', mailingAddressQuery()],
+  ['shippingLine', shippingRateQuery()],
   'requiresShipping',
   ['customAttributes', customAttributeQuery()],
-  ['shippingLine', shippingRateQuery()],
-  ['shippingAddress', mailingAddressQuery()],
-  ['lineItems', lineItemConnectionQuery()]
+  'note',
+  'paymentDue',
+  'webUrl',
+  ['order', orderQuery()],
+  'orderStatusUrl',
+  'taxExempt',
+  'taxesIncluded',
+  'currencyCode',
+  'totalTax',
+  'subtotalPrice',
+  'totalPrice',
+  'completedAt',
+  'createdAt',
+  'updatedAt'
 ];
 
 export default function checkoutQuery(fields = defaultFields) {
