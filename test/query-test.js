@@ -322,14 +322,19 @@ suite('query-test', () => {
 
   test('it creates checkout queries (within a mutation) with default fields', () => {
     const defaultQuery = checkoutQuery();
+    const input = {
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5}
+      ]
+    };
     const query = client.graphQLClient.mutation((root) => {
-      root.add('checkoutCreate', (checkoutCreate) => {
+      root.add('checkoutCreate', {args: {input}}, (checkoutCreate) => {
         defaultQuery(checkoutCreate, 'checkout');
       });
     });
 
     const queryString = `mutation {
-      checkoutCreate {
+      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1" quantity: 5}]}) {
         checkout {
           id
           ready
@@ -408,14 +413,19 @@ suite('query-test', () => {
     const customQuery = checkoutQuery(['id', 'createdAt', ['shippingLine', shippingRateQuery(['price'])],
       ['shippingAddress', mailingAddressQuery(['address1'])],
       ['lineItems', lineItemConnectionQuery(['title', ['customAttributes', customAttributeQuery(['value'])]])]]);
+    const input = {
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5}
+      ]
+    };
     const query = client.graphQLClient.mutation((root) => {
-      root.add('checkoutCreate', (checkoutCreate) => {
+      root.add('checkoutCreate', {args: {input}}, (checkoutCreate) => {
         customQuery(checkoutCreate, 'checkout');
       });
     });
 
     const queryString = `mutation {
-      checkoutCreate {
+      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1" quantity: 5}]}) {
         checkout {
           id
           createdAt
