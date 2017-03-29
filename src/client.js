@@ -133,6 +133,12 @@ export default class Client {
     });
 
     return this.graphQLClient.send(mutation).then((result) => {
+      const userErrors = result.data.checkoutCreate.userErrors;
+
+      if (userErrors.length) {
+        return Promise.reject(new Error(JSON.stringify(userErrors)));
+      }
+
       return this.graphQLClient.fetchAllPages(result.model.checkoutCreate.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
         result.model.checkoutCreate.checkout.attrs.lineItems = lineItems;
 
@@ -142,7 +148,7 @@ export default class Client {
   }
 
 
-  /**
+/**
  * Adds line items to an existing checkout.
  *
  * ```javascript
@@ -171,6 +177,12 @@ export default class Client {
     });
 
     return this.graphQLClient.send(mutation).then((result) => {
+      const userErrors = result.data.checkoutAddLineItems.userErrors;
+
+      if (userErrors.length) {
+        return Promise.reject(new Error(JSON.stringify(userErrors)));
+      }
+
       return this.graphQLClient.fetchAllPages(result.model.checkoutAddLineItems.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
         result.model.checkoutAddLineItems.checkout.attrs.lineItems = lineItems;
 
