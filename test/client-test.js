@@ -332,6 +332,7 @@ suite('client-test', () => {
       assert.equal(checkout.lineItems[0].variant.id, checkoutWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.variant.id);
       assert.equal(checkout.lineItems[1].variant.id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
       assert.equal(checkout.lineItems[2].variant.id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
+      assert.ok(fetchMock.done());
     });
   });
 
@@ -351,13 +352,55 @@ suite('client-test', () => {
       ]
     };
 
-    fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutAddLineItemsFixture); // fix this fixture
+    fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutAddLineItemsFixture);
 
     return client.addLineItems(input).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'two more line items were added');
       assert.equal(checkout.id, 'gid://shopify/Checkout/89427726abd2543894550baae32065d6');
       assert.equal(checkout.lineItems[1].variant.id, 'gid://shopify/ProductVariant/2');
       assert.equal(checkout.lineItems[2].variant.id, 'gid://shopify/ProductVariant/3');
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it rejects the promise if there are user errors', () => {
+    const checkoutCreateWithUserErrorsFixture = {
+      data: {
+        checkoutCreate: {
+          userErrors: [
+            {
+              message: 'Variant is invalid',
+              field: [
+                'lineItems',
+                '0',
+                'variantId'
+              ]
+            }
+          ],
+          checkout: null
+        }
+      }
+    };
+
+    const config = new Config({
+      domain: 'user-errors.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    const input = {
+      lineItems: [
+        {variantId: 'gid://shopify/ProductVariant/1234', quantity: 5}
+      ]
+    };
+
+    fetchMock.postOnce('https://user-errors.myshopify.com/api/graphql', checkoutCreateWithUserErrorsFixture);
+
+    return client.createCheckout(input).then(() => {
+      assert.ok(false, 'Promise should not resolve');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Variant is invalid","field":["lineItems","0","variantId"]}]');
     });
   });
 });
