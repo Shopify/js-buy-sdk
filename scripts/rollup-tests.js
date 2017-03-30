@@ -7,7 +7,7 @@ const builtins = require('rollup-plugin-node-builtins');
 const globals = require('rollup-plugin-node-globals');
 const babel = require('rollup-plugin-babel');
 const json = require('rollup-plugin-json');
-const remap = require('@shopify/rollup-plugin-remap');
+const remap = require('rollup-plugin-remap');
 const eslintTestGenerator = require('./rollup-plugin-eslint-test-generator');
 
 function envRollupInfo({browser, withDependencyTracking}) {
