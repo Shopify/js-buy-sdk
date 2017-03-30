@@ -1,7 +1,7 @@
 /* eslint-env node */
 import {readFileSync} from 'fs';
 import babel from 'rollup-plugin-babel';
-import remap from '@shopify/rollup-plugin-remap';
+import remap from 'rollup-plugin-remap';
 
 const plugins = [babel()];
 const targets = [];
