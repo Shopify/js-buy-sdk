@@ -7,6 +7,7 @@ import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
 import ProductHelpers from './product-helpers';
+import ImageHelpers from './image-helpers';
 import checkoutQuery from './checkout-query';
 
 /**
@@ -28,6 +29,8 @@ export default class Client {
 
     this.Product = {};
     this.Product.Helpers = new ProductHelpers();
+    this.Image = {};
+    this.Image.Helpers = new ImageHelpers();
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
@@ -101,26 +104,26 @@ export default class Client {
     });
   }
 
-/**
- * Creates a checkout.
- *
- * ```javascript
- * client.createCheckout({lineItems:[ ... ]}).then(checkout => {
- *   // do something with the checkout
- * });
- * ```
- *
- * @method createCheckout
- * @public
- * @param {Object} [input] An input object containing zero or more of:
- *   @param {String} [input.email] An email connected to the checkout
- *   @param {Array} [input.lineItems] A list of line items in the checkout
- *   @param {Object} [input.shippingAddress] A shipping address
- *   @param {String} [input.note] A note for the checkout
- *   @param {Array} [input.customAttributes] A list of custom attributes
- * @param {Function} [query] Callback function to specify fields to query on the checkout returned
- * @return {Promise|GraphModel} A promise resolving with the created checkout.
- */
+  /**
+   * Creates a checkout.
+   *
+   * ```javascript
+   * client.createCheckout({lineItems:[ ... ]}).then(checkout => {
+   *   // do something with the checkout
+   * });
+   * ```
+   *
+   * @method createCheckout
+   * @public
+   * @param {Object} [input] An input object containing zero or more of:
+   *   @param {String} [input.email] An email connected to the checkout
+   *   @param {Array} [input.lineItems] A list of line items in the checkout
+   *   @param {Object} [input.shippingAddress] A shipping address
+   *   @param {String} [input.note] A note for the checkout
+   *   @param {Array} [input.customAttributes] A list of custom attributes
+   * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   */
   createCheckout(input = {}, query = checkoutQuery()) {
     const mutation = this.graphQLClient.mutation((root) => {
       root.add('checkoutCreate', {args: {input}}, (checkoutCreate) => {
@@ -147,24 +150,23 @@ export default class Client {
     });
   }
 
-
-/**
- * Adds line items to an existing checkout.
- *
- * ```javascript
- * client.addLineItems({checkoutId: ..., lineItems:[ ... ]}).then(checkout => {
- *   // do something with the updated checkout
- * });
- * ```
- *
- * @method addLineItems
- * @public
- * @param {Object} input An input object containing:
- *   @param {String} input.checkoutId The ID of the checkout to add line items to
- *   @param {Array} [input.lineItems] A list of line items to add to the checkout
- * @param {Function} [query] Callback function to specify fields to query on the checkout returned
- * @return {Promise|GraphModel} A promise resolving with the created checkout.
- */
+  /**
+   * Adds line items to an existing checkout.
+   *
+   * ```javascript
+   * client.addLineItems({checkoutId: ..., lineItems:[ ... ]}).then(checkout => {
+   *   // do something with the updated checkout
+   * });
+   * ```
+   *
+   * @method addLineItems
+   * @public
+   * @param {Object} input An input object containing:
+   *   @param {String} input.checkoutId The ID of the checkout to add line items to
+   *   @param {Array} [input.lineItems] A list of line items to add to the checkout
+   * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   */
   addLineItems(input, query = checkoutQuery()) {
     const mutation = this.graphQLClient.mutation((root) => {
       root.add('checkoutAddLineItems', {args: {input}}, (checkoutAddLineItems) => {
