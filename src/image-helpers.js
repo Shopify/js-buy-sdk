@@ -15,15 +15,16 @@ export default class ImageHelpers {
    * @return {String} The image src for the resized image
    */
   imageForSize(image, {maxHeight, maxWidth}) {
-    const urlTokens = image.src.split('?');
+    const [notQuery, query] = image.src.split('?');
 
     // Use the section before the query
-    const imageTokens = urlTokens[0].split('.');
+    const imageTokens = notQuery.split('.');
 
-    // Take the second last token and append the dimensions
-    imageTokens[imageTokens.length - 2] = imageTokens[imageTokens.length - 2].concat(`_${maxHeight}x${maxWidth}`);
-    urlTokens[0] = imageTokens.join('.');
+    // Take the token before the file extension and append the dimensions
+    const imagePathIndex = imageTokens.length - 2;
 
-    return urlTokens.join('?');
+    imageTokens[imagePathIndex] = `${imageTokens[imagePathIndex]}_${maxHeight}x${maxWidth}`;
+
+    return `${imageTokens.join('.')}?${query}`;
   }
 }
