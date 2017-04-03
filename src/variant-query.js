@@ -11,6 +11,6 @@ const defaultFields = [
   ['selectedOptions', selectedOptionQuery()]
 ];
 
-export default function productQuery(fields = defaultFields) {
+export default function variantQuery(fields = defaultFields) {
   return baseQuery(fields);
 }

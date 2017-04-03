@@ -6,9 +6,22 @@ import productQuery from './product-query';
 import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
 import collectionConnectionQuery from './collection-connection-query';
+import checkoutQuery from './checkout-query';
+import customAttributeQuery from './custom-attribute-query';
+import imageConnectionQuery from './image-connection-query';
+import imageQuery from './image-query';
+import lineItemConnectionQuery from './line-item-connection-query';
+import mailingAddressQuery from './mailing-address-query';
+import optionQuery from './option-query';
+import orderQuery from './order-query';
+import selectedOptionQuery from './selected-option-query';
+import shippingRateQuery from './shipping-rate-query';
+import variantConnectionQuery from './variant-connection-query';
+import variantQuery from './variant-query';
 import ProductHelpers from './product-helpers';
 import ImageHelpers from './image-helpers';
-import checkoutQuery from './checkout-query';
+
+export {default as Config} from './config';
 
 /**
  * @class Client
@@ -29,8 +42,28 @@ export default class Client {
 
     this.Product = {};
     this.Product.Helpers = new ProductHelpers();
+
     this.Image = {};
     this.Image.Helpers = new ImageHelpers();
+
+    this.Queries = {
+      productQuery,
+      productConnectionQuery,
+      collectionQuery,
+      collectionConnectionQuery,
+      checkoutQuery,
+      customAttributeQuery,
+      imageConnectionQuery,
+      imageQuery,
+      lineItemConnectionQuery,
+      mailingAddressQuery,
+      optionQuery,
+      orderQuery,
+      selectedOptionQuery,
+      shippingRateQuery,
+      variantConnectionQuery,
+      variantQuery
+    };
   }
 
   fetchAllProducts(query = productConnectionQuery()) {
