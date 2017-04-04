@@ -20,7 +20,7 @@
     "test:copy-web-deps": "cp test/index.html node_modules/mocha/mocha.* node_modules/jquery/dist/jquery.slim.min.js .tmp/test/ && cp node_modules/expect.js/index.js .tmp/test/expect.js",
     "test:livereload-server": "node scripts/livereload.js",
     "mocha": "mocha -u tdd $(yarn run mocha:reporter-args 2>&1 >/dev/null) .tmp/test/node-tests.js",
-    "mocha:reporter-args": "test -n \"${CI}\" && >&2 echo --reporter xunit --reporter-options output=$CIRCLE_TEST_REPORTS/junit/mocha-$RANDOM.xml || true",
+    "mocha:reporter-args": "test -n \"${CI}\" && >&2 echo --reporter xunit --reporter-options output=$CIRCLE_TEST_REPORTS/junit/mocha-$(date +%s).xml || true",
     "lint": "eslint --max-warnings 0 -c .eslintrc.json $(yarn run lint:reporter-args 2>&1 >/dev/null) src/ test/",
     "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 file:types.js && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
