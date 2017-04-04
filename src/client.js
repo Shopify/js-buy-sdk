@@ -1,4 +1,4 @@
-import GraphQLJSClient from 'graphql-js-client';
+import GraphQLJSClient from './graphql-client';
 import types from '../types';
 import base64Encode from './base64encode';
 import './isomorphic-fetch';

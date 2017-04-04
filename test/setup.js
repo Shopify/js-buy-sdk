@@ -1,4 +1,4 @@
-import GraphQLJSClient from 'graphql-js-client/dev';
+import GraphQLJSClient from '../src/graphql-client';
 
 function recordTypes() {
   const types = GraphQLJSClient.trackedTypes();
@@ -13,10 +13,18 @@ function recordTypes() {
 }
 
 before(() => {
+  if (!GraphQLJSClient.startTracking) {
+    return;
+  }
+
   GraphQLJSClient.startTracking();
 });
 
 after(() => {
+  if (!GraphQLJSClient.startTracking) {
+    return;
+  }
+
   GraphQLJSClient.pauseTracking();
   recordTypes();
 });
