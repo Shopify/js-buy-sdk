@@ -4,7 +4,7 @@ export default {
       "__typename": "Product",
       "id": "gid://shopify/Product/7857989384",
       "createdAt": "2016-09-25T21:31:33Z",
-      "updatedAt": "2017-03-14T18:12:08Z",
+      "updatedAt": "2017-03-29T15:25:32Z",
       "descriptionHtml": "send me this cat",
       "descriptionPlainSummary": "send me this cat",
       "handle": "cat",
@@ -14,7 +14,7 @@ export default {
       "tags": [
         "vintage"
       ],
-      "publishedAt": "2016-09-25T21:29:00Z",
+      "publishedAt": "2017-01-12T19:44:42Z",
       "options": [
         {
           "id": "gid://shopify/ProductOption/9417004808",
@@ -88,7 +88,11 @@ export default {
               "title": "Fluffy / Medium",
               "price": "0.00",
               "weight": 18,
-              "image": null,
+              "image": {
+                "id": "gid://shopify/ProductImage/19616736840",
+                "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/maxresdefault.jpg?v=1489515047",
+                "altText": null
+              },
               "selectedOptions": [
                 {
                   "name": "Fur",
@@ -108,7 +112,11 @@ export default {
               "title": "Extra Fluffy / Small",
               "price": "0.00",
               "weight": 18,
-              "image": null,
+              "image": {
+                "id": "gid://shopify/ProductImage/18217787592",
+                "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat2.jpeg?v=1489515038",
+                "altText": null
+              },
               "selectedOptions": [
                 {
                   "name": "Fur",
@@ -128,7 +136,11 @@ export default {
               "title": "Mega Fluff / Large",
               "price": "0.00",
               "weight": 0,
-              "image": null,
+              "image": {
+                "id": "gid://shopify/ProductImage/18217790664",
+                "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat3.jpeg?v=1489515038",
+                "altText": null
+              },
               "selectedOptions": [
                 {
                   "name": "Fur",
