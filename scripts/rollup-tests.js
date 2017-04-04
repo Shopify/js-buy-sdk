@@ -28,9 +28,6 @@ function envRollupInfo({browser, withDependencyTracking}) {
       main: true,
       preferBuiltins: !browser
     }),
-    multiEntry({
-      exports: false
-    }),
     babel()
   ];
   const external = [];
@@ -67,6 +64,10 @@ function envRollupInfo({browser, withDependencyTracking}) {
     }));
   }
 
+  plugins.unshift(multiEntry({
+    exports: false
+  }));
+
   return {plugins, external, format};
 }
 
@@ -74,7 +75,7 @@ function rollupTests({dest, withDependencyTracking, cache, browser}) {
   const {plugins, external, format} = envRollupInfo({withDependencyTracking, browser});
 
   return rollup.rollup({
-    entry: 'test/**/*-test.js',
+    entry: ['test/setup.js', 'test/**/*-test.js'],
     plugins,
     external,
     cache

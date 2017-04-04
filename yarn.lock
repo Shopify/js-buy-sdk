@@ -2523,9 +2523,9 @@ graphql-js-schema-fetch@1.1.2:
     minimist "1.2.0"
     node-fetch "1.6.3"
 
-graphql-js-schema@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/graphql-js-schema/-/graphql-js-schema-0.3.0.tgz#c5adbe75f12b3b05dd56ae12073abfda1bf9146b"
+graphql-js-schema@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/graphql-js-schema/-/graphql-js-schema-0.5.0.tgz#83b19584c4512983d81269385b460d6cfa5c06f4"
   dependencies:
     babel-generator "6.16.0"
     babel-template "6.16.0"
