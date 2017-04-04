@@ -1,31 +1,35 @@
 /* eslint-env node */
 import {readFileSync} from 'fs';
 import babel from 'rollup-plugin-babel';
+import nodeResolve from 'rollup-plugin-node-resolve';
 import remap from 'rollup-plugin-remap';
 
-const plugins = [babel()];
-const targets = [];
+const plugins = [
+  remap({
+    originalPath: './types',
+    targetPath: './optimized-types'
+  }),
+  nodeResolve({
+    jsnext: true,
+    main: true
+  }),
+  babel()
+];
 
-// eslint-disable-next-line no-process-env
-if (process.env.BUILD_MODE === 'production') {
-  plugins.push(remap({
-    originalPath: './src/graphl-client',
-    targetPath: './src/graphl-client-dev'
-  }));
-
-  targets.push(
-    {dest: 'index.js', format: 'cjs'},
-    {dest: 'index.es.js', format: 'es'}
-  );
-} else {
-  targets.push(
-    {dest: 'dev.js', format: 'cjs'},
-    {dest: 'dev.es.js', format: 'es'}
-  );
-}
+const targets = [
+  {format: 'cjs', suffix: ''},
+  {format: 'amd', suffix: '.amd'},
+  {format: 'es', suffix: '.es'},
+  {format: 'umd', suffix: '.umd'}
+].map((config) => {
+  return {
+    dest: `index${config.suffix}.js`,
+    format: config.format
+  };
+});
 
 const banner = `/*
-${readFileSync('./LICENSE.md')}
+${readFileSync('./LICENSE.txt')}
 */`;
 
 export default {
