@@ -12,10 +12,8 @@ types.js
 optimized-types.js
 
 # Build artifacts
-index.js
-index.es.js
-dev.js
-dev.es.js
+index.*
+dev.*
 
 # Decrypted secrets
 secrets.json
