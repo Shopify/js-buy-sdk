@@ -9,6 +9,7 @@ node_modules
 # Intermediate files
 .tmp
 types.js
+optimized-types.js
 
 # Build artifacts
 index.js
