@@ -28,7 +28,7 @@
     "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/graphql' --header 'Authorization: Basic MzUxYzEyMjAxN2QwZjJhOTU3ZDMyYWU3MjhhZDc0OWM=' | jq '.' > schema.json",
     "schema:transform": "concurrently 'yarn run schema:transform-to-types' 'yarn run schema:transform-to-optimized-types'",
     "schema:transform-to-types": "graphql-js-schema --schema-file schema.json --outdir . --schema-bundle-name 'Types' --bundle-only",
-    "schema:transform-to-optimized-types": "graphql-js-schema $(node scripts/profiled-types-to-whitelist-args.js) --schema-file schema.json --outdir . --schema-bundle-name 'OptimizedTypes' --bundle-only"
+    "schema:transform-to-optimized-types": "graphql-js-schema --whitelist-type={$(node scripts/profiled-types-to-whitelist-args.js)} --schema-file schema.json --outdir . --schema-bundle-name 'OptimizedTypes' --bundle-only"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
