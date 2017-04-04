@@ -13,7 +13,6 @@ optimized-types.js
 
 # Build artifacts
 index.*
-dev.*
 
 # Decrypted secrets
 secrets.json
