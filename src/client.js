@@ -1,7 +1,6 @@
 import GraphQLJSClient from './graphql-client';
 import types from '../types';
 import base64Encode from './base64encode';
-import './isomorphic-fetch';
 import productQuery from './product-query';
 import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
