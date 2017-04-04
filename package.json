@@ -24,14 +24,15 @@
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 file:types.js && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
     "schema:refresh": "rimraf types.js && yarn run schema:fetch && yarn run schema:transform-to-types",
     "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/graphql' --header 'Authorization: Basic MzUxYzEyMjAxN2QwZjJhOTU3ZDMyYWU3MjhhZDc0OWM=' | jq '.' > schema.json",
-    "schema:transform-to-types": "graphql-js-schema --schema-file schema.json --outdir . --schema-bundle-name 'Types' --bundle-only"
+    "schema:transform-to-types": "graphql-js-schema --schema-file schema.json --outdir . --schema-bundle-name 'Types' --bundle-only",
+    "schema:transform-to-optimized-types": "graphql-js-schema $(node scripts/profiled-types-to-whitelist-args.js) --schema-file schema.json --outdir . --schema-bundle-name 'OptimizedTypes' --bundle-only"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "graphql-js-client": "0.4.2",
-    "graphql-js-schema": "0.3.0",
+    "graphql-js-schema": "0.5.0",
     "graphql-js-schema-fetch": "1.1.2",
     "rollup-plugin-remap": "0.0.3",
     "Base64": "0.3.0",
