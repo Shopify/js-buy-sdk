@@ -10,6 +10,7 @@
     "CollectionEdge",
     "CurrencyCode",
     "DateTime",
+    "Domain",
     "Float",
     "ID",
     "Image",
@@ -39,6 +40,7 @@
     "SelectedOption",
     "ShippingRate",
     "Shop",
+    "ShopPolicy",
     "String",
     "URL",
     "UserError"
