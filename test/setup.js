@@ -12,7 +12,7 @@ function recordTypes() {
   }
 }
 
-before(() => {
+setup(() => {
   if (!GraphQLJSClient.startTracking) {
     return;
   }
@@ -20,7 +20,7 @@ before(() => {
   GraphQLJSClient.startTracking();
 });
 
-after(() => {
+teardown(() => {
   if (!GraphQLJSClient.startTracking) {
     return;
   }

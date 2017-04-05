@@ -25,6 +25,7 @@ import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 import checkoutAddLineItemsFixture from '../fixtures/checkout-add-line-items-fixture';
+import shopFixture from '../fixtures/shop-fixture';
 
 suite('client-test', () => {
   teardown(() => {
@@ -401,6 +402,22 @@ suite('client-test', () => {
       assert.ok(false, 'Promise should not resolve');
     }).catch((error) => {
       assert.equal(error.message, '[{"message":"Variant is invalid","field":["lineItems","0","variantId"]}]');
+    });
+  });
+
+  test('it can fetch fields on shop', () => {
+    const config = new Config({
+      domain: 'shop.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://shop.myshopify.com/api/graphql', shopFixture);
+
+    return client.fetchShopInfo().then((shop) => {
+      assert.equal(shop.name, shopFixture.data.shop.name);
+      assert.ok(fetchMock.done());
     });
   });
 });
