@@ -27,6 +27,9 @@ secrets.ejson
 *.txt
 src
 test
+script
+fixtures
+examples
 rollup.config.js
 cirle.yml
 schema.json
