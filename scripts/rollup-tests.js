@@ -10,7 +10,7 @@ const json = require('rollup-plugin-json');
 const remap = require('rollup-plugin-remap');
 const eslintTestGenerator = require('./rollup-plugin-eslint-test-generator');
 
-function envRollupInfo({browser, withDependencyTracking}) {
+function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
   const format = (browser) ? 'iife' : 'cjs';
   const plugins = [
     json(),
@@ -20,26 +20,30 @@ function envRollupInfo({browser, withDependencyTracking}) {
         'test'
       ]
     }),
-    commonjs({
-      include: 'node_modules/**'
-    }),
     nodeResolve({
       jsnext: true,
       main: true,
       preferBuiltins: !browser
     }),
-    multiEntry({
-      exports: false
+    commonjs({
+      include: 'node_modules/**'
     }),
     babel()
   ];
   const external = [];
 
   // eslint-disable-next-line no-process-env
-  if (!withDependencyTracking) {
+  if (withDependencyTracking) {
     plugins.unshift(remap({
-      originalPath: './src/graphl-client',
-      targetPath: './src/graphl-client-dev'
+      originalPath: './src/graphql-client',
+      targetPath: './src/graphql-client-dev'
+    }));
+  }
+
+  if (withOptimizedTypes) {
+    plugins.unshift(remap({
+      originalPath: './types',
+      targetPath: './optimized-types'
     }));
   }
 
@@ -67,14 +71,19 @@ function envRollupInfo({browser, withDependencyTracking}) {
     }));
   }
 
+
+  plugins.unshift(multiEntry({
+    exports: false
+  }));
+
   return {plugins, external, format};
 }
 
-function rollupTests({dest, withDependencyTracking, cache, browser}) {
-  const {plugins, external, format} = envRollupInfo({withDependencyTracking, browser});
+function rollupTests({dest, withDependencyTracking, withOptimizedTypes, cache, browser}) {
+  const {plugins, external, format} = envRollupInfo({withDependencyTracking, withOptimizedTypes, browser});
 
   return rollup.rollup({
-    entry: 'test/**/*-test.js',
+    entry: ['test/setup.js', 'test/**/*-test.js'],
     plugins,
     external,
     cache

@@ -1,5 +1,5 @@
 import assert from 'assert';
-import GraphQLJSClient from 'graphql-js-client';
+import GraphQLJSClient from '../src/graphql-client';
 import Config from '../src/config';
 import Client from '../src/client';
 import types from '../types';
