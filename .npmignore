@@ -13,13 +13,18 @@ node_modules
 
 # Intermediate files
 .tmp
+profiled-types.json
 types.js
+optimized-types.js
 
 # Decrypted secrets
 secrets.json
+secrets.ejson
 .nvmrc
 
 # Sources
+*.md
+*.txt
 src
 test
 rollup.config.js
