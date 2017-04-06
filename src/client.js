@@ -25,6 +25,12 @@ import ImageHelpers from './image-helpers';
 
 export {default as Config} from './config';
 
+const shopPolicies = [
+  ['privacyPolicy', shopPolicyQuery()],
+  ['termsOfService', shopPolicyQuery()],
+  ['refundPolicy', shopPolicyQuery()]
+];
+
 /**
  * @class Client
  */
@@ -72,6 +78,16 @@ export default class Client {
   }
 
   fetchShopInfo(query = shopQuery()) {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'shop');
+    });
+
+    return this.graphQLClient.send(rootQuery).then((result) => {
+      return result.model.shop;
+    });
+  }
+
+  fetchShopPolicies(query = shopQuery(shopPolicies)) {
     const rootQuery = this.graphQLClient.query((root) => {
       query(root, 'shop');
     });
