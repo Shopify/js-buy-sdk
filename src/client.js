@@ -17,10 +17,19 @@ import selectedOptionQuery from './selected-option-query';
 import shippingRateQuery from './shipping-rate-query';
 import variantConnectionQuery from './variant-connection-query';
 import variantQuery from './variant-query';
+import shopQuery from './shop-query';
+import domainQuery from './domain-query';
+import shopPolicyQuery from './shop-policy-query';
 import ProductHelpers from './product-helpers';
 import ImageHelpers from './image-helpers';
 
 export {default as Config} from './config';
+
+const shopPolicies = [
+  ['privacyPolicy', shopPolicyQuery()],
+  ['termsOfService', shopPolicyQuery()],
+  ['refundPolicy', shopPolicyQuery()]
+];
 
 /**
  * @class Client
@@ -61,8 +70,31 @@ export default class Client {
       selectedOptionQuery,
       shippingRateQuery,
       variantConnectionQuery,
-      variantQuery
+      variantQuery,
+      shopQuery,
+      domainQuery,
+      shopPolicyQuery
     };
+  }
+
+  fetchShopInfo(query = shopQuery()) {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'shop');
+    });
+
+    return this.graphQLClient.send(rootQuery).then((result) => {
+      return result.model.shop;
+    });
+  }
+
+  fetchShopPolicies(query = shopQuery(shopPolicies)) {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'shop');
+    });
+
+    return this.graphQLClient.send(rootQuery).then((result) => {
+      return result.model.shop;
+    });
   }
 
   fetchAllProducts(query = productConnectionQuery()) {

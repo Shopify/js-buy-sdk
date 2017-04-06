@@ -13,6 +13,9 @@ import customAttributeQuery from '../src/custom-attribute-query';
 import lineItemConnectionQuery from '../src/line-item-connection-query';
 import shippingRateQuery from '../src/shipping-rate-query';
 import mailingAddressQuery from '../src/mailing-address-query';
+import shopQuery from '../src/shop-query';
+import shopPolicyQuery from '../src/shop-policy-query';
+import domainQuery from '../src/domain-query';
 
 suite('query-test', () => {
   const querySplitter = /[\s,]+/;
@@ -530,6 +533,52 @@ suite('query-test', () => {
               }
             }
           }
+        }
+      }
+    }`;
+
+    assert.deepEqual(tokens(query.toString()), tokens(queryString));
+  });
+
+  test('it creates shop queries with default fields', () => {
+    const defaultQuery = shopQuery();
+    const query = client.graphQLClient.query((root) => {
+      defaultQuery(root, 'shop');
+    });
+
+    const queryString = `query {
+      shop {
+        currencyCode
+        description
+        moneyFormat
+        name
+        primaryDomain {
+          host
+          sslEnabled
+          url
+        }
+      }
+    }`;
+
+    assert.deepEqual(tokens(query.toString()), tokens(queryString));
+  });
+
+  test('it creates shop queries with specified fields', () => {
+    const customQuery = shopQuery(['name', 'description', ['primaryDomain', domainQuery(['url'])], ['refundPolicy', shopPolicyQuery(['title'])]]);
+    const query = client.graphQLClient.query((root) => {
+      customQuery(root, 'shop');
+    });
+
+    const queryString = `query {
+      shop {
+        name
+        description
+        primaryDomain {
+          url
+        }
+        refundPolicy {
+          id
+          title
         }
       }
     }`;
