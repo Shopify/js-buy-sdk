@@ -12,19 +12,21 @@ function recordTypes() {
   }
 }
 
-setup(() => {
-  if (!GraphQLJSClient.startTracking) {
-    return;
-  }
+if (typeof before === 'function' && typeof after === 'function') {
+  before(() => {
+    if (!GraphQLJSClient.startTracking) {
+      return;
+    }
 
-  GraphQLJSClient.startTracking();
-});
+    GraphQLJSClient.startTracking();
+  });
 
-teardown(() => {
-  if (!GraphQLJSClient.startTracking) {
-    return;
-  }
+  after(() => {
+    if (!GraphQLJSClient.startTracking) {
+      return;
+    }
 
-  GraphQLJSClient.pauseTracking();
-  recordTypes();
-});
+    GraphQLJSClient.pauseTracking();
+    recordTypes();
+  });
+}
