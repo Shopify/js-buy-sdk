@@ -557,24 +557,6 @@ suite('query-test', () => {
           sslEnabled
           url
         }
-        privacyPolicy {
-          id
-          title
-          url
-          body
-        }
-        termsOfService {
-          id
-          title
-          url
-          body
-        }
-        refundPolicy {
-          id
-          title
-          url
-          body
-        }
       }
     }`;
 

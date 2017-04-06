@@ -25,7 +25,8 @@ import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 import checkoutAddLineItemsFixture from '../fixtures/checkout-add-line-items-fixture';
-import shopFixture from '../fixtures/shop-fixture';
+import shopInfoFixture from '../fixtures/shop-info-fixture';
+import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
 
 suite('client-test', () => {
   teardown(() => {
@@ -405,18 +406,37 @@ suite('client-test', () => {
     });
   });
 
-  test('it can fetch fields on shop', () => {
+  test('it can fetch shop information', () => {
     const config = new Config({
-      domain: 'shop.myshopify.com',
+      domain: 'shop-info.myshopify.com',
       storefrontAccessToken: 'abc123'
     });
 
     const client = new Client(config);
 
-    fetchMock.postOnce('https://shop.myshopify.com/api/graphql', shopFixture);
+    fetchMock.postOnce('https://shop-info.myshopify.com/api/graphql', shopInfoFixture);
 
     return client.fetchShopInfo().then((shop) => {
-      assert.equal(shop.name, shopFixture.data.shop.name);
+      assert.equal(shop.name, shopInfoFixture.data.shop.name);
+      assert.equal(shop.description, shopInfoFixture.data.shop.description);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch shop policies', () => {
+    const config = new Config({
+      domain: 'shop-policies.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://shop-policies.myshopify.com/api/graphql', shopPoliciesFixture);
+
+    return client.fetchShopPolicies().then((shop) => {
+      assert.equal(shop.privacyPolicy.id, shopPoliciesFixture.data.shop.privacyPolicy.id);
+      assert.equal(shop.termsOfService.id, shopPoliciesFixture.data.shop.termsOfService.id);
+      assert.equal(shop.refundPolicy.id, shopPoliciesFixture.data.shop.refundPolicy.id);
       assert.ok(fetchMock.done());
     });
   });
