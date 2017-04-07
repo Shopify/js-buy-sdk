@@ -381,7 +381,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedProductsFixture);
 
-    return client.fetchQueryProducts({sortBy: 'updated-descending'}, productConnectionQuery(['updatedAt'])).then((products) => {
+    return client.fetchQueryProducts({sortBy: 'updatedAt', sortDirection: 'desc'}, productConnectionQuery(['updatedAt'])).then((products) => {
       assert.equal(products.length, 3);
       assert.equal(products[0].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[0].node.updatedAt);
       assert.equal(products[1].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[1].node.updatedAt);
@@ -399,7 +399,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedCollectionsFixture);
 
-    return client.fetchQueryCollections({sortBy: 'title-descending'}, collectionConnectionQuery(['title'])).then((collections) => {
+    return client.fetchQueryCollections({sortBy: 'title'}, collectionConnectionQuery(['title'])).then((collections) => {
       assert.equal(collections.length, 3);
       assert.equal(collections[0].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[1].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[1].node.title);

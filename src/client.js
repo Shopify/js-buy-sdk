@@ -191,30 +191,21 @@ export default class Client {
       let sortKey;
 
       switch (queryObject.sortBy) {
-        case 'title-ascending':
+        case 'title':
           sortKey = this.graphQLClient.enum('TITLE');
           break;
-        case 'title-descending':
-          sortKey = this.graphQLClient.enum('TITLE');
-          options.reverse = true;
-          break;
-        case 'updated-ascending':
+        case 'updatedAt':
           sortKey = this.graphQLClient.enum('UPDATED_AT');
           break;
-        case 'updated-descending':
-          sortKey = this.graphQLClient.enum('UPDATED_AT');
-          options.reverse = true;
-          break;
-        case 'created-ascending':
+        case 'createdAt':
           sortKey = this.graphQLClient.enum('CREATED_AT');
-          break;
-        case 'created-descending':
-          sortKey = this.graphQLClient.enum('CREATED_AT');
-          options.reverse = true;
           break;
       }
 
       options.sortKey = sortKey;
+    }
+    if (queryObject.sortDirection === 'desc') {
+      options.reverse = true;
     }
 
     options.query = queryArgStrings.join(' ');
@@ -262,23 +253,18 @@ export default class Client {
       let sortKey;
 
       switch (queryObject.sortBy) {
-        case 'title-ascending':
+        case 'title':
           sortKey = this.graphQLClient.enum('TITLE');
           break;
-        case 'title-descending':
-          sortKey = this.graphQLClient.enum('TITLE');
-          options.reverse = true;
-          break;
-        case 'updated-ascending':
+        case 'updatedAt':
           sortKey = this.graphQLClient.enum('UPDATED_AT');
-          break;
-        case 'updated-descending':
-          sortKey = this.graphQLClient.enum('UPDATED_AT');
-          options.reverse = true;
           break;
       }
 
       options.sortKey = sortKey;
+    }
+    if (queryObject.sortDirection === 'desc') {
+      options.reverse = true;
     }
 
     options.query = queryArgStrings.join(' ');
