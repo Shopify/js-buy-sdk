@@ -8,10 +8,10 @@ export default {
         },
         "edges": [
           {
-            "cursor": "eyJsYXN0X2lkIjo0MTMwOTQ0NzIsImxhc3RfdmFsdWUiOiJUZXN0In0=",
+            "cursor": "eyJsYXN0X2lkIjozNjkzMTI1ODQsImxhc3RfdmFsDs1iOiJDYXQgQ29sbGVjdGiJ9",
             "node": {
-              "id": "gid://shopify/Collection/413094472",
-              "title": "Test Collection"
+              "id": "gid://shopify/Collection/591032593",
+              "title": "ABC Collection"
             }
           },
           {
@@ -22,10 +22,10 @@ export default {
             }
           },
           {
-            "cursor": "eyJsYXN0X2lkIjozNjkzMTI1ODQsImxhc3RfdmFsDs1iOiJDYXQgQ29sbGVjdGiJ9",
+            "cursor": "eyJsYXN0X2lkIjo0MTMwOTQ0NzIsImxhc3RfdmFsdWUiOiJUZXN0In0=",
             "node": {
-              "id": "gid://shopify/Collection/591032593",
-              "title": "ABC Collection"
+              "id": "gid://shopify/Collection/413094472",
+              "title": "Test Collection"
             }
           }
         ]
