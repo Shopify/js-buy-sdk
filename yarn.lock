@@ -2,10 +2,6 @@
 # yarn lockfile v1
 
 
-Base64@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/Base64/-/Base64-0.3.0.tgz#6da261a4e80d4fa0f5c684254e5bccd16bbdce9f"
-
 abbrev@1:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.0.tgz#d0554c2256636e2f56e7c2e5ad183f859428d81f"
