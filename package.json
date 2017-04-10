@@ -34,7 +34,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "graphql-js-client": "0.4.2",
+    "graphql-js-client": "0.5.0",
     "graphql-js-schema": "0.5.0",
     "graphql-js-schema-fetch": "1.1.2",
     "rollup-plugin-remap": "0.0.3",
