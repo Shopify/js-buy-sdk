@@ -21,7 +21,7 @@ const defaultFields = [
   ['variants', variantConnectionQuery()]
 ];
 
-export default function productQuery(fields = defaultFields) {
+export default function productNodeQuery(fields = defaultFields) {
   return function(parentSelection, fieldName, id) {
     parentSelection.add(fieldName, {args: {id: createGid('Product', id)}}, (node) => {
       node.addInlineFragmentOn('Product', (product) => {

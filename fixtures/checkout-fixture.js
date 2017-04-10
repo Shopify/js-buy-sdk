@@ -1,80 +1,34 @@
 export default {
   "data": {
-    "checkoutCreate": {
-      "userErrors": [],
-      "checkout": {
-        "id": "gid://shopify/Checkout/c4abf4bf036239ab5e3d0bf93c642c96",
-        "ready": true,
-        "lineItems": {
-          "pageInfo": {
-            "hasNextPage": false,
-            "hasPreviousPage": false
-          },
-          "edges": [
-            {
-              "cursor": "eyJsYXN0X2lkIjoiZDUyZWU5ZTEwYmQxMWE0NDlkNmQzMWNkMzBhMGFjNzMifQ==",
-              "node": {
-                "title": "Intelligent Granite Table",
-                "variant": {
-                  "id": "gid://shopify/ProductVariant/1",
-                  "title": "Awesome Copper Bench",
-                  "price": "64.99",
-                  "weight": 4.5,
-                  "image": null,
-                  "selectedOptions": [
-                    {
-                      "name": "Color or something",
-                      "value": "Awesome Copper Bench"
-                    }
-                  ]
-                },
-                "quantity": 5,
-                "customAttributes": []
-              }
-            }
-          ]
+    "node": {
+      "__typename": "Checkout",
+      "id": "gid://shopify/Checkout/df400853e4dcf6732995195d50f999b1?key=da88309409dfc67d5957752a4c313dba",
+      "ready": true,
+      "lineItems": {
+        "pageInfo": {
+          "hasNextPage": false,
+          "hasPreviousPage": false
         },
-        "shippingAddress": {
-          "address1": "123 Cat Road",
-          "address2": null,
-          "city": "Cat Land",
-          "company": "Catmart",
-          "country": "Canada",
-          "firstName": "Meow",
-          "formatted": [
-            "Catmart",
-            "123 Cat Road",
-            "Cat Land ON M3O 0W1",
-            "Canada"
-          ],
-          "lastName": "Meowington",
-          "latitude": null,
-          "longitude": null,
-          "phone": "4161234566",
-          "province": "Ontario",
-          "zip": "M3O 0W1",
-          "name": "Meow Meowington",
-          "countryCode": "CA",
-          "provinceCode": "ON",
-          "id": "gid://shopify/MailingAddress/12?model_name=Address"
-        },
-        "shippingLine": null,
-        "requiresShipping": true,
-        "customAttributes": [],
-        "note": null,
-        "paymentDue": "367.19",
-        "webUrl": "https://checkout.myshopify.io/1/checkouts/c4abf4bf036239ab5e3d0bf93c642c96",
-        "orderStatusUrl": null,
-        "taxExempt": false,
-        "taxesIncluded": false,
-        "currencyCode": "CAD",
-        "totalTax": "42.24",
-        "subtotalPrice": "324.95",
-        "totalPrice": "367.19",
-        "completedAt": null,
-        "createdAt": "2017-03-28T16:58:31Z",
-        "updatedAt": "2017-03-28T16:58:31Z"
-      }
+        "edges": []
+      },
+      "shippingAddress": null,
+      "shippingLine": null,
+      "requiresShipping": false,
+      "customAttributes": [],
+      "note": null,
+      "paymentDue": "0.00",
+      "webUrl": "https://checkout.shopify.com/15107238/checkouts/df400853e4dcf6732995195d50f999b1?key=da88309409dfc67d5957752a4c313dba",
+      "order": null,
+      "orderStatusUrl": null,
+      "taxExempt": false,
+      "taxesIncluded": false,
+      "currencyCode": "CAD",
+      "totalTax": "0.00",
+      "subtotalPrice": "0.00",
+      "totalPrice": "0.00",
+      "completedAt": null,
+      "createdAt": "2017-04-10T17:50:11Z",
+      "updatedAt": "2017-04-10T17:50:11Z"
     }
   }
 };
