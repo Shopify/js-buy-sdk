@@ -1,13 +1,13 @@
 import assert from 'assert';
 import GraphQLJSClient, {decode} from 'graphql-js-client';
-import productQuery from '../src/product-query';
+import productNodeQuery from '../src/product-node-query';
 import ProductHelpers from '../src/product-helpers';
 import singleProductFixture from '../fixtures/product-fixture';
 import types from '../types';
 
 suite('product-helpers-test', () => {
   const productHelpers = new ProductHelpers();
-  const query = productQuery();
+  const query = productNodeQuery();
   const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});
   const rootQuery = graphQLClient.query((root) => {
     query(root, 'node', '7857989384');

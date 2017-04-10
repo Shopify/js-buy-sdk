@@ -18,15 +18,16 @@ import queryCollectionFixture from '../fixtures/query-collection-fixture';
 import shopWithSortedProductsFixture from '../fixtures/shop-with-sorted-products-fixture';
 import shopWithSortedCollectionsFixture from '../fixtures/shop-with-sorted-collections-fixture';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
-import productQuery from '../src/product-query';
+import productNodeQuery from '../src/product-node-query';
 import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
 import optionQuery from '../src/option-query';
 import variantConnectionQuery from '../src/variant-connection-query';
 import productConnectionQuery from '../src/product-connection-query';
 import collectionConnectionQuery from '../src/collection-connection-query';
-import collectionQuery from '../src/collection-query';
+import collectionNodeQuery from '../src/collection-node-query';
 import checkoutFixture from '../fixtures/checkout-fixture';
+import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 import checkoutAddLineItemsFixture from '../fixtures/checkout-add-line-items-fixture';
@@ -176,7 +177,7 @@ suite('client-test', () => {
 
     const queryFields = ['id', 'handle', 'title', 'updatedAt', ['images', imageConnectionQuery(['id', 'src'])], ['options', optionQuery(['name'])], ['variants', variantConnectionQuery(['price', 'weight'])]];
 
-    return client.fetchProduct('7857989384', productQuery(queryFields)).then((product) => {
+    return client.fetchProduct('7857989384', productNodeQuery(queryFields)).then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, dynamicProductFixture.data.node.id);
       assert.equal(typeof product.createdAt, 'undefined', 'unspecified fields are not queried');
@@ -194,7 +195,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
 
-    return client.fetchCollection('369312584', collectionQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
+    return client.fetchCollection('369312584', collectionNodeQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.updatedAt, dynamicCollectionFixture.data.node.updatedAt);
       assert.equal(typeof collection.id, 'undefined', 'unspecified fields are not queried');
@@ -262,7 +263,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {id: 'gid://shopify/Product/7857989384'}}});
 
-    return client.fetchProduct('7857989384', productQuery(['id'])).then((product) => {
+    return client.fetchProduct('7857989384', productNodeQuery(['id'])).then((product) => {
       assert.equal(typeof product.images, 'undefined', 'images are not queried');
       assert.ok(fetchMock.done());
     });
@@ -278,7 +279,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {images: {edges: [], pageInfo: {hasNextPage: false, hasPreviousPage: false}}}}});
 
-    return client.fetchProduct('7857989384', productQuery([['images', imageConnectionQuery()]])).then((product) => {
+    return client.fetchProduct('7857989384', productNodeQuery([['images', imageConnectionQuery()]])).then((product) => {
       assert.equal(product.images.length, 0);
       assert.ok(fetchMock.done());
     });
@@ -471,10 +472,10 @@ suite('client-test', () => {
       }
     };
 
-    fetchMock.postOnce('https://checkout.myshopify.com/api/graphql', checkoutFixture);
+    fetchMock.postOnce('https://checkout.myshopify.com/api/graphql', checkoutCreateFixture);
 
     return client.createCheckout(input).then((checkout) => {
-      assert.equal(checkout.id, checkoutFixture.data.checkoutCreate.checkout.id);
+      assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
       assert.equal(checkout.lineItems[0].title, 'Intelligent Granite Table');
       assert.equal(checkout.lineItems[0].quantity, 5);
       assert.equal(checkout.shippingAddress.address1, '123 Cat Road');
@@ -610,6 +611,22 @@ suite('client-test', () => {
       assert.equal(shop.privacyPolicy.id, shopPoliciesFixture.data.shop.privacyPolicy.id);
       assert.equal(shop.termsOfService.id, shopPoliciesFixture.data.shop.termsOfService.id);
       assert.equal(shop.refundPolicy.id, shopPoliciesFixture.data.shop.refundPolicy.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch checkouts by id', () => {
+    const config = new Config({
+      domain: 'checkout.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://checkout.myshopify.com/api/graphql', checkoutFixture);
+
+    return client.fetchCheckout('7857989384').then((checkout) => {
+      assert.equal(checkout.id, checkoutFixture.data.node.id);
       assert.ok(fetchMock.done());
     });
   });

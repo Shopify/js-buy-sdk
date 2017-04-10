@@ -7,7 +7,7 @@ import variantConnectionQuery from '../src/variant-connection-query';
 import optionQuery from '../src/option-query';
 import imageQuery from '../src/image-query';
 import imageConnectionQuery from '../src/image-connection-query';
-import collectionQuery from '../src/collection-query';
+import collectionNodeQuery from '../src/collection-node-query';
 import checkoutQuery from '../src/checkout-query';
 import customAttributeQuery from '../src/custom-attribute-query';
 import lineItemConnectionQuery from '../src/line-item-connection-query';
@@ -243,7 +243,7 @@ suite('query-test', () => {
   });
 
   test('it can create a nested product connection query', () => {
-    const customQuery = collectionQuery([['products', productConnectionQuery()]]);
+    const customQuery = collectionNodeQuery([['products', productConnectionQuery()]]);
     const query = client.graphQLClient.query((root) => {
       customQuery(root, 'node', '1');
     });
