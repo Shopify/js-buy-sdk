@@ -4,6 +4,7 @@ import mailingAddressQuery from './mailing-address-query';
 import baseQuery from './base-query';
 import customAttributeQuery from './custom-attribute-query';
 import orderQuery from './order-query';
+import nodeQuery from './node-query';
 
 const defaultFields = [
   'id',
@@ -31,4 +32,8 @@ const defaultFields = [
 
 export default function checkoutQuery(fields = defaultFields) {
   return baseQuery(fields);
+}
+
+export function checkoutNodeQuery(fields = defaultFields) {
+  return nodeQuery('Checkout', fields);
 }

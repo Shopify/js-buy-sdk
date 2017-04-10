@@ -1,15 +1,8 @@
-import createGid from './create-gid';
 import imageQuery from './image-query';
-import addFields from './add-fields';
+import nodeQuery from './node-query';
 
 const defaultFields = ['id', 'handle', 'updatedAt', 'title', ['image', imageQuery()]];
 
 export default function collectionNodeQuery(fields = defaultFields) {
-  return function(parentSelection, fieldName, id) {
-    parentSelection.add('node', {args: {id: createGid('Collection', id)}}, (node) => {
-      node.addInlineFragmentOn('Collection', (collection) => {
-        addFields(collection, fields);
-      });
-    });
-  };
+  return nodeQuery('Collection', fields);
 }

@@ -4,7 +4,7 @@ import productNodeQuery from './product-node-query';
 import productConnectionQuery from './product-connection-query';
 import collectionNodeQuery from './collection-node-query';
 import collectionConnectionQuery from './collection-connection-query';
-import checkoutQuery from './checkout-query';
+import checkoutQuery, {checkoutNodeQuery} from './checkout-query';
 import customAttributeQuery from './custom-attribute-query';
 import imageConnectionQuery from './image-connection-query';
 import imageQuery from './image-query';
@@ -19,7 +19,6 @@ import variantQuery from './variant-query';
 import shopQuery from './shop-query';
 import domainQuery from './domain-query';
 import shopPolicyQuery from './shop-policy-query';
-import checkoutNodeQuery from './checkout-node-query';
 import ProductHelpers from './product-helpers';
 import ImageHelpers from './image-helpers';
 
