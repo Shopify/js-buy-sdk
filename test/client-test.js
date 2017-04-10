@@ -3,7 +3,6 @@ import GraphQLJSClient from '../src/graphql-client';
 import Config from '../src/config';
 import Client from '../src/client';
 import types from '../types';
-import base64Encode from '../src/base64encode';
 import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
@@ -57,7 +56,7 @@ suite('client-test', () => {
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
     assert.deepEqual(passedFetcherOptions, {
       headers: {
-        Authorization: `Basic ${base64Encode(config.storefrontAccessToken)}`
+        'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
       }
     });
   });

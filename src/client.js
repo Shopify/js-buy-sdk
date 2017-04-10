@@ -1,6 +1,5 @@
 import GraphQLJSClient from './graphql-client';
 import types from '../types';
-import base64Encode from './base64encode';
 import productQuery from './product-query';
 import productConnectionQuery from './product-connection-query';
 import collectionQuery from './collection-query';
@@ -37,13 +36,12 @@ const shopPolicies = [
 export default class Client {
   constructor(config, GraphQLClientClass = GraphQLJSClient) {
     const apiUrl = `https://${config.domain}/api/graphql`;
-    const authHeader = `Basic ${base64Encode(config.storefrontAccessToken)}`;
 
     this.graphQLClient = new GraphQLClientClass(types, {
       url: apiUrl,
       fetcherOptions: {
         headers: {
-          Authorization: authHeader
+          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
         }
       }
     });
