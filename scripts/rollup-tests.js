@@ -21,8 +21,8 @@ function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
       ]
     }),
     nodeResolve({
-      jsnext: true,
       main: true,
+      module: true,
       preferBuiltins: !browser
     }),
     commonjs({
