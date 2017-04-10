@@ -382,6 +382,26 @@ suite('client-test', () => {
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedProductsFixture);
 
     return client.fetchQueryProducts({sortBy: 'updatedAt', sortDirection: 'desc'}, productConnectionQuery(['updatedAt'])).then((products) => {
+      const [_arg, {body}] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
+      const queryString = `query {
+        shop {
+          products (first: 20, sortKey: UPDATED_AT, reverse: true, query: "") {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                id
+                updatedAt
+              }
+            }
+          }
+        }
+      }`;
+
+      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
       assert.equal(products.length, 3);
       assert.equal(products[0].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[0].node.updatedAt);
       assert.equal(products[1].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[1].node.updatedAt);
@@ -400,6 +420,26 @@ suite('client-test', () => {
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedCollectionsFixture);
 
     return client.fetchQueryCollections({sortBy: 'title'}, collectionConnectionQuery(['title'])).then((collections) => {
+      const [_arg, {body}] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
+      const queryString = `query {
+        shop {
+          collections (first: 20, sortKey: TITLE, query: "") {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                id
+                title
+              }
+            }
+          }
+        }
+      }`;
+
+      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
       assert.equal(collections.length, 3);
       assert.equal(collections[0].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[1].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[1].node.title);
