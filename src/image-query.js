@@ -1,5 +1,7 @@
 import baseQuery from './base-query';
 
-export default function imageQuery(fields = ['id', 'src', 'altText']) {
+export const defaultFields = ['id', 'src', 'altText'];
+
+export default function imageQuery(fields = defaultFields) {
   return baseQuery(fields);
 }

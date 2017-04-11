@@ -1,10 +1,10 @@
 import GraphQLJSClient from './graphql-client';
 import types from '../types';
-import productQuery from './product-query';
+import productNodeQuery from './product-node-query';
 import productConnectionQuery from './product-connection-query';
-import collectionQuery from './collection-query';
+import collectionNodeQuery from './collection-node-query';
 import collectionConnectionQuery from './collection-connection-query';
-import checkoutQuery from './checkout-query';
+import checkoutQuery, {checkoutNodeQuery} from './checkout-query';
 import customAttributeQuery from './custom-attribute-query';
 import imageConnectionQuery from './image-connection-query';
 import imageQuery from './image-query';
@@ -53,9 +53,9 @@ export default class Client {
     this.Image.Helpers = new ImageHelpers();
 
     this.Queries = {
-      productQuery,
+      productNodeQuery,
       productConnectionQuery,
-      collectionQuery,
+      collectionNodeQuery,
       collectionConnectionQuery,
       checkoutQuery,
       customAttributeQuery,
@@ -71,7 +71,8 @@ export default class Client {
       variantQuery,
       shopQuery,
       domainQuery,
-      shopPolicyQuery
+      shopPolicyQuery,
+      checkoutNodeQuery
     };
   }
 
@@ -122,7 +123,7 @@ export default class Client {
     });
   }
 
-  fetchProduct(id, query = productQuery()) {
+  fetchProduct(id, query = productNodeQuery()) {
     const rootQuery = this.graphQLClient.query((root) => {
       query(root, 'node', id);
     });
@@ -156,7 +157,17 @@ export default class Client {
     });
   }
 
-  fetchCollection(id, query = collectionQuery()) {
+  fetchCollection(id, query = collectionNodeQuery()) {
+    const rootQuery = this.graphQLClient.query((root) => {
+      query(root, 'node', id);
+    });
+
+    return this.graphQLClient.send(rootQuery).then((response) => {
+      return response.model.node;
+    });
+  }
+
+  fetchCheckout(id, query = checkoutNodeQuery()) {
     const rootQuery = this.graphQLClient.query((root) => {
       query(root, 'node', id);
     });
