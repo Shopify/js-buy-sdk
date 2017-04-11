@@ -53,7 +53,7 @@ suite('query-test', () => {
               createdAt,
               updatedAt,
               descriptionHtml,
-              descriptionPlainSummary,
+              description,
               handle,
               productType,
               title,
@@ -263,7 +263,7 @@ suite('query-test', () => {
                 createdAt,
                 updatedAt,
                 descriptionHtml,
-                descriptionPlainSummary,
+                description,
                 handle,
                 productType,
                 title,
@@ -337,7 +337,7 @@ suite('query-test', () => {
     });
 
     const queryString = `mutation {
-      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1" quantity: 5}]}) {
+      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1", quantity: 5}]}) {
         checkout {
           id
           ready
@@ -349,6 +349,7 @@ suite('query-test', () => {
             edges {
               cursor
               node {
+                id
                 title
                 variant {
                   id
@@ -526,6 +527,7 @@ suite('query-test', () => {
             edges {
               cursor
               node {
+                id
                 title
                 customAttributes {
                   value

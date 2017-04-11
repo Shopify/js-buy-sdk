@@ -9,7 +9,7 @@ const defaultFields = [
   'createdAt',
   'updatedAt',
   'descriptionHtml',
-  'descriptionPlainSummary',
+  'description',
   'handle',
   'productType',
   'title',
