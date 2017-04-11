@@ -10,8 +10,8 @@ const plugins = [
     targetPath: './optimized-types'
   }),
   nodeResolve({
-    jsnext: true,
-    main: true
+    main: true,
+    module: true
   }),
   babel()
 ];
