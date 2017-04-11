@@ -350,7 +350,7 @@ export default class Client {
    *   @param {String} input.checkoutId The ID of the checkout to add line items to
    *   @param {Array} [input.lineItems] A list of line items to add to the checkout
    * @param {Function} [query] Callback function to specify fields to query on the checkout returned
-   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addLineItems(input, query = checkoutQuery()) {
     const mutation = this.graphQLClient.mutation((root) => {
@@ -374,6 +374,49 @@ export default class Client {
         result.model.checkoutLineItemsAdd.checkout.attrs.lineItems = lineItems;
 
         return result.model.checkoutLineItemsAdd.checkout;
+      });
+    });
+  }
+
+  /**
+   * Removes line items from an existing checkout.
+   *
+   * ```javascript
+   * client.removeLineitems({checkoutId: ..., lineItemIds:[ ... ]}).then(checkout => {
+   *   // do something with the updated checkout
+   * });
+   * ```
+   *
+   * @method removeLineItems
+   * @public
+   * @param {Object} input An input object containing:
+   *   @param {String} input.checkoutId The ID of the checkout to remove line items from
+   *   @param {Array} input.lineItemIds A list of the ids of line items to remove from the checkout
+   * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeLineItems(input, query = checkoutQuery()) {
+    const mutation = this.graphQLClient.mutation((root) => {
+      root.add('checkoutLineItemsRemove', {args: {input}}, (checkoutLineItemsRemove) => {
+        checkoutLineItemsRemove.add('userErrors', (userErrors) => {
+          userErrors.add('message');
+          userErrors.add('field');
+        });
+        query(checkoutLineItemsRemove, 'checkout');
+      });
+    });
+
+    return this.graphQLClient.send(mutation).then((result) => {
+      const userErrors = result.data.checkoutLineItemsRemove.userErrors;
+
+      if (userErrors.length) {
+        return Promise.reject(new Error(JSON.stringify(userErrors)));
+      }
+
+      return this.graphQLClient.fetchAllPages(result.model.checkoutLineItemsRemove.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+        result.model.checkoutLineItemsRemove.checkout.attrs.lineItems = lineItems;
+
+        return result.model.checkoutLineItemsRemove.checkout;
       });
     });
   }

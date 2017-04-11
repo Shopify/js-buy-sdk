@@ -33,6 +33,7 @@ import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import shopInfoFixture from '../fixtures/shop-info-fixture';
 import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
+import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 
 suite('client-test', () => {
   const querySplitter = /[\s,]+/;
@@ -628,6 +629,28 @@ suite('client-test', () => {
     return client.fetchCheckout('7857989384').then((checkout) => {
       assert.equal(checkout.id, checkoutFixture.data.node.id);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can remove line items from checkout', () => {
+    const config = new Config({
+      domain: 'remove-line-items.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://remove-line-items.myshopify.com/api/graphql', checkoutLineItemsRemoveFixture);
+
+    const input = {
+      checkoutId: 'gid://shopify/Checkout/dcf154c3feb78e585b9e88571cc383fa',
+      lineItemIds: ['gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa']
+    };
+
+    return client.removeLineItems(input).then((checkout) => {
+      assert.equal(checkout.lineItems.some((lineItem) => {
+        return lineItem.id === 'gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa';
+      }), false, 'the line item is removed');
     });
   });
 });
