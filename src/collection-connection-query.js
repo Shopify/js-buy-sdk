@@ -1,7 +1,5 @@
-import imageQuery from './image-query';
+import {defaultFields} from './collection-node-query';
 import addFields from './add-fields';
-
-const defaultFields = ['id', 'handle', 'updatedAt', 'title', ['image', imageQuery()]];
 
 export default function collectionConnectionQuery(fields = defaultFields) {
   return function(parentSelection, fieldName, options) {

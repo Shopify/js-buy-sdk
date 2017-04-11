@@ -3,7 +3,7 @@ import imageConnectionQuery from './image-connection-query';
 import variantConnectionQuery from './variant-connection-query';
 import nodeQuery from './node-query';
 
-const defaultFields = [
+export const defaultFields = [
   'id',
   'createdAt',
   'updatedAt',
