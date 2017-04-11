@@ -30,6 +30,33 @@ const shopPolicies = [
   ['refundPolicy', shopPolicyQuery()]
 ];
 
+
+function checkoutMutation(type, input, query, client) {
+  const mutation = client.mutation((root) => {
+    root.add(type, {args: {input}}, (checkoutMutationField) => {
+      checkoutMutationField.add('userErrors', (userErrors) => {
+        userErrors.add('message');
+        userErrors.add('field');
+      });
+      query(checkoutMutationField, 'checkout');
+    });
+  });
+
+  return client.send(mutation).then((result) => {
+    const userErrors = result.data[type].userErrors;
+
+    if (userErrors.length) {
+      return Promise.reject(new Error(JSON.stringify(userErrors)));
+    }
+
+    return client.fetchAllPages(result.model[type].checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+      result.model[type].checkout.attrs.lineItems = lineItems;
+
+      return result.model[type].checkout;
+    });
+  });
+}
+
 /**
  * @class Client
  */
@@ -310,29 +337,7 @@ export default class Client {
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   createCheckout(input = {}, query = checkoutQuery()) {
-    const mutation = this.graphQLClient.mutation((root) => {
-      root.add('checkoutCreate', {args: {input}}, (checkoutCreate) => {
-        checkoutCreate.add('userErrors', (userErrors) => {
-          userErrors.add('message');
-          userErrors.add('field');
-        });
-        query(checkoutCreate, 'checkout');
-      });
-    });
-
-    return this.graphQLClient.send(mutation).then((result) => {
-      const userErrors = result.data.checkoutCreate.userErrors;
-
-      if (userErrors.length) {
-        return Promise.reject(new Error(JSON.stringify(userErrors)));
-      }
-
-      return this.graphQLClient.fetchAllPages(result.model.checkoutCreate.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-        result.model.checkoutCreate.checkout.attrs.lineItems = lineItems;
-
-        return result.model.checkoutCreate.checkout;
-      });
-    });
+    return checkoutMutation('checkoutCreate', input, query, this.graphQLClient);
   }
 
   /**
@@ -350,31 +355,30 @@ export default class Client {
    *   @param {String} input.checkoutId The ID of the checkout to add line items to
    *   @param {Array} [input.lineItems] A list of line items to add to the checkout
    * @param {Function} [query] Callback function to specify fields to query on the checkout returned
-   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addLineItems(input, query = checkoutQuery()) {
-    const mutation = this.graphQLClient.mutation((root) => {
-      root.add('checkoutLineItemsAdd', {args: {input}}, (checkoutLineItemsAdd) => {
-        checkoutLineItemsAdd.add('userErrors', (userErrors) => {
-          userErrors.add('message');
-          userErrors.add('field');
-        });
-        query(checkoutLineItemsAdd, 'checkout');
-      });
-    });
+    return checkoutMutation('checkoutLineItemsAdd', input, query, this.graphQLClient);
+  }
 
-    return this.graphQLClient.send(mutation).then((result) => {
-      const userErrors = result.data.checkoutLineItemsAdd.userErrors;
-
-      if (userErrors.length) {
-        return Promise.reject(new Error(JSON.stringify(userErrors)));
-      }
-
-      return this.graphQLClient.fetchAllPages(result.model.checkoutLineItemsAdd.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-        result.model.checkoutLineItemsAdd.checkout.attrs.lineItems = lineItems;
-
-        return result.model.checkoutLineItemsAdd.checkout;
-      });
-    });
+  /**
+   * Removes line items from an existing checkout.
+   *
+   * ```javascript
+   * client.removeLineitems({checkoutId: ..., lineItemIds:[ ... ]}).then(checkout => {
+   *   // do something with the updated checkout
+   * });
+   * ```
+   *
+   * @method removeLineItems
+   * @public
+   * @param {Object} input An input object containing:
+   *   @param {String} input.checkoutId The ID of the checkout to remove line items from
+   *   @param {Array} input.lineItemIds A list of the ids of line items to remove from the checkout
+   * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeLineItems(input, query = checkoutQuery()) {
+    return checkoutMutation('checkoutLineItemsRemove', input, query, this.graphQLClient);
   }
 }
