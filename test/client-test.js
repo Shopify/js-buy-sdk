@@ -10,7 +10,7 @@ import singleCollectionFixture from '../fixtures/collection-fixture';
 import dynamicProductFixture from '../fixtures/dynamic-product-fixture';
 import dynamicCollectionFixture from '../fixtures/dynamic-collection-fixture';
 import productWithPaginatedImagesFixture from '../fixtures/product-with-paginated-images-fixture';
-import {secondPageImagesFixture, thirdPageImagesFixture} from '../fixtures/paginated-images-fixtures';
+import {secondPageImagesFixture, thirdPageImagesFixture, fourthPageImagesFixture, fifthPageImagesFixture} from '../fixtures/paginated-images-fixtures';
 import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
 import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import queryProductFixture from '../fixtures/query-product-fixture';
@@ -34,6 +34,9 @@ import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fix
 import shopInfoFixture from '../fixtures/shop-info-fixture';
 import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
+import shopWithCollectionsWithProductsFixture from '../fixtures/shop-with-collections-with-products-fixture';
+import collectionWithProductsFixture from '../fixtures/collection-with-products-fixture';
+import shopWithCollectionsWithPaginationFixture from '../fixtures/shop-with-collections-with-pagination-fixture';
 
 suite('client-test', () => {
   const querySplitter = /[\s,]+/;
@@ -651,6 +654,72 @@ suite('client-test', () => {
       assert.equal(checkout.lineItems.some((lineItem) => {
         return lineItem.id === 'gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa';
       }), false, 'the line item is removed');
+    });
+  });
+
+  test('it can fetch all collections with products', () => {
+    const config = new Config({
+      domain: 'collections-with-products.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://collections-with-products.myshopify.com/api/graphql', shopWithCollectionsWithProductsFixture);
+
+    return client.fetchAllCollectionsWithProducts().then((collections) => {
+      assert.ok(Array.isArray(collections), 'collections is an array');
+      assert.equal(collections.length, 2, 'there are two collections');
+
+      const [firstCollection, secondCollection] = collections;
+      const [firstCollectionFixture, secondCollectionFixture] = shopWithCollectionsWithProductsFixture.data.shop.collections.edges;
+
+      assert.equal(firstCollection.id, firstCollectionFixture.node.id);
+      assert.equal(secondCollection.id, secondCollectionFixture.node.id);
+      assert.equal(firstCollection.products.length, 2);
+      assert.equal(secondCollection.products.length, 1);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch a single collection with products', () => {
+    const config = new Config({
+      domain: 'collection-with-products.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://collection-with-products.myshopify.com/api/graphql', collectionWithProductsFixture);
+
+    return client.fetchCollectionWithProducts('369312584').then((collection) => {
+      assert.equal(Array.isArray(collection), false, 'collection is not an array');
+      assert.equal(collection.id, collectionWithProductsFixture.data.node.id);
+      assert.equal(collection.products.length, 2);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it paginates on images on products within collections', () => {
+    const config = new Config({
+      domain: 'collections-with-pagination.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://collections-with-pagination.myshopify.com/api/graphql', shopWithCollectionsWithPaginationFixture)
+      .postOnce('https://collections-with-pagination.myshopify.com/api/graphql', thirdPageImagesFixture)
+      .postOnce('https://collections-with-pagination.myshopify.com/api/graphql', fourthPageImagesFixture)
+      .postOnce('https://collections-with-pagination.myshopify.com/api/graphql', fifthPageImagesFixture);
+
+    return client.fetchAllCollectionsWithProducts().then((collections) => {
+      assert.equal(collections.length, 2);
+      // Verify that all images are added
+      assert.equal(collections[0].products[0].images.length, 2);
+      assert.equal(collections[0].products[1].images.length, 2);
+      assert.equal(collections[1].products[0].images.length, 2);
+      assert.ok(fetchMock.done());
     });
   });
 });
