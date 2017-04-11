@@ -343,26 +343,26 @@ export default class Client {
    */
   addLineItems(input, query = checkoutQuery()) {
     const mutation = this.graphQLClient.mutation((root) => {
-      root.add('checkoutAddLineItems', {args: {input}}, (checkoutAddLineItems) => {
-        checkoutAddLineItems.add('userErrors', (userErrors) => {
+      root.add('checkoutLineItemsAdd', {args: {input}}, (checkoutLineItemsAdd) => {
+        checkoutLineItemsAdd.add('userErrors', (userErrors) => {
           userErrors.add('message');
           userErrors.add('field');
         });
-        query(checkoutAddLineItems, 'checkout');
+        query(checkoutLineItemsAdd, 'checkout');
       });
     });
 
     return this.graphQLClient.send(mutation).then((result) => {
-      const userErrors = result.data.checkoutAddLineItems.userErrors;
+      const userErrors = result.data.checkoutLineItemsAdd.userErrors;
 
       if (userErrors.length) {
         return Promise.reject(new Error(JSON.stringify(userErrors)));
       }
 
-      return this.graphQLClient.fetchAllPages(result.model.checkoutAddLineItems.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-        result.model.checkoutAddLineItems.checkout.attrs.lineItems = lineItems;
+      return this.graphQLClient.fetchAllPages(result.model.checkoutLineItemsAdd.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+        result.model.checkoutLineItemsAdd.checkout.attrs.lineItems = lineItems;
 
-        return result.model.checkoutAddLineItems.checkout;
+        return result.model.checkoutLineItemsAdd.checkout;
       });
     });
   }
