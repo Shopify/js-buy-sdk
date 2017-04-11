@@ -14,7 +14,7 @@ export default {
               "createdAt": "2016-09-25T21:31:33Z",
               "updatedAt": "2017-01-16T15:42:21Z",
               "descriptionHtml": "send me this cat",
-              "descriptionPlainSummary": "send me this cat",
+              "description": "send me this cat",
               "handle": "cat",
               "productType": "",
               "title": "Cat",
