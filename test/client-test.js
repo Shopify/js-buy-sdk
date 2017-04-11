@@ -30,7 +30,7 @@ import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
-import checkoutAddLineItemsFixture from '../fixtures/checkout-add-line-items-fixture';
+import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import shopInfoFixture from '../fixtures/shop-info-fixture';
 import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
 
@@ -528,7 +528,7 @@ suite('client-test', () => {
       ]
     };
 
-    fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutAddLineItemsFixture);
+    fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutLineItemsAddFixture);
 
     return client.addLineItems(input).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'two more line items were added');

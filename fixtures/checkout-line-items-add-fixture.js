@@ -1,6 +1,6 @@
 export default {
   "data": {
-    "checkoutAddLineItems": {
+    "checkoutLineItemsAdd": {
       "userErrors": [],
       "checkout": {
         "id": "gid://shopify/Checkout/89427726abd2543894550baae32065d6",
