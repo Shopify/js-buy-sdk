@@ -168,6 +168,118 @@ export default class Client {
     });
   }
 
+  fetchQueryProducts(queryObject = {}, query = productConnectionQuery()) {
+    const queryArgStrings = [];
+    const options = {};
+
+    if (queryObject.title) {
+      queryArgStrings.push(`title:'${queryObject.title}'`);
+    }
+    if (queryObject.updatedAtMin) {
+      queryArgStrings.push(`updated_at:>='${queryObject.updatedAtMin}'`);
+    }
+    if (queryObject.createdAtMin) {
+      queryArgStrings.push(`created_at:>='${queryObject.createdAtMin}'`);
+    }
+    if (queryObject.productType) {
+      queryArgStrings.push(`product_type:'${queryObject.productType}'`);
+    }
+    if (queryObject.limit) {
+      options.first = queryObject.limit;
+    }
+    if (queryObject.sortBy) {
+      let sortKey;
+
+      switch (queryObject.sortBy) {
+        case 'title':
+          sortKey = this.graphQLClient.enum('TITLE');
+          break;
+        case 'updatedAt':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          break;
+        case 'createdAt':
+          sortKey = this.graphQLClient.enum('CREATED_AT');
+          break;
+      }
+
+      options.sortKey = sortKey;
+    }
+    if (queryObject.sortDirection === 'desc') {
+      options.reverse = true;
+    }
+
+    options.query = queryArgStrings.join(' ');
+
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'products', options);
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then(({model}) => {
+      const promises = model.shop.products.reduce((promiseAcc, product) => {
+        // Fetch the rest of the images and variants for this product
+        promiseAcc.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
+          product.attrs.images = images;
+        }));
+
+        promiseAcc.push(this.graphQLClient.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
+          product.attrs.variants = variants;
+        }));
+
+        return promiseAcc;
+      }, []);
+
+      return Promise.all(promises).then(() => {
+        return model.shop.products;
+      });
+    });
+  }
+
+  fetchQueryCollections(queryObject = {}, query = collectionConnectionQuery()) {
+    const queryArgStrings = [];
+    const options = {};
+
+    if (queryObject.title) {
+      queryArgStrings.push(`title:'${queryObject.title}'`);
+    }
+    if (queryObject.updatedAtMin) {
+      queryArgStrings.push(`updated_at:>='${queryObject.updatedAtMin}'`);
+    }
+    if (queryObject.limit) {
+      options.first = queryObject.limit;
+    }
+    if (queryObject.sortBy) {
+      let sortKey;
+
+      switch (queryObject.sortBy) {
+        case 'title':
+          sortKey = this.graphQLClient.enum('TITLE');
+          break;
+        case 'updatedAt':
+          sortKey = this.graphQLClient.enum('UPDATED_AT');
+          break;
+      }
+
+      options.sortKey = sortKey;
+    }
+    if (queryObject.sortDirection === 'desc') {
+      options.reverse = true;
+    }
+
+    options.query = queryArgStrings.join(' ');
+
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'collections', options);
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then((response) => {
+      return response.model.shop.collections;
+    });
+  }
+
   /**
    * Creates a checkout.
    *

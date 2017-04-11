@@ -21,8 +21,8 @@ const defaultFields = [
 ];
 
 export default function productConnectionQuery(fields = defaultFields) {
-  return function(parentSelection, fieldName) {
-    parentSelection.addConnection(fieldName, {args: {first: 20}}, (products) => {
+  return function(parentSelection, fieldName, options) {
+    parentSelection.addConnection(fieldName, {args: Object.assign({first: 20}, options)}, (products) => {
       addFields(products, fields);
     });
   };
