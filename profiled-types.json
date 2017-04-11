@@ -8,6 +8,7 @@
     "CheckoutLineItemConnection",
     "CheckoutLineItemEdge",
     "CheckoutLineItemsAddPayload",
+    "CheckoutLineItemsRemovePayload",
     "Collection",
     "CollectionConnection",
     "CollectionEdge",
