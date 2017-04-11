@@ -1,15 +1,5 @@
-import selectedOptionQuery from './selected-option-query';
-import imageQuery from './image-query';
 import addFields from './add-fields';
-
-const defaultFields = [
-  'id',
-  'title',
-  'price',
-  'weight',
-  ['image', imageQuery()],
-  ['selectedOptions', selectedOptionQuery()]
-];
+import {defaultFields} from './variant-query';
 
 export default function variantConnectionQuery(fields = defaultFields) {
   return function(parentSelection, fieldName) {
