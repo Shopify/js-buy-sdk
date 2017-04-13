@@ -1,6 +1,9 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 [![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk)
 
+**Note**: This is the `README` for the current stable v0.x version. v1 of JS Buy SDK is under development in the `v1.0alpha` branch.
+See the [README](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/README.md) for more details.
+
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's JSON API and provides the ability to
 retrieve products and collections from your shop, add products to a cart, and
