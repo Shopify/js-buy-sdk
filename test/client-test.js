@@ -37,6 +37,7 @@ import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remo
 import shopWithCollectionsWithProductsFixture from '../fixtures/shop-with-collections-with-products-fixture';
 import collectionWithProductsFixture from '../fixtures/collection-with-products-fixture';
 import shopWithCollectionsWithPaginationFixture from '../fixtures/shop-with-collections-with-pagination-fixture';
+import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 
 suite('client-test', () => {
   const querySplitter = /[\s,]+/;
@@ -524,17 +525,15 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    const input = {
-      checkoutId: 'gid://shopify/Checkout/89427726abd2543894550baae32065d6',
-      lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/2', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
-        {variantId: 'gid://shopify/ProductVariant/3', quantity: 5}
-      ]
-    };
+    const checkoutId = 'gid://shopify/Checkout/89427726abd2543894550baae32065d6';
+    const lineItems = [
+      {variantId: 'gid://shopify/ProductVariant/2', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
+      {variantId: 'gid://shopify/ProductVariant/3', quantity: 5}
+    ];
 
     fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutLineItemsAddFixture);
 
-    return client.addLineItems(input).then((checkout) => {
+    return client.addLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'two more line items were added');
       assert.equal(checkout.id, 'gid://shopify/Checkout/89427726abd2543894550baae32065d6');
       assert.equal(checkout.lineItems[1].variant.id, 'gid://shopify/ProductVariant/2');
@@ -645,12 +644,10 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://remove-line-items.myshopify.com/api/graphql', checkoutLineItemsRemoveFixture);
 
-    const input = {
-      checkoutId: 'gid://shopify/Checkout/dcf154c3feb78e585b9e88571cc383fa',
-      lineItemIds: ['gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa']
-    };
+    const checkoutId = 'gid://shopify/Checkout/dcf154c3feb78e585b9e88571cc383fa';
+    const lineItemIds = ['gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa'];
 
-    return client.removeLineItems(input).then((checkout) => {
+    return client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
       assert.equal(checkout.lineItems.some((lineItem) => {
         return lineItem.id === 'gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa';
       }), false, 'the line item is removed');
@@ -720,6 +717,32 @@ suite('client-test', () => {
       assert.equal(collections[0].products[1].images.length, 2);
       assert.equal(collections[1].products[0].images.length, 2);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can update line items on a checkout', () => {
+    const config = new Config({
+      domain: 'update-line-items.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://update-line-items.myshopify.com/api/graphql', checkoutLineItemsUpdateFixture);
+
+    const checkoutId = 'gid://shopify/Checkout/e28b55a3205f8d129a9b7223287ec95a?key=191add76e8eba90b93cfe4d5d261c4cb';
+    const lineItems = [
+      {
+        id: 'gid://shopify/CheckoutLineItem/fb71102f0d38de46e037b30f817e9db5?checkout=e28b55a3205f8d129a9b7223287ec95a',
+        quantity: 2,
+        variantId: 'gid://shopify/ProductVariant/36607672003'
+      }
+    ];
+
+    return client.updateLineItems(checkoutId, lineItems).then((checkout) => {
+      assert.equal(checkout.lineItems[0].id, checkoutLineItemsUpdateFixture.data.checkoutLineItemsUpdate.checkout.lineItems.edges[0].node.id);
+      assert.equal(checkout.lineItems[0].quantity, 2);
+      assert.equal(checkout.lineItems[0].variant.id, 'gid://shopify/ProductVariant/36607672003');
     });
   });
 });
