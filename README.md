@@ -91,33 +91,38 @@ client.fetchCollectionWithProducts('123456').then((collection) => {
 });
 ```
 
-### Creating, Adding and Removing Items from a Checkout
+### Creating, Adding, Updating, and Removing Items from a Checkout
 ```javascript
 // Create an empty checkout
 client.createCheckout().then((checkout) => {
-  const addLineItemsInput = {
-    checkoutId: checkout.id,
-    lineItems: [
-      {variantId: 'gid://shopify/ProductVariant/12345', quantity: 5}
-    ]
-  };
+  const checkoutId = checkout.id;
+  const lineItemsToAdd = [
+    {variantId: 'gid://shopify/ProductVariant/12345', quantity: 5}
+  ];
 
   // Add an item to the checkout
-  client.addLineItems(addLineItemsInput).then((checkoutWithAddedLineItems) => {
+  client.addLineItems(checkoutId, lineItemsToAdd).then((checkoutWithAddedLineItems) => {
     // Do something with the updated checkout
     console.log(checkoutWithAddedLineItems.lineItems); // Array with one line item
 
-    const removeLineItemsInput = {
-      checkoutId: checkoutWithAddedLineItems.id,
-      lineItemIds: [
-        checkoutWithAddedLineItems.lineItems[0].id
-      ]
-    };
+    const lineItemsToUpdate = [
+      {id: checkoutWithAddedLineItems.lineItems[0].id, quantity: 2}
+    ];
 
-    // Remove an item from the checkout
-    client.removeLineItems(removeLineItemsInput).then((checkoutWithRemovedLineItems) => {
+    // Update the line item on the checkout (change the quantity or variant)
+    client.updateLineItems(checkoutId, lineItemsToUpdate).then((checkoutWithUpdatedLineItems) => {
       // Do something with the updated checkout
-      console.log(checkoutWithRemovedLineItems.lineItems); // Empty array
+      console.log(checkoutWithUpdatedLineItems.lineItems); // Quantity of line item is now 2 instead of 5
+
+      const lineItemIdsToRemove = [
+        checkoutWithUpdatedLineItems.lineItems[0].id
+      ];
+
+      // Remove an item from the checkout
+      client.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkoutWithRemovedLineItems) => {
+        // Do something with the updated checkout
+        console.log(checkoutWithRemovedLineItems.lineItems); // Empty array
+      });
     });
   });
 });
