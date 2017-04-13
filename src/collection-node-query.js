@@ -7,7 +7,3 @@ export const defaultFields = ['id', 'handle', 'updatedAt', 'title', ['image', im
 export default function collectionNodeQuery(fields = defaultFields) {
   return nodeQuery('Collection', fields);
 }
-
-export function collectionNodeWithProductsQuery() {
-  return nodeQuery('Collection', [...defaultFields, ['products', productConnectionQuery()]]);
-}
