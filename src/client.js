@@ -21,6 +21,7 @@ import domainQuery from './domain-query';
 import shopPolicyQuery from './shop-policy-query';
 import ProductHelpers from './product-helpers';
 import ImageHelpers from './image-helpers';
+import {version} from '../package.json';
 
 export {default as Config} from './config';
 
@@ -83,6 +84,8 @@ export default class Client {
       url: apiUrl,
       fetcherOptions: {
         headers: {
+          'X-SDK-Variant': 'javascript',
+          'X-SDK-Version': version,
           'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
         }
       }
