@@ -391,7 +391,7 @@ export default class Client {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addLineItems(checkoutId, lineItems, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsAdd', {input: {checkoutId, lineItems}}, query, this.graphQLClient);
+    return checkoutMutation('checkoutLineItemsAdd', {checkoutId, lineItems}, query, this.graphQLClient);
   }
 
   /**
@@ -411,7 +411,7 @@ export default class Client {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeLineItems(checkoutId, lineItemIds, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsRemove', {input: {checkoutId, lineItemIds}}, query, this.graphQLClient);
+    return checkoutMutation('checkoutLineItemsRemove', {checkoutId, lineItemIds}, query, this.graphQLClient);
   }
 
   /**
