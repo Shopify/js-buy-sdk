@@ -15,5 +15,11 @@
   ],
   "globals": {
     "fetch": true
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      ".json$"
+    ]
   }
 }
