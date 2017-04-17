@@ -1,9 +1,7 @@
 import assert from 'assert';
-import ImageHelpers from '../src/image-helpers';
+import imageHelpers from '../src/image-helpers';
 
 suite('image-helpers-test', () => {
-  const imageHelpers = new ImageHelpers();
-
   test('it returns the image src with the specified width and height', () => {
     const resizedImageSrc = imageHelpers.imageForSize({src: 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1489515038'}, {maxWidth: 30, maxHeight: 30});
 

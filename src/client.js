@@ -19,8 +19,8 @@ import variantQuery from './variant-query';
 import shopQuery from './shop-query';
 import domainQuery from './domain-query';
 import shopPolicyQuery from './shop-policy-query';
-import ProductHelpers from './product-helpers';
-import ImageHelpers from './image-helpers';
+import productHelpers from './product-helpers';
+import imageHelpers from './image-helpers';
 import {version} from '../package.json';
 
 export {default as Config} from './config';
@@ -77,27 +77,20 @@ function fetchResourcesForProducts(products, client) {
  * @class Client
  */
 export default class Client {
-  constructor(config, GraphQLClientClass = GraphQLJSClient) {
-    const apiUrl = `https://${config.domain}/api/graphql`;
+  static get Product() {
+    return {
+      Helpers: productHelpers
+    };
+  }
 
-    this.graphQLClient = new GraphQLClientClass(types, {
-      url: apiUrl,
-      fetcherOptions: {
-        headers: {
-          'X-SDK-Variant': 'javascript',
-          'X-SDK-Version': version,
-          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
-        }
-      }
-    });
+  static get Image() {
+    return {
+      Helpers: imageHelpers
+    };
+  }
 
-    this.Product = {};
-    this.Product.Helpers = new ProductHelpers();
-
-    this.Image = {};
-    this.Image.Helpers = new ImageHelpers();
-
-    this.Queries = {
+  static get Queries() {
+    return {
       productNodeQuery,
       productConnectionQuery,
       collectionNodeQuery,
@@ -119,6 +112,21 @@ export default class Client {
       shopPolicyQuery,
       checkoutNodeQuery
     };
+  }
+
+  constructor(config, GraphQLClientClass = GraphQLJSClient) {
+    const apiUrl = `https://${config.domain}/api/graphql`;
+
+    this.graphQLClient = new GraphQLClientClass(types, {
+      url: apiUrl,
+      fetcherOptions: {
+        headers: {
+          'X-SDK-Variant': 'javascript',
+          'X-SDK-Version': version,
+          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
+        }
+      }
+    });
   }
 
   fetchShopInfo(query = shopQuery()) {
