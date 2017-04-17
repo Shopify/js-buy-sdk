@@ -1,10 +1,12 @@
 /* eslint-env node */
 import {readFileSync} from 'fs';
 import babel from 'rollup-plugin-babel';
+import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import remap from 'rollup-plugin-remap';
 
 const plugins = [
+  json(),
   remap({
     originalPath: './types',
     targetPath: './optimized-types'

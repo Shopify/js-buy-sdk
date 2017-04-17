@@ -38,6 +38,7 @@ import shopWithCollectionsWithProductsFixture from '../fixtures/shop-with-collec
 import collectionWithProductsFixture from '../fixtures/collection-with-products-fixture';
 import shopWithCollectionsWithPaginationFixture from '../fixtures/shop-with-collections-with-pagination-fixture';
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
+import {version} from '../package.json';
 
 suite('client-test', () => {
   const querySplitter = /[\s,]+/;
@@ -74,6 +75,8 @@ suite('client-test', () => {
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
     assert.deepEqual(passedFetcherOptions, {
       headers: {
+        'X-SDK-Variant': 'javascript',
+        'X-SDK-Version': version,
         'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
       }
     });
