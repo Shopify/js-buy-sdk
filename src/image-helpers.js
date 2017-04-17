@@ -1,7 +1,7 @@
 /**
  * @class ImageHelpers
  */
-export default class ImageHelpers {
+export default {
 
   /**
    * Generates the image src for a resized image with maximum dimensions `maxWidth` and `maxHeight`.
@@ -27,4 +27,4 @@ export default class ImageHelpers {
 
     return `${imageTokens.join('.')}?${query}`;
   }
-}
+};

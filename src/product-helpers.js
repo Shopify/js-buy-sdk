@@ -1,4 +1,4 @@
-export default class ProductHelpers {
+export default {
   variantForOptions(product, options) {
     return product.variants.find((variant) => {
       return variant.selectedOptions.every((selectedOption) => {
@@ -6,4 +6,4 @@ export default class ProductHelpers {
       });
     });
   }
-}
+};
