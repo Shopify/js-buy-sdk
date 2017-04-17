@@ -33,7 +33,7 @@ const shopPolicies = [
 
 function checkoutMutation(type, input, query, client) {
   const mutation = client.mutation((root) => {
-    root.add(type, {args: {input}}, (checkoutMutationField) => {
+    root.add(type, {args: input}, (checkoutMutationField) => {
       checkoutMutationField.add('userErrors', (userErrors) => {
         userErrors.add('message');
         userErrors.add('field');
@@ -371,7 +371,7 @@ export default class Client {
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   createCheckout(input = {}, query = checkoutQuery()) {
-    return checkoutMutation('checkoutCreate', input, query, this.graphQLClient);
+    return checkoutMutation('checkoutCreate', {input}, query, this.graphQLClient);
   }
 
   /**
@@ -385,14 +385,13 @@ export default class Client {
    *
    * @method addLineItems
    * @public
-   * @param {Object} input An input object containing:
-   *   @param {String} input.checkoutId The ID of the checkout to add line items to
-   *   @param {Array} [input.lineItems] A list of line items to add to the checkout
+   * @param {String} checkoutId The ID of the checkout to add line items to
+   * @param {Array} lineItems A list of line items to add to the checkout
    * @param {Function} [query] Callback function to specify fields to query on the checkout returned
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  addLineItems(input, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsAdd', input, query, this.graphQLClient);
+  addLineItems(checkoutId, lineItems, query = checkoutQuery()) {
+    return checkoutMutation('checkoutLineItemsAdd', {checkoutId, lineItems}, query, this.graphQLClient);
   }
 
   /**
@@ -406,13 +405,32 @@ export default class Client {
    *
    * @method removeLineItems
    * @public
-   * @param {Object} input An input object containing:
-   *   @param {String} input.checkoutId The ID of the checkout to remove line items from
-   *   @param {Array} input.lineItemIds A list of the ids of line items to remove from the checkout
+   * @param {String} checkoutId The ID of the checkout to remove line items from
+   * @param {Array} lineItemIds A list of the ids of line items to remove from the checkout
    * @param {Function} [query] Callback function to specify fields to query on the checkout returned
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  removeLineItems(input, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsRemove', input, query, this.graphQLClient);
+  removeLineItems(checkoutId, lineItemIds, query = checkoutQuery()) {
+    return checkoutMutation('checkoutLineItemsRemove', {checkoutId, lineItemIds}, query, this.graphQLClient);
+  }
+
+  /**
+   * Updates line items on an existing checkout.
+   *
+   * ```javascript
+   * client.updateLineItem({checkoutId: ..., lineItems:{ ... }}).then(checkout => {
+   *   // do something with the updated checkout
+   * });
+   * ```
+   *
+   * @method updateLineItems
+   * @public
+   * @param {String} checkoutId The ID of the checkout to update a line item on.=
+   * @param {Array} lineItems An array of line items to update
+   * @param {Function} [query] Callback function to specify fields to query on the checkout returned
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateLineItems(checkoutId, lineItems, query = checkoutQuery()) {
+    return checkoutMutation('checkoutLineItemsUpdate', {checkoutId, lineItems}, query, this.graphQLClient);
   }
 }
