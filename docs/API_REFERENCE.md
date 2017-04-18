@@ -774,6 +774,6 @@ The class used to configure the JS Buy SDK Client.
 | Param | Type | Description |
 | --- | --- | --- |
 | attrs | <code>Object</code> | An object specifying the configuration. Requires the following properties: |
-| attrs.storefrontAccessToken | <code>String</code> | The storefront access token for the shop. |
+| attrs.storefrontAccessToken | <code>String</code> | The [Storefront access token](https://help.shopify.com/api/reference/storefront_access_token) for the shop. |
 | attrs.domain | <code>String</code> | The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`). |
 
