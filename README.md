@@ -6,7 +6,7 @@ any website. It's based on Shopify's GraphQL API and provides the ability to
 retrieve products and collections from your shop, add products to a cart, and
 checkout.
 
-Docs are still a work in progress, but you can view the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs).
+Docs are still a work in progress, but you can view the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md).
 
 ## Table Of Contents
 
@@ -135,7 +135,7 @@ client.fetchCheckout('123456').then((checkout) => {
 
 ## Documentation
 
-For full API documentation go check out the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs).
+For full API documentation go check out the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md).
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
