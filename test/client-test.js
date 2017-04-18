@@ -748,4 +748,10 @@ suite('client-test', () => {
       assert.equal(checkout.lineItems[0].variant.id, 'gid://shopify/ProductVariant/36607672003');
     });
   });
+
+  test('it has static helpers', () => {
+    assert.ok(Client.Product.Helpers);
+    assert.ok(Client.Image.Helpers);
+    assert.ok(Client.Queries);
+  });
 });
