@@ -17,20 +17,12 @@ import shippingRateQuery from './shipping-rate-query';
 import variantConnectionQuery from './variant-connection-query';
 import variantQuery from './variant-query';
 import shopQuery from './shop-query';
-import domainQuery from './domain-query';
 import shopPolicyQuery from './shop-policy-query';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
 import {version} from '../package.json';
 
 export {default as Config} from './config';
-
-const shopPolicies = [
-  ['privacyPolicy', shopPolicyQuery()],
-  ['termsOfService', shopPolicyQuery()],
-  ['refundPolicy', shopPolicyQuery()]
-];
-
 
 function checkoutMutation(type, input, query, client) {
   const mutation = client.mutation((root) => {
@@ -107,9 +99,6 @@ export default class Client {
       shippingRateQuery,
       variantConnectionQuery,
       variantQuery,
-      shopQuery,
-      domainQuery,
-      shopPolicyQuery,
       checkoutNodeQuery
     };
   }
@@ -129,7 +118,8 @@ export default class Client {
     });
   }
 
-  fetchShopInfo(query = shopQuery()) {
+  fetchShopInfo() {
+    const query = shopQuery();
     const rootQuery = this.graphQLClient.query((root) => {
       query(root, 'shop');
     });
@@ -139,7 +129,12 @@ export default class Client {
     });
   }
 
-  fetchShopPolicies(query = shopQuery(shopPolicies)) {
+  fetchShopPolicies() {
+    const query = shopQuery([
+      ['privacyPolicy', shopPolicyQuery()],
+      ['termsOfService', shopPolicyQuery()],
+      ['refundPolicy', shopPolicyQuery()]
+    ]);
     const rootQuery = this.graphQLClient.query((root) => {
       query(root, 'shop');
     });
