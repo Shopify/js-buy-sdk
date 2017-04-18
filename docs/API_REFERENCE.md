@@ -19,8 +19,8 @@ The JS Buy SDK Client.
 * [Client](#Client)
     * [new Client(config)](#new_Client_new)
     * _instance_
-        * [.fetchShopInfo([query])](#Client+fetchShopInfo) ⇒ <code>Promise</code> \| <code>GraphModel</code>
-        * [.fetchShopPolicies([query])](#Client+fetchShopPolicies) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+        * [.fetchShopInfo()](#Client+fetchShopInfo) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+        * [.fetchShopPolicies()](#Client+fetchShopPolicies) ⇒ <code>Promise</code> \| <code>GraphModel</code>
         * [.fetchAllProducts([query])](#Client+fetchAllProducts) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
         * [.fetchProduct(id, [query])](#Client+fetchProduct) ⇒ <code>Promise</code> \| <code>GraphModel</code>
         * [.fetchAllCollections([query])](#Client+fetchAllCollections) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
@@ -72,16 +72,12 @@ The JS Buy SDK Client.
 
 <a name="Client+fetchShopInfo"></a>
 
-### client.fetchShopInfo([query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
-Fetches shop information (e.g. name, description).
+### client.fetchShopInfo() ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Fetches shop information (`currencyCode`, `description`, `moneyFormat`, `name`, and `primaryDomain`).
+See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/shop) for more information.
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [query] | <code>Client.Queries.shopQuery</code> | Callback function to specify fields to query on the shop. |
-
 **Example**  
 ```js
 client.fetchShopInfo().then((shop) => {
@@ -90,16 +86,11 @@ client.fetchShopInfo().then((shop) => {
 ```
 <a name="Client+fetchShopPolicies"></a>
 
-### client.fetchShopPolicies([query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
-Fetches shop policies.
+### client.fetchShopPolicies() ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Fetches shop policies (privacy policy, terms of service and refund policy).
 
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [query] | <code>Client.Queries.shopQuery</code> | Callback function to specify fields to query on the shop. |
-
 **Example**  
 ```js
 client.fetchShopPolicies().then((shop) => {
