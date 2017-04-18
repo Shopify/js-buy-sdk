@@ -191,6 +191,8 @@ suite('query-test', () => {
             node {
               id,
               handle,
+              description,
+              descriptionHtml,
               updatedAt,
               title,
               image {
