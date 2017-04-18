@@ -21,7 +21,7 @@ class Config {
   /**
    * @constructs Config
    * @param {Object} attrs An object specifying the configuration. Requires the following properties:
-   *   @param {String} attrs.storefrontAccessToken The storefront access token for the shop.
+   *   @param {String} attrs.storefrontAccessToken The {@link https://help.shopify.com/api/reference/storefront_access_token|Storefront access token} for the shop.
    *   @param {String} attrs.domain The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`).
    */
   constructor(attrs) {
