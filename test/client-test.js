@@ -29,6 +29,7 @@ import collectionNodeQuery from '../src/collection-node-query';
 import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
+import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import shopInfoFixture from '../fixtures/shop-info-fixture';
@@ -126,9 +127,9 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://single-product.myshopify.com/api/graphql', singleProductFixture);
 
-    return client.fetchProduct('7857989384').then((product) => {
+    return client.fetchProduct('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=').then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
-      assert.equal(product.id, singleProductFixture.data.node.id);
+      assert.equal(product.id, 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
       assert.ok(fetchMock.done());
     });
   });
@@ -166,9 +167,9 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://single-collection.myshopify.com/api/graphql', singleCollectionFixture);
 
-    return client.fetchCollection('369312584').then((collection) => {
+    return client.fetchCollection('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=').then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
-      assert.equal(collection.id, singleCollectionFixture.data.node.id);
+      assert.equal(collection.id, 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
       assert.ok(fetchMock.done());
     });
   });
@@ -185,7 +186,7 @@ suite('client-test', () => {
 
     const queryFields = ['id', 'handle', 'title', 'updatedAt', ['images', imageConnectionQuery(['id', 'src'])], ['options', optionQuery(['name'])], ['variants', variantConnectionQuery(['price', 'weight'])]];
 
-    return client.fetchProduct('7857989384', productNodeQuery(queryFields)).then((product) => {
+    return client.fetchProduct('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', productNodeQuery(queryFields)).then((product) => {
       assert.ok(Array.isArray(product) === false, 'product is not an array');
       assert.equal(product.id, dynamicProductFixture.data.node.id);
       assert.equal(typeof product.createdAt, 'undefined', 'unspecified fields are not queried');
@@ -203,10 +204,10 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
 
-    return client.fetchCollection('369312584', collectionNodeQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
+    return client.fetchCollection('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', collectionNodeQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.updatedAt, dynamicCollectionFixture.data.node.updatedAt);
-      assert.equal(typeof collection.id, 'undefined', 'unspecified fields are not queried');
+      assert.equal(typeof collection.createdAt, 'undefined', 'unspecified fields are not queried');
       assert.ok(fetchMock.done());
     });
   });
@@ -269,7 +270,7 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {id: 'gid://shopify/Product/7857989384'}}});
+    fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {id: 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA=='}}});
 
     return client.fetchProduct('7857989384', productNodeQuery(['id'])).then((product) => {
       assert.equal(typeof product.images, 'undefined', 'images are not queried');
@@ -465,7 +466,7 @@ suite('client-test', () => {
 
     const input = {
       lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]}
+        {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]}
       ],
       shippingAddress: {
         address1: '123 Cat Road',
@@ -491,7 +492,7 @@ suite('client-test', () => {
     });
   });
 
-  test('it fetches all paginated line items on the checkout', () => {
+  test('it fetches all paginated line items on the checkout on a mutation', () => {
     const config = new Config({
       domain: 'paginated-checkout.myshopify.com',
       storefrontAccessToken: 'abc123'
@@ -501,19 +502,40 @@ suite('client-test', () => {
 
     const input = {
       lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
-        {variantId: 'gid://shopify/ProductVariant/2', quantity: 10, customAttributes: [{key: 'bye', value: 'hi'}]},
-        {variantId: 'gid://shopify/ProductVariant/3', quantity: 15, customAttributes: [{key: 'bing', value: 'bong'}]}
+        {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
+        {variantId: 'ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a==', quantity: 10, customAttributes: [{key: 'bye', value: 'hi'}]},
+        {variantId: 'Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W==', quantity: 15, customAttributes: [{key: 'bing', value: 'bong'}]}
       ]
     };
 
-    fetchMock.postOnce('https://paginated-checkout.myshopify.com/api/graphql', checkoutWithPaginatedLineItemsFixture)
+    fetchMock.postOnce('https://paginated-checkout.myshopify.com/api/graphql', checkoutCreateWithPaginatedLineItemsFixture)
       .postOnce('https://paginated-checkout.myshopify.com/api/graphql', secondPageLineItemsFixture)
       .postOnce('https://paginated-checkout.myshopify.com/api/graphql', thirdPageLineItemsFixture);
 
     return client.createCheckout(input).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'all three pages of line items are returned');
-      assert.equal(checkout.lineItems[0].variant.id, checkoutWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.variant.id);
+      assert.equal(checkout.lineItems[0].variant.id, checkoutCreateWithPaginatedLineItemsFixture.data.checkoutCreate.checkout.lineItems.edges[0].node.variant.id);
+      assert.equal(checkout.lineItems[1].variant.id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
+      assert.equal(checkout.lineItems[2].variant.id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all paginated line items on the checkout', () => {
+    const config = new Config({
+      domain: 'paginated-checkout.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://paginated-checkout.myshopify.com/api/graphql', checkoutWithPaginatedLineItemsFixture)
+      .postOnce('https://paginated-checkout.myshopify.com/api/graphql', secondPageLineItemsFixture)
+      .postOnce('https://paginated-checkout.myshopify.com/api/graphql', thirdPageLineItemsFixture);
+
+    return client.fetchCheckout('Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
+      assert.equal(checkout.lineItems.length, 3, 'all three pages of line items are returned');
+      assert.equal(checkout.lineItems[0].variant.id, checkoutWithPaginatedLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
       assert.equal(checkout.lineItems[1].variant.id, secondPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
       assert.equal(checkout.lineItems[2].variant.id, thirdPageLineItemsFixture.data.node.lineItems.edges[0].node.variant.id);
       assert.ok(fetchMock.done());
@@ -528,19 +550,19 @@ suite('client-test', () => {
 
     const client = new Client(config);
 
-    const checkoutId = 'gid://shopify/Checkout/89427726abd2543894550baae32065d6';
+    const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=';
     const lineItems = [
-      {variantId: 'gid://shopify/ProductVariant/2', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
-      {variantId: 'gid://shopify/ProductVariant/3', quantity: 5}
+      {variantId: 'ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a==', quantity: 5, customAttributes: [{key: 'hi', value: 'bye'}]},
+      {variantId: 'Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W==', quantity: 5}
     ];
 
     fetchMock.postOnce('https://add-line-items.myshopify.com/api/graphql', checkoutLineItemsAddFixture);
 
     return client.addLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.lineItems.length, 3, 'two more line items were added');
-      assert.equal(checkout.id, 'gid://shopify/Checkout/89427726abd2543894550baae32065d6');
-      assert.equal(checkout.lineItems[1].variant.id, 'gid://shopify/ProductVariant/2');
-      assert.equal(checkout.lineItems[2].variant.id, 'gid://shopify/ProductVariant/3');
+      assert.equal(checkout.id, 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=');
+      assert.equal(checkout.lineItems[1].variant.id, 'ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a==');
+      assert.equal(checkout.lineItems[2].variant.id, 'Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W==');
       assert.ok(fetchMock.done());
     });
   });
@@ -573,7 +595,7 @@ suite('client-test', () => {
 
     const input = {
       lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/1234', quantity: 5}
+        {variantId: 'invalidId', quantity: 5}
       ]
     };
 
@@ -631,7 +653,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://checkout.myshopify.com/api/graphql', checkoutFixture);
 
-    return client.fetchCheckout('7857989384').then((checkout) => {
+    return client.fetchCheckout('Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
       assert.equal(checkout.id, checkoutFixture.data.node.id);
       assert.ok(fetchMock.done());
     });
@@ -647,12 +669,12 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://remove-line-items.myshopify.com/api/graphql', checkoutLineItemsRemoveFixture);
 
-    const checkoutId = 'gid://shopify/Checkout/dcf154c3feb78e585b9e88571cc383fa';
-    const lineItemIds = ['gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa'];
+    const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=';
+    const lineItemIds = ['zUzNzQ1ZjU0OTVlZjIyYzIxYzVkZj9rZXk9MTlkMjljZDgwYjg3MGMxNmRmNjNjM2JjODUzYjY3MTY='];
 
     return client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
       assert.equal(checkout.lineItems.some((lineItem) => {
-        return lineItem.id === 'gid://shopify/CheckoutLineItem/04f496222dd7fa7c01e3626a22d73094?checkout=dcf154c3feb78e585b9e88571cc383fa';
+        return lineItem.id === 'zUzNzQ1ZjU0OTVlZjIyYzIxYzVkZj9rZXk9MTlkMjljZDgwYjg3MGMxNmRmNjNjM2JjODUzYjY3MTY=';
       }), false, 'the line item is removed');
     });
   });
@@ -733,19 +755,19 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://update-line-items.myshopify.com/api/graphql', checkoutLineItemsUpdateFixture);
 
-    const checkoutId = 'gid://shopify/Checkout/e28b55a3205f8d129a9b7223287ec95a?key=191add76e8eba90b93cfe4d5d261c4cb';
+    const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=';
     const lineItems = [
       {
-        id: 'gid://shopify/CheckoutLineItem/fb71102f0d38de46e037b30f817e9db5?checkout=e28b55a3205f8d129a9b7223287ec95a',
+        id: 'zUzNzQ1ZjU0OTVlZjIyYzIxYzVkZj9rZXk9MTlkMjljZDgwYjg3MGMxNmRmNjNjM2JjODUzYjY3MTY=',
         quantity: 2,
-        variantId: 'gid://shopify/ProductVariant/36607672003'
+        variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA=='
       }
     ];
 
     return client.updateLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.lineItems[0].id, checkoutLineItemsUpdateFixture.data.checkoutLineItemsUpdate.checkout.lineItems.edges[0].node.id);
       assert.equal(checkout.lineItems[0].quantity, 2);
-      assert.equal(checkout.lineItems[0].variant.id, 'gid://shopify/ProductVariant/36607672003');
+      assert.equal(checkout.lineItems[0].variant.id, 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==');
     });
   });
 

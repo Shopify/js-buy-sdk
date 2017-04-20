@@ -212,7 +212,7 @@ class Client {
    * Fetches a single product by ID on the shop.
    *
    * @example
-   * client.fetchProduct('123456').then((product) => {
+   * client.fetchProduct('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((product) => {
    *   // Do something with the product
    * });
    *
@@ -300,7 +300,7 @@ class Client {
    * To fetch the collection with products use [fetchCollectionWithProducts]{@link Client#fetchCollectionWithProducts}.
    *
    * @example
-   * client.fetchCollection('123456').then((collection) => {
+   * client.fetchCollection('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
    *   // Do something with the collection
    * });
    *
@@ -322,7 +322,7 @@ class Client {
    * Fetches a single collection by ID on the shop, including products.
    *
    * @example
-   * client.fetchCollectionWithProducts('123456').then((collection) => {
+   * client.fetchCollectionWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
    *   // Do something with the collection
    * });
    *
@@ -346,7 +346,7 @@ class Client {
    * Fetches a checkout by ID.
    *
    * @example
-   * client.fetchCheckout('123456').then((checkout) => {
+   * client.fetchCheckout('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
    *   // Do something with the checkout
    * });
    *
@@ -359,8 +359,13 @@ class Client {
       query(root, 'node', id);
     });
 
-    return this.graphQLClient.send(rootQuery).then((response) => {
-      return response.model.node;
+    return this.graphQLClient.send(rootQuery).then((result) => {
+      // Fetch all paginated line items
+      return this.graphQLClient.fetchAllPages(result.model.node.lineItems, {pageSize: 250}).then((lineItems) => {
+        result.model.node.attrs.lineItems = lineItems;
+
+        return result.model.node;
+      });
     });
   }
 
@@ -520,7 +525,7 @@ class Client {
    * @example
    * const input = {
    *   lineItems: [
-   *     {variantId: 'gid://shopify/ProductVariant/2', quantity: 5}
+   *     {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
    *   ]
    * };
    *
@@ -545,8 +550,8 @@ class Client {
    * Adds line items to an existing checkout.
    *
    * @example
-   * const checkoutId = 'gid://shopify/Checkout/abc123';
-   * const lineItems = [{variantId: 'gid://shopify/ProductVariant/2', quantity: 5}];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N';
+   * const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
    *
    * client.addLineItems(checkoutId, lineItems).then((checkout) => {
    *   // Do something with the updated checkout
@@ -565,8 +570,8 @@ class Client {
    * Removes line items from an existing checkout.
    *
    * @example
-   * const checkoutId = 'gid://shopify/Checkout/abc123';
-   * const lineItemIds = ['gid://shopify/CheckoutLineItem/def456'];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
    *
    * client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
    *   // Do something with the updated checkout
@@ -585,12 +590,12 @@ class Client {
    * Updates line items on an existing checkout.
    *
    * @example
-   * const checkoutId = 'gid://shopify/Checkout/abc123';
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    * const lineItems = [
    *   {
-   *     id: 'gid://shopify/CheckoutLineItem/def456',
+   *     id: 'TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU=',
    *     quantity: 5,
-   *     variantId: 'gid://shopify/ProductVariant/2'
+   *     variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg=='
    *   }
    * ];
    *

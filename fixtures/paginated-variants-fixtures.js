@@ -2,7 +2,7 @@ export const secondPageVariantsFixture = {
   "data": {
     "node": {
       "__typename": "Product",
-      "id": "gid://shopify/Product/7857989384",
+      "id": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==",
       "variants": {
         "pageInfo": {
           "hasNextPage": true,
@@ -12,7 +12,7 @@ export const secondPageVariantsFixture = {
           {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjA0MH0=",
             "node": {
-              "id": "gid://shopify/ProductVariant/25602236040",
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
               "title": "Extra Fluffy",
               "price": "0.00",
               "weight": 18,
@@ -35,7 +35,7 @@ export const thirdPageVariantsFixture = {
   "data": {
     "node": {
       "__typename": "Product",
-      "id": "gid://shopify/Product/7857989384",
+      "id": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==",
       "variants": {
         "pageInfo": {
           "hasNextPage": false,
@@ -45,7 +45,7 @@ export const thirdPageVariantsFixture = {
           {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjEwNH0=",
             "node": {
-              "id": "gid://shopify/ProductVariant/25602236104",
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc4NTk3MjA=",
               "title": "Mega Fluff",
               "price": "0.00",
               "weight": 0,
