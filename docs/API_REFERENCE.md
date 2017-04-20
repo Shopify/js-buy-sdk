@@ -295,7 +295,7 @@ Creates a checkout.
 ```js
 const input = {
   lineItems: [
-    {variantId: 'gid://shopify/ProductVariant/2', quantity: 5}
+    {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
   ]
 };
 
@@ -319,8 +319,8 @@ Adds line items to an existing checkout.
 
 **Example**  
 ```js
-const checkoutId = 'gid://shopify/Checkout/abc123';
-const lineItems = [{variantId: 'gid://shopify/ProductVariant/2', quantity: 5}];
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N';
+const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
 
 client.addLineItems(checkoutId, lineItems).then((checkout) => {
   // Do something with the updated checkout
@@ -342,8 +342,8 @@ Removes line items from an existing checkout.
 
 **Example**  
 ```js
-const checkoutId = 'gid://shopify/Checkout/abc123';
-const lineItemIds = ['gid://shopify/CheckoutLineItem/def456'];
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
 
 client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
   // Do something with the updated checkout
@@ -365,12 +365,12 @@ Updates line items on an existing checkout.
 
 **Example**  
 ```js
-const checkoutId = 'gid://shopify/Checkout/abc123';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const lineItems = [
   {
-    id: 'gid://shopify/CheckoutLineItem/def456',
+    id: 'TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU=',
     quantity: 5,
-    variantId: 'gid://shopify/ProductVariant/2'
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg=='
   }
 ];
 

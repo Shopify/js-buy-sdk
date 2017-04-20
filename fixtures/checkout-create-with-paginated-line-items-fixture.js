@@ -7,7 +7,7 @@ export default {
         "ready": true,
         "lineItems": {
           "pageInfo": {
-            "hasNextPage": false,
+            "hasNextPage": true,
             "hasPreviousPage": false
           },
           "edges": [
@@ -16,7 +16,7 @@ export default {
               "node": {
                 "title": "Intelligent Granite Table",
                 "variant": {
-                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
+                  "id": "gid://shopify/ProductVariant/1",
                   "title": "Awesome Copper Bench",
                   "price": "64.99",
                   "weight": 4.5,
@@ -34,36 +34,14 @@ export default {
             }
           ]
         },
-        "shippingAddress": {
-          "address1": "123 Cat Road",
-          "address2": null,
-          "city": "Cat Land",
-          "company": "Catmart",
-          "country": "Canada",
-          "firstName": "Meow",
-          "formatted": [
-            "Catmart",
-            "123 Cat Road",
-            "Cat Land ON M3O 0W1",
-            "Canada"
-          ],
-          "lastName": "Meowington",
-          "latitude": null,
-          "longitude": null,
-          "phone": "4161234566",
-          "province": "Ontario",
-          "zip": "M3O 0W1",
-          "name": "Meow Meowington",
-          "countryCode": "CA",
-          "provinceCode": "ON",
-          "id": "Z2lkOi8vc2hvcGlmeS9QcmdfnAU8nakdWMnAbh890hyOTEwNjA2NDU4NA=="
-        },
+        "shippingAddress": null,
         "shippingLine": null,
         "requiresShipping": true,
         "customAttributes": [],
         "note": null,
         "paymentDue": "367.19",
         "webUrl": "https://checkout.myshopify.io/1/checkouts/c4abf4bf036239ab5e3d0bf93c642c96",
+        "order": null,
         "orderStatusUrl": null,
         "taxExempt": false,
         "taxesIncluded": false,

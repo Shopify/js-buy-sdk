@@ -9,14 +9,14 @@ suite('product-helpers-test', () => {
   const query = productNodeQuery();
   const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});
   const rootQuery = graphQLClient.query((root) => {
-    query(root, 'node', '7857989384');
+    query(root, 'node', 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
   });
   const productModel = decode(rootQuery, singleProductFixture.data);
 
   test('it returns the variant based on options given', () => {
     const variant = productHelpers.variantForOptions(productModel.node, {Fur: 'Fluffy', Size: 'Medium'});
 
-    assert.equal(variant.id, 'gid://shopify/ProductVariant/25602235976');
+    assert.equal(variant.id, 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
   });
 
   test('it returns undefined if the variant does not exist', () => {

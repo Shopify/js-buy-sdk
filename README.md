@@ -94,7 +94,7 @@ client.fetchCollectionWithProducts('123456').then((collection) => {
 client.createCheckout().then((checkout) => {
   const checkoutId = checkout.id;
   const lineItemsToAdd = [
-    {variantId: 'gid://shopify/ProductVariant/12345', quantity: 5}
+    {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
   ];
 
   // Add an item to the checkout

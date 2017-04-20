@@ -8,24 +8,24 @@ export default {
         },
         "edges": [
           {
-            "cursor": "eyJsYXN0X2lkIjo4NjMxNzQ5NTc2LCJsYXN0X3ZhbHVlIjoiMjAxNy0wMi0xNyAxOTo1ODowMCJ9",
+            "cursor": "eyJsYXN0X2lkIjo4NTMwMDMzNTQ0LCJsYXN0X3ZhbHVlIjoiMjAxNy0wNC0wNiAxNzozMDoyNSJ9",
             "node": {
-              "id": "gid://shopify/Product/8631749576",
-              "updatedAt": "2017-02-17T19:58:00Z"
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzg1MzAwMzM1NDQ=",
+              "updatedAt": "2017-04-06T17:30:25Z"
             }
           },
           {
-            "cursor": "eyJsYXN0X2lkIjo4NTMwMDMzNTQ0LCJsYXN0X3ZhbHVlIjoiMjAxNy0wMi0xNyAxOTo1NjozMyJ9",
+            "cursor": "eyJsYXN0X2lkIjo4NjMxNzQ5NTc2LCJsYXN0X3ZhbHVlIjoiMjAxNy0wMy0zMCAxODoyNzowMCJ9",
             "node": {
-              "id": "gid://shopify/Product/8530033544",
-              "updatedAt": "2017-02-17T19:56:33Z"
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzg2MzE3NDk1NzY=",
+              "updatedAt": "2017-03-30T18:27:00Z"
             }
           },
           {
-            "cursor": "eyJsYXN0X2lkIjo3ODU3OTg5Mzg0LCJsYXN0X3ZhbHVlIjoiMjAxNy0wMi0xNyAxOTo1NjowMiJ9",
+            "cursor": "eyJsYXN0X2lkIjo3ODU3OTg5Mzg0LCJsYXN0X3ZhbHVlIjoiMjAxNy0wMy0yOSAxNToyNTozMiJ9",
             "node": {
-              "id": "gid://shopify/Product/7857989384",
-              "updatedAt": "2017-02-17T19:56:02Z"
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
+              "updatedAt": "2017-03-29T15:25:32Z"
             }
           }
         ]
