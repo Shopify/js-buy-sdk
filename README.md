@@ -130,7 +130,7 @@ client.createCheckout().then((checkout) => {
 
 ### Fetching a Checkout
 ```javascript
-const checkoutId = '2lkOi8vc2hvcGlmeS9DaGVja291dC82Y2NhN2IzNzlhZTcxZDMyM2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
+const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
 
 client.fetchCheckout(checkoutId).then((checkout) => {
   // Do something with the checkout
