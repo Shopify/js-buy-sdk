@@ -2,7 +2,7 @@
 [![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk)
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
-any website. It's based on Shopify's GraphQL API and provides the ability to
+any website. It's based on Shopify's Storefront API and provides the ability to
 retrieve products and collections from your shop, add products to a cart, and
 checkout.
 
@@ -65,7 +65,9 @@ client.fetchAllProducts().then((products) => {
 });
 
 // Fetch a single product by ID
-client.fetchProduct('123456').then((product) => {
+const productId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+
+client.fetchProduct(productId).then((product) => {
   // Do something with the product
   console.log(product);
 });
@@ -81,7 +83,9 @@ client.fetchAllCollectionsWithProducts().then((collections) => {
 });
 
 // Fetch a single collection by ID, including its products
-client.fetchCollectionWithProducts('123456').then((collection) => {
+const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
+
+client.fetchCollectionWithProducts(collectionId).then((collection) => {
   // Do something with the collection
   console.log(collection);
   console.log(collection.products);
@@ -127,7 +131,9 @@ client.createCheckout().then((checkout) => {
 
 ### Fetching a Checkout
 ```javascript
-client.fetchCheckout('123456').then((checkout) => {
+const checkoutId = '2lkOi8vc2hvcGlmeS9DaGVja291dC82Y2NhN2IzNzlhZTcxZDMyM2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
+
+client.fetchCheckout(checkoutId).then((checkout) => {
   // Do something with the checkout
   console.log(checkout);
 });
