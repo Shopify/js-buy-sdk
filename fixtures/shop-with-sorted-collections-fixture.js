@@ -10,22 +10,22 @@ export default {
           {
             "cursor": "eyJsYXN0X2lkIjozNjkzMTI1ODQsImxhc3RfdmFsDs1iOiJDYXQgQ29sbGVjdGiJ9",
             "node": {
-              "id": "gid://shopify/Collection/591032593",
+              "id": "Z2lN8vnQv9fhvcGlmeS9Db2xsZWN0aW9uLzM2OvNa98ngA==",
               "title": "ABC Collection"
             }
           },
           {
             "cursor": "eyJsYXN0X2lkIjozNjkzMTI1ODQsImxhc3RfdmFsdWUiOiJDYXQgQ29sbGVjdGlvbiJ9",
             "node": {
-              "id": "gid://shopify/Collection/369312584",
+              "id": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==",
               "title": "Cat Collection"
             }
           },
           {
             "cursor": "eyJsYXN0X2lkIjo0MTMwOTQ0NzIsImxhc3RfdmFsdWUiOiJUZXN0In0=",
             "node": {
-              "id": "gid://shopify/Collection/413094472",
-              "title": "Test Collection"
+              "id": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzQxMzA5NDQ3Mg==",
+              "title": "Test"
             }
           }
         ]

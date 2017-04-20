@@ -247,11 +247,11 @@ suite('query-test', () => {
   test('it can create a nested product connection query', () => {
     const customQuery = collectionNodeQuery([['products', productConnectionQuery()]]);
     const query = client.graphQLClient.query((root) => {
-      customQuery(root, 'node', '1');
+      customQuery(root, 'node', 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=');
     });
 
     const queryString = `query {
-      node (id: "gid://shopify/Collection/1") {
+      node (id: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=") {
         __typename,
         ... on Collection {
           id,products (first: 20) {
@@ -329,7 +329,7 @@ suite('query-test', () => {
     const defaultQuery = checkoutQuery();
     const input = {
       lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5}
+        {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=', quantity: 5}
       ]
     };
     const query = client.graphQLClient.mutation((root) => {
@@ -339,7 +339,7 @@ suite('query-test', () => {
     });
 
     const queryString = `mutation {
-      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1", quantity: 5}]}) {
+      checkoutCreate (input: {lineItems: [{variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=", quantity: 5}]}) {
         checkout {
           id
           ready
@@ -500,7 +500,7 @@ suite('query-test', () => {
       ['lineItems', lineItemConnectionQuery(['title', ['customAttributes', customAttributeQuery(['value'])]])]]);
     const input = {
       lineItems: [
-        {variantId: 'gid://shopify/ProductVariant/1', quantity: 5}
+        {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=', quantity: 5}
       ]
     };
     const query = client.graphQLClient.mutation((root) => {
@@ -510,7 +510,7 @@ suite('query-test', () => {
     });
 
     const queryString = `mutation {
-      checkoutCreate (input: {lineItems: [{variantId: "gid://shopify/ProductVariant/1" quantity: 5}]}) {
+      checkoutCreate (input: {lineItems: [{variantId: "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjAxNDMwNDE4NjQ=" quantity: 5}]}) {
         checkout {
           id
           createdAt

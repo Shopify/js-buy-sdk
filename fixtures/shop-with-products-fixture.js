@@ -10,7 +10,7 @@ export default {
           {
             "cursor": "eyJsYXN0X2lkIjo3ODU3OTg5Mzg0LCJsYXN0X3ZhbHVlIjoiNzg1Nzk4OTM4NCJ9",
             "node": {
-              "id": "gid://shopify/Product/7857989384",
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
               "createdAt": "2016-09-25T21:31:33Z",
               "updatedAt": "2017-01-16T15:42:21Z",
               "descriptionHtml": "send me this cat",
@@ -23,7 +23,7 @@ export default {
               "publishedAt": "2016-09-25T21:29:00Z",
               "options": [
                 {
-                  "id": "gid://shopify/ProductOption/9417004808",
+                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                   "name": "Fur",
                   "values": [
                     "Fluffy",
@@ -41,7 +41,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxNjMwNjgxMjY4MH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/16306812680",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096",
                       "altText": null
                     }
@@ -49,7 +49,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzc4NzU5Mn0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217787592",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat2.jpeg?v=1484581332",
                       "altText": null
                     }
@@ -57,7 +57,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzc5MDY2NH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217790664",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat3.jpeg?v=1484581340",
                       "altText": null
                     }
@@ -73,7 +73,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNTk3Nn0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/25602235976",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "Fluffy",
                       "price": "0.00",
                       "weight": 18,
@@ -89,7 +89,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjA0MH0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/25602236040",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "Extra Fluffy",
                       "price": "0.00",
                       "weight": 18,
@@ -105,7 +105,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjEwNH0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/25602236104",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "Mega Fluff",
                       "price": "0.00",
                       "weight": 0,
@@ -125,7 +125,7 @@ export default {
           {
             "cursor": "eyJsYXN0X2lkIjo4NTMwMDMzNTQ0LCJsYXN0X3ZhbHVlIjoiODUzMDAzMzU0NCJ9",
             "node": {
-              "id": "gid://shopify/Product/8530033544",
+              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
               "createdAt": "2017-01-16T15:43:38Z",
               "updatedAt": "2017-01-16T15:46:08Z",
               "descriptionHtml": "do not send",
@@ -138,7 +138,7 @@ export default {
               "publishedAt": "2017-01-16T15:42:00Z",
               "options": [
                 {
-                  "id": "gid://shopify/ProductOption/10244315208",
+                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                   "name": "Size",
                   "values": [
                     "small",
@@ -156,7 +156,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzgxOTQwMH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217819400",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/notcat.jpeg?v=1484581419",
                       "altText": null
                     }
@@ -164,7 +164,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg0NzYyNH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217847624",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/hqdefault.jpg?v=1484581502",
                       "altText": null
                     }
@@ -172,7 +172,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg1OTcyMH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217859720",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/23695_pets_vertical_store_dogs_small_tile_8._CB312176604.jpg?v=1484581539",
                       "altText": null
                     }
@@ -180,7 +180,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg2ODQ4OH0=",
                     "node": {
-                      "id": "gid://shopify/ProductImage/18217868488",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/images.jpg?v=1484581568",
                       "altText": null
                     }
@@ -196,7 +196,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyOTEwNjAyMjc5Mn0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/29106022792",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "small",
                       "price": "0.00",
                       "weight": 0,
@@ -211,7 +211,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyOTEwNjA2NDU4NH0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/29106064584",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "large",
                       "price": "0.00",
                       "weight": 0,
@@ -226,7 +226,7 @@ export default {
                   {
                     "cursor": "eyJsYXN0X2lkIjoyOTEwNjA2NDY0OH0=",
                     "node": {
-                      "id": "gid://shopify/ProductVariant/29106064648",
+                      "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                       "title": "very large",
                       "price": "0.00",
                       "weight": 0,

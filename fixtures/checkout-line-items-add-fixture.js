@@ -3,7 +3,7 @@ export default {
     "checkoutLineItemsAdd": {
       "userErrors": [],
       "checkout": {
-        "id": "gid://shopify/Checkout/89427726abd2543894550baae32065d6",
+        "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
         "createdAt": "2017-03-17T16:00:40Z",
         "updatedAt": "2017-03-17T16:00:40Z",
         "requiresShipping": true,
@@ -30,7 +30,7 @@ export default {
           "name": "Meow Meowington",
           "countryCode": "CA",
           "provinceCode": "ON",
-          "id": "gid://shopify/MailingAddress/1?model_name=Address"
+          "id": "291dC9lM2JkNzHJnnf8a89njNJNKAhu1gn7lMzM5MzFlZj9rZXk9NDcwOTJ=="
         },
         "lineItems": {
           "pageInfo": {
@@ -43,7 +43,7 @@ export default {
               "node": {
                 "title": "Intelligent Granite Table",
                 "variant": {
-                  "id": "gid://shopify/ProductVariant/1"
+                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA=="
                 },
                 "quantity": 5,
                 "customAttributes": []
@@ -54,7 +54,7 @@ export default {
               "node": {
                 "title": "Intelligent Marble Table",
                 "variant": {
-                  "id": "gid://shopify/ProductVariant/2"
+                  "id": "ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a=="
                 },
                 "quantity": 5,
                 "customAttributes": []
@@ -65,7 +65,7 @@ export default {
               "node": {
                 "title": "Intelligent Wooden Table",
                 "variant": {
-                  "id": "gid://shopify/ProductVariant/3"
+                  "id": "Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W=="
                 },
                 "quantity": 5,
                 "customAttributes": []

@@ -2,7 +2,7 @@ export const secondPageLineItemsFixture = {
   "data": {
     "node": {
       "__typename": "Checkout",
-      "id": "gid://shopify/Checkout/89427726abd2543894550baae32065d6",
+      "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
       "lineItems": {
         "pageInfo": {
           "hasNextPage": true,
@@ -14,7 +14,7 @@ export const secondPageLineItemsFixture = {
             "node": {
               "title": "Cat",
               "variant": {
-                "id": "gid://shopify/ProductVariant/2"
+                "id": "ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a=="
               },
               "quantity": 10,
               "customAttributes": []
@@ -30,7 +30,7 @@ export const thirdPageLineItemsFixture = {
   "data": {
     "node": {
       "__typename": "Checkout",
-      "id": "gid://shopify/Checkout/89427726abd2543894550baae32065d6",
+      "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
       "lineItems": {
         "pageInfo": {
           "hasNextPage": false,
@@ -42,7 +42,7 @@ export const thirdPageLineItemsFixture = {
             "node": {
               "title": "Extravagant Tissue Box",
               "variant": {
-                "id": "gid://shopify/ProductVariant/3"
+                "id": "Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W=="
               },
               "quantity": 15,
               "customAttributes": []

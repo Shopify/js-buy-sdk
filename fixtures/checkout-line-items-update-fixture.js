@@ -5,7 +5,7 @@ export default {
 
          ],
          "checkout":{
-            "id":"gid://shopify/Checkout/e28b55a3205f8d129a9b7223287ec95a?key=191add76e8eba90b93cfe4d5d261c4cb",
+            "id":"Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
             "ready":true,
             "lineItems":{
                "pageInfo":{
@@ -16,15 +16,15 @@ export default {
                   {
                      "cursor":"eyJsYXN0X2lkIjoiZmI3MTEwMmYwZDM4ZGU0NmUwMzdiMzBmODE3ZTlkYjUifQ==",
                      "node":{
-                        "id":"gid://shopify/CheckoutLineItem/fb71102f0d38de46e037b30f817e9db5?checkout=e28b55a3205f8d129a9b7223287ec95a",
+                        "id":"zUzNzQ1ZjU0OTVlZjIyYzIxYzVkZj9rZXk9MTlkMjljZDgwYjg3MGMxNmRmNjNjM2JjODUzYjY3MTY=",
                         "title":"Arena Zip Boot",
                         "variant":{
-                           "id":"gid://shopify/ProductVariant/36607672003",
+                           "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
                            "title":"Black / 8",
                            "price":"188.00",
                            "weight":0,
                            "image": {
-                              "id":"gid://shopify/ProductImage/21253957763",
+                              "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
                               "src":"https://cdn.shopify.com/s/files/1/1312/0893/products/003_3e206539-20d3-49c0-8bff-006e449906ca.jpg?v=1491850970",
                               "altText":null
                            },

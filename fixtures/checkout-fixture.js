@@ -2,7 +2,7 @@ export default {
   "data": {
     "node": {
       "__typename": "Checkout",
-      "id": "gid://shopify/Checkout/df400853e4dcf6732995195d50f999b1?key=da88309409dfc67d5957752a4c313dba",
+      "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
       "ready": true,
       "lineItems": {
         "pageInfo": {
