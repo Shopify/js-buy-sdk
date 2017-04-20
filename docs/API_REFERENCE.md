@@ -130,7 +130,7 @@ Fetches a single product by ID on the shop.
 
 **Example**  
 ```js
-client.fetchProduct('123456').then((product) => {
+client.fetchProduct('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((product) => {
   // Do something with the product
 });
 ```
@@ -182,7 +182,7 @@ To fetch the collection with products use [fetchCollectionWithProducts](#Client+
 
 **Example**  
 ```js
-client.fetchCollection('123456').then((collection) => {
+client.fetchCollection('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
   // Do something with the collection
 });
 ```
@@ -200,7 +200,7 @@ Fetches a single collection by ID on the shop, including products.
 
 **Example**  
 ```js
-client.fetchCollectionWithProducts('123456').then((collection) => {
+client.fetchCollectionWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
   // Do something with the collection
 });
 ```
@@ -219,7 +219,7 @@ Fetches a checkout by ID.
 
 **Example**  
 ```js
-client.fetchCheckout('123456').then((checkout) => {
+client.fetchCheckout('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
   // Do something with the checkout
 });
 ```
