@@ -13,6 +13,7 @@ Docs are still a work in progress, but you can view the [API docs](https://githu
 - [Installation](#installation)
 - [Builds](#builds)
 - [Examples](#examples)
+- [Example Apps](#example-apps)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -132,6 +133,11 @@ client.fetchCheckout('123456').then((checkout) => {
   console.log(checkout);
 });
 ```
+
+## Example Apps
+
+For more complete examples of using JS Buy SDK, check out our [storefront-api-examples](https://github.com/Shopify/storefront-api-examples) project.
+There are JS Buy SDK specific example apps in Node, Ember, and React. You can use these examples as a guideline for creating your own custom storefront.
 
 ## Documentation
 
