@@ -5,9 +5,8 @@
 See the [README](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/README.md) for more details.
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
-any website. It's based on Shopify's Storefront API and provides the ability to
-retrieve products and collections from your shop, add products to a cart, and
-checkout.
+any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
+and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.
 
 Docs are still a work in progress, but you can view the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md).
 
