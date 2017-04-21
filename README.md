@@ -18,7 +18,10 @@ Docs are still a work in progress, but you can view the [API docs](https://githu
   + [Initializing the Client](#initializing-the-client)
   + [Fetching Products](#fetching-products)
   + [Fetching Collections](#fetching-collections)
-  + [Creating, Adding, Updating, and Removing Items from a Checkout](#creating-adding-updating-and-removing-items-from-a-checkout)
+  + [Creating a Checkout](#creating-a-checkout)
+  + [Adding Line Items](#adding-line-items)
+  + [Updating Line Items](#updating-line-items)
+  + [Removing Line Items](#removing-line-items)
   + [Fetching a Checkout](#fetching-a-checkout)
 - [Example Apps](#example-apps)
 - [Documentation](#documentation)
@@ -102,40 +105,54 @@ client.fetchCollectionWithProducts(collectionId).then((collection) => {
 });
 ```
 
-### Creating, Adding, Updating, and Removing Items from a Checkout
+### Creating a Checkout
 ```javascript
 // Create an empty checkout
 client.createCheckout().then((checkout) => {
-  const checkoutId = checkout.id;
-  const lineItemsToAdd = [
-    {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
-  ];
+  // Do something with the checkout
+  console.log(checkout);
+});
+```
 
-  // Add an item to the checkout
-  client.addLineItems(checkoutId, lineItemsToAdd).then((checkoutWithAddedLineItems) => {
-    // Do something with the updated checkout
-    console.log(checkoutWithAddedLineItems.lineItems); // Array with one line item
+### Adding Line Items
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const lineItemsToAdd = [
+  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
+];
 
-    const lineItemsToUpdate = [
-      {id: checkoutWithAddedLineItems.lineItems[0].id, quantity: 2}
-    ];
+// Add an item to the checkout
+client.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+  // Do something with the updated checkout
+  console.log(checkout.lineItems); // Array with one additional line item
+});
+```
 
-    // Update the line item on the checkout (change the quantity or variant)
-    client.updateLineItems(checkoutId, lineItemsToUpdate).then((checkoutWithUpdatedLineItems) => {
-      // Do something with the updated checkout
-      console.log(checkoutWithUpdatedLineItems.lineItems); // Quantity of line item is now 2 instead of 5
+### Updating Line Items
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const lineItemsToUpdate = [
+  {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2}
+];
 
-      const lineItemIdsToRemove = [
-        checkoutWithUpdatedLineItems.lineItems[0].id
-      ];
+// Update the line item on the checkout (change the quantity or variant)
+client.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
+  // Do something with the updated checkout
+  console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
+});
+```
 
-      // Remove an item from the checkout
-      client.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkoutWithRemovedLineItems) => {
-        // Do something with the updated checkout
-        console.log(checkoutWithRemovedLineItems.lineItems); // Empty array
-      });
-    });
-  });
+### Removing Line Items
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const lineItemIdsToRemove = [
+  'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
+];
+
+// Remove an item from the checkout
+client.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
+  // Do something with the updated checkout
+  console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
 });
 ```
 
