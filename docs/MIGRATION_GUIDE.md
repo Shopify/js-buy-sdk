@@ -98,7 +98,16 @@ Carts are replaced with checkouts. Like the fetch functions, all checkout functi
 
 #### Creating a Checkout
 
-To create a checkout, use `createCheckout()`:
+To create a checkout, use `createCheckout()`.
+
+**v0.7:**
+```js
+client.createCart().then((cart) => {
+  console.log(cart); // Empty cart
+});
+```
+
+**v1:**
 ```js
 client.createCheckout().then((checkout) => {
   console.log(checkout); // Empty checkout
@@ -108,11 +117,26 @@ The checkout can also be initialized with fields like line items and a shipping 
 
 #### Fetching a Checkout
 
-To fetch a checkout, use `fetchCheckout()`:
+To fetch a checkout, use `fetchCheckout()`.
+
+**v0.7:**
+```js
+client.fetchRecentCart().then((cart) => {
+  console.log(cart); // Most recently created cart
+});
+
+// or
+client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
+  console.log(cart); // The retrieved cart
+});
+```
+
+**v1:**
 ```js
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+
 client.fetchCheckout(checkoutId).then((checkout) => {
-  console.log(checkout);
+  console.log(checkout); // The retrieved checkout
 });
 ```
 #### Modifying an Existing Checkout
@@ -121,7 +145,16 @@ The functions to modify a checkout are on `Client` rather than `CartModel`.
 
 ##### Adding Line Items
 
-To add line items to a checkout, use `addLineItems()` (previously `createLineItemsFromVariants()`):
+To add line items to a checkout, use `addLineItems()` (previously `createLineItemsFromVariants()`).
+
+**v0.7:**
+```js
+cart.createLineItemsFromVariants({variant: variantObject1, quantity: 5}, {variant: variantObject2, quantity: 2}).then((cart) => {
+  console.log(cart); // Cart with two additional line items
+});
+```
+
+**v1:**
 ```js
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
 const lineItems = [
@@ -136,11 +169,24 @@ client.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 ##### Updating Line Items
 
-To update line items on a checkout, use `updateLineItems()`:
+To update line items on a checkout, use `updateLineItems()`.
+
+**v0.7:**
+```js
+const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+const quantity = 1;
+
+cart.updateLineItem(lineItemId, quantity).then((cart) => {
+  console.log(cart); // Cart with a line item quantity updated to 1
+});
+```
+
+**v1:**
 ```js
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 const lineItems = [
-  {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 1}
+  {id: lineItemId, quantity: 1}
 ];
 
 client.updateLineItems(checkoutId, lineItems).then((checkout) => {
@@ -149,7 +195,18 @@ client.updateLineItems(checkoutId, lineItems).then((checkout) => {
 ```
 
 ##### Removing Line Items
-To remove line items on a checkout, use `removeLineItems()`:
+To remove line items on a checkout, use `removeLineItems()`.
+
+**v0.7:**
+```js
+const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+
+cart.removeLineItem(lineItemId).then((cart) => {
+  console.log(cart); // Cart with a line item removed
+});
+```
+
+**v1:**
 ```js
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
 const lineItemIds = [
@@ -157,6 +214,6 @@ const lineItemIds = [
 ];
 
 client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
-  console.log(checkout); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
+  console.log(checkout); // Checkout with a line item removed
 });
 ```
