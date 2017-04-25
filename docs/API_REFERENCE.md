@@ -231,17 +231,17 @@ Fetches all products on the shop that match the query.
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [queryObject] | <code>Object</code> | An object specifying the query data containing zero or more of: |
-| [queryObject.title] | <code>String</code> | The title of the product to fetch. |
-| [queryObject.updatedAtMin] | <code>String</code> | Products updated since the supplied timestamp (format: `2016-09-25T21:31:33`). |
-| [queryObject.createdAtMin] | <code>String</code> | Products created since the supplied timestamp (format: `2016-09-25T21:31:33`). |
-| [queryObject.productType] | <code>String</code> | The type of products to fetch. |
-| [queryObject.limit] | <code>Number</code> | The number of products to fetch. |
-| [queryObject.sortBy] | <code>String</code> | The field to use to sort products. Possible values are `title`, `updatedAt`, and `createdAt`. |
-| [queryObject.sortDirection] | <code>String</code> | The sort direction of the products.     Will sort products by ascending order unless `'desc'` is specified. |
-| [query] | <code>[productConnectionQuery](#Client.Queries.productConnectionQuery)</code> | Callback function to specify fields to query on the products. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [queryObject] | <code>Object</code> |  | An object specifying the query data containing zero or more of: |
+| [queryObject.title] | <code>String</code> |  | The title of the product to fetch. |
+| [queryObject.updatedAtMin] | <code>String</code> |  | Products updated since the supplied timestamp (format: `2016-09-25T21:31:33`). |
+| [queryObject.createdAtMin] | <code>String</code> |  | Products created since the supplied timestamp (format: `2016-09-25T21:31:33`). |
+| [queryObject.productType] | <code>String</code> |  | The type of products to fetch. |
+| [queryObject.limit] | <code>Number</code> | <code>20</code> | The number of products to fetch. |
+| [queryObject.sortBy] | <code>String</code> |  | The field to use to sort products. Possible values are `title`, `updatedAt`, and `createdAt`. |
+| [queryObject.sortDirection] | <code>String</code> |  | The sort direction of the products.     Will sort products by ascending order unless `'desc'` is specified. |
+| [query] | <code>[productConnectionQuery](#Client.Queries.productConnectionQuery)</code> |  | Callback function to specify fields to query on the products. |
 
 **Example**  
 ```js
@@ -257,15 +257,15 @@ Fetches all collections on the shop that match the query.
 **Kind**: instance method of <code>[Client](#Client)</code>  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| [queryObject] | <code>Object</code> | An object specifying the query data containing zero or more of: |
-| [queryObject.title] | <code>String</code> | The title of the collection to fetch. |
-| [queryObject.updatedAtMin] | <code>String</code> | Collections updated since the supplied timestamp (format: `2016-09-25T21:31:33`). |
-| [queryObject.limit] | <code>Number</code> | The number of collections to fetch. |
-| [queryObject.sortBy] | <code>String</code> | The field to use to sort collections. Possible values are `title` and `updatedAt`. |
-| [queryObject.sortDirection] | <code>String</code> | The sort direction of the collections.     Will sort collections by ascending order unless `'desc'` is specified. |
-| [query] | <code>[collectionConnectionQuery](#Client.Queries.collectionConnectionQuery)</code> | Callback function to specify fields to query on the collections. |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [queryObject] | <code>Object</code> |  | An object specifying the query data containing zero or more of: |
+| [queryObject.title] | <code>String</code> |  | The title of the collection to fetch. |
+| [queryObject.updatedAtMin] | <code>String</code> |  | Collections updated since the supplied timestamp (format: `2016-09-25T21:31:33`). |
+| [queryObject.limit] | <code>Number</code> | <code>20</code> | The number of collections to fetch. |
+| [queryObject.sortBy] | <code>String</code> |  | The field to use to sort collections. Possible values are `title` and `updatedAt`. |
+| [queryObject.sortDirection] | <code>String</code> |  | The sort direction of the collections.     Will sort collections by ascending order unless `'desc'` is specified. |
+| [query] | <code>[collectionConnectionQuery](#Client.Queries.collectionConnectionQuery)</code> |  | Callback function to specify fields to query on the collections. |
 
 **Example**  
 ```js
@@ -319,7 +319,7 @@ Adds line items to an existing checkout.
 
 **Example**  
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
 
 client.addLineItems(checkoutId, lineItems).then((checkout) => {

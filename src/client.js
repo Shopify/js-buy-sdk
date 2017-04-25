@@ -382,7 +382,7 @@ class Client {
    *   @param {String} [queryObject.updatedAtMin] Products updated since the supplied timestamp (format: `2016-09-25T21:31:33`).
    *   @param {String} [queryObject.createdAtMin] Products created since the supplied timestamp (format: `2016-09-25T21:31:33`).
    *   @param {String} [queryObject.productType] The type of products to fetch.
-   *   @param {Number} [queryObject.limit] The number of products to fetch.
+   *   @param {Number} [queryObject.limit=20] The number of products to fetch.
    *   @param {String} [queryObject.sortBy] The field to use to sort products. Possible values are `title`, `updatedAt`, and `createdAt`.
    *   @param {String} [queryObject.sortDirection] The sort direction of the products.
    *     Will sort products by ascending order unless `'desc'` is specified.
@@ -468,7 +468,7 @@ class Client {
    * @param {Object} [queryObject] An object specifying the query data containing zero or more of:
    *   @param {String} [queryObject.title] The title of the collection to fetch.
    *   @param {String} [queryObject.updatedAtMin] Collections updated since the supplied timestamp (format: `2016-09-25T21:31:33`).
-   *   @param {Number} [queryObject.limit] The number of collections to fetch.
+   *   @param {Number} [queryObject.limit=20] The number of collections to fetch.
    *   @param {String} [queryObject.sortBy] The field to use to sort collections. Possible values are `title` and `updatedAt`.
    *   @param {String} [queryObject.sortDirection] The sort direction of the collections.
    *     Will sort collections by ascending order unless `'desc'` is specified.
