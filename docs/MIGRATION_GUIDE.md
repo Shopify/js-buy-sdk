@@ -67,15 +67,15 @@ The functions for fetching products and collections are mostly the same. Major d
     If the `query` argument isn't supplied, a default list of arguments will be used.
     See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md#Client.Queries) for more details.
 
-3.  `fetchCollection()` and `fetchAllCollections()` no longer return the products in the collections by default.
-    To fetch products on the collections, use `fetchCollectionWithProducts()` and `fetchAllCollectionsWithProducts()`,
-    or specify products in the query function parameter.
+3.  Collections can be fetched with products using `fetchCollectionWithProducts()` and `fetchAllCollectionsWithProducts()`,
+    or by specifying products in the query function parameter when using `fetchCollection()` and `fetchAllCollections()`.
     ```js
     const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='
     
     // Use the built-in function
     client.fetchCollectionWithProducts(collectionId).then((collection) => {
       console.log(collection); // Collection with all default fields and products with all default fields.
+      console.log(collection.products); // Products on the collection
     });
 
     // or specify a custom query
@@ -83,13 +83,32 @@ The functions for fetching products and collections are mostly the same. Major d
 
     client.fetchCollection(collectionId, query).then((collection) => {
       console.log(collection); // Collection with only title and products with only title
+      console.log(collection.products); // Products on the collection
     });
     ```
     Note that `fetchCollectionWithProducts()` and `fetchCollectionsWithProducts()` do not take a `query` argument.
 
 4.  `fetchQueryProducts()` and `fetchQueryCollections()` query different fields and take an optional `query` argument.
     See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md) for more details.
-
+    
+    **v0.7:**
+    ```js
+    client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
+      console.log(products); // An array of products in collection '336903494' having the tag 'hats'
+    });
+    ```
+    
+    **v1:**
+    ```js
+    const queryObject = {updatedAtMin: '2016-09-25T21:31:33', sortBy: 'title'};
+    const query = productConnectionQuery(['updatedAt', 'title']);
+    
+    client.fetchQueryProducts(queryObject, query).then((products) => {
+      console.log(products); // An array of products with only updatedAt and title fields updated
+                             // after 2016-09-25T21:31:33 and sorted in ascending order by title
+    });
+    ```
+    
 ### Carts/Checkouts
 
 Carts are replaced with checkouts. Like the fetch functions, all checkout functions take an optional `query` argument that specifies fields to return on the checkout.
@@ -98,7 +117,7 @@ Carts are replaced with checkouts. Like the fetch functions, all checkout functi
 
 #### Creating a Checkout
 
-To create a checkout, use `createCheckout()`.
+To create a checkout, use `createCheckout()`. You are responsible for capturing the ID of the checkout for later usage. If you would like to persist the checkout between sessions, store the ID in a cookie or localStorage.
 
 **v0.7:**
 ```js
@@ -111,6 +130,7 @@ client.createCart().then((cart) => {
 ```js
 client.createCheckout().then((checkout) => {
   console.log(checkout); // Empty checkout
+  console.log(checkout.id); // The ID of the checkout. Store this for later usage.
 });
 ```
 The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md#Client+createCheckout) for more details. 
@@ -124,8 +144,24 @@ To fetch a checkout, use `fetchCheckout()`.
 client.fetchRecentCart().then((cart) => {
   console.log(cart); // Most recently created cart
 });
+```
 
-// or
+**v1:**
+```js
+client.createCheckout().then((checkout) => {
+  localStorage.setItem('checkoutId', checkout.id); // Store the ID in localStorage
+});
+
+// In another session:
+const checkoutId = localStorage.getItem('checkoutId');
+
+client.fetchCheckout(checkoutId).then((checkout) => {
+  console.log(checkout); // The retrieved checkout
+});
+```
+
+**v0.7:**
+```js
 client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
   console.log(cart); // The retrieved cart
 });
@@ -133,7 +169,7 @@ client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
 
 client.fetchCheckout(checkoutId).then((checkout) => {
   console.log(checkout); // The retrieved checkout
@@ -145,7 +181,7 @@ The functions to modify a checkout are on `Client` rather than `CartModel`.
 
 ##### Adding Line Items
 
-To add line items to a checkout, use `addLineItems()` (previously `createLineItemsFromVariants()`).
+To add line items to a checkout, use `addLineItems()` (previously `createLineItemsFromVariants()`). Similar to the checkout's ID, you are responsible for storing line item IDs for updates and removals.
 
 **v0.7:**
 ```js
@@ -156,14 +192,20 @@ cart.createLineItemsFromVariants({variant: variantObject1, quantity: 5}, {varian
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
 const lineItems = [
   {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNTk3Ng==', quantity: 5},
-  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNjA0MA==', quantity: 2}
+  // Line items can also have additional custom attributes
+  {
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNjA0MA==',
+    quantity: 2, 
+    customAttributes: {'key': 'attributeKey', 'value': 'attributeValue'}
+  }
 ];
 
 client.addLineItems(checkoutId, lineItems).then((checkout) => {
   console.log(checkout); // Checkout with two additional line items
+  console.log(checkout.lineItems) // Line items on the checkout
 });
 ```
 
@@ -183,7 +225,7 @@ cart.updateLineItem(lineItemId, quantity).then((cart) => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
 const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 const lineItems = [
   {id: lineItemId, quantity: 1}
@@ -191,6 +233,7 @@ const lineItems = [
 
 client.updateLineItems(checkoutId, lineItems).then((checkout) => {
   console.log(checkout); // Checkout with a line item quantity updated to 1
+  console.log(checkout.lineItems) // Line items on the checkout
 });
 ```
 
@@ -208,12 +251,13 @@ cart.removeLineItem(lineItemId).then((cart) => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI=';
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
 const lineItemIds = [
   'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
 ];
 
 client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
   console.log(checkout); // Checkout with a line item removed
+  console.log(checkout.lineItems) // Line items on the checkout
 });
 ```
