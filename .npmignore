@@ -2,6 +2,7 @@
 logs
 *.log
 npm-debug.log*
+docs
 
 # dotfiles
 .DS_Store
