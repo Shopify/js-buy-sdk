@@ -50,5 +50,243 @@
     "String",
     "URL",
     "UserError"
-  ]
+  ],
+  "profiled-fields": {
+    "QueryRoot": [
+      "shop",
+      "node"
+    ],
+    "Shop": [
+      "products",
+      "collections",
+      "currencyCode",
+      "description",
+      "moneyFormat",
+      "name",
+      "primaryDomain",
+      "privacyPolicy",
+      "termsOfService",
+      "refundPolicy"
+    ],
+    "ProductConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "PageInfo": [
+      "hasNextPage",
+      "hasPreviousPage"
+    ],
+    "ProductEdge": [
+      "cursor",
+      "node"
+    ],
+    "Product": [
+      "id",
+      "createdAt",
+      "updatedAt",
+      "descriptionHtml",
+      "description",
+      "handle",
+      "productType",
+      "title",
+      "vendor",
+      "tags",
+      "publishedAt",
+      "options",
+      "images",
+      "variants"
+    ],
+    "ProductOption": [
+      "id",
+      "name",
+      "values"
+    ],
+    "ImageConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "ImageEdge": [
+      "cursor",
+      "node"
+    ],
+    "Image": [
+      "id",
+      "src",
+      "altText"
+    ],
+    "ProductVariantConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "ProductVariantEdge": [
+      "cursor",
+      "node"
+    ],
+    "ProductVariant": [
+      "id",
+      "title",
+      "price",
+      "weight",
+      "image",
+      "selectedOptions"
+    ],
+    "SelectedOption": [
+      "name",
+      "value"
+    ],
+    "CollectionConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "CollectionEdge": [
+      "cursor",
+      "node"
+    ],
+    "Collection": [
+      "id",
+      "handle",
+      "description",
+      "descriptionHtml",
+      "updatedAt",
+      "title",
+      "image",
+      "products"
+    ],
+    "Mutation": [
+      "checkoutCreate",
+      "checkoutLineItemsAdd",
+      "checkoutLineItemsRemove",
+      "checkoutLineItemsUpdate"
+    ],
+    "CheckoutCreatePayload": [
+      "userErrors",
+      "checkout"
+    ],
+    "UserError": [
+      "message",
+      "field"
+    ],
+    "Checkout": [
+      "id",
+      "ready",
+      "lineItems",
+      "shippingAddress",
+      "shippingLine",
+      "requiresShipping",
+      "customAttributes",
+      "note",
+      "paymentDue",
+      "webUrl",
+      "order",
+      "orderStatusUrl",
+      "taxExempt",
+      "taxesIncluded",
+      "currencyCode",
+      "totalTax",
+      "subtotalPrice",
+      "totalPrice",
+      "completedAt",
+      "createdAt",
+      "updatedAt"
+    ],
+    "CheckoutLineItemConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "CheckoutLineItemEdge": [
+      "cursor",
+      "node"
+    ],
+    "CheckoutLineItem": [
+      "title",
+      "variant",
+      "quantity",
+      "customAttributes"
+    ],
+    "Attribute": [
+      "key",
+      "value"
+    ],
+    "MailingAddress": [
+      "address1",
+      "address2",
+      "city",
+      "company",
+      "country",
+      "firstName",
+      "formatted",
+      "lastName",
+      "latitude",
+      "longitude",
+      "phone",
+      "province",
+      "zip",
+      "name",
+      "countryCode",
+      "provinceCode",
+      "id"
+    ],
+    "ShippingRate": [
+      "handle",
+      "price",
+      "title"
+    ],
+    "Order": [
+      "id",
+      "cancelReason",
+      "cancelledAt",
+      "createdAt",
+      "updatedAt",
+      "processedAt",
+      "orderNumber",
+      "subtotalPrice",
+      "totalShippingPrice",
+      "totalTax",
+      "totalPrice",
+      "currencyCode",
+      "totalRefunded",
+      "displayFulfillmentStatus",
+      "displayFinancialStatus",
+      "customerUrl",
+      "shippingAddress",
+      "lineItems"
+    ],
+    "OrderLineItemConnection": [
+      "pageInfo",
+      "edges"
+    ],
+    "OrderLineItemEdge": [
+      "cursor",
+      "node"
+    ],
+    "OrderLineItem": [
+      "title",
+      "variant",
+      "quantity",
+      "customAttributes"
+    ],
+    "CheckoutLineItemsAddPayload": [
+      "userErrors",
+      "checkout"
+    ],
+    "Domain": [
+      "host",
+      "sslEnabled",
+      "url"
+    ],
+    "ShopPolicy": [
+      "id",
+      "title",
+      "url",
+      "body"
+    ],
+    "CheckoutLineItemsRemovePayload": [
+      "userErrors",
+      "checkout"
+    ],
+    "CheckoutLineItemsUpdatePayload": [
+      "userErrors",
+      "checkout"
+    ]
+  }
 }
