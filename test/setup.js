@@ -2,13 +2,14 @@ import GraphQLJSClient from '../src/graphql-client';
 
 function recordTypes() {
   const types = GraphQLJSClient.trackedTypes();
+  const fields = GraphQLJSClient.trackedFields();
 
   if (typeof require === 'function') {
-    const body = JSON.stringify({'profiled-types': types}, null, 2);
+    const body = JSON.stringify({'profiled-types': types, 'profiled-fields': fields}, null, 2);
 
     require('fs').writeFileSync('profiled-types.json', body);
   } else {
-    console.log(types); // eslint-disable-line no-console
+    console.log(types, fields); // eslint-disable-line no-console
   }
 }
 
