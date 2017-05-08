@@ -1,3 +1,3 @@
-const types = require('../profiled-types.json')['profiled-types'];
+const types = require('../profiled-types.json').profile;
 
 process.stdout.write(types.join(','));

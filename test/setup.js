@@ -1,33 +1,34 @@
 import GraphQLJSClient from '../src/graphql-client';
 
-function recordTypes() {
-  const types = GraphQLJSClient.trackedTypes();
-  const fields = GraphQLJSClient.trackedFields();
+function recordProfile() {
+  const types = GraphQLJSClient.captureTypeProfile();
+  const profile = GraphQLJSClient.captureProfile();
 
   if (typeof require === 'function') {
-    const body = JSON.stringify({'profiled-types': types, 'profiled-fields': fields}, null, 2);
+    const {writeFileSync} = require('fs');
 
-    require('fs').writeFileSync('profiled-types.json', body);
+    writeFileSync('profiled-types.json', JSON.stringify({profile: types}, null, 2));
+    writeFileSync('profile.json', JSON.stringify(profile, null, 2));
   } else {
-    console.log(types, fields); // eslint-disable-line no-console
+    console.log(types, profile); // eslint-disable-line no-console
   }
 }
 
 if (typeof before === 'function' && typeof after === 'function') {
   before(() => {
-    if (!GraphQLJSClient.startTracking) {
+    if (!GraphQLJSClient.startProfiling) {
       return;
     }
 
-    GraphQLJSClient.startTracking();
+    GraphQLJSClient.startProfiling();
   });
 
   after(() => {
-    if (!GraphQLJSClient.startTracking) {
+    if (!GraphQLJSClient.startProfiling) {
       return;
     }
 
-    GraphQLJSClient.pauseTracking();
-    recordTypes();
+    GraphQLJSClient.pauseProfiling();
+    recordProfile();
   });
 }

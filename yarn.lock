@@ -2646,9 +2646,9 @@ graceful-fs@^4.0.0, graceful-fs@^4.1.2, graceful-fs@^4.1.4, graceful-fs@^4.1.6, 
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-js-client@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.5.1.tgz#6c492972a3c86ee0fbfb1f09312b6ca62304ef85"
+graphql-js-client@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.6.0.tgz#1c4a689e41883c31a7f9a33cb045902bb8975fde"
 
 graphql-js-schema-fetch@1.1.2:
   version "1.1.2"
