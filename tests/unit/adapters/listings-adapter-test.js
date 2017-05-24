@@ -6,7 +6,7 @@ let adapter;
 
 const appId = 6;
 const domain = 'buckets-o-stuff.myshopify.com';
-const baseUrl = `https://${domain}/api/apps/${appId}`;
+const baseUrl = `https://${domain}/api`;
 const accessToken = 'abc123def456ghi';
 const base64AccessToken = btoa(accessToken);
 
@@ -39,7 +39,7 @@ test('it builds auth headers using the base64 encoded api key', function (assert
   adapter.config = {
     accessToken,
     ajaxHeaders: {
-      'test': 'test-string'
+      test: 'test-string'
     }
   };
 
@@ -48,7 +48,7 @@ test('it builds auth headers using the base64 encoded api key', function (assert
     'Content-Type': 'application/json',
     'X-SDK-Variant': 'javascript',
     'X-SDK-Version': version,
-    'test': 'test-string'
+    test: 'test-string'
   });
 });
 

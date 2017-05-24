@@ -15,9 +15,9 @@ const ListingsAdapter = CoreObject.extend({
   },
 
   get baseUrl() {
-    const { domain, appId } = this.config;
+    const { domain } = this.config;
 
-    return `https://${domain}/api/apps/${appId}`;
+    return `https://${domain}/api`;
   },
 
   get headers() {

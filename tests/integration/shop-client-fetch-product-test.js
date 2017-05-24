@@ -12,7 +12,7 @@ const configAttrs = {
 
 const config = new Config(configAttrs);
 
-const baseUrl = `https://${configAttrs.domain}/api/apps/${configAttrs.appId}`;
+const baseUrl = `https://${configAttrs.domain}/api`;
 
 function apiUrl(path) {
   return `${baseUrl}${path}`;
