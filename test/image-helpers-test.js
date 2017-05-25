@@ -8,6 +8,12 @@ suite('image-helpers-test', () => {
     assert.equal(resizedImageSrc, 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat_30x30.jpg?v=1489515038');
   });
 
+  test('it returns the correct url for an image without any url params', () => {
+    const resizedImageSrc = imageHelpers.imageForSize({src: 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg'}, {maxWidth: 30, maxHeight: 30});
+
+    assert.equal(resizedImageSrc, 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat_30x30.jpg');
+  });
+
   test('it returns the correct url for filenames with .', () => {
     const resizedImageSrc = imageHelpers.imageForSize({src: 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat.really.big.jpg?v=1489515038'}, {maxWidth: 30, maxHeight: 30});
 
