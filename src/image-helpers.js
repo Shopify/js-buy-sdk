@@ -16,7 +16,9 @@ export default {
    * @return {String} The image src for the resized image.
    */
   imageForSize(image, {maxHeight, maxWidth}) {
-    const [notQuery, query] = image.src.split('?');
+    const splitUrl = image.src.split('?');
+    const notQuery = splitUrl[0];
+    const query = splitUrl[1] ? `?${splitUrl[1]}` : '';
 
     // Use the section before the query
     const imageTokens = notQuery.split('.');
@@ -26,6 +28,6 @@ export default {
 
     imageTokens[imagePathIndex] = `${imageTokens[imagePathIndex]}_${maxHeight}x${maxWidth}`;
 
-    return `${imageTokens.join('.')}?${query}`;
+    return `${imageTokens.join('.')}${query}`;
   }
 };
