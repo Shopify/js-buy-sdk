@@ -7,6 +7,7 @@ export const defaultFields = [
   'title',
   'price',
   'weight',
+  'available',
   ['image', imageQuery()],
   ['selectedOptions', selectedOptionQuery()]
 ];
@@ -26,6 +27,7 @@ export const defaultFields = [
  *     <li>`'title'`</li>
  *     <li>`'price'`</li>
  *     <li>`'weight'`</li>
+ *     <li>`'available'`</li>
  *     <li>`['image', imageQuery()]`</li>
  *     <li>`['selectedOptions', selectedOptionQuery()]`</li>
  *   </ul>
