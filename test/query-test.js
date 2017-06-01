@@ -91,6 +91,7 @@ suite('query-test', () => {
                     title,
                     price,
                     weight,
+                    available,
                     image {
                       id,
                       src,
@@ -303,6 +304,7 @@ suite('query-test', () => {
                       title,
                       price,
                       weight,
+                      available,
                       image {
                         id,
                         src,
@@ -358,6 +360,7 @@ suite('query-test', () => {
                   title
                   price
                   weight
+                  available
                   image {
                     id
                     src
@@ -458,6 +461,7 @@ suite('query-test', () => {
                     title
                     price
                     weight
+                    available
                     image {
                       id
                       src
