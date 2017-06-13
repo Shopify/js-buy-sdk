@@ -68,7 +68,7 @@ The JS Buy SDK Client.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| config | <code>[Config](#Config)</code> | An instance of [Config](#Config) used to configure the Client. |
+| config | [<code>Config</code>](#Config) | An instance of [Config](#Config) used to configure the Client. |
 
 <a name="Client+fetchShopInfo"></a>
 
@@ -76,7 +76,7 @@ The JS Buy SDK Client.
 Fetches shop information (`currencyCode`, `description`, `moneyFormat`, `name`, and `primaryDomain`).
 See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/shop) for more information.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
 **Example**  
 ```js
@@ -89,7 +89,7 @@ client.fetchShopInfo().then((shop) => {
 ### client.fetchShopPolicies() ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches shop policies (privacy policy, terms of service and refund policy).
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
 **Example**  
 ```js
@@ -102,12 +102,12 @@ client.fetchShopPolicies().then((shop) => {
 ### client.fetchAllProducts([query]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all products on the shop.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [query] | <code>[productConnectionQuery](#Client.Queries.productConnectionQuery)</code> | Callback function to specify fields to query on the products. |
+| [query] | [<code>productConnectionQuery</code>](#Client.Queries.productConnectionQuery) | Callback function to specify fields to query on the products. |
 
 **Example**  
 ```js
@@ -120,13 +120,13 @@ client.fetchAllProducts().then((products) => {
 ### client.fetchProduct(id, [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single product by ID on the shop.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the product.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>String</code> | The id of the product to fetch. |
-| [query] | <code>[productNodeQuery](#Client.Queries.productNodeQuery)</code> | Callback function to specify fields to query on the product. |
+| [query] | [<code>productNodeQuery</code>](#Client.Queries.productNodeQuery) | Callback function to specify fields to query on the product. |
 
 **Example**  
 ```js
@@ -140,12 +140,12 @@ client.fetchProduct('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((pro
 Fetches all collections on the shop, not including products.
 To fetch collections with products use [fetchAllCollectionsWithProducts](#Client+fetchAllCollectionsWithProducts).
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [query] | <code>[collectionConnectionQuery](#Client.Queries.collectionConnectionQuery)</code> | Callback function to specify fields to query on the collections. |
+| [query] | [<code>collectionConnectionQuery</code>](#Client.Queries.collectionConnectionQuery) | Callback function to specify fields to query on the collections. |
 
 **Example**  
 ```js
@@ -158,7 +158,7 @@ client.fetchAllCollections().then((collections) => {
 ### client.fetchAllCollectionsWithProducts() ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all collections on the shop, including products.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 **Example**  
 ```js
@@ -172,13 +172,13 @@ client.fetchAllCollectionsWithProducts().then((collections) => {
 Fetches a single collection by ID on the shop, not including products.
 To fetch the collection with products use [fetchCollectionWithProducts](#Client+fetchCollectionWithProducts).
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the collection.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>String</code> | The id of the collection to fetch. |
-| [query] | <code>[collectionNodeQuery](#Client.Queries.collectionNodeQuery)</code> | Callback function to specify fields to query on the collection. |
+| [query] | [<code>collectionNodeQuery</code>](#Client.Queries.collectionNodeQuery) | Callback function to specify fields to query on the collection. |
 
 **Example**  
 ```js
@@ -191,7 +191,7 @@ client.fetchCollection('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((
 ### client.fetchCollectionWithProducts(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single collection by ID on the shop, including products.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the collection.  
 
 | Param | Type | Description |
@@ -209,13 +209,13 @@ client.fetchCollectionWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZj
 ### client.fetchCheckout(id, [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a checkout by ID.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the checkout.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | id | <code>String</code> | The id of the checkout to fetch. |
-| [query] | <code>[checkoutNodeQuery](#Client.Queries.checkoutNodeQuery)</code> | Callback function to specify fields to query on the checkout. |
+| [query] | [<code>checkoutNodeQuery</code>](#Client.Queries.checkoutNodeQuery) | Callback function to specify fields to query on the checkout. |
 
 **Example**  
 ```js
@@ -228,7 +228,7 @@ client.fetchCheckout('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) 
 ### client.fetchQueryProducts([queryObject], [query]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all products on the shop that match the query.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
 | Param | Type | Default | Description |
@@ -241,7 +241,7 @@ Fetches all products on the shop that match the query.
 | [queryObject.limit] | <code>Number</code> | <code>20</code> | The number of products to fetch. |
 | [queryObject.sortBy] | <code>String</code> |  | The field to use to sort products. Possible values are `title`, `updatedAt`, and `createdAt`. |
 | [queryObject.sortDirection] | <code>String</code> |  | The sort direction of the products.     Will sort products by ascending order unless `'desc'` is specified. |
-| [query] | <code>[productConnectionQuery](#Client.Queries.productConnectionQuery)</code> |  | Callback function to specify fields to query on the products. |
+| [query] | [<code>productConnectionQuery</code>](#Client.Queries.productConnectionQuery) |  | Callback function to specify fields to query on the products. |
 
 **Example**  
 ```js
@@ -254,7 +254,7 @@ client.fetchQueryProducts({sortBy: 'title', limit: 10}).then((products) => {
 ### client.fetchQueryCollections([queryObject], [query]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all collections on the shop that match the query.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 
 | Param | Type | Default | Description |
@@ -265,7 +265,7 @@ Fetches all collections on the shop that match the query.
 | [queryObject.limit] | <code>Number</code> | <code>20</code> | The number of collections to fetch. |
 | [queryObject.sortBy] | <code>String</code> |  | The field to use to sort collections. Possible values are `title` and `updatedAt`. |
 | [queryObject.sortDirection] | <code>String</code> |  | The sort direction of the collections.     Will sort collections by ascending order unless `'desc'` is specified. |
-| [query] | <code>[collectionConnectionQuery](#Client.Queries.collectionConnectionQuery)</code> |  | Callback function to specify fields to query on the collections. |
+| [query] | [<code>collectionConnectionQuery</code>](#Client.Queries.collectionConnectionQuery) |  | Callback function to specify fields to query on the collections. |
 
 **Example**  
 ```js
@@ -278,7 +278,7 @@ client.fetchQueryCollections({sortBy: 'title', limit: 10}).then((collections) =>
 ### client.createCheckout([input], [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Creates a checkout.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the created checkout.  
 
 | Param | Type | Description |
@@ -289,7 +289,7 @@ Creates a checkout.
 | [input.shippingAddress] | <code>Object</code> | A shipping address. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput) for valid input fields. |
 | [input.note] | <code>String</code> | A note for the checkout. |
 | [input.customAttributes] | <code>Array.&lt;Object&gt;</code> | A list of custom attributes for the checkout. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput) for valid input fields. |
-| [query] | <code>[checkoutQuery](#Client.Queries.checkoutQuery)</code> | Callback function to specify fields to query on the checkout returned. |
+| [query] | [<code>checkoutQuery</code>](#Client.Queries.checkoutQuery) | Callback function to specify fields to query on the checkout returned. |
 
 **Example**  
 ```js
@@ -308,14 +308,14 @@ client.createCheckout(input).then((checkout) => {
 ### client.addLineItems(checkoutId, lineItems, [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Adds line items to an existing checkout.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | checkoutId | <code>String</code> | The ID of the checkout to add line items to. |
 | lineItems | <code>Array.&lt;Object&gt;</code> | A list of line items to add to the checkout. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput) for valid input fields for each line item. |
-| [query] | <code>[checkoutQuery](#Client.Queries.checkoutQuery)</code> | Callback function to specify fields to query on the checkout returned. |
+| [query] | [<code>checkoutQuery</code>](#Client.Queries.checkoutQuery) | Callback function to specify fields to query on the checkout returned. |
 
 **Example**  
 ```js
@@ -331,14 +331,14 @@ client.addLineItems(checkoutId, lineItems).then((checkout) => {
 ### client.removeLineItems(checkoutId, lineItemIds, [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Removes line items from an existing checkout.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | checkoutId | <code>String</code> | The ID of the checkout to remove line items from. |
 | lineItemIds | <code>Array.&lt;String&gt;</code> | A list of the ids of line items to remove from the checkout. |
-| [query] | <code>[checkoutQuery](#Client.Queries.checkoutQuery)</code> | Callback function to specify fields to query on the checkout returned. |
+| [query] | [<code>checkoutQuery</code>](#Client.Queries.checkoutQuery) | Callback function to specify fields to query on the checkout returned. |
 
 **Example**  
 ```js
@@ -354,14 +354,14 @@ client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 ### client.updateLineItems(checkoutId, lineItems, [query]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Updates line items on an existing checkout.
 
-**Kind**: instance method of <code>[Client](#Client)</code>  
+**Kind**: instance method of [<code>Client</code>](#Client)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
 | --- | --- | --- |
 | checkoutId | <code>String</code> | The ID of the checkout to update a line item on. |
 | lineItems | <code>Array.&lt;Object&gt;</code> | A list of line item information to update. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineitemupdateinput) for valid input fields for each line item. |
-| [query] | <code>[checkoutQuery](#Client.Queries.checkoutQuery)</code> | Callback function to specify fields to query on the checkout returned. |
+| [query] | [<code>checkoutQuery</code>](#Client.Queries.checkoutQuery) | Callback function to specify fields to query on the checkout returned. |
 
 **Example**  
 ```js
@@ -383,7 +383,7 @@ client.updateLineItems(checkoutId, lineItems).then(checkout => {
 ### Client.Product : <code>object</code>
 A namespace providing utilities for product resources.
 
-**Kind**: static namespace of <code>[Client](#Client)</code>  
+**Kind**: static namespace of [<code>Client</code>](#Client)  
 
 * [.Product](#Client.Product) : <code>object</code>
     * [.Helpers](#Client.Product.Helpers) : <code>object</code>
@@ -392,13 +392,13 @@ A namespace providing utilities for product resources.
 <a name="Client.Product.Helpers"></a>
 
 #### Product.Helpers : <code>object</code>
-**Kind**: static namespace of <code>[Product](#Client.Product)</code>  
+**Kind**: static namespace of [<code>Product</code>](#Client.Product)  
 <a name="Client.Product.Helpers.variantForOptions"></a>
 
 ##### Helpers.variantForOptions(product, options) ⇒ <code>GraphModel</code>
 Returns the variant of a product corresponding to the options given.
 
-**Kind**: static method of <code>[Helpers](#Client.Product.Helpers)</code>  
+**Kind**: static method of [<code>Helpers</code>](#Client.Product.Helpers)  
 **Returns**: <code>GraphModel</code> - The variant corresponding to the options given.  
 
 | Param | Type | Description |
@@ -411,7 +411,7 @@ Returns the variant of a product corresponding to the options given.
 ### Client.Image : <code>object</code>
 A namespace providing utilities for image resources.
 
-**Kind**: static namespace of <code>[Client](#Client)</code>  
+**Kind**: static namespace of [<code>Client</code>](#Client)  
 
 * [.Image](#Client.Image) : <code>object</code>
     * [.Helpers](#Client.Image.Helpers) : <code>object</code>
@@ -420,14 +420,14 @@ A namespace providing utilities for image resources.
 <a name="Client.Image.Helpers"></a>
 
 #### Image.Helpers : <code>object</code>
-**Kind**: static namespace of <code>[Image](#Client.Image)</code>  
+**Kind**: static namespace of [<code>Image</code>](#Client.Image)  
 <a name="Client.Image.Helpers.imageForSize"></a>
 
 ##### Helpers.imageForSize(image, options) ⇒ <code>String</code>
 Generates the image src for a resized image with maximum dimensions `maxWidth` and `maxHeight`.
 Images do not scale up.
 
-**Kind**: static method of <code>[Helpers](#Client.Image.Helpers)</code>  
+**Kind**: static method of [<code>Helpers</code>](#Client.Image.Helpers)  
 **Returns**: <code>String</code> - The image src for the resized image.  
 
 | Param | Type | Description |
@@ -442,7 +442,7 @@ Images do not scale up.
 ### Client.Queries : <code>object</code>
 A namespace providing the functions used to build different kinds of queries.
 
-**Kind**: static namespace of <code>[Client](#Client)</code>  
+**Kind**: static namespace of [<code>Client</code>](#Client)  
 
 * [.Queries](#Client.Queries) : <code>object</code>
     * [.checkoutQuery([fields])](#Client.Queries.checkoutQuery)
@@ -471,7 +471,7 @@ A namespace providing the functions used to build different kinds of queries.
 Returns a callback function to build a checkout query with specified fields.
 Use this for [createCheckout](#Client+createCheckout), [addLineItems](#Client+addLineItems), [updateLineItems](#Client+updateLineItems), and [removeLineItems](#Client+removeLineItems).
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -487,7 +487,7 @@ const query = checkoutQuery(['id', 'createdAt', ['lineItems', lineItemConnection
 Returns a callback function to build a checkout query off the root query with specified fields.
 Use this for [fetchCheckout](#Client+fetchCheckout).
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -503,7 +503,7 @@ const query = checkoutNodeQuery(['id', 'createdAt', ['lineItems', lineItemConnec
 Returns a callback function to build a collection connection query with specified fields.
 Use this when fetching multiple collections.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -519,7 +519,7 @@ const query = collectionConnectionQuery(['id', 'handle', ['image', imageQuery()]
 Returns a callback function to build a collection query off the root query with specified fields.
 Use this when fetching a single collection.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -534,7 +534,7 @@ const query = collectionNodeQuery(['id', 'handle', ['image', imageQuery()]]);
 #### Queries.customAttributeQuery([fields])
 Returns a callback function to build a custom attribute query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -549,7 +549,7 @@ const query = customAttributeQuery(['key']);
 #### Queries.domainQuery([fields])
 Returns a callback function to build a domain query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -565,7 +565,7 @@ const query = domainQuery(['url']);
 Returns a callback function to build an image connection query with specified fields.
 Use this when fetching multiple images.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -581,7 +581,7 @@ const query = imageConnectionQuery(['id', 'src']);
 Returns a callback function to build an image query with specified fields.
 Use this when fetching a single image.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -597,7 +597,7 @@ const query = imageQuery(['id', 'src']);
 Returns a callback function to build a line item connection query with specified fields.
 Use this when fetching multiple line items.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -612,7 +612,7 @@ const query = lineItemConnectionQuery(['quantity', ['variant', variantQuery()]])
 #### Queries.mailingAddressQuery([fields])
 Returns a callback function to build a mailing address query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -627,7 +627,7 @@ const query = mailingAddressQuery(['city', 'province', 'country']);
 #### Queries.optionQuery([fields])
 Returns a callback function to build an options query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -642,15 +642,15 @@ const query = optionQuery(['name']);
 #### Queries.orderQuery([fields])
 Returns a callback function to build an order query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [fields] | <code>Array</code> | A list of fields to query on the order. Default values are:   <ul>     <li>`'id'`</li>     <li>`'cancelReason'`</li>     <li>`'cancelledAt'`</li>     <li>`'createdAt'`</li>     <li>`'updatedAt'`</li>     <li>`'processedAt'`</li>     <li>`'orderNumber'`</li>     <li>`'subtotalPrice'`</li>     <li>`'totalShippingPrice'`</li>     <li>`'totalTax'`</li>     <li>`'totalPrice'`</li>     <li>`'currencyCode'`</li>     <li>`'totalRefunded'`</li>     <li>`'displayFulfillmentStatus'`</li>     <li>`'displayFinancialStatus'`</li>     <li>`'customerUrl'`</li>     <li>`['shippingAddress', mailingAddressQuery()]`</li>     <li>`['lineItems', lineItemConnectionQuery()]`</li>   </ul> See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/order) for all possible values. |
+| [fields] | <code>Array</code> | A list of fields to query on the order. Default values are:   <ul>     <li>`'id'`</li>     <li>`'processedAt'`</li>     <li>`'orderNumber'`</li>     <li>`'subtotalPrice'`</li>     <li>`'totalShippingPrice'`</li>     <li>`'totalTax'`</li>     <li>`'totalPrice'`</li>     <li>`'currencyCode'`</li>     <li>`'totalRefunded'`</li>     <li>`'customerUrl'`</li>     <li>`['shippingAddress', mailingAddressQuery()]`</li>     <li>`['lineItems', lineItemConnectionQuery()]`</li>   </ul> See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/order) for all possible values. |
 
 **Example**  
 ```js
-const query = orderQuery(['totalRefunded', 'cancelReason']);
+const query = orderQuery(['totalRefunded']);
 ```
 <a name="Client.Queries.productConnectionQuery"></a>
 
@@ -658,7 +658,7 @@ const query = orderQuery(['totalRefunded', 'cancelReason']);
 Returns a callback function to build a product connection query with specified fields.
 Use this when fetching multiple products.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -674,7 +674,7 @@ const query = productConnectionQuery(['id', 'handle', ['image', imageQuery()]]);
 Returns a callback function to build a product query off the root query with specified fields.
 Use this when fetching a single product.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -689,7 +689,7 @@ const query = productNodeQuery(['id', 'handle', ['image', imageQuery()]]);
 #### Queries.selectedOptionQuery([fields])
 Returns a callback function to build a selection option query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -704,7 +704,7 @@ const query = selectedOptionQuery(['name']);
 #### Queries.shippingRateQuery([fields])
 Returns a callback function to build a shipping rate query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -719,7 +719,7 @@ const query = shippingRateQuery(['price', 'title']);
 #### Queries.shopPolicyQuery([fields])
 Returns a callback function to build a shop policy query with specified fields.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -735,7 +735,7 @@ const query = shopPolicyQuery(['title', 'body']);
 Returns a callback function to build a product variant connection query with specified fields.
 Use this when fetching multiple variants.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -751,11 +751,11 @@ const query = variantConnectionQuery(['id', 'handle', ['image', imageQuery()]]);
 Returns a callback function to build a product variant query with specified fields.
 Use this when fetching a single variant.
 
-**Kind**: static method of <code>[Queries](#Client.Queries)</code>  
+**Kind**: static method of [<code>Queries</code>](#Client.Queries)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [fields] | <code>Array</code> | A list of fields to query on the variants. Default values are:   <ul>     <li>`'id'`</li>     <li>`'title'`</li>     <li>`'price'`</li>     <li>`'weight'`</li>     <li>`['image', imageQuery()]`</li>     <li>`['selectedOptions', selectedOptionQuery()]`</li>   </ul> See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/productvariant) for all possible values. |
+| [fields] | <code>Array</code> | A list of fields to query on the variants. Default values are:   <ul>     <li>`'id'`</li>     <li>`'title'`</li>     <li>`'price'`</li>     <li>`'weight'`</li>     <li>`'available'`</li>     <li>`['image', imageQuery()]`</li>     <li>`['selectedOptions', selectedOptionQuery()]`</li>   </ul> See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/productvariant) for all possible values. |
 
 **Example**  
 ```js

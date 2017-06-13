@@ -413,10 +413,6 @@ suite('query-test', () => {
           webUrl
           order {
             id
-            cancelReason
-            cancelledAt
-            createdAt
-            updatedAt
             processedAt
             orderNumber
             subtotalPrice
@@ -425,8 +421,6 @@ suite('query-test', () => {
             totalPrice
             currencyCode
             totalRefunded
-            displayFulfillmentStatus
-            displayFinancialStatus
             customerUrl
             shippingAddress {
               address1
