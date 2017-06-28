@@ -236,7 +236,7 @@ function closeCart() {
 <!-- .cart end -->
 
 
-<script src="http://sdks.shopifycdn.com/js-buy-sdk/latest/shopify-buy.polyfilled.globals.min.js"></script>
+<script src="http://sdks.shopifycdn.com/js-buy-sdk/v0/latest/shopify-buy.umd.polyfilled.min.js"></script>
 <script src="../assets/scripts/addToCart.js"></script>
 
 
