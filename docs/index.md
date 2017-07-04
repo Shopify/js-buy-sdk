@@ -100,11 +100,11 @@ shopClient.createCart().then(function (newCart) {
 ### Adding items to a cart
 
 Cart items can be retrieved as an array with the `cart.lineItems` getter. To add items to a cart,
-you can call the cart’s `addVariants` method and pass in the product(s) to be added.
+you can call the cart’s `createLineItemsFromVariants` method and pass in the product(s) to be added.
 The `update` call will return a promise which returns the updated model.
 
 ```js
-cart.addVariants({variant: product.selectedVariant, quantity: 1}).then(function (cart) {
+cart.createLineItemsFromVariants({variant: product.selectedVariant, quantity: 1}).then(function (cart) {
   // do something with updated cart
 });
 ```
