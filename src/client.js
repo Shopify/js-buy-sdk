@@ -65,6 +65,14 @@ function fetchResourcesForProducts(products, client) {
   }, []);
 }
 
+function adaptConfig(config) {
+  const accessToken = config.storefrontAccessToken || config.apiKey;
+  return new Config({
+    domain: config.domain,
+    storefrontAccessToken: accessToken,
+  });
+}
+
 /**
  * The JS Buy SDK Client.
  * @class
@@ -115,6 +123,14 @@ class Client {
       variantQuery,
       checkoutNodeQuery
     };
+  }
+
+  /**
+   * A wrapper around the constructor, for backwards compatability.
+   */
+  static buildClient(config) {
+    const newConfig = adaptConfig(config);
+    return new Client(newConfig);
   }
 
   /**
