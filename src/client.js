@@ -1,4 +1,5 @@
 import GraphQLJSClient from './graphql-client';
+import Config from './config';
 import types from '../types';
 import productNodeQuery from './product-node-query';
 import productConnectionQuery from './product-connection-query';
@@ -66,10 +67,11 @@ function fetchResourcesForProducts(products, client) {
 }
 
 function adaptConfig(config) {
-  const accessToken = config.storefrontAccessToken || config.apiKey;
+  const accessToken = config.accessToken || config.apiKey;
+
   return new Config({
     domain: config.domain,
-    storefrontAccessToken: accessToken,
+    storefrontAccessToken: accessToken
   });
 }
 
@@ -130,6 +132,7 @@ class Client {
    */
   static buildClient(config) {
     const newConfig = adaptConfig(config);
+
     return new Client(newConfig);
   }
 
