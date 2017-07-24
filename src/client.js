@@ -66,8 +66,11 @@ function fetchResourcesForProducts(products, client) {
   }, []);
 }
 
-function adaptConfig(config) {
-  const accessToken = config.accessToken || config.apiKey;
+function normalizeAccessToken(config) {
+  if (config.accessToken) {
+    console.warn("[ShopifyBuy] accessToken is deprecated as of v1.0, please use storefrontAccessToken instead.")
+  }
+  const accessToken = config.storefrontAccessToken || config.accessToken;
 
   return new Config({
     domain: config.domain,
@@ -131,7 +134,7 @@ class Client {
    * A wrapper around the constructor, for backwards compatability.
    */
   static buildClient(config) {
-    const newConfig = adaptConfig(config);
+    const newConfig = normalizeAccessToken(config);
 
     return new Client(newConfig);
   }
