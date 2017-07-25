@@ -1,3 +1,12 @@
+
+function normalizeAccessToken(config) {
+  // eslint-disable-next-line
+  console.warn('[ShopifyBuy] accessToken is deprecated as of v1.0, please use storefrontAccessToken instead.');
+  const accessToken = config.storefrontAccessToken || config.accessToken;
+
+  return accessToken;
+}
+
 /**
  * The class used to configure the JS Buy SDK Client.
  * @class
@@ -28,6 +37,8 @@ class Config {
     this.requiredProperties.forEach((key) => {
       if (attrs.hasOwnProperty(key)) {
         this[key] = attrs[key];
+      } else if (key === 'accessToken') {
+        this.storefrontAccessToken = normalizeAccessToken(attrs);
       } else {
         throw new Error(`new Config() requires the option '${key}'`);
       }
