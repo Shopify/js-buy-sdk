@@ -18,6 +18,7 @@ import shippingRateQuery from './shipping-rate-query';
 import variantConnectionQuery from './variant-connection-query';
 import variantQuery from './variant-query';
 import shopQuery from './shop-query';
+import shopProductByHandleQuery from './shop-product-by-handle-query';
 import shopPolicyQuery from './shop-policy-query';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
@@ -110,6 +111,7 @@ class Client {
       mailingAddressQuery,
       optionQuery,
       orderQuery,
+      shopProductByHandleQuery,
       selectedOptionQuery,
       shippingRateQuery,
       variantConnectionQuery,
@@ -248,6 +250,44 @@ class Client {
 
       return Promise.all(promises).then(() => {
         return model.node;
+      });
+    });
+  }
+
+  /**
+   * Fetches a single product by handle on the shop.
+   *
+   * @example
+   * client.fetchProductByHandle('my-produt').then((product) => {
+   *   // Do something with the product
+   * });
+   *
+   * @param {String} handle The handle of the product to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
+   */
+  fetchProductByHandle(handle) {
+    const query = shopProductByHandleQuery();
+
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'productByHandle', handle);
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then(({model}) => {
+      const promises = [];
+      const product = model.shop.productByHandle;
+
+      promises.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
+        product.attrs.images = images;
+      }));
+
+      promises.push(this.graphQLClient.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
+        product.attrs.variants = variants;
+      }));
+
+      return Promise.all(promises).then(() => {
+        return product;
       });
     });
   }
