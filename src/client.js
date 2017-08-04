@@ -19,6 +19,7 @@ import variantConnectionQuery from './variant-connection-query';
 import variantQuery from './variant-query';
 import shopQuery from './shop-query';
 import shopProductByHandleQuery from './shop-product-by-handle-query';
+import shopCollectionByHandleQuery from './shop-collection-by-handle-query';
 import shopPolicyQuery from './shop-policy-query';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
@@ -112,6 +113,7 @@ class Client {
       optionQuery,
       orderQuery,
       shopProductByHandleQuery,
+      shopCollectionByHandleQuery,
       selectedOptionQuery,
       shippingRateQuery,
       variantConnectionQuery,
@@ -289,6 +291,20 @@ class Client {
       return Promise.all(promises).then(() => {
         return product;
       });
+    });
+  }
+
+  fetchCollectionByHandle(handle) {
+    const query = shopCollectionByHandleQuery();
+
+    const rootQuery = this.graphQLClient.query((root) => {
+      root.add('shop', (shop) => {
+        query(shop, 'collectionByHandle', handle);
+      });
+    });
+
+    return this.graphQLClient.send(rootQuery).then(({model}) => {
+      return model;
     });
   }
 
