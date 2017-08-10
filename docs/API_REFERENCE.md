@@ -61,6 +61,7 @@ The JS Buy SDK Client.
             * [.shopPolicyQuery([fields])](#Client.Queries.shopPolicyQuery)
             * [.variantConnectionQuery([fields])](#Client.Queries.variantConnectionQuery)
             * [.variantQuery([fields])](#Client.Queries.variantQuery)
+        * [.buildClient()](#Client.buildClient)
 
 <a name="new_Client_new"></a>
 
@@ -761,6 +762,12 @@ Use this when fetching a single variant.
 ```js
 const query = variantQuery(['id', 'src']);
 ```
+<a name="Client.buildClient"></a>
+
+### Client.buildClient()
+Primary entry point for building a new Client.
+
+**Kind**: static method of [<code>Client</code>](#Client)  
 <a name="Config"></a>
 
 ## Config

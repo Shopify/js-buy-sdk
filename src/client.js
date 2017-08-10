@@ -120,7 +120,6 @@ class Client {
 
   /**
    * Primary entry point for building a new Client.
-   * @namespace
    */
   static buildClient(config) {
     const newConfig = new Config(config);
