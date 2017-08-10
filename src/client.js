@@ -1,4 +1,5 @@
 import GraphQLJSClient from './graphql-client';
+import Config from './config';
 import types from '../types';
 import productNodeQuery from './product-node-query';
 import productConnectionQuery from './product-connection-query';
@@ -115,6 +116,15 @@ class Client {
       variantQuery,
       checkoutNodeQuery
     };
+  }
+
+  /**
+   * Primary entry point for building a new Client.
+   */
+  static buildClient(config) {
+    const newConfig = new Config(config);
+
+    return new Client(newConfig);
   }
 
   /**
