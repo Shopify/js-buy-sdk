@@ -28,6 +28,10 @@ class Config {
     this.requiredProperties.forEach((key) => {
       if (attrs.hasOwnProperty(key)) {
         this[key] = attrs[key];
+      } else if (key === 'accessToken') {
+        // eslint-disable-next-line no-console
+        console.warn('[ShopifyBuy] accessToken is deprecated as of v1.0, please use storefrontAccessToken instead.');
+        this.storefrontAccessToken = attrs.accessToken;
       } else {
         throw new Error(`new Config() requires the option '${key}'`);
       }
