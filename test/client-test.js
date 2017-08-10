@@ -14,6 +14,8 @@ import {secondPageImagesFixture, thirdPageImagesFixture, fourthPageImagesFixture
 import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
 import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import queryProductFixture from '../fixtures/query-product-fixture';
+import productByHandleFixture from '../fixtures/product-by-handle-fixture';
+import collectionByHandleFixture from '../fixtures/collection-by-handle-fixture';
 import queryCollectionFixture from '../fixtures/query-collection-fixture';
 import shopWithSortedProductsFixture from '../fixtures/shop-with-sorted-products-fixture';
 import shopWithSortedCollectionsFixture from '../fixtures/shop-with-sorted-collections-fixture';
@@ -290,6 +292,44 @@ suite('client-test', () => {
 
     return client.fetchProduct('7857989384', productNodeQuery([['images', imageConnectionQuery()]])).then((product) => {
       assert.equal(product.images.length, 0);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch a product by handle', () => {
+    const config = new Config({
+      domain: 'product-by-handle.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://product-by-handle.myshopify.com/api/graphql', productByHandleFixture);
+
+    return client.fetchProductByHandle('cape-dress-1').then((product) => {
+      assert.equal(product.id, productByHandleFixture.data.shop.productByHandle.id);
+      assert.equal(product.handle, productByHandleFixture.data.shop.productByHandle.handle);
+      assert.equal(product.variants[0].id, productByHandleFixture.data.shop.productByHandle.variants.edges[0].node.id);
+      assert.equal(product.images[0].id, productByHandleFixture.data.shop.productByHandle.images.edges[0].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch a collection by handle', () => {
+    const config = new Config({
+      domain: 'collection-by-handle.myshopify.com',
+      storefrontAccessToken: 'abc123'
+    });
+
+    const client = new Client(config);
+
+    fetchMock.postOnce('https://collection-by-handle.myshopify.com/api/graphql', collectionByHandleFixture);
+
+    return client.fetchCollectionByHandle('sneakers').then((collection) => {
+      assert.equal(collection.id, collectionByHandleFixture.data.shop.collectionByHandle.id);
+      assert.equal(collection.handle, collectionByHandleFixture.data.shop.collectionByHandle.handle);
+      assert.equal(collection.products[0].id, collectionByHandleFixture.data.shop.collectionByHandle.products.edges[0].node.id);
+      assert.equal(collection.products[0].handle, collectionByHandleFixture.data.shop.collectionByHandle.products.edges[0].node.handle);
       assert.ok(fetchMock.done());
     });
   });

@@ -18,8 +18,8 @@ import shippingRateQuery from './shipping-rate-query';
 import variantConnectionQuery from './variant-connection-query';
 import variantQuery from './variant-query';
 import shopQuery from './shop-query';
-import shopProductByHandleQuery from './shop-product-by-handle-query';
-import shopCollectionByHandleQuery from './shop-collection-by-handle-query';
+import productByHandleQuery from './product-by-handle-query';
+import collectionByHandleQuery from './collection-by-handle-query';
 import shopPolicyQuery from './shop-policy-query';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
@@ -112,8 +112,8 @@ class Client {
       mailingAddressQuery,
       optionQuery,
       orderQuery,
-      shopProductByHandleQuery,
-      shopCollectionByHandleQuery,
+      productByHandleQuery,
+      collectionByHandleQuery,
       selectedOptionQuery,
       shippingRateQuery,
       variantConnectionQuery,
@@ -260,7 +260,7 @@ class Client {
    * Fetches a single product by handle on the shop.
    *
    * @example
-   * client.fetchProductByHandle('my-produt').then((product) => {
+   * client.fetchProductByHandle('my-product').then((product) => {
    *   // Do something with the product
    * });
    *
@@ -268,7 +268,7 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
   fetchProductByHandle(handle) {
-    const query = shopProductByHandleQuery();
+    const query = productByHandleQuery();
 
     const rootQuery = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
@@ -294,8 +294,19 @@ class Client {
     });
   }
 
+  /**
+   * Fetches a collection by handle on the shop.
+   *
+   * @example
+   * client.fetchCollectionByHandle('my-collection').then((collection) => {
+   *   // Do something with the collection
+   * });
+   *
+   * @param {String} handle The handle of the collection to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
+   */
   fetchCollectionByHandle(handle) {
-    const query = shopCollectionByHandleQuery();
+    const query = collectionByHandleQuery();
 
     const rootQuery = this.graphQLClient.query((root) => {
       root.add('shop', (shop) => {
@@ -304,7 +315,9 @@ class Client {
     });
 
     return this.graphQLClient.send(rootQuery).then(({model}) => {
-      return model;
+      const collection = model.shop.collectionByHandle;
+
+      return collection;
     });
   }
 
