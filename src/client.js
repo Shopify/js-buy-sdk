@@ -119,7 +119,8 @@ class Client {
   }
 
   /**
-   * A wrapper around the constructor, for backwards compatability.
+   * Primary entry point for building a new Client.
+   * @namespace
    */
   static buildClient(config) {
     const newConfig = new Config(config);
