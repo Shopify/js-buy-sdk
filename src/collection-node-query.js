@@ -20,6 +20,7 @@ export const defaultFields = ['id', 'handle', 'description', 'descriptionHtml', 
  *     <li>`'descriptionHtml'`</li>
  *     <li>`'updatedAt'`</li>
  *     <li>`'title'`</li>
+ *     <li>`
  *     <li>`['image', imageQuery()]`</li>
  *   </ul>
  * See the {@link https://help.shopify.com/api/storefront-api/reference/object/collection|Storefront API reference} for all possible values.
