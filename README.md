@@ -1,14 +1,14 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
-[![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0alpha.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0alpha)
+[![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0beta.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0beta)
 
 **Note**: For help with migrating from v0.7 of JS Buy SDK to v1 check out the
-[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/MIGRATION_GUIDE.md).
+[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/MIGRATION_GUIDE.md).
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
 and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.
 
-Docs are still a work in progress, but you can view the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md).
+Docs are still a work in progress, but you can view the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md).
 
 ## Table Of Contents
 
@@ -32,11 +32,11 @@ Docs are still a work in progress, but you can view the [API docs](https://githu
 ## Installation
 **With Yarn:**
 ```bash
-$ yarn add shopify-buy@alpha
+$ yarn add shopify-buy@beta
 ```
 **With NPM:**
 ```bash
-$ npm install shopify-buy@alpha
+$ npm install shopify-buy@beta
 ```
 
 ## Builds
@@ -173,18 +173,18 @@ There are JS Buy SDK specific example apps in Node, Ember, and React. You can us
 
 ## Documentation
 
-For full API documentation go check out the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md).
+For full API documentation go check out the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md).
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/CONTRIBUTING.md).
+please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/CONTRIBUTING.md).
 
 ## Code of Conduct
 All developers who wish to contribute through code or issues, take a look at the
-[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/LICENSE.txt) for details.
+MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/LICENSE.txt) for details.
 
 <img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" />

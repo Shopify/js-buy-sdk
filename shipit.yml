@@ -3,4 +3,4 @@ deploy:
     - rm -rf node_modules
     - yarn install
     - yarn run test
-    - npm publish --tag alpha
+    - npm publish --tag beta
