@@ -12,6 +12,7 @@ export const defaultFields = [
   'handle',
   'productType',
   'title',
+  'onlineStoreUrl',
   'vendor',
   'tags',
   'publishedAt',
