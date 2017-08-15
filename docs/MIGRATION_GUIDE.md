@@ -1,3 +1,4 @@
+**NOTE:** This is currently outdated and reflects the alpha branch. Method names are currently in flux on the beta branch.
 # Migration Guide
 
 This document provides a set of guidelines for migrating from v0.7 of the JS Buy SDK to v1 of the JS Buy SDK
@@ -16,13 +17,13 @@ which uses Shopify's GraphQL-based [Storefront API](https://help.shopify.com/api
 **With Yarn:**
 
 ```bash
-yarn add shopify-buy@alpha
+yarn add shopify-buy@beta
 ```
 **With NPM:**
 
 Remove the old version, then
 ```bash
-npm install shopify-buy@alpha
+npm install shopify-buy@beta
 ```
 
 ## Updated Functions and Classes
@@ -65,7 +66,7 @@ The functions for fetching products and collections are mostly the same. Major d
     const query = productNodeQuery(['title', ['variants', variantConnectionQuery(['price', 'title'])]]);
     ```
     If the `query` argument isn't supplied, a default list of arguments will be used.
-    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md#Client.Queries) for more details.
+    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#Client.Queries) for more details.
 
 3.  Collections can be fetched with products using `fetchCollectionWithProducts()` and `fetchAllCollectionsWithProducts()`,
     or by specifying products in the query function parameter when using `fetchCollection()` and `fetchAllCollections()`.
@@ -89,7 +90,7 @@ The functions for fetching products and collections are mostly the same. Major d
     Note that `fetchCollectionWithProducts()` and `fetchCollectionsWithProducts()` do not take a `query` argument.
 
 4.  `fetchQueryProducts()` and `fetchQueryCollections()` query different fields and take an optional `query` argument.
-    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md) for more details.
+    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md) for more details.
     
     **v0.7:**
     ```js
@@ -133,7 +134,7 @@ client.createCheckout().then((checkout) => {
   console.log(checkout.id); // The ID of the checkout. Store this for later usage.
 });
 ```
-The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0alpha/docs/API_REFERENCE.md#Client+createCheckout) for more details. 
+The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#Client+createCheckout) for more details. 
 
 #### Fetching a Checkout
 
