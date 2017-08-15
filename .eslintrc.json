@@ -1,25 +1,25 @@
 {
-  "extends": "./node_modules/eslint-config-nightmare-mode/browser.js",
-  "parser": "babel-eslint",
-  "rules": {
-    "arrow-spacing": [2, { "before": true, "after": true }],
-    "camelcase": [2, { "properties": "never" }],
-    "eol-last": 2,
-    "func-names": 0,
-    "global-require": 0,
-    "newline-per-chained-call": 0,
-    "no-empty-function": 0,
-    "no-invalid-this": 0,
-    "no-magic-numbers": 0,
-    "no-negated-condition": 0,
-    "no-restricted-syntax": 0,
-    "no-underscore-dangle": [2, { "allowAfterThis": true }],
-    "object-curly-spacing": [2, "always"],
-    "prefer-arrow-callback": 0,
-    "prefer-rest-params": 0,
-    "prefer-reflect": 0,
-    "valid-jsdoc": 0
+  "env": {
+    "browser": true,
+    "node": true
   },
+  "rules": {
+    "newline-before-return": ["error"],
+    "newline-after-var": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "promise/always-return": 0
+  },
+  "extends": [
+    "plugin:shopify/esnext",
+    "plugin:shopify/mocha"
+  ],
   "globals": {
+    "fetch": true
+  },
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      ".json$"
+    ]
   }
 }

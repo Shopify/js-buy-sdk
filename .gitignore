@@ -5,31 +5,15 @@ npm-debug.log*
 
 # Dependencies
 node_modules
-selenium-standalone.jar
 
 # Intermediate files
-tmp
+.tmp
+types.js
+optimized-types.js
 
 # Build artifacts
-dist
-.dist-test
-tests.xml
-WDIO.*.xml
-lib
-es
-/node.js
-/polyfilled.js
-
+index.*
 
 # Decrypted secrets
 secrets.json
-_site
 .nvmrc
-
-# Docs / Jekyll generated files
-docs/src
-docs/api/v*
-docs/api/master
-_site
-.sass-cache
-.jekyll-metadata

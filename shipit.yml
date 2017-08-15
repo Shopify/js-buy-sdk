@@ -1,7 +1,6 @@
 deploy:
   override:
-    - npm install --no-progress
-    - npm run build
-    - ejson decrypt -o secrets.json secrets.ejson
-    - npm publish
-    - scripts/deploy
+    - rm -rf node_modules
+    - yarn install
+    - yarn run test
+    - npm publish --tag alpha

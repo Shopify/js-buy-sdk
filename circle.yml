@@ -1,23 +1,20 @@
-# In order to test all node versions, Set up circle with a parallelism value of 5
-
 machine:
-  node:
-    version: v6.10.0
   environment:
-    NODE_LTS: v6.10.0
-    NODE_CURRENT: v7.6.0
-
+    PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+  node:
+    version: v7.4.0
 dependencies:
-  cache_directories:
-      - "node_modules_v6.10.0"
-      - "node_modules_v7.6.0"
   pre:
-    - ./scripts/ci/setup-node:
-        parallel: true
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+    - 'curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.21.3'
   override:
-    - ./scripts/ci/deps:
-        parallel: true
+    - yarn install
+  cache_directories:
+    - ~/.cache/yarn
+    - ~/.yarn
 test:
+  pre:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
   override:
-    - ./scripts/ci/test:
-        parallel: true
+    - yarn test
+    - yarn run test:with-optimized-types
