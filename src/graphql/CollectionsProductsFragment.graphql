@@ -1,0 +1,14 @@
+fragment CollectionsProductsFragment on Collection {
+  products(first: $productsFirst) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        ...ProductFragment
+      }
+    }
+  }
+}

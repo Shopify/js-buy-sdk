@@ -1,0 +1,13 @@
+query {
+  shop {
+    currencyCode
+    description
+    moneyFormat
+    name
+    primaryDomain {
+      host
+      sslEnabled
+      url
+    }
+  }
+}
