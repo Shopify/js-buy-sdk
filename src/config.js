@@ -19,19 +19,36 @@ class Config {
   }
 
   /**
+   * Deprecated properties that map directly to required properties
+   * @attribute deprecatedProperties
+   * @default ['accessToken', 'apiKey']
+   * @type Object
+   * @private
+   */
+  get deprecatedProperties() {
+    return {
+      accessToken: 'storefrontAccessToken',
+      apiKey: 'storefrontAccessToken'
+    };
+  }
+
+  /**
    * @constructs Config
    * @param {Object} attrs An object specifying the configuration. Requires the following properties:
    *   @param {String} attrs.storefrontAccessToken The {@link https://help.shopify.com/api/reference/storefront_access_token|Storefront access token} for the shop.
    *   @param {String} attrs.domain The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`).
    */
   constructor(attrs) {
+    Object.keys(this.deprecatedProperties).forEach((key) => {
+      if (!attrs.hasOwnProperty(key)) { return; }
+      // eslint-disable-next-line no-console
+      console.warn(`[ShopifyBuy] ${key} is deprecated as of v1.0, please use ${this.deprecatedProperties[key]} instead.`);
+      attrs[this.deprecatedProperties[key]] = attrs[key];
+    });
+
     this.requiredProperties.forEach((key) => {
       if (attrs.hasOwnProperty(key)) {
         this[key] = attrs[key];
-      } else if (key === 'accessToken') {
-        // eslint-disable-next-line no-console
-        console.warn('[ShopifyBuy] accessToken is deprecated as of v1.0, please use storefrontAccessToken instead.');
-        this.storefrontAccessToken = attrs.accessToken;
       } else {
         throw new Error(`new Config() requires the option '${key}'`);
       }
