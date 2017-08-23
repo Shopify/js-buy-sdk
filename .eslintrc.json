@@ -19,7 +19,8 @@
   "settings": {
     "import/ignore": [
       "node_modules",
-      ".json$"
+      ".json$",
+      ".graphql$"
     ]
   }
 }

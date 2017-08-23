@@ -1,0 +1,6 @@
+query($id: ID!, $productsFirst: Int!) {
+  node(id: $id) {
+    ...CollectionFragment
+    ...CollectionsProductsFragment
+  }
+}

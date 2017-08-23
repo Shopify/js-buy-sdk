@@ -2,7 +2,7 @@ import assert from 'assert';
 import GraphQLJSClient from '../src/graphql-client';
 import Config from '../src/config';
 import Client from '../src/client';
-import types from '../types';
+import types from '../schema.json';
 import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
@@ -74,7 +74,7 @@ suite('client-test', () => {
 
     new Client(config, FakeGraphQLJSClient); // eslint-disable-line no-new
 
-    assert.equal(passedTypeBundle, types);
+    assert.deepEqual(passedTypeBundle, types);
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
     assert.deepEqual(passedFetcherOptions, {
       headers: {
@@ -389,30 +389,11 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://query-collections.myshopify.com/api/graphql', queryCollectionFixture);
 
-    const query = {title: 'Cat Collection', updatedAtMin: '2016-09-25T21:31:33', limit: 10};
+    const query = {first: 10, query: "title:'Cat Collection' updated_at:>='2016-09-25T21:31:33'"};
 
-    return client.fetchQueryCollections(query, collectionConnectionQuery(['title', 'updatedAt'])).then((collections) => {
-      const [_arg, {body}] = fetchMock.lastCall('https://query-collections.myshopify.com/api/graphql');
-      const queryString = `query {
-        shop {
-          collections (first: 10 query: "title:'Cat Collection' updated_at:>='2016-09-25T21:31:33'") {
-            pageInfo {
-              hasNextPage,
-              hasPreviousPage
-            },
-            edges {
-              cursor,
-              node {
-                id,
-                title,
-                updatedAt
-              }
-            }
-          }
-        }
-      }`;
+    return client.fetchQueryCollections(query).then((collections) => {
+      const [_arg] = fetchMock.lastCall('https://query-collections.myshopify.com/api/graphql');
 
-      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
       assert.equal(collections.length, 1);
       assert.equal(collections[0].title, queryCollectionFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[0].updatedAt, queryCollectionFixture.data.shop.collections.edges[0].node.updatedAt);
@@ -469,26 +450,8 @@ suite('client-test', () => {
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedCollectionsFixture);
 
     return client.fetchQueryCollections({sortBy: 'title'}, collectionConnectionQuery(['title'])).then((collections) => {
-      const [_arg, {body}] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
-      const queryString = `query {
-        shop {
-          collections (first: 20, sortKey: TITLE, query: "") {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                title
-              }
-            }
-          }
-        }
-      }`;
+      const [_arg] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
 
-      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
       assert.equal(collections.length, 3);
       assert.equal(collections[0].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[1].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[1].node.title);
