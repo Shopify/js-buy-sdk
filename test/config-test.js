@@ -25,27 +25,21 @@ suite('config-test', () => {
   });
 
   test('it assigns apiKey as storefrontAccessToken', () => {
-    const domain = 'website.com';
-    const apiKey = 'i am actually a storefrontAccessToken';
-
     const config = new Config({
-      domain,
-      apiKey
+      domain: 'website.com',
+      apiKey: 'i am actually a storefrontAccessToken'
     });
 
-    assert.equal(config.storefrontAccessToken, apiKey);
+    assert.equal(config.storefrontAccessToken, 'i am actually a storefrontAccessToken');
   });
 
   test('it assigns accessToken as storefrontAccessToken', () => {
-    const domain = 'website.com';
-    const accessToken = 'i am actually a storefrontAccessToken';
-
     const config = new Config({
-      domain,
-      accessToken
+      domain: 'website.com',
+      accessToken: 'i am actually a storefrontAccessToken'
     });
 
-    assert.equal(config.storefrontAccessToken, accessToken);
+    assert.equal(config.storefrontAccessToken, 'i am actually a storefrontAccessToken');
   });
 
   test('it should have accessible values', () => {
