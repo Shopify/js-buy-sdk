@@ -21,7 +21,7 @@ class Config {
   /**
    * Deprecated properties that map directly to required properties
    * @attribute deprecatedProperties
-   * @default ['accessToken', 'apiKey']
+   * @default {'accessToken': 'storefrontAccessToken', 'apiKey': 'storefrontAccessToken'}
    * @type Object
    * @private
    */
@@ -42,7 +42,7 @@ class Config {
     Object.keys(this.deprecatedProperties).forEach((key) => {
       if (!attrs.hasOwnProperty(key)) { return; }
       // eslint-disable-next-line no-console
-      console.warn(`[ShopifyBuy] ${key} is deprecated as of v1.0, please use ${this.deprecatedProperties[key]} instead.`);
+      console.warn(`[ShopifyBuy] Config property ${key} is deprecated as of v1.0, please use ${this.deprecatedProperties[key]} instead.`);
       attrs[this.deprecatedProperties[key]] = attrs[key];
     });
 
