@@ -7,8 +7,6 @@ import singleProductFixture from '../fixtures/product-fixture';
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
 import singleCollectionFixture from '../fixtures/collection-fixture';
-import dynamicProductFixture from '../fixtures/dynamic-product-fixture';
-import dynamicCollectionFixture from '../fixtures/dynamic-collection-fixture';
 import productWithPaginatedImagesFixture from '../fixtures/product-with-paginated-images-fixture';
 import {secondPageImagesFixture, thirdPageImagesFixture, fourthPageImagesFixture, fifthPageImagesFixture} from '../fixtures/paginated-images-fixtures';
 import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
@@ -20,14 +18,6 @@ import queryCollectionFixture from '../fixtures/query-collection-fixture';
 import shopWithSortedProductsFixture from '../fixtures/shop-with-sorted-products-fixture';
 import shopWithSortedCollectionsFixture from '../fixtures/shop-with-sorted-collections-fixture';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
-import productNodeQuery from '../src/product-node-query';
-import imageQuery from '../src/image-query';
-import imageConnectionQuery from '../src/image-connection-query';
-import optionQuery from '../src/option-query';
-import variantConnectionQuery from '../src/variant-connection-query';
-import productConnectionQuery from '../src/product-connection-query';
-import collectionConnectionQuery from '../src/collection-connection-query';
-import collectionNodeQuery from '../src/collection-node-query';
 import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutWithPaginatedLineItemsFixture from '../fixtures/checkout-with-paginated-line-items-fixture';
@@ -44,12 +34,6 @@ import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-upda
 import {version} from '../package.json';
 
 suite('client-test', () => {
-  const querySplitter = /[\s,]+/;
-
-  function tokens(query) {
-    return query.split(querySplitter).filter((token) => Boolean(token));
-  }
-
   teardown(() => {
     fetchMock.restore();
   });
@@ -176,44 +160,6 @@ suite('client-test', () => {
     });
   });
 
-  test('it accepts product queries with dynamic fields', () => {
-    const config = new Config({
-      domain: 'dynamic-product-fields.myshopify.com',
-      storefrontAccessToken: 'abc123'
-    });
-
-    const client = new Client(config);
-
-    fetchMock.postOnce('https://dynamic-product-fields.myshopify.com/api/graphql', dynamicProductFixture);
-
-    const queryFields = ['id', 'handle', 'title', 'updatedAt', ['images', imageConnectionQuery(['id', 'src'])], ['options', optionQuery(['name'])], ['variants', variantConnectionQuery(['price', 'weight'])]];
-
-    return client.fetchProduct('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', productNodeQuery(queryFields)).then((product) => {
-      assert.ok(Array.isArray(product) === false, 'product is not an array');
-      assert.equal(product.id, dynamicProductFixture.data.node.id);
-      assert.equal(typeof product.createdAt, 'undefined', 'unspecified fields are not queried');
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it accepts collection queries with dynamic fields', () => {
-    const config = new Config({
-      domain: 'dynamic-collection-fields.myshopify.com',
-      storefrontAccessToken: 'abc123'
-    });
-
-    const client = new Client(config);
-
-    fetchMock.postOnce('https://dynamic-collection-fields.myshopify.com/api/graphql', dynamicCollectionFixture);
-
-    return client.fetchCollection('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', collectionNodeQuery(['title', 'updatedAt', ['image', imageQuery(['src'])]])).then((collection) => {
-      assert.ok(Array.isArray(collection) === false, 'collection is not an array');
-      assert.equal(collection.updatedAt, dynamicCollectionFixture.data.node.updatedAt);
-      assert.equal(typeof collection.createdAt, 'undefined', 'unspecified fields are not queried');
-      assert.ok(fetchMock.done());
-    });
-  });
-
   test('it fetches all images on products', () => {
     const config = new Config({
       domain: 'paginated-images.myshopify.com',
@@ -264,22 +210,6 @@ suite('client-test', () => {
     });
   });
 
-  test('it does not fetch paginated images if images are not requested', () => {
-    const config = new Config({
-      domain: 'no-pagination.myshopify.com',
-      storefrontAccessToken: 'abc123'
-    });
-
-    const client = new Client(config);
-
-    fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {id: 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA=='}}});
-
-    return client.fetchProduct('7857989384', productNodeQuery(['id'])).then((product) => {
-      assert.equal(typeof product.images, 'undefined', 'images are not queried');
-      assert.ok(fetchMock.done());
-    });
-  });
-
   test('it does not fetch paginated images if the images query result was empty', () => {
     const config = new Config({
       domain: 'no-pagination.myshopify.com',
@@ -290,7 +220,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://no-pagination.myshopify.com/api/graphql', {data: {node: {images: {edges: [], pageInfo: {hasNextPage: false, hasPreviousPage: false}}}}});
 
-    return client.fetchProduct('7857989384', productNodeQuery([['images', imageConnectionQuery()]])).then((product) => {
+    return client.fetchProduct('7857989384').then((product) => {
       assert.equal(product.images.length, 0);
       assert.ok(fetchMock.done());
     });
@@ -346,30 +276,7 @@ suite('client-test', () => {
 
     const query = {title: 'Cat', updatedAtMin: '2016-09-25T21:31:33', createdAtMin: '2016-09-25T21:31:33', productType: 'dog', limit: 10};
 
-    return client.fetchQueryProducts(query, productConnectionQuery(['updatedAt', 'createdAt', 'productType', 'title'])).then((products) => {
-      const [_arg, {body}] = fetchMock.lastCall('https://query-products.myshopify.com/api/graphql');
-      const queryString = `query {
-        shop {
-          products (first: 10 query: "title:'Cat' updated_at:>='2016-09-25T21:31:33' created_at:>='2016-09-25T21:31:33' product_type:'dog'") {
-            pageInfo {
-              hasNextPage,
-              hasPreviousPage
-            },
-            edges {
-              cursor,
-              node {
-                id,
-                updatedAt,
-                createdAt,
-                productType,
-                title
-              }
-            }
-          }
-        }
-      }`;
-
-      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
+    return client.fetchQueryProducts(query).then((products) => {
       assert.equal(products.length, 1);
       assert.equal(products[0].title, queryProductFixture.data.shop.products.edges[0].node.title);
       assert.equal(products[0].createdAt, queryProductFixture.data.shop.products.edges[0].node.createdAt);
@@ -411,27 +318,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedProductsFixture);
 
-    return client.fetchQueryProducts({sortBy: 'updatedAt', sortDirection: 'desc'}, productConnectionQuery(['updatedAt'])).then((products) => {
-      const [_arg, {body}] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
-      const queryString = `query {
-        shop {
-          products (first: 20, sortKey: UPDATED_AT, reverse: true, query: "") {
-            pageInfo {
-              hasNextPage
-              hasPreviousPage
-            }
-            edges {
-              cursor
-              node {
-                id
-                updatedAt
-              }
-            }
-          }
-        }
-      }`;
-
-      assert.deepEqual(tokens(JSON.parse(body).query), tokens(queryString));
+    return client.fetchQueryProducts({sortBy: 'updatedAt', sortDirection: 'desc'}).then((products) => {
       assert.equal(products.length, 3);
       assert.equal(products[0].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[0].node.updatedAt);
       assert.equal(products[1].updatedAt, shopWithSortedProductsFixture.data.shop.products.edges[1].node.updatedAt);
@@ -449,9 +336,7 @@ suite('client-test', () => {
 
     fetchMock.postOnce('https://sorted-query.myshopify.com/api/graphql', shopWithSortedCollectionsFixture);
 
-    return client.fetchQueryCollections({sortBy: 'title'}, collectionConnectionQuery(['title'])).then((collections) => {
-      const [_arg] = fetchMock.lastCall('https://sorted-query.myshopify.com/api/graphql');
-
+    return client.fetchQueryCollections({sortBy: 'title'}).then((collections) => {
       assert.equal(collections.length, 3);
       assert.equal(collections[0].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[0].node.title);
       assert.equal(collections[1].title, shopWithSortedCollectionsFixture.data.shop.collections.edges[1].node.title);

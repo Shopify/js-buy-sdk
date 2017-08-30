@@ -1,6 +1,5 @@
 import GraphQLJSClient from './graphql-client';
 import Config from './config';
-import checkoutQuery from './checkout-query';
 import handleCheckoutMutation from './handle-checkout-mutation';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
@@ -76,7 +75,6 @@ class Client {
       productConnectionQuery,
       collectionNodeQuery,
       collectionConnectionQuery,
-      checkoutQuery,
       productByHandleQuery,
       collectionByHandleQuery,
       checkoutNodeQuery
