@@ -3,13 +3,16 @@ import {readFileSync} from 'fs';
 import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
-import remap from 'rollup-plugin-remap';
+import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
 
 const plugins = [
-  json(),
-  remap({
-    originalPath: './types',
-    targetPath: './optimized-types'
+  graphqlCompiler({
+    schema: './schema.json',
+    optimize: true,
+    profileDocuments: ['src/graphql/**/*.graphql']
+  }),
+  json({
+    exclude: './schema.json'
   }),
   nodeResolve({
     jsnext: true,
