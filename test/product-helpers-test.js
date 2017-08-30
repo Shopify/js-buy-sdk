@@ -3,7 +3,7 @@ import GraphQLJSClient, {decode} from 'graphql-js-client';
 import productNodeQuery from '../src/graphql/productNodeQuery.graphql';
 import productHelpers from '../src/product-helpers';
 import singleProductFixture from '../fixtures/product-fixture';
-import types from '../types';
+import types from '../schema.json';
 
 suite('product-helpers-test', () => {
   const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});

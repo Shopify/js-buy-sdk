@@ -5241,9 +5241,9 @@ rollup-plugin-commonjs@8.1.0:
     resolve "^1.1.7"
     rollup-pluginutils "^2.0.1"
 
-rollup-plugin-graphql-js-client-compiler@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-graphql-js-client-compiler/-/rollup-plugin-graphql-js-client-compiler-0.0.1.tgz#6e758ec471398a5f8bce2b1ea5b108014404b490"
+rollup-plugin-graphql-js-client-compiler@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-graphql-js-client-compiler/-/rollup-plugin-graphql-js-client-compiler-0.1.0.tgz#05ef4606f00318647d1457ecffa0edaf3f6741b8"
   dependencies:
     glob "7.1.2"
     graphql-js-client-compiler "0.1.1"
