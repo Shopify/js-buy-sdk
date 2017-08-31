@@ -1,0 +1,106 @@
+fragment MailingAddressFragment on MailingAddress {
+  id
+  address1
+  address2
+  city
+  company
+  country
+  firstName
+  formatted
+  lastName
+  latitude
+  longitude
+  phone
+  province
+  zip
+  name
+  countryCode
+  provinceCode
+}
+
+fragment CheckoutFragment on Checkout {
+  id
+  ready
+  requiresShipping
+  note
+  paymentDue
+  webUrl
+  orderStatusUrl
+  taxExempt
+  taxesIncluded
+  currencyCode
+  totalTax
+  subtotalPrice
+  totalPrice
+  completedAt
+  createdAt
+  updatedAt
+  shippingAddress {
+    ...MailingAddressFragment
+  }
+  shippingLine {
+    handle
+    price
+    title
+  }
+  customAttributes {
+    key
+    value
+  }
+  order {
+    id
+    processedAt
+    orderNumber
+    subtotalPrice
+    totalShippingPrice
+    totalTax
+    totalPrice
+    currencyCode
+    totalRefunded
+    customerUrl
+    shippingAddress {
+      ...MailingAddressFragment
+    }
+    lineItems (first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          title
+          variant {
+            ...VariantFragment
+          }
+          quantity
+          customAttributes {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+  lineItems (first: 250) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        title
+        variant {
+          ...VariantFragment
+        }
+        quantity
+        customAttributes {
+          key
+          value
+        }
+      }
+    }
+  }
+}

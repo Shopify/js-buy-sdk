@@ -1,57 +1,28 @@
 import GraphQLJSClient from './graphql-client';
 import Config from './config';
-import types from '../types';
-import productNodeQuery from './product-node-query';
-import productConnectionQuery from './product-connection-query';
-import collectionNodeQuery, {defaultFields as collectionDefaultFields} from './collection-node-query';
-import collectionConnectionQuery from './collection-connection-query';
-import checkoutQuery, {checkoutNodeQuery} from './checkout-query';
-import customAttributeQuery from './custom-attribute-query';
-import imageConnectionQuery from './image-connection-query';
-import imageQuery from './image-query';
-import lineItemConnectionQuery from './line-item-connection-query';
-import mailingAddressQuery from './mailing-address-query';
-import optionQuery from './option-query';
-import orderQuery from './order-query';
-import selectedOptionQuery from './selected-option-query';
-import shippingRateQuery from './shipping-rate-query';
-import variantConnectionQuery from './variant-connection-query';
-import variantQuery from './variant-query';
-import shopQuery from './shop-query';
-import productByHandleQuery from './product-by-handle-query';
-import collectionByHandleQuery from './collection-by-handle-query';
-import shopPolicyQuery from './shop-policy-query';
+import handleCheckoutMutation from './handle-checkout-mutation';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
 import {version} from '../package.json';
+// Graphql
+import types from '../schema.json';
+import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
+import productNodeQuery from './graphql/productNodeQuery.graphql';
+import productConnectionQuery from './graphql/productConnectionQuery.graphql';
+import productByHandleQuery from './graphql/productByHandleQuery.graphql';
+import collectionNodeQuery from './graphql/collectionNodeQuery.graphql';
+import collectionNodeWithProductsQuery from './graphql/collectionNodeWithProductsQuery.graphql';
+import collectionConnectionQuery from './graphql/collectionConnectionQuery.graphql';
+import collectionConnectionWithProductsQuery from './graphql/collectionConnectionWithProductsQuery.graphql';
+import collectionByHandleQuery from './graphql/collectionByHandleQuery.graphql';
+import shopQuery from './graphql/shopQuery.graphql';
+import shopPolicyQuery from './graphql/shopPolicyQuery.graphql';
+import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
+import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
+import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
+import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 
 export {default as Config} from './config';
-
-function checkoutMutation(type, input, query, client) {
-  const mutation = client.mutation((root) => {
-    root.add(type, {args: input}, (checkoutMutationField) => {
-      checkoutMutationField.add('userErrors', (userErrors) => {
-        userErrors.add('message');
-        userErrors.add('field');
-      });
-      query(checkoutMutationField, 'checkout');
-    });
-  });
-
-  return client.send(mutation).then((result) => {
-    const userErrors = result.data[type].userErrors;
-
-    if (userErrors.length) {
-      return Promise.reject(new Error(JSON.stringify(userErrors)));
-    }
-
-    return client.fetchAllPages(result.model[type].checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-      result.model[type].checkout.attrs.lineItems = lineItems;
-
-      return result.model[type].checkout;
-    });
-  });
-}
 
 function fetchResourcesForProducts(products, client) {
   return products.reduce((promiseAcc, product) => {
@@ -104,20 +75,8 @@ class Client {
       productConnectionQuery,
       collectionNodeQuery,
       collectionConnectionQuery,
-      checkoutQuery,
-      customAttributeQuery,
-      imageConnectionQuery,
-      imageQuery,
-      lineItemConnectionQuery,
-      mailingAddressQuery,
-      optionQuery,
-      orderQuery,
       productByHandleQuery,
       collectionByHandleQuery,
-      selectedOptionQuery,
-      shippingRateQuery,
-      variantConnectionQuery,
-      variantQuery,
       checkoutNodeQuery
     };
   }
@@ -162,12 +121,7 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the shop.
    */
   fetchShopInfo() {
-    const query = shopQuery();
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'shop');
-    });
-
-    return this.graphQLClient.send(rootQuery).then((result) => {
+    return this.graphQLClient.send(shopQuery).then((result) => {
       return result.model.shop;
     });
   }
@@ -183,16 +137,7 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the shop.
    */
   fetchShopPolicies() {
-    const query = shopQuery([
-      ['privacyPolicy', shopPolicyQuery()],
-      ['termsOfService', shopPolicyQuery()],
-      ['refundPolicy', shopPolicyQuery()]
-    ]);
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'shop');
-    });
-
-    return this.graphQLClient.send(rootQuery).then((result) => {
+    return this.graphQLClient.send(shopPolicyQuery).then((result) => {
       return result.model.shop;
     });
   }
@@ -208,14 +153,8 @@ class Client {
    * @param {Client.Queries.productConnectionQuery} [query] Callback function to specify fields to query on the products.
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
-  fetchAllProducts(query = productConnectionQuery()) {
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'products');
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+  fetchAllProducts(pageSize = 20) {
+    return this.graphQLClient.send(productConnectionQuery, {pageSize}).then(({model}) => {
       return Promise.all(fetchResourcesForProducts(model.shop.products, this.graphQLClient)).then(() => {
         return model.shop.products;
       });
@@ -234,12 +173,8 @@ class Client {
    * @param {Client.Queries.productNodeQuery} [query] Callback function to specify fields to query on the product.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
-  fetchProduct(id, query = productNodeQuery()) {
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'node', id);
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+  fetchProduct(id) {
+    return this.graphQLClient.send(productNodeQuery, {id}).then(({model}) => {
       const promises = [];
 
       promises.push(this.graphQLClient.fetchAllPages(model.node.images, {pageSize: 250}).then((images) => {
@@ -268,15 +203,7 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
   fetchProductByHandle(handle) {
-    const query = productByHandleQuery();
-
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'productByHandle', handle);
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+    return this.graphQLClient.send(productByHandleQuery, {handle}).then(({model}) => {
       const promises = [];
       const product = model.shop.productByHandle;
 
@@ -306,15 +233,7 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
   fetchCollectionByHandle(handle) {
-    const query = collectionByHandleQuery();
-
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'collectionByHandle', handle);
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+    return this.graphQLClient.send(collectionByHandleQuery, {handle}).then(({model}) => {
       const collection = model.shop.collectionByHandle;
 
       return collection;
@@ -333,14 +252,8 @@ class Client {
    * @param {Client.Queries.collectionConnectionQuery} [query] Callback function to specify fields to query on the collections.
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
-  fetchAllCollections(query = collectionConnectionQuery()) {
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'collections');
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then((response) => {
+  fetchAllCollections() {
+    return this.graphQLClient.send(collectionConnectionQuery).then((response) => {
       return response.model.shop.collections;
     });
   }
@@ -355,15 +268,8 @@ class Client {
    *
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
-  fetchAllCollectionsWithProducts() {
-    const query = collectionConnectionQuery([...collectionDefaultFields, ['products', productConnectionQuery()]]);
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'collections');
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+  fetchAllCollectionsWithProducts({first = 20, productsFirst = 20} = {}) {
+    return this.graphQLClient.send(collectionConnectionWithProductsQuery, {first, productsFirst}).then(({model}) => {
       const promises = model.shop.collections.reduce((promiseAcc, collection) => {
         return fetchResourcesForProducts(collection.products, this.graphQLClient);
       }, []);
@@ -387,13 +293,9 @@ class Client {
    * @param {Client.Queries.collectionNodeQuery} [query] Callback function to specify fields to query on the collection.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
-  fetchCollection(id, query = collectionNodeQuery()) {
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'node', id);
-    });
-
-    return this.graphQLClient.send(rootQuery).then((response) => {
-      return response.model.node;
+  fetchCollection(id) {
+    return this.graphQLClient.send(collectionNodeQuery, {id}).then(({model}) => {
+      return model.node;
     });
   }
 
@@ -408,13 +310,8 @@ class Client {
    * @param {String} id The id of the collection to fetch.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
-  fetchCollectionWithProducts(id) {
-    const query = collectionNodeQuery([...collectionDefaultFields, ['products', productConnectionQuery()]]);
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'node', id);
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+  fetchCollectionWithProducts(id, productsFirst = 20) {
+    return this.graphQLClient.send(collectionNodeWithProductsQuery, {id, productsFirst}).then(({model}) => {
       return Promise.all(fetchResourcesForProducts(model.node.products, this.graphQLClient)).then(() => {
         return model.node;
       });
@@ -433,12 +330,8 @@ class Client {
    * @param {Client.Queries.checkoutNodeQuery} [query] Callback function to specify fields to query on the checkout.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the checkout.
    */
-  fetchCheckout(id, query = checkoutNodeQuery()) {
-    const rootQuery = this.graphQLClient.query((root) => {
-      query(root, 'node', id);
-    });
-
-    return this.graphQLClient.send(rootQuery).then((result) => {
+  fetchCheckout(id) {
+    return this.graphQLClient.send(checkoutNodeQuery, {id}).then((result) => {
       // Fetch all paginated line items
       return this.graphQLClient.fetchAllPages(result.model.node.lineItems, {pageSize: 250}).then((lineItems) => {
         result.model.node.attrs.lineItems = lineItems;
@@ -468,55 +361,13 @@ class Client {
    * @param {Client.Queries.productConnectionQuery} [query] Callback function to specify fields to query on the products.
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
-  fetchQueryProducts(queryObject = {}, query = productConnectionQuery()) {
-    const queryArgStrings = [];
-    const options = {};
-
-    if (queryObject.title) {
-      queryArgStrings.push(`title:'${queryObject.title}'`);
-    }
-    if (queryObject.updatedAtMin) {
-      queryArgStrings.push(`updated_at:>='${queryObject.updatedAtMin}'`);
-    }
-    if (queryObject.createdAtMin) {
-      queryArgStrings.push(`created_at:>='${queryObject.createdAtMin}'`);
-    }
-    if (queryObject.productType) {
-      queryArgStrings.push(`product_type:'${queryObject.productType}'`);
-    }
-    if (queryObject.limit) {
-      options.first = queryObject.limit;
-    }
-    if (queryObject.sortBy) {
-      let sortKey;
-
-      switch (queryObject.sortBy) {
-        case 'title':
-          sortKey = this.graphQLClient.enum('TITLE');
-          break;
-        case 'updatedAt':
-          sortKey = this.graphQLClient.enum('UPDATED_AT');
-          break;
-        case 'createdAt':
-          sortKey = this.graphQLClient.enum('CREATED_AT');
-          break;
-      }
-
-      options.sortKey = sortKey;
-    }
-    if (queryObject.sortDirection === 'desc') {
-      options.reverse = true;
-    }
-
-    options.query = queryArgStrings.join(' ');
-
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'products', options);
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then(({model}) => {
+  fetchQueryProducts({first = 20, sortKey = 'ID', query, reverse}) {
+    return this.graphQLClient.send(productConnectionQuery, {
+      first,
+      sortKey: this.graphQLClient.enum(sortKey),
+      query,
+      reverse
+    }).then(({model}) => {
       const promises = model.shop.products.reduce((promiseAcc, product) => {
         // Fetch the rest of the images and variants for this product
         promiseAcc.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
@@ -554,47 +405,14 @@ class Client {
    * @param {Client.Queries.collectionConnectionQuery} [query] Callback function to specify fields to query on the collections.
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
-  fetchQueryCollections(queryObject = {}, query = collectionConnectionQuery()) {
-    const queryArgStrings = [];
-    const options = {};
-
-    if (queryObject.title) {
-      queryArgStrings.push(`title:'${queryObject.title}'`);
-    }
-    if (queryObject.updatedAtMin) {
-      queryArgStrings.push(`updated_at:>='${queryObject.updatedAtMin}'`);
-    }
-    if (queryObject.limit) {
-      options.first = queryObject.limit;
-    }
-    if (queryObject.sortBy) {
-      let sortKey;
-
-      switch (queryObject.sortBy) {
-        case 'title':
-          sortKey = this.graphQLClient.enum('TITLE');
-          break;
-        case 'updatedAt':
-          sortKey = this.graphQLClient.enum('UPDATED_AT');
-          break;
-      }
-
-      options.sortKey = sortKey;
-    }
-    if (queryObject.sortDirection === 'desc') {
-      options.reverse = true;
-    }
-
-    options.query = queryArgStrings.join(' ');
-
-    const rootQuery = this.graphQLClient.query((root) => {
-      root.add('shop', (shop) => {
-        query(shop, 'collections', options);
-      });
-    });
-
-    return this.graphQLClient.send(rootQuery).then((response) => {
-      return response.model.shop.collections;
+  fetchQueryCollections({first = 20, sortKey = 'ID', query, reverse}) {
+    return this.graphQLClient.send(collectionConnectionQuery, {
+      first,
+      sortKey: this.graphQLClient.enum(sortKey),
+      query,
+      reverse
+    }).then(({model}) => {
+      return model.shop.collections;
     });
   }
 
@@ -621,8 +439,10 @@ class Client {
    * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
-  createCheckout(input = {}, query = checkoutQuery()) {
-    return checkoutMutation('checkoutCreate', {input}, query, this.graphQLClient);
+  createCheckout(input = {}) {
+    return this.graphQLClient
+      .send(checkoutCreateMutation, {input})
+      .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
   }
 
   /**
@@ -641,8 +461,10 @@ class Client {
    * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  addLineItems(checkoutId, lineItems, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsAdd', {checkoutId, lineItems}, query, this.graphQLClient);
+  addLineItems(checkoutId, lineItems) {
+    return this.graphQLClient
+      .send(checkoutLineItemsAddMutation, {checkoutId, lineItems})
+      .then(handleCheckoutMutation('checkoutLineItemsAdd', this.graphQLClient));
   }
 
   /**
@@ -661,8 +483,10 @@ class Client {
    * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  removeLineItems(checkoutId, lineItemIds, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsRemove', {checkoutId, lineItemIds}, query, this.graphQLClient);
+  removeLineItems(checkoutId, lineItemIds) {
+    return this.graphQLClient
+      .send(checkoutLineItemsRemoveMutation, {checkoutId, lineItemIds})
+      .then(handleCheckoutMutation('checkoutLineItemsRemove', this.graphQLClient));
   }
 
   /**
@@ -687,8 +511,10 @@ class Client {
    * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  updateLineItems(checkoutId, lineItems, query = checkoutQuery()) {
-    return checkoutMutation('checkoutLineItemsUpdate', {checkoutId, lineItems}, query, this.graphQLClient);
+  updateLineItems(checkoutId, lineItems) {
+    return this.graphQLClient
+      .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
+      .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
   }
 }
 

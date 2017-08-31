@@ -1,17 +1,17 @@
 import assert from 'assert';
 import GraphQLJSClient, {decode} from 'graphql-js-client';
-import productNodeQuery from '../src/product-node-query';
+import productNodeQuery from '../src/graphql/productNodeQuery.graphql';
 import productHelpers from '../src/product-helpers';
 import singleProductFixture from '../fixtures/product-fixture';
-import types from '../types';
+import types from '../schema.json';
 
 suite('product-helpers-test', () => {
-  const query = productNodeQuery();
   const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});
-  const rootQuery = graphQLClient.query((root) => {
-    query(root, 'node', 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
-  });
-  const productModel = decode(rootQuery, singleProductFixture.data);
+  const query = productNodeQuery(graphQLClient)
+    .definitions
+    .find((definition) => definition.operationType === 'query');
+
+  const productModel = decode(query, singleProductFixture.data);
 
   test('it returns the variant based on options given', () => {
     const variant = productHelpers.variantForOptions(productModel.node, {Fur: 'Fluffy', Size: 'Medium'});

@@ -1,0 +1,10 @@
+mutation ($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
+  checkoutLineItemsAdd(checkoutId: $checkoutId, lineItems: $lineItems) {
+    userErrors {
+      ...UserErrorFragment
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}

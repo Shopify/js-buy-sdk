@@ -8,12 +8,17 @@ const globals = require('rollup-plugin-node-globals');
 const babel = require('rollup-plugin-babel');
 const json = require('rollup-plugin-json');
 const remap = require('rollup-plugin-remap');
+const graphqlCompiler = require('rollup-plugin-graphql-js-client-compiler');
 const eslintTestGenerator = require('./rollup-plugin-eslint-test-generator');
+
+console.log(process.cwd());
 
 function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
   const format = (browser) ? 'iife' : 'cjs';
   const plugins = [
-    json(),
+    json({
+      exclude: './schema.json'
+    }),
     eslintTestGenerator({
       paths: [
         'src',
@@ -28,7 +33,18 @@ function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
     commonjs({
       include: 'node_modules/**'
     }),
-    babel()
+    babel({
+      babelrc: false,
+      // exclude: 'node_modules/babel-runtime/**',
+      // runtimeHelpers: true,
+      presets: [
+        [
+          `${process.cwd()}/node_modules/babel-preset-shopify/${browser ? 'web' : 'node'}`, {
+            modules: false
+          }
+        ]
+      ]
+    })
   ];
   const external = [];
 
@@ -72,9 +88,14 @@ function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
   }
 
 
-  plugins.unshift(multiEntry({
-    exports: false
-  }));
+  plugins.unshift(
+    graphqlCompiler({
+      schema: './schema.json'
+    }),
+    multiEntry({
+      exports: false
+    })
+  );
 
   return {plugins, external, format};
 }
