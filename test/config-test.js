@@ -24,6 +24,24 @@ suite('config-test', () => {
     });
   });
 
+  test('it assigns apiKey as storefrontAccessToken', () => {
+    const config = new Config({
+      domain: 'website.com',
+      apiKey: 'i am actually a storefrontAccessToken'
+    });
+
+    assert.equal(config.storefrontAccessToken, 'i am actually a storefrontAccessToken');
+  });
+
+  test('it assigns accessToken as storefrontAccessToken', () => {
+    const config = new Config({
+      domain: 'website.com',
+      accessToken: 'i am actually a storefrontAccessToken'
+    });
+
+    assert.equal(config.storefrontAccessToken, 'i am actually a storefrontAccessToken');
+  });
+
   test('it should have accessible values', () => {
     const domain = 'krundle.com';
     const storefrontAccessToken = 123;
