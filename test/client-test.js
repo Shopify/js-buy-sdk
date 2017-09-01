@@ -662,6 +662,5 @@ suite('client-test', () => {
   test('it has static helpers', () => {
     assert.ok(Client.Product.Helpers);
     assert.ok(Client.Image.Helpers);
-    assert.ok(Client.Queries);
   });
 });
