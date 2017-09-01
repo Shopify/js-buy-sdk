@@ -10,6 +10,7 @@ fragment ProductFragment on Product {
   vendor
   tags
   publishedAt
+  onlineStoreUrl
   options {
     name
     values
