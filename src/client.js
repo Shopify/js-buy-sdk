@@ -4,6 +4,7 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
 import defaultResolver from './default-resolver';
+import fetchResourcesForProducts from './fetch-resources-for-products';
 import {version} from '../package.json';
 // Graphql
 import types from '../schema.json';
@@ -23,28 +24,9 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 
-export {default as Config} from './config';
-
-function fetchResourcesForProducts(productOrProduct, client) {
-  const products = [].concat(productOrProduct);
-
-  return products.reduce((promiseAcc, product) => {
-    // Fetch the rest of the images and variants for this product
-    promiseAcc.push(client.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
-      product.attrs.images = images;
-    }));
-
-    promiseAcc.push(client.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
-      product.attrs.variants = variants;
-    }));
-
-    return promiseAcc;
-  }, []);
-}
-
 function paginateProductConnectionsAndResolve(client) {
   return function(products) {
-    return Promise.all(fetchResourcesForProducts(products, client)).then(() => {
+    return fetchResourcesForProducts(products, client).then(() => {
       return products;
     });
   };
