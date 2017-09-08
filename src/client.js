@@ -6,7 +6,8 @@ import imageHelpers from './image-helpers';
 import defaultResolver from './default-resolver';
 import fetchResourcesForProducts from './fetch-resources-for-products';
 import {version} from '../package.json';
-// Graphql
+
+// GraphQL
 import types from '../schema.json';
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import productNodeQuery from './graphql/productNodeQuery.graphql';
