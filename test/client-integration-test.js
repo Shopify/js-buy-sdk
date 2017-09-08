@@ -38,10 +38,10 @@ suite('client-integration-test', () => {
     fetchMock.restore();
   });
 
-  test('it resolves with an array of products on Client#fetchAllProducts', () => {
+  test('it resolves with an array of products on Client.product#fetchAllProducts', () => {
     fetchMock.postOnce(apiUrl, shopWithProductsFixture);
 
-    return client.fetchAllProducts().then((products) => {
+    return client.product.fetchAll().then((products) => {
       assert.ok(Array.isArray(products), 'products is an array');
       assert.equal(products.length, 2, 'there are two products');
 
@@ -51,14 +51,94 @@ suite('client-integration-test', () => {
     });
   });
 
-  test('it resolves with a single product on Client#fetchProduct', () => {
+  test('it resolves with a single product on Client.product#fetch', () => {
     fetchMock.postOnce(apiUrl, singleProductFixture);
 
     const id = singleProductFixture.data.node.id;
 
-    return client.fetchProduct(id).then((product) => {
+    return client.product.fetch(id).then((product) => {
       assert.ok(!Array.isArray(product), 'product is not an array');
       assert.equal(product.id, id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all images on products on Client.product#fetchAll', () => {
+    fetchMock.postOnce(apiUrl, productWithPaginatedImagesFixture)
+      .postOnce(apiUrl, secondPageImagesFixture)
+      .postOnce(apiUrl, thirdPageImagesFixture);
+
+    return client.product.fetchAll().then((products) => {
+      const images = products[0].images;
+
+      assert.ok(Array.isArray(images), 'images is an array');
+      // Each image page fixture only contains 1 image rather than 20 for simplicity
+      assert.equal(images.length, 3, 'all three pages of images are returned');
+      assert.equal(images[0].id, productWithPaginatedImagesFixture.data.shop.products.edges[0].node.images.edges[0].node.id);
+      assert.equal(images[1].id, secondPageImagesFixture.data.node.images.edges[0].node.id);
+      assert.equal(images[2].id, thirdPageImagesFixture.data.node.images.edges[0].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it fetches all variants on Client.product#fetch', () => {
+    fetchMock.postOnce(apiUrl, productWithPaginatedVariantsFixture)
+      .postOnce(apiUrl, secondPageVariantsFixture)
+      .postOnce(apiUrl, thirdPageVariantsFixture);
+
+    return client.product.fetch(productWithPaginatedVariantsFixture.data.node.id).then((product) => {
+      const variants = product.variants;
+
+      assert.ok(Array.isArray(variants), 'variants is an array');
+      // Each variant page fixture only contains 1 variant rather than 20 for simplicity
+      assert.equal(variants.length, 3, 'all three pages of variants are returned');
+      assert.equal(variants[0].id, productWithPaginatedVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.equal(variants[1].id, secondPageVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.equal(variants[2].id, thirdPageVariantsFixture.data.node.variants.edges[0].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it does not fetch paginated images if the images query result was empty on Client.product#fetch', () => {
+    fetchMock.postOnce(apiUrl, {
+      data: {
+        node: {
+          images: {
+            edges: [],
+            pageInfo: {
+              hasNextPage: false,
+              hasPreviousPage: false
+            }
+          }
+        }
+      }
+    });
+
+    return client.product.fetch('an-id').then((product) => {
+      assert.equal(product.images.length, 0);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch a product by handle through Client.product#fetchByHandle', () => {
+    fetchMock.postOnce(apiUrl, productByHandleFixture);
+
+    const handle = productByHandleFixture.data.shop.productByHandle.handle;
+
+    return client.product.fetchByHandle(handle).then((product) => {
+      assert.equal(product.id, productByHandleFixture.data.shop.productByHandle.id);
+      assert.equal(product.handle, handle);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves products with Client.product#fetchQuery', () => {
+    fetchMock.postOnce(apiUrl, shopWithProductsFixture);
+
+    return client.product.fetchQuery({}).then((products) => {
+      assert.equal(products.length, 2);
+      assert.equal(products[0].id, shopWithProductsFixture.data.shop.products.edges[0].node.id);
+      assert.equal(products[1].id, shopWithProductsFixture.data.shop.products.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
@@ -88,75 +168,6 @@ suite('client-integration-test', () => {
     });
   });
 
-  test('it fetches all images on products on Client#fetchAllProducts', () => {
-    fetchMock.postOnce(apiUrl, productWithPaginatedImagesFixture)
-      .postOnce(apiUrl, secondPageImagesFixture)
-      .postOnce(apiUrl, thirdPageImagesFixture);
-
-    return client.fetchAllProducts().then((products) => {
-      const images = products[0].images;
-
-      assert.ok(Array.isArray(images), 'images is an array');
-      // Each image page fixture only contains 1 image rather than 20 for simplicity
-      assert.equal(images.length, 3, 'all three pages of images are returned');
-      assert.equal(images[0].id, productWithPaginatedImagesFixture.data.shop.products.edges[0].node.images.edges[0].node.id);
-      assert.equal(images[1].id, secondPageImagesFixture.data.node.images.edges[0].node.id);
-      assert.equal(images[2].id, thirdPageImagesFixture.data.node.images.edges[0].node.id);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it fetches all variants on Client#fetchProduct', () => {
-    fetchMock.postOnce(apiUrl, productWithPaginatedVariantsFixture)
-      .postOnce(apiUrl, secondPageVariantsFixture)
-      .postOnce(apiUrl, thirdPageVariantsFixture);
-
-    return client.fetchProduct(productWithPaginatedVariantsFixture.data.node.id).then((product) => {
-      const variants = product.variants;
-
-      assert.ok(Array.isArray(variants), 'variants is an array');
-      // Each variant page fixture only contains 1 variant rather than 20 for simplicity
-      assert.equal(variants.length, 3, 'all three pages of variants are returned');
-      assert.equal(variants[0].id, productWithPaginatedVariantsFixture.data.node.variants.edges[0].node.id);
-      assert.equal(variants[1].id, secondPageVariantsFixture.data.node.variants.edges[0].node.id);
-      assert.equal(variants[2].id, thirdPageVariantsFixture.data.node.variants.edges[0].node.id);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it does not fetch paginated images if the images query result was empty on Client#fetchProduct', () => {
-    fetchMock.postOnce(apiUrl, {
-      data: {
-        node: {
-          images: {
-            edges: [],
-            pageInfo: {
-              hasNextPage: false,
-              hasPreviousPage: false
-            }
-          }
-        }
-      }
-    });
-
-    return client.fetchProduct('an-id').then((product) => {
-      assert.equal(product.images.length, 0);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it can fetch a product by handle through Client#fetchProductByHandle', () => {
-    fetchMock.postOnce(apiUrl, productByHandleFixture);
-
-    const handle = productByHandleFixture.data.shop.productByHandle.handle;
-
-    return client.fetchProductByHandle(handle).then((product) => {
-      assert.equal(product.id, productByHandleFixture.data.shop.productByHandle.id);
-      assert.equal(product.handle, handle);
-      assert.ok(fetchMock.done());
-    });
-  });
-
   test('it can fetch a collection by handle through Client#fetchCollectionByHandle', () => {
     fetchMock.postOnce(apiUrl, collectionByHandleFixture);
 
@@ -165,17 +176,6 @@ suite('client-integration-test', () => {
     return client.fetchCollectionByHandle(handle).then((collection) => {
       assert.equal(collection.id, collectionByHandleFixture.data.shop.collectionByHandle.id);
       assert.equal(collection.handle, handle);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it resolves products with Client#fetchQueryProducts', () => {
-    fetchMock.postOnce(apiUrl, shopWithProductsFixture);
-
-    return client.fetchQueryProducts({}).then((products) => {
-      assert.equal(products.length, 2);
-      assert.equal(products[0].id, shopWithProductsFixture.data.shop.products.edges[0].node.id);
-      assert.equal(products[1].id, shopWithProductsFixture.data.shop.products.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
