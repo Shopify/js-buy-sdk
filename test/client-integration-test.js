@@ -143,10 +143,10 @@ suite('client-integration-test', () => {
     });
   });
 
-  test('it resolves with an array of collections on Client#fetchAllCollections', () => {
+  test('it resolves with an array of collections on Client.collection#fetchAll', () => {
     fetchMock.postOnce(apiUrl, shopWithCollectionsFixture);
 
-    return client.fetchAllCollections().then((collections) => {
+    return client.collection.fetchAll().then((collections) => {
       assert.ok(Array.isArray(collections), 'collections is an array');
       assert.equal(collections.length, 2, 'there are two collections');
 
@@ -156,37 +156,78 @@ suite('client-integration-test', () => {
     });
   });
 
-  test('it resolves with a single collection on Client#fetchCollection', () => {
+  test('it resolves with a single collection on Client.collection#fetch', () => {
     fetchMock.postOnce(apiUrl, singleCollectionFixture);
 
     const id = singleCollectionFixture.data.node.id;
 
-    return client.fetchCollection(id).then((collection) => {
+    return client.collection.fetch(id).then((collection) => {
       assert.ok(Array.isArray(collection) === false, 'collection is not an array');
       assert.equal(collection.id, id);
       assert.ok(fetchMock.done());
     });
   });
 
-  test('it can fetch a collection by handle through Client#fetchCollectionByHandle', () => {
+  test('it can fetch a collection by handle through Client.collection#fetchByHandle', () => {
     fetchMock.postOnce(apiUrl, collectionByHandleFixture);
 
     const handle = collectionByHandleFixture.data.shop.collectionByHandle.handle;
 
-    return client.fetchCollectionByHandle(handle).then((collection) => {
+    return client.collection.fetchByHandle(handle).then((collection) => {
       assert.equal(collection.id, collectionByHandleFixture.data.shop.collectionByHandle.id);
       assert.equal(collection.handle, handle);
       assert.ok(fetchMock.done());
     });
   });
 
-  test('it can fetch collections with the query arg on Client#fetchQueryCollections', () => {
+  test('it can fetch collections with the query arg on Client.collection#fetchQuery', () => {
     fetchMock.postOnce(apiUrl, shopWithCollectionsFixture);
 
-    return client.fetchQueryCollections({}).then((collections) => {
+    return client.collection.fetchQuery({}).then((collections) => {
       assert.equal(collections.length, 2);
       assert.equal(collections[0].id, shopWithCollectionsFixture.data.shop.collections.edges[0].node.id);
       assert.equal(collections[1].id, shopWithCollectionsFixture.data.shop.collections.edges[1].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch all collections with products on Client.collection#fetchAllWithProducts', () => {
+    fetchMock.postOnce(apiUrl, shopWithCollectionsWithProductsFixture);
+
+    return client.collection.fetchAllWithProducts().then((collections) => {
+      assert.ok(Array.isArray(collections), 'collections is an array');
+      assert.equal(collections.length, 2, 'there are two collections');
+      assert.equal(collections[0].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[0].node.id);
+      assert.equal(collections[1].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[1].node.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it can fetch a single collection with products on Client.collection#fetchWithProducts', () => {
+    fetchMock.postOnce(apiUrl, collectionWithProductsFixture);
+
+    const id = collectionWithProductsFixture.data.node.id;
+
+    return client.collection.fetchWithProducts(id).then((collection) => {
+      assert.equal(Array.isArray(collection), false, 'collection is not an array');
+      assert.equal(collection.id, id);
+      assert.equal(collection.products.length, 2);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it paginates on images on products within collections on Client.collection#fetchAllWithProducts', () => {
+    fetchMock.postOnce(apiUrl, shopWithCollectionsWithPaginationFixture)
+      .postOnce(apiUrl, thirdPageImagesFixture)
+      .postOnce(apiUrl, fourthPageImagesFixture)
+      .postOnce(apiUrl, fifthPageImagesFixture);
+
+    return client.collection.fetchAllWithProducts().then((collections) => {
+      assert.equal(collections.length, 2);
+      // Verify that all images are added
+      assert.equal(collections[0].products[0].images.length, 2);
+      assert.equal(collections[0].products[1].images.length, 2);
+      assert.equal(collections[1].products[0].images.length, 2);
       assert.ok(fetchMock.done());
     });
   });
@@ -208,48 +249,6 @@ suite('client-integration-test', () => {
       assert.equal(shop.privacyPolicy.id, shopPoliciesFixture.data.shop.privacyPolicy.id);
       assert.equal(shop.termsOfService.id, shopPoliciesFixture.data.shop.termsOfService.id);
       assert.equal(shop.refundPolicy.id, shopPoliciesFixture.data.shop.refundPolicy.id);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-
-  test('it can fetch all collections with products on Client#fetchAllCollectionsWithProducts', () => {
-    fetchMock.postOnce(apiUrl, shopWithCollectionsWithProductsFixture);
-
-    return client.fetchAllCollectionsWithProducts().then((collections) => {
-      assert.ok(Array.isArray(collections), 'collections is an array');
-      assert.equal(collections.length, 2, 'there are two collections');
-      assert.equal(collections[0].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[0].node.id);
-      assert.equal(collections[1].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[1].node.id);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it can fetch a single collection with products on Client#fetchCollectionWithProducts', () => {
-    fetchMock.postOnce(apiUrl, collectionWithProductsFixture);
-
-    const id = collectionWithProductsFixture.data.node.id;
-
-    return client.fetchCollectionWithProducts(id).then((collection) => {
-      assert.equal(Array.isArray(collection), false, 'collection is not an array');
-      assert.equal(collection.id, id);
-      assert.equal(collection.products.length, 2);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it paginates on images on products within collections on Client#fetchAllCollectionsWithProducts', () => {
-    fetchMock.postOnce(apiUrl, shopWithCollectionsWithPaginationFixture)
-      .postOnce(apiUrl, thirdPageImagesFixture)
-      .postOnce(apiUrl, fourthPageImagesFixture)
-      .postOnce(apiUrl, fifthPageImagesFixture);
-
-    return client.fetchAllCollectionsWithProducts().then((collections) => {
-      assert.equal(collections.length, 2);
-      // Verify that all images are added
-      assert.equal(collections[0].products[0].images.length, 2);
-      assert.equal(collections[0].products[1].images.length, 2);
-      assert.equal(collections[1].products[0].images.length, 2);
       assert.ok(fetchMock.done());
     });
   });
