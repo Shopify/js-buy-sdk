@@ -3,8 +3,11 @@ import Config from './config';
 import handleCheckoutMutation from './handle-checkout-mutation';
 import productHelpers from './product-helpers';
 import imageHelpers from './image-helpers';
+import defaultResolver from './default-resolver';
+import fetchResourcesForProducts from './fetch-resources-for-products';
 import {version} from '../package.json';
-// Graphql
+
+// GraphQL
 import types from '../schema.json';
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import productNodeQuery from './graphql/productNodeQuery.graphql';
@@ -22,21 +25,24 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 
-export {default as Config} from './config';
+function paginateProductConnectionsAndResolve(client) {
+  return function(products) {
+    return fetchResourcesForProducts(products, client).then(() => {
+      return products;
+    });
+  };
+}
 
-function fetchResourcesForProducts(products, client) {
-  return products.reduce((promiseAcc, product) => {
-    // Fetch the rest of the images and variants for this product
-    promiseAcc.push(client.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
-      product.attrs.images = images;
-    }));
+function paginateCollectionsProductConnectionsAndResolve(client) {
+  return function(collectionOrCollections) {
+    const collections = [].concat(collectionOrCollections);
 
-    promiseAcc.push(client.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
-      product.attrs.variants = variants;
-    }));
-
-    return promiseAcc;
-  }, []);
+    return Promise.all(collections.reduce((promiseAcc, collection) => {
+      return promiseAcc.concat(fetchResourcesForProducts(collection.products, client));
+    }, [])).then(() => {
+      return collectionOrCollections;
+    });
+  };
 }
 
 /**
@@ -62,22 +68,6 @@ class Client {
   static get Image() {
     return {
       Helpers: imageHelpers
-    };
-  }
-
-  /**
-   * A namespace providing the functions used to build different kinds of queries.
-   * @namespace
-   */
-  static get Queries() {
-    return {
-      productNodeQuery,
-      productConnectionQuery,
-      collectionNodeQuery,
-      collectionConnectionQuery,
-      productByHandleQuery,
-      collectionByHandleQuery,
-      checkoutNodeQuery
     };
   }
 
@@ -121,9 +111,9 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the shop.
    */
   fetchShopInfo() {
-    return this.graphQLClient.send(shopQuery).then((result) => {
-      return result.model.shop;
-    });
+    return this.graphQLClient
+      .send(shopQuery)
+      .then(defaultResolver('shop'));
   }
 
   /**
@@ -137,9 +127,9 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the shop.
    */
   fetchShopPolicies() {
-    return this.graphQLClient.send(shopPolicyQuery).then((result) => {
-      return result.model.shop;
-    });
+    return this.graphQLClient
+      .send(shopPolicyQuery)
+      .then(defaultResolver('shop'));
   }
 
   /**
@@ -154,11 +144,10 @@ class Client {
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
   fetchAllProducts(pageSize = 20) {
-    return this.graphQLClient.send(productConnectionQuery, {pageSize}).then(({model}) => {
-      return Promise.all(fetchResourcesForProducts(model.shop.products, this.graphQLClient)).then(() => {
-        return model.shop.products;
-      });
-    });
+    return this.graphQLClient
+      .send(productConnectionQuery, {pageSize})
+      .then(defaultResolver('shop.products'))
+      .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -174,21 +163,10 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
   fetchProduct(id) {
-    return this.graphQLClient.send(productNodeQuery, {id}).then(({model}) => {
-      const promises = [];
-
-      promises.push(this.graphQLClient.fetchAllPages(model.node.images, {pageSize: 250}).then((images) => {
-        model.node.attrs.images = images;
-      }));
-
-      promises.push(this.graphQLClient.fetchAllPages(model.node.variants, {pageSize: 250}).then((variants) => {
-        model.node.attrs.variants = variants;
-      }));
-
-      return Promise.all(promises).then(() => {
-        return model.node;
-      });
-    });
+    return this.graphQLClient
+      .send(productNodeQuery, {id})
+      .then(defaultResolver('node'))
+      .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -203,22 +181,10 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
   fetchProductByHandle(handle) {
-    return this.graphQLClient.send(productByHandleQuery, {handle}).then(({model}) => {
-      const promises = [];
-      const product = model.shop.productByHandle;
-
-      promises.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
-        product.attrs.images = images;
-      }));
-
-      promises.push(this.graphQLClient.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
-        product.attrs.variants = variants;
-      }));
-
-      return Promise.all(promises).then(() => {
-        return product;
-      });
-    });
+    return this.graphQLClient
+      .send(productByHandleQuery, {handle})
+      .then(defaultResolver('shop.productByHandle'))
+      .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -233,11 +199,9 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
   fetchCollectionByHandle(handle) {
-    return this.graphQLClient.send(collectionByHandleQuery, {handle}).then(({model}) => {
-      const collection = model.shop.collectionByHandle;
-
-      return collection;
-    });
+    return this.graphQLClient
+      .send(collectionByHandleQuery, {handle})
+      .then(defaultResolver('shop.collectionByHandle'));
   }
 
   /**
@@ -253,9 +217,9 @@ class Client {
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
   fetchAllCollections() {
-    return this.graphQLClient.send(collectionConnectionQuery).then((response) => {
-      return response.model.shop.collections;
-    });
+    return this.graphQLClient
+      .send(collectionConnectionQuery)
+      .then(defaultResolver('shop.collections'));
   }
 
   /**
@@ -269,15 +233,10 @@ class Client {
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
   fetchAllCollectionsWithProducts({first = 20, productsFirst = 20} = {}) {
-    return this.graphQLClient.send(collectionConnectionWithProductsQuery, {first, productsFirst}).then(({model}) => {
-      const promises = model.shop.collections.reduce((promiseAcc, collection) => {
-        return fetchResourcesForProducts(collection.products, this.graphQLClient);
-      }, []);
-
-      return Promise.all(promises).then(() => {
-        return model.shop.collections;
-      });
-    });
+    return this.graphQLClient
+      .send(collectionConnectionWithProductsQuery, {first, productsFirst})
+      .then(defaultResolver('shop.collections'))
+      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -294,9 +253,9 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
   fetchCollection(id) {
-    return this.graphQLClient.send(collectionNodeQuery, {id}).then(({model}) => {
-      return model.node;
-    });
+    return this.graphQLClient
+      .send(collectionNodeQuery, {id})
+      .then(defaultResolver('node'));
   }
 
   /**
@@ -311,11 +270,10 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
   fetchCollectionWithProducts(id, productsFirst = 20) {
-    return this.graphQLClient.send(collectionNodeWithProductsQuery, {id, productsFirst}).then(({model}) => {
-      return Promise.all(fetchResourcesForProducts(model.node.products, this.graphQLClient)).then(() => {
-        return model.node;
-      });
-    });
+    return this.graphQLClient
+      .send(collectionNodeWithProductsQuery, {id, productsFirst})
+      .then(defaultResolver('node'))
+      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -331,14 +289,16 @@ class Client {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the checkout.
    */
   fetchCheckout(id) {
-    return this.graphQLClient.send(checkoutNodeQuery, {id}).then((result) => {
-      // Fetch all paginated line items
-      return this.graphQLClient.fetchAllPages(result.model.node.lineItems, {pageSize: 250}).then((lineItems) => {
-        result.model.node.attrs.lineItems = lineItems;
+    return this.graphQLClient
+      .send(checkoutNodeQuery, {id})
+      .then(defaultResolver('node'))
+      .then((checkout) => {
+        return this.graphQLClient.fetchAllPages(checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+          checkout.attrs.lineItems = lineItems;
 
-        return result.model.node;
+          return checkout;
+        });
       });
-    });
   }
 
   /**
@@ -362,29 +322,15 @@ class Client {
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
   fetchQueryProducts({first = 20, sortKey = 'ID', query, reverse}) {
-    return this.graphQLClient.send(productConnectionQuery, {
-      first,
-      sortKey: this.graphQLClient.enum(sortKey),
-      query,
-      reverse
-    }).then(({model}) => {
-      const promises = model.shop.products.reduce((promiseAcc, product) => {
-        // Fetch the rest of the images and variants for this product
-        promiseAcc.push(this.graphQLClient.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
-          product.attrs.images = images;
-        }));
-
-        promiseAcc.push(this.graphQLClient.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
-          product.attrs.variants = variants;
-        }));
-
-        return promiseAcc;
-      }, []);
-
-      return Promise.all(promises).then(() => {
-        return model.shop.products;
-      });
-    });
+    return this.graphQLClient
+      .send(productConnectionQuery, {
+        first,
+        sortKey: this.graphQLClient.enum(sortKey),
+        query,
+        reverse
+      })
+      .then(defaultResolver('shop.products'))
+      .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
   /**
@@ -411,9 +357,7 @@ class Client {
       sortKey: this.graphQLClient.enum(sortKey),
       query,
       reverse
-    }).then(({model}) => {
-      return model.shop.collections;
-    });
+    }).then(defaultResolver('shop.collections'));
   }
 
   /**

@@ -48,14 +48,6 @@ function envRollupInfo({browser, withDependencyTracking, withOptimizedTypes}) {
   ];
   const external = [];
 
-  // eslint-disable-next-line no-process-env
-  if (withDependencyTracking) {
-    plugins.unshift(remap({
-      originalPath: './src/graphql-client',
-      targetPath: './src/graphql-client-dev'
-    }));
-  }
-
   if (withOptimizedTypes) {
     plugins.unshift(remap({
       originalPath: './types',
