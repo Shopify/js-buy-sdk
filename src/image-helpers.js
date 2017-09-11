@@ -11,11 +11,11 @@ export default {
    * @method imageForSize
    * @param {Object} image The original image model to generate the image src for.
    * @param {Object} options An options object containing:
-   *  @param {Integer} options.maxHeight The maximum height for the image.
    *  @param {Integer} options.maxWidth The maximum width for the image.
+   *  @param {Integer} options.maxHeight The maximum height for the image.
    * @return {String} The image src for the resized image.
    */
-  imageForSize(image, {maxHeight, maxWidth}) {
+  imageForSize(image, {maxWidth, maxHeight}) {
     const splitUrl = image.src.split('?');
     const notQuery = splitUrl[0];
     const query = splitUrl[1] ? `?${splitUrl[1]}` : '';
@@ -26,7 +26,7 @@ export default {
     // Take the token before the file extension and append the dimensions
     const imagePathIndex = imageTokens.length - 2;
 
-    imageTokens[imagePathIndex] = `${imageTokens[imagePathIndex]}_${maxHeight}x${maxWidth}`;
+    imageTokens[imagePathIndex] = `${imageTokens[imagePathIndex]}_${maxWidth}x${maxHeight}`;
 
     return `${imageTokens.join('.')}${query}`;
   }
