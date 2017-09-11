@@ -232,20 +232,20 @@ suite('client-integration-test', () => {
     });
   });
 
-  test('it resolves with `shop` on Client#fetchShopInfo', () => {
+  test('it resolves with `shop` on Client.shop#fetchInfo', () => {
     fetchMock.postOnce(apiUrl, shopInfoFixture);
 
-    return client.fetchShopInfo().then((shop) => {
+    return client.shop.fetchInfo().then((shop) => {
       assert.equal(shop.name, shopInfoFixture.data.shop.name);
       assert.equal(shop.description, shopInfoFixture.data.shop.description);
       assert.ok(fetchMock.done());
     });
   });
 
-  test('it resolves with `shop` on Client#fetchShopPolicies', () => {
+  test('it resolves with `shop` on Client.shop#fetchPolicies', () => {
     fetchMock.postOnce(apiUrl, shopPoliciesFixture);
 
-    return client.fetchShopPolicies().then((shop) => {
+    return client.shop.fetchPolicies().then((shop) => {
       assert.equal(shop.privacyPolicy.id, shopPoliciesFixture.data.shop.privacyPolicy.id);
       assert.equal(shop.termsOfService.id, shopPoliciesFixture.data.shop.termsOfService.id);
       assert.equal(shop.refundPolicy.id, shopPoliciesFixture.data.shop.refundPolicy.id);
