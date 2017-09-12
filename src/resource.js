@@ -1,6 +1,5 @@
 export default class Resource {
-  constructor(client, helpers) {
+  constructor(client) {
     this.graphQLClient = client;
-    this.helpers = helpers;
   }
 }
