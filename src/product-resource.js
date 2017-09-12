@@ -1,6 +1,7 @@
 import Resource from './resource';
 import defaultResolver from './default-resolver';
 import {paginateProductConnectionsAndResolve} from './paginators';
+import productHelpers from './product-helpers';
 
 // GraphQL
 import productNodeQuery from './graphql/productNodeQuery.graphql';
@@ -8,6 +9,9 @@ import productConnectionQuery from './graphql/productConnectionQuery.graphql';
 import productByHandleQuery from './graphql/productByHandleQuery.graphql';
 
 export default class ProductResource extends Resource {
+  get helpers() {
+    return productHelpers;
+  }
 
   /**
    * Fetches all products on the shop.
