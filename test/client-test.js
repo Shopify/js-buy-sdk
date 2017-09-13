@@ -3,13 +3,13 @@ import GraphQLJSClient from '../src/graphql-client';
 import Config from '../src/config';
 import Client from '../src/client';
 import types from '../schema.json';
-import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 import {version} from '../package.json';
 
 suite('client-test', () => {
-  teardown(() => {
-    fetchMock.restore();
-  });
+  const config = {
+    domain: 'sendmecats.myshopify.com',
+    storefrontAccessToken: 'abc123'
+  };
 
   test('it instantiates a GraphQL client with the given config', () => {
     let passedTypeBundle;
@@ -24,12 +24,7 @@ suite('client-test', () => {
       }
     }
 
-    const config = new Config({
-      domain: 'sendmecats.myshopify.com',
-      storefrontAccessToken: 'abc123'
-    });
-
-    new Client(config, FakeGraphQLJSClient); // eslint-disable-line no-new
+    new Client(new Config(config), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
     assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/graphql');
@@ -43,18 +38,15 @@ suite('client-test', () => {
   });
 
   test('it creates an instance of the GraphQLJSClient by default', () => {
-    const config = new Config({
-      domain: 'sendmecats.myshopify.com',
-      storefrontAccessToken: 'abc123'
-    });
-
-    const client = new Client(config);
+    const client = Client.buildClient(config);
 
     assert.ok(GraphQLJSClient.prototype.isPrototypeOf(client.graphQLClient));
   });
 
   test('it has static helpers', () => {
-    assert.ok(Client.Product.Helpers);
-    assert.ok(Client.Image.Helpers);
+    const client = Client.buildClient(config);
+
+    assert.ok(client.product.helpers);
+    assert.ok(client.image.helpers);
   });
 });
