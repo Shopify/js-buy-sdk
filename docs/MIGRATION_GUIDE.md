@@ -112,7 +112,7 @@ client.checkout.create().then((checkout) => {
   console.log(checkout.id); // The ID of the checkout. Store this for later usage.
 });
 ```
-The checkout can also be initialized with fields like line items and a shipping address. See the [API reference(update me)](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#Client+createCheckout) for more details.
+The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#CheckoutResource+create) for more details.
 
 #### Fetching a Checkout
 
