@@ -17,11 +17,11 @@ export default class ProductResource extends Resource {
    * Fetches all products on the shop.
    *
    * @example
-   * client.fetchAllProducts().then((products) => {
+   * client.product.fetchAll().then((products) => {
    *   // Do something with the products
    * });
    *
-   * @param {Client.Queries.productConnectionQuery} [query] Callback function to specify fields to query on the products.
+   * @param {Int} [pageSize] The number of products to fetch per page
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
   fetchAll(pageSize = 20) {
@@ -35,12 +35,11 @@ export default class ProductResource extends Resource {
    * Fetches a single product by ID on the shop.
    *
    * @example
-   * client.fetchProduct('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((product) => {
+   * client.product.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((product) => {
    *   // Do something with the product
    * });
    *
    * @param {String} id The id of the product to fetch.
-   * @param {Client.Queries.productNodeQuery} [query] Callback function to specify fields to query on the product.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the product.
    */
   fetch(id) {
@@ -54,7 +53,7 @@ export default class ProductResource extends Resource {
    * Fetches a single product by handle on the shop.
    *
    * @example
-   * client.fetchProductByHandle('my-product').then((product) => {
+   * client.product.fetchByHandle('my-product').then((product) => {
    *   // Do something with the product
    * });
    *
@@ -72,20 +71,16 @@ export default class ProductResource extends Resource {
    * Fetches all products on the shop that match the query.
    *
    * @example
-   * client.fetchQueryProducts({sortBy: 'title', limit: 10}).then((products) => {
+   * client.product.fetchQuery({first: 20, sortKey: "CREATED_AT", reverse: true}).then((products) => {
    *   // Do something with the first 10 products sorted by title in ascending order
    * });
    *
-   * @param {Object} [queryObject] An object specifying the query data containing zero or more of:
-   *   @param {String} [queryObject.title] The title of the product to fetch.
-   *   @param {String} [queryObject.updatedAtMin] Products updated since the supplied timestamp (format: `2016-09-25T21:31:33`).
-   *   @param {String} [queryObject.createdAtMin] Products created since the supplied timestamp (format: `2016-09-25T21:31:33`).
-   *   @param {String} [queryObject.productType] The type of products to fetch.
-   *   @param {Number} [queryObject.limit=20] The number of products to fetch.
-   *   @param {String} [queryObject.sortBy] The field to use to sort products. Possible values are `title`, `updatedAt`, and `createdAt`.
-   *   @param {String} [queryObject.sortDirection] The sort direction of the products.
-   *     Will sort products by ascending order unless `'desc'` is specified.
-   * @param {Client.Queries.productConnectionQuery} [query] Callback function to specify fields to query on the products.
+   * @param {Object} [args] An object specifying the query data containing zero or more of:
+   *   @param {Int} [args.first=20] The relay `first` param. This specifies page size.
+   *   @param {String} [args.sortKey=ID] The key to sort results by. Available values are
+   *   documented as {@link https://help.shopify.com/api/storefront-api/reference/enum/productsortkeys|Product Sort Keys}.
+   *   @param {String} [args.query] A query string. See full documentation {@link https://help.shopify.com/api/storefront-api/reference/object/shop#products|here}
+   *   @param {Boolean} [args.reverse] Wether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
   fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {
@@ -99,5 +94,4 @@ export default class ProductResource extends Resource {
       .then(defaultResolver('shop.products'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
-
 }
