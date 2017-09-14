@@ -9,7 +9,11 @@ import collectionConnectionQuery from './graphql/collectionConnectionQuery.graph
 import collectionConnectionWithProductsQuery from './graphql/collectionConnectionWithProductsQuery.graphql';
 import collectionByHandleQuery from './graphql/collectionByHandleQuery.graphql';
 
-export default class CollectionResource extends Resource {
+/**
+ * The JS Buy SDK collection resource
+ * @class
+ */
+class CollectionResource extends Resource {
 
   /**
    * Fetches all collections on the shop, not including products.
@@ -123,3 +127,4 @@ export default class CollectionResource extends Resource {
     }).then(defaultResolver('shop.collections'));
   }
 }
+export default CollectionResource;

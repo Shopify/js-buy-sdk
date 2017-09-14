@@ -14,11 +14,11 @@ import types from '../schema.json';
  * The JS Buy SDK Client.
  * @class
  *
- * @property {Object} product The property under which product fetching methods live.
- * @property {Object} collection The property under which collection fetching methods live.
- * @property {Object} shop The property under which shop fetching methods live.
- * @property {Object} checkout The property under which shop fetching and mutating methods live.
- * @property {Object} image The property under which image helper methods live.
+ * @property {ProductResource} product The property under which product fetching methods live.
+ * @property {CollectionResource} collection The property under which collection fetching methods live.
+ * @property {ShopResource} shop The property under which shop fetching methods live.
+ * @property {CheckoutResource} checkout The property under which shop fetching and mutating methods live.
+ * @property {ImageResource} image The property under which image helper methods live.
  */
 class Client {
 
