@@ -71,7 +71,7 @@ export default class ProductResource extends Resource {
    * Fetches all products on the shop that match the query.
    *
    * @example
-   * client.product.fetchQuery({first: 20, sortKey: "CREATED_AT", reverse: true}).then((products) => {
+   * client.product.fetchQuery({first: 20, sortKey: 'CREATED_AT', reverse: true}).then((products) => {
    *   // Do something with the first 10 products sorted by title in ascending order
    * });
    *
@@ -80,7 +80,7 @@ export default class ProductResource extends Resource {
    *   @param {String} [args.sortKey=ID] The key to sort results by. Available values are
    *   documented as {@link https://help.shopify.com/api/storefront-api/reference/enum/productsortkeys|Product Sort Keys}.
    *   @param {String} [args.query] A query string. See full documentation {@link https://help.shopify.com/api/storefront-api/reference/object/shop#products|here}
-   *   @param {Boolean} [args.reverse] Wether or not to reverse the sort order of the results
+   *   @param {Boolean} [args.reverse] Whether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
   fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {
