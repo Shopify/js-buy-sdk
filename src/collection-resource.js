@@ -102,7 +102,7 @@ export default class CollectionResource extends Resource {
    * Fetches all collections on the shop that match the query.
    *
    * @example
-   * client.collection.fetchQuery({sortBy: 'title', limit: 10}).then((collections) => {
+   * client.collection.fetchQuery({first: 20, sortKey: 'CREATED_AT', reverse: true}).then((collections) => {
    *   // Do something with the first 10 collections sorted by title in ascending order
    * });
    *
@@ -111,7 +111,7 @@ export default class CollectionResource extends Resource {
    *   @param {String} [args.sortKey=ID] The key to sort results by. Available values are
    *   documented as {@link https://help.shopify.com/api/storefront-api/reference/enum/collectionsortkeys|Collection Sort Keys}.
    *   @param {String} [args.query] A query string. See full documentation {@link https://help.shopify.com/api/storefront-api/reference/object/shop#collections|here}
-   *   @param {Boolean} [args.reverse] Wether or not to reverse the sort order of the results
+   *   @param {Boolean} [args.reverse] Whether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
   fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {
