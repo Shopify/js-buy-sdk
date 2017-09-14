@@ -49,7 +49,6 @@ The functions for fetching products and collections are mostly the same. Major d
 
 1. The v1 functions take in a `Storefront ID` for fetching a product or collection by ID. A `Storefront ID` can be found under
 [the retrieving IDs section](https://help.shopify.com/api/storefront-api/getting-started#retrieving-ids) of the Storefront API docs.
-`API details` will only be displayed if you have a private app with Storefront API access. For more details see the 
 [Getting Started Guide](https://help.shopify.com/api/storefront-api/getting-started#authentication) for the Storefront API.
 
 2. Collections can be fetched with products using `collection.fetchWithProducts()` and `collection.fetchAllWithProducts()`.
@@ -61,7 +60,7 @@ client.collection.fetchWithProducts(collectionId).then((collection) => {
   console.log(collection); // Collection with all default fields and products with all default fields.
   console.log(collection.products); // Products on the collection
 });
-```
+  ```
 
 3. `product.fetchQuery()` and `collection.fetchQuery()` query different fields and take an optional `query` argument.
 See the [product connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#products) and
