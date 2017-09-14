@@ -12,7 +12,7 @@ export default class ShopResource extends Resource {
    * See the {@link https://help.shopify.com/api/storefront-api/reference/object/shop|Storefront API reference} for more information.
    *
    * @example
-   * client.fetchShopInfo().then((shop) => {
+   * client.shop.fetchInfo().then((shop) => {
    *   // Do something with the shop
    * });
    *
@@ -28,7 +28,7 @@ export default class ShopResource extends Resource {
    * Fetches shop policies (privacy policy, terms of service and refund policy).
    *
    * @example
-   * client.fetchShopPolicies().then((shop) => {
+   * client.shop.fetchPolicies().then((shop) => {
    *   // Do something with the shop
    * });
    *

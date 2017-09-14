@@ -13,14 +13,13 @@ export default class CollectionResource extends Resource {
 
   /**
    * Fetches all collections on the shop, not including products.
-   * To fetch collections with products use [fetchAllCollectionsWithProducts]{@link Client#fetchAllCollectionsWithProducts}.
+   * To fetch collections with products use [fetchAllsWithProducts]{@link Client#fetchAllsWithProducts}.
    *
    * @example
-   * client.fetchAllCollections().then((collections) => {
+   * client.collection.fetchAll().then((collections) => {
    *   // Do something with the collections
    * });
    *
-   * @param {Client.Queries.collectionConnectionQuery} [query] Callback function to specify fields to query on the collections.
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
   fetchAll() {
@@ -33,7 +32,7 @@ export default class CollectionResource extends Resource {
    * Fetches all collections on the shop, including products.
    *
    * @example
-   * client.fetchAllCollectionsWithProducts().then((collections) => {
+   * client.collection.fetchAllWithProducts().then((collections) => {
    *   // Do something with the collections
    * });
    *
@@ -48,15 +47,14 @@ export default class CollectionResource extends Resource {
 
   /**
    * Fetches a single collection by ID on the shop, not including products.
-   * To fetch the collection with products use [fetchCollectionWithProducts]{@link Client#fetchCollectionWithProducts}.
+   * To fetch the collection with products use [fetchWithProducts]{@link Client#fetchWithProducts}.
    *
    * @example
-   * client.fetchCollection('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
+   * client.collection.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
    *   // Do something with the collection
    * });
    *
    * @param {String} id The id of the collection to fetch.
-   * @param {Client.Queries.collectionNodeQuery} [query] Callback function to specify fields to query on the collection.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
   fetch(id) {
@@ -69,7 +67,7 @@ export default class CollectionResource extends Resource {
    * Fetches a single collection by ID on the shop, including products.
    *
    * @example
-   * client.fetchCollectionWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
+   * client.collection.fetchWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
    *   // Do something with the collection
    * });
    *
@@ -87,7 +85,7 @@ export default class CollectionResource extends Resource {
    * Fetches a collection by handle on the shop.
    *
    * @example
-   * client.fetchCollectionByHandle('my-collection').then((collection) => {
+   * client.collection.fetchByHandle('my-collection').then((collection) => {
    *   // Do something with the collection
    * });
    *
@@ -104,18 +102,16 @@ export default class CollectionResource extends Resource {
    * Fetches all collections on the shop that match the query.
    *
    * @example
-   * client.fetchQueryCollections({sortBy: 'title', limit: 10}).then((collections) => {
+   * client.collection.fetchQuery({sortBy: 'title', limit: 10}).then((collections) => {
    *   // Do something with the first 10 collections sorted by title in ascending order
    * });
    *
-   * @param {Object} [queryObject] An object specifying the query data containing zero or more of:
-   *   @param {String} [queryObject.title] The title of the collection to fetch.
-   *   @param {String} [queryObject.updatedAtMin] Collections updated since the supplied timestamp (format: `2016-09-25T21:31:33`).
-   *   @param {Number} [queryObject.limit=20] The number of collections to fetch.
-   *   @param {String} [queryObject.sortBy] The field to use to sort collections. Possible values are `title` and `updatedAt`.
-   *   @param {String} [queryObject.sortDirection] The sort direction of the collections.
-   *     Will sort collections by ascending order unless `'desc'` is specified.
-   * @param {Client.Queries.collectionConnectionQuery} [query] Callback function to specify fields to query on the collections.
+   * @param {Object} [args] An object specifying the query data containing zero or more of:
+   *   @param {Int} [args.first=20] The relay `first` param. This specifies page size.
+   *   @param {String} [args.sortKey=ID] The key to sort results by. Available values are
+   *   documented as {@link https://help.shopify.com/api/storefront-api/reference/enum/collectionsortkeys|Collection Sort Keys}.
+   *   @param {String} [args.query] A query string. See full documentation {@link https://help.shopify.com/api/storefront-api/reference/object/shop#collections|here}
+   *   @param {Boolean} [args.reverse] Wether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
   fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {

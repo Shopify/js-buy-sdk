@@ -15,12 +15,11 @@ export default class CheckoutResource extends Resource {
    * Fetches a checkout by ID.
    *
    * @example
-   * client.fetchCheckout('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
+   * client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
    *   // Do something with the checkout
    * });
    *
    * @param {String} id The id of the checkout to fetch.
-   * @param {Client.Queries.checkoutNodeQuery} [query] Callback function to specify fields to query on the checkout.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the checkout.
    */
   fetch(id) {
@@ -46,7 +45,7 @@ export default class CheckoutResource extends Resource {
    *   ]
    * };
    *
-   * client.createCheckout(input).then((checkout) => {
+   * client.checkout.create(input).then((checkout) => {
    *   // Do something with the newly created checkout
    * });
    *
@@ -56,7 +55,6 @@ export default class CheckoutResource extends Resource {
    *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput|Storefront API reference} for valid input fields.
-   * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   create(input = {}) {
@@ -72,13 +70,12 @@ export default class CheckoutResource extends Resource {
    * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    * const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
    *
-   * client.addLineItems(checkoutId, lineItems).then((checkout) => {
+   * client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
    *   // Do something with the updated checkout
    * });
    *
    * @param {String} checkoutId The ID of the checkout to add line items to.
    * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
-   * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addLineItems(checkoutId, lineItems) {
@@ -94,13 +91,12 @@ export default class CheckoutResource extends Resource {
    * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    * const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
    *
-   * client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
+   * client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
    *   // Do something with the updated checkout
    * });
    *
    * @param {String} checkoutId The ID of the checkout to remove line items from.
    * @param {String[]} lineItemIds A list of the ids of line items to remove from the checkout.
-   * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeLineItems(checkoutId, lineItemIds) {
@@ -122,13 +118,12 @@ export default class CheckoutResource extends Resource {
    *   }
    * ];
    *
-   * client.updateLineItems(checkoutId, lineItems).then(checkout => {
+   * client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
    *   // Do something with the updated checkout
    * });
    *
    * @param {String} checkoutId The ID of the checkout to update a line item on.
    * @param {Object[]} lineItems A list of line item information to update. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineitemupdateinput|Storefront API reference} for valid input fields for each line item.
-   * @param {Client.Queries.checkoutQuery} [query] Callback function to specify fields to query on the checkout returned.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateLineItems(checkoutId, lineItems) {
