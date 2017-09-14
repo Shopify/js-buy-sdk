@@ -8,7 +8,11 @@ import productNodeQuery from './graphql/productNodeQuery.graphql';
 import productConnectionQuery from './graphql/productConnectionQuery.graphql';
 import productByHandleQuery from './graphql/productByHandleQuery.graphql';
 
-export default class ProductResource extends Resource {
+/**
+ * The JS Buy SDK product resource
+ * @class
+ */
+class ProductResource extends Resource {
   get helpers() {
     return productHelpers;
   }
@@ -95,3 +99,5 @@ export default class ProductResource extends Resource {
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 }
+
+export default ProductResource;

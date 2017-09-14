@@ -1,130 +1,49 @@
 ## Classes
 
 <dl>
+<dt><a href="#CheckoutResource">CheckoutResource</a></dt>
+<dd><p>The JS Buy SDK checkout resource</p>
+</dd>
 <dt><a href="#Client">Client</a></dt>
 <dd><p>The JS Buy SDK Client.</p>
+</dd>
+<dt><a href="#CollectionResource">CollectionResource</a></dt>
+<dd><p>The JS Buy SDK collection resource</p>
 </dd>
 <dt><a href="#Config">Config</a></dt>
 <dd><p>The class used to configure the JS Buy SDK Client.</p>
 </dd>
-</dl>
-
-## Functions
-
-<dl>
-<dt><a href="#fetch">fetch(id)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a checkout by ID.</p>
+<dt><a href="#ImageResource">ImageResource</a></dt>
+<dd><p>The JS Buy SDK image resource</p>
 </dd>
-<dt><a href="#create">create([input])</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Creates a checkout.</p>
+<dt><a href="#ProductResource">ProductResource</a></dt>
+<dd><p>The JS Buy SDK product resource</p>
 </dd>
-<dt><a href="#addLineItems">addLineItems(checkoutId, lineItems)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Adds line items to an existing checkout.</p>
-</dd>
-<dt><a href="#removeLineItems">removeLineItems(checkoutId, lineItemIds)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Removes line items from an existing checkout.</p>
-</dd>
-<dt><a href="#updateLineItems">updateLineItems(checkoutId, lineItems)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Updates line items on an existing checkout.</p>
-</dd>
-<dt><a href="#fetchAll">fetchAll()</a> ⇒ <code>Promise</code> | <code>Array.&lt;GraphModel&gt;</code></dt>
-<dd><p>Fetches all collections on the shop, not including products.
-To fetch collections with products use <a href="Client#fetchAllsWithProducts">fetchAllsWithProducts</a>.</p>
-</dd>
-<dt><a href="#fetchAllWithProducts">fetchAllWithProducts()</a> ⇒ <code>Promise</code> | <code>Array.&lt;GraphModel&gt;</code></dt>
-<dd><p>Fetches all collections on the shop, including products.</p>
-</dd>
-<dt><a href="#fetch">fetch(id)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a single collection by ID on the shop, not including products.
-To fetch the collection with products use <a href="Client#fetchWithProducts">fetchWithProducts</a>.</p>
-</dd>
-<dt><a href="#fetchWithProducts">fetchWithProducts(id)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a single collection by ID on the shop, including products.</p>
-</dd>
-<dt><a href="#fetchByHandle">fetchByHandle(handle)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a collection by handle on the shop.</p>
-</dd>
-<dt><a href="#fetchQuery">fetchQuery([args])</a> ⇒ <code>Promise</code> | <code>Array.&lt;GraphModel&gt;</code></dt>
-<dd><p>Fetches all collections on the shop that match the query.</p>
-</dd>
-<dt><a href="#fetchAll">fetchAll([pageSize])</a> ⇒ <code>Promise</code> | <code>Array.&lt;GraphModel&gt;</code></dt>
-<dd><p>Fetches all products on the shop.</p>
-</dd>
-<dt><a href="#fetch">fetch(id)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a single product by ID on the shop.</p>
-</dd>
-<dt><a href="#fetchByHandle">fetchByHandle(handle)</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches a single product by handle on the shop.</p>
-</dd>
-<dt><a href="#fetchQuery">fetchQuery([args])</a> ⇒ <code>Promise</code> | <code>Array.&lt;GraphModel&gt;</code></dt>
-<dd><p>Fetches all products on the shop that match the query.</p>
-</dd>
-<dt><a href="#fetchInfo">fetchInfo()</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches shop information (<code>currencyCode</code>, <code>description</code>, <code>moneyFormat</code>, <code>name</code>, and <code>primaryDomain</code>).
-See the <a href="https://help.shopify.com/api/storefront-api/reference/object/shop">Storefront API reference</a> for more information.</p>
-</dd>
-<dt><a href="#fetchPolicies">fetchPolicies()</a> ⇒ <code>Promise</code> | <code>GraphModel</code></dt>
-<dd><p>Fetches shop policies (privacy policy, terms of service and refund policy).</p>
+<dt><a href="#ShopResource">ShopResource</a></dt>
+<dd><p>The JS Buy SDK shop resource</p>
 </dd>
 </dl>
 
-<a name="Client"></a>
+<a name="CheckoutResource"></a>
 
-## Client
-The JS Buy SDK Client.
-
-**Kind**: global class  
-**Properties**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| product | <code>Object</code> | The property under which product fetching methods live. |
-| collection | <code>Object</code> | The property under which collection fetching methods live. |
-| shop | <code>Object</code> | The property under which shop fetching methods live. |
-| checkout | <code>Object</code> | The property under which shop fetching and mutating methods live. |
-| image | <code>Object</code> | The property under which image helper methods live. |
-
-
-* [Client](#Client)
-    * [new Client(config)](#new_Client_new)
-    * [.buildClient()](#Client.buildClient)
-
-<a name="new_Client_new"></a>
-
-### new Client(config)
-
-| Param | Type | Description |
-| --- | --- | --- |
-| config | <code>[Config](#Config)</code> | An instance of [Config](#Config) used to configure the Client. |
-
-<a name="Client.buildClient"></a>
-
-### Client.buildClient()
-Primary entry point for building a new Client.
-
-**Kind**: static method of <code>[Client](#Client)</code>  
-<a name="Config"></a>
-
-## Config
-The class used to configure the JS Buy SDK Client.
+## CheckoutResource
+The JS Buy SDK checkout resource
 
 **Kind**: global class  
-<a name="new_Config_new"></a>
 
-### new Config(attrs)
+* [CheckoutResource](#CheckoutResource)
+    * [.fetch(id)](#CheckoutResource+fetch) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.create([input])](#CheckoutResource+create) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.addLineItems(checkoutId, lineItems)](#CheckoutResource+addLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.removeLineItems(checkoutId, lineItemIds)](#CheckoutResource+removeLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.updateLineItems(checkoutId, lineItems)](#CheckoutResource+updateLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 
-| Param | Type | Description |
-| --- | --- | --- |
-| attrs | <code>Object</code> | An object specifying the configuration. Requires the following properties: |
-| attrs.storefrontAccessToken | <code>String</code> | The [Storefront access token](https://help.shopify.com/api/reference/storefront_access_token) for the shop. |
-| attrs.domain | <code>String</code> | The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`). |
+<a name="CheckoutResource+fetch"></a>
 
-<a name="fetch"></a>
-
-## fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### checkoutResource.fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a checkout by ID.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the checkout.  
 
 | Param | Type | Description |
@@ -137,12 +56,12 @@ client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout)
   // Do something with the checkout
 });
 ```
-<a name="create"></a>
+<a name="CheckoutResource+create"></a>
 
-## create([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### checkoutResource.create([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Creates a checkout.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the created checkout.  
 
 | Param | Type | Description |
@@ -166,12 +85,12 @@ client.checkout.create(input).then((checkout) => {
   // Do something with the newly created checkout
 });
 ```
-<a name="addLineItems"></a>
+<a name="CheckoutResource+addLineItems"></a>
 
-## addLineItems(checkoutId, lineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### checkoutResource.addLineItems(checkoutId, lineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Adds line items to an existing checkout.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
@@ -188,12 +107,12 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
   // Do something with the updated checkout
 });
 ```
-<a name="removeLineItems"></a>
+<a name="CheckoutResource+removeLineItems"></a>
 
-## removeLineItems(checkoutId, lineItemIds) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### checkoutResource.removeLineItems(checkoutId, lineItemIds) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Removes line items from an existing checkout.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
@@ -210,12 +129,12 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
   // Do something with the updated checkout
 });
 ```
-<a name="updateLineItems"></a>
+<a name="CheckoutResource+updateLineItems"></a>
 
-## updateLineItems(checkoutId, lineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### checkoutResource.updateLineItems(checkoutId, lineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Updates line items on an existing checkout.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated checkout.  
 
 | Param | Type | Description |
@@ -238,13 +157,63 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
   // Do something with the updated checkout
 });
 ```
-<a name="fetchAll"></a>
+<a name="Client"></a>
 
-## fetchAll() ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+## Client
+The JS Buy SDK Client.
+
+**Kind**: global class  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| product | [<code>ProductResource</code>](#ProductResource) | The property under which product fetching methods live. |
+| collection | [<code>CollectionResource</code>](#CollectionResource) | The property under which collection fetching methods live. |
+| shop | [<code>ShopResource</code>](#ShopResource) | The property under which shop fetching methods live. |
+| checkout | [<code>CheckoutResource</code>](#CheckoutResource) | The property under which shop fetching and mutating methods live. |
+| image | [<code>ImageResource</code>](#ImageResource) | The property under which image helper methods live. |
+
+
+* [Client](#Client)
+    * [new Client(config)](#new_Client_new)
+    * [.buildClient()](#Client.buildClient)
+
+<a name="new_Client_new"></a>
+
+### new Client(config)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| config | [<code>Config</code>](#Config) | An instance of [Config](#Config) used to configure the Client. |
+
+<a name="Client.buildClient"></a>
+
+### Client.buildClient()
+Primary entry point for building a new Client.
+
+**Kind**: static method of [<code>Client</code>](#Client)  
+<a name="CollectionResource"></a>
+
+## CollectionResource
+The JS Buy SDK collection resource
+
+**Kind**: global class  
+
+* [CollectionResource](#CollectionResource)
+    * [.fetchAll()](#CollectionResource+fetchAll) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+    * [.fetchAllWithProducts()](#CollectionResource+fetchAllWithProducts) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+    * [.fetch(id)](#CollectionResource+fetch) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchWithProducts(id)](#CollectionResource+fetchWithProducts) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchByHandle(handle)](#CollectionResource+fetchByHandle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchQuery([args])](#CollectionResource+fetchQuery) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+
+<a name="CollectionResource+fetchAll"></a>
+
+### collectionResource.fetchAll() ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all collections on the shop, not including products.
 To fetch collections with products use [fetchAllsWithProducts](Client#fetchAllsWithProducts).
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 **Example**  
 ```js
@@ -252,12 +221,12 @@ client.collection.fetchAll().then((collections) => {
   // Do something with the collections
 });
 ```
-<a name="fetchAllWithProducts"></a>
+<a name="CollectionResource+fetchAllWithProducts"></a>
 
-## fetchAllWithProducts() ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+### collectionResource.fetchAllWithProducts() ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all collections on the shop, including products.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 **Example**  
 ```js
@@ -265,13 +234,13 @@ client.collection.fetchAllWithProducts().then((collections) => {
   // Do something with the collections
 });
 ```
-<a name="fetch"></a>
+<a name="CollectionResource+fetch"></a>
 
-## fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### collectionResource.fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single collection by ID on the shop, not including products.
 To fetch the collection with products use [fetchWithProducts](Client#fetchWithProducts).
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the collection.  
 
 | Param | Type | Description |
@@ -284,12 +253,12 @@ client.collection.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then(
   // Do something with the collection
 });
 ```
-<a name="fetchWithProducts"></a>
+<a name="CollectionResource+fetchWithProducts"></a>
 
-## fetchWithProducts(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### collectionResource.fetchWithProducts(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single collection by ID on the shop, including products.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the collection.  
 
 | Param | Type | Description |
@@ -302,12 +271,12 @@ client.collection.fetchWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZ
   // Do something with the collection
 });
 ```
-<a name="fetchByHandle"></a>
+<a name="CollectionResource+fetchByHandle"></a>
 
-## fetchByHandle(handle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### collectionResource.fetchByHandle(handle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a collection by handle on the shop.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the collection.  
 
 | Param | Type | Description |
@@ -320,12 +289,12 @@ client.collection.fetchByHandle('my-collection').then((collection) => {
   // Do something with the collection
 });
 ```
-<a name="fetchQuery"></a>
+<a name="CollectionResource+fetchQuery"></a>
 
-## fetchQuery([args]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+### collectionResource.fetchQuery([args]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all collections on the shop that match the query.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>CollectionResource</code>](#CollectionResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the collections.  
 
 | Param | Type | Default | Description |
@@ -342,12 +311,47 @@ client.collection.fetchQuery({first: 20, sortKey: 'CREATED_AT', reverse: true}).
   // Do something with the first 10 collections sorted by title in ascending order
 });
 ```
-<a name="fetchAll"></a>
+<a name="Config"></a>
 
-## fetchAll([pageSize]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+## Config
+The class used to configure the JS Buy SDK Client.
+
+**Kind**: global class  
+<a name="new_Config_new"></a>
+
+### new Config(attrs)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| attrs | <code>Object</code> | An object specifying the configuration. Requires the following properties: |
+| attrs.storefrontAccessToken | <code>String</code> | The [Storefront access token](https://help.shopify.com/api/reference/storefront_access_token) for the shop. |
+| attrs.domain | <code>String</code> | The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`). |
+
+<a name="ImageResource"></a>
+
+## ImageResource
+The JS Buy SDK image resource
+
+**Kind**: global class  
+<a name="ProductResource"></a>
+
+## ProductResource
+The JS Buy SDK product resource
+
+**Kind**: global class  
+
+* [ProductResource](#ProductResource)
+    * [.fetchAll([pageSize])](#ProductResource+fetchAll) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+    * [.fetch(id)](#ProductResource+fetch) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchByHandle(handle)](#ProductResource+fetchByHandle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchQuery([args])](#ProductResource+fetchQuery) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+
+<a name="ProductResource+fetchAll"></a>
+
+### productResource.fetchAll([pageSize]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all products on the shop.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
 | Param | Type | Default | Description |
@@ -360,12 +364,12 @@ client.product.fetchAll().then((products) => {
   // Do something with the products
 });
 ```
-<a name="fetch"></a>
+<a name="ProductResource+fetch"></a>
 
-## fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### productResource.fetch(id) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single product by ID on the shop.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the product.  
 
 | Param | Type | Description |
@@ -378,12 +382,12 @@ client.product.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((pr
   // Do something with the product
 });
 ```
-<a name="fetchByHandle"></a>
+<a name="ProductResource+fetchByHandle"></a>
 
-## fetchByHandle(handle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### productResource.fetchByHandle(handle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches a single product by handle on the shop.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the product.  
 
 | Param | Type | Description |
@@ -396,12 +400,12 @@ client.product.fetchByHandle('my-product').then((product) => {
   // Do something with the product
 });
 ```
-<a name="fetchQuery"></a>
+<a name="ProductResource+fetchQuery"></a>
 
-## fetchQuery([args]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+### productResource.fetchQuery([args]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 Fetches all products on the shop that match the query.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
 | Param | Type | Default | Description |
@@ -418,13 +422,24 @@ client.product.fetchQuery({first: 20, sortKey: 'CREATED_AT', reverse: true}).the
   // Do something with the first 10 products sorted by title in ascending order
 });
 ```
-<a name="fetchInfo"></a>
+<a name="ShopResource"></a>
 
-## fetchInfo() ⇒ <code>Promise</code> \| <code>GraphModel</code>
+## ShopResource
+The JS Buy SDK shop resource
+
+**Kind**: global class  
+
+* [ShopResource](#ShopResource)
+    * [.fetchInfo()](#ShopResource+fetchInfo) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchPolicies()](#ShopResource+fetchPolicies) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+
+<a name="ShopResource+fetchInfo"></a>
+
+### shopResource.fetchInfo() ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches shop information (`currencyCode`, `description`, `moneyFormat`, `name`, and `primaryDomain`).
 See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/object/shop) for more information.
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ShopResource</code>](#ShopResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
 **Example**  
 ```js
@@ -432,12 +447,12 @@ client.shop.fetchInfo().then((shop) => {
   // Do something with the shop
 });
 ```
-<a name="fetchPolicies"></a>
+<a name="ShopResource+fetchPolicies"></a>
 
-## fetchPolicies() ⇒ <code>Promise</code> \| <code>GraphModel</code>
+### shopResource.fetchPolicies() ⇒ <code>Promise</code> \| <code>GraphModel</code>
 Fetches shop policies (privacy policy, terms of service and refund policy).
 
-**Kind**: global function  
+**Kind**: instance method of [<code>ShopResource</code>](#ShopResource)  
 **Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the shop.  
 **Example**  
 ```js

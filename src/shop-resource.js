@@ -5,7 +5,11 @@ import defaultResolver from './default-resolver';
 import shopQuery from './graphql/shopQuery.graphql';
 import shopPolicyQuery from './graphql/shopPolicyQuery.graphql';
 
-export default class ShopResource extends Resource {
+/**
+ * The JS Buy SDK shop resource
+ * @class
+ */
+class ShopResource extends Resource {
 
   /**
    * Fetches shop information (`currencyCode`, `description`, `moneyFormat`, `name`, and `primaryDomain`).
@@ -40,3 +44,5 @@ export default class ShopResource extends Resource {
       .then(defaultResolver('shop'));
   }
 }
+
+export default ShopResource;
