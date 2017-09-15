@@ -55,6 +55,21 @@ class Client {
     this.checkout = new CheckoutResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
   }
+
+  /**
+   * Fetches the next page of models
+   *
+   * @example
+   * client.fetchNextPage(products).then((nextProducts) => {
+   *   // Do something with the products
+   * });
+   *
+   * @param {models} [Array] The paginated set to fetch the next page of
+   * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the type provided.
+   */
+  fetchNextPage(models) {
+    return this.graphQLClient.fetchNextPage(models);
+  }
 }
 
 export default Client;

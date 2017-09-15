@@ -176,7 +176,10 @@ The JS Buy SDK Client.
 
 * [Client](#Client)
     * [new Client(config)](#new_Client_new)
-    * [.buildClient()](#Client.buildClient)
+    * _instance_
+        * [.fetchNextPage([Array])](#Client+fetchNextPage) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+    * _static_
+        * [.buildClient()](#Client.buildClient)
 
 <a name="new_Client_new"></a>
 
@@ -186,6 +189,24 @@ The JS Buy SDK Client.
 | --- | --- | --- |
 | config | [<code>Config</code>](#Config) | An instance of [Config](#Config) used to configure the Client. |
 
+<a name="Client+fetchNextPage"></a>
+
+### client.fetchNextPage([Array]) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+Fetches the next page of models
+
+**Kind**: instance method of [<code>Client</code>](#Client)  
+**Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the type provided.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [Array] | <code>models</code> | The paginated set to fetch the next page of |
+
+**Example**  
+```js
+client.fetchNextPage(products).then((nextProducts) => {
+  // Do something with the products
+});
+```
 <a name="Client.buildClient"></a>
 
 ### Client.buildClient()
