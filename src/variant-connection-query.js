@@ -15,6 +15,7 @@ import {defaultFields} from './variant-query';
  *     <li>`'id'`</li>
  *     <li>`'title'`</li>
  *     <li>`'price'`</li>
+ *     <li>`'compareAtPrice'`</li>
  *     <li>`'weight'`</li>
  *     <li>`['image', imageQuery()]`</li>
  *     <li>`['selectedOptions', selectedOptionQuery()]`</li>

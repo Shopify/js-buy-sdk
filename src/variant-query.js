@@ -6,6 +6,7 @@ export const defaultFields = [
   'id',
   'title',
   'price',
+	'compareAtPrice',
   'weight',
   'available',
   ['image', imageQuery()],
@@ -26,6 +27,7 @@ export const defaultFields = [
  *     <li>`'id'`</li>
  *     <li>`'title'`</li>
  *     <li>`'price'`</li>
+ *     <li>`'compareAtPrice'`</li>
  *     <li>`'weight'`</li>
  *     <li>`'available'`</li>
  *     <li>`['image', imageQuery()]`</li>
