@@ -11,6 +11,7 @@ which uses Shopify's GraphQL-based [Storefront API](https://help.shopify.com/api
   + [Initialization](#initialization)
   + [Fetching Products and Collections](#fetching-products-and-collections)
   + [Carts/Checkouts](#cartscheckouts)
+  + [Pagination](#pagination)
 
 ## Installation
 
@@ -51,7 +52,7 @@ The functions for fetching products and collections are mostly the same. Major d
 [the retrieving IDs section](https://help.shopify.com/api/storefront-api/getting-started#retrieving-ids) of the Storefront API docs.
 [Getting Started Guide](https://help.shopify.com/api/storefront-api/getting-started#authentication) for the Storefront API.
 
-2. Collections can be fetched with products using `collection.fetchWithProducts()` and `collection.fetchAllWithProducts()`.
+2. Collections can be fetched with products using `collection.fetchWithProducts(id)` (fetches a single collection with associated products) and `collection.fetchAllWithProducts()` (fetches a page of collections with their associated products).
 ```js
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='
 
@@ -81,7 +82,7 @@ const query = {
   sortBy: 'title'
 };
 
-client.products.fetchQuery(query).then((products) => {
+client.product.fetchQuery(query).then((products) => {
   console.log(products); // An array of products updated after 2016-09-25T21:31:33 
                          // and sorted in ascending order by title.
 });
@@ -237,5 +238,60 @@ const lineItemIds = [
 client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
   console.log(checkout); // Checkout with a line item removed
   console.log(checkout.lineItems) // Line items on the checkout
+});
+```
+
+### Pagination
+
+Most models that are part of a paginated set (products, products on collections,
+collections) are not fetched in their entirety. However, because we're using
+GraphQL, and we're compliant with the Relay specification, all of these models
+may be paginated using the underlying GraphQL Client. This functionality didn't
+really exist in a clean way under `v0`.
+
+#### Examples
+
+##### Paginating products on a shop.
+
+```js
+let productList;
+client.products.fetchAll().then((products) => {
+  productList = products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productList).then((nextPageOfProducts) => {
+  // Do some other stuff
+});
+```
+
+##### Paginating products on within a collection.
+
+```js
+let productsForCollection;
+client.collection.fetchWithProducts(collectionId).then((collection) => {
+  productsForCollection = collection.products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productsForCollection).then((nextPageOfProducts) => {
+  // Do some other stuff
+});
+```
+
+##### Paginating collections
+
+```js
+let collectionList;
+client.collection.fetchAll().then((collections) => {
+  collectionList = collections;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(collectionList).then((nextPageOfCollections) => {
+  // Do some other stuff
 });
 ```
