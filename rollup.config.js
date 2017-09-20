@@ -4,6 +4,7 @@ import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
+import sizes from 'rollup-plugin-sizes';
 
 const plugins = [
   graphqlCompiler({
@@ -18,7 +19,10 @@ const plugins = [
     jsnext: true,
     main: true
   }),
-  babel()
+  babel(),
+  sizes({
+    details: true
+  })
 ];
 
 const targets = [

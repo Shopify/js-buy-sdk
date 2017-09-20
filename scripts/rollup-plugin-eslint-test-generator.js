@@ -1,8 +1,8 @@
 /* eslint-env node */
-const {createFilter} = require('rollup-pluginutils');
-const {statSync} = require('fs');
-const testGenerator = require('eslint-test-generator').default;
-const {walkSync} = require('fs-extra');
+import {createFilter} from 'rollup-pluginutils';
+import {statSync} from 'fs';
+import testGenerator from 'eslint-test-generator';
+import {walkSync} from 'fs-extra';
 
 function lint(lintFile) {
   return testGenerator({
@@ -49,7 +49,7 @@ ${lintTests}
 
 const lintResultCache = {};
 
-module.exports = function(options = {}) {
+export default function plugin(options = {}) {
   const filter = createFilter(options.include, options.exclude);
   const files = options.paths
     .reduce((fileAcc, lintPath) => fileAcc.concat(walkSync(lintPath)), [])

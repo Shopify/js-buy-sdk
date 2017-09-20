@@ -1647,7 +1647,7 @@ chalk@^1.0.0, chalk@^1.1.0, chalk@^1.1.1, chalk@^1.1.3:
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
 
-chokidar@^1.6.1:
+chokidar@^1.6.1, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
   dependencies:
@@ -5193,7 +5193,7 @@ request@^2.78.0, request@^2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-require-relative@^0.8.7:
+require-relative@0.8.7, require-relative@^0.8.7:
   version "0.8.7"
   resolved "https://registry.yarnpkg.com/require-relative/-/require-relative-0.8.7.tgz#7999539fc9e047a37928fa196f8e1563dabd36de"
 
@@ -5357,6 +5357,14 @@ rollup-pluginutils@2.0.1, rollup-pluginutils@^2.0.1:
   dependencies:
     estree-walker "^0.3.0"
     micromatch "^2.3.11"
+
+rollup-watch@4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/rollup-watch/-/rollup-watch-4.3.1.tgz#5aa1eaeab787addf368905d102b39d6fc5ce4a8b"
+  dependencies:
+    chokidar "^1.7.0"
+    require-relative "0.8.7"
+    rollup-pluginutils "^2.0.1"
 
 rollup@0.36.3:
   version "0.36.3"
