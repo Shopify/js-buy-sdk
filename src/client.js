@@ -14,11 +14,11 @@ import types from '../schema.json';
  * The JS Buy SDK Client.
  * @class
  *
- * @property {Object} product The property under which product fetching methods live.
- * @property {Object} collection The property under which collection fetching methods live.
- * @property {Object} shop The property under which shop fetching methods live.
- * @property {Object} checkout The property under which shop fetching and mutating methods live.
- * @property {Object} image The property under which image helper methods live.
+ * @property {ProductResource} product The property under which product fetching methods live.
+ * @property {CollectionResource} collection The property under which collection fetching methods live.
+ * @property {ShopResource} shop The property under which shop fetching methods live.
+ * @property {CheckoutResource} checkout The property under which shop fetching and mutating methods live.
+ * @property {ImageResource} image The property under which image helper methods live.
  */
 class Client {
 
@@ -54,6 +54,21 @@ class Client {
     this.shop = new ShopResource(this.graphQLClient);
     this.checkout = new CheckoutResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
+  }
+
+  /**
+   * Fetches the next page of models
+   *
+   * @example
+   * client.fetchNextPage(products).then((nextProducts) => {
+   *   // Do something with the products
+   * });
+   *
+   * @param {models} [Array] The paginated set to fetch the next page of
+   * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the type provided.
+   */
+  fetchNextPage(models) {
+    return this.graphQLClient.fetchNextPage(models);
   }
 }
 

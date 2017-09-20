@@ -11,6 +11,7 @@ which uses Shopify's GraphQL-based [Storefront API](https://help.shopify.com/api
   + [Initialization](#initialization)
   + [Fetching Products and Collections](#fetching-products-and-collections)
   + [Carts/Checkouts](#cartscheckouts)
+  + [Pagination](#pagination)
 
 ## Installation
 
@@ -47,69 +48,46 @@ const client = new Client(config);
 
 The functions for fetching products and collections are mostly the same. Major differences are:
 
-1.  The v1 functions take in a `Storefront ID` for fetching a product or collection by ID. A `Storefront ID` can be found under
-    the `API details` section on product and collection pages in the Shopify admin. 
-    `API details` will only be displayed if you have a private app with Storefront API access. For more details see the 
-    [Getting Started Guide](https://help.shopify.com/api/storefront-api/getting-started#authentication) for the Storefront API.
+1. The v1 functions take in a `Storefront ID` for fetching a product or collection by ID. A `Storefront ID` can be found under
+[the retrieving IDs section](https://help.shopify.com/api/storefront-api/getting-started#retrieving-ids) of the Storefront API docs.
+[Getting Started Guide](https://help.shopify.com/api/storefront-api/getting-started#authentication) for the Storefront API.
 
-2.  The functions now take an additional optional `query` argument that specifies the fields to query on the resource.
-    ```js
-    const query = productNodeQuery(['title', ['images', imageConnectionQuery()]];
+2. Collections can be fetched with products using `collection.fetchWithProducts(id)` (fetches a single collection with associated products) and `collection.fetchAllWithProducts()` (fetches a page of collections with their associated products).
+```js
+const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='
 
-    client.fetchProduct('Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzk4OTUzMTMwMjc=', query).then((product) => {
-      console.log(product); // Product with only title and images
-    });
-    ```
-    Fields and queries can be nested like so:
-    ```js
-    // Product query with title and variants, where variants have price and title
-    const query = productNodeQuery(['title', ['variants', variantConnectionQuery(['price', 'title'])]]);
-    ```
-    If the `query` argument isn't supplied, a default list of arguments will be used.
-    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#Client.Queries) for more details.
+// Use the built-in function
+client.collection.fetchWithProducts(collectionId).then((collection) => {
+  console.log(collection); // Collection with all default fields and products with all default fields.
+  console.log(collection.products); // Products on the collection
+});
+  ```
 
-3.  Collections can be fetched with products using `fetchCollectionWithProducts()` and `fetchAllCollectionsWithProducts()`,
-    or by specifying products in the query function parameter when using `fetchCollection()` and `fetchAllCollections()`.
-    ```js
-    const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='
-    
-    // Use the built-in function
-    client.fetchCollectionWithProducts(collectionId).then((collection) => {
-      console.log(collection); // Collection with all default fields and products with all default fields.
-      console.log(collection.products); // Products on the collection
-    });
+3. `product.fetchQuery()` and `collection.fetchQuery()` query different fields and take an optional `query` argument.
+See the [product connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#products) and
+[collection connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#collections) docs
+in the storefront API for more details.
 
-    // or specify a custom query
-    const query = collectionNodeQuery(['title', ['products', productConnectionQuery(['title'])]]);
+**v0.7:**
+```js
+client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
+  console.log(products); // An array of products in collection '336903494' having the tag 'hats'
+});
+```
 
-    client.fetchCollection(collectionId, query).then((collection) => {
-      console.log(collection); // Collection with only title and products with only title
-      console.log(collection.products); // Products on the collection
-    });
-    ```
-    Note that `fetchCollectionWithProducts()` and `fetchCollectionsWithProducts()` do not take a `query` argument.
+**v1:**
+```js
+const query = {
+  query: 'updated_at:>="2016-09-25T21:31:33"',
+  sortBy: 'title'
+};
 
-4.  `fetchQueryProducts()` and `fetchQueryCollections()` query different fields and take an optional `query` argument.
-    See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md) for more details.
-    
-    **v0.7:**
-    ```js
-    client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
-      console.log(products); // An array of products in collection '336903494' having the tag 'hats'
-    });
-    ```
-    
-    **v1:**
-    ```js
-    const queryObject = {updatedAtMin: '2016-09-25T21:31:33', sortBy: 'title'};
-    const query = productConnectionQuery(['updatedAt', 'title']);
-    
-    client.fetchQueryProducts(queryObject, query).then((products) => {
-      console.log(products); // An array of products with only updatedAt and title fields updated
-                             // after 2016-09-25T21:31:33 and sorted in ascending order by title
-    });
-    ```
-    
+client.product.fetchQuery(query).then((products) => {
+  console.log(products); // An array of products updated after 2016-09-25T21:31:33 
+                         // and sorted in ascending order by title.
+});
+```
+
 ### Carts/Checkouts
 
 Carts are replaced with checkouts. Like the fetch functions, all checkout functions take an optional `query` argument that specifies fields to return on the checkout.
@@ -118,7 +96,7 @@ Carts are replaced with checkouts. Like the fetch functions, all checkout functi
 
 #### Creating a Checkout
 
-To create a checkout, use `createCheckout()`. You are responsible for capturing the ID of the checkout for later usage. If you would like to persist the checkout between sessions, store the ID in a cookie or localStorage.
+To create a checkout, use `checkout.create()`. You are responsible for capturing the ID of the checkout for later usage. If you would like to persist the checkout between sessions, store the ID in a cookie or localStorage.
 
 **v0.7:**
 ```js
@@ -129,12 +107,12 @@ client.createCart().then((cart) => {
 
 **v1:**
 ```js
-client.createCheckout().then((checkout) => {
+client.checkout.create().then((checkout) => {
   console.log(checkout); // Empty checkout
   console.log(checkout.id); // The ID of the checkout. Store this for later usage.
 });
 ```
-The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#Client+createCheckout) for more details. 
+The checkout can also be initialized with fields like line items and a shipping address. See the [API reference](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#CheckoutResource+create) for more details.
 
 #### Fetching a Checkout
 
@@ -149,14 +127,14 @@ client.fetchRecentCart().then((cart) => {
 
 **v1:**
 ```js
-client.createCheckout().then((checkout) => {
+client.checkout.create().then((checkout) => {
   localStorage.setItem('checkoutId', checkout.id); // Store the ID in localStorage
 });
 
 // In another session:
 const checkoutId = localStorage.getItem('checkoutId');
 
-client.fetchCheckout(checkoutId).then((checkout) => {
+client.checkout.fetch(checkoutId).then((checkout) => {
   console.log(checkout); // The retrieved checkout
 });
 ```
@@ -170,9 +148,9 @@ client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
 
-client.fetchCheckout(checkoutId).then((checkout) => {
+client.checkout.fetch(checkoutId).then((checkout) => {
   console.log(checkout); // The retrieved checkout
 });
 ```
@@ -193,7 +171,7 @@ cart.createLineItemsFromVariants({variant: variantObject1, quantity: 5}, {varian
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
 const lineItems = [
   {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNTk3Ng==', quantity: 5},
   // Line items can also have additional custom attributes
@@ -204,7 +182,7 @@ const lineItems = [
   }
 ];
 
-client.addLineItems(checkoutId, lineItems).then((checkout) => {
+client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
   console.log(checkout); // Checkout with two additional line items
   console.log(checkout.lineItems) // Line items on the checkout
 });
@@ -226,13 +204,13 @@ cart.updateLineItem(lineItemId, quantity).then((cart) => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
 const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 const lineItems = [
   {id: lineItemId, quantity: 1}
 ];
 
-client.updateLineItems(checkoutId, lineItems).then((checkout) => {
+client.checkout.updateLineItems(checkoutId, lineItems).then((checkout) => {
   console.log(checkout); // Checkout with a line item quantity updated to 1
   console.log(checkout.lineItems) // Line items on the checkout
 });
@@ -252,13 +230,68 @@ cart.removeLineItem(lineItemId).then((cart) => {
 
 **v1:**
 ```js
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous createCheckout call
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
 const lineItemIds = [
   'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
 ];
 
-client.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
+client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
   console.log(checkout); // Checkout with a line item removed
   console.log(checkout.lineItems) // Line items on the checkout
+});
+```
+
+### Pagination
+
+Most models that are part of a paginated set (products, products on collections,
+collections) are not fetched in their entirety. However, because we're using
+GraphQL, and we're compliant with the Relay specification, all of these models
+may be paginated using the underlying GraphQL Client. This functionality didn't
+really exist in a clean way under `v0`.
+
+#### Examples
+
+##### Paginating products on a shop.
+
+```js
+let productList;
+client.products.fetchAll().then((products) => {
+  productList = products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productList).then((nextPageOfProducts) => {
+  // Do some other stuff
+});
+```
+
+##### Paginating products on within a collection.
+
+```js
+let productsForCollection;
+client.collection.fetchWithProducts(collectionId).then((collection) => {
+  productsForCollection = collection.products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productsForCollection).then((nextPageOfProducts) => {
+  // Do some other stuff
+});
+```
+
+##### Paginating collections
+
+```js
+let collectionList;
+client.collection.fetchAll().then((collections) => {
+  collectionList = collections;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(collectionList).then((nextPageOfCollections) => {
+  // Do some other stuff
 });
 ```

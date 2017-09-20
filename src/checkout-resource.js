@@ -9,7 +9,11 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 
-export default class CheckoutResource extends Resource {
+/**
+ * The JS Buy SDK checkout resource
+ * @class
+ */
+class CheckoutResource extends Resource {
 
   /**
    * Fetches a checkout by ID.
@@ -132,3 +136,5 @@ export default class CheckoutResource extends Resource {
       .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
   }
 }
+
+export default CheckoutResource;
