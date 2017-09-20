@@ -41,7 +41,6 @@
     "eslint-plugin-shopify": "14.0.0",
     "eslint-test-generator": "1.0.5",
     "expect.js": "0.3.1",
-    "fb-watchman": "1.9.0",
     "fetch-mock": "5.12.2",
     "fs-extra": "1.0.0",
     "graphql-js-client": "0.7.0",
