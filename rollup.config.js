@@ -19,10 +19,22 @@ const plugins = [
     jsnext: true,
     main: true
   }),
-  babel(),
-  sizes({
-    details: true
-  })
+  babel({
+    babelrc: false,
+    presets: [
+      [`${process.cwd()}/node_modules/babel-preset-env/lib/index`, {
+        targets: {
+          browsers: ['last 2 versions'],
+          node: '8.1.2'
+        },
+        modules: false
+      }]
+    ],
+    plugins: [
+      `${process.cwd()}/node_modules/babel-plugin-external-helpers/lib/index`
+    ]
+  }),
+  sizes()
 ];
 
 const targets = [
