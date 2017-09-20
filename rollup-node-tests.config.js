@@ -1,8 +1,16 @@
+import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import remap from 'rollup-plugin-remap';
 import baseConfig from './rollup-tests-common.config';
 
+baseConfig.plugins.unshift(
+  graphqlCompiler({
+    schema: './schema.json',
+    optimize: true,
+    profileDocuments: ['src/graphql/**/*.graphql']
+  })
+);
 baseConfig.plugins.push(
   remap({
     originalPath: './test/isomorphic-fetch-mock.js',
@@ -16,11 +24,12 @@ baseConfig.plugins.push(
   babel({
     babelrc: false,
     presets: [
-      [
-        `${process.cwd()}/node_modules/babel-preset-shopify/node`, {
-          modules: false
-        }
-      ]
+      [`${process.cwd()}/node_modules/babel-preset-env/lib/index`, {
+        targets: {
+          node: '8.1.2'
+        },
+        modules: false
+      }]
     ]
   })
 );
