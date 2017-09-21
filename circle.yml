@@ -17,4 +17,3 @@ test:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
   override:
     - yarn test
-    - yarn run test:with-optimized-types

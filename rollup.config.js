@@ -4,6 +4,7 @@ import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
+import sizes from 'rollup-plugin-sizes';
 
 const plugins = [
   graphqlCompiler({
@@ -18,7 +19,22 @@ const plugins = [
     jsnext: true,
     main: true
   }),
-  babel()
+  babel({
+    babelrc: false,
+    presets: [
+      [`${process.cwd()}/node_modules/babel-preset-env/lib/index`, {
+        targets: {
+          browsers: ['last 2 versions'],
+          node: '8.1.2'
+        },
+        modules: false
+      }]
+    ],
+    plugins: [
+      `${process.cwd()}/node_modules/babel-plugin-external-helpers/lib/index`
+    ]
+  }),
+  sizes()
 ];
 
 const targets = [
