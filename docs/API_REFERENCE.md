@@ -364,6 +364,7 @@ The JS Buy SDK product resource
 * [ProductResource](#ProductResource)
     * [.fetchAll([pageSize])](#ProductResource+fetchAll) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
     * [.fetch(id)](#ProductResource+fetch) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetchMultiple(ids)](#ProductResource+fetchMultiple) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
     * [.fetchByHandle(handle)](#ProductResource+fetchByHandle) ⇒ <code>Promise</code> \| <code>GraphModel</code>
     * [.fetchQuery([args])](#ProductResource+fetchQuery) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
 
@@ -401,6 +402,25 @@ Fetches a single product by ID on the shop.
 ```js
 client.product.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==').then((product) => {
   // Do something with the product
+});
+```
+<a name="ProductResource+fetchMultiple"></a>
+
+### productResource.fetchMultiple(ids) ⇒ <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code>
+Fetches multiple products by ID on the shop.
+
+**Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
+**Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with a `GraphModel` of the product.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| ids | <code>Array.&lt;String&gt;</code> | The ids of the products to fetch |
+
+**Example**  
+```js
+const ids = ['Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==', 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='];
+client.product.fetchMultiple(ids).then((products) => {
+  // Do something with the products
 });
 ```
 <a name="ProductResource+fetchByHandle"></a>
