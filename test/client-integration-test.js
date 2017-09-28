@@ -5,6 +5,7 @@ import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/n
 // fixtures
 import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
 import singleProductFixture from '../fixtures/product-fixture';
+import multipleProductsFixture from '../fixtures/multiple-products-fixture';
 import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
 import singleCollectionFixture from '../fixtures/collection-fixture';
 import productWithPaginatedImagesFixture from '../fixtures/product-with-paginated-images-fixture';
@@ -59,6 +60,20 @@ suite('client-integration-test', () => {
     return client.product.fetch(id).then((product) => {
       assert.ok(!Array.isArray(product), 'product is not an array');
       assert.equal(product.id, id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with an array of products on Client.product#fetchMultiple', () => {
+    fetchMock.postOnce(apiUrl, multipleProductsFixture);
+
+    const id1 = multipleProductsFixture.data.nodes[0].id;
+    const id2 = multipleProductsFixture.data.nodes[1].id;
+
+    return client.product.fetchMultiple([id1, id2]).then((products) => {
+      assert.ok(Array.isArray(products), 'products are an array');
+      assert.equal(products[0].id, id1);
+      assert.equal(products[1].id, id2);
       assert.ok(fetchMock.done());
     });
   });

@@ -5,6 +5,7 @@ import productHelpers from './product-helpers';
 
 // GraphQL
 import productNodeQuery from './graphql/productNodeQuery.graphql';
+import productNodesQuery from './graphql/productNodesQuery.graphql';
 import productConnectionQuery from './graphql/productConnectionQuery.graphql';
 import productByHandleQuery from './graphql/productByHandleQuery.graphql';
 
@@ -50,6 +51,25 @@ class ProductResource extends Resource {
     return this.graphQLClient
       .send(productNodeQuery, {id})
       .then(defaultResolver('node'))
+      .then(paginateProductConnectionsAndResolve(this.graphQLClient));
+  }
+
+  /**
+   * Fetches multiple products by ID on the shop.
+   *
+   * @example
+   * const ids = ['Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==', 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='];
+   * client.product.fetchMultiple(ids).then((products) => {
+   *   // Do something with the products
+   * });
+   *
+   * @param {String[]} ids The ids of the products to fetch
+   * @return {Promise|GraphModel[]} A promise resolving with a `GraphModel` of the product.
+   */
+  fetchMultiple(ids) {
+    return this.graphQLClient
+      .send(productNodesQuery, {ids})
+      .then(defaultResolver('nodes'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
