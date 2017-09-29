@@ -26,9 +26,9 @@ class CollectionResource extends Resource {
    *
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
-  fetchAll() {
+  fetchAll(first = 20) {
     return this.graphQLClient
-      .send(collectionConnectionQuery)
+      .send(collectionConnectionQuery, {first})
       .then(defaultResolver('shop.collections'));
   }
 
@@ -118,10 +118,10 @@ class CollectionResource extends Resource {
    *   @param {Boolean} [args.reverse] Whether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
    */
-  fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {
+  fetchQuery({first = 20, sortKey = 'ID', query, reverse} = {}) {
     return this.graphQLClient.send(collectionConnectionQuery, {
       first,
-      sortKey: this.graphQLClient.enum(sortKey),
+      sortKey,
       query,
       reverse
     }).then(defaultResolver('shop.collections'));
