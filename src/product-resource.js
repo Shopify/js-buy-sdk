@@ -29,9 +29,9 @@ class ProductResource extends Resource {
    * @param {Int} [pageSize] The number of products to fetch per page
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
-  fetchAll(pageSize = 20) {
+  fetchAll(first = 20) {
     return this.graphQLClient
-      .send(productConnectionQuery, {pageSize})
+      .send(productConnectionQuery, {first})
       .then(defaultResolver('shop.products'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
@@ -107,11 +107,11 @@ class ProductResource extends Resource {
    *   @param {Boolean} [args.reverse] Whether or not to reverse the sort order of the results
    * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the products.
    */
-  fetchQuery({first = 20, sortKey = 'ID', query, reverse}) {
+  fetchQuery({first = 20, sortKey = 'ID', query, reverse} = {}) {
     return this.graphQLClient
       .send(productConnectionQuery, {
         first,
-        sortKey: this.graphQLClient.enum(sortKey),
+        sortKey,
         query,
         reverse
       })
