@@ -2751,9 +2751,9 @@ graceful-fs@^4.0.0, graceful-fs@^4.1.10, graceful-fs@^4.1.2, graceful-fs@^4.1.6,
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/graceful-readlink/-/graceful-readlink-1.0.1.tgz#4cafad76bc62f02fa039b2f94e9a3dd3a391a725"
 
-graphql-js-client-compiler@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/graphql-js-client-compiler/-/graphql-js-client-compiler-0.1.1.tgz#331be217f7535be82c642f9726f433dff9493d5b"
+graphql-js-client-compiler@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/graphql-js-client-compiler/-/graphql-js-client-compiler-0.2.0.tgz#44caf9ef87740eaab76704b182a2eee5b9f6c445"
   dependencies:
     babel-generator "6.25.0"
     babel-types "6.25.0"
@@ -2761,7 +2761,7 @@ graphql-js-client-compiler@0.1.1:
     graphql "0.10.3"
     graphql-js-client "0.7.0"
     graphql-js-schema "0.7.1"
-    graphql-to-js-client-builder "0.0.1"
+    graphql-to-js-client-builder "1.0.0"
     minimist "1.2.0"
     mkdirp "0.5.1"
 
@@ -2769,9 +2769,9 @@ graphql-js-client@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.7.0.tgz#6d6006680c4e6eaf2e4d284d430b0fae687de154"
 
-graphql-js-client@0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.8.0.tgz#49e0f02344abe9ce4a47737b75451fca86663024"
+graphql-js-client@0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.9.0.tgz#0c1b0937a5ca00baeec0ffc672147ae05058525c"
 
 graphql-js-schema-fetch@1.1.2:
   version "1.1.2"
@@ -2796,9 +2796,9 @@ graphql-js-schema@0.7.1:
     rollup "0.36.3"
     tmp "0.0.29"
 
-graphql-to-js-client-builder@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/graphql-to-js-client-builder/-/graphql-to-js-client-builder-0.0.1.tgz#07714ce17f31633d37aa34aacba63449c636ac21"
+graphql-to-js-client-builder@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/graphql-to-js-client-builder/-/graphql-to-js-client-builder-1.0.0.tgz#3660e1c1a89422b926b913f3cf72e07fd8b3e99d"
   dependencies:
     babel-generator "6.24.1"
     babel-types "6.24.1"
@@ -4788,12 +4788,12 @@ rollup-plugin-commonjs@8.1.0:
     resolve "^1.1.7"
     rollup-pluginutils "^2.0.1"
 
-rollup-plugin-graphql-js-client-compiler@0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-graphql-js-client-compiler/-/rollup-plugin-graphql-js-client-compiler-0.1.1.tgz#c27bb05324de839b0bcb79096a02915175ac39c8"
+rollup-plugin-graphql-js-client-compiler@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-graphql-js-client-compiler/-/rollup-plugin-graphql-js-client-compiler-0.2.0.tgz#77d02e87c65c3f56274f8e7e04a0ab21e5fcd9cc"
   dependencies:
     glob "7.1.2"
-    graphql-js-client-compiler "0.1.1"
+    graphql-js-client-compiler "0.2.0"
     rollup-pluginutils "2.0.1"
 
 rollup-plugin-json@2.3.0:
