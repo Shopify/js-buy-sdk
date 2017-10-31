@@ -78,9 +78,9 @@ class CollectionResource extends Resource {
    * @param {String} id The id of the collection to fetch.
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
    */
-  fetchWithProducts(id, productsFirst = 20) {
+  fetchWithProducts(id) {
     return this.graphQLClient
-      .send(collectionNodeWithProductsQuery, {id, productsFirst})
+      .send(collectionNodeWithProductsQuery, {id})
       .then(defaultResolver('node'))
       .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
   }

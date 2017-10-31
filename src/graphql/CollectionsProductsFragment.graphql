@@ -1,5 +1,5 @@
 fragment CollectionsProductsFragment on Collection {
-  products(first: $productsFirst) {
+  products(first: 20) {
     pageInfo {
       hasNextPage
       hasPreviousPage

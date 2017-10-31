@@ -1,4 +1,4 @@
-query($id: ID!, $productsFirst: Int!) {
+query($id: ID!) {
   node(id: $id) {
     ...CollectionFragment
     ...CollectionsProductsFragment
