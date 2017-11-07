@@ -40,7 +40,7 @@
     "expect.js": "0.3.1",
     "fetch-mock": "5.12.2",
     "fs-extra": "1.0.0",
-    "graphql-js-client": "0.9.0",
+    "graphql-js-client": "0.9.1",
     "graphql-js-schema": "0.7.1",
     "graphql-js-schema-fetch": "1.1.2",
     "http-server": "0.10.0",
