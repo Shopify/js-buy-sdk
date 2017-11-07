@@ -1,5 +1,5 @@
 /**
- * @namespace Client.Image.Helpers
+ * @namespace ImageHelpers
  */
 export default {
 
@@ -7,7 +7,10 @@ export default {
    * Generates the image src for a resized image with maximum dimensions `maxWidth` and `maxHeight`.
    * Images do not scale up.
    *
-   * @memberof Client.Image.Helpers
+   * @example
+   * const url = client.image.imageForSize(product.variants[0].image, {maxWidth: 50, maxHeight: 50});
+   *
+   * @memberof ImageHelpers
    * @method imageForSize
    * @param {Object} image The original image model to generate the image src for.
    * @param {Object} options An options object containing:
