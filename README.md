@@ -1,8 +1,8 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 [![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0beta.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk/tree/v1.0beta)
 
-**Note**: For help with migrating from v0.7 of JS Buy SDK to v1 check out the
-[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/MIGRATION_GUIDE.md).
+**Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
+[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/master/docs/MIGRATION_GUIDE.md).
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
@@ -32,11 +32,11 @@ Docs are still a work in progress, but you can view the [API docs](https://githu
 ## Installation
 **With Yarn:**
 ```bash
-$ yarn add shopify-buy@beta
+$ yarn add shopify-buy
 ```
 **With NPM:**
 ```bash
-$ npm install shopify-buy@beta
+$ npm install shopify-buy
 ```
 
 ## Builds
@@ -59,20 +59,18 @@ import Client from 'shopify-buy/index.umd';
 
 ### Initializing the Client
 ```javascript
-import Client, {Config} from 'shopify-buy';
+import Client from 'shopify-buy';
 
-const config = new Config({
+const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
 });
-
-const client = new Client(config);
 ```
 
 ### Fetching Products
 ```javascript
 // Fetch all products in your shop
-client.fetchAllProducts().then((products) => {
+client.product.fetchAll().then((products) => {
   // Do something with the products
   console.log(products);
 });
@@ -80,7 +78,7 @@ client.fetchAllProducts().then((products) => {
 // Fetch a single product by ID
 const productId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 
-client.fetchProduct(productId).then((product) => {
+client.product.fetch(productId).then((product) => {
   // Do something with the product
   console.log(product);
 });
@@ -89,7 +87,7 @@ client.fetchProduct(productId).then((product) => {
 ### Fetching Collections
 ```javascript
 // Fetch all collections, including their products
-client.fetchAllCollectionsWithProducts().then((collections) => {
+client.collection.fetchAllWithProducts().then((collections) => {
   // Do something with the collections
   console.log(collections);
   console.log(collections[0].products);
@@ -98,7 +96,7 @@ client.fetchAllCollectionsWithProducts().then((collections) => {
 // Fetch a single collection by ID, including its products
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
 
-client.fetchCollectionWithProducts(collectionId).then((collection) => {
+client.collection.fetchWithProducts(collectionId).then((collection) => {
   // Do something with the collection
   console.log(collection);
   console.log(collection.products);
@@ -108,7 +106,7 @@ client.fetchCollectionWithProducts(collectionId).then((collection) => {
 ### Creating a Checkout
 ```javascript
 // Create an empty checkout
-client.createCheckout().then((checkout) => {
+client.checkout.create().then((checkout) => {
   // Do something with the checkout
   console.log(checkout);
 });
@@ -122,7 +120,7 @@ const lineItemsToAdd = [
 ];
 
 // Add an item to the checkout
-client.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Array with one additional line item
 });
@@ -136,7 +134,7 @@ const lineItemsToUpdate = [
 ];
 
 // Update the line item on the checkout (change the quantity or variant)
-client.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
+client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
 });
@@ -150,7 +148,7 @@ const lineItemIdsToRemove = [
 ];
 
 // Remove an item from the checkout
-client.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
+client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
 });
@@ -160,7 +158,7 @@ client.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
 ```javascript
 const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
 
-client.fetchCheckout(checkoutId).then((checkout) => {
+client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
   console.log(checkout);
 });
@@ -173,18 +171,18 @@ There are JS Buy SDK specific example apps in Node, Ember, and React. You can us
 
 ## Documentation
 
-For full API documentation go check out the [API docs](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md).
+For full API documentation go check out the [API docs](https://shopify.github.io/js-buy-sdk).
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/CONTRIBUTING.md).
+please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md).
 
 ## Code of Conduct
 All developers who wish to contribute through code or issues, take a look at the
-[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/LICENSE.txt) for details.
+MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/master/LICENSE.txt) for details.
 
 <img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" />
