@@ -1,4 +1,3 @@
-**NOTE:** This is currently outdated and reflects the alpha branch. Method names are currently in flux on the beta branch.
 # Migration Guide
 
 This document provides a set of guidelines for migrating from v0.7 of the JS Buy SDK to v1 of the JS Buy SDK
@@ -18,13 +17,13 @@ which uses Shopify's GraphQL-based [Storefront API](https://help.shopify.com/api
 **With Yarn:**
 
 ```bash
-yarn add shopify-buy@beta
+yarn add shopify-buy
 ```
 **With NPM:**
 
 Remove the old version, then
 ```bash
-npm install shopify-buy@beta
+npm install shopify-buy
 ```
 
 ## Updated Functions and Classes
@@ -34,14 +33,12 @@ npm install shopify-buy@beta
 Rather than using a static function to create the client (`ShopifyBuy.buildClient()`), v1 exposes the `Client`
 (previously `ShopClient`) and a `Config` class for the `Client` directly. An instance of `Client` can be created like so:
 ```js
-import Client, {Config} from 'shopify-buy';
+import Client from 'shopify-buy';
 
-const config = new Config({
+const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
 });
-
-const client = new Client(config);
 ```
 
 ### Fetching Products and Collections
@@ -68,7 +65,7 @@ See the [product connection field](https://help.shopify.com/api/storefront-api/r
 [collection connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#collections) docs
 in the storefront API for more details.
 
-**v0.7:**
+**v0:**
 ```js
 client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
   console.log(products); // An array of products in collection '336903494' having the tag 'hats'
@@ -98,7 +95,7 @@ Carts are replaced with checkouts. Like the fetch functions, all checkout functi
 
 To create a checkout, use `checkout.create()`. You are responsible for capturing the ID of the checkout for later usage. If you would like to persist the checkout between sessions, store the ID in a cookie or localStorage.
 
-**v0.7:**
+**v0:**
 ```js
 client.createCart().then((cart) => {
   console.log(cart); // Empty cart
@@ -118,7 +115,7 @@ The checkout can also be initialized with fields like line items and a shipping 
 
 To fetch a checkout, use `fetchCheckout()`.
 
-**v0.7:**
+**v0:**
 ```js
 client.fetchRecentCart().then((cart) => {
   console.log(cart); // Most recently created cart
@@ -139,7 +136,7 @@ client.checkout.fetch(checkoutId).then((checkout) => {
 });
 ```
 
-**v0.7:**
+**v0:**
 ```js
 client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
   console.log(cart); // The retrieved cart
@@ -162,7 +159,7 @@ The functions to modify a checkout are on `Client` rather than `CartModel`.
 
 To add line items to a checkout, use `addLineItems()` (previously `createLineItemsFromVariants()`). Similar to the checkout's ID, you are responsible for storing line item IDs for updates and removals.
 
-**v0.7:**
+**v0:**
 ```js
 cart.createLineItemsFromVariants({variant: variantObject1, quantity: 5}, {variant: variantObject2, quantity: 2}).then((cart) => {
   console.log(cart); // Cart with two additional line items
@@ -192,7 +189,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 To update line items on a checkout, use `updateLineItems()`.
 
-**v0.7:**
+**v0:**
 ```js
 const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 const quantity = 1;
@@ -219,7 +216,7 @@ client.checkout.updateLineItems(checkoutId, lineItems).then((checkout) => {
 ##### Removing Line Items
 To remove line items on a checkout, use `removeLineItems()`.
 
-**v0.7:**
+**v0:**
 ```js
 const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 
