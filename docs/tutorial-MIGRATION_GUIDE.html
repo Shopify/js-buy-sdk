@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Tutorial: Migrating from v0 to v1</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Tutorial: Migrating from v0 to v1</h1>
+
+    <section>
+
+<header>
+    
+
+    <h2>Migrating from v0 to v1</h2>
+</header>
+
+<article>
+    <h1 id="migration-guide">Migration Guide</h1>
+<p>This document provides a set of guidelines for migrating from v0.7 of the JS Buy SDK to v1 of the JS Buy SDK
+which uses Shopify's GraphQL-based <a href="https://help.shopify.com/api/storefront-api/reference">Storefront API</a>.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#updated-functions-and-classes">Updated Functions and Classes</a><ul>
+<li><a href="#initialization">Initialization</a></li>
+<li><a href="#fetching-products-and-collections">Fetching Products and Collections</a></li>
+<li><a href="#cartscheckouts">Carts/Checkouts</a></li>
+<li><a href="#pagination">Pagination</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p><strong>With Yarn:</strong></p>
+<pre class="prettyprint source lang-bash"><code>yarn add shopify-buy</code></pre><p><strong>With NPM:</strong></p>
+<p>Remove the old version, then</p>
+<pre class="prettyprint source lang-bash"><code>npm install shopify-buy</code></pre><h2 id="updated-functions-and-classes">Updated Functions and Classes</h2>
+<h3 id="initialization">Initialization</h3>
+<p>Rather than using a static function to create the client (<code>ShopifyBuy.buildClient()</code>), v1 exposes the <code>Client</code>
+(previously <code>ShopClient</code>) and a <code>Config</code> class for the <code>Client</code> directly. An instance of <code>Client</code> can be created like so:</p>
+<pre class="prettyprint source lang-js"><code>import Client from 'shopify-buy';
+
+const client = Client.buildClient({
+  domain: 'your-shop-name.myshopify.com',
+  storefrontAccessToken: 'your-storefront-access-token'
+});</code></pre><h3 id="fetching-products-and-collections">Fetching Products and Collections</h3>
+<p>The functions for fetching products and collections are mostly the same. Major differences are:</p>
+<ol>
+<li><p>The v1 functions take in a <code>Storefront ID</code> for fetching a product or collection by ID. A <code>Storefront ID</code> can be found under
+<a href="https://help.shopify.com/api/storefront-api/getting-started#retrieving-ids">the retrieving IDs section</a> of the Storefront API docs.
+<a href="https://help.shopify.com/api/storefront-api/getting-started#authentication">Getting Started Guide</a> for the Storefront API.</p>
+</li>
+<li><p>Collections can be fetched with products using <code>collection.fetchWithProducts(id)</code> (fetches a single collection with associated products) and <code>collection.fetchAllWithProducts()</code> (fetches a page of collections with their associated products).
+```js
+const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='</p>
+</li>
+</ol>
+<p>// Use the built-in function
+client.collection.fetchWithProducts(collectionId).then((collection) =&gt; {
+  console.log(collection); // Collection with all default fields and products with all default fields.
+  console.log(collection.products); // Products on the collection
+});</p>
+<pre class="prettyprint source"><code>
+3. `product.fetchQuery()` and `collection.fetchQuery()` query different fields and take an optional `query` argument.
+See the [product connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#products) and
+[collection connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#collections) docs
+in the storefront API for more details.
+
+**v0:**
+```js
+client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
+  console.log(products); // An array of products in collection '336903494' having the tag 'hats'
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>const query = {
+  query: 'updated_at:>=&quot;2016-09-25T21:31:33&quot;',
+  sortBy: 'title'
+};
+
+client.product.fetchQuery(query).then((products) => {
+  console.log(products); // An array of products updated after 2016-09-25T21:31:33 
+                         // and sorted in ascending order by title.
+});</code></pre><h3 id="carts-checkouts">Carts/Checkouts</h3>
+<p>Carts are replaced with checkouts. Like the fetch functions, all checkout functions take an optional <code>query</code> argument that specifies fields to return on the checkout.</p>
+<p><code>fetchRecentCart()</code>, <code>updateModel()</code>, and <code>clearLineItems()</code> have been removed. <code>checkoutUrl</code> has been renamed to <code>webUrl</code>.</p>
+<h4 id="creating-a-checkout">Creating a Checkout</h4>
+<p>To create a checkout, use <code>checkout.create()</code>. You are responsible for capturing the ID of the checkout for later usage. If you would like to persist the checkout between sessions, store the ID in a cookie or localStorage.</p>
+<p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>client.createCart().then((cart) => {
+  console.log(cart); // Empty cart
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>client.checkout.create().then((checkout) => {
+  console.log(checkout); // Empty checkout
+  console.log(checkout.id); // The ID of the checkout. Store this for later usage.
+});</code></pre><p>The checkout can also be initialized with fields like line items and a shipping address. See the <a href="https://github.com/Shopify/js-buy-sdk/blob/v1.0beta/docs/API_REFERENCE.md#CheckoutResource+create">API reference</a> for more details.</p>
+<h4 id="fetching-a-checkout">Fetching a Checkout</h4>
+<p>To fetch a checkout, use <code>fetchCheckout()</code>.</p>
+<p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>client.fetchRecentCart().then((cart) => {
+  console.log(cart); // Most recently created cart
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>client.checkout.create().then((checkout) => {
+  localStorage.setItem('checkoutId', checkout.id); // Store the ID in localStorage
+});
+
+// In another session:
+const checkoutId = localStorage.getItem('checkoutId');
+
+client.checkout.fetch(checkoutId).then((checkout) => {
+  console.log(checkout); // The retrieved checkout
+});</code></pre><p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>client.fetchCart('shopify-buy.1459804699118.2').then(cart => {
+  console.log(cart); // The retrieved cart
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
+
+client.checkout.fetch(checkoutId).then((checkout) => {
+  console.log(checkout); // The retrieved checkout
+});</code></pre><h4 id="modifying-an-existing-checkout">Modifying an Existing Checkout</h4>
+<p>The functions to modify a checkout are on <code>Client</code> rather than <code>CartModel</code>.</p>
+<h5 id="adding-line-items">Adding Line Items</h5>
+<p>To add line items to a checkout, use <code>addLineItems()</code> (previously <code>createLineItemsFromVariants()</code>). Similar to the checkout's ID, you are responsible for storing line item IDs for updates and removals.</p>
+<p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>cart.createLineItemsFromVariants({variant: variantObject1, quantity: 5}, {variant: variantObject2, quantity: 2}).then((cart) => {
+  console.log(cart); // Cart with two additional line items
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
+const lineItems = [
+  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNTk3Ng==', quantity: 5},
+  // Line items can also have additional custom attributes
+  {
+    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yNTYwMjIzNjA0MA==',
+    quantity: 2, 
+    customAttributes: {'key': 'attributeKey', 'value': 'attributeValue'}
+  }
+];
+
+client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
+  console.log(checkout); // Checkout with two additional line items
+  console.log(checkout.lineItems) // Line items on the checkout
+});</code></pre><h5 id="updating-line-items">Updating Line Items</h5>
+<p>To update line items on a checkout, use <code>updateLineItems()</code>.</p>
+<p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+const quantity = 1;
+
+cart.updateLineItem(lineItemId, quantity).then((cart) => {
+  console.log(cart); // Cart with a line item quantity updated to 1
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
+const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+const lineItems = [
+  {id: lineItemId, quantity: 1}
+];
+
+client.checkout.updateLineItems(checkoutId, lineItems).then((checkout) => {
+  console.log(checkout); // Checkout with a line item quantity updated to 1
+  console.log(checkout.lineItems) // Line items on the checkout
+});</code></pre><h5 id="removing-line-items">Removing Line Items</h5>
+<p>To remove line items on a checkout, use <code>removeLineItems()</code>.</p>
+<p><strong>v0:</strong></p>
+<pre class="prettyprint source lang-js"><code>const lineItemId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+
+cart.removeLineItem(lineItemId).then((cart) => {
+  console.log(cart); // Cart with a line item removed
+});</code></pre><p><strong>v1:</strong></p>
+<pre class="prettyprint source lang-js"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID from a previous checkout.create call
+const lineItemIds = [
+  'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
+];
+
+client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
+  console.log(checkout); // Checkout with a line item removed
+  console.log(checkout.lineItems) // Line items on the checkout
+});</code></pre><h3 id="pagination">Pagination</h3>
+<p>Most models that are part of a paginated set (products, products on collections,
+collections) are not fetched in their entirety. However, because we're using
+GraphQL, and we're compliant with the Relay specification, all of these models
+may be paginated using the underlying GraphQL Client. This functionality didn't
+really exist in a clean way under <code>v0</code>.</p>
+<h4 id="examples">Examples</h4>
+<h5 id="paginating-products-on-a-shop-">Paginating products on a shop.</h5>
+<pre class="prettyprint source lang-js"><code>let productList;
+client.products.fetchAll().then((products) => {
+  productList = products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productList).then((nextPageOfProducts) => {
+  // Do some other stuff
+});</code></pre><h5 id="paginating-products-on-within-a-collection-">Paginating products on within a collection.</h5>
+<pre class="prettyprint source lang-js"><code>let productsForCollection;
+client.collection.fetchWithProducts(collectionId).then((collection) => {
+  productsForCollection = collection.products;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(productsForCollection).then((nextPageOfProducts) => {
+  // Do some other stuff
+});</code></pre><h5 id="paginating-collections">Paginating collections</h5>
+<pre class="prettyprint source lang-js"><code>let collectionList;
+client.collection.fetchAll().then((collections) => {
+  collectionList = collections;
+});
+
+// Do some stuff, and later:
+
+client.fetchNextPage(collectionList).then((nextPageOfCollections) => {
+  // Do some other stuff
+});</code></pre>
+</article>
+
+</section>
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">Migrating from v0 to v1</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 02 2017 14:15:45 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

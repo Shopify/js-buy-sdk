@@ -3071,6 +3071,10 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
 
+in-publish@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/in-publish/-/in-publish-2.0.0.tgz#e20ff5e3a2afc2690320b6dc552682a9c7fadf51"
+
 indexof@~0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
@@ -3449,6 +3453,13 @@ jsdoc-api@^4.0.0:
     temp-path "^1.0.0"
     walk-back "^3.0.0"
 
+jsdoc-export-default-interop@0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/jsdoc-export-default-interop/-/jsdoc-export-default-interop-0.3.1.tgz#462fa9f9b4a2ab06a0f4d0624143d02e5ba2d05f"
+  dependencies:
+    in-publish "^2.0.0"
+    lodash "^4.0.1"
+
 jsdoc-parse@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/jsdoc-parse/-/jsdoc-parse-3.0.0.tgz#271531d88f19df2520b1632a7f6c989441a87fde"
@@ -3479,7 +3490,7 @@ jsdoc2md-stats@^2.0.1:
   dependencies:
     app-usage-stats "^0.5.0"
 
-jsdoc@^3.5.3:
+jsdoc@3.5.5, jsdoc@^3.5.3:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/jsdoc/-/jsdoc-3.5.5.tgz#484521b126e81904d632ff83ec9aaa096708fa4d"
   dependencies:
@@ -3834,7 +3845,7 @@ lodash@3.9.3:
   version "3.9.3"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.9.3.tgz#0159e86832feffc6d61d852b12a953b99496bd32"
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.9.0:
+lodash@^4.0.0, lodash@^4.0.1, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.9.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
