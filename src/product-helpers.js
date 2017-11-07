@@ -1,12 +1,18 @@
 /**
- * @namespace Client.Product.Helpers
+ * @namespace ProductHelpers
  */
 export default {
 
   /**
    * Returns the variant of a product corresponding to the options given.
    *
-   * @memberof Client.product.Helpers
+   * @example
+   * const selectedVariant = client.product.variantForOptions(product, {
+   *   size: "Small",
+   *   color: "Red"
+   * });
+   *
+   * @memberof ProductHelpers
    * @method variantForOptions
    * @param {GraphModel} product The product to find the variant on. Must include `variants`.
    * @param {Object} options An object containing the options for the variant.
