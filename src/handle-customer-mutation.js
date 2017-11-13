@@ -10,7 +10,7 @@ export default function handleCustomerMutation(mutationRootKey, client) {
       return Promise.reject(new Error(JSON.stringify(userErrors)));
     }
 
-    return Promise.resolve(JSON.stringify(rootData.customerAccessToken));
+    return Promise.resolve(rootData);
 
     /**
      return client.fetchAllPages(rootModel.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
