@@ -5,6 +5,7 @@ import CollectionResource from './collection-resource';
 import ShopResource from './shop-resource';
 import CheckoutResource from './checkout-resource';
 import ImageResource from './image-resource';
+import AuthResource from './auth-resource';
 import {version} from '../package.json';
 
 // GraphQL
@@ -44,9 +45,9 @@ class Client {
         headers: {
           'X-SDK-Variant': 'javascript',
           'X-SDK-Version': version,
-          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
-        }
-      }
+          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken,
+        },
+      },
     });
 
     this.product = new ProductResource(this.graphQLClient);
@@ -54,6 +55,7 @@ class Client {
     this.shop = new ShopResource(this.graphQLClient);
     this.checkout = new CheckoutResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
+    this.customer = new AuthResource(this.graphQLClient);
   }
 
   /**
