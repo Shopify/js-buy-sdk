@@ -6,6 +6,7 @@ import handleCustomerMutation from './handle-customer-mutation';
 import customerAccessTokenCreateMutation from './graphql/customerAccessTokenCreateMutation.graphql';
 import customerAccessTokenDeleteMutation from './graphql/customerAccessTokenDeleteMutation.graphql';
 import customerAccessTokenRenewMutation from './graphql/customerAccessTokenRenewMutation.graphql';
+import customerCreateMutation from './graphql/customerCreateMutation.graphql';
 
 /**
  * The JS Buy SDK customer resource
@@ -29,6 +30,12 @@ class CustomerResource extends Resource {
     return this.graphQLClient
       .send(customerAccessTokenRenewMutation, {customerAccessToken})
       .then(handleCustomerMutation('customerAccessTokenRenew', this.graphQLClient));
+  }
+
+  create(input = {}) {
+    return this.graphQLClient
+      .send(customerCreateMutation, {input})
+      .then(handleCustomerMutation('customerCreate', this.graphQLClient));
   }
 }
 
