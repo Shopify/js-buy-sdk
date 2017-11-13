@@ -1,4 +1,4 @@
-export default function handleAuthMutation(mutationRootKey, client) {
+export default function handleCustomerMutation(mutationRootKey, client) {
   return function({data, model}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
