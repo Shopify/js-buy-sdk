@@ -1,12 +1,12 @@
 /**
- * @namespace Client.Product.Helpers
+ * @namespace client.product.helpers
  */
 export default {
 
   /**
    * Returns the variant of a product corresponding to the options given.
    *
-   * @memberof Client.product.Helpers
+   * @memberof client.product.helpers
    * @method variantForOptions
    * @param {GraphModel} product The product to find the variant on. Must include `variants`.
    * @param {Object} options An object containing the options for the variant.
