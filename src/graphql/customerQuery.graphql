@@ -1,0 +1,5 @@
+query($customerAccessToken: String!) {
+  customer(customerAccessToken: $customerAccessToken) {
+    ...CustomerFragment
+  }
+}

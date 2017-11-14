@@ -8,6 +8,10 @@ import customerAccessTokenDeleteMutation from './graphql/customerAccessTokenDele
 import customerAccessTokenRenewMutation from './graphql/customerAccessTokenRenewMutation.graphql';
 import customerCreateMutation from './graphql/customerCreateMutation.graphql';
 import customerAddressCreateMutation from './graphql/customerAddressCreateMutation.graphql';
+import customerAddressUpdateMutation from './graphql/customerAddressUpdateMutation.graphql';
+import customerAddressDeleteMutation from './graphql/customerAddressDeleteMutation.graphql';
+// import customerDefaultAddressUpdateMutation from './graphql/customerDefaultAddressUpdateMutation.graphql';
+import customerQuery from './graphql/customerQuery.graphql';
 
 /**
  * The JS Buy SDK customer resource
@@ -43,6 +47,30 @@ class CustomerResource extends Resource {
     return this.graphQLClient
       .send(customerAddressCreateMutation, {customerAccessToken, address})
       .then(handleCustomerMutation('customerAddressCreate', this.graphQLClient));
+  }
+
+  deleteAddress({customerAccessToken, id}) {
+    return this.graphQLClient
+      .send(customerAddressDeleteMutation, {customerAccessToken, id})
+      .then(handleCustomerMutation('customerAddressDelete', this.graphQLClient));
+  }
+
+  updateAddress({customerAccessToken, id, address}) {
+    return this.graphQLClient
+      .send(customerAddressUpdateMutation, {customerAccessToken, id, address})
+      .then(handleCustomerMutation('customerAddressUpdate', this.graphQLClient));
+  }
+
+  // updateDefaultAddress({customerAccessToken, addressId}) {
+  //   return this.graphQLClient
+  //     .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId})
+  //     .then(handleCustomerMutation('customerDefaultAddressUpdate', this.graphQLClient));
+  // }
+
+  fetch(customerAccessToken) {
+    return this.graphQLClient
+      .send(customerQuery, {customerAccessToken})
+      .then(defaultResolver('customer'));
   }
 }
 
