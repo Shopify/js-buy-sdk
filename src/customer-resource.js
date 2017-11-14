@@ -12,6 +12,9 @@ import customerAddressCreateMutation from './graphql/customerAddressCreateMutati
 import customerAddressUpdateMutation from './graphql/customerAddressUpdateMutation.graphql';
 import customerAddressDeleteMutation from './graphql/customerAddressDeleteMutation.graphql';
 import customerDefaultAddressUpdateMutation from './graphql/customerDefaultAddressUpdateMutation.graphql';
+import customerRecoverMutation from './graphql/customerRecoverMutation.graphql';
+import customerResetMutation from './graphql/customerResetMutation.graphql';
+import customerActivateMutation from './graphql/customerActivateMutation.graphql';
 import customerQuery from './graphql/customerQuery.graphql';
 
 /**
@@ -72,6 +75,24 @@ class CustomerResource extends Resource {
     return this.graphQLClient
       .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId})
       .then(handleCustomerMutation('customerDefaultAddressUpdate', this.graphQLClient));
+  }
+
+  recover(email) {
+    return this.graphQLClient
+      .send(customerRecoverMutation, {email})
+      .then(handleCustomerMutation('customerRecover', this.graphQLClient));
+  }
+
+  reset({id, input}) {
+    return this.graphQLClient
+      .send(customerResetMutation, {id, input})
+      .then(handleCustomerMutation('customerReset', this.graphQLClient));
+  }
+
+  activate({id, input}) {
+    return this.graphQLClient
+      .send(customerActivateMutation, {id, input})
+      .then(handleCustomerMutation('customerActivate', this.graphQLClient));
   }
 
   fetch(customerAccessToken) {

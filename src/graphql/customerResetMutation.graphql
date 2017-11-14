@@ -1,0 +1,11 @@
+mutation customerReset($id: ID!, $input: CustomerResetInput!) {
+  customerReset(id: $id, input: $input) {
+    userErrors {
+      field
+      message
+    }
+    customer {
+      id
+    }
+  }
+}

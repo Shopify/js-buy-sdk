@@ -3,7 +3,7 @@ export default function handleCustomerMutation(mutationRootKey, client) {
     console.log(data);
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
-    const userErrors = rootData.userErrors;
+    const userErrors = rootData ? rootData.userErrors : [];
 
     if (userErrors.length) {
       return Promise.reject(new Error(JSON.stringify(userErrors)));
