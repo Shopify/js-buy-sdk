@@ -8,6 +8,8 @@ import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
+import checkoutCustomerAssociateMutation from './graphql/checkoutCustomerAssociateMutation.graphql';
+import checkoutCustomerDisassociateMutation from './graphql/checkoutCustomerDisassociateMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -134,6 +136,18 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
       .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
+  }
+
+  associateCustomer(checkoutId, customerAccessToken) {
+    return this.graphQLClient
+      .send(checkoutCustomerAssociateMutation, {checkoutId, customerAccessToken})
+      .then(handleCheckoutMutation('checkoutCustomerAssociate', this.graphQLClient));
+  }
+
+  disassociateCustomer(checkoutId) {
+    return this.graphQLClient
+      .send(checkoutCustomerDisassociateMutation, {checkoutId})
+      .then(handleCheckoutMutation('checkoutCustomerDisassociate', this.graphQLClient));
   }
 }
 

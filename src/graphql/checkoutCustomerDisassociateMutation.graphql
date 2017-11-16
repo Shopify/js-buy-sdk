@@ -1,0 +1,11 @@
+mutation checkoutCustomerDisassociate($checkoutId: ID!) {
+  checkoutCustomerDisassociate(checkoutId: $checkoutId) {
+    userErrors {
+      field
+      message
+    }
+    checkout {
+      id
+    }
+  }
+}
