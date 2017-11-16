@@ -45,9 +45,9 @@ class Client {
         headers: {
           'X-SDK-Variant': 'javascript',
           'X-SDK-Version': version,
-          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken,
-        },
-      },
+          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
+        }
+      }
     });
 
     this.product = new ProductResource(this.graphQLClient);
