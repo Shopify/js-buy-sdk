@@ -8557,6 +8557,47 @@
               "deprecationReason": null
             },
             {
+              "name": "customerDefaultAddressUpdate",
+              "description": "Updates the default address of an existing customer.",
+              "args": [
+                {
+                  "name": "customerAccessToken",
+                  "description": "The access token used to identify the customer.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "addressId",
+                  "description": "ID of the address to set as the new default for the customer.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CustomerDefaultAddressUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "customerCreate",
               "description": "Creates a new customer.",
               "args": [
@@ -11746,6 +11787,53 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "MailingAddress",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CustomerDefaultAddressUpdatePayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "customer",
+              "description": "The updated customer object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Customer",
                 "ofType": null
               },
               "isDeprecated": false,

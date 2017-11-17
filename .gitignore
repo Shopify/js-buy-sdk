@@ -17,3 +17,6 @@ index.*
 # Decrypted secrets
 secrets.json
 .nvmrc
+
+#IDE
+.idea/
