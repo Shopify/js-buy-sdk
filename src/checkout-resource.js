@@ -138,12 +138,35 @@ class CheckoutResource extends Resource {
       .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
   }
 
+  /**
+   * Associates a checkout with a customer.
+   *
+   * @example
+   * client.checkout.associateCustomer('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=', 'ae0f1d2e179c9571122a0595a6ac8125').then((checkout) => {
+   *   // Do something with the checkout after associating a customer
+   * });
+   *
+   * @param {String} checkoutId The id of the checkout.
+   * @param {String} customerAccessToken The id of the checkout to fetch.
+   * @return {Promise|GraphModel} A promise resolving with the checkout.
+   */
   associateCustomer(checkoutId, customerAccessToken) {
     return this.graphQLClient
       .send(checkoutCustomerAssociateMutation, {checkoutId, customerAccessToken})
       .then(handleCheckoutMutation('checkoutCustomerAssociate', this.graphQLClient));
   }
 
+  /**
+   * Disassociates a checkout with a customer.
+   *
+   * @example
+   * client.checkout.disassociateCustomer('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
+   *   // Do something with the checkout after disassociating a customer
+   * });
+   *
+   * @param {String} checkoutId The id of the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the checkout.
+   */
   disassociateCustomer(checkoutId) {
     return this.graphQLClient
       .send(checkoutCustomerDisassociateMutation, {checkoutId})
