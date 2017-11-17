@@ -35,6 +35,12 @@ fragment CheckoutFragment on Checkout {
   completedAt
   createdAt
   updatedAt
+  customer {
+    id
+    firstName
+    lastName
+    email
+  }
   shippingAddress {
     ...MailingAddressFragment
   }
