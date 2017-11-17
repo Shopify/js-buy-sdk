@@ -13,6 +13,9 @@
 <dt><a href="#Config">Config</a></dt>
 <dd><p>The class used to configure the JS Buy SDK Client.</p>
 </dd>
+<dt><a href="#CustomerResource">CustomerResource</a></dt>
+<dd><p>The JS Buy SDK customer resource</p>
+</dd>
 <dt><a href="#ImageResource">ImageResource</a></dt>
 <dd><p>The JS Buy SDK image resource</p>
 </dd>
@@ -37,6 +40,8 @@ The JS Buy SDK checkout resource
     * [.addLineItems(checkoutId, lineItems)](#CheckoutResource+addLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
     * [.removeLineItems(checkoutId, lineItemIds)](#CheckoutResource+removeLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
     * [.updateLineItems(checkoutId, lineItems)](#CheckoutResource+updateLineItems) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.associateCustomer(checkoutId, customerAccessToken)](#CheckoutResource+associateCustomer) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.disassociateCustomer(checkoutId)](#CheckoutResource+disassociateCustomer) ⇒ <code>Promise</code> \| <code>GraphModel</code>
 
 <a name="CheckoutResource+fetch"></a>
 
@@ -155,6 +160,43 @@ const lineItems = [
 
 client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
   // Do something with the updated checkout
+});
+```
+<a name="CheckoutResource+associateCustomer"></a>
+
+### checkoutResource.associateCustomer(checkoutId, customerAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Associates a checkout with a customer.
+
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the checkout.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| checkoutId | <code>String</code> | The id of the checkout. |
+| customerAccessToken | <code>String</code> | The id of the checkout to fetch. |
+
+**Example**  
+```js
+client.checkout.associateCustomer('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=', 'ae0f1d2e179c9571122a0595a6ac8125').then((checkout) => {
+  // Do something with the checkout after associating a customer
+});
+```
+<a name="CheckoutResource+disassociateCustomer"></a>
+
+### checkoutResource.disassociateCustomer(checkoutId) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Disassociates a checkout with a customer.
+
+**Kind**: instance method of [<code>CheckoutResource</code>](#CheckoutResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the checkout.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| checkoutId | <code>String</code> | The id of the checkout. |
+
+**Example**  
+```js
+client.checkout.disassociateCustomer('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
+  // Do something with the checkout after disassociating a customer
 });
 ```
 <a name="Client"></a>
@@ -348,6 +390,344 @@ The class used to configure the JS Buy SDK Client.
 | attrs.storefrontAccessToken | <code>String</code> | The [Storefront access token](https://help.shopify.com/api/reference/storefront_access_token) for the shop. |
 | attrs.domain | <code>String</code> | The `myshopify` domain for the shop (e.g. `graphql.myshopify.com`). |
 
+<a name="CustomerResource"></a>
+
+## CustomerResource
+The JS Buy SDK customer resource
+
+**Kind**: global class  
+
+* [CustomerResource](#CustomerResource)
+    * [.createAccessToken([input])](#CustomerResource+createAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.deleteAccessToken(customerAccessToken)](#CustomerResource+deleteAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.renewAccessToken(customerAccessToken)](#CustomerResource+renewAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.create([input])](#CustomerResource+create) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.update([input])](#CustomerResource+update) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.createAddress([input])](#CustomerResource+createAddress) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.deleteAddress([input])](#CustomerResource+deleteAddress) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.updateAddress([input])](#CustomerResource+updateAddress) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.updateDefaultAddress([input])](#CustomerResource+updateDefaultAddress) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.recover(email)](#CustomerResource+recover) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.reset([input])](#CustomerResource+reset) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.activate([input])](#CustomerResource+activate) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+    * [.fetch(customerAccessToken)](#CustomerResource+fetch) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+
+<a name="CustomerResource+createAccessToken"></a>
+
+### customerResource.createAccessToken([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Creates an access token for an existing user.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the customer access token.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.email] | <code>String</code> | Customer's email address. |
+| [input.password] | <code>String</code> | Customer's log in password. |
+
+**Example**  
+```js
+const input = {
+  email: 'user@example.com',
+  password: 'HiZqFuDvDdQ7'
+};
+
+client.customer.createAccessToken(input).then((token) => {
+  // Do something with the token
+});
+```
+<a name="CustomerResource+deleteAccessToken"></a>
+
+### customerResource.deleteAccessToken(customerAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Deletes an existing access token for a user.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with an object containing the deleted access token and corresponding ID.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| customerAccessToken | <code>String</code> | The access token to delete. |
+
+**Example**  
+```js
+client.customer.deleteAccessToken('ae0f1d2e179c9571122a0595a6ac8125').then((response) => {
+  const {deletedAccessToken, deletedCustomerAccessTokenId} = response;
+  // Do something with the the deleted access token and corresponding ID
+});
+```
+<a name="CustomerResource+renewAccessToken"></a>
+
+### customerResource.renewAccessToken(customerAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Renews the access token for a user.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the renewed access token.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| customerAccessToken | <code>String</code> | The access token to renew. |
+
+**Example**  
+```js
+client.customer.renewAccessToken('ae0f1d2e179c9571122a0595a6ac8125').then((token) => {
+  // Do something with the renewed token
+});
+```
+<a name="CustomerResource+create"></a>
+
+### customerResource.create([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Creates a new user.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the created customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.email] | <code>String</code> | Customer's email address. |
+| [input.password] | <code>String</code> | Customer's log in password. |
+| [input.firstName] | <code>String</code> | Customer's first name. |
+| [input.lastName] | <code>String</code> | Customer's last name. |
+| [input.phone] | <code>String</code> | Customer's phone number. |
+| [input.acceptsMarketing] | <code>Boolean</code> | Indicates whether the customer has consented to be sent marketing material via email. |
+
+**Example**  
+```js
+const input = {
+  email: 'user@example.com',
+  password: 'HiZqFuDvDdQ7'
+};
+
+client.customer.create(input).then((customer) => {
+  // Do something with the new customer
+});
+```
+<a name="CustomerResource+update"></a>
+
+### customerResource.update([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Updates an existing customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.customerAccessToken] | <code>String</code> | The access token to authenticate the customer. |
+| [input.customer] | <code>Object</code> | Customer's new information. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/customerupdateinput) for valid input fields. |
+
+**Example**  
+```js
+const input = {
+  customerAccessToken: 'ae0f1d2e179c9571122a0595a6ac8125',
+  customer: {
+    firstName: 'Fake'
+  }
+};
+
+client.customer.update(input).then((customer) => {
+  // Do something with the updated customer
+});
+```
+<a name="CustomerResource+createAddress"></a>
+
+### customerResource.createAddress([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Creates a new address for a customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the new customer address.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.customerAccessToken] | <code>String</code> | The access token to authenticate the customer. |
+| [input.address] | <code>Object</code> | The new address. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput) for valid input fields. |
+
+**Example**  
+```js
+const input = {
+  customerAccessToken: 'ae0f1d2e179c9571122a0595a6ac8125',
+  address: {
+    address1: '101 Fake Building',
+    address2: '1 Fakeson St., Fake District',
+    company: 'Fakeson Limited'
+  }
+};
+
+client.customer.createAddress(input).then((address) => {
+  // Do something with the new customer address
+});
+```
+<a name="CustomerResource+deleteAddress"></a>
+
+### customerResource.deleteAddress([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Deletes an existing address for a customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the deleted address ID.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.customerAccessToken] | <code>String</code> | The access token to authenticate the customer. |
+| [input.id] | <code>String</code> | The address ID to specify the address to delete. |
+
+**Example**  
+```js
+const input = {
+  customerAccessToken: 'ae0f1d2e179c9571122a0595a6ac8125',
+  id: 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE'
+};
+
+client.customer.createAddress(input).then((deletedAddressId) => {
+  // Do something with the ID of the deleted address
+});
+```
+<a name="CustomerResource+updateAddress"></a>
+
+### customerResource.updateAddress([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Updates an address for a customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated address.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.customerAccessToken] | <code>String</code> | The access token to authenticate the customer. |
+| [input.id] | <code>String</code> | The address ID to specify the address to update. |
+| [input.address] | <code>Object</code> | The updated address. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput) for valid input fields. |
+
+**Example**  
+```js
+const input = {
+  customerAccessToken: 'ae0f1d2e179c9571122a0595a6ac8125',
+  id: 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE',
+  address: {}
+};
+
+client.customer.updateAddress(input).then((address) => {
+  // Do something with the updated address
+});
+```
+<a name="CustomerResource+updateDefaultAddress"></a>
+
+### customerResource.updateDefaultAddress([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Updates the default address for a customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the updated customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.customerAccessToken] | <code>String</code> | The access token to authenticate the customer. |
+| [input.addressId] | <code>String</code> | The address ID to specify the address to set as default. |
+
+**Example**  
+```js
+const input = {
+  customerAccessToken: 'ae0f1d2e179c9571122a0595a6ac8125',
+  addressId: 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE'
+};
+
+client.customer.updateDefaultAddress(input).then((customer) => {
+  // Do something with the updated customer
+});
+```
+<a name="CustomerResource+recover"></a>
+
+### customerResource.recover(email) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Recovers a customer. Sends a reset password email to the customer, as the first step in the reset password process.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with nothing.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| email | <code>String</code> | The email address of the customer: |
+
+**Example**  
+```js
+client.customer.recover('user@example.com').then(() => {
+  // Do something after sending a reset password email
+});
+```
+<a name="CustomerResource+reset"></a>
+
+### customerResource.reset([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Resets a customer’s password with the reset token.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the reset customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.id] | <code>String</code> | The customer ID to specify the customer to reset. |
+| [input.input] | <code>Object</code> | The input object for resetting password. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/customerresetinput) for valid input fields. |
+
+**Example**  
+```js
+const input = {
+  id: 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE',
+  input: {
+    "resetToken": "ae0f1d2e179c9571122a0595a6ac8125",
+    "password": "HiZqFuDvDdQ7"
+  }
+};
+
+client.customer.reset(input).then((customer) => {
+  // Do something with the reset customer
+});
+```
+<a name="CustomerResource+activate"></a>
+
+### customerResource.activate([input]) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Activates a customer.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with the reset customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [input] | <code>Object</code> | An input object containing: |
+| [input.id] | <code>String</code> | The customer ID to specify the customer to activate. |
+| [input.input] | <code>Object</code> | The input object for activating the customer. See the [Storefront API reference](https://help.shopify.com/api/storefront-api/reference/input_object/customeractivateinput) for valid input fields. |
+
+**Example**  
+```js
+const input = {
+  id: 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE',
+  input: {
+    "resetToken": "ae0f1d2e179c9571122a0595a6ac8125",
+    "password": "HiZqFuDvDdQ7"
+  }
+};
+
+client.customer.activate(input).then((customer) => {
+  // Do something with the activated customer
+});
+```
+<a name="CustomerResource+fetch"></a>
+
+### customerResource.fetch(customerAccessToken) ⇒ <code>Promise</code> \| <code>GraphModel</code>
+Fetches a customer by access token.
+
+**Kind**: instance method of [<code>CustomerResource</code>](#CustomerResource)  
+**Returns**: <code>Promise</code> \| <code>GraphModel</code> - A promise resolving with a `GraphModel` of the customer.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| customerAccessToken | <code>String</code> | The access token of the customer to fetch. |
+
+**Example**  
+```js
+client.customer.fetch('ae0f1d2e179c9571122a0595a6ac8125').then((customer) => {
+  // Do something with the customer
+});
+```
 <a name="ImageResource"></a>
 
 ## ImageResource
@@ -376,9 +756,9 @@ Fetches all products on the shop.
 **Kind**: instance method of [<code>ProductResource</code>](#ProductResource)  
 **Returns**: <code>Promise</code> \| <code>Array.&lt;GraphModel&gt;</code> - A promise resolving with an array of `GraphModel`s of the products.  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| [pageSize] | <code>Int</code> | <code>20</code> | The number of products to fetch per page |
+| Param | Type | Description |
+| --- | --- | --- |
+| [pageSize] | <code>Int</code> | The number of products to fetch per page |
 
 **Example**  
 ```js
