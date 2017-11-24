@@ -25,29 +25,45 @@ class Client {
   /**
    * Primary entry point for building a new Client.
    */
-  static buildClient(config) {
+  static buildClient(config, fetchFunction) {
     const newConfig = new Config(config);
 
-    return new Client(newConfig);
+    return new Client(newConfig, GraphQLJSClient, fetchFunction);
   }
 
   /**
    * @constructs Client
    * @param {Config} config An instance of {@link Config} used to configure the Client.
    */
-  constructor(config, GraphQLClientClass = GraphQLJSClient) {
-    const apiUrl = `https://${config.domain}/api/graphql`;
+  constructor(config, GraphQLClientClass = GraphQLJSClient, fetchFunction) {
+    const url = `https://${config.domain}/api/graphql`;
 
-    this.graphQLClient = new GraphQLClientClass(types, {
-      url: apiUrl,
-      fetcherOptions: {
-        headers: {
-          'X-SDK-Variant': 'javascript',
-          'X-SDK-Version': version,
-          'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
+    const headers = {
+      'X-SDK-Variant': 'javascript',
+      'X-SDK-Version': version,
+      'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
+    };
+
+    if (fetchFunction) {
+      headers['Content-Type'] = 'application/json';
+      headers.Accept = 'application/json';
+
+      this.graphQLClient = new GraphQLClientClass(types, {
+        fetcher: function fetcher(graphQLParams) {
+          return fetchFunction(url, {
+            body: JSON.stringify(graphQLParams),
+            method: 'POST',
+            mode: 'cors',
+            headers
+          }).then((response) => response.json());
         }
-      }
-    });
+      });
+    } else {
+      this.graphQLClient = new GraphQLClientClass(types, {
+        url,
+        fetcherOptions: {headers}
+      });
+    }
 
     this.product = new ProductResource(this.graphQLClient);
     this.collection = new CollectionResource(this.graphQLClient);
