@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "aws-sdk": "2.162.0",
     "babel": "6.23.0",
     "babel-core": "6.26.0",
     "babel-plugin-external-helpers": "6.22.0",
@@ -48,6 +49,7 @@
     "jsdoc": "3.5.5",
     "jsdoc-export-default-interop": "0.3.1",
     "jsdoc-to-markdown": "next",
+    "mime-types": "2.1.17",
     "minimist": "1.2.0",
     "mocha": "3.5.0",
     "node-fetch": "1.7.2",

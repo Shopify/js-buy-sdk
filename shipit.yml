@@ -3,4 +3,6 @@ deploy:
     - rm -rf node_modules
     - yarn install
     - yarn run test
-    - npm publish --tag beta
+    - npm publish
+    - ejson decrypt -o secrets.json secrets.ejson
+    - node scripts/upload-to-cdn.js
