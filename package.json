@@ -7,7 +7,7 @@
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "scripts": {
     "prepublish": "yarn run build",
-    "build": "rollup -c",
+    "build": "rollup -c && yarn run minify-umd",
     "start": "yarn run clean && yarn run setup-paths && concurrently --names DEPS,LIVERELOAD,ROLLUP,HTTP,NOTIFIER 'yarn run test:web-deps' 'yarn run test:livereload-server' 'yarn run test:watch' 'http-server -p 4200 .tmp/test' 'yarn run print-start-message'",
     "clean": "rimraf .tmp index.*",
     "doc:build": "jsdoc -c jsdoc.json",
@@ -23,7 +23,8 @@
     "lint": "eslint --max-warnings 0 -c .eslintrc.json $(yarn run lint:reporter-args 2>&1 >/dev/null) src/ test/",
     "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
-    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/graphql' --header 'Authorization: Basic MzUxYzEyMjAxN2QwZjJhOTU3ZDMyYWU3MjhhZDc0OWM=' | jq '.' > schema.json"
+    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/graphql' --header 'Authorization: Basic MzUxYzEyMjAxN2QwZjJhOTU3ZDMyYWU3MjhhZDc0OWM=' | jq '.' > schema.json",
+    "minify-umd": "echo \"/*\n$(cat LICENSE.txt)\n*/\" > index.umd.min.js && babel-minify index.umd.js >> index.umd.min.js"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
@@ -32,6 +33,7 @@
     "aws-sdk": "2.162.0",
     "babel": "6.23.0",
     "babel-core": "6.26.0",
+    "babel-minify": "0.2.0",
     "babel-plugin-external-helpers": "6.22.0",
     "babel-preset-env": "1.6.0",
     "concurrently": "3.5.0",

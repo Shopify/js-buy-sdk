@@ -39,6 +39,14 @@ $ yarn add shopify-buy
 $ npm install shopify-buy
 ```
 
+**CDN:**
+
+There is a minified UMD build available via CDN:
+
+```html
+<script src="http://sdks.shopifycdn.com/js-buy-sdk/v1/latest/index.umd.min.js"></script>
+```
+
 ## Builds
 The JS Buy SDK has four build versions: ES, CommonJS, AMD, and UMD.
 
