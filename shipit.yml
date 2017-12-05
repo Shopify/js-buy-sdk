@@ -1,7 +1,8 @@
 deploy:
   override:
-    - npm install --no-progress
-    - npm run build
-    - ejson decrypt -o secrets.json secrets.ejson
+    - rm -rf node_modules
+    - yarn install
+    - yarn run test
     - npm publish
-    - scripts/deploy
+    - ejson decrypt -o secrets.json secrets.ejson
+    - node scripts/upload-to-cdn.js

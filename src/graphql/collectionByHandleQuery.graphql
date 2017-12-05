@@ -1,0 +1,8 @@
+query ($handle: String!) {
+  shop {
+    collectionByHandle(handle: $handle) {
+      ...CollectionFragment
+      ...CollectionsProductsFragment
+    }
+  }
+}

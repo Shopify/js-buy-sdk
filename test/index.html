@@ -1,0 +1,29 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link href="mocha.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="mocha"></div>
+
+  <script>
+    var script = document.createElement('script');
+    script.src = 'http://localhost:35729/livereload.js';
+    document.currentScript.parentNode.insertBefore(script, document.currentScript);
+  </script>
+
+  <script src="jquery.slim.min.js"></script>
+  <script src="expect.js"></script>
+  <script src="mocha.js"></script>
+
+  <script>mocha.setup('tdd')</script>
+  <script src="tests.js"></script>
+  <script>
+    mocha.checkLeaks();
+    mocha.globals(['jQuery']);
+    mocha.run();
+  </script>
+
+</body>
+</html>

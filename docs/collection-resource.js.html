@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: collection-resource.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: collection-resource.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import Resource from './resource';
+import defaultResolver from './default-resolver';
+import {paginateCollectionsProductConnectionsAndResolve} from './paginators';
+
+// GraphQL
+import collectionNodeQuery from './graphql/collectionNodeQuery.graphql';
+import collectionNodeWithProductsQuery from './graphql/collectionNodeWithProductsQuery.graphql';
+import collectionConnectionQuery from './graphql/collectionConnectionQuery.graphql';
+import collectionConnectionWithProductsQuery from './graphql/collectionConnectionWithProductsQuery.graphql';
+import collectionByHandleQuery from './graphql/collectionByHandleQuery.graphql';
+
+/**
+ * The JS Buy SDK collection resource
+ * @class
+ */
+class CollectionResource extends Resource {
+
+  /**
+   * Fetches all collections on the shop, not including products.
+   * To fetch collections with products use [fetchAllsWithProducts]{@link Client#fetchAllsWithProducts}.
+   *
+   * @example
+   * client.collection.fetchAll().then((collections) => {
+   *   // Do something with the collections
+   * });
+   *
+   * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
+   */
+  fetchAll(first = 20) {
+    return this.graphQLClient
+      .send(collectionConnectionQuery, {first})
+      .then(defaultResolver('shop.collections'));
+  }
+
+  /**
+   * Fetches all collections on the shop, including products.
+   *
+   * @example
+   * client.collection.fetchAllWithProducts().then((collections) => {
+   *   // Do something with the collections
+   * });
+   *
+   * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
+   */
+  fetchAllWithProducts({first = 20, productsFirst = 20} = {}) {
+    return this.graphQLClient
+      .send(collectionConnectionWithProductsQuery, {first, productsFirst})
+      .then(defaultResolver('shop.collections'))
+      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
+  }
+
+  /**
+   * Fetches a single collection by ID on the shop, not including products.
+   * To fetch the collection with products use [fetchWithProducts]{@link Client#fetchWithProducts}.
+   *
+   * @example
+   * client.collection.fetch('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
+   *   // Do something with the collection
+   * });
+   *
+   * @param {String} id The id of the collection to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
+   */
+  fetch(id) {
+    return this.graphQLClient
+      .send(collectionNodeQuery, {id})
+      .then(defaultResolver('node'));
+  }
+
+  /**
+   * Fetches a single collection by ID on the shop, including products.
+   *
+   * @example
+   * client.collection.fetchWithProducts('Xk9lM2JkNzFmNzIQ4NTIY4ZDFiZTUyZTUwNTE2MDNhZjg==').then((collection) => {
+   *   // Do something with the collection
+   * });
+   *
+   * @param {String} id The id of the collection to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
+   */
+  fetchWithProducts(id) {
+    return this.graphQLClient
+      .send(collectionNodeWithProductsQuery, {id})
+      .then(defaultResolver('node'))
+      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
+  }
+
+  /**
+   * Fetches a collection by handle on the shop.
+   *
+   * @example
+   * client.collection.fetchByHandle('my-collection').then((collection) => {
+   *   // Do something with the collection
+   * });
+   *
+   * @param {String} handle The handle of the collection to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the collection.
+   */
+  fetchByHandle(handle) {
+    return this.graphQLClient
+      .send(collectionByHandleQuery, {handle})
+      .then(defaultResolver('shop.collectionByHandle'));
+  }
+
+  /**
+   * Fetches all collections on the shop that match the query.
+   *
+   * @example
+   * client.collection.fetchQuery({first: 20, sortKey: 'CREATED_AT', reverse: true}).then((collections) => {
+   *   // Do something with the first 10 collections sorted by title in ascending order
+   * });
+   *
+   * @param {Object} [args] An object specifying the query data containing zero or more of:
+   *   @param {Int} [args.first=20] The relay `first` param. This specifies page size.
+   *   @param {String} [args.sortKey=ID] The key to sort results by. Available values are
+   *   documented as {@link https://help.shopify.com/api/storefront-api/reference/enum/collectionsortkeys|Collection Sort Keys}.
+   *   @param {String} [args.query] A query string. See full documentation {@link https://help.shopify.com/api/storefront-api/reference/object/shop#collections|here}
+   *   @param {Boolean} [args.reverse] Whether or not to reverse the sort order of the results
+   * @return {Promise|GraphModel[]} A promise resolving with an array of `GraphModel`s of the collections.
+   */
+  fetchQuery({first = 20, sortKey = 'ID', query, reverse} = {}) {
+    return this.graphQLClient.send(collectionConnectionQuery, {
+      first,
+      sortKey,
+      query,
+      reverse
+    }).then(defaultResolver('shop.collections'));
+  }
+}
+export default CollectionResource;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">Migrating from v0 to v1</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Nov 02 2017 14:15:45 GMT-0400 (EDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
