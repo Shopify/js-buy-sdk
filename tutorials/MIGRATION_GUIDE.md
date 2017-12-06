@@ -50,6 +50,7 @@ The functions for fetching products and collections are mostly the same. Major d
 [Getting Started Guide](https://help.shopify.com/api/storefront-api/getting-started#authentication) for the Storefront API.
 
 2. Collections can be fetched with products using `collection.fetchWithProducts(id)` (fetches a single collection with associated products) and `collection.fetchAllWithProducts()` (fetches a page of collections with their associated products).
+
 ```js
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzI1NzY5NzczMQ=='
 
@@ -58,7 +59,7 @@ client.collection.fetchWithProducts(collectionId).then((collection) => {
   console.log(collection); // Collection with all default fields and products with all default fields.
   console.log(collection.products); // Products on the collection
 });
-  ```
+```
 
 3. `product.fetchQuery()` and `collection.fetchQuery()` query different fields and take an optional `query` argument.
 See the [product connection field](https://help.shopify.com/api/storefront-api/reference/object/shop#products) and
@@ -66,6 +67,7 @@ See the [product connection field](https://help.shopify.com/api/storefront-api/r
 in the storefront API for more details.
 
 **v0:**
+
 ```js
 client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((products) => {
   console.log(products); // An array of products in collection '336903494' having the tag 'hats'
@@ -73,6 +75,7 @@ client.fetchQueryProducts({collection_id: '336903494', tag: ['hats']}).then((pro
 ```
 
 **v1:**
+
 ```js
 const query = {
   query: 'updated_at:>="2016-09-25T21:31:33"',
