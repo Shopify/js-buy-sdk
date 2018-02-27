@@ -1,4 +1,4 @@
-export const defaultErrors = [{message: 'an unknown error has occured'}];
+export const defaultErrors = [{message: 'an unknown error has occured.'}];
 
 export default function defaultResolver(path) {
   const keys = path.split('.');

@@ -47,7 +47,7 @@ suite('default-resolver-test', () => {
     });
   });
 
-  test('it rejects with synthetic errors hash if no top level key available', () => {
+  test('it rejects with a synthetic errors hash if no top level key available', () => {
     const resolve = defaultResolver('node');
 
     return resolve({}).then(() => {
