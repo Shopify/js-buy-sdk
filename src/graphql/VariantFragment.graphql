@@ -15,4 +15,20 @@ fragment VariantFragment on ProductVariant {
     name
     value
   }
+  product {
+    images(first: 1) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          src
+          altText
+        }
+      }
+    }
+  }
 }
