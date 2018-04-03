@@ -5,6 +5,10 @@
   "main": "index.js",
   "jsnext:main": "index.es.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
+  "publishConfig": {
+    "access": "public",
+    "@shopify:registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "prepublish": "yarn run build",
     "build": "rollup -c && yarn run minify-umd",
