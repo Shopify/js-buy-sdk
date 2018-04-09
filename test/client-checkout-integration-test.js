@@ -155,4 +155,48 @@ suite('client-checkout-integration-test', () => {
       assert.equal(error.message, '[{"message":"Variant is invalid","field":["lineItems","0","variantId"]}]');
     });
   });
+
+  test('it rejects checkout mutations that return with a non-null `errors` without data field', () => {
+    const checkoutCreateWithUserErrorsFixture = {
+      data: {},
+      errors: [{message: 'Timeout'}]
+    };
+
+    const input = {
+      lineItems: [
+        {variantId: 'invalidId', quantity: 5}
+      ]
+    };
+
+    fetchMock.postOnce(apiUrl, checkoutCreateWithUserErrorsFixture);
+
+    return client.checkout.create(input).then(() => {
+      assert.ok(false, 'Promise should not resolve');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Timeout"}]');
+    });
+  });
+
+  test('it resolves checkout mutations that return with a non-null `errors` with data field', () => {
+    checkoutCreateWithPaginatedLineItemsFixture.errors = [{message: 'Some error'}];
+
+    const input = {
+      lineItems: [
+        {variantId: 'id1', quantity: 5},
+        {variantId: 'id2', quantity: 10},
+        {variantId: 'id3', quantity: 15}
+      ]
+    };
+
+    fetchMock.postOnce(apiUrl, checkoutCreateWithPaginatedLineItemsFixture)
+      .postOnce(apiUrl, secondPageLineItemsFixture)
+      .postOnce(apiUrl, thirdPageLineItemsFixture);
+
+    return client.checkout.create(input).then((checkout) => {
+      assert.ok(checkout.errors);
+      assert.ok(fetchMock.done());
+    }).catch(() => {
+      assert.equal(false, 'Should resolve');
+    });
+  });
 });
