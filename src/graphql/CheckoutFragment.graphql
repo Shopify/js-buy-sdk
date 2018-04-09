@@ -71,7 +71,7 @@ fragment CheckoutFragment on Checkout {
         node {
           title
           variant {
-            ...VariantFragment
+            ...VariantWithProductFragment
           }
           quantity
           customAttributes {
@@ -93,7 +93,7 @@ fragment CheckoutFragment on Checkout {
         id
         title
         variant {
-          ...VariantFragment
+          ...VariantWithProductFragment
         }
         quantity
         customAttributes {
