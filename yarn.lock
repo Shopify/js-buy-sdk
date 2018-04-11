@@ -3021,9 +3021,9 @@ graphql-js-client@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.7.0.tgz#6d6006680c4e6eaf2e4d284d430b0fae687de154"
 
-graphql-js-client@0.9.1:
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.9.1.tgz#560b39b4baba6ffa7a87f19a3438548155cf9cb5"
+graphql-js-client@0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.9.2.tgz#dba572d2feefcc84075e1aad1f95e69a5128270d"
 
 graphql-js-schema-fetch@1.1.2:
   version "1.1.2"
