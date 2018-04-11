@@ -1,17 +1,26 @@
 export default function handleCheckoutMutation(mutationRootKey, client) {
-  return function({data, model}) {
+  return function({data, errors, model}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
-    const userErrors = rootData.userErrors;
 
-    if (userErrors.length) {
-      return Promise.reject(new Error(JSON.stringify(userErrors)));
+    if (rootData && rootData.checkout) {
+      return client.fetchAllPages(rootModel.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
+        rootModel.checkout.attrs.lineItems = lineItems;
+        rootModel.checkout.errors = errors;
+        rootModel.checkout.userErrors = rootModel.userErrors;
+
+        return rootModel.checkout;
+      });
     }
 
-    return client.fetchAllPages(rootModel.checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-      rootModel.checkout.attrs.lineItems = lineItems;
+    if (errors && errors.length) {
+      return Promise.reject(new Error(JSON.stringify(errors)));
+    }
 
-      return rootModel.checkout;
-    });
+    if (rootData && rootData.userErrors && rootData.userErrors.length) {
+      return Promise.reject(new Error(JSON.stringify(rootData.userErrors)));
+    }
+
+    return Promise.reject(new Error(`The ${mutationRootKey} mutation failed due to an unknown error.`));
   };
 }
