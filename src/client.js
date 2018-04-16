@@ -27,8 +27,11 @@ class Client {
    */
   static buildClient(config, fetchFunction) {
     const newConfig = new Config(config);
+    const client = new Client(newConfig, GraphQLJSClient, fetchFunction);
 
-    return new Client(newConfig, GraphQLJSClient, fetchFunction);
+    client.config = newConfig;
+
+    return client;
   }
 
   /**
