@@ -8,7 +8,7 @@ export default {
    * Images do not scale up.
    *
    * @example
-   * const url = client.image.imageForSize(product.variants[0].image, {maxWidth: 50, maxHeight: 50});
+   * const url = client.image.helpers.imageForSize(product.variants[0].image, {maxWidth: 50, maxHeight: 50});
    *
    * @memberof ImageHelpers
    * @method imageForSize
