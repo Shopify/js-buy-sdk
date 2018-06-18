@@ -10,6 +10,7 @@ import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
+import checkoutUpdateAttributesFixture from '../fixtures/checkout-update-custom-attrs-fixture';
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -56,6 +57,27 @@ suite('client-checkout-integration-test', () => {
 
     return client.checkout.create(input).then((checkout) => {
       assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#update', () => {
+    const checkoutId = 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=';
+    const input = {
+      lineItems: [
+        {variantId: 'an-id', quantity: 5}
+      ],
+      customAttributes: [
+        {key: 'MyKey', value: 'MyValue'}
+      ]
+    };
+
+    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesFixture);
+
+    return client.checkout.update(checkoutId, input).then((checkout) => {
+      assert.equal(checkout.id, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.id);
+      assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].key);
+      assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].value);
       assert.ok(fetchMock.done());
     });
   });

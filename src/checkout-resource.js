@@ -8,6 +8,7 @@ import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
+import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -65,6 +66,30 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutCreateMutation, {input})
       .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
+  }
+
+  /**
+   * Replaces the value of checkout's custom attributes and/or note with values defined in the input
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
+   *
+   * client.checkout.update(checkoutId, input).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to update.
+   * @param {Object} [input] An input object containing zero or more of:
+   *   @param {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
+   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput|Storefront API reference} for valid input fields.
+   *   @param {String} [input.note] A note for the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  update(checkoutId, input = {}) {
+    return this.graphQLClient
+      .send(checkoutAttributesUpdateMutation, {checkoutId, input})
+      .then(handleCheckoutMutation('checkoutAttributesUpdate', this.graphQLClient));
   }
 
   /**

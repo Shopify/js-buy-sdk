@@ -1,0 +1,10 @@
+mutation checkoutAttributesUpdate($checkoutId: ID!, $input: CheckoutAttributesUpdateInput!) {
+  checkoutAttributesUpdate(checkoutId: $checkoutId, input: $input) {
+    userErrors {
+      ...UserErrorFragment
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
