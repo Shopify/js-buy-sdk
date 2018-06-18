@@ -86,7 +86,7 @@ class CheckoutResource extends Resource {
    *   @param {String} [input.note] A note for the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  update(checkoutId, input = {}) {
+  updateAttributes(checkoutId, input = {}) {
     return this.graphQLClient
       .send(checkoutAttributesUpdateMutation, {checkoutId, input})
       .then(handleCheckoutMutation('checkoutAttributesUpdate', this.graphQLClient));
