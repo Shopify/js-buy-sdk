@@ -69,11 +69,11 @@ class CheckoutResource extends Resource {
   }
 
   /**
-   * Updates a checkout.
+   * Replaces the value of checkout's custom attributes and/or note with values defined in the input
    *
    * @example
    * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-   * const input = { customAttributes: [{ key: "MyKey", value: "MyValue" }] };
+   * const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
    *
    * client.checkout.update(checkoutId, input).then((checkout) => {
    *   // Do something with the updated checkout
