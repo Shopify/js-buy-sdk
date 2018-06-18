@@ -1,5 +1,5 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
-[![Circle CI](https://circleci.com/gh/Shopify/js-buy-sdk/tree/master.png?circle-token=3be0ebe6fbb4841442b86678696947bd4b5456d7)](https://circleci.com/gh/Shopify/js-buy-sdk/tree/master)
+[![Travis](https://travis-ci.com/Shopify/js-buy-sdk.svg?branch=master)](https://travis-ci.com/Shopify/js-buy-sdk)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
 [Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/master/tutorials/MIGRATION_GUIDE.md).

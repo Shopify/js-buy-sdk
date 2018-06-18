@@ -30,7 +30,7 @@ script
 fixtures
 examples
 rollup.config.js
-cirle.yml
+.travis.yml
 schema.json
 secrets.ejson
 service.yml
