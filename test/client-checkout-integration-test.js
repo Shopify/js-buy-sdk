@@ -74,7 +74,7 @@ suite('client-checkout-integration-test', () => {
 
     fetchMock.postOnce(apiUrl, checkoutUpdateAttributesFixture);
 
-    return client.checkout.update(checkoutId, input).then((checkout) => {
+    return client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
       assert.equal(checkout.id, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.id);
       assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].key);
       assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].value);
