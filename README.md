@@ -204,7 +204,7 @@ const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID
 const discountCode = 'best-discount-ever';
 
 // Add an item to the checkout
-client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(checkout => {
+client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout);
 });
