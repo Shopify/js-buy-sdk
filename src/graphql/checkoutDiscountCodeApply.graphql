@@ -1,11 +1,10 @@
 mutation checkoutDiscountCodeApply($discountCode: String!, $checkoutId: ID!) {
   checkoutDiscountCodeApply(discountCode: $discountCode, checkoutId: $checkoutId) {
     userErrors {
-      field
-      message
+      ...UserErrorFragment
     }
     checkout {
-      id
+      ...CheckoutFragment
     }
   }
 }

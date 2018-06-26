@@ -125,7 +125,7 @@ class CheckoutResource extends Resource {
    *   // Do something with the updated checkout
    * });
    *
-   * @param {String} checkoutId The ID of the checkout to add line items to.
+   * @param {String} checkoutId The ID of the checkout to add discount to.
    * @param {String} discountCode The discount code to apply to the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
