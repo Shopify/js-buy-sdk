@@ -64,6 +64,7 @@ and provides the ability to retrieve products and collections from your shop, ad
 <li><a href="#updating-line-items">Updating Line Items</a></li>
 <li><a href="#removing-line-items">Removing Line Items</a></li>
 <li><a href="#fetching-a-checkout">Fetching a Checkout</a></li>
+<li><a href="#adding-discount-code">Adding Discount Code</a></li>
 </ul>
 </li>
 <li><a href="#example-apps">Example Apps</a></li>
@@ -91,7 +92,7 @@ const client = Client.buildClient({
   storefrontAccessToken: 'your-storefront-access-token'
 });</code></pre><h3 id="fetching-products">Fetching Products</h3>
 <pre class="prettyprint source lang-javascript"><code>// Fetch all products in your shop
-client.product.fetchAll().then((products) => {
+client.product.fetchAll().then(products => {
   // Do something with the products
   console.log(products);
 });
@@ -99,12 +100,12 @@ client.product.fetchAll().then((products) => {
 // Fetch a single product by ID
 const productId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
 
-client.product.fetch(productId).then((product) => {
+client.product.fetch(productId).then(product => {
   // Do something with the product
   console.log(product);
 });</code></pre><h3 id="fetching-collections">Fetching Collections</h3>
 <pre class="prettyprint source lang-javascript"><code>// Fetch all collections, including their products
-client.collection.fetchAllWithProducts().then((collections) => {
+client.collection.fetchAllWithProducts().then(collections => {
   // Do something with the collections
   console.log(collections);
   console.log(collections[0].products);
@@ -113,56 +114,58 @@ client.collection.fetchAllWithProducts().then((collections) => {
 // Fetch a single collection by ID, including its products
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
 
-client.collection.fetchWithProducts(collectionId).then((collection) => {
+client.collection.fetchWithProducts(collectionId).then(collection => {
   // Do something with the collection
   console.log(collection);
   console.log(collection.products);
 });</code></pre><h3 id="creating-a-checkout">Creating a Checkout</h3>
 <pre class="prettyprint source lang-javascript"><code>// Create an empty checkout
-client.checkout.create().then((checkout) => {
+client.checkout.create().then(checkout => {
   // Do something with the checkout
   console.log(checkout);
 });</code></pre><h3 id="adding-line-items">Adding Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
-const lineItemsToAdd = [
-  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
-];
+const lineItemsToAdd = [{ variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5 }];
 
 // Add an item to the checkout
-client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
+client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Array with one additional line item
 });</code></pre><h3 id="updating-checkout-attributes">Updating checkout attributes</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-const input = {customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]};
+const input = { customAttributes: [{ key: 'MyKey', value: 'MyValue' }] };
 
-client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
+client.checkout.updateAttributes(checkoutId, input).then(checkout => {
   // Do something with the updated checkout
 });</code></pre><h3 id="updating-line-items">Updating Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
-const lineItemsToUpdate = [
-  {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2}
-];
+const lineItemsToUpdate = [{ id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2 }];
 
 // Update the line item on the checkout (change the quantity or variant)
-client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
+client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
 });</code></pre><h3 id="removing-line-items">Removing Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
-const lineItemIdsToRemove = [
-  'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
-];
+const lineItemIdsToRemove = ['Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='];
 
 // Remove an item from the checkout
-client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
+client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
 });</code></pre><h3 id="fetching-a-checkout">Fetching a Checkout</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI=';
 
-client.checkout.fetch(checkoutId).then((checkout) => {
+client.checkout.fetch(checkoutId).then(checkout => {
   // Do something with the checkout
+  console.log(checkout);
+});</code></pre><h3 id="adding-discount-code">Adding Discount Code</h3>
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const discountCode = 'best-discount-ever';
+
+// Add an item to the checkout
+client.checkout.addLineItems(checkoutId, lineItemsToAdd).then(checkout => {
+  // Do something with the updated checkout
   console.log(checkout);
 });</code></pre><h2 id="example-apps">Example Apps</h2>
 <p>For more complete examples of using JS Buy SDK, check out our <a href="https://github.com/Shopify/storefront-api-examples">storefront-api-examples</a> project.
@@ -194,7 +197,7 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 19 2018 10:23:53 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Jun 25 2018 17:14:43 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
