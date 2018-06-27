@@ -9,7 +9,7 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
-import checkoutDiscountCodeApply from './graphql/checkoutDiscountCodeApply.graphql';
+import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -131,7 +131,7 @@ class CheckoutResource extends Resource {
    */
   addDiscount(checkoutId, discountCode) {
     return this.graphQLClient
-      .send(checkoutDiscountCodeApply, {checkoutId, discountCode})
+      .send(checkoutDiscountCodeApplyMutation, {checkoutId, discountCode})
       .then(handleCheckoutMutation('checkoutDiscountCodeApply', this.graphQLClient));
   }
 
