@@ -6,6 +6,7 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
+import checkoutShippingAddressUpdate from './graphql/checkoutShippingAddressUpdate.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
@@ -156,6 +157,12 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateLineItems(checkoutId, lineItems) {
+    return this.graphQLClient
+      .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
+      .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
+  }
+
+  updateShippingAddress(checkoutId, lineItems) {
     return this.graphQLClient
       .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
       .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
