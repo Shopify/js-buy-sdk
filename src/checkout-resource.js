@@ -6,10 +6,10 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
-import checkoutShippingAddressUpdate from './graphql/checkoutShippingAddressUpdate.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
+import checkoutShippingAddressUpdateMutation from './graphql/checkoutShippingAddressUpdateMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -162,10 +162,37 @@ class CheckoutResource extends Resource {
       .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
   }
 
-  updateShippingAddress(checkoutId, lineItems) {
+  /**
+   * Updates shipping address on an existing checkout.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const shippingAddress = {
+   *    address1: 'Chestnut Street 92',
+   *    address2: 'Apartment 2"',
+   *    city: 'Louisville',
+   *    company: null,
+   *    country: 'United States',
+   *    firstName: 'Bob',
+   *    lastName: 'Norman',
+   *    phone: '555-625-1199',
+   *    province: 'Kentucky',
+   *    zip: '40202'
+   *  };
+   *
+   *
+   * client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param  {String} checkoutId The ID of the checkout to update shipping address.
+   * @param  {Object} shippingAddress A shipping address.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateShippingAddress(checkoutId, shippingAddress) {
     return this.graphQLClient
-      .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
+      .send(checkoutShippingAddressUpdateMutation, {checkoutId, shippingAddress})
+      .then(handleCheckoutMutation('checkoutShippingAddressUpdate', this.graphQLClient));
   }
 }
 

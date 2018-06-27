@@ -157,6 +157,29 @@ client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) =
 });
 ```
 
+### Update Shipping Address
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const shippingAddress = {
+        address1: 'Chestnut Street 92',
+        address2: 'Apartment 2"',
+        city: 'Louisville',
+        company: null,
+        country: 'United States',
+        firstName: 'Bob',
+        lastName: 'Norman',
+        phone: '555-625-1199',
+        province: 'Kentucky',
+        zip: '40202'
+      };
+   
+// Update the shipping address on the checkout   
+ client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
+   console.log(checkout);
+ });
+
+```
+
 ### Removing Line Items
 ```javascript
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
