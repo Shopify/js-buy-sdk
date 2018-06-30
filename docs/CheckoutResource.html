@@ -19,7 +19,7 @@
 
     <h1 class="page-title">Class: CheckoutResource</h1>
 
-
+    
 
 
 
@@ -27,28 +27,28 @@
 <section>
 
 <header>
-
+    
         <h2><span class="attribs"><span class="type-signature"></span></span>CheckoutResource<span class="signature">()</span><span class="type-signature"></span></h2>
-
+        
             <div class="class-description"><p>The JS Buy SDK checkout resource</p></div>
-
-
+        
+    
 </header>
 
 <article>
     <div class="container-overview">
+    
+        
 
-
-
-
+    
     <h2>Constructor</h2>
+    
 
-
-
+    
     <h4 class="name" id="CheckoutResource"><span class="type-signature"></span>new CheckoutResource<span class="signature">()</span><span class="type-signature"></span></h4>
+    
 
-
-
+    
 
 
 
@@ -66,42 +66,42 @@
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line17">line 17</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -121,36 +121,36 @@
 
 
 
-
+    
     </div>
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
+    
         <h3 class="subsection-title">Methods</h3>
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="addLineItems"><span class="type-signature"></span>addLineItems<span class="signature">(checkoutId, lineItems)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -167,73 +167,73 @@
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>checkoutId</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>The ID of the checkout to add line items to.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>lineItems</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;Object></span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>A list of line items to add to the checkout. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput">Storefront API reference</a> for valid input fields for each line item.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -244,42 +244,42 @@
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line110">line 110</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -296,7 +296,7 @@
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with the updated checkout.</p>
 </div>
@@ -308,7 +308,7 @@
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -318,13 +318,13 @@
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
 
@@ -334,16 +334,16 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="create"><span class="type-signature"></span>create<span class="signature">(input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -360,255 +360,255 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
-
+        
         <th>Attributes</th>
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>input</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Object</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>An input object containing zero or more of:</p>
                 <h6>Properties</h6>
-
+                
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
-
+        
         <th>Attributes</th>
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>email</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>An email connected to the checkout.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>lineItems</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;Object></span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A list of line items in the checkout. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput">Storefront API reference</a> for valid input fields for each line item.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>shippingAddress</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Object</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A shipping address. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput">Storefront API reference</a> for valid input fields.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>note</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A note for the checkout.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>customAttributes</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;Object></span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A list of custom attributes for the checkout. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput">Storefront API reference</a> for valid input fields.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
             </td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -619,42 +619,42 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line65">line 65</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -671,7 +671,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with the created checkout.</p>
 </div>
@@ -683,7 +683,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -693,13 +693,13 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>const input = {
   lineItems: [
     {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
@@ -712,16 +712,16 @@ client.checkout.create(input).then((checkout) => {
 
 
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="fetch"><span class="type-signature"></span>fetch<span class="signature">(id)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -738,50 +738,50 @@ client.checkout.create(input).then((checkout) => {
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>id</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>The id of the checkout to fetch.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -792,42 +792,42 @@ client.checkout.create(input).then((checkout) => {
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line30">line 30</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -844,7 +844,7 @@ client.checkout.create(input).then((checkout) => {
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with a <code>GraphModel</code> of the checkout.</p>
 </div>
@@ -856,7 +856,7 @@ client.checkout.create(input).then((checkout) => {
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -866,29 +866,29 @@ client.checkout.create(input).then((checkout) => {
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
   // Do something with the checkout
 });</code></pre>
 
 
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="removeLineItems"><span class="type-signature"></span>removeLineItems<span class="signature">(checkoutId, lineItemIds)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -905,73 +905,73 @@ client.checkout.create(input).then((checkout) => {
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>checkoutId</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>The ID of the checkout to remove line items from.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>lineItemIds</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;String></span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>A list of the ids of line items to remove from the checkout.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -982,42 +982,42 @@ client.checkout.create(input).then((checkout) => {
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line131">line 131</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -1034,7 +1034,7 @@ client.checkout.create(input).then((checkout) => {
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with the updated checkout.</p>
 </div>
@@ -1046,7 +1046,7 @@ client.checkout.create(input).then((checkout) => {
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -1056,13 +1056,13 @@ client.checkout.create(input).then((checkout) => {
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
 
@@ -1072,16 +1072,16 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 
 
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="updateAttributes"><span class="type-signature"></span>updateAttributes<span class="signature">(checkoutId, input<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -1098,220 +1098,220 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
-
+        
         <th>Attributes</th>
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>checkoutId</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>The ID of the checkout to update.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>input</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Object</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>An input object containing zero or more of:</p>
                 <h6>Properties</h6>
-
+                
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
-
+        
         <th>Attributes</th>
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>allowPartialAddresses</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Boolean</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>An email connected to the checkout.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>customAttributes</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;Object></span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A list of custom attributes for the checkout. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput">Storefront API reference</a> for valid input fields.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>note</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
-
+            
                 <td class="attributes">
-
+                
                     &lt;optional><br>
+                
 
+                
 
-
-
-
+                
                 </td>
+            
 
-
-
+            
 
             <td class="description last"><p>A note for the checkout.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
             </td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -1322,42 +1322,42 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line89">line 89</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -1374,7 +1374,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with the updated checkout.</p>
 </div>
@@ -1386,7 +1386,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -1396,13 +1396,13 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
 
@@ -1412,16 +1412,16 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 
 
 
+        
+            
 
+    
 
-
-
-
-
+    
     <h4 class="name" id="updateLineItems"><span class="type-signature"></span>updateLineItems<span class="signature">(checkoutId, lineItems)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
 
-
-
+    
 
 
 
@@ -1438,73 +1438,73 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 
 
     <h5>Parameters:</h5>
-
+    
 
 <table class="params">
     <thead>
     <tr>
-
+        
         <th>Name</th>
-
+        
 
         <th>Type</th>
 
+        
 
-
-
+        
 
         <th class="last">Description</th>
     </tr>
     </thead>
 
     <tbody>
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>checkoutId</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">String</span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>The ID of the checkout to update a line item on.</p></td>
         </tr>
 
-
+    
 
         <tr>
-
+            
                 <td class="name"><code>lineItems</code></td>
-
+            
 
             <td class="type">
-
-
+            
+                
 <span class="param-type">Array.&lt;Object></span>
 
 
-
+            
             </td>
 
+            
 
-
-
+            
 
             <td class="description last"><p>A list of line item information to update. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineitemupdateinput">Storefront API reference</a> for valid input fields for each line item.</p></td>
         </tr>
 
-
+    
     </tbody>
 </table>
 
@@ -1515,42 +1515,42 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 
 <dl class="details">
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
         <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line158">line 158</a>
     </li></ul></dd>
+    
 
+    
 
+    
 
-
-
-
-
+    
 </dl>
 
 
@@ -1567,7 +1567,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 
 <h5>Returns:</h5>
 
-
+        
 <div class="param-desc">
     <p>A promise resolving with the updated checkout.</p>
 </div>
@@ -1579,7 +1579,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
         Type
     </dt>
     <dd>
-
+        
 <span class="param-type">Promise</span>
 |
 
@@ -1589,13 +1589,13 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
     </dd>
 </dl>
 
-
+    
 
 
 
 
     <h5>Example</h5>
-
+    
     <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const lineItems = [
   {
@@ -1611,12 +1611,12 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
 
 
 
+        
+    
 
+    
 
-
-
-
-
+    
 </article>
 
 </section>
@@ -1627,13 +1627,13 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">Migrating from v0 to v1</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 19 2018 10:23:53 GMT-0400 (EDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sun Jul 01 2018 00:14:14 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>
