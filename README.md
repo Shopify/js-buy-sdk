@@ -23,6 +23,7 @@ and provides the ability to retrieve products and collections from your shop, ad
   + [Updating Line Items](#updating-line-items)
   + [Removing Line Items](#removing-line-items)
   + [Fetching a Checkout](#fetching-a-checkout)
+  + [Adding a Discount](#adding-a-discount)
 - [Example Apps](#example-apps)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -177,6 +178,18 @@ const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwY
 
 client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
+  console.log(checkout);
+});
+```
+
+### Adding a Discount
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const discountCode = 'best-discount-ever';
+
+// Add a discount code to the checkout
+client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
+  // Do something with the updated checkout
   console.log(checkout);
 });
 ```
