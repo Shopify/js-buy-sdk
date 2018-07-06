@@ -8144,6 +8144,47 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutDiscountCodeApply",
+              "description": "Adds a list of line items to a checkout.",
+              "args": [
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "discountCode",
+                  "description": "Discount Code.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutLineItemsAddPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "checkoutLineItemsRemove",
               "description": "Removes line items from an existing checkout",
               "args": [

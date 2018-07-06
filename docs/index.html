@@ -19,11 +19,11 @@
 
     <h1 class="page-title">Home</h1>
 
+    
 
 
 
-
-
+    
 
 
     <h3> </h3>
@@ -37,7 +37,7 @@
 
 
 
-
+    
 
 
 
@@ -62,8 +62,10 @@ and provides the ability to retrieve products and collections from your shop, ad
 <li><a href="#creating-a-checkout">Creating a Checkout</a></li>
 <li><a href="#adding-line-items">Adding Line Items</a></li>
 <li><a href="#updating-line-items">Updating Line Items</a></li>
+<li><a href="#updating-shipping-address">Updating Shipping Address</a></li>
 <li><a href="#removing-line-items">Removing Line Items</a></li>
 <li><a href="#fetching-a-checkout">Fetching a Checkout</a></li>
+<li><a href="#adding-a-discount">Adding a Discount</a></li>
 </ul>
 </li>
 <li><a href="#example-apps">Example Apps</a></li>
@@ -148,25 +150,25 @@ const lineItemsToUpdate = [
 client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
-});</code></pre><h3 id="update-shipping-address">Update Shipping Address</h3>
+});</code></pre><h3 id="updating-shipping-address">Updating Shipping Address</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const shippingAddress = {
-        address1: 'Chestnut Street 92',
-        address2: 'Apartment 2&quot;',
-        city: 'Louisville',
-        company: null,
-        country: 'United States',
-        firstName: 'Bob',
-        lastName: 'Norman',
-        phone: '555-625-1199',
-        province: 'Kentucky',
-        zip: '40202'
-      };
+  address1: 'Chestnut Street 92',
+  address2: 'Apartment 2&quot;',
+  city: 'Louisville',
+  company: null,
+  country: 'United States',
+  firstName: 'Bob',
+  lastName: 'Norman',
+  phone: '555-625-1199',
+  province: 'Kentucky',
+  zip: '40202'
+};
 
 // Update the shipping address on the checkout
- client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
-   console.log(checkout);
- });</code></pre><h3 id="removing-line-items">Removing Line Items</h3>
+client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
+  console.log(checkout);
+});</code></pre><h3 id="removing-line-items">Removing Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const lineItemIdsToRemove = [
   'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
@@ -181,6 +183,14 @@ client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout)
 
 client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
+  console.log(checkout);
+});</code></pre><h3 id="adding-a-discount">Adding a Discount</h3>
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const discountCode = 'best-discount-ever';
+
+// Add a discount code to the checkout
+client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
+  // Do something with the updated checkout
   console.log(checkout);
 });</code></pre><h2 id="example-apps">Example Apps</h2>
 <p>For more complete examples of using JS Buy SDK, check out our <a href="https://github.com/Shopify/storefront-api-examples">storefront-api-examples</a> project.
@@ -206,13 +216,13 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">Migrating from v0 to v1</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Jun 27 2018 14:40:15 GMT-0700 (PDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 06 2018 08:59:20 GMT-0700 (PDT)
 </footer>
 
 <script> prettyPrint(); </script>
