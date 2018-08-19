@@ -2,6 +2,7 @@ import GraphQLJSClient from './graphql-client';
 import Config from './config';
 import ProductResource from './product-resource';
 import CollectionResource from './collection-resource';
+import CustomerResource from './customer-resource';
 import ShopResource from './shop-resource';
 import CheckoutResource from './checkout-resource';
 import ImageResource from './image-resource';
@@ -73,6 +74,7 @@ class Client {
     this.shop = new ShopResource(this.graphQLClient);
     this.checkout = new CheckoutResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
+    this.customer = new CustomerResource(this.graphQLClient);
   }
 
   /**

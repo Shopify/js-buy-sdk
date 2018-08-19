@@ -1,0 +1,8 @@
+mutation customerRecover($email: String!) {
+  customerRecover(email: $email) {
+    userErrors {
+      field
+      message
+    }
+  }
+}
