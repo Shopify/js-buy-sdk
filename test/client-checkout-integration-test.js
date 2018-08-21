@@ -11,6 +11,7 @@ import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fix
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 import checkoutUpdateAttributesFixture from '../fixtures/checkout-update-custom-attrs-fixture';
+import checkoutUpdateEmailFixture from '../fixtures/checkout-update-email-fixture';
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -78,6 +79,21 @@ suite('client-checkout-integration-test', () => {
       assert.equal(checkout.id, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.id);
       assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].key);
       assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].value);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#email_update', () => {
+    const checkoutId = 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=';
+    const input = {
+      email: 'user@example.com'
+    };
+
+    fetchMock.postOnce(apiUrl, checkoutUpdateEmailFixture);
+
+    return client.checkout.updateEmail(checkoutId, input).then((checkout) => {
+      assert.equal(checkout.id, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.id);
+      assert.equal(checkout.email, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.email);
       assert.ok(fetchMock.done());
     });
   });
