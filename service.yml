@@ -1,3 +1,5 @@
 # https://services.shopify.io/services/js-buy-sdk/production
-owners: [minasmart]
+owners:
+- minasmart
+- Shopify/channels-platform
 classification: library
