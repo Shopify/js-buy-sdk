@@ -10,6 +10,7 @@ import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMu
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
 import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
+import checkoutEmailUpdateMutation from './graphql/checkoutEmailUpdateMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -91,6 +92,27 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutAttributesUpdateMutation, {checkoutId, input})
       .then(handleCheckoutMutation('checkoutAttributesUpdate', this.graphQLClient));
+  }
+
+  /**
+   * Replaces the value of checkout's email address
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const email = 'user@example.com';
+   *
+   * client.checkout.updateEmail(checkoutId, email).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to add discount to.
+   * @param {String} email The email address to apply to the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateEmail(checkoutId, email) {
+    return this.graphQLClient
+      .send(checkoutEmailUpdateMutation, {checkoutId, email})
+      .then(handleCheckoutMutation('checkoutEmailUpdate', this.graphQLClient));
   }
 
   /**
