@@ -106,7 +106,7 @@ class CheckoutResource extends Resource {
    * });
    *
    * @param {String} checkoutId The ID of the checkout to add discount to.
-   * @param {String} email The discount code to apply to the checkout.
+   * @param {String} email The email address to apply to the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateEmail(checkoutId, email) {
