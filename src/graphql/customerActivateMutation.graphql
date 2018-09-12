@@ -1,0 +1,11 @@
+mutation customerActivate($id: ID!, $input: CustomerActivateInput!) {
+  customerActivate(id: $id, input: $input) {
+    userErrors {
+      field
+      message
+    }
+    customer {
+      id
+    }
+  }
+}
