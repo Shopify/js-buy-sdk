@@ -18,3 +18,4 @@ index.*
 # Decrypted secrets
 secrets.json
 .nvmrc
+package.json

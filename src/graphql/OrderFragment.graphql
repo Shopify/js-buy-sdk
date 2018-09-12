@@ -1,0 +1,15 @@
+fragment OrderFragment on Order {
+  id
+  currencyCode
+  customerLocale
+  customerUrl
+  email
+  orderNumber
+  phone
+  processedAt
+  subtotalPrice
+  totalPrice
+  totalRefunded
+  totalShippingPrice
+  totalTax
+}
