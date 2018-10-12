@@ -34,6 +34,8 @@ class CheckoutResource extends Resource {
       .send(checkoutNodeQuery, {id})
       .then(defaultResolver('node'))
       .then((checkout) => {
+        if (!checkout) { return null; }
+
         return this.graphQLClient.fetchAllPages(checkout.lineItems, {pageSize: 250}).then((lineItems) => {
           checkout.attrs.lineItems = lineItems;
 

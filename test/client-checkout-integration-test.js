@@ -4,6 +4,7 @@ import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/n
 
 // fixtures
 import checkoutFixture from '../fixtures/checkout-fixture';
+import checkoutNullFixture from '../fixtures/node-null-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
@@ -39,6 +40,17 @@ suite('client-checkout-integration-test', () => {
 
     return client.checkout.fetch(checkoutId).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with null on Client.checkout#fetch for a bad checkoutId', () => {
+    fetchMock.postOnce(apiUrl, checkoutNullFixture);
+
+    const checkoutId = checkoutFixture.data.node.id;
+
+    return client.checkout.fetch(checkoutId).then((checkout) => {
+      assert.equal(checkout, null);
       assert.ok(fetchMock.done());
     });
   });
