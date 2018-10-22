@@ -12,6 +12,7 @@ import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-upda
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 import checkoutUpdateAttributesFixture from '../fixtures/checkout-update-custom-attrs-fixture';
 import checkoutUpdateEmailFixture from '../fixtures/checkout-update-email-fixture';
+import checkoutDiscountCodeApplyFixture from '../fixtures/checkout-discount-code-apply-fixture';
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -137,6 +138,18 @@ suite('client-checkout-integration-test', () => {
     const checkoutId = checkoutLineItemsRemoveFixture.data.checkoutLineItemsRemove.checkout.id;
 
     return client.checkout.removeLineItems(checkoutId, ['line-item-id']).then((checkout) => {
+      assert.equal(checkout.id, checkoutId);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#addDiscount', () => {
+    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyFixture);
+
+    const checkoutId = checkoutDiscountCodeApplyFixture.data.checkoutDiscountCodeApply.checkout.id;
+    const discountCode = 'TENPERCENTOFF';
+
+    return client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
       assert.ok(fetchMock.done());
     });
