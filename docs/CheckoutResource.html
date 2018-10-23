@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line18">line 18</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -271,7 +271,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line132">line 132</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line157">line 157</a>
     </li></ul></dd>
     
 
@@ -464,7 +464,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line111">line 111</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line136">line 136</a>
     </li></ul></dd>
     
 
@@ -839,7 +839,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line66">line 66</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -1012,7 +1012,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line31">line 31</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -1068,6 +1068,175 @@ client.checkout.create(input).then((checkout) => {
     
     <pre class="prettyprint"><code>client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
   // Do something with the checkout
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="removeDiscount"><span class="type-signature"></span>removeDiscount<span class="signature">(checkoutId)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Removes the applied discount from an existing checkout.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkoutId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the checkout to remove the discount from.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line176">line 176</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with the updated checkout.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">GraphModel</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+
+client.checkout.removeDiscount(checkoutId).then((checkout) => {
+  // Do something with the updated checkout
 });</code></pre>
 
 
@@ -1202,7 +1371,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line153">line 153</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line197">line 197</a>
     </li></ul></dd>
     
 
@@ -1542,7 +1711,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line90">line 90</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line94">line 94</a>
     </li></ul></dd>
     
 
@@ -1600,6 +1769,199 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
 const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
 
 client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
+  // Do something with the updated checkout
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateEmail"><span class="type-signature"></span>updateEmail<span class="signature">(checkoutId, email)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Replaces the value of checkout's email address</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkoutId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the checkout to update.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The email address to apply to the checkout.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line115">line 115</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with the updated checkout.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">GraphModel</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const email = 'user@example.com';
+
+client.checkout.updateEmail(checkoutId, email).then((checkout) => {
   // Do something with the updated checkout
 });</code></pre>
 
@@ -1735,7 +2097,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line180">line 180</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line224">line 224</a>
     </li></ul></dd>
     
 
@@ -1820,13 +2182,13 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">Migrating from v0 to v1</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Aug 01 2018 10:04:06 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 23 2018 10:11:52 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
