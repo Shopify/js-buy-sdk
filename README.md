@@ -194,6 +194,17 @@ client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
 });
 ```
 
+### Removing a Discount
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+
+// Removes the applied discount from an existing checkout.
+client.checkout.removeDiscount(checkoutId).then(checkout => {
+  // Do something with the updated checkout
+  console.log(checkout);
+});
+```
+
 ## Example Apps
 
 For more complete examples of using JS Buy SDK, check out our [storefront-api-examples](https://github.com/Shopify/storefront-api-examples) project.

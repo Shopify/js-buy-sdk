@@ -36,6 +36,13 @@ fragment CheckoutFragment on Checkout {
   createdAt
   updatedAt
   email
+  discountApplications(first: 10) {
+    edges {
+      node {
+        ...DiscountApplicationFragment
+      }
+    }
+  }
   shippingAddress {
     ...MailingAddressFragment
   }
@@ -100,6 +107,15 @@ fragment CheckoutFragment on Checkout {
         customAttributes {
           key
           value
+        }
+        discountAllocations {
+          allocatedAmount {
+            amount
+            currencyCode
+          }
+          discountApplication {
+            ...DiscountApplicationFragment
+          }
         }
       }
     }

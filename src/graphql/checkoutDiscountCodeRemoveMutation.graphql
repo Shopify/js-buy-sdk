@@ -1,0 +1,10 @@
+mutation checkoutDiscountCodeRemove($checkoutId: ID!) {
+  checkoutDiscountCodeRemove(checkoutId: $checkoutId) {
+    userErrors {
+      ...UserErrorFragment
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}

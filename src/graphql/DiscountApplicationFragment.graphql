@@ -1,0 +1,16 @@
+fragment DiscountApplicationFragment on DiscountApplication {
+  targetSelection
+  allocationMethod
+  targetType
+  ... on ManualDiscountApplication {
+    title
+    description
+  }
+  ... on DiscountCodeApplication {
+    code
+    applicable
+  }
+  ... on ScriptDiscountApplication {
+    description
+  }
+}

@@ -10,6 +10,7 @@ import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMu
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
 import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
+import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 import checkoutEmailUpdateMutation from './graphql/checkoutEmailUpdateMutation.graphql';
 
 /**
@@ -107,7 +108,7 @@ class CheckoutResource extends Resource {
    *   // Do something with the updated checkout
    * });
    *
-   * @param {String} checkoutId The ID of the checkout to add discount to.
+   * @param {String} checkoutId The ID of the checkout to update.
    * @param {String} email The email address to apply to the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
@@ -157,6 +158,25 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutDiscountCodeApplyMutation, {checkoutId, discountCode})
       .then(handleCheckoutMutation('checkoutDiscountCodeApply', this.graphQLClient));
+  }
+
+  /**
+   * Removes the applied discount from an existing checkout.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   *
+   * client.checkout.removeDiscount(checkoutId).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to remove the discount from.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeDiscount(checkoutId) {
+    return this.graphQLClient
+      .send(checkoutDiscountCodeRemoveMutation, {checkoutId})
+      .then(handleCheckoutMutation('checkoutDiscountCodeRemove', this.graphQLClient));
   }
 
   /**
