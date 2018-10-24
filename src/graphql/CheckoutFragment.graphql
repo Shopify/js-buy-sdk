@@ -37,6 +37,10 @@ fragment CheckoutFragment on Checkout {
   updatedAt
   email
   discountApplications(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
     edges {
       node {
         ...DiscountApplicationFragment
