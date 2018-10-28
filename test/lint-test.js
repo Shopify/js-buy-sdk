@@ -9,14 +9,14 @@ suite('manual-lint-test', () => {
     storefrontAccessToken: 'abc123'
   };
 
-  test('it ensures that all Connections include pageInfo', () => {
+  test('it has pageInfo on all relay connection types', () => {
     const client = Client.buildClient(config);
     const objectTypes = client.graphQLClient.typeBundle.types;
 
-    for (const key in objectTypes) {
-      if (objectTypes.hasOwnProperty(key) && key.includes('Connection')) {
+    Object.keys(objectTypes)
+      .filter((key) => key.includes('Connection'))
+      .forEach((key) => {
         assert.equal(objectTypes[key].fieldBaseTypes.pageInfo, 'PageInfo');
-      }
-    }
+      });
   });
 });
