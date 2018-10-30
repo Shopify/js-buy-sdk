@@ -11,7 +11,7 @@ import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMu
 import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
 import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
-import checkoutEmailUpdateMutation from './graphql/checkoutEmailUpdateMutation.graphql';
+import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -114,8 +114,8 @@ class CheckoutResource extends Resource {
    */
   updateEmail(checkoutId, email) {
     return this.graphQLClient
-      .send(checkoutEmailUpdateMutation, {checkoutId, email})
-      .then(handleCheckoutMutation('checkoutEmailUpdate', this.graphQLClient));
+      .send(checkoutEmailUpdateV2Mutation, {checkoutId, email})
+      .then(handleCheckoutMutation('checkoutEmailUpdateV2', this.graphQLClient));
   }
 
   /**

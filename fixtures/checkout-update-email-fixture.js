@@ -1,6 +1,6 @@
 export default {
   "data": {
-    "checkoutEmailUpdate": {
+    "checkoutEmailUpdateV2": {
       "userErrors": [],
       "checkout": {
         "id": "Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=",

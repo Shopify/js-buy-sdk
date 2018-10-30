@@ -12,7 +12,7 @@ import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fix
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
-import checkoutUpdateEmailFixture from '../fixtures/checkout-update-email-fixture';
+import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
 import checkoutDiscountCodeApplyFixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
 
@@ -103,11 +103,11 @@ suite('client-checkout-integration-test', () => {
       email: 'user@example.com'
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateEmailFixture);
+    fetchMock.postOnce(apiUrl, checkoutUpdateEmailV2Fixture);
 
     return client.checkout.updateEmail(checkoutId, input).then((checkout) => {
-      assert.equal(checkout.id, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.id);
-      assert.equal(checkout.email, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.email);
+      assert.equal(checkout.id, checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.id);
+      assert.equal(checkout.email, checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.email);
       assert.ok(fetchMock.done());
     });
   });
