@@ -11,7 +11,7 @@ import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
-import checkoutUpdateAttributesFixture from '../fixtures/checkout-update-custom-attrs-fixture';
+import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
 import checkoutUpdateEmailFixture from '../fixtures/checkout-update-email-fixture';
 import checkoutDiscountCodeApplyFixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
@@ -87,12 +87,12 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesFixture);
+    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesV2Fixture);
 
     return client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-      assert.equal(checkout.id, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.id);
-      assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].key);
-      assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].value);
+      assert.equal(checkout.id, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.id);
+      assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].key);
+      assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].value);
       assert.ok(fetchMock.done());
     });
   });

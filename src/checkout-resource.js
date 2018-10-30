@@ -8,7 +8,7 @@ import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
-import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
+import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
 import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 import checkoutEmailUpdateMutation from './graphql/checkoutEmailUpdateMutation.graphql';
@@ -93,8 +93,8 @@ class CheckoutResource extends Resource {
    */
   updateAttributes(checkoutId, input = {}) {
     return this.graphQLClient
-      .send(checkoutAttributesUpdateMutation, {checkoutId, input})
-      .then(handleCheckoutMutation('checkoutAttributesUpdate', this.graphQLClient));
+      .send(checkoutAttributesUpdateV2Mutation, {checkoutId, input})
+      .then(handleCheckoutMutation('checkoutAttributesUpdateV2', this.graphQLClient));
   }
 
   /**
