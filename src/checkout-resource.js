@@ -9,7 +9,7 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
-import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
+import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 
@@ -156,8 +156,8 @@ class CheckoutResource extends Resource {
    */
   addDiscount(checkoutId, discountCode) {
     return this.graphQLClient
-      .send(checkoutDiscountCodeApplyMutation, {checkoutId, discountCode})
-      .then(handleCheckoutMutation('checkoutDiscountCodeApply', this.graphQLClient));
+      .send(checkoutDiscountCodeApplyV2Mutation, {checkoutId, discountCode})
+      .then(handleCheckoutMutation('checkoutDiscountCodeApplyV2', this.graphQLClient));
   }
 
   /**

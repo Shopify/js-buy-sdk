@@ -13,7 +13,7 @@ import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-upda
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
 import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
-import checkoutDiscountCodeApplyFixture from '../fixtures/checkout-discount-code-apply-fixture';
+import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
 
 suite('client-checkout-integration-test', () => {
@@ -157,9 +157,9 @@ suite('client-checkout-integration-test', () => {
   });
 
   test('it resolves with a checkout on Client.checkout#addDiscount', () => {
-    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyFixture);
+    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyV2Fixture);
 
-    const checkoutId = checkoutDiscountCodeApplyFixture.data.checkoutDiscountCodeApply.checkout.id;
+    const checkoutId = checkoutDiscountCodeApplyV2Fixture.data.checkoutDiscountCodeApplyV2.checkout.id;
     const discountCode = 'TENPERCENTOFF';
 
     return client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
