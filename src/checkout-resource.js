@@ -8,10 +8,10 @@ import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
-import checkoutAttributesUpdateMutation from './graphql/checkoutAttributesUpdateMutation.graphql';
-import checkoutDiscountCodeApplyMutation from './graphql/checkoutDiscountCodeApplyMutation.graphql';
+import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
+import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
-import checkoutEmailUpdateMutation from './graphql/checkoutEmailUpdateMutation.graphql';
+import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -93,8 +93,8 @@ class CheckoutResource extends Resource {
    */
   updateAttributes(checkoutId, input = {}) {
     return this.graphQLClient
-      .send(checkoutAttributesUpdateMutation, {checkoutId, input})
-      .then(handleCheckoutMutation('checkoutAttributesUpdate', this.graphQLClient));
+      .send(checkoutAttributesUpdateV2Mutation, {checkoutId, input})
+      .then(handleCheckoutMutation('checkoutAttributesUpdateV2', this.graphQLClient));
   }
 
   /**
@@ -114,8 +114,8 @@ class CheckoutResource extends Resource {
    */
   updateEmail(checkoutId, email) {
     return this.graphQLClient
-      .send(checkoutEmailUpdateMutation, {checkoutId, email})
-      .then(handleCheckoutMutation('checkoutEmailUpdate', this.graphQLClient));
+      .send(checkoutEmailUpdateV2Mutation, {checkoutId, email})
+      .then(handleCheckoutMutation('checkoutEmailUpdateV2', this.graphQLClient));
   }
 
   /**
@@ -156,8 +156,8 @@ class CheckoutResource extends Resource {
    */
   addDiscount(checkoutId, discountCode) {
     return this.graphQLClient
-      .send(checkoutDiscountCodeApplyMutation, {checkoutId, discountCode})
-      .then(handleCheckoutMutation('checkoutDiscountCodeApply', this.graphQLClient));
+      .send(checkoutDiscountCodeApplyV2Mutation, {checkoutId, discountCode})
+      .then(handleCheckoutMutation('checkoutDiscountCodeApplyV2', this.graphQLClient));
   }
 
   /**

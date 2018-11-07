@@ -11,9 +11,9 @@ import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
-import checkoutUpdateAttributesFixture from '../fixtures/checkout-update-custom-attrs-fixture';
-import checkoutUpdateEmailFixture from '../fixtures/checkout-update-email-fixture';
-import checkoutDiscountCodeApplyFixture from '../fixtures/checkout-discount-code-apply-fixture';
+import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
+import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
+import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
 
 suite('client-checkout-integration-test', () => {
@@ -87,12 +87,12 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesFixture);
+    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesV2Fixture);
 
     return client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-      assert.equal(checkout.id, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.id);
-      assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].key);
-      assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesFixture.data.checkoutAttributesUpdate.checkout.customAttributes[0].value);
+      assert.equal(checkout.id, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.id);
+      assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].key);
+      assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].value);
       assert.ok(fetchMock.done());
     });
   });
@@ -103,11 +103,11 @@ suite('client-checkout-integration-test', () => {
       email: 'user@example.com'
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateEmailFixture);
+    fetchMock.postOnce(apiUrl, checkoutUpdateEmailV2Fixture);
 
     return client.checkout.updateEmail(checkoutId, input).then((checkout) => {
-      assert.equal(checkout.id, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.id);
-      assert.equal(checkout.email, checkoutUpdateEmailFixture.data.checkoutEmailUpdate.checkout.email);
+      assert.equal(checkout.id, checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.id);
+      assert.equal(checkout.email, checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.email);
       assert.ok(fetchMock.done());
     });
   });
@@ -157,9 +157,9 @@ suite('client-checkout-integration-test', () => {
   });
 
   test('it resolves with a checkout on Client.checkout#addDiscount', () => {
-    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyFixture);
+    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyV2Fixture);
 
-    const checkoutId = checkoutDiscountCodeApplyFixture.data.checkoutDiscountCodeApply.checkout.id;
+    const checkoutId = checkoutDiscountCodeApplyV2Fixture.data.checkoutDiscountCodeApplyV2.checkout.id;
     const discountCode = 'TENPERCENTOFF';
 
     return client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {

@@ -758,6 +758,30 @@
               "deprecationReason": null
             },
             {
+              "name": "tags",
+              "description": "A list of tags assigned to the customer.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updatedAt",
               "description": "The date and time when the customer information was updated.",
               "args": [],
@@ -4718,6 +4742,91 @@
               "deprecationReason": null
             },
             {
+              "name": "presentmentPrices",
+              "description": "List of prices and compare-at prices in the presentment currencies for this shop.",
+              "args": [
+                {
+                  "name": "presentmentCurrencies",
+                  "description": "The presentment currencies prices should return in.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "CurrencyCode",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductVariantPricePairConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "price",
               "description": "The product variant’s price.",
               "args": [],
@@ -4874,6 +4983,139 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductVariantPricePairConnection",
+          "description": null,
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ProductVariantPricePairEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductVariantPricePairEdge",
+          "description": null,
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of ProductVariantPricePairEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductVariantPricePair",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductVariantPricePair",
+          "description": "The compare-at price and price of a variant sharing a currency.\n",
+          "fields": [
+            {
+              "name": "compareAtPrice",
+              "description": "The compare-at price of the variant with associated currency.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "price",
+              "description": "The price of the variant with associated currency.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -8491,6 +8733,37 @@
               "deprecationReason": null
             },
             {
+              "name": "productTags",
+              "description": "Tags added to products.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "StringConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "productTypes",
               "description": "List of the shop’s product types.",
               "args": [
@@ -10706,6 +10979,47 @@
                 "name": "CheckoutCustomerAssociatePayload",
                 "ofType": null
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutCustomerAssociateV2` instead"
+            },
+            {
+              "name": "checkoutCustomerAssociateV2",
+              "description": "Associates a customer to the checkout.",
+              "args": [
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "customerAccessToken",
+                  "description": "The customer access token of the customer to associate.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutCustomerAssociateV2Payload",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -10731,6 +11045,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CheckoutCustomerDisassociatePayload",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutCustomerDisassociateV2` instead"
+            },
+            {
+              "name": "checkoutCustomerDisassociateV2",
+              "description": "Disassociates the current checkout customer from the checkout.",
+              "args": [
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutCustomerDisassociateV2Payload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -10772,6 +11113,47 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CheckoutDiscountCodeApplyPayload",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutDiscountCodeApplyV2` instead"
+            },
+            {
+              "name": "checkoutDiscountCodeApplyV2",
+              "description": "Applies a discount to an existing checkout using a discount code.",
+              "args": [
+                {
+                  "name": "discountCode",
+                  "description": "The discount code to apply to the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutDiscountCodeApplyV2Payload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -10842,6 +11224,47 @@
                 "name": "CheckoutEmailUpdatePayload",
                 "ofType": null
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutEmailUpdateV2` instead"
+            },
+            {
+              "name": "checkoutEmailUpdateV2",
+              "description": "Updates the email on an existing checkout.",
+              "args": [
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "email",
+                  "description": "The email to update the checkout with.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutEmailUpdateV2Payload",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -10892,7 +11315,7 @@
               "args": [
                 {
                   "name": "appliedGiftCardId",
-                  "description": "The ID of the Applied Gift Card to remove from the Checkout",
+                  "description": "The ID of the Applied Gift Card to remove from the Checkout.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -10922,6 +11345,47 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CheckoutGiftCardRemovePayload",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutGiftCardRemoveV2` instead"
+            },
+            {
+              "name": "checkoutGiftCardRemoveV2",
+              "description": "Removes an applied gift card from the checkout.",
+              "args": [
+                {
+                  "name": "appliedGiftCardId",
+                  "description": "The ID of the Applied Gift Card to remove from the Checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutGiftCardRemoveV2Payload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -11159,6 +11623,47 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CheckoutShippingAddressUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutShippingAddressUpdateV2` instead"
+            },
+            {
+              "name": "checkoutShippingAddressUpdateV2",
+              "description": "Updates the shipping address of an existing checkout.",
+              "args": [
+                {
+                  "name": "shippingAddress",
+                  "description": "The shipping address to where the line items will be shipped.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "MailingAddressInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutShippingAddressUpdateV2Payload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -13575,6 +14080,159 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CheckoutCustomerAssociateV2Payload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "customer",
+              "description": "The associated customer object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Customer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCustomerDisassociateV2Payload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutDiscountCodeApplyV2Payload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CheckoutCompleteFreePayload",
           "description": null,
           "fields": [
@@ -14045,6 +14703,53 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CheckoutEmailUpdateV2Payload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The checkout object with the updated email.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CheckoutDiscountCodeRemovePayload",
           "description": null,
           "fields": [
@@ -14093,6 +14798,53 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutGiftCardsAppendPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutGiftCardRemoveV2Payload",
           "description": null,
           "fields": [
             {
@@ -14334,6 +15086,53 @@
             }
           ],
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutShippingAddressUpdateV2Payload",
+          "description": null,
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -14587,6 +15386,24 @@
               "description": "Input contains URL.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "TOKEN_INVALID",
+              "description": "Invalid activation token.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ALREADY_ENABLED",
+              "description": "Customer already enabled.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NOT_FOUND",
+              "description": "Address does not exist.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -14809,6 +15626,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14829,8 +15670,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14895,6 +15736,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14915,8 +15780,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14929,6 +15794,30 @@
           "name": "CustomerAddressDeletePayload",
           "description": null,
           "fields": [
+            {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "deletedCustomerAddressId",
               "description": "ID of the deleted customer address.",
@@ -14962,8 +15851,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14989,6 +15878,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15009,8 +15922,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15186,7 +16099,7 @@
               "deprecationReason": null
             },
             {
-              "name": "userErrors",
+              "name": "customerUserErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
               "type": {
@@ -15200,7 +16113,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "OBJECT",
-                      "name": "UserError",
+                      "name": "CustomerUserError",
                       "ofType": null
                     }
                   }
@@ -15208,18 +16121,7 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CustomerRecoverPayload",
-          "description": null,
-          "fields": [
+            },
             {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
@@ -15241,8 +16143,67 @@
                   }
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CustomerRecoverPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15280,6 +16241,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15300,8 +16285,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15378,6 +16363,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15398,8 +16407,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15437,6 +16446,30 @@
               "deprecationReason": null
             },
             {
+              "name": "customerUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15457,8 +16490,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `customerUserErrors` instead"
             }
           ],
           "inputFields": null,
