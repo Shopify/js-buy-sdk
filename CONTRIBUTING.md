@@ -64,10 +64,11 @@ The following documents the folder structure for this project and what the purpo
 See [here](https://github.com/Shopify/js-buy-sdk/blob/master/examples) for our examples.
 
 ## Documentation
-If your change affects how people use the project (i.e. adding or
-changing arguments to a function, adding a new function, changing the
-return value, etc), please ensure the documentation is also updated to
-reflect this. The docs live inside the `docs/` folder and are hosted
+Please do not update documentation, as this may cause
+merge conflicts. After a pull request has been merged, the
+maintainers will update documentation and release a new version.
+
+The docs live inside the `docs/` folder and are hosted
 at `http://shopify.github.io/js-buy-sdk`.
 
 To generate docs run the following:
