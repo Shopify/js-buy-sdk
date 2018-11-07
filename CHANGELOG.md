@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.10.0 (November 7, 2018)
+- Updates deprecated Storefront API methods used for some checkout mutations.
+
 ### v1.9.1 (October 24, 2018)
 - Specifies pageInfo for discountApplications connection
 
