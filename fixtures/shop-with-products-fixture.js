@@ -42,7 +42,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxNjMwNjgxMjY4MH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096",
                       "altText": null
                     }
                   },
@@ -50,7 +50,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzc4NzU5Mn0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat2.jpeg?v=1484581332",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat2.jpeg?v=1484581332",
                       "altText": null
                     }
                   },
@@ -58,7 +58,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzc5MDY2NH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat3.jpeg?v=1484581340",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat3.jpeg?v=1484581340",
                       "altText": null
                     }
                   }
@@ -157,7 +157,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzgxOTQwMH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/notcat.jpeg?v=1484581419",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/notcat.jpeg?v=1484581419",
                       "altText": null
                     }
                   },
@@ -165,7 +165,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg0NzYyNH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/hqdefault.jpg?v=1484581502",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/hqdefault.jpg?v=1484581502",
                       "altText": null
                     }
                   },
@@ -173,7 +173,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg1OTcyMH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/23695_pets_vertical_store_dogs_small_tile_8._CB312176604.jpg?v=1484581539",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/23695_pets_vertical_store_dogs_small_tile_8._CB312176604.jpg?v=1484581539",
                       "altText": null
                     }
                   },
@@ -181,7 +181,7 @@ export default {
                     "cursor": "eyJsYXN0X2lkIjoxODIxNzg2ODQ4OH0=",
                     "node": {
                       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
-                      "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/images.jpg?v=1484581568",
+                      "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/images.jpg?v=1484581568",
                       "altText": null
                     }
                   }

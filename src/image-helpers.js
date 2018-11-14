@@ -19,7 +19,7 @@ export default {
    * @return {String} The image src for the resized image.
    */
   imageForSize(image, {maxWidth, maxHeight}) {
-    const splitUrl = image.src.split('?');
+    const splitUrl = image.originalSrc.split('?');
     const notQuery = splitUrl[0];
     const query = splitUrl[1] ? `?${splitUrl[1]}` : '';
 

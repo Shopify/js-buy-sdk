@@ -25,7 +25,7 @@ export default {
                            "weight":0,
                            "image": {
                               "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
-                              "src":"https://cdn.shopify.com/s/files/1/1312/0893/products/003_3e206539-20d3-49c0-8bff-006e449906ca.jpg?v=1491850970",
+                              "originalSrc":"https://cdn.shopify.com/s/files/1/1312/0893/products/003_3e206539-20d3-49c0-8bff-006e449906ca.jpg?v=1491850970",
                               "altText":null
                            },
                            "selectedOptions":[

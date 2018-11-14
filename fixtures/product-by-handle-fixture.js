@@ -38,79 +38,79 @@ export default {
           }
         ],
         "images": {
-          "pageInfo": { 
-            "hasNextPage": false, 
-            "hasPreviousPage": false 
+          "pageInfo": {
+            "hasNextPage": false,
+            "hasPreviousPage": false
           },
           "edges": [
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgxNjY=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/babyandco5.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/babyandco5.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgyMzA=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24008.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24008.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgyOTQ=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24015.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24015.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgzNTg=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24020.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24020.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0MjI=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0ODY=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg1NTA=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332",
                 "altText": null
               }
             },
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg2MTQ=",
-                "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332",
+                "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332",
                 "altText": null
               }
             }
           ]
         },
         "variants": {
-          "pageInfo": { 
-            "hasNextPage": false, 
-            "hasPreviousPage": false 
+          "pageInfo": {
+            "hasNextPage": false,
+            "hasPreviousPage": false
           },
           "edges": [
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDIxNA==",
-                "available": true,
+                "availableForSale": true,
                 "weight": 0,
                 "price": "788.00",
                 "title": "Black / X-Small",
@@ -130,7 +130,7 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDQwNg==",
-                "available": true,
+                "availableForSale": true,
                 "weight": 0,
                 "price": "788.00",
                 "title": "Black / Small",
@@ -150,7 +150,7 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDUzNA==",
-                "available": false,
+                "availableForSale": false,
                 "weight": 0,
                 "price": "788.00",
                 "title": "Black / Medium",
@@ -170,13 +170,13 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDcyNg==",
-                "available": true,
+                "availableForSale": true,
                 "weight": 0,
                 "price": "750.00",
                 "title": "Dark Green / X-Small",
                 "image": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0MjI=",
-                  "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332"
+                  "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332"
                 },
                 "selectedOptions": [
                   {
@@ -193,13 +193,13 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDkxOA==",
-                "available": false,
+                "availableForSale": false,
                 "weight": 0,
                 "price": "750.00",
                 "title": "Dark Green / Small",
                 "image": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg2MTQ=",
-                  "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332"
+                  "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332"
                 },
                 "selectedOptions": [
                   {
@@ -216,13 +216,13 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NTExMA==",
-                "available": true,
+                "availableForSale": true,
                 "weight": 0,
                 "price": "788.00",
                 "title": "Dark Green / Medium",
                 "image": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg1NTA=",
-                  "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332"
+                  "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332"
                 },
                 "selectedOptions": [
                   {
@@ -239,13 +239,13 @@ export default {
             {
               "node": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MjgyNzA5NjcyNQ==",
-                "available": true,
+                "availableForSale": true,
                 "weight": 0,
                 "price": "788.00",
                 "title": "Dark Green / Large",
                 "image": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0ODY=",
-                  "src": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332"
+                  "originalSrc": "https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332"
                 },
                 "selectedOptions": [
                   {
