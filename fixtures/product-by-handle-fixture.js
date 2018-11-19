@@ -11,11 +11,6 @@ export default {
         "handle": "cape-dress-1",
         "productType": "women's dresses",
         "vendor": "Co",
-        "tags": [
-          "arrivals",
-          "AW15",
-          "black",
-        ],
         "publishedAt": "2017-02-15T15:09:45Z",
         "options": [
           {

@@ -19,7 +19,6 @@ export default {
               "productType": "",
               "title": "Cat",
               "vendor": "sendmecats",
-              "tags": [],
               "publishedAt": "2016-09-25T21:29:00Z",
               "options": [
                 {
@@ -134,7 +133,6 @@ export default {
               "productType": "",
               "title": "Not Cat",
               "vendor": "sendmecats",
-              "tags": [],
               "publishedAt": "2017-01-16T15:42:00Z",
               "options": [
                 {
