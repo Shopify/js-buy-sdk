@@ -35,9 +35,6 @@ export default {
                       "productType": "cat",
                       "title": "Cat",
                       "vendor": "sendmecats",
-                      "tags": [
-                        "vintage"
-                      ],
                       "publishedAt": "2017-01-12T19:44:42Z",
                       "options": [
                         {
@@ -169,9 +166,6 @@ export default {
                       "productType": "cat",
                       "title": "Cat 2",
                       "vendor": "sendmecats",
-                      "tags": [
-                        "fluffy"
-                      ],
                       "publishedAt": "2017-02-03T18:52:27Z",
                       "options": [
                         {
@@ -256,7 +250,6 @@ export default {
                       "productType": "really not cat",
                       "title": "Not Cat",
                       "vendor": "sendmecats",
-                      "tags": [],
                       "publishedAt": "2017-01-16T15:43:38Z",
                       "options": [
                         {
