@@ -1,5 +1,6 @@
 fragment ProductFragment on Product {
   id
+  availableForSale
   createdAt
   updatedAt
   descriptionHtml

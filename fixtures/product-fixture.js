@@ -3,6 +3,7 @@ export default {
     "node": {
       "__typename": "Product",
       "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
+      "availableForSale": true,
       "createdAt": "2016-09-25T21:31:33Z",
       "updatedAt": "2017-03-29T15:25:32Z",
       "descriptionHtml": "send me this cat",
