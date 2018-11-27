@@ -14,7 +14,7 @@ fragment MailingAddressFragment on MailingAddress {
   province
   zip
   name
-  countryCode
+  countryCode: countryCodeV2
   provinceCode
 }
 
