@@ -1,5 +1,13 @@
 # Changelog
 
+### v1.11.0 (November 27, 2018)
+- Added availableForSale field to Product query fragment
+- Removed tags field from Product query fragment
+- Add field aliasing to deprecated fields in affected query fragments:
+   - availableForSale on VariantFragment
+   - countryCode on CheckoutFragment
+   - src on CollectionFragment and VariantFragment
+
 ### v1.10.0 (November 7, 2018)
 - Updates deprecated Storefront API methods used for some checkout mutations.
 
