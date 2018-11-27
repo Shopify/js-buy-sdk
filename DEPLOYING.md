@@ -5,7 +5,7 @@
   * write new version to package.json
   * create a commit with a commit message matching the version number
   * create a new tag matching the version number
-3. Push the new commit and tags to master with `git push && git push —tags`
+3. Push the new commit and tags to master with `git push && git push --tags`
 4. Deploy built scripts to s3 via [shipit](https://shipit.shopify.io/shopify/js-buy-sdk/production)
 
 # Updating Documentation
