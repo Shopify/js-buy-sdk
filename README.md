@@ -12,7 +12,7 @@ and provides the ability to retrieve products and collections from your shop, ad
 
 ## Changelog
 
-View our [Changelog](https://github.com/Shopify/js-buy-sdk/CHANGELOG.md) for details about our releases.
+View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about our releases.
 
 ## Table Of Contents
 
