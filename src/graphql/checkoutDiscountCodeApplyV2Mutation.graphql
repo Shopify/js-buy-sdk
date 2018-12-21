@@ -3,6 +3,9 @@ mutation checkoutDiscountCodeApplyV2($discountCode: String!, $checkoutId: ID!) {
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }

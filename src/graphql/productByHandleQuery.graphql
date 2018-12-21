@@ -1,7 +1,5 @@
 query ($handle: String!) {
-  shop {
-    productByHandle(handle: $handle) {
-      ...ProductFragment
-    }
+  productByHandle(handle: $handle) {
+    ...ProductFragment
   }
 }

@@ -3,6 +3,9 @@ mutation checkoutDiscountCodeRemove($checkoutId: ID!) {
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }

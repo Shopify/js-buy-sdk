@@ -1,0 +1,5 @@
+fragment CheckoutUserErrorFragment on UserError {
+  field
+  message
+  code
+}

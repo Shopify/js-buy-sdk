@@ -100,7 +100,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `author`\n - `updated_at`\n - `created_at`\n - `blog_title`\n - `tag`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `author`\n - `blog_title`\n - `created_at`\n - `tag`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -214,7 +214,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `handle`\n - `title`\n - `updated_at`\n - `created_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `created_at`\n - `handle`\n - `title`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -229,6 +229,120 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "BlogConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "collectionByHandle",
+              "description": "Find a collection by its handle.",
+              "args": [
+                {
+                  "name": "handle",
+                  "description": "The handle of the collection.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Collection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "collections",
+              "description": "List of the shop’s collections.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "sortKey",
+                  "description": "Sort the underlying list by the given key.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "CollectionSortKeys",
+                    "ofType": null
+                  },
+                  "defaultValue": "ID"
+                },
+                {
+                  "name": "query",
+                  "description": "Supported filter parameters:\n - `collection_type`\n - `title`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CollectionConnection",
                   "ofType": null
                 }
               },
@@ -333,6 +447,296 @@
               "deprecationReason": null
             },
             {
+              "name": "pageByHandle",
+              "description": "Find a page by its handle.",
+              "args": [
+                {
+                  "name": "handle",
+                  "description": "The handle of the page.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Page",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pages",
+              "description": "List of the shop's pages.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "sortKey",
+                  "description": "Sort the underlying list by the given key.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "PageSortKeys",
+                    "ofType": null
+                  },
+                  "defaultValue": "ID"
+                },
+                {
+                  "name": "query",
+                  "description": "Supported filter parameters:\n - `created_at`\n - `handle`\n - `title`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "productByHandle",
+              "description": "Find a product by its handle.",
+              "args": [
+                {
+                  "name": "handle",
+                  "description": "The handle of the product.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Product",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "productTags",
+              "description": "Tags added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "StringConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "productTypes",
+              "description": "List of the shop’s product types.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "StringConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "products",
+              "description": "List of the shop’s products.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "sortKey",
+                  "description": "Sort the underlying list by the given key.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "ProductSortKeys",
+                    "ofType": null
+                  },
+                  "defaultValue": "ID"
+                },
+                {
+                  "name": "query",
+                  "description": "Supported filter parameters:\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "shop",
               "description": null,
               "args": [],
@@ -423,6 +827,11 @@
             {
               "kind": "OBJECT",
               "name": "Order",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Page",
               "ofType": null
             },
             {
@@ -759,7 +1168,7 @@
             },
             {
               "name": "tags",
-              "description": "A list of tags assigned to the customer.",
+              "description": "A list of tags assigned to the customer.\nAdditional access scope required: unauthenticated_read_customer_tags.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4286,6 +4695,11 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
+              "name": "AutomaticDiscountApplication",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "DiscountCodeApplication",
               "ofType": null
             },
@@ -5758,7 +6172,7 @@
             },
             {
               "name": "tags",
-              "description": "A categorization that a product can be tagged with, commonly used for filtering and searching.\nEach comma-separated tag has a character limit of 255.\n",
+              "description": "A categorization that a product can be tagged with, commonly used for filtering and searching.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -8363,7 +8777,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `author`\n - `updated_at`\n - `created_at`\n - `blog_title`\n - `tag`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `author`\n - `blog_title`\n - `created_at`\n - `tag`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8450,7 +8864,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `handle`\n - `title`\n - `updated_at`\n - `created_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `created_at`\n - `handle`\n - `title`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8470,22 +8884,6 @@
               },
               "isDeprecated": true,
               "deprecationReason": "Use `QueryRoot.blogs` instead."
-            },
-            {
-              "name": "cardVaultUrl",
-              "description": "The url pointing to the endpoint to vault credit cards.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "URL",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `paymentSettings` instead"
             },
             {
               "name": "collectionByHandle",
@@ -8511,8 +8909,8 @@
                 "name": "Collection",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.collectionByHandle` instead."
             },
             {
               "name": "collections",
@@ -8580,7 +8978,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `title`\n - `collection_type`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `collection_type`\n - `title`\n - `updated_at`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8598,8 +8996,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.collections` instead."
             },
             {
               "name": "currencyCode",
@@ -8729,12 +9127,12 @@
                 "name": "Product",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.productByHandle` instead."
             },
             {
               "name": "productTags",
-              "description": "Tags added to products.",
+              "description": "Tags added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
               "args": [
                 {
                   "name": "first",
@@ -8760,8 +9158,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.productTags` instead."
             },
             {
               "name": "productTypes",
@@ -8791,8 +9189,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.productTypes` instead."
             },
             {
               "name": "products",
@@ -8860,7 +9258,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `title`\n - `product_type`\n - `vendor`\n - `created_at`\n - `updated_at`\n - `variants.price`\n - `tag`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -8878,8 +9276,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `QueryRoot.products` instead."
             },
             {
               "name": "refundPolicy",
@@ -10638,6 +11036,280 @@
         },
         {
           "kind": "OBJECT",
+          "name": "Page",
+          "description": "Shopify merchants can create pages to hold static HTML content. Each Page object represents a custom page on the online store.",
+          "fields": [
+            {
+              "name": "body",
+              "description": "The description of the page, complete with HTML formatting.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "HTML",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "bodySummary",
+              "description": "Summary of the page body.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "The timestamp of the page creation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "handle",
+              "description": "A human-friendly unique string for the page automatically generated from its title.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "Globally unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the page.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The timestamp of the latest page update.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "url",
+              "description": "The url pointing to the page accessible from the web.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PageConnection",
+          "description": null,
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "PageEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PageEdge",
+          "description": null,
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of PageEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Page",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "PageSortKeys",
+          "description": "The set of valid sort keys for the pages query.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UPDATED_AT",
+              "description": "Sort by the `updated_at` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ID",
+              "description": "Sort by the `id` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RELEVANCE",
+              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "Mutation",
           "description": "The schema’s entry-point for mutations. This acts as the public, top-level API from which all mutation queries must start.",
           "fields": [
@@ -11486,8 +12158,8 @@
                 "name": "CheckoutLineItemsAddPayload",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
             },
             {
               "name": "checkoutLineItemsRemove",
@@ -11533,6 +12205,55 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CheckoutLineItemsRemovePayload",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
+            },
+            {
+              "name": "checkoutLineItemsReplace",
+              "description": "Sets a list of line items to a checkout.",
+              "args": [
+                {
+                  "name": "lineItems",
+                  "description": "A list of line item objects to set on the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "CheckoutLineItemInput",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkoutId",
+                  "description": "The ID of the checkout.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CheckoutLineItemsReplacePayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -11584,8 +12305,8 @@
                 "name": "CheckoutLineItemsUpdatePayload",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
             },
             {
               "name": "checkoutShippingAddressUpdate",
@@ -12196,7 +12917,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutAttributesUpdatePayload",
-          "description": null,
+          "description": "Return type for `checkoutAttributesUpdate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -12451,7 +13172,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutCompleteWithCreditCardPayload",
-          "description": null,
+          "description": "Return type for `checkoutCompleteWithCreditCard` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13117,7 +13838,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutCompleteWithTokenizedPaymentPayload",
-          "description": null,
+          "description": "Return type for `checkoutCompleteWithTokenizedPayment` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13281,7 +14002,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutCustomerAssociatePayload",
-          "description": null,
+          "description": "Return type for `checkoutCustomerAssociate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13344,7 +14065,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutCustomerDisassociatePayload",
-          "description": null,
+          "description": "Return type for `checkoutCustomerDisassociate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13395,7 +14116,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutDiscountCodeApplyPayload",
-          "description": null,
+          "description": "Return type for `checkoutDiscountCodeApply` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13446,7 +14167,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutEmailUpdatePayload",
-          "description": null,
+          "description": "Return type for `checkoutEmailUpdate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13497,7 +14218,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutGiftCardApplyPayload",
-          "description": null,
+          "description": "Return type for `checkoutGiftCardApply` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13548,7 +14269,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutGiftCardRemovePayload",
-          "description": null,
+          "description": "Return type for `checkoutGiftCardRemove` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13599,7 +14320,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutShippingAddressUpdatePayload",
-          "description": null,
+          "description": "Return type for `checkoutShippingAddressUpdate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -13650,642 +14371,11 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutAttributesUpdateV2Payload",
-          "description": null,
+          "description": "Return type for `checkoutAttributesUpdateV2` mutation.",
           "fields": [
             {
               "name": "checkout",
               "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "CheckoutAttributesUpdateV2Input",
-          "description": "Specifies the fields required to update a checkout's attributes.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "note",
-              "description": "The text of an optional note that a shop owner can attach to the checkout.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "customAttributes",
-              "description": "A list of extra information that is added to the checkout.",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "AttributeInput",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "allowPartialAddresses",
-              "description": "Allows setting partial addresses on a Checkout, skipping the full validation of attributes.\nThe required attributes are city, province, and country.\nFull validation of the addresses is still done at complete time.\n",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCompleteWithCreditCardV2Payload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout on which the payment was applied.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payment",
-              "description": "A representation of the attempted payment.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Payment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "CreditCardPaymentInputV2",
-          "description": "Specifies the fields required to complete a checkout with\na Shopify vaulted credit card payment.\n",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "paymentAmount",
-              "description": "The amount and currency of the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MoneyInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "vaultId",
-              "description": "The ID returned by Shopify's Card Vault.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "test",
-              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "MoneyInput",
-          "description": "Specifies the fields for a monetary value with currency.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "amount",
-              "description": "Decimal money amount.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Decimal",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "currencyCode",
-              "description": "Currency of the money.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "CurrencyCode",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCompleteWithTokenizedPaymentV2Payload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout on which the payment was applied.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payment",
-              "description": "A representation of the attempted payment.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Payment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "TokenizedPaymentInputV2",
-          "description": "Specifies the fields required to complete a checkout with\na tokenized payment.\n",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "paymentAmount",
-              "description": "The amount and currency of the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MoneyInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "type",
-              "description": "The type of payment token.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "paymentData",
-              "description": "A simple string or JSON containing the required payment data for the tokenized payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "test",
-              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            },
-            {
-              "name": "identifier",
-              "description": "Public Hash Key used for AndroidPay payments only.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCustomerAssociateV2Payload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "customer",
-              "description": "The associated customer object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Customer",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCustomerDisassociateV2Payload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutDiscountCodeApplyV2Payload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCompleteFreePayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "List of errors that occurred executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCreatePayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The new checkout object.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -14553,8 +14643,789 @@
               "description": "Not enough in stock.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "MISSING_PAYMENT_INPUT",
+              "description": "Missing payment input.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CheckoutAttributesUpdateV2Input",
+          "description": "Specifies the fields required to update a checkout's attributes.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "note",
+              "description": "The text of an optional note that a shop owner can attach to the checkout.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "customAttributes",
+              "description": "A list of extra information that is added to the checkout.",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "AttributeInput",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "allowPartialAddresses",
+              "description": "Allows setting partial addresses on a Checkout, skipping the full validation of attributes.\nThe required attributes are city, province, and country.\nFull validation of the addresses is still done at complete time.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": "false"
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCompleteWithCreditCardV2Payload",
+          "description": "Return type for `checkoutCompleteWithCreditCardV2` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The checkout on which the payment was applied.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "payment",
+              "description": "A representation of the attempted payment.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Payment",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CreditCardPaymentInputV2",
+          "description": "Specifies the fields required to complete a checkout with\na Shopify vaulted credit card payment.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "paymentAmount",
+              "description": "The amount and currency of the payment.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MoneyInput",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "idempotencyKey",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "billingAddress",
+              "description": "The billing address for the payment.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MailingAddressInput",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "vaultId",
+              "description": "The ID returned by Shopify's Card Vault.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "test",
+              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": "false"
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "MoneyInput",
+          "description": "Specifies the fields for a monetary value with currency.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "amount",
+              "description": "Decimal money amount.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Decimal",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "currencyCode",
+              "description": "Currency of the money.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "CurrencyCode",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCompleteWithTokenizedPaymentV2Payload",
+          "description": "Return type for `checkoutCompleteWithTokenizedPaymentV2` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The checkout on which the payment was applied.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "payment",
+              "description": "A representation of the attempted payment.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Payment",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "TokenizedPaymentInputV2",
+          "description": "Specifies the fields required to complete a checkout with\na tokenized payment.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "paymentAmount",
+              "description": "The amount and currency of the payment.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MoneyInput",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "idempotencyKey",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "billingAddress",
+              "description": "The billing address for the payment.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "MailingAddressInput",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "type",
+              "description": "The type of payment token.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "paymentData",
+              "description": "A simple string or JSON containing the required payment data for the tokenized payment.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "test",
+              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": "false"
+            },
+            {
+              "name": "identifier",
+              "description": "Public Hash Key used for AndroidPay payments only.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCustomerAssociateV2Payload",
+          "description": "Return type for `checkoutCustomerAssociateV2` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "customer",
+              "description": "The associated customer object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Customer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCustomerDisassociateV2Payload",
+          "description": "Return type for `checkoutCustomerDisassociateV2` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutDiscountCodeApplyV2Payload",
+          "description": "Return type for `checkoutDiscountCodeApplyV2` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCompleteFreePayload",
+          "description": "Return type for `checkoutCompleteFree` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutCreatePayload",
+          "description": "Return type for `checkoutCreate` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The new checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -14704,7 +15575,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutEmailUpdateV2Payload",
-          "description": null,
+          "description": "Return type for `checkoutEmailUpdateV2` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -14719,7 +15590,7 @@
               "deprecationReason": null
             },
             {
-              "name": "userErrors",
+              "name": "checkoutUserErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
               "type": {
@@ -14733,34 +15604,11 @@
                     "name": null,
                     "ofType": {
                       "kind": "OBJECT",
-                      "name": "UserError",
+                      "name": "CheckoutUserError",
                       "ofType": null
                     }
                   }
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutDiscountCodeRemovePayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -14786,8 +15634,79 @@
                   }
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutDiscountCodeRemovePayload",
+          "description": "Return type for `checkoutDiscountCodeRemove` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14798,7 +15717,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutGiftCardsAppendPayload",
-          "description": null,
+          "description": "Return type for `checkoutGiftCardsAppend` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -14845,7 +15764,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutGiftCardRemoveV2Payload",
-          "description": null,
+          "description": "Return type for `checkoutGiftCardRemoveV2` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -14892,7 +15811,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutLineItemsAddPayload",
-          "description": null,
+          "description": "Return type for `checkoutLineItemsAdd` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -14939,7 +15858,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutLineItemsRemovePayload",
-          "description": null,
+          "description": "Return type for `checkoutLineItemsRemove` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -14986,7 +15905,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutLineItemsUpdatePayload",
-          "description": null,
+          "description": "Return type for `checkoutLineItemsUpdate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -15091,8 +16010,55 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CheckoutLineItemsReplacePayload",
+          "description": "Return type for `checkoutLineItemsReplace` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CheckoutShippingAddressUpdateV2Payload",
-          "description": null,
+          "description": "Return type for `checkoutShippingAddressUpdateV2` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -15139,7 +16105,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutShippingLineUpdatePayload",
-          "description": null,
+          "description": "Return type for `checkoutShippingLineUpdate` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -15186,7 +16152,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAccessTokenCreatePayload",
-          "description": null,
+          "description": "Return type for `customerAccessTokenCreate` mutation.",
           "fields": [
             {
               "name": "customerAccessToken",
@@ -15493,7 +16459,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAccessTokenDeletePayload",
-          "description": null,
+          "description": "Return type for `customerAccessTokenDelete` mutation.",
           "fields": [
             {
               "name": "deletedAccessToken",
@@ -15552,7 +16518,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAccessTokenRenewPayload",
-          "description": null,
+          "description": "Return type for `customerAccessTokenRenew` mutation.",
           "fields": [
             {
               "name": "customerAccessToken",
@@ -15599,7 +16565,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerActivatePayload",
-          "description": null,
+          "description": "Return type for `customerActivate` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -15721,7 +16687,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAddressCreatePayload",
-          "description": null,
+          "description": "Return type for `customerAddressCreate` mutation.",
           "fields": [
             {
               "name": "customerAddress",
@@ -15792,7 +16758,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAddressDeletePayload",
-          "description": null,
+          "description": "Return type for `customerAddressDelete` mutation.",
           "fields": [
             {
               "name": "customerUserErrors",
@@ -15863,7 +16829,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerAddressUpdatePayload",
-          "description": null,
+          "description": "Return type for `customerAddressUpdate` mutation.",
           "fields": [
             {
               "name": "customerAddress",
@@ -15934,7 +16900,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerCreatePayload",
-          "description": null,
+          "description": "Return type for `customerCreate` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -16084,7 +17050,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerDefaultAddressUpdatePayload",
-          "description": null,
+          "description": "Return type for `customerDefaultAddressUpdate` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -16155,7 +17121,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerRecoverPayload",
-          "description": null,
+          "description": "Return type for `customerRecover` mutation.",
           "fields": [
             {
               "name": "customerUserErrors",
@@ -16214,7 +17180,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerResetPayload",
-          "description": null,
+          "description": "Return type for `customerReset` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -16336,7 +17302,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerResetByUrlPayload",
-          "description": null,
+          "description": "Return type for `customerResetByUrl` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -16419,7 +17385,7 @@
         {
           "kind": "OBJECT",
           "name": "CustomerUpdatePayload",
-          "description": null,
+          "description": "Return type for `customerUpdate` mutation.",
           "fields": [
             {
               "name": "customer",
@@ -17745,6 +18711,103 @@
                 "ofType": {
                   "kind": "ENUM",
                   "name": "DiscountApplicationTargetType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "The value of the discount application.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "PricingValue",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "DiscountApplication",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "AutomaticDiscountApplication",
+          "description": "Automatic discount applications capture the intentions of a discount that was automatically applied.\n",
+          "fields": [
+            {
+              "name": "allocationMethod",
+              "description": "The method by which the discount's value is allocated to its entitled items.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "DiscountApplicationAllocationMethod",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "targetSelection",
+              "description": "Which lines of targetType that the discount is allocated over.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "DiscountApplicationTargetSelection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "targetType",
+              "description": "The type of line that the discount is applicable towards.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "DiscountApplicationTargetType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the application.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               },

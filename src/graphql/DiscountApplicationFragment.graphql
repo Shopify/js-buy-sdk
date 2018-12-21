@@ -13,4 +13,7 @@ fragment DiscountApplicationFragment on DiscountApplication {
   ... on ScriptDiscountApplication {
     description
   }
+  ... on AutomaticDiscountApplication {
+    title
+  }
 }
