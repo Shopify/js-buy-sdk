@@ -11,6 +11,7 @@ import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
 import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
 import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
+import checkoutLineItemsReplaceFixture from '../fixtures/checkout-line-items-replace-fixture';
 import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
 import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
 import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
@@ -122,6 +123,21 @@ suite('client-checkout-integration-test', () => {
     fetchMock.postOnce(apiUrl, checkoutLineItemsAddFixture);
 
     return client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
+      assert.equal(checkout.id, checkoutId);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#replaceLineItems', () => {
+    const checkoutId = checkoutLineItemsReplaceFixture.data.checkoutLineItemsReplace.checkout.id;
+    const lineItems = [
+      {variantId: 'id1', quantity: 5},
+      {variantId: 'id2', quantity: 2}
+    ];
+
+    fetchMock.postOnce(apiUrl, checkoutLineItemsReplaceFixture);
+
+    return client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
       assert.ok(fetchMock.done());
     });
