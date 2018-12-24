@@ -3,10 +3,10 @@ import Client from '../src/client';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
 
 // fixtures
-import shopWithProductsFixture from '../fixtures/shop-with-products-fixture';
+import shopWithProductsFixture from '../fixtures/query-products-fixture';
 import singleProductFixture from '../fixtures/product-fixture';
 import multipleProductsFixture from '../fixtures/multiple-products-fixture';
-import shopWithCollectionsFixture from '../fixtures/shop-with-collections-fixture';
+import shopWithCollectionsFixture from '../fixtures/query-collections-fixture';
 import singleCollectionFixture from '../fixtures/collection-fixture';
 import productWithPaginatedImagesFixture from '../fixtures/product-with-paginated-images-fixture';
 import {secondPageImagesFixture, thirdPageImagesFixture, fourthPageImagesFixture, fifthPageImagesFixture} from '../fixtures/paginated-images-fixtures';
@@ -15,8 +15,8 @@ import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/p
 import productByHandleFixture from '../fixtures/product-by-handle-fixture';
 import collectionByHandleFixture from '../fixtures/collection-by-handle-fixture';
 import collectionWithProductsFixture from '../fixtures/collection-with-products-fixture';
-import shopWithCollectionsWithPaginationFixture from '../fixtures/shop-with-collections-with-pagination-fixture';
-import shopWithCollectionsWithProductsFixture from '../fixtures/shop-with-collections-with-products-fixture';
+import shopWithCollectionsWithPaginationFixture from '../fixtures/query-collections-with-pagination-fixture';
+import shopWithCollectionsWithProductsFixture from '../fixtures/query-collections-with-products-fixture';
 import shopInfoFixture from '../fixtures/shop-info-fixture';
 import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
 
@@ -46,8 +46,8 @@ suite('client-integration-test', () => {
       assert.ok(Array.isArray(products), 'products is an array');
       assert.equal(products.length, 2, 'there are two products');
 
-      assert.equal(products[0].id, shopWithProductsFixture.data.shop.products.edges[0].node.id);
-      assert.equal(products[1].id, shopWithProductsFixture.data.shop.products.edges[1].node.id);
+      assert.equal(products[0].id, shopWithProductsFixture.data.products.edges[0].node.id);
+      assert.equal(products[1].id, shopWithProductsFixture.data.products.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
@@ -89,7 +89,7 @@ suite('client-integration-test', () => {
       assert.ok(Array.isArray(images), 'images is an array');
       // Each image page fixture only contains 1 image rather than 20 for simplicity
       assert.equal(images.length, 3, 'all three pages of images are returned');
-      assert.equal(images[0].id, productWithPaginatedImagesFixture.data.shop.products.edges[0].node.images.edges[0].node.id);
+      assert.equal(images[0].id, productWithPaginatedImagesFixture.data.products.edges[0].node.images.edges[0].node.id);
       assert.equal(images[1].id, secondPageImagesFixture.data.node.images.edges[0].node.id);
       assert.equal(images[2].id, thirdPageImagesFixture.data.node.images.edges[0].node.id);
       assert.ok(fetchMock.done());
@@ -138,10 +138,10 @@ suite('client-integration-test', () => {
   test('it can fetch a product by handle through Client.product#fetchByHandle', () => {
     fetchMock.postOnce(apiUrl, productByHandleFixture);
 
-    const handle = productByHandleFixture.data.shop.productByHandle.handle;
+    const handle = productByHandleFixture.data.productByHandle.handle;
 
     return client.product.fetchByHandle(handle).then((product) => {
-      assert.equal(product.id, productByHandleFixture.data.shop.productByHandle.id);
+      assert.equal(product.id, productByHandleFixture.data.productByHandle.id);
       assert.equal(product.handle, handle);
       assert.ok(fetchMock.done());
     });
@@ -152,8 +152,8 @@ suite('client-integration-test', () => {
 
     return client.product.fetchQuery({}).then((products) => {
       assert.equal(products.length, 2);
-      assert.equal(products[0].id, shopWithProductsFixture.data.shop.products.edges[0].node.id);
-      assert.equal(products[1].id, shopWithProductsFixture.data.shop.products.edges[1].node.id);
+      assert.equal(products[0].id, shopWithProductsFixture.data.products.edges[0].node.id);
+      assert.equal(products[1].id, shopWithProductsFixture.data.products.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
@@ -165,8 +165,8 @@ suite('client-integration-test', () => {
       assert.ok(Array.isArray(collections), 'collections is an array');
       assert.equal(collections.length, 2, 'there are two collections');
 
-      assert.equal(collections[0].id, shopWithCollectionsFixture.data.shop.collections.edges[0].node.id);
-      assert.equal(collections[1].id, shopWithCollectionsFixture.data.shop.collections.edges[1].node.id);
+      assert.equal(collections[0].id, shopWithCollectionsFixture.data.collections.edges[0].node.id);
+      assert.equal(collections[1].id, shopWithCollectionsFixture.data.collections.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
@@ -186,10 +186,10 @@ suite('client-integration-test', () => {
   test('it can fetch a collection by handle through Client.collection#fetchByHandle', () => {
     fetchMock.postOnce(apiUrl, collectionByHandleFixture);
 
-    const handle = collectionByHandleFixture.data.shop.collectionByHandle.handle;
+    const handle = collectionByHandleFixture.data.collectionByHandle.handle;
 
     return client.collection.fetchByHandle(handle).then((collection) => {
-      assert.equal(collection.id, collectionByHandleFixture.data.shop.collectionByHandle.id);
+      assert.equal(collection.id, collectionByHandleFixture.data.collectionByHandle.id);
       assert.equal(collection.handle, handle);
       assert.ok(fetchMock.done());
     });
@@ -200,8 +200,8 @@ suite('client-integration-test', () => {
 
     return client.collection.fetchQuery({}).then((collections) => {
       assert.equal(collections.length, 2);
-      assert.equal(collections[0].id, shopWithCollectionsFixture.data.shop.collections.edges[0].node.id);
-      assert.equal(collections[1].id, shopWithCollectionsFixture.data.shop.collections.edges[1].node.id);
+      assert.equal(collections[0].id, shopWithCollectionsFixture.data.collections.edges[0].node.id);
+      assert.equal(collections[1].id, shopWithCollectionsFixture.data.collections.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });
@@ -212,8 +212,8 @@ suite('client-integration-test', () => {
     return client.collection.fetchAllWithProducts().then((collections) => {
       assert.ok(Array.isArray(collections), 'collections is an array');
       assert.equal(collections.length, 2, 'there are two collections');
-      assert.equal(collections[0].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[0].node.id);
-      assert.equal(collections[1].id, shopWithCollectionsWithProductsFixture.data.shop.collections.edges[1].node.id);
+      assert.equal(collections[0].id, shopWithCollectionsWithProductsFixture.data.collections.edges[0].node.id);
+      assert.equal(collections[1].id, shopWithCollectionsWithProductsFixture.data.collections.edges[1].node.id);
       assert.ok(fetchMock.done());
     });
   });

@@ -32,7 +32,7 @@ class ProductResource extends Resource {
   fetchAll(first = 20) {
     return this.graphQLClient
       .send(productConnectionQuery, {first})
-      .then(defaultResolver('shop.products'))
+      .then(defaultResolver('products'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
@@ -87,7 +87,7 @@ class ProductResource extends Resource {
   fetchByHandle(handle) {
     return this.graphQLClient
       .send(productByHandleQuery, {handle})
-      .then(defaultResolver('shop.productByHandle'))
+      .then(defaultResolver('productByHandle'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 
@@ -115,7 +115,7 @@ class ProductResource extends Resource {
         query,
         reverse
       })
-      .then(defaultResolver('shop.products'))
+      .then(defaultResolver('products'))
       .then(paginateProductConnectionsAndResolve(this.graphQLClient));
   }
 }
