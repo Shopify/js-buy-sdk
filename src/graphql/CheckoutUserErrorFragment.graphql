@@ -1,4 +1,4 @@
-fragment CheckoutUserErrorFragment on UserError {
+fragment CheckoutUserErrorFragment on CheckoutUserError {
   field
   message
   code

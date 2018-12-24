@@ -3,6 +3,9 @@ mutation ($input: CheckoutCreateInput!) {
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }
