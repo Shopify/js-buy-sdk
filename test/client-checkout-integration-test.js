@@ -8,9 +8,6 @@ import checkoutNullFixture from '../fixtures/node-null-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
 import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
-import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
-import checkoutLineItemsUpdateFixture from '../fixtures/checkout-line-items-update-fixture';
-import checkoutLineItemsRemoveFixture from '../fixtures/checkout-line-items-remove-fixture';
 import checkoutLineItemsReplaceFixture from '../fixtures/checkout-line-items-replace-fixture';
 import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
 import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
@@ -113,21 +110,6 @@ suite('client-checkout-integration-test', () => {
     });
   });
 
-  test('it resolves with a checkout on Client.checkout#addLineItems', () => {
-    const checkoutId = checkoutLineItemsAddFixture.data.checkoutLineItemsAdd.checkout.id;
-    const lineItems = [
-      {variantId: 'id1', quantity: 5},
-      {variantId: 'id2', quantity: 2}
-    ];
-
-    fetchMock.postOnce(apiUrl, checkoutLineItemsAddFixture);
-
-    return client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
-      assert.equal(checkout.id, checkoutId);
-      assert.ok(fetchMock.done());
-    });
-  });
-
   test('it resolves with a checkout on Client.checkout#replaceLineItems', () => {
     const checkoutId = checkoutLineItemsReplaceFixture.data.checkoutLineItemsReplace.checkout.id;
     const lineItems = [
@@ -138,35 +120,6 @@ suite('client-checkout-integration-test', () => {
     fetchMock.postOnce(apiUrl, checkoutLineItemsReplaceFixture);
 
     return client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
-      assert.equal(checkout.id, checkoutId);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it resolves with a checkout on Client.checkout#updateLineItems', () => {
-    fetchMock.postOnce(apiUrl, checkoutLineItemsUpdateFixture);
-
-    const checkoutId = checkoutLineItemsUpdateFixture.data.checkoutLineItemsUpdate.checkout.id;
-    const lineItems = [
-      {
-        id: 'id1',
-        quantity: 2,
-        variantId: 'variant-id'
-      }
-    ];
-
-    return client.checkout.updateLineItems(checkoutId, lineItems).then((checkout) => {
-      assert.equal(checkout.id, checkoutId);
-      assert.ok(fetchMock.done());
-    });
-  });
-
-  test('it resolves with a checkout on Client.checkout#removeLineItems', () => {
-    fetchMock.postOnce(apiUrl, checkoutLineItemsRemoveFixture);
-
-    const checkoutId = checkoutLineItemsRemoveFixture.data.checkoutLineItemsRemove.checkout.id;
-
-    return client.checkout.removeLineItems(checkoutId, ['line-item-id']).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
       assert.ok(fetchMock.done());
     });

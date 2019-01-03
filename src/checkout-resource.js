@@ -5,10 +5,7 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 // GraphQL
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
-import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
-import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
-import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
 import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
 import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
@@ -120,27 +117,6 @@ class CheckoutResource extends Resource {
   }
 
   /**
-   * Adds line items to an existing checkout.
-   *
-   * @example
-   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-   * const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
-   *
-   * client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
-   *   // Do something with the updated checkout
-   * });
-   *
-   * @param {String} checkoutId The ID of the checkout to add line items to.
-   * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
-   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
-   */
-  addLineItems(checkoutId, lineItems) {
-    return this.graphQLClient
-      .send(checkoutLineItemsAddMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsAdd', this.graphQLClient));
-  }
-
-  /**
    * Applies a discount to an existing checkout using a discount code.
    *
    * @example
@@ -181,27 +157,6 @@ class CheckoutResource extends Resource {
   }
 
   /**
-   * Removes line items from an existing checkout.
-   *
-   * @example
-   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-   * const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
-   *
-   * client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
-   *   // Do something with the updated checkout
-   * });
-   *
-   * @param {String} checkoutId The ID of the checkout to remove line items from.
-   * @param {String[]} lineItemIds A list of the ids of line items to remove from the checkout.
-   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
-   */
-  removeLineItems(checkoutId, lineItemIds) {
-    return this.graphQLClient
-      .send(checkoutLineItemsRemoveMutation, {checkoutId, lineItemIds})
-      .then(handleCheckoutMutation('checkoutLineItemsRemove', this.graphQLClient));
-  }
-
-  /**
    * Replace line items on an existing checkout.
    *
    * @example
@@ -220,33 +175,6 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutLineItemsReplaceMutation, {checkoutId, lineItems})
       .then(handleCheckoutMutation('checkoutLineItemsReplace', this.graphQLClient));
-  }
-
-  /**
-   * Updates line items on an existing checkout.
-   *
-   * @example
-   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-   * const lineItems = [
-   *   {
-   *     id: 'TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU=',
-   *     quantity: 5,
-   *     variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg=='
-   *   }
-   * ];
-   *
-   * client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
-   *   // Do something with the updated checkout
-   * });
-   *
-   * @param {String} checkoutId The ID of the checkout to update a line item on.
-   * @param {Object[]} lineItems A list of line item information to update. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineitemupdateinput|Storefront API reference} for valid input fields for each line item.
-   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
-   */
-  updateLineItems(checkoutId, lineItems) {
-    return this.graphQLClient
-      .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
   }
 }
 
