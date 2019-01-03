@@ -3,12 +3,12 @@ fragment VariantFragment on ProductVariant {
   title
   price
   weight
-  available: availableForSale
+  availableForSale
   sku
   compareAtPrice
   image {
     id
-    src: originalSrc
+    originalSrc
     altText
   }
   selectedOptions {

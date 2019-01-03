@@ -24,7 +24,7 @@ fragment ProductFragment on Product {
       cursor
       node {
         id
-        src: originalSrc
+        originalSrc
         altText
       }
     }
