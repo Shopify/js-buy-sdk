@@ -16,7 +16,7 @@ export default {
             "cursor": "eyJsYXN0X2lkIjoxNjMwNjgxMjY4MH0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTYzMDY4MTI2ODA=",
-              "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096"
+              "originalSrc": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096"
             }
           }
         ]
