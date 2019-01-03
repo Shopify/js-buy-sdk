@@ -33,7 +33,7 @@ export default {
           "province": "Ontario",
           "zip": "M3O 0W1",
           "name": "Meow Meowington",
-          "countryCode": "CA",
+          "countryCodeV2": "CA",
           "provinceCode": "ON",
           "id": "Z2lkOi8vc2hvcGlmeSsiujh8aQJbnkl9Qcm9kdWN0VmaJKN8flqAnq8TEwNjA2NDU4NA=="
         },
