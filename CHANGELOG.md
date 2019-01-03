@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.0.0 (January 3, 2019)
+- Fetch `collections`, `products`, `collectionByHandle` and `productByHandle` from the QueryRoot instead of from the Shop object.
+- Return `checkoutUserErrors` instead of `userErrors` when present. This will add an extra field called code.
+- Expose `checkoutLineItemsReplace` mutation (to replace deprecated `checkoutLineItemsAdd`, `checkoutLineItemsRemove`, and `checkoutLineItemsUpdate` mutations).
+- Remove unused fixtures
+
 ### v1.11.0 (November 27, 2018)
 - Added availableForSale field to Product query fragment
 - Removed tags field from Product query fragment

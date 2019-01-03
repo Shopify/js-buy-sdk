@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line20">line 20</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -271,7 +271,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line157">line 157</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line158">line 158</a>
     </li></ul></dd>
     
 
@@ -464,7 +464,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line136">line 136</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line137">line 137</a>
     </li></ul></dd>
     
 
@@ -839,7 +839,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line70">line 70</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line71">line 71</a>
     </li></ul></dd>
     
 
@@ -1012,7 +1012,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line33">line 33</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -1179,7 +1179,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line176">line 176</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -1371,7 +1371,7 @@ client.checkout.removeDiscount(checkoutId).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line197">line 197</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line198">line 198</a>
     </li></ul></dd>
     
 
@@ -1429,6 +1429,199 @@ client.checkout.removeDiscount(checkoutId).then((checkout) => {
 const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
 
 client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
+  // Do something with the updated checkout
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="replaceLineItems"><span class="type-signature"></span>replaceLineItems<span class="signature">(checkoutId, lineItems)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Replace line items on an existing checkout.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkoutId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the checkout to add line items to.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lineItems</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A list of line items to set on the checkout. See the <a href="https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput">Storefront API reference</a> for valid input fields for each line item.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line219">line 219</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with the updated checkout.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">GraphModel</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
+
+client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
   // Do something with the updated checkout
 });</code></pre>
 
@@ -1711,7 +1904,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line94">line 94</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -1904,7 +2097,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line115">line 115</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line116">line 116</a>
     </li></ul></dd>
     
 
@@ -2097,7 +2290,7 @@ client.checkout.updateEmail(checkoutId, email).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line224">line 224</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line246">line 246</a>
     </li></ul></dd>
     
 
@@ -2188,7 +2381,7 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Nov 27 2018 14:13:18 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Jan 03 2019 11:33:20 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
