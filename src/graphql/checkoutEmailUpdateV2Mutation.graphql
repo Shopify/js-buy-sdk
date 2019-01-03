@@ -3,6 +3,9 @@ mutation checkoutEmailUpdateV2($checkoutId: ID!, $email: String!) {
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }

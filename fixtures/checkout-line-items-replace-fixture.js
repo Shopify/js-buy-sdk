@@ -1,7 +1,6 @@
 export default {
   "data": {
-    "checkoutDiscountCodeApplyV2": {
-      "checkoutUserErrors": [],
+    "checkoutLineItemsReplace": {
       "userErrors": [],
       "checkout": {
         "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
@@ -9,18 +8,6 @@ export default {
         "updatedAt": "2017-03-17T16:00:40Z",
         "requiresShipping": true,
         "shippingLine": null,
-        "order": null,
-        "orderStatusUrl": null,
-        "taxExempt": false,
-        "taxesIncluded": false,
-        "currencyCode": "CAD",
-        "totalPrice": "80.28",
-        "subtotalPrice": "67.50",
-        "totalTax": "8.78",
-        "paymentDue": "80.28",
-        "taxExempt": false,
-        "taxesIncluded": false,
-        "completedAt": null,
         "shippingAddress": {
           "address1": "123 Cat Road",
           "address2": null,
@@ -56,26 +43,32 @@ export default {
               "node": {
                 "title": "Intelligent Granite Table",
                 "variant": {
-                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
-                  "price": "74.99"
+                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA=="
                 },
                 "quantity": 5,
-                "customAttributes": [],
-                "discountAllocations": [
-                  {
-                    "allocatedAmount": {
-                      "amount": "7.49",
-                      "currencyCode": "CAD"
-                    },
-                    "discountApplication": {
-                      "targetSelection": "ALL",
-                      "allocationMethod": "ACROSS",
-                      "targetType": "LINE_ITEM",
-                      "code": "TENPERCENTOFF",
-                      "applicable": true
-                    }
-                  }
-                ]
+                "customAttributes": []
+              }
+            },
+            {
+              "cursor": "eyJsYXN0X2lkfsI01DUyZWU5ZTEwYmQxMWE0NDlkNmQzMknK1DKhMGFjNzfAxQ=",
+              "node": {
+                "title": "Intelligent Marble Table",
+                "variant": {
+                  "id": "ZNc0vnIOijnJabh4873nNQnfb9B0QhnFyvk9Wfh87oNBeqBHGQNA5a=="
+                },
+                "quantity": 5,
+                "customAttributes": []
+              }
+            },
+            {
+              "cursor": "eyJsYXf3X2dm9aQI01PLqZbU5ZfSEYmQxNWE0NDlkNmQzMknK1DKhMGFj9afKqP=",
+              "node": {
+                "title": "Intelligent Wooden Table",
+                "variant": {
+                  "id": "Zad7JHnbf32JHna087juBQn8faB84Ba28VnqjF87Qynaw8MnDhNA3W=="
+                },
+                "quantity": 5,
+                "customAttributes": []
               }
             }
           ]

@@ -1,15 +1,13 @@
 query ($first: Int!, $query: String, $sortKey: CollectionSortKeys, $reverse: Boolean) {
-  shop {
-    collections(first: $first, query: $query, sortKey: $sortKey, reverse: $reverse) {
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-      }
-      edges {
-        cursor
-        node {
-          ...CollectionFragment
-        }
+  collections(first: $first, query: $query, sortKey: $sortKey, reverse: $reverse) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        ...CollectionFragment
       }
     }
   }

@@ -17,6 +17,10 @@ export default function handleCheckoutMutation(mutationRootKey, client) {
       return Promise.reject(new Error(JSON.stringify(errors)));
     }
 
+    if (rootData && rootData.checkoutUserErrors && rootData.checkoutUserErrors.length) {
+      return Promise.reject(new Error(JSON.stringify(rootData.checkoutUserErrors)));
+    }
+
     if (rootData && rootData.userErrors && rootData.userErrors.length) {
       return Promise.reject(new Error(JSON.stringify(rootData.userErrors)));
     }

@@ -3,6 +3,9 @@ mutation checkoutAttributesUpdateV2($checkoutId: ID!, $input: CheckoutAttributes
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }
