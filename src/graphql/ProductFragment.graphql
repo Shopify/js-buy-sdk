@@ -8,6 +8,7 @@ fragment ProductFragment on Product {
   handle
   productType
   title
+  tags
   vendor
   publishedAt
   onlineStoreUrl
