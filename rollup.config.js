@@ -10,4 +10,16 @@ baseConfig.plugins.unshift(
   })
 );
 
+baseConfig.targets = [
+  {format: 'cjs', suffix: ''},
+  {format: 'amd', suffix: '.amd'},
+  {format: 'es', suffix: '.es'},
+  {format: 'umd', suffix: '.umd'}
+].map((config) => {
+  return {
+    dest: `index${config.suffix}.js`,
+    format: config.format
+  };
+});
+
 export default baseConfig;

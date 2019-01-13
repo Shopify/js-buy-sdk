@@ -31,25 +31,12 @@ const plugins = [
   sizes()
 ];
 
-const targets = [
-  {format: 'cjs', suffix: ''},
-  {format: 'amd', suffix: '.amd'},
-  {format: 'es', suffix: '.es'},
-  {format: 'umd', suffix: '.umd'}
-].map((config) => {
-  return {
-    dest: `index${config.suffix}.js`,
-    format: config.format
-  };
-});
-
 const banner = `/*
 ${readFileSync('./LICENSE.txt')}
 */`;
 
 export default {
   plugins: plugins,
-  targets: targets,
   banner: banner,
   entry: 'src/client.js',
   moduleName: 'ShopifyBuy',
