@@ -7,19 +7,16 @@ const config = generateBaseRollupConfig();
 config.plugins.unshift(
   graphqlCompiler({
     schema: './schema.json',
-    optimize: true,
+    optimize: false,
     profileDocuments: ['src/graphql/**/*.graphql']
   })
 );
 
 config.targets = [
-  {format: 'cjs', suffix: ''},
-  {format: 'amd', suffix: '.amd'},
-  {format: 'es', suffix: '.es'},
   {format: 'umd', suffix: '.umd'}
 ].map((c) => {
   return {
-    dest: `index${c.suffix}.js`,
+    dest: `index.unoptimized${c.suffix}.js`,
     format: c.format
   };
 });
