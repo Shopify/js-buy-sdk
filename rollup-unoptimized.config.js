@@ -1,8 +1,10 @@
 /* eslint-env node */
 import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
-import baseConfig from './rollup-common.config';
+import generateBaseRollupConfig from './rollup-common.config';
 
-baseConfig.plugins.unshift(
+const config = generateBaseRollupConfig();
+
+config.plugins.unshift(
   graphqlCompiler({
     schema: './schema.json',
     optimize: false,
@@ -10,13 +12,13 @@ baseConfig.plugins.unshift(
   })
 );
 
-baseConfig.targets = [
+config.targets = [
   {format: 'umd', suffix: '.umd'}
-].map((config) => {
+].map((c) => {
   return {
-    dest: `index.unoptimized${config.suffix}.js`,
-    format: config.format
+    dest: `index.unoptimized${c.suffix}.js`,
+    format: c.format
   };
 });
 
-export default baseConfig;
+export default config;
