@@ -84,6 +84,8 @@ import Client from 'shopify-buy/index.amd';
 import Client from 'shopify-buy/index.umd';
 ```
 **UMD Unoptimized:**
+This will be larger than the optimized version, as it will contain all fields that are available in the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference). This should only be used when you need to add custom queries to supplement the JS Buy SDK queries.
+
 ```javascript
 import Client from 'shopify-buy/index.unoptimized.umd';
 ```
@@ -235,6 +237,7 @@ Not all fields that are available on the [Storefront API](https://help.shopify.c
 
 ### Initializing the Client
 ```javascript
+// fetch the large, unoptimized version of the SDK
 import Client from 'shopify-buy/index.unoptimized.umd';
 
 const client = Client.buildClient({
@@ -245,7 +248,7 @@ const client = Client.buildClient({
 
 ### Fetching Products
 ```javascript
-// Build a custom products query
+// Build a custom products query using the unoptimized version of the SDK
 const productsQuery = client.graphQLClient.query((root) => {
   root.addConnection('products', {args: {first: 10}}, (product) => {
     product.add('title');
