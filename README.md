@@ -28,6 +28,10 @@ View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG
   + [Removing Line Items](#removing-line-items)
   + [Fetching a Checkout](#fetching-a-checkout)
   + [Adding a Discount](#adding-a-discount)
+  + [Removing a Discount](#removing-a-discount)
+- [Expanding the SDK](#expanding-the-sdk)
+  + [Initializing the Client](#initializing-the-client-1)
+  + [Fetching Products](#fetching-products-1)
 - [Example Apps](#example-apps)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -58,6 +62,12 @@ You can also use a specific release version:
 <script src="https://sdks.shopifycdn.com/js-buy-sdk/1.11.0/index.umd.min.js"></script>
 ```
 
+You can also fetch the unoptimized release for a version (2.0.1 and above). This will be larger than the optimized version, as it will contain all fields that are available in the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference):
+
+```html
+<script src="https://sdks.shopifycdn.com/js-buy-sdk/2.0.1/index.unoptimized.umd.min.js"></script>
+```
+
 ## Builds
 The JS Buy SDK has four build versions: ES, CommonJS, AMD, and UMD.
 
@@ -72,6 +82,12 @@ import Client from 'shopify-buy/index.amd';
 **UMD:**
 ```javascript
 import Client from 'shopify-buy/index.umd';
+```
+**UMD Unoptimized:**
+This will be larger than the optimized version, as it will contain all fields that are available in the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference). This should only be used when you need to add custom queries to supplement the JS Buy SDK queries.
+
+```javascript
+import Client from 'shopify-buy/index.unoptimized.umd';
 ```
 
 ## Examples
@@ -213,6 +229,39 @@ client.checkout.removeDiscount(checkoutId).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout);
 });
+```
+
+## Expanding the SDK
+
+Not all fields that are available on the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference) are exposed through the SDK. If you use the unoptimized version of the SDK, you can easily build your own queries. In order to do this, use the UMD Unoptimized build.
+
+### Initializing the Client
+```javascript
+// fetch the large, unoptimized version of the SDK
+import Client from 'shopify-buy/index.unoptimized.umd';
+
+const client = Client.buildClient({
+  domain: 'your-shop-name.myshopify.com',
+  storefrontAccessToken: 'your-storefront-access-token'
+});
+```
+
+### Fetching Products
+```javascript
+// Build a custom products query using the unoptimized version of the SDK
+const productsQuery = client.graphQLClient.query((root) => {
+  root.addConnection('products', {args: {first: 10}}, (product) => {
+    product.add('title');
+    product.add('tags');// Add fields to be returned
+  });
+});
+
+// Call the send method with the custom products query
+client.graphQLClient.send(productsQuery).then(({model, data}) => {
+  // Do something with the products
+  console.log(products);
+});
+
 ```
 
 ## Example Apps
