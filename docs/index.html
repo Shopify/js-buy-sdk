@@ -67,6 +67,12 @@ and provides the ability to retrieve products and collections from your shop, ad
 <li><a href="#removing-line-items">Removing Line Items</a></li>
 <li><a href="#fetching-a-checkout">Fetching a Checkout</a></li>
 <li><a href="#adding-a-discount">Adding a Discount</a></li>
+<li><a href="#removing-a-discount">Removing a Discount</a></li>
+</ul>
+</li>
+<li><a href="#expanding-the-sdk">Expanding the SDK</a><ul>
+<li><a href="#initializing-the-client-1">Initializing the Client</a></li>
+<li><a href="#fetching-products-1">Fetching Products</a></li>
 </ul>
 </li>
 <li><a href="#example-apps">Example Apps</a></li>
@@ -80,13 +86,16 @@ and provides the ability to retrieve products and collections from your shop, ad
 <pre class="prettyprint source lang-bash"><code>$ yarn add shopify-buy</code></pre><p><strong>With NPM:</strong></p>
 <pre class="prettyprint source lang-bash"><code>$ npm install shopify-buy</code></pre><p><strong>CDN:</strong></p>
 <p>There is a minified UMD build available via CDN (see the <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md">Changelog</a> for details about the latest release):</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/v1/latest/index.umd.min.js&quot;>&lt;/script></code></pre><p>You can also use a specific release version:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/1.10.0/index.umd.min.js&quot;>&lt;/script></code></pre><h2 id="builds">Builds</h2>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js&quot;>&lt;/script></code></pre><p>You can also use a specific release version:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/1.11.0/index.umd.min.js&quot;>&lt;/script></code></pre><p>You can also fetch the unoptimized release for a version (2.0.1 and above). This will be larger than the optimized version, as it will contain all fields that are available in the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a>:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/2.0.1/index.unoptimized.umd.min.js&quot;>&lt;/script></code></pre><h2 id="builds">Builds</h2>
 <p>The JS Buy SDK has four build versions: ES, CommonJS, AMD, and UMD.</p>
 <p><strong>ES, CommonJS:</strong></p>
 <pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy';</code></pre><p><strong>AMD:</strong></p>
 <pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.amd';</code></pre><p><strong>UMD:</strong></p>
-<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.umd';</code></pre><h2 id="examples">Examples</h2>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.umd';</code></pre><p><strong>UMD Unoptimized:</strong>
+This will be larger than the optimized version, as it will contain all fields that are available in the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a>. This should only be used when you need to add custom queries to supplement the JS Buy SDK queries.</p>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.unoptimized.umd';</code></pre><h2 id="examples">Examples</h2>
 <h3 id="initializing-the-client">Initializing the Client</h3>
 <pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy';
 
@@ -183,7 +192,30 @@ client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
 client.checkout.removeDiscount(checkoutId).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout);
-});</code></pre><h2 id="example-apps">Example Apps</h2>
+});</code></pre><h2 id="expanding-the-sdk">Expanding the SDK</h2>
+<p>Not all fields that are available on the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a> are exposed through the SDK. If you use the unoptimized version of the SDK, you can easily build your own queries. In order to do this, use the UMD Unoptimized build.</p>
+<h3 id="initializing-the-client">Initializing the Client</h3>
+<pre class="prettyprint source lang-javascript"><code>// fetch the large, unoptimized version of the SDK
+import Client from 'shopify-buy/index.unoptimized.umd';
+
+const client = Client.buildClient({
+  domain: 'your-shop-name.myshopify.com',
+  storefrontAccessToken: 'your-storefront-access-token'
+});</code></pre><h3 id="fetching-products">Fetching Products</h3>
+<pre class="prettyprint source lang-javascript"><code>// Build a custom products query using the unoptimized version of the SDK
+const productsQuery = client.graphQLClient.query((root) => {
+  root.addConnection('products', {args: {first: 10}}, (product) => {
+    product.add('title');
+    product.add('tags');// Add fields to be returned
+  });
+});
+
+// Call the send method with the custom products query
+client.graphQLClient.send(productsQuery).then(({model, data}) => {
+  // Do something with the products
+  console.log(products);
+});
+</code></pre><h2 id="example-apps">Example Apps</h2>
 <p>For more complete examples of using JS Buy SDK, check out our <a href="https://github.com/Shopify/storefront-api-examples">storefront-api-examples</a> project.
 There are JS Buy SDK specific example apps in Node, Ember, and React. You can use these examples as a guideline for creating your own custom storefront.</p>
 <h2 id="documentation">Documentation</h2>
@@ -213,7 +245,7 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Jan 03 2019 11:33:20 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jan 15 2019 11:45:20 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

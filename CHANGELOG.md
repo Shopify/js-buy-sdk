@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.0.1 (January 14, 2019)
+- Build an unoptimized release version that contains all fields that are available in the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference).
+
 ### v2.0.0 (January 3, 2019)
 - Fetch `collections`, `products`, `collectionByHandle` and `productByHandle` from the QueryRoot instead of from the Shop object.
 - Return `checkoutUserErrors` instead of `userErrors` when present. This will add an extra field called code.
