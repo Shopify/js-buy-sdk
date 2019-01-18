@@ -151,7 +151,7 @@ client.checkout.create().then((checkout) => {
 ```javascript
 const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const lineItemsToAdd = [
-  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
+  {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5, customAttributes: [{key: "MyKey", value: "MyValue"}]}
 ];
 
 // Add an item to the checkout
