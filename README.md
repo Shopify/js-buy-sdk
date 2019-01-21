@@ -263,7 +263,7 @@ const productsQuery = client.graphQLClient.query((root) => {
 // Call the send method with the custom products query
 client.graphQLClient.send(productsQuery).then(({model, data}) => {
   // Do something with the products
-  console.log(products);
+  console.log(model);
 });
 
 ```
