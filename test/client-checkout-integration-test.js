@@ -16,6 +16,8 @@ import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custo
 import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
 import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
+import checkoutShippingAddressUpdateV2Fixture from '../fixtures/checkout-shipping-address-update-v2-fixture';
+import checkoutShippingAdddressUpdateV2WithUserErrorsFixture from '../fixtures/checkout-shipping-address-update-v2-with-user-errors-fixture';
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -23,6 +25,18 @@ suite('client-checkout-integration-test', () => {
   const config = {
     storefrontAccessToken: 'abc123',
     domain
+  };
+  const shippingAddress = {
+    address1: 'Chestnut Street 92',
+    address2: 'Apartment 2',
+    city: 'Louisville',
+    company: null,
+    country: 'United States',
+    firstName: 'Bob',
+    lastName: 'Norman',
+    phone: '555-625-1199',
+    province: 'Kentucky',
+    zip: '40202'
   };
   let client;
 
@@ -226,6 +240,37 @@ suite('client-checkout-integration-test', () => {
     return client.checkout.removeDiscount(checkoutId).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#updateShippingAddress', () => {
+    const {id: checkoutId} = checkoutShippingAddressUpdateV2Fixture.data.checkoutShippingAddressUpdateV2.checkout;
+    const {
+      name: shippingName,
+      provinceCode: shippingProvince,
+      countryCode: shippingCountry
+    } = checkoutShippingAddressUpdateV2Fixture.data.checkoutShippingAddressUpdateV2.checkout.shippingAddress;
+
+    fetchMock.postOnce(apiUrl, checkoutShippingAddressUpdateV2Fixture);
+
+    return client.checkout.updateShippingAddress(checkoutId, shippingAddress).then((checkout) => {
+      assert.equal(checkout.id, checkoutId);
+      assert.equal(checkout.shippingAddress.name, shippingName);
+      assert.equal(checkout.shippingAddress.provinceCode, shippingProvince);
+      assert.equal(checkout.shippingAddress.countryCode, shippingCountry);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with userErrors on Client.checkout#updateShippingAddress with invalid address', () => {
+    const checkoutId = checkoutShippingAddressUpdateV2Fixture.data.checkoutShippingAddressUpdateV2.checkout.id;
+
+    fetchMock.postOnce(apiUrl, checkoutShippingAdddressUpdateV2WithUserErrorsFixture);
+
+    return client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(() => {
+      assert.ok(false, 'Promise should not resolve.');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Country is not supported","field":["shippingAddress country"]}]');
     });
   });
 
