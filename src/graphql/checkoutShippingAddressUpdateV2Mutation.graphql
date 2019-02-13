@@ -3,6 +3,9 @@ mutation checkoutShippingAddressUpdateV2($shippingAddress: MailingAddressInput!,
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }

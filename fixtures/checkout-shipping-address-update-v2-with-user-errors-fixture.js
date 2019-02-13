@@ -4,9 +4,17 @@ export default {
       "userErrors": [
         {
           "message": 'Country is not supported',
-          "field": ['shippingAddress country']
+          "field": ['shippingAddress', 'country'],
+        },
+      ],
+      "checkoutUserErrors" : [
+        {
+          "message": 'Country is not supported',
+          "field": ['shippingAddress', 'country'],
+          "code": 'NOT_SUPPORTED'
         }
-      ]
+      ],
+      "checkout": null
     }
   }
 };

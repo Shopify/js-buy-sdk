@@ -715,7 +715,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `available_for_sale`\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -5563,7 +5563,7 @@
             },
             {
               "name": "originalSrc",
-              "description": "The location of the original (untransformed) image as a URL.",
+              "description": "The location of the original image as a URL.\n\nIf there are any existing transformations in the original source URL, they will remain and not be stripped.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -5591,7 +5591,7 @@
                 }
               },
               "isDeprecated": true,
-              "deprecationReason": "Previously an image had a single `src` field. This could either return the original image\nlocation or a URL that contained transformations such as sizing or scale.\n\nThese transformations were specified by arguments on the parent field.\n\nNow an image has two distinct URL fields: `originalSrc` and `transformedSrc`.\n\n* `originalSrc` - the original, untransformed image URL\n* `transformedSrc` - the image URL with transformations included\n\nTo migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.\n\nBefore:\n```graphql\n{\n  shop {\n    productImages(maxWidth: 200, scale: 2) {\n      edges {\n        node {\n          src\n        }\n      }\n    }\n  }\n}\n```\n\nAfter:\n```graphql\n{\n  shop {\n    productImages {\n      edges {\n        node {\n          transformedSrc(maxWidth: 200, scale: 2)\n        }\n      }\n    }\n  }\n}\n```\n"
+              "deprecationReason": "Previously an image had a single `src` field. This could either return the original image\nlocation or a URL that contained transformations such as sizing or scale.\n\nThese transformations were specified by arguments on the parent field.\n\nNow an image has two distinct URL fields: `originalSrc` and `transformedSrc`.\n\n* `originalSrc` - the original unmodified image URL\n* `transformedSrc` - the image URL with the specified transformations included\n\nTo migrate to the new fields, image transformations should be moved from the parent field to `transformedSrc`.\n\nBefore:\n```graphql\n{\n  shop {\n    productImages(maxWidth: 200, scale: 2) {\n      edges {\n        node {\n          src\n        }\n      }\n    }\n  }\n}\n```\n\nAfter:\n```graphql\n{\n  shop {\n    productImages {\n      edges {\n        node {\n          transformedSrc(maxWidth: 200, scale: 2)\n        }\n      }\n    }\n  }\n}\n```\n"
             },
             {
               "name": "transformedSrc",
@@ -9258,7 +9258,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Supported filter parameters:\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
+                  "description": "Supported filter parameters:\n - `available_for_sale`\n - `created_at`\n - `product_type`\n - `tag`\n - `title`\n - `updated_at`\n - `variants.price`\n - `vendor`\n\nSee the detailed [search syntax](https://help.shopify.com/api/getting-started/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -9521,25 +9521,25 @@
           "enumValues": [
             {
               "name": "APPLE_PAY",
-              "description": "Apple Pay",
+              "description": "Apple Pay.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "ANDROID_PAY",
-              "description": "Android Pay",
+              "description": "Android Pay.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "GOOGLE_PAY",
-              "description": "Google Pay",
+              "description": "Google Pay.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "SHOPIFY_PAY",
-              "description": "Shopify Pay",
+              "description": "Shopify Pay.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -12972,6 +12972,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -12992,8 +13016,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -13118,6 +13142,274 @@
           ]
         },
         {
+          "kind": "OBJECT",
+          "name": "CheckoutUserError",
+          "description": "Represents an error that happens during execution of a checkout mutation.",
+          "fields": [
+            {
+              "name": "code",
+              "description": "Error code to uniquely identify the error.",
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "CheckoutErrorCode",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "field",
+              "description": "Path to the input field which caused the error.",
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "message",
+              "description": "The error message.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "DisplayableError",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "CheckoutErrorCode",
+          "description": "Possible error codes that could be returned by a checkout mutation.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "BLANK",
+              "description": "Input value is blank.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID",
+              "description": "Input value is invalid.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOO_LONG",
+              "description": "Input value is too long.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRESENT",
+              "description": "Input value is not present.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LESS_THAN",
+              "description": "Input value should be less than maximum allowed value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GREATER_THAN_OR_EQUAL_TO",
+              "description": "Input value should be greater than or equal to minimum allowed value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LESS_THAN_OR_EQUAL_TO",
+              "description": "Input value should be less or equal to maximum allowed value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ALREADY_COMPLETED",
+              "description": "Checkout is already completed.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LOCKED",
+              "description": "Checkout is locked.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NOT_SUPPORTED",
+              "description": "Input value is not supported.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_FOR_COUNTRY_AND_PROVINCE",
+              "description": "Input Zip is invalid for country and province provided.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_STATE_IN_COUNTRY",
+              "description": "Invalid state in country.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_PROVINCE_IN_COUNTRY",
+              "description": "Invalid province in country.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_REGION_IN_COUNTRY",
+              "description": "Invalid region in country.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SHIPPING_RATE_EXPIRED",
+              "description": "Shipping rate expired.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_UNUSABLE",
+              "description": "Gift card cannot be applied to a checkout that contains a gift card.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_DISABLED",
+              "description": "Gift card is disabled.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_CODE_INVALID",
+              "description": "Gift card code is invalid.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_ALREADY_APPLIED",
+              "description": "Gift card has already been applied.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_CURRENCY_MISMATCH",
+              "description": "Gift card currency does not match checkout currency.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_EXPIRED",
+              "description": "Gift card is expired.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIFT_CARD_NOT_FOUND",
+              "description": "Gift card was not found.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE",
+              "description": "Cart does not meet discount requirements notice.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DISCOUNT_EXPIRED",
+              "description": "Discount expired.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DISCOUNT_DISABLED",
+              "description": "Discount disabled.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DISCOUNT_LIMIT_REACHED",
+              "description": "Discount limit reached.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DISCOUNT_NOT_FOUND",
+              "description": "Discount not found.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE",
+              "description": "Customer already used once per customer discount notice.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EMPTY",
+              "description": "Checkout is already completed.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NOT_ENOUGH_IN_STOCK",
+              "description": "Not enough in stock.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MISSING_PAYMENT_INPUT",
+              "description": "Missing payment input.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LINE_ITEM_NOT_FOUND",
+              "description": "Line item was not found in checkout.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutAttributesUpdateInput",
           "description": "Specifies the fields required to update a checkout's attributes.",
@@ -13227,6 +13519,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "payment",
               "description": "A representation of the attempted payment.",
               "args": [],
@@ -13259,8 +13575,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -13893,6 +14209,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "payment",
               "description": "A representation of the attempted payment.",
               "args": [],
@@ -13925,8 +14265,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14120,6 +14460,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14140,8 +14504,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14171,6 +14535,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14191,8 +14579,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14222,6 +14610,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14242,8 +14654,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14273,6 +14685,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14293,8 +14729,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14324,6 +14760,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14344,8 +14804,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14375,6 +14835,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -14395,8 +14879,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -14473,220 +14957,6 @@
           "inputFields": null,
           "interfaces": [],
           "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutUserError",
-          "description": "Represents an error that happens during execution of a checkout mutation.",
-          "fields": [
-            {
-              "name": "code",
-              "description": "Error code to uniquely identify the error.",
-              "args": [],
-              "type": {
-                "kind": "ENUM",
-                "name": "CheckoutErrorCode",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "field",
-              "description": "Path to the input field which caused the error.",
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "message",
-              "description": "The error message.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [
-            {
-              "kind": "INTERFACE",
-              "name": "DisplayableError",
-              "ofType": null
-            }
-          ],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "ENUM",
-          "name": "CheckoutErrorCode",
-          "description": "Possible error codes that could be returned by a checkout mutation.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": [
-            {
-              "name": "BLANK",
-              "description": "Input value is blank.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INVALID",
-              "description": "Input value is invalid.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TOO_LONG",
-              "description": "Input value is too long.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PRESENT",
-              "description": "Input value is not present.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "LESS_THAN",
-              "description": "Input value should be less than maximum allowed value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ALREADY_COMPLETED",
-              "description": "Checkout is already completed.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "LOCKED",
-              "description": "Checkout is locked.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NOT_SUPPORTED",
-              "description": "Input value is not supported.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INVALID_FOR_COUNTRY_AND_PROVINCE",
-              "description": "Input Zip is invalid for country and province provided.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INVALID_STATE_IN_COUNTRY",
-              "description": "Invalid state in country.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INVALID_PROVINCE_IN_COUNTRY",
-              "description": "Invalid province in country.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "INVALID_REGION_IN_COUNTRY",
-              "description": "Invalid region in country.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SHIPPING_RATE_EXPIRED",
-              "description": "Shipping rate expired.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "GIFT_CARD_UNUSABLE",
-              "description": "Gift card unusable.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CART_DOES_NOT_MEET_DISCOUNT_REQUIREMENTS_NOTICE",
-              "description": "Cart does not meet discount requirements notice.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DISCOUNT_EXPIRED",
-              "description": "Discount expired.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DISCOUNT_DISABLED",
-              "description": "Discount disabled.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DISCOUNT_LIMIT_REACHED",
-              "description": "Discount limit reached.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "DISCOUNT_NOT_FOUND",
-              "description": "Discount not found.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CUSTOMER_ALREADY_USED_ONCE_PER_CUSTOMER_DISCOUNT_NOTICE",
-              "description": "Customer already used once per customer discount notice.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "EMPTY",
-              "description": "Checkout is already completed.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NOT_ENOUGH_IN_STOCK",
-              "description": "Not enough in stock.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "MISSING_PAYMENT_INPUT",
-              "description": "Missing payment input.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
           "possibleTypes": null
         },
         {
@@ -14955,6 +15225,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "payment",
               "description": "A representation of the attempted payment.",
               "args": [],
@@ -14987,8 +15281,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15768,6 +16062,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15788,8 +16106,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15815,6 +16133,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15835,8 +16177,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15862,6 +16204,30 @@
               "deprecationReason": null
             },
             {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "userErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
@@ -15882,8 +16248,8 @@
                   }
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -15909,7 +16275,7 @@
               "deprecationReason": null
             },
             {
-              "name": "userErrors",
+              "name": "checkoutUserErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
               "type": {
@@ -15923,34 +16289,11 @@
                     "name": null,
                     "ofType": {
                       "kind": "OBJECT",
-                      "name": "UserError",
+                      "name": "CheckoutUserError",
                       "ofType": null
                     }
                   }
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutLineItemsUpdatePayload",
-          "description": "Return type for `checkoutLineItemsUpdate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -15976,8 +16319,79 @@
                   }
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutLineItemsUpdatePayload",
+          "description": "Return type for `checkoutLineItemsUpdate` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
@@ -16109,7 +16523,7 @@
               "deprecationReason": null
             },
             {
-              "name": "userErrors",
+              "name": "checkoutUserErrors",
               "description": "List of errors that occurred executing the mutation.",
               "args": [],
               "type": {
@@ -16123,34 +16537,11 @@
                     "name": null,
                     "ofType": {
                       "kind": "OBJECT",
-                      "name": "UserError",
+                      "name": "CheckoutUserError",
                       "ofType": null
                     }
                   }
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutShippingLineUpdatePayload",
-          "description": "Return type for `checkoutShippingLineUpdate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -16176,8 +16567,79 @@
                   }
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CheckoutShippingLineUpdatePayload",
+          "description": "Return type for `checkoutShippingLineUpdate` mutation.",
+          "fields": [
+            {
+              "name": "checkout",
+              "description": "The updated checkout object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Checkout",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "checkoutUserErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "List of errors that occurred executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `checkoutUserErrors` instead"
             }
           ],
           "inputFields": null,
