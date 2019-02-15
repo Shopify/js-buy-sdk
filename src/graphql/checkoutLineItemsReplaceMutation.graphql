@@ -1,7 +1,7 @@
 mutation ($checkoutId: ID!, $lineItems: [CheckoutLineItemInput!]!) {
   checkoutLineItemsReplace(checkoutId: $checkoutId, lineItems: $lineItems) {
     userErrors {
-      ...UserErrorFragment
+      ...CheckoutUserErrorFragment
     }
     checkout {
       ...CheckoutFragment

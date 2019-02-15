@@ -2,6 +2,7 @@ export default {
   "data": {
     "checkoutLineItemsRemove": {
       "userErrors": [],
+      "checkoutUserErrors": [],
       "checkout": {
         "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
         "ready": true,

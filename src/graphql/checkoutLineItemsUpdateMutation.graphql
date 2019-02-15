@@ -3,6 +3,9 @@ mutation ($checkoutId: ID!, $lineItems: [CheckoutLineItemUpdateInput!]!) {
     userErrors {
       ...UserErrorFragment
     }
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
     checkout {
       ...CheckoutFragment
     }
