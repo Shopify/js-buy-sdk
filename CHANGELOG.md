@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.1.0 (February 25, 2019)
+- Add support for the `checkoutShippingAddressUpdateV2` mutation, which allows clients to update the shipping address of a checkout.
+- Add the `checkoutUserErrors` field to all of the checkout mutation fragments that did not previously contain this.
+
 ### v2.0.1 (January 14, 2019)
 - Build an unoptimized release version that contains all fields that are available in the [Storefront API](https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference).
 
