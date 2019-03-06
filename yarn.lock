@@ -3681,15 +3681,15 @@ graphql-js-client-compiler@0.2.0:
     minimist "1.2.0"
     mkdirp "0.5.1"
 
+graphql-js-client@0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.11.0.tgz#66da0acbb1910ec46c78fd8cbe529bc16c580fce"
+  integrity sha512-SYDLZ7NSEMx7n5c/GBD7W0EUp6n15LbanM3YdKXTTD5L4LzUT9pLp/lG979YZI08Bsw9RFPWj5c6zklxSOsDmw==
+
 graphql-js-client@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.7.0.tgz#6d6006680c4e6eaf2e4d284d430b0fae687de154"
   integrity sha512-Qb4EDM2s4JVeDVnm1evH8Q7GMR8qwj+jZJFqXsZ8BijADBkr8y9SX1Qd+JP0kdvDSIvQPZ3ePVc0v+lVxwlxSA==
-
-graphql-js-client@0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.9.2.tgz#dba572d2feefcc84075e1aad1f95e69a5128270d"
-  integrity sha512-l//xNDoMP303GpjVrkbJudF0jTiH1xQJ/WwYmMMgLvAMCaUDt7C3tPZVIFqeuAss4jyyaJC3oqrFhqB59UqhAw==
 
 graphql-js-schema-fetch@1.1.2:
   version "1.1.2"
