@@ -7,7 +7,7 @@ export default {
    * Returns the variant of a product corresponding to the options given.
    *
    * @example
-   * const selectedVariant = client.product.variantForOptions(product, {
+   * const selectedVariant = client.product.helpers.variantForOptions(product, {
    *   size: "Small",
    *   color: "Red"
    * });
