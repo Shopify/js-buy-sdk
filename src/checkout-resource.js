@@ -257,7 +257,7 @@ class CheckoutResource extends Resource {
    * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    * const shippingAddress = {
    *    address1: 'Chestnut Street 92',
-   *    address2: 'Apartment 2"',
+   *    address2: 'Apartment 2',
    *    city: 'Louisville',
    *    company: null,
    *    country: 'United States',

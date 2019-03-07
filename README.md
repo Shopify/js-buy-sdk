@@ -29,6 +29,7 @@ View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG
   + [Fetching a Checkout](#fetching-a-checkout)
   + [Adding a Discount](#adding-a-discount)
   + [Removing a Discount](#removing-a-discount)
+  + [Updating a Shipping Address](#updating-a-shipping-address)
 - [Expanding the SDK](#expanding-the-sdk)
   + [Initializing the Client](#initializing-the-client-1)
   + [Fetching Products](#fetching-products-1)
@@ -234,6 +235,28 @@ client.checkout.removeDiscount(checkoutId).then(checkout => {
   console.log(checkout);
 });
 ```
+
+### Updating a Shipping Address
+```javascript
+const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+
+const shippingAddress = {
+   address1: 'Chestnut Street 92',
+   address2: 'Apartment 2',
+   city: 'Louisville',
+   company: null,
+   country: 'United States',
+   firstName: 'Bob',
+   lastName: 'Norman',
+   phone: '555-625-1199',
+   province: 'Kentucky',
+   zip: '40202'
+ };
+
+// Update the shipping address for an existing checkout.
+client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
+  // Do something with the updated checkout
+});
 
 ## Expanding the SDK
 
