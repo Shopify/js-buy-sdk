@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.1.1 (March 7, 2019)
+- Bump the graphql-js-client package, which [includes support](https://github.com/Shopify/graphql-js-client/pull/121) for falling back when a GraphQL interface object can't be translated.
+
 ### v2.1.0 (February 25, 2019)
 - Add support for the `checkoutShippingAddressUpdateV2` mutation, which allows clients to update the shipping address of a checkout.
 - Add the `checkoutUserErrors` field to all of the checkout mutation fragments that did not previously contain this.
