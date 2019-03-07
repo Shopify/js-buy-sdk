@@ -1,6 +1,7 @@
 import assert from 'assert';
 import Client from '../src/client';
 import fetchMock from './isomorphic-fetch-mock'; // eslint-disable-line import/no-unresolved
+import fetchMockPostOnce from './fetch-mock-helper';
 
 // fixtures
 import checkoutFixture from '../fixtures/checkout-fixture';
@@ -57,7 +58,7 @@ suite('client-checkout-integration-test', () => {
   });
 
   test('it resolves with a checkout on Client.checkout#fetch', () => {
-    fetchMock.postOnce(apiUrl, checkoutFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutFixture);
 
     const checkoutId = checkoutFixture.data.node.id;
 
@@ -68,7 +69,7 @@ suite('client-checkout-integration-test', () => {
   });
 
   test('it resolves with null on Client.checkout#fetch for a bad checkoutId', () => {
-    fetchMock.postOnce(apiUrl, checkoutNullFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutNullFixture);
 
     const checkoutId = checkoutFixture.data.node.id;
 
@@ -89,7 +90,7 @@ suite('client-checkout-integration-test', () => {
       shippingAddress: {}
     };
 
-    fetchMock.postOnce(apiUrl, checkoutCreateFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateFixture);
 
     return client.checkout.create(input).then((checkout) => {
       assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
@@ -108,7 +109,7 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesV2Fixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateAttributesV2Fixture);
 
     return client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
       assert.equal(checkout.id, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.id);
@@ -124,7 +125,7 @@ suite('client-checkout-integration-test', () => {
       note: 'Very long note'
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateAttributesV2WithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateAttributesV2WithUserErrorsFixture);
 
     return client.checkout.updateAttributes(checkoutId, input).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -139,7 +140,7 @@ suite('client-checkout-integration-test', () => {
       email: 'user@example.com'
     };
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateEmailV2Fixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateEmailV2Fixture);
 
     return client.checkout.updateEmail(checkoutId, input).then((checkout) => {
       assert.equal(checkout.id, checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.id);
@@ -151,7 +152,7 @@ suite('client-checkout-integration-test', () => {
   test('it resolve with user errors on Client.checkout#updateEmail when email is invalid', () => {
     const checkoutId = checkoutUpdateEmailV2Fixture.data.checkoutEmailUpdateV2.checkout.id;
 
-    fetchMock.postOnce(apiUrl, checkoutUpdateEmailV2WithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateEmailV2WithUserErrorsFixture);
 
     return client.checkout.updateEmail(checkoutId, {email: 'invalid-email'}).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -167,7 +168,7 @@ suite('client-checkout-integration-test', () => {
       {variantId: 'id2', quantity: 2}
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsAddFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsAddFixture);
 
     return client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -181,7 +182,7 @@ suite('client-checkout-integration-test', () => {
       {variantId: '', quantity: 1}
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsAddWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsAddWithUserErrorsFixture);
 
     return client.checkout.addLineItems(checkoutId, lineItems).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -197,7 +198,7 @@ suite('client-checkout-integration-test', () => {
       {variantId: 'id2', quantity: 2}
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsReplaceFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsReplaceFixture);
 
     return client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -211,7 +212,7 @@ suite('client-checkout-integration-test', () => {
       {variantId: '', quantity: 1}
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsReplaceWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsReplaceWithUserErrorsFixture);
 
     return client.checkout.replaceLineItems(checkoutId, lineItems).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -230,7 +231,7 @@ suite('client-checkout-integration-test', () => {
       }
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsUpdateFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsUpdateFixture);
 
     return client.checkout.updateLineItems(checkoutId, lineItems).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -248,7 +249,7 @@ suite('client-checkout-integration-test', () => {
       }
     ];
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsUpdateWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsUpdateWithUserErrorsFixture);
 
     return client.checkout.updateLineItems(checkoutId, lineItems).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -260,7 +261,7 @@ suite('client-checkout-integration-test', () => {
   test('it resolves with a checkout on Client.checkout#removeLineItems', () => {
     const checkoutId = checkoutLineItemsRemoveFixture.data.checkoutLineItemsRemove.checkout.id;
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsRemoveFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsRemoveFixture);
 
     return client.checkout.removeLineItems(checkoutId, ['line-item-id']).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -271,7 +272,7 @@ suite('client-checkout-integration-test', () => {
   test('it resolves with user errors on Client.checkout#removeLineItems when line item is invalid', () => {
     const checkoutId = checkoutLineItemsRemoveFixture.data.checkoutLineItemsRemove.checkout.id;
 
-    fetchMock.postOnce(apiUrl, checkoutLineItemsRemoveWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutLineItemsRemoveWithUserErrorsFixture);
 
     return client.checkout.removeLineItems(checkoutId, ['invalid-line-item-id']).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -284,7 +285,7 @@ suite('client-checkout-integration-test', () => {
     const checkoutId = checkoutDiscountCodeApplyV2Fixture.data.checkoutDiscountCodeApplyV2.checkout.id;
     const discountCode = 'TENPERCENTOFF';
 
-    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyV2Fixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutDiscountCodeApplyV2Fixture);
 
     return client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -314,7 +315,7 @@ suite('client-checkout-integration-test', () => {
       }
     };
 
-    fetchMock.postOnce(apiUrl, checkoutDiscountCodeApplyV2WithCheckoutUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutDiscountCodeApplyV2WithCheckoutUserErrorsFixture);
 
     const checkoutId = checkoutDiscountCodeApplyV2Fixture.data.checkoutDiscountCodeApplyV2.checkout.id;
     const discountCode = 'INVALIDCODE';
@@ -329,7 +330,7 @@ suite('client-checkout-integration-test', () => {
   test('it resolves with a checkout on Client.checkout#removeDiscount', () => {
     const checkoutId = checkoutDiscountCodeRemoveFixture.data.checkoutDiscountCodeRemove.checkout.id;
 
-    fetchMock.postOnce(apiUrl, checkoutDiscountCodeRemoveFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutDiscountCodeRemoveFixture);
 
     return client.checkout.removeDiscount(checkoutId).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -345,7 +346,7 @@ suite('client-checkout-integration-test', () => {
       countryCode: shippingCountry
     } = checkoutShippingAddressUpdateV2Fixture.data.checkoutShippingAddressUpdateV2.checkout.shippingAddress;
 
-    fetchMock.postOnce(apiUrl, checkoutShippingAddressUpdateV2Fixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutShippingAddressUpdateV2Fixture);
 
     return client.checkout.updateShippingAddress(checkoutId, shippingAddress).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -359,7 +360,7 @@ suite('client-checkout-integration-test', () => {
   test('it resolves with user errors on Client.checkout#updateShippingAddress with invalid address', () => {
     const checkoutId = checkoutShippingAddressUpdateV2Fixture.data.checkoutShippingAddressUpdateV2.checkout.id;
 
-    fetchMock.postOnce(apiUrl, checkoutShippingAdddressUpdateV2WithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutShippingAdddressUpdateV2WithUserErrorsFixture);
 
     return client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(() => {
       assert.ok(false, 'Promise should not resolve.');
@@ -377,9 +378,9 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutCreateWithPaginatedLineItemsFixture)
-      .postOnce(apiUrl, secondPageLineItemsFixture)
-      .postOnce(apiUrl, thirdPageLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateWithPaginatedLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, secondPageLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, thirdPageLineItemsFixture);
 
     return client.checkout.create(input).then(() => {
       assert.ok(fetchMock.done());
@@ -411,7 +412,7 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutCreateWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateWithUserErrorsFixture);
 
     return client.checkout.create(input).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -432,7 +433,7 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutCreateWithUserErrorsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateWithUserErrorsFixture);
 
     return client.checkout.create(input).then(() => {
       assert.ok(false, 'Promise should not resolve');
@@ -452,9 +453,9 @@ suite('client-checkout-integration-test', () => {
       ]
     };
 
-    fetchMock.postOnce(apiUrl, checkoutCreateWithPaginatedLineItemsFixture)
-      .postOnce(apiUrl, secondPageLineItemsFixture)
-      .postOnce(apiUrl, thirdPageLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateWithPaginatedLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, secondPageLineItemsFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, thirdPageLineItemsFixture);
 
     return client.checkout.create(input).then((checkout) => {
       assert.ok(checkout.errors);
