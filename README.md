@@ -257,6 +257,7 @@ const shippingAddress = {
 client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
   // Do something with the updated checkout
 });
+```
 
 ## Expanding the SDK
 
