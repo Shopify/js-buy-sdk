@@ -4247,6 +4247,12 @@
               "deprecationReason": null
             },
             {
+              "name": "PAB",
+              "description": "Panamian Balboa (PAB).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "PKR",
               "description": "Pakistani Rupee (PKR).",
               "isDeprecated": false,
@@ -8044,6 +8050,22 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "CheckoutLineItemConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lineItemsSubtotalPrice",
+              "description": "The sum of all the prices of all the items in the checkout. Taxes, shipping and discounts excluded.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -19269,8 +19291,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `title` instead"
             },
             {
               "name": "targetSelection",
@@ -19298,6 +19320,22 @@
                 "ofType": {
                   "kind": "ENUM",
                   "name": "DiscountApplicationTargetType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the application as defined by the Script.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
                   "ofType": null
                 }
               },
