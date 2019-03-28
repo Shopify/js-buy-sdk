@@ -14,6 +14,10 @@ export default {
         "taxExempt": false,
         "taxesIncluded": false,
         "currencyCode": "CAD",
+        "lineItemsSubtotalPrice": {
+          "amount": "374.95",
+          "currencyCode": "CAD"
+        },
         "totalPrice": "80.28",
         "subtotalPrice": "67.50",
         "totalTax": "8.78",

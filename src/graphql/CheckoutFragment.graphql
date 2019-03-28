@@ -30,6 +30,10 @@ fragment CheckoutFragment on Checkout {
   taxesIncluded
   currencyCode
   totalTax
+  lineItemsSubtotalPrice {
+    amount
+    currencyCode
+  }
   subtotalPrice
   totalPrice
   completedAt
