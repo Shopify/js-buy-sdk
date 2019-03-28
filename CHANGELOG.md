@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.2.0 (March 28, 2019)
+- Add currency support for Bermudian Dollar
+- Add seo field to article which exposes SEO title and description information
+- Deprecate `status` field on transaction and replaces it with `statusV2`, which supports a null status.
+- Add `lineItemsSubtotalPrice` field to checkout. It contains the sum of all line items prices before any tax, shipping or discount applications.
+
 ### v2.1.1 (March 7, 2019)
 - Bump the graphql-js-client package, which [includes support](https://github.com/Shopify/graphql-js-client/pull/121) for falling back when a GraphQL interface object can't be translated.
 
