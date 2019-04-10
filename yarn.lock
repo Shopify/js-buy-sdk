@@ -3681,10 +3681,10 @@ graphql-js-client-compiler@0.2.0:
     minimist "1.2.0"
     mkdirp "0.5.1"
 
-graphql-js-client@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.11.0.tgz#66da0acbb1910ec46c78fd8cbe529bc16c580fce"
-  integrity sha512-SYDLZ7NSEMx7n5c/GBD7W0EUp6n15LbanM3YdKXTTD5L4LzUT9pLp/lG979YZI08Bsw9RFPWj5c6zklxSOsDmw==
+graphql-js-client@0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/graphql-js-client/-/graphql-js-client-0.11.1.tgz#91e07d7a0ff6d71902ee2f39f29260c9757c7625"
+  integrity sha512-40ig0vPLuYpp6s999IlPiV63om1Fd8PLM9P+ULH7dSZ2NXToZWg+AGi5ok6qODMe+xFBcjodhv3xtLh5t68/KQ==
 
 graphql-js-client@0.7.0:
   version "0.7.0"
