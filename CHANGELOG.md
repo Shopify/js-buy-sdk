@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.2.1 (April 10, 2019)
+- Bump the graphql-js-client package, which [fixes support](https://github.com/Shopify/graphql-js-client/pull/128) for IE browsers
+
 ### v2.2.0 (March 28, 2019)
 - Add currency support for Bermudian Dollar
 - Add seo field to article which exposes SEO title and description information
