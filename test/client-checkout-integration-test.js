@@ -93,9 +93,16 @@ suite('client-checkout-integration-test', () => {
 
     fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateFixture);
 
+    const {
+      amount,
+      currencyCode
+    } = checkoutCreateFixture.data.checkoutCreate.checkout.totalPriceV2;
+
     return client.checkout.create(input).then((checkout) => {
       assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
       assert.equal(checkout.currencyCode, checkoutCreateFixture.data.checkoutCreate.checkout.currencyCode);
+      assert.equal(amount, checkoutCreateFixture.data.checkoutCreate.checkout.totalPriceV2.amount);
+      assert.equal(currencyCode, checkoutCreateFixture.data.checkoutCreate.checkout.totalPriceV2.currencyCode);
       assert.ok(fetchMock.done());
     });
   });

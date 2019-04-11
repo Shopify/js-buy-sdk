@@ -67,7 +67,7 @@ class CheckoutResource extends Resource {
    *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput|Storefront API reference} for valid input fields.
-   *   @param {String} [input.presentmentCurrencyCode] A presentment currency code for the checkout.
+   *   @param {String} [input.presentmentCurrencyCode] A presentment currency code for the checkout. All pricing values for the checkout will be returned in the specified currency if this presentment currency is enabled for the store.
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   create(input = {}) {

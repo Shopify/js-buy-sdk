@@ -2,7 +2,12 @@ export default {
   "data": {
     "shop": {
       "paymentSettings": {
-        "currencyCode": "CAD"
+        "currencyCode": "CAD",
+        "enabledPresentmentCurrencies": [
+          "CAD",
+          "EUR",
+          "JPY"
+        ]
       },
       "description": "pls send me cats",
       "moneyFormat": "${{amount}}",

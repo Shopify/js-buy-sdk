@@ -254,6 +254,7 @@ suite('client-integration-test', () => {
     return client.shop.fetchInfo().then((shop) => {
       assert.equal(shop.name, shopInfoFixture.data.shop.name);
       assert.equal(shop.description, shopInfoFixture.data.shop.description);
+      assert.equal(shop.enabledPresentmentCurrencies, shopInfoFixture.data.shop.enabledPresentmentCurrencies);
       assert.ok(fetchMock.done());
     });
   });
