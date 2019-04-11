@@ -20,7 +20,10 @@ export default {
                         "variant":{
                            "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
                            "title":"Black / 8",
-                           "price":"188.00",
+                           "priceV2": {
+                             "amount": "188.0",
+                             "currencyCode": "CAD"
+                           },
                            "weight":0,
                            "image": {
                               "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
@@ -53,20 +56,32 @@ export default {
 
             ],
             "note":null,
-            "paymentDue":"376.00",
+            "paymentDueV2": {
+              "amount": "376.00",
+              "currencyCode": "CAD"
+            },
             "webUrl":"https://checkout.shopify.com/13120893/checkouts/e28b55a3205f8d129a9b7223287ec95a?key=191add76e8eba90b93cfe4d5d261c4cb",
             "order":null,
             "orderStatusUrl":null,
             "taxExempt":false,
             "taxesIncluded":false,
             "currencyCode":"CAD",
-            "totalTax":"0.00",
+            "totalTaxV2": {
+              "amount": "0.0",
+              "currencyCode": "CAD"
+            },
             "lineItemsSubtotalPrice": {
               "amount": "376.00",
               "currencyCode": "CAD"
             },
-            "subtotalPrice":"376.00",
-            "totalPrice":"376.00",
+            "subtotalPriceV2": {
+              "amount": "376.00",
+              "currencyCode": "CAD"
+            },
+            "totalPriceV2": {
+              "amount": "376.00",
+              "currencyCode": "CAD"
+            },
             "completedAt":null,
             "createdAt":"2017-04-13T21:54:16Z",
             "updatedAt":"2017-04-13T21:54:17Z"

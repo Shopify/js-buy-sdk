@@ -19,7 +19,10 @@ export default {
                 "variant": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
                   "title": "Awesome Copper Bench",
-                  "price": "64.99",
+                  "priceV2": {
+                    "amount": "64.99",
+                    "currencyCode": "CAD"
+                  },
                   "weight": 4.5,
                   "image": null,
                   "selectedOptions": [
@@ -63,19 +66,31 @@ export default {
         "requiresShipping": true,
         "customAttributes": [{key: "MyKey", value: "MyValue"}],
         "note": null,
-        "paymentDue": "367.19",
+        "paymentDueV2": {
+          "amount": "367.19",
+          "currencyCode": "CAD"
+        },
         "webUrl": "https://checkout.myshopify.io/1/checkouts/c4abf4bf036239ab5e3d0bf93c642c96",
         "orderStatusUrl": null,
         "taxExempt": false,
         "taxesIncluded": false,
         "currencyCode": "CAD",
-        "totalTax": "42.24",
+        "totalTaxV2": {
+          "amount": "42.42",
+          "currencyCode": "CAD"
+        },
         "lineItemsSubtotalPrice": {
           "amount": "324.95",
           "currencyCode": "CAD"
         },
-        "subtotalPrice": "324.95",
-        "totalPrice": "367.19",
+        "subtotalPriceV2": {
+          "amount": "324.95",
+          "currencyCode": "CAD"
+        },
+        "totalPriceV2": {
+          "amount": "367.19",
+          "currencyCode": "CAD"
+        },
         "completedAt": null,
         "createdAt": "2017-03-28T16:58:31Z",
         "updatedAt": "2017-03-28T16:58:31Z"

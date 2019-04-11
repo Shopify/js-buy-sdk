@@ -14,14 +14,26 @@ export default {
         "taxExempt": false,
         "taxesIncluded": false,
         "currencyCode": "CAD",
-        "totalPrice": "88.74",
+        "totalPriceV2": {
+          "amount": "88.74",
+          "currencyCode": "CAD",
+        },
         "lineItemsSubtotalPrice": {
           "amount": "74.99",
           "currencyCode": "CAD"
         },
-        "subtotalPrice": "74.99",
-        "totalTax": "9.75",
-        "paymentDue": "88.74",
+        "subtotalPriceV2": {
+          "amount": "74.99",
+          "currencyCode": "CAD"
+        },
+        "totalTaxV2": {
+          "amount": "9.75",
+          "currencyCode": "CAD"
+        },
+        "paymentDueV2": {
+          "amount": "88.74",
+          "currencyCode": "CAD"
+        },
         "taxExempt": false,
         "taxesIncluded": false,
         "completedAt": null,
@@ -61,7 +73,10 @@ export default {
                 "title": "Intelligent Granite Table",
                 "variant": {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
-                  "price": "74.99"
+                  "priceV2": {
+                    "amount": "74.99",
+                    "currencyCode": "CAD"
+                  }
                 },
                 "quantity": 5,
                 "customAttributes": [],

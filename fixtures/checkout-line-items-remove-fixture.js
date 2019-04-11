@@ -41,19 +41,31 @@ export default {
         "requiresShipping": true,
         "customAttributes": [],
         "note": null,
-        "paymentDue": "367.19",
+        "paymentDueV2": {
+          "amount": "367.19",
+          "currencyCode": "CAD"
+        },
         "webUrl": "https://checkout.myshopify.io/1/checkouts/c4abf4bf036239ab5e3d0bf93c642c96",
         "orderStatusUrl": null,
         "taxExempt": false,
         "taxesIncluded": false,
         "currencyCode": "CAD",
-        "totalTax": "42.24",
+        "totalTaxV2": {
+          "amount": "42.42",
+          "currencyCode": "CAD"
+        },
         "lineItemsSubtotalPrice": {
           "amount": "0.00",
           "currencyCode": "CAD"
         },
-        "subtotalPrice": "324.95",
-        "totalPrice": "367.19",
+        "subtotalPriceV2": {
+          "amount": "324.95",
+          "currencyCode": "CAD"
+        },
+        "totalPriceV2": {
+          "amount": "367.19",
+          "currencyCode": "CAD"
+        },
         "completedAt": null,
         "createdAt": "2017-03-28T16:58:31Z",
         "updatedAt": "2017-03-28T16:58:31Z"

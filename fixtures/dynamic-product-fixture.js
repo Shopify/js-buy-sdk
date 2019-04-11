@@ -51,7 +51,10 @@ export default {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNTk3Nn0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc4NTk3MjA=",
-              "price": "0.00",
+              "priceV2": {
+                "amount": "0.0",
+                "currencyCode": "CAD"
+              },
               "weight": 18
             }
           },
@@ -59,7 +62,10 @@ export default {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjA0MH0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTk4OTI3ODM1NjA=",
-              "price": "0.00",
+              "priceV2": {
+                "amount": "0.0",
+                "currencyCode": "CAD"
+              },
               "weight": 18
             }
           },
@@ -67,7 +73,10 @@ export default {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjEwNH0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTk4OTI4MjkzODQ=",
-              "price": "0.00",
+              "priceV2": {
+                "amount": "0.0",
+                "currencyCode": "CAD"
+              },
               "weight": 0
             }
           }

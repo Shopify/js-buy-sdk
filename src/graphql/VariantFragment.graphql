@@ -1,11 +1,17 @@
 fragment VariantFragment on ProductVariant {
   id
   title
-  price
+  priceV2 {
+    amount
+    currencyCode
+  }
   weight
   availableForSale
   sku
-  compareAtPrice
+  compareAtPriceV2 {
+    amount
+    currencyCode
+  }
   image {
     id
     originalSrc

@@ -37,7 +37,10 @@ export default {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNTk3Nn0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc4MTk0MDA=",
-              "price": "0.00",
+              "priceV2": {
+                "amount": "0.0",
+                "currencyCode": "CAD"
+              },
               "weight": 18
             }
           }

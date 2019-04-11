@@ -23,19 +23,31 @@ fragment CheckoutFragment on Checkout {
   ready
   requiresShipping
   note
-  paymentDue
+  paymentDueV2 {
+    amount
+    currencyCode
+  }
   webUrl
   orderStatusUrl
   taxExempt
   taxesIncluded
   currencyCode
-  totalTax
+  totalTaxV2 {
+    amount
+    currencyCode
+  }
   lineItemsSubtotalPrice {
     amount
     currencyCode
   }
-  subtotalPrice
-  totalPrice
+  subtotalPriceV2 {
+    amount
+    currencyCode
+  }
+  totalPriceV2 {
+    amount
+    currencyCode
+  }
   completedAt
   createdAt
   updatedAt
@@ -56,7 +68,10 @@ fragment CheckoutFragment on Checkout {
   }
   shippingLine {
     handle
-    price
+    priceV2 {
+      amount
+      currencyCode
+    }
     title
   }
   customAttributes {
@@ -67,12 +82,27 @@ fragment CheckoutFragment on Checkout {
     id
     processedAt
     orderNumber
-    subtotalPrice
-    totalShippingPrice
-    totalTax
-    totalPrice
+    subtotalPriceV2 {
+      amount
+      currencyCode
+    }
+    totalShippingPriceV2 {
+      amount
+      currencyCode
+    }
+    totalTaxV2 {
+      amount
+      currencyCode
+    }
+    totalPriceV2 {
+      amount
+      currencyCode
+    }
     currencyCode
-    totalRefunded
+    totalRefundedV2 {
+      amount
+      currencyCode
+    }
     customerUrl
     shippingAddress {
       ...MailingAddressFragment

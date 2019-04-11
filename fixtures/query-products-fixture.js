@@ -73,7 +73,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "Fluffy",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 18,
                     "image": null,
                     "selectedOptions": [
@@ -89,7 +92,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "Extra Fluffy",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 18,
                     "image": null,
                     "selectedOptions": [
@@ -105,7 +111,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "Mega Fluff",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 0,
                     "image": null,
                     "selectedOptions": [
@@ -195,7 +204,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "small",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 0,
                     "selectedOptions": [
                       {
@@ -210,7 +222,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "large",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 0,
                     "selectedOptions": [
                       {
@@ -225,7 +240,10 @@ export default {
                   "node": {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=",
                     "title": "very large",
-                    "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.0",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 0,
                     "selectedOptions": [
                       {

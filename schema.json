@@ -3546,6 +3546,18 @@
                 "name": "Money",
                 "ofType": null
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `subtotalPriceV2` instead"
+            },
+            {
+              "name": "subtotalPriceV2",
+              "description": "Price of the order before shipping and taxes.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -3593,6 +3605,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalPriceV2` instead"
+            },
+            {
+              "name": "totalPriceV2",
+              "description": "The sum of all the prices of all the items in the order, taxes and discounts included (must be positive).",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -3606,6 +3634,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Money",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalRefundedV2` instead"
+            },
+            {
+              "name": "totalRefundedV2",
+              "description": "The total amount that has been refunded.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -3625,6 +3669,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalShippingPriceV2` instead"
+            },
+            {
+              "name": "totalShippingPriceV2",
+              "description": "The total cost of shipping.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -3635,6 +3695,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Money",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalTaxV2` instead"
+            },
+            {
+              "name": "totalTaxV2",
+              "description": "The total cost of taxes.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3656,6 +3728,59 @@
           "kind": "SCALAR",
           "name": "Money",
           "description": "A monetary value string.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MoneyV2",
+          "description": "A monetary value with currency.\n\nTo format currencies, combine this type's amount and currencyCode fields with your client's locale.\n\nFor example, in JavaScript you could use Intl.NumberFormat:\n\n```js\nnew Intl.NumberFormat(locale, {\n  style: 'currency',\n  currency: currencyCode\n}).format(amount);\n```\n\nOther formatting libraries include:\n\n* iOS - [NumberFormatter](https://developer.apple.com/documentation/foundation/numberformatter)\n* Android - [NumberFormat](https://developer.android.com/reference/java/text/NumberFormat.html)\n* PHP - [NumberFormatter](http://php.net/manual/en/class.numberformatter.php)\n\nFor a more general solution, the [Unicode CLDR number formatting database] is available with many implementations\n(such as [TwitterCldr](https://github.com/twitter/twitter-cldr-rb)).\n",
+          "fields": [
+            {
+              "name": "amount",
+              "description": "Decimal money amount.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Decimal",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "currencyCode",
+              "description": "Currency of the money.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "CurrencyCode",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Decimal",
+          "description": "A signed decimal number, which supports arbitrary precision and is serialized as a string.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -4579,59 +4704,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "OBJECT",
-          "name": "MoneyV2",
-          "description": "A monetary value with currency.\n\nTo format currencies, combine this type's amount and currencyCode fields with your client's locale.\n\nFor example, in JavaScript you could use Intl.NumberFormat:\n\n```js\nnew Intl.NumberFormat(locale, {\n  style: 'currency',\n  currency: currencyCode\n}).format(amount);\n```\n\nOther formatting libraries include:\n\n* iOS - [NumberFormatter](https://developer.apple.com/documentation/foundation/numberformatter)\n* Android - [NumberFormat](https://developer.android.com/reference/java/text/NumberFormat.html)\n* PHP - [NumberFormatter](http://php.net/manual/en/class.numberformatter.php)\n\nFor a more general solution, the [Unicode CLDR number formatting database] is available with many implementations\n(such as [TwitterCldr](https://github.com/twitter/twitter-cldr-rb)).\n",
-          "fields": [
-            {
-              "name": "amount",
-              "description": "Decimal money amount.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Decimal",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "currencyCode",
-              "description": "Currency of the money.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "CurrencyCode",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Decimal",
-          "description": "A signed decimal number, which supports arbitrary precision and is serialized as a string.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "INTERFACE",
           "name": "DiscountApplication",
           "description": "Discount applications capture the intentions of a discount source at\nthe time of application.\n",
@@ -4811,7 +4883,7 @@
         {
           "kind": "UNION",
           "name": "PricingValue",
-          "description": "The value of the pricing object.",
+          "description": "The price value (fixed or percentage) for a discount application.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -5095,6 +5167,18 @@
                 "name": "Money",
                 "ofType": null
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `compareAtPriceV2` instead"
+            },
+            {
+              "name": "compareAtPriceV2",
+              "description": "The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPriceV2` is higher than `priceV2`.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5262,6 +5346,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Money",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `priceV2` instead"
+            },
+            {
+              "name": "priceV2",
+              "description": "The product variant’s price.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -8121,6 +8221,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `paymentDueV2` instead"
+            },
+            {
+              "name": "paymentDueV2",
+              "description": "The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8217,6 +8333,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `subtotalPriceV2` instead"
+            },
+            {
+              "name": "subtotalPriceV2",
+              "description": "Price of the checkout before shipping and taxes.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8265,6 +8397,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalPriceV2` instead"
+            },
+            {
+              "name": "totalPriceV2",
+              "description": "The sum of all the prices of all the items in the checkout, taxes and discounts included.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8278,6 +8426,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Money",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalTaxV2` instead"
+            },
+            {
+              "name": "totalTaxV2",
+              "description": "The sum of all the taxes applied to the line items and shipping lines in the checkout.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -8581,6 +8745,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `priceV2` instead"
+            },
+            {
+              "name": "priceV2",
+              "description": "Price of this shipping rate.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8671,6 +8851,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `amountUsedV2` instead"
+            },
+            {
+              "name": "amountUsedV2",
+              "description": "The amount that was used taken from the Gift Card by applying it.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8684,6 +8880,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Money",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `balanceV2` instead"
+            },
+            {
+              "name": "balanceV2",
+              "description": "The amount left on the Gift Card.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -15947,6 +16159,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "presentmentCurrencyCode",
+              "description": "The currency code of one of the shop's enabled presentment currencies. If the shop uses Shopify Payments, then the checkout is set to this currency.",
+              "type": {
+                "kind": "ENUM",
+                "name": "CurrencyCode",
                 "ofType": null
               },
               "defaultValue": null

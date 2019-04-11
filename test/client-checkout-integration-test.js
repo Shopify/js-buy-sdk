@@ -87,13 +87,15 @@ suite('client-checkout-integration-test', () => {
           quantity: 5
         }
       ],
-      shippingAddress: {}
+      shippingAddress: {},
+      presentmentCurrencyCode: 'CAD'
     };
 
     fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateFixture);
 
     return client.checkout.create(input).then((checkout) => {
       assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
+      assert.equal(checkout.currencyCode, checkoutCreateFixture.data.checkoutCreate.checkout.currencyCode);
       assert.ok(fetchMock.done());
     });
   });

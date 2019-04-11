@@ -106,7 +106,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDIxNA==",
               "availableForSale": true,
               "weight": 0,
-              "price": "788.00",
+              "priceV2": {
+                "amount": "788.0",
+                "currencyCode": "CAD"
+              },
               "title": "Black / X-Small",
               "image": null,
               "selectedOptions": [
@@ -126,7 +129,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDQwNg==",
               "availableForSale": true,
               "weight": 0,
-              "price": "788.00",
+              "priceV2": {
+                "amount": "788.0",
+                "currencyCode": "CAD"
+              },
               "title": "Black / Small",
               "image": null,
               "selectedOptions": [
@@ -146,7 +152,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDUzNA==",
               "availableForSale": false,
               "weight": 0,
-              "price": "788.00",
+              "priceV2": {
+                "amount": "788.0",
+                "currencyCode": "CAD"
+              },
               "title": "Black / Medium",
               "image": null,
               "selectedOptions": [
@@ -166,7 +175,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDcyNg==",
               "availableForSale": true,
               "weight": 0,
-              "price": "750.00",
+              "priceV2": {
+                "amount": "750.00",
+                "currencyCode": "CAD"
+              },
               "title": "Dark Green / X-Small",
               "image": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0MjI=",
@@ -189,7 +201,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDkxOA==",
               "availableForSale": false,
               "weight": 0,
-              "price": "750.00",
+              "priceV2": {
+                "amount": "750.00",
+                "currencyCode": "CAD"
+              },
               "title": "Dark Green / Small",
               "image": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg2MTQ=",
@@ -212,7 +227,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NTExMA==",
               "availableForSale": true,
               "weight": 0,
-              "price": "788.00",
+              "priceV2": {
+                "amount": "788.0",
+                "currencyCode": "CAD"
+              },
               "title": "Dark Green / Medium",
               "image": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg1NTA=",
@@ -235,7 +253,10 @@ export default {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MjgyNzA5NjcyNQ==",
               "availableForSale": true,
               "weight": 0,
-              "price": "788.00",
+              "priceV2": {
+                "amount": "788.0",
+                "currencyCode": "CAD"
+              },
               "title": "Dark Green / Large",
               "image": {
                 "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0ODY=",
