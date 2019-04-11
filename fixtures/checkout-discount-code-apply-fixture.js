@@ -2,7 +2,6 @@ export default {
   "data": {
     "checkoutDiscountCodeApplyV2": {
       "checkoutUserErrors": [],
-      "userErrors": [],
       "checkout": {
         "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
         "createdAt": "2017-03-17T16:00:40Z",

@@ -8,12 +8,6 @@ export default {
           "code": "TOO_LONG"
         }
       ],
-      "userErrors": [
-        {
-          "message": "Note is too long (maximum is 5000 characters)",
-          "field": ['input', 'note']
-        }
-      ],
       "checkout": null
     }
   }

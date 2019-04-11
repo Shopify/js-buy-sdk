@@ -306,12 +306,6 @@ suite('client-checkout-integration-test', () => {
               code: 'DISCOUNT_NOT_FOUND'
             }
           ],
-          userErrors: [
-            {
-              message: 'Discount code Unable to find a valid discount matching the code entered',
-              field: ['discountCode']
-            }
-          ],
           checkout: null
         }
       }
@@ -393,14 +387,15 @@ suite('client-checkout-integration-test', () => {
     const checkoutCreateWithUserErrorsFixture = {
       data: {
         checkoutCreate: {
-          userErrors: [
+          checkoutUserErrors: [
             {
               message: 'Variant is invalid',
               field: [
                 'lineItems',
                 '0',
                 'variantId'
-              ]
+              ],
+              code: 'INVALID'
             }
           ],
           checkout: null
@@ -419,7 +414,9 @@ suite('client-checkout-integration-test', () => {
     return client.checkout.create(input).then(() => {
       assert.ok(false, 'Promise should not resolve');
     }).catch((error) => {
-      assert.equal(error.message, '[{"message":"Variant is invalid","field":["lineItems","0","variantId"]}]');
+      assert.equal(
+        error.message,
+        '[{"message":"Variant is invalid","field":["lineItems","0","variantId"],"code":"INVALID"}]');
     });
   });
 

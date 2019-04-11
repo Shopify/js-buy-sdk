@@ -8,12 +8,6 @@ export default {
           "code": "INVALID"
         }
       ],
-      "userErrors": [
-        {
-          "message": "Email is invalid",
-          "field": ['email'],
-        }
-      ],
       "checkout": null
     }
   }
