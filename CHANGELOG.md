@@ -1,5 +1,16 @@
 # Changelog
 
+### v2.2.2 (April 17, 2019)
+* Bump the graphql schema to pull the latest fields into the unoptimized version:
+  - Order fields: `subtotalPriceV2`, `totalPriceV2`, `totalRefundedV2`, `totalShippingPriceV2`, `totalTaxV2`
+  - ProductVariant fields: `compareAtPriceV2`, `priceV2`
+  - Checkout fields: `paymentDueV2`, `subtotalPriceV2`, `totalPriceV2`, `totalTaxV2`
+  - AppliedGiftCard fields: `balanceV2`, `amountUsedV2`
+  - Shop field: `presentmentCurrencyCode`
+  - ShippingRate field: `priceV2`
+
+These fields are all of type `MoneyV2` and contain both an amount and a currency.
+
 ### v2.2.1 (April 10, 2019)
 - Bump the graphql-js-client package, which [fixes support](https://github.com/Shopify/graphql-js-client/pull/128) for IE browsers
 
