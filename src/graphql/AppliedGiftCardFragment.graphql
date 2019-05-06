@@ -1,0 +1,12 @@
+fragment AppliedGiftCardFragment on AppliedGiftCard {
+  amountUsedV2 {
+    amount
+    currencyCode
+  }
+  balanceV2 {
+    amount
+    currencyCode
+  }
+  id
+  lastCharacters
+}
