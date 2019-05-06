@@ -61,7 +61,7 @@ The following documents the folder structure for this project and what the purpo
 ```
 
 ## Examples
-See [here](https://github.com/Shopify/js-buy-sdk/blob/master/examples) for our examples.
+See [here](https://github.com/Shopify/storefront-api-examples) for our examples.
 
 ## Documentation
 Please do not update documentation, as this may cause
