@@ -24,6 +24,7 @@ import checkoutUpdateEmailV2WithUserErrorsFixture from '../fixtures/checkout-upd
 import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
 import checkoutDiscountCodeRemoveFixture from '../fixtures/checkout-discount-code-remove-fixture';
 import checkoutGiftCardsAppendFixture from '../fixtures/checkout-gift-cards-apply-fixture';
+import checkoutGiftCardRemoveV2Fixture from '../fixtures/checkout-gift-card-remove-fixture';
 import checkoutShippingAddressUpdateV2Fixture from '../fixtures/checkout-shipping-address-update-v2-fixture';
 import checkoutShippingAdddressUpdateV2WithUserErrorsFixture from '../fixtures/checkout-shipping-address-update-v2-with-user-errors-fixture';
 
@@ -382,6 +383,52 @@ suite('client-checkout-integration-test', () => {
       assert.ok(false, 'Promise should not resolve');
     }).catch((error) => {
       assert.equal(error.message, '[{"message":"Code is invalid","field":["giftCardCodes","0"],"code":"GIFT_CARD_CODE_INVALID"}]');
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#removeGiftCard', () => {
+    const checkoutId = checkoutGiftCardRemoveV2Fixture.data.checkoutGiftCardRemoveV2.checkout.id;
+    const appliedGiftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
+
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutGiftCardRemoveV2Fixture);
+
+    return client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) => {
+      assert.equal(checkout.id, checkoutId);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with checkoutUserErrors on Client.checkout#removeGiftCard with a code not present', () => {
+    const checkoutGiftCardsRemoveV2WithCheckoutUserErrorsFixture = {
+      data: {
+        checkoutGiftCardRemoveV2: {
+          checkoutUserErrors: [
+            {
+              message: 'Applied Gift Card not found',
+              field: null,
+              code: 'GIFT_CARD_NOT_FOUND'
+            }
+          ],
+          userErrors: [
+            {
+              message: 'Applied Gift Card not found',
+              field: null
+            }
+          ],
+          checkout: null
+        }
+      }
+    };
+
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutGiftCardsRemoveV2WithCheckoutUserErrorsFixture);
+
+    const checkoutId = checkoutGiftCardRemoveV2Fixture.data.checkoutGiftCardRemoveV2.checkout.id;
+    const appliedGiftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
+
+    return client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then(() => {
+      assert.ok(false, 'Promise should not resolve');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Applied Gift Card not found","field":null,"code":"GIFT_CARD_NOT_FOUND"}]');
     });
   });
 

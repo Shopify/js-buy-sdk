@@ -13,6 +13,7 @@ import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpda
 import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 import checkoutGiftCardsAppendMutation from './graphql/checkoutGiftCardsAppendMutation.graphql';
+import checkoutGiftCardRemoveV2Mutation from './graphql/checkoutGiftCardRemoveV2Mutation.graphql';
 import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 import checkoutShippingAddressUpdateV2Mutation from './graphql/checkoutShippingAddressUpdateV2Mutation.graphql';
 
@@ -201,6 +202,27 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutGiftCardsAppendMutation, {checkoutId, giftCardCodes})
       .then(handleCheckoutMutation('checkoutGiftCardsAppend', this.graphQLClient));
+  }
+
+  /**
+   * Remove a gift card from an existing checkout
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const giftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
+   *
+   * client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to add gift cards to.
+   * @param {String} giftCardId The gift card id to remove from the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeGiftCard(checkoutId, appliedGiftCardId) {
+    return this.graphQLClient
+      .send(checkoutGiftCardRemoveV2Mutation, {checkoutId, appliedGiftCardId})
+      .then(handleCheckoutMutation('checkoutGiftCardRemoveV2', this.graphQLClient));
   }
 
   /**
