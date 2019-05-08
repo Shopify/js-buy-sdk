@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line22">line 22</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line24">line 24</a>
     </li></ul></dd>
     
 
@@ -271,7 +271,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line159">line 159</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line161">line 161</a>
     </li></ul></dd>
     
 
@@ -329,6 +329,199 @@
 const discountCode = 'best-discount-ever';
 
 client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
+  // Do something with the updated checkout
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="addGiftCards"><span class="type-signature"></span>addGiftCards<span class="signature">(checkoutId, giftCardCodes)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Applies gift cards to an existing checkout using a list of gift card codes</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkoutId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the checkout to add gift cards to.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>giftCardCodes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The gift card codes to apply to the checkout.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with the updated checkout.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">GraphModel</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const giftCardCodes = ['6FD8853DAGAA949F'];
+
+client.checkout.addGiftCards(checkoutId, giftCardCodes).then((checkout) => {
   // Do something with the updated checkout
 });</code></pre>
 
@@ -464,7 +657,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line138">line 138</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line140">line 140</a>
     </li></ul></dd>
     
 
@@ -839,7 +1032,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line72">line 72</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -1012,7 +1205,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line35">line 35</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line37">line 37</a>
     </li></ul></dd>
     
 
@@ -1179,7 +1372,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line178">line 178</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line180">line 180</a>
     </li></ul></dd>
     
 
@@ -1236,6 +1429,199 @@ client.checkout.create(input).then((checkout) => {
     <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 
 client.checkout.removeDiscount(checkoutId).then((checkout) => {
+  // Do something with the updated checkout
+});</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="removeGiftCard"><span class="type-signature"></span>removeGiftCard<span class="signature">(checkoutId, appliedGiftCardId)</span><span class="type-signature"> &rarr; {Promise|GraphModel}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Remove a gift card from an existing checkout</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>checkoutId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the checkout to add gift cards to.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>appliedGiftCardId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The gift card id to remove from the checkout.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line222">line 222</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with the updated checkout.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">GraphModel</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const appliedGiftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
+
+client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) => {
   // Do something with the updated checkout
 });</code></pre>
 
@@ -1371,7 +1757,7 @@ client.checkout.removeDiscount(checkoutId).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line199">line 199</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -1564,7 +1950,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line220">line 220</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line264">line 264</a>
     </li></ul></dd>
     
 
@@ -1904,7 +2290,7 @@ client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line96">line 96</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line98">line 98</a>
     </li></ul></dd>
     
 
@@ -2097,7 +2483,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line117">line 117</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line119">line 119</a>
     </li></ul></dd>
     
 
@@ -2290,7 +2676,7 @@ client.checkout.updateEmail(checkoutId, email).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line247">line 247</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line291">line 291</a>
     </li></ul></dd>
     
 
@@ -2489,7 +2875,7 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line279">line 279</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -2585,7 +2971,7 @@ client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Apr 17 2019 10:07:15 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed May 08 2019 09:54:04 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

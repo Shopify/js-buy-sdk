@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.2.3 (May 8, 2019)
+- Add support for the `checkoutGiftCardsAppend` and `checkoutGiftCardRemoveV2` mutations, which allows clients to add and remove gift cards from a checkout.
+
 ### v2.2.2 (April 17, 2019)
 * Bump the graphql schema to pull the latest fields into the unoptimized version:
   - Order fields: `subtotalPriceV2`, `totalPriceV2`, `totalRefundedV2`, `totalShippingPriceV2`, `totalTaxV2`
