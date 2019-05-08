@@ -209,14 +209,14 @@ class CheckoutResource extends Resource {
    *
    * @example
    * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-   * const giftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
+   * const appliedGiftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
    *
    * client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) => {
    *   // Do something with the updated checkout
    * });
    *
    * @param {String} checkoutId The ID of the checkout to add gift cards to.
-   * @param {String} giftCardId The gift card id to remove from the checkout.
+   * @param {String} appliedGiftCardId The gift card id to remove from the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeGiftCard(checkoutId, appliedGiftCardId) {
