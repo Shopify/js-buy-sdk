@@ -1,5 +1,12 @@
 # Changelog
 
+### v2.2.4 (May 14, 2019)
+* Bump the graphql schema to pull the latest fields into the unoptimized version:
+  - ProductVariant fields: `metafield`, `metafields`
+  - Product fields: `metafield`, `metafields`
+  - QueryRoot field: `productRecommendations`
+* Add `handle` to checkout's line item's variant's product.
+
 ### v2.2.3 (May 8, 2019)
 - Add support for the `checkoutGiftCardsAppend` and `checkoutGiftCardRemoveV2` mutations, which allows clients to add and remove gift cards from a checkout.
 
