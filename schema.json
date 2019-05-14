@@ -588,6 +588,41 @@
               "deprecationReason": null
             },
             {
+              "name": "productRecommendations",
+              "description": "Find recommended products related to a given `product_id`.\nTo learn more about how recommendations are generated, see\n[*Showing product recommendations on product pages*](https://help.shopify.com/themes/development/recommended-products).\n",
+              "args": [
+                {
+                  "name": "productId",
+                  "description": "The id of the product.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Product",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "productTags",
               "description": "Tags added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
               "args": [
@@ -822,6 +857,11 @@
             {
               "kind": "OBJECT",
               "name": "MailingAddress",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Metafield",
               "ofType": null
             },
             {
@@ -3459,7 +3499,7 @@
             },
             {
               "name": "phone",
-              "description": "The customer's phone number.",
+              "description": "The customer's phone number for receiving SMS notifications.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -5252,6 +5292,124 @@
               "deprecationReason": null
             },
             {
+              "name": "metafield",
+              "description": "The metafield associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "key",
+                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Metafield",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "metafields",
+              "description": "A paginated list of metafields associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MetafieldConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "presentmentPrices",
               "description": "List of prices and compare-at prices in the presentment currencies for this shop.",
               "args": [
@@ -5471,10 +5629,330 @@
               "kind": "INTERFACE",
               "name": "Node",
               "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "HasMetafields",
+              "ofType": null
             }
           ],
           "enumValues": null,
           "possibleTypes": null
+        },
+        {
+          "kind": "INTERFACE",
+          "name": "HasMetafields",
+          "description": "Represents information about the metafields associated to the specified resource.",
+          "fields": [
+            {
+              "name": "metafield",
+              "description": "The metafield associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "key",
+                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Metafield",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "metafields",
+              "description": "A paginated list of metafields associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MetafieldConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ProductVariant",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Metafield",
+          "description": "Metafields represent custom metadata attached to a resource. Metafields can be sorted into namespaces and are\ncomprised of keys, values, and value types.\n",
+          "fields": [
+            {
+              "name": "description",
+              "description": "The description of a metafield.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "Globally unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "key",
+              "description": "The key name for a metafield.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "namespace",
+              "description": "The namespace for a metafield.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "parentResource",
+              "description": "The parent object that the metafield belongs to.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "MetafieldParentResource",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "The value of a metafield.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "valueType",
+              "description": "Represents the metafield value type.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "MetafieldValueType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "MetafieldValueType",
+          "description": "Metafield value types.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "STRING",
+              "description": "A string metafield.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INTEGER",
+              "description": "An integer metafield.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "JSON_STRING",
+              "description": "A json string metafield.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "MetafieldParentResource",
+          "description": "A resource that the metafield belongs to.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ProductVariant",
+              "ofType": null
+            }
+          ]
         },
         {
           "kind": "OBJECT",
@@ -5773,6 +6251,124 @@
               "deprecationReason": null
             },
             {
+              "name": "metafield",
+              "description": "The metafield associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "key",
+                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Metafield",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "metafields",
+              "description": "A paginated list of metafields associated with the resource.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MetafieldConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "onlineStoreUrl",
               "description": "The online store URL for the product.\nA value of `null` indicates that the product is not published to the Online Store sales channel.\n",
               "args": [],
@@ -6058,8 +6654,107 @@
               "kind": "INTERFACE",
               "name": "Node",
               "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "HasMetafields",
+              "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MetafieldConnection",
+          "description": null,
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "MetafieldEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MetafieldEdge",
+          "description": null,
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of MetafieldEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Metafield",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -12757,7 +13452,7 @@
                 },
                 {
                   "name": "shippingRateHandle",
-                  "description": "A concatenation of a Checkout’s shipping provider, price, and title, enabling the customer to select the availableShippingRates.",
+                  "description": "A unique identifier to a Checkout’s shipping provider, price, and title combination, enabling the customer to select the availableShippingRates.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
