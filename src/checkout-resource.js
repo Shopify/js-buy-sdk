@@ -65,10 +65,10 @@ class CheckoutResource extends Resource {
    *
    * @param {Object} [input] An input object containing zero or more of:
    *   @param {String} [input.email] An email connected to the checkout.
-   *   @param {Object[]} [input.lineItems] A list of line items in the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
-   *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/mailingaddressinput|Storefront API reference} for valid input fields.
+   *   @param {Object[]} [input.lineItems] A list of line items in the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/mailingaddressinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
-   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput|Storefront API reference} for valid input fields.
+   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
    * @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   create(input = {}) {
@@ -91,7 +91,7 @@ class CheckoutResource extends Resource {
    * @param {String} checkoutId The ID of the checkout to update.
    * @param {Object} [input] An input object containing zero or more of:
    *   @param {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
-   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/attributeinput|Storefront API reference} for valid input fields.
+   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
@@ -134,7 +134,7 @@ class CheckoutResource extends Resource {
    * });
    *
    * @param {String} checkoutId The ID of the checkout to add line items to.
-   * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addLineItems(checkoutId, lineItems) {
@@ -258,7 +258,7 @@ class CheckoutResource extends Resource {
    * });
    *
    * @param {String} checkoutId The ID of the checkout to add line items to.
-   * @param {Object[]} lineItems A list of line items to set on the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   * @param {Object[]} lineItems A list of line items to set on the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   replaceLineItems(checkoutId, lineItems) {
@@ -285,7 +285,7 @@ class CheckoutResource extends Resource {
    * });
    *
    * @param {String} checkoutId The ID of the checkout to update a line item on.
-   * @param {Object[]} lineItems A list of line item information to update. See the {@link https://help.shopify.com/api/storefront-api/reference/input_object/checkoutlineitemupdateinput|Storefront API reference} for valid input fields for each line item.
+   * @param {Object[]} lineItems A list of line item information to update. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineitemupdateinput|Storefront API reference} for valid input fields for each line item.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateLineItems(checkoutId, lineItems) {
