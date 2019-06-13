@@ -1,5 +1,15 @@
 # Changelog
 
+### v2.4.0 (Jun 13, 2019)
+* Bump the graphql schema to pull the latest fields:
+  - Applied Gift Card field `presentmentAmountUsed`
+  - Payment field `amountV2`
+  - Product field `presentmentPriceRanges`
+  - Transaction field `amountV2`
+
+### v2.3.0 (Jun 13, 2019)
+* Duplicate of v2.4.0
+
 ### v2.2.4 (May 14, 2019)
 * Bump the graphql schema to pull the latest fields into the unoptimized version:
   - ProductVariant fields: `metafield`, `metafields`
