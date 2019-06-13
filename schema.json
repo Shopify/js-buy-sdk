@@ -6416,6 +6416,91 @@
               "deprecationReason": null
             },
             {
+              "name": "presentmentPriceRanges",
+              "description": "List of price ranges in the presentment currencies for this shop.",
+              "args": [
+                {
+                  "name": "presentmentCurrencies",
+                  "description": "Specifies the presentment currencies to return a price range in.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "CurrencyCode",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductPriceRangeConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "priceRange",
               "description": "The price range.",
               "args": [],
@@ -7633,6 +7718,100 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductPriceRangeConnection",
+          "description": null,
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ProductPriceRangeEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ProductPriceRangeEdge",
+          "description": null,
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of ProductPriceRangeEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ProductPriceRange",
                   "ofType": null
                 }
               },
@@ -9535,7 +9714,7 @@
           "fields": [
             {
               "name": "amountUsed",
-              "description": "The amount that was used taken from the Gift Card by applying it.",
+              "description": "The amount that was taken from the Gift Card by applying it.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -9551,7 +9730,7 @@
             },
             {
               "name": "amountUsedV2",
-              "description": "The amount that was used taken from the Gift Card by applying it.",
+              "description": "The amount that was taken from the Gift Card by applying it.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -9623,6 +9802,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "presentmentAmountUsed",
+              "description": "The amount that was applied to the checkout in its currency.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
@@ -14608,6 +14803,22 @@
                   "ofType": null
                 }
               },
+              "isDeprecated": true,
+              "deprecationReason": "Use `amountV2` instead"
+            },
+            {
+              "name": "amountV2",
+              "description": "The amount of the payment.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -14869,6 +15080,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Money",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `amountV2` instead"
+            },
+            {
+              "name": "amountV2",
+              "description": "The amount of money that the transaction was for.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
