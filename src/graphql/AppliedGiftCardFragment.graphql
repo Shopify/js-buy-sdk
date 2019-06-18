@@ -7,6 +7,10 @@ fragment AppliedGiftCardFragment on AppliedGiftCard {
     amount
     currencyCode
   }
+  presentmentAmountUsed {
+    amount
+    currencyCode
+  }
   id
   lastCharacters
 }
