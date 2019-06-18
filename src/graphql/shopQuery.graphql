@@ -1,6 +1,9 @@
 query {
   shop {
     currencyCode
+    paymentSettings {
+      enabledPresentmentCurrencies
+    }
     description
     moneyFormat
     name

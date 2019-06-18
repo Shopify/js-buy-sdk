@@ -2,6 +2,20 @@ fragment VariantFragment on ProductVariant {
   id
   title
   price
+  presentmentPrices(first: 20) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        price {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
   weight
   available: availableForSale
   sku
