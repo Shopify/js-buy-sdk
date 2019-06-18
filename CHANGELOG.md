@@ -1,5 +1,13 @@
 # Changelog
 
+### v2.5.0 (Jun 18, 2019)
+* Add the following fields to the queries:
+  - AppliedGiftCard: `presentmentAmountUsed`.
+  - CheckoutFragment: `paymentDueV2`, `totalTaxV2`, `subtotalPriceV2`, `totalPriceV2`.
+  - order: `subtotalPriceV2`, `totalShippingPriceV2`, `totalTaxV2`, `totalPriceV2`, `totalRefundedV2`.
+  - VariantFrament: `presentmentPrices`.
+  - ShopQuery: `paymentSettings` (that includes `enabledPresentmentCurrencies`)
+
 ### v2.4.0 (Jun 13, 2019)
 * Bump the graphql schema to pull the latest fields:
   - Applied Gift Card field `presentmentAmountUsed`
