@@ -301,7 +301,8 @@ There are JS Buy SDK specific example apps in Node, Ember, and React. You can us
 
 ## Documentation
 
-For full API documentation go check out the [API docs](https://shopify.github.io/js-buy-sdk).
+- [Getting started guide](https://help.shopify.com/en/api/storefront-api/tools/js-buy-sdk/getting-started)
+- [API documentation](https://shopify.github.io/js-buy-sdk).
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
