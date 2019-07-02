@@ -655,7 +655,7 @@
             },
             {
               "name": "productTypes",
-              "description": "List of the shop’s product types.",
+              "description": "List of product types for the shop's products that are published to your app.",
               "args": [
                 {
                   "name": "first",
@@ -766,6 +766,30 @@
                   "kind": "OBJECT",
                   "name": "ProductConnection",
                   "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "publicApiVersions",
+              "description": "The list of public Storefront API versions, including supported, release candidate and unstable versions.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ApiVersion",
+                      "ofType": null
+                    }
+                  }
                 }
               },
               "isDeprecated": false,
@@ -908,6 +932,65 @@
           "fields": null,
           "inputFields": null,
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ApiVersion",
+          "description": "A version of the API.",
+          "fields": [
+            {
+              "name": "displayName",
+              "description": "The human-readable name of the version.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "handle",
+              "description": "The unique identifier of an ApiVersion. All supported API versions have a date-based (YYYY-MM) or `unstable` handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "supported",
+              "description": "Whether the version is supported by Shopify.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3946,8 +4029,8 @@
             {
               "name": "BYR",
               "description": "Belarusian Ruble (BYR).",
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "`BYR` is deprecated. Use `BYN` available from version `2019-10` onwards instead."
             },
             {
               "name": "BZD",
@@ -5543,6 +5626,22 @@
               "deprecationReason": null
             },
             {
+              "name": "requiresShipping",
+              "description": "Whether a customer needs to provide a shipping address when placing an order for the product variant.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "selectedOptions",
               "description": "List of product options applied to the variant.",
               "args": [],
@@ -5961,7 +6060,7 @@
           "fields": [
             {
               "name": "availableForSale",
-              "description": "Indicates if at least one product variant is available for sale.",
+              "description": "Whether the product is available on the Online Store channel and in stock.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -14476,6 +14575,18 @@
               "deprecationReason": null
             },
             {
+              "name": "BAD_DOMAIN",
+              "description": "Input email contains an invalid domain name.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_FOR_COUNTRY",
+              "description": "Input Zip is invalid for country provided.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "INVALID_FOR_COUNTRY_AND_PROVINCE",
               "description": "Input Zip is invalid for country and province provided.",
               "isDeprecated": false,
@@ -14542,6 +14653,12 @@
               "deprecationReason": null
             },
             {
+              "name": "GIFT_CARD_DEPLETED",
+              "description": "Gift card has no funds left.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "GIFT_CARD_NOT_FOUND",
               "description": "Gift card was not found.",
               "isDeprecated": false,
@@ -14598,6 +14715,12 @@
             {
               "name": "MISSING_PAYMENT_INPUT",
               "description": "Missing payment input.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOTAL_PRICE_MISMATCH",
+              "description": "The amount of the payment does not match the value to be paid.",
               "isDeprecated": false,
               "deprecationReason": null
             },
