@@ -30,7 +30,8 @@ import checkoutShippingAdddressUpdateV2WithUserErrorsFixture from '../fixtures/c
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
-  const apiUrl = `https://${domain}/api/graphql`;
+  const apiVersion = '2019-07';
+  const apiUrl = `https://${domain}/api/${apiVersion}/graphql`;
   const config = {
     storefrontAccessToken: 'abc123',
     domain

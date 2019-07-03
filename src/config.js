@@ -53,6 +53,12 @@ class Config {
         throw new Error(`new Config() requires the option '${key}'`);
       }
     });
+
+    if (attrs.hasOwnProperty('apiVersion')) {
+      this.apiVersion = attrs.apiVersion;
+    } else {
+      this.apiVersion = '2019-07';
+    }
   }
 }
 
