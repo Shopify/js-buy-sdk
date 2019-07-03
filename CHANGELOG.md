@@ -1,5 +1,12 @@
 # Changelog
 
+### v2.6.0 (July 3, 2018)
+* Introduces API Versioning! Starting with this release, each release will be tied to a new API version. Learn more about versioning [here](https://help.shopify.com/en/api/versioning).
+* Exposes the following information in the graphql schema:
+- Queryroot field `publicApiVersions` - list of supported API versions
+- Checkout field `requiresShipping`
+- CheckoutErrorCode: `BAD_DOMAIN`, `INVALID_FOR_COUNTRY`, `GIFT_CARD_DEPLETED`, `TOTAL_PRICE_MISMATCH`
+
 ### v2.5.0 (Jun 18, 2019)
 * Add the following fields to the queries:
   - AppliedGiftCard: `presentmentAmountUsed`.
