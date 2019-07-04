@@ -23,7 +23,8 @@ import shopPoliciesFixture from '../fixtures/shop-policies-fixture';
 
 suite('client-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
-  const apiUrl = `https://${domain}/api/graphql`;
+  const apiVersion = '2019-07';
+  const apiUrl = `https://${domain}/api/${apiVersion}/graphql`;
   const config = {
     storefrontAccessToken: 'abc123',
     domain

@@ -6,7 +6,7 @@ import singleProductFixture from '../fixtures/product-fixture';
 import types from '../schema.json';
 
 suite('product-helpers-test', () => {
-  const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/graphql'});
+  const graphQLClient = new GraphQLJSClient(types, {url: 'https://sendmecats.myshopify.com/api/2019-07/graphql'});
   const query = productNodeQuery(graphQLClient)
     .definitions
     .find((definition) => definition.operationType === 'query');
