@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.6.1 (July 4, 2019)
+* Includes code changes missed in previous version (2.6.0) to send all requests to API version 2019-07.
+
 ### v2.6.0 (July 3, 2018)
 * Introduces API Versioning! Starting with this release, each release will be tied to a new API version. Learn more about versioning [here](https://help.shopify.com/en/api/versioning).
 * Exposes the following information in the graphql schema:
