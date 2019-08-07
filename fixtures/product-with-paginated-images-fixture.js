@@ -58,6 +58,14 @@ export default {
                     "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
                     "title": "Fluffy",
                     "price": "0.00",
+                    "priceV2": {
+                      "amount": "0.00",
+                      "currencyCode": "CAD"
+                    },
+                    "compareAtPriceV2": {
+                      "amount": "5.00",
+                      "currencyCode": "CAD"
+                    },
                     "weight": 18,
                     "selectedOptions": [
                       {
