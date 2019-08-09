@@ -2,6 +2,15 @@ fragment DiscountApplicationFragment on DiscountApplication {
   targetSelection
   allocationMethod
   targetType
+  value {
+    ... on MoneyV2 {
+      amount
+      currencyCode
+    }
+    ... on PricingPercentageValue {
+      percentage
+    }
+  }
   ... on ManualDiscountApplication {
     title
     description
