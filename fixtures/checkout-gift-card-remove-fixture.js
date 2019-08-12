@@ -77,10 +77,33 @@ export default {
                       "allocationMethod": "ACROSS",
                       "targetType": "LINE_ITEM",
                       "code": "TENPERCENTOFF",
-                      "applicable": true
+                      "applicable": true,
+                      "value": {
+                        "percentage": "10"
+                      }
                     }
                   }
                 ]
+              }
+            }
+          ]
+        },
+        "discountApplications": {
+          "pageInfo": {
+            "hasNextPage": false,
+            "hasPreviousPage": false
+          },
+          "edges": [
+            {
+              "node": {
+                "targetSelection": "ALL",
+                "allocationMethod": "ACROSS",
+                "targetType": "LINE_ITEM",
+                "code": "TENPERCENTOFF",
+                "applicable": true,
+                "value": {
+                  "percentage": "10"
+                }
               }
             }
           ]
