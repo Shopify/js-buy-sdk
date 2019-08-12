@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.7.0 (August 12, 2019)
+* Add the following fields to the queries:
+  - VariantFrament: `priceV2`, `compareAtPriceV2`
+  - DiscountApplicationFragment: `value`
+
 ### v2.6.1 (July 4, 2019)
 * Includes code changes missed in previous version (2.6.0) to send all requests to API version 2019-07.
 
