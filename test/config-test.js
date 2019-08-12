@@ -54,4 +54,20 @@ suite('config-test', () => {
     assert.equal(config.domain, domain, 'domain should match');
     assert.equal(config.storefrontAccessToken, storefrontAccessToken, 'storefrontAccessToken should match');
   });
+
+  test('it sets source property when a source is provided', () => {
+    const domain = 'website.com';
+    const storefrontAccessToken = 123;
+    const source = 'testing-js';
+
+    const config = new Config({
+      domain,
+      storefrontAccessToken,
+      source
+    });
+
+    assert.equal(config.domain, domain, 'domain should match');
+    assert.equal(config.storefrontAccessToken, storefrontAccessToken, 'storefrontAccessToken should match');
+    assert.equal(config.source, source, 'source should match');
+  });
 });
