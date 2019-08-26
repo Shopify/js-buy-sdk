@@ -11,7 +11,7 @@ suite('client-test', () => {
     storefrontAccessToken: 'abc123'
   };
 
-  test('it instantiates a GraphQL client with the given config', () => {
+  test('it instantiates a GraphQL client with the given config and without custom source header when no source config is provided', () => {
     let passedTypeBundle;
     let passedUrl;
     let passedFetcherOptions;
@@ -33,6 +33,39 @@ suite('client-test', () => {
         'X-SDK-Variant': 'javascript',
         'X-SDK-Version': version,
         'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
+      }
+    });
+  });
+
+  test('it instantiates a GraphQL client with the given config and custom source header when source config is provided', () => {
+    let passedTypeBundle;
+    let passedUrl;
+    let passedFetcherOptions;
+
+    class FakeGraphQLJSClient {
+      constructor(typeBundle, {url, fetcherOptions}) {
+        passedTypeBundle = typeBundle;
+        passedUrl = url;
+        passedFetcherOptions = fetcherOptions;
+      }
+    }
+
+    const withSourceConfig = {
+      domain: 'sendmecats.myshopify.com',
+      storefrontAccessToken: 'abc123',
+      source: 'buy-button-js'
+    };
+
+    new Client(new Config(withSourceConfig), FakeGraphQLJSClient); // eslint-disable-line no-new
+
+    assert.deepEqual(passedTypeBundle, types);
+    assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/2019-07/graphql');
+    assert.deepEqual(passedFetcherOptions, {
+      headers: {
+        'X-SDK-Variant': 'javascript',
+        'X-SDK-Version': version,
+        'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken,
+        'X-SDK-Variant-Source': withSourceConfig.source
       }
     });
   });

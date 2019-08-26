@@ -59,6 +59,10 @@ class Config {
     } else {
       this.apiVersion = '2019-07';
     }
+
+    if (attrs.hasOwnProperty('source')) {
+      this.source = attrs.source;
+    }
   }
 }
 

@@ -47,6 +47,10 @@ class Client {
       'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
     };
 
+    if (config.source) {
+      headers['X-SDK-Variant-Source'] = config.source;
+    }
+
     if (fetchFunction) {
       headers['Content-Type'] = 'application/json';
       headers.Accept = 'application/json';
