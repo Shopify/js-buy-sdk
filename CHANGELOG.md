@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.1 (August 26, 2019)
+* Update header configuration
+
 ### v2.7.0 (August 12, 2019)
 * Add the following fields to the queries:
   - VariantFrament: `priceV2`, `compareAtPriceV2`
