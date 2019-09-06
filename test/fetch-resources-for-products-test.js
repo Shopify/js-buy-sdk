@@ -2,6 +2,15 @@ import assert from 'assert';
 import fetchResourcesForProducts from '../src/fetch-resources-for-products';
 
 suite('fetch-resources-for-product-test', () => {
+  test('it returns null when no product is found', () => {
+    const fixture = null;
+
+    return fetchResourcesForProducts(fixture).then((result) => {
+
+      assert.deepStrictEqual(result, [null]);
+    });
+  });
+
   test('it fetches all pages of images and for a single product', () => {
     const imagesArray = ['images'];
     const variantsArray = ['variants'];
