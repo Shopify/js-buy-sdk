@@ -3,9 +3,7 @@ import fetchResourcesForProducts from '../src/fetch-resources-for-products';
 
 suite('fetch-resources-for-product-test', () => {
   test('it returns null when no product is found', () => {
-    const fixture = null;
-
-    return fetchResourcesForProducts(fixture).then((result) => {
+    return fetchResourcesForProducts(null).then((result) => {
 
       assert.deepStrictEqual(result, [null]);
     });
