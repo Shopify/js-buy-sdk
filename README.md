@@ -119,6 +119,14 @@ client.product.fetch(productId).then((product) => {
   // Do something with the product
   console.log(product);
 });
+
+// Fetch a single product by Handle
+const handle = 'product-handle';
+
+client.product.fetchByHandle(handle).then((product) => {
+  // Do something with the product
+  console.log(product);
+});
 ```
 
 ### Fetching Collections
