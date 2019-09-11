@@ -14,24 +14,24 @@ git clone git@github.com:your-username/js-buy-sdk.git
 ```
 *Note: replace "your-username" with your Github handle*
 
-Install the project's dependencies:
+Install the project's dependencies (make sure you first have [yarn](https://yarnpkg.com) installed):
 ```
-npm install
+yarn
 ```
 
 To see documentation about npm scripts used in this project run:
 ```
-npm run info
+yarn info
 ```
 
 While developing the following command will run tests in browser at http://localhost:4200. It also watches the src/ and tests/ directory and rebuilds as needed:
 ```
-npm start
+yarn start
 ```
 
 If you'd simply like to manually run tests do:
 ```
-npm run test
+yarn test
 ```
 
 ## Folder Structure
@@ -73,21 +73,13 @@ at `http://shopify.github.io/js-buy-sdk`.
 
 To generate docs run the following:
 ```
-npm run doc:build
+yarn doc:build
 ```
 
 To preview the built docs run:
 ```
-npm run doc:serve
+yarn doc:serve
 ```
 
 The documentation will then be visible at:
-`http://127.0.0.1:4000/js-buy-sdk/`
-
-If ever you'd like to view API docs for a specific version of the `js-buy-sdk` run the following command (replace `*VERSION NUMBER*` with a proper version such as `v0.3.2`):
-```
-npm run doc:build -- --references *VERSION NUMBER*
-```
-
-When serving you should now be able to view:
-`http://127.0.0.1:4000/js-buy-sdk/api/v0.3.2/`
+`http://127.0.0.1:4201`
