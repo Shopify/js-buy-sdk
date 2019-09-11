@@ -5,7 +5,7 @@ suite('fetch-resources-for-product-test', () => {
   test('it returns null when no product is found', () => {
     return fetchResourcesForProducts(null).then((result) => {
 
-      assert.deepStrictEqual(result, [null]);
+      assert.deepStrictEqual(result, []);
     });
   });
 
