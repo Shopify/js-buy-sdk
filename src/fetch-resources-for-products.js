@@ -3,7 +3,7 @@ export default function fetchResourcesForProducts(productOrProduct, client) {
 
   return Promise.all(products.reduce((promiseAcc, product) => {
 
-    // If the graphql query doesn't find a match, returns null.
+    // If the graphql query doesn't find a match, skip fetching variants and images.
     if (product === null) {
       return promiseAcc;
     }
