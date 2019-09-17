@@ -2,7 +2,7 @@ import assert from 'assert';
 import fetchResourcesForProducts from '../src/fetch-resources-for-products';
 
 suite('fetch-resources-for-product-test', () => {
-  test('it returns null when no product is found', () => {
+  test('it returns an empty array when no product is found', () => {
     return fetchResourcesForProducts(null).then((result) => {
 
       assert.deepStrictEqual(result, []);
