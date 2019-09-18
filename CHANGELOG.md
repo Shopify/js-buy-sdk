@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.7.2 (September 18, 2019)
+* Fixed error caused by getting additional images and variants information when product is null
+
 ### v2.7.1 (August 26, 2019)
 * Update header configuration
 
