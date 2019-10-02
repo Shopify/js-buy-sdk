@@ -1,5 +1,5 @@
 export default function handleCheckoutMutation(mutationRootKey, client) {
-  return function({data, errors, model}) {
+  return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
 

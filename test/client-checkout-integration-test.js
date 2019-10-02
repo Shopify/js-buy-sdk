@@ -7,6 +7,7 @@ import fetchMockPostOnce from './fetch-mock-helper';
 import checkoutFixture from '../fixtures/checkout-fixture';
 import checkoutNullFixture from '../fixtures/node-null-fixture';
 import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
+import checkoutCreateInvalidVariantIdErrorFixture from '../fixtures/checkout-create-invalid-variant-id-error-fixture';
 import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
@@ -98,6 +99,25 @@ suite('client-checkout-integration-test', () => {
     return client.checkout.create(input).then((checkout) => {
       assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
       assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolve with user errors on Client.checkout#create when variantId is invalid', () => {
+    const input = {
+      lineItems: [
+        {
+          variantId: 'a-bad-id',
+          quantity: 5
+        }
+      ]
+    };
+
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateInvalidVariantIdErrorFixture);
+
+    return client.checkout.create(input).then(() => {
+      assert.ok(false, 'Promise should not resolve');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Variable input of type CheckoutCreateInput! was provided invalid value"}]');
     });
   });
 
