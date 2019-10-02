@@ -57,7 +57,7 @@ class Config {
     if (attrs.hasOwnProperty('apiVersion')) {
       this.apiVersion = attrs.apiVersion;
     } else {
-      this.apiVersion = '2019-07';
+      this.apiVersion = '2019-10';
     }
 
     if (attrs.hasOwnProperty('source')) {

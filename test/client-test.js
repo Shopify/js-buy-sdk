@@ -8,7 +8,8 @@ import {version} from '../package.json';
 suite('client-test', () => {
   const config = {
     domain: 'sendmecats.myshopify.com',
-    storefrontAccessToken: 'abc123'
+    storefrontAccessToken: 'abc123',
+    apiVersion: '2019-10'
   };
 
   test('it instantiates a GraphQL client with the given config and without custom source header when no source config is provided', () => {
@@ -27,7 +28,7 @@ suite('client-test', () => {
     new Client(new Config(config), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
-    assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/2019-07/graphql');
+    assert.equal(passedUrl, `https://sendmecats.myshopify.com/api/${config.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
         'X-SDK-Variant': 'javascript',
@@ -59,7 +60,7 @@ suite('client-test', () => {
     new Client(new Config(withSourceConfig), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
-    assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/2019-07/graphql');
+    assert.equal(passedUrl, `https://sendmecats.myshopify.com/api/${config.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
         'X-SDK-Variant': 'javascript',
@@ -97,7 +98,7 @@ suite('client-test', () => {
     new Client(new Config(config), FakeGraphQLJSClient, fetchFunction); // eslint-disable-line no-new
 
     return passedFetcher({data: 'body'}).then(() => {
-      assert.equal(passedUrl, 'https://sendmecats.myshopify.com/api/2019-07/graphql');
+      assert.equal(passedUrl, `https://sendmecats.myshopify.com/api/${config.apiVersion}/graphql`);
       assert.equal(passedBody, JSON.stringify({data: 'body'}));
       assert.equal(passedMethod, 'POST');
       assert.equal(passedMode, 'cors');
