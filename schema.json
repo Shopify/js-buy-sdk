@@ -928,7 +928,7 @@
         {
           "kind": "SCALAR",
           "name": "ID",
-          "description": "Represents a unique identifier. It is often used to refetch an object or as key for a cache.",
+          "description": "Represents a unique identifier, often used to refetch an object or as key for a cache.\nThe ID type appears in a JSON response as a String, but it is not intended to be human-readable.\nWhen expected as an input type, any string (such as \"4\") or integer (such as 4) input value will be accepted as an ID.\n\nAdmin API example value: `\"gid://shopify/Product/10079785100\"`.\n\nStorefront API example value: `\"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0LzEwMDc5Nzg1MTAw\"`.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -1338,7 +1338,7 @@
         {
           "kind": "SCALAR",
           "name": "DateTime",
-          "description": "An ISO-8601 encoded UTC date time string.",
+          "description": "An ISO-8601 encoded UTC date time string. Example value: `\"2019-07-03T20:47:55Z\"`.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -3850,7 +3850,7 @@
         {
           "kind": "SCALAR",
           "name": "Money",
-          "description": "A monetary value string.",
+          "description": "A monetary value string. Example value: `\"100.57\"`.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -3903,7 +3903,7 @@
         {
           "kind": "SCALAR",
           "name": "Decimal",
-          "description": "A signed decimal number, which supports arbitrary precision and is serialized as a string.",
+          "description": "A signed decimal number, which supports arbitrary precision and is serialized as a string. Example value: `\"29.99\"`.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -4171,6 +4171,12 @@
               "deprecationReason": null
             },
             {
+              "name": "DJF",
+              "description": "Djiboutian Franc (DJF).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "DOP",
               "description": "Dominican Peso (DOP).",
               "isDeprecated": false,
@@ -4237,6 +4243,12 @@
               "deprecationReason": null
             },
             {
+              "name": "GNF",
+              "description": "Guinean Franc (GNF).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "HTG",
               "description": "Haitian Gourde (HTG).",
               "isDeprecated": false,
@@ -4281,6 +4293,12 @@
             {
               "name": "ILS",
               "description": "Israeli New Shekel (NIS).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IRR",
+              "description": "Iranian Rial (IRR).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -4365,6 +4383,12 @@
             {
               "name": "LRD",
               "description": "Liberian Dollar (LRD).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LYD",
+              "description": "Libyan Dinar (LYD).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -4591,6 +4615,12 @@
               "deprecationReason": null
             },
             {
+              "name": "SLL",
+              "description": "Sierra Leonean Leone (SLL).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SGD",
               "description": "Singapore Dollars (SGD).",
               "isDeprecated": false,
@@ -4675,8 +4705,20 @@
               "deprecationReason": null
             },
             {
+              "name": "TJS",
+              "description": "Tajikistani Somoni (TJS).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TZS",
               "description": "Tanzanian Shilling (TZS).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOP",
+              "description": "Tongan Pa'anga (TOP).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -4776,7 +4818,7 @@
         {
           "kind": "SCALAR",
           "name": "URL",
-          "description": "An RFC 3986 and RFC 3987 compliant URI string.",
+          "description": "An RFC 3986 and RFC 3987 compliant URI string.\n\nExample value: `\"https://johns-apparel.myshopify.com\"`.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -6060,7 +6102,7 @@
           "fields": [
             {
               "name": "availableForSale",
-              "description": "Whether the product is available on the Online Store channel and in stock.",
+              "description": "Indicates if at least one product variant is available for sale.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -7293,7 +7335,7 @@
         {
           "kind": "SCALAR",
           "name": "HTML",
-          "description": "A string containing HTML code.",
+          "description": "A string containing HTML code. Example value: `\"<p>Grey cotton knit sweater.</p>\"`.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -12733,7 +12775,7 @@
             },
             {
               "name": "checkoutCompleteFree",
-              "description": null,
+              "description": "Completes a checkout without providing payment information. You can use this mutation for free items or items whose purchase price is covered by a gift card.",
               "args": [
                 {
                   "name": "checkoutId",
@@ -12801,7 +12843,7 @@
             },
             {
               "name": "checkoutCompleteWithCreditCardV2",
-              "description": "Completes a checkout using a credit card token from Shopify's Vault.",
+              "description": "Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://help.shopify.com/api/guides/sales-channel-sdk/getting-started#request-payment-processing).",
               "args": [
                 {
                   "name": "checkoutId",
@@ -14987,7 +15029,7 @@
             },
             {
               "name": "errorMessage",
-              "description": "An message describing a processing error during asynchronous processing.",
+              "description": "A message describing a processing error during asynchronous processing.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -15020,6 +15062,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nextActionUrl",
+              "description": "The URL where the customer needs to be redirected so they can complete the 3D Secure payment flow.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "URL",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -19517,6 +19571,34 @@
           "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
           "fields": [
             {
+              "name": "accessRestricted",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "accessRestrictedReason",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "description",
               "description": null,
               "args": [],
@@ -19714,6 +19796,22 @@
           "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
           "fields": [
             {
+              "name": "accessRestricted",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "accessRestrictedReason",
               "description": null,
               "args": [],
@@ -19769,22 +19867,6 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "isAccessRestricted",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
               },
               "isDeprecated": false,
               "deprecationReason": null
