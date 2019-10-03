@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.8.0 (October 3, 2019)
+* Bumps the SDK to use Storefront API version `2019-10`. For more information, see the [Release Notes](https://help.shopify.com/en/api/versioning/release-notes/2019-10#storefront-api-changes).
+
 ### v2.7.2 (September 18, 2019)
 * Fixed error caused by getting additional images and variants information when product is null
 
