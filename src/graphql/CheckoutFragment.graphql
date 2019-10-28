@@ -76,6 +76,10 @@ fragment CheckoutFragment on Checkout {
   shippingLine {
     handle
     price
+    priceV2 {
+      amount
+      currencyCode
+    }
     title
   }
   customAttributes {
