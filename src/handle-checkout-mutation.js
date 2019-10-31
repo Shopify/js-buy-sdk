@@ -1,5 +1,9 @@
 export default function handleCheckoutMutation(mutationRootKey, client) {
   return function({data, errors, model}) {
+    if (!data && errors && errors.length) {
+      return Promise.reject(new Error(JSON.stringify(errors)));
+    }
+
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
 
@@ -11,10 +15,6 @@ export default function handleCheckoutMutation(mutationRootKey, client) {
 
         return rootModel.checkout;
       });
-    }
-
-    if (errors && errors.length) {
-      return Promise.reject(new Error(JSON.stringify(errors)));
     }
 
     if (rootData && rootData.checkoutUserErrors && rootData.checkoutUserErrors.length) {

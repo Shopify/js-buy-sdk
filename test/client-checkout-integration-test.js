@@ -518,7 +518,6 @@ suite('client-checkout-integration-test', () => {
 
   test('it rejects checkout mutations that return with a non-null `errors` without data field', () => {
     const checkoutCreateWithUserErrorsFixture = {
-      data: {},
       errors: [{message: 'Timeout'}]
     };
 
