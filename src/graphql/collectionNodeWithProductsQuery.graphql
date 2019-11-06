@@ -1,6 +1,19 @@
-query($id: ID!) {
+query($id: ID!, $productsFirst: Int!) {
   node(id: $id) {
     ...CollectionFragment
-    ...CollectionsProductsFragment
+    ... on Collection {
+      products(first: $productsFirst) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            ...ProductFragment
+          }
+        }
+      }
+    }
   }
 }

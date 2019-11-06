@@ -140,8 +140,9 @@ client.collection.fetchAllWithProducts().then((collections) => {
 
 // Fetch a single collection by ID, including its products
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
+// Set a parameter for first x products, defaults to 20 if you don't provide a param
 
-client.collection.fetchWithProducts(collectionId).then((collection) => {
+client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((collection) => {
   // Do something with the collection
   console.log(collection);
   console.log(collection.products);
