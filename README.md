@@ -31,6 +31,7 @@ View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG
   + [Adding a Discount](#adding-a-discount)
   + [Removing a Discount](#removing-a-discount)
   + [Updating a Shipping Address](#updating-a-shipping-address)
+  + [Completing a checkout](#completing-a-checkout)
 - [Expanding the SDK](#expanding-the-sdk)
   + [Initializing the Client](#initializing-the-client-1)
   + [Fetching Products](#fetching-products-1)
@@ -269,6 +270,10 @@ client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout
   // Do something with the updated checkout
 });
 ```
+
+### Completing a checkout
+
+The simplest way to complete a checkout is to use the [webUrl](https://help.shopify.com/en/api/storefront-api/reference/object/checkout) property that is returned when creating a checkout. This URL redirects the customer to Shopify's [online checkout](https://help.shopify.com/en/manual/checkout-settings) to complete the purchase.
 
 ## Expanding the SDK
 
