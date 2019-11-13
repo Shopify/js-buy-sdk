@@ -57,7 +57,8 @@ and provides the ability to retrieve products and collections from your shop, ad
 <ul>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#builds">Builds</a></li>
-<li><a href="#examples">Examples</a><ul>
+<li><a href="#examples">Examples</a>
+<ul>
 <li><a href="#initializing-the-client">Initializing the Client</a></li>
 <li><a href="#fetching-products">Fetching Products</a></li>
 <li><a href="#fetching-collections">Fetching Collections</a></li>
@@ -70,9 +71,11 @@ and provides the ability to retrieve products and collections from your shop, ad
 <li><a href="#adding-a-discount">Adding a Discount</a></li>
 <li><a href="#removing-a-discount">Removing a Discount</a></li>
 <li><a href="#updating-a-shipping-address">Updating a Shipping Address</a></li>
+<li><a href="#completing-a-checkout">Completing a checkout</a></li>
 </ul>
 </li>
-<li><a href="#expanding-the-sdk">Expanding the SDK</a><ul>
+<li><a href="#expanding-the-sdk">Expanding the SDK</a>
+<ul>
 <li><a href="#initializing-the-client-1">Initializing the Client</a></li>
 <li><a href="#fetching-products-1">Fetching Products</a></li>
 </ul>
@@ -85,26 +88,46 @@ and provides the ability to retrieve products and collections from your shop, ad
 </ul>
 <h2 id="installation">Installation</h2>
 <p><strong>With Yarn:</strong></p>
-<pre class="prettyprint source lang-bash"><code>$ yarn add shopify-buy</code></pre><p><strong>With NPM:</strong></p>
-<pre class="prettyprint source lang-bash"><code>$ npm install shopify-buy</code></pre><p><strong>CDN:</strong></p>
+<pre class="prettyprint source lang-bash"><code>$ yarn add shopify-buy
+</code></pre>
+<p><strong>With NPM:</strong></p>
+<pre class="prettyprint source lang-bash"><code>$ npm install shopify-buy
+</code></pre>
+<p><strong>CDN:</strong></p>
 <p>There is a minified UMD build available via CDN (see the <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md">Changelog</a> for details about the latest release):</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js&quot;>&lt;/script></code></pre><p>You can also use a specific release version:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/1.11.0/index.umd.min.js&quot;>&lt;/script></code></pre><p>You can also fetch the unoptimized release for a version (2.0.1 and above). This will be larger than the optimized version, as it will contain all fields that are available in the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a>:</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/2.0.1/index.unoptimized.umd.min.js&quot;>&lt;/script></code></pre><h2 id="builds">Builds</h2>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js&quot;>&lt;/script>
+</code></pre>
+<p>You can also use a specific release version:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/1.11.0/index.umd.min.js&quot;>&lt;/script>
+</code></pre>
+<p>You can also fetch the unoptimized release for a version (2.0.1 and above). This will be larger than the optimized version, as it will contain all fields that are available in the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a>:</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;https://sdks.shopifycdn.com/js-buy-sdk/2.0.1/index.unoptimized.umd.min.js&quot;>&lt;/script>
+</code></pre>
+<h2 id="builds">Builds</h2>
 <p>The JS Buy SDK has four build versions: ES, CommonJS, AMD, and UMD.</p>
 <p><strong>ES, CommonJS:</strong></p>
-<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy';</code></pre><p><strong>AMD:</strong></p>
-<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.amd';</code></pre><p><strong>UMD:</strong></p>
-<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.umd';</code></pre><p><strong>UMD Unoptimized:</strong>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy';
+</code></pre>
+<p><strong>AMD:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.amd';
+</code></pre>
+<p><strong>UMD:</strong></p>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.umd';
+</code></pre>
+<p><strong>UMD Unoptimized:</strong>
 This will be larger than the optimized version, as it will contain all fields that are available in the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a>. This should only be used when you need to add custom queries to supplement the JS Buy SDK queries.</p>
-<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.unoptimized.umd';</code></pre><h2 id="examples">Examples</h2>
+<pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy/index.unoptimized.umd';
+</code></pre>
+<h2 id="examples">Examples</h2>
 <h3 id="initializing-the-client">Initializing the Client</h3>
 <pre class="prettyprint source lang-javascript"><code>import Client from 'shopify-buy';
 
 const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
-});</code></pre><h3 id="fetching-products">Fetching Products</h3>
+});
+</code></pre>
+<h3 id="fetching-products">Fetching Products</h3>
 <pre class="prettyprint source lang-javascript"><code>// Fetch all products in your shop
 client.product.fetchAll().then((products) => {
   // Do something with the products
@@ -125,7 +148,9 @@ const handle = 'product-handle';
 client.product.fetchByHandle(handle).then((product) => {
   // Do something with the product
   console.log(product);
-});</code></pre><h3 id="fetching-collections">Fetching Collections</h3>
+});
+</code></pre>
+<h3 id="fetching-collections">Fetching Collections</h3>
 <pre class="prettyprint source lang-javascript"><code>// Fetch all collections, including their products
 client.collection.fetchAllWithProducts().then((collections) => {
   // Do something with the collections
@@ -135,23 +160,30 @@ client.collection.fetchAllWithProducts().then((collections) => {
 
 // Fetch a single collection by ID, including its products
 const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
+// Set a parameter for first x products, defaults to 20 if you don't provide a param
 
-client.collection.fetchWithProducts(collectionId).then((collection) => {
+client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((collection) => {
   // Do something with the collection
   console.log(collection);
   console.log(collection.products);
-});</code></pre><h3 id="creating-a-checkout">Creating a Checkout</h3>
+});
+</code></pre>
+<h3 id="creating-a-checkout">Creating a Checkout</h3>
 <pre class="prettyprint source lang-javascript"><code>// Create an empty checkout
 client.checkout.create().then((checkout) => {
   // Do something with the checkout
   console.log(checkout);
-});</code></pre><h3 id="updating-checkout-attributes">Updating checkout attributes</h3>
+});
+</code></pre>
+<h3 id="updating-checkout-attributes">Updating checkout attributes</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const input = {customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]};
 
 client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
   // Do something with the updated checkout
-});</code></pre><h3 id="adding-line-items">Adding Line Items</h3>
+});
+</code></pre>
+<h3 id="adding-line-items">Adding Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const lineItemsToAdd = [
   {
@@ -165,7 +197,9 @@ const lineItemsToAdd = [
 client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Array with one additional line item
-});</code></pre><h3 id="updating-line-items">Updating Line Items</h3>
+});
+</code></pre>
+<h3 id="updating-line-items">Updating Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const lineItemsToUpdate = [
   {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2}
@@ -175,7 +209,9 @@ const lineItemsToUpdate = [
 client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
-});</code></pre><h3 id="removing-line-items">Removing Line Items</h3>
+});
+</code></pre>
+<h3 id="removing-line-items">Removing Line Items</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const lineItemIdsToRemove = [
   'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
@@ -185,13 +221,17 @@ const lineItemIdsToRemove = [
 client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
   // Do something with the updated checkout
   console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
-});</code></pre><h3 id="fetching-a-checkout">Fetching a Checkout</h3>
+});
+</code></pre>
+<h3 id="fetching-a-checkout">Fetching a Checkout</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
 
 client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
   console.log(checkout);
-});</code></pre><h3 id="adding-a-discount">Adding a Discount</h3>
+});
+</code></pre>
+<h3 id="adding-a-discount">Adding a Discount</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 const discountCode = 'best-discount-ever';
 
@@ -199,14 +239,18 @@ const discountCode = 'best-discount-ever';
 client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout);
-});</code></pre><h3 id="removing-a-discount">Removing a Discount</h3>
+});
+</code></pre>
+<h3 id="removing-a-discount">Removing a Discount</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 
 // Removes the applied discount from an existing checkout.
 client.checkout.removeDiscount(checkoutId).then(checkout => {
   // Do something with the updated checkout
   console.log(checkout);
-});</code></pre><h3 id="updating-a-shipping-address">Updating a Shipping Address</h3>
+});
+</code></pre>
+<h3 id="updating-a-shipping-address">Updating a Shipping Address</h3>
 <pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
 
 const shippingAddress = {
@@ -225,16 +269,22 @@ const shippingAddress = {
 // Update the shipping address for an existing checkout.
 client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
   // Do something with the updated checkout
-});</code></pre><h2 id="expanding-the-sdk">Expanding the SDK</h2>
+});
+</code></pre>
+<h3 id="completing-a-checkout">Completing a checkout</h3>
+<p>The simplest way to complete a checkout is to use the <a href="https://help.shopify.com/en/api/storefront-api/reference/object/checkout">webUrl</a> property that is returned when creating a checkout. This URL redirects the customer to Shopify's <a href="https://help.shopify.com/en/manual/checkout-settings">online checkout</a> to complete the purchase.</p>
+<h2 id="expanding-the-sdk">Expanding the SDK</h2>
 <p>Not all fields that are available on the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a> are exposed through the SDK. If you use the unoptimized version of the SDK, you can easily build your own queries. In order to do this, use the UMD Unoptimized build.</p>
-<h3 id="initializing-the-client">Initializing the Client</h3>
+<h3 id="initializing-the-client-2">Initializing the Client</h3>
 <pre class="prettyprint source lang-javascript"><code>// fetch the large, unoptimized version of the SDK
 import Client from 'shopify-buy/index.unoptimized.umd';
 
 const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
-});</code></pre><h3 id="fetching-products">Fetching Products</h3>
+});
+</code></pre>
+<h3 id="fetching-products-2">Fetching Products</h3>
 <pre class="prettyprint source lang-javascript"><code>// Build a custom products query using the unoptimized version of the SDK
 const productsQuery = client.graphQLClient.query((root) => {
   root.addConnection('products', {args: {first: 10}}, (product) => {
@@ -248,7 +298,9 @@ client.graphQLClient.send(productsQuery).then(({model, data}) => {
   // Do something with the products
   console.log(model);
 });
-</code></pre><h2 id="example-apps">Example Apps</h2>
+
+</code></pre>
+<h2 id="example-apps">Example Apps</h2>
 <p>For more complete examples of using JS Buy SDK, check out our <a href="https://github.com/Shopify/storefront-api-examples">storefront-api-examples</a> project.
 There are JS Buy SDK specific example apps in Node, Ember, and React. You can use these examples as a guideline for creating your own custom storefront.</p>
 <h2 id="documentation">Documentation</h2>
@@ -264,7 +316,7 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.</p>
 <h2 id="license">License</h2>
 <p>MIT, see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/LICENSE.txt">LICENSE.md</a> for details.</p>
-<p><img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" /></p></article>
+<img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" /></article>
     </section>
 
 
@@ -275,13 +327,13 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Oct 03 2019 09:42:02 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Nov 13 2019 12:08:59 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
