@@ -1796,12 +1796,6 @@
               "deprecationReason": null
             },
             {
-              "name": "BQ",
-              "description": "Bonaire, Sint Eustatius and Saba.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "BA",
               "description": "Bosnia And Herzegovina.",
               "isDeprecated": false,
@@ -1870,6 +1864,12 @@
             {
               "name": "CV",
               "description": "Cape Verde.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BQ",
+              "description": "Caribbean Netherlands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -2044,6 +2044,12 @@
             {
               "name": "EE",
               "description": "Estonia.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SZ",
+              "description": "Eswatini.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -2408,12 +2414,6 @@
               "deprecationReason": null
             },
             {
-              "name": "MK",
-              "description": "Macedonia, Republic Of.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "MG",
               "description": "Madagascar.",
               "isDeprecated": false,
@@ -2596,6 +2596,12 @@
             {
               "name": "NF",
               "description": "Norfolk Island.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MK",
+              "description": "North Macedonia.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -2884,12 +2890,6 @@
             {
               "name": "SJ",
               "description": "Svalbard And Jan Mayen.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SZ",
-              "description": "Swaziland.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -9257,7 +9257,7 @@
             },
             {
               "name": "ready",
-              "description": "Whether or not the Checkout is ready and can be completed. Checkouts may have asynchronous operations that can take time to finish. If you want to complete a checkout or ensure all the fields are populated and up to date, polling is required until the value is true. ",
+              "description": "Whether or not the Checkout is ready and can be completed. Checkouts may\nhave asynchronous operations that can take time to finish. If you want\nto complete a checkout or ensure all the fields are populated and up to\ndate, polling is required until the value is true.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15506,7 +15506,7 @@
           "inputFields": [
             {
               "name": "address1",
-              "description": null,
+              "description": "The first line of the address. Typically the street address or PO Box number.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15516,7 +15516,7 @@
             },
             {
               "name": "address2",
-              "description": null,
+              "description": "The second line of the address. Typically the number of the apartment, suite, or unit.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15526,7 +15526,7 @@
             },
             {
               "name": "city",
-              "description": null,
+              "description": "The name of the city, district, village, or town.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15536,7 +15536,7 @@
             },
             {
               "name": "company",
-              "description": null,
+              "description": "The name of the customer's company or organization.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15546,7 +15546,7 @@
             },
             {
               "name": "country",
-              "description": null,
+              "description": "The name of the country.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15556,7 +15556,7 @@
             },
             {
               "name": "firstName",
-              "description": null,
+              "description": "The first name of the customer.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15566,7 +15566,7 @@
             },
             {
               "name": "lastName",
-              "description": null,
+              "description": "The last name of the customer.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15576,7 +15576,7 @@
             },
             {
               "name": "phone",
-              "description": null,
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15586,7 +15586,7 @@
             },
             {
               "name": "province",
-              "description": null,
+              "description": "The region of the address, such as the province, state, or district.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15596,7 +15596,7 @@
             },
             {
               "name": "zip",
-              "description": null,
+              "description": "The zip or postal code of the address.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -18940,7 +18940,7 @@
             },
             {
               "name": "phone",
-              "description": "The customer’s phone number.",
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19433,7 +19433,7 @@
             },
             {
               "name": "phone",
-              "description": "The customer’s phone number.",
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
