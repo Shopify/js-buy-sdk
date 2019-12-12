@@ -22,8 +22,6 @@ export default {
         "subtotalPrice": "74.99",
         "totalTax": "9.75",
         "paymentDue": "88.74",
-        "taxExempt": false,
-        "taxesIncluded": false,
         "completedAt": null,
         "shippingAddress": {
           "address1": "123 Cat Road",
