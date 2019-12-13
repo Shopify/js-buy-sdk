@@ -22,8 +22,6 @@ export default {
         "subtotalPrice": "67.50",
         "totalTax": "8.78",
         "paymentDue": "80.28",
-        "taxExempt": false,
-        "taxesIncluded": false,
         "completedAt": null,
         "shippingAddress": {
           "id": "Z2lkOi8vc2hvcGlmeS9NYWlsaW5nQWRkcmVzcy8xMTAyNDgxNzE5MzE4P21vZGVsX25hbWU9QWRkcmVzcw==",
