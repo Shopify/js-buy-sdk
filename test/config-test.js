@@ -70,4 +70,20 @@ suite('config-test', () => {
     assert.equal(config.storefrontAccessToken, storefrontAccessToken, 'storefrontAccessToken should match');
     assert.equal(config.source, source, 'source should match');
   });
+
+  test('it sets language property when a language is provided', () => {
+    const domain = 'website.com';
+    const storefrontAccessToken = 123;
+    const language = 'ja-JP';
+
+    const config = new Config({
+      domain,
+      storefrontAccessToken,
+      language
+    });
+
+    assert.equal(config.domain, domain, 'domain should match');
+    assert.equal(config.storefrontAccessToken, storefrontAccessToken, 'storefrontAccessToken should match');
+    assert.equal(config.language, language, 'language should match');
+  });
 });
