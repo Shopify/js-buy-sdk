@@ -21,6 +21,7 @@ export default {
                            "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
                            "title":"Black / 8",
                            "price":"188.00",
+                           "compareAtPrice":"190.00",
                            "weight":0,
                            "image": {
                               "id":"Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
@@ -36,7 +37,27 @@ export default {
                                  "name":"Size",
                                  "value":"8"
                               }
-                           ]
+                           ],
+                           "presentmentPrices": {
+                              "pageInfo": {
+                                "hasNextPage": false,
+                                "hasPreviousPage": false
+                              },
+                              "edges": [
+                                {
+                                  "node": {
+                                    "price": {
+                                      "amount": "188.00",
+                                      "currencyCode": "USD"
+                                    },
+                                    "compareAtPrice": {
+                                      "amount": "190.00",
+                                      "currencyCode": "USD"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
                         },
                         "quantity":2,
                         "customAttributes":[

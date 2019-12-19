@@ -20,6 +20,7 @@ export default {
                   "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
                   "title": "Awesome Copper Bench",
                   "price": "64.99",
+                  "compareAtPrice": null,
                   "weight": 4.5,
                   "image": null,
                   "selectedOptions": [
@@ -27,7 +28,24 @@ export default {
                       "name": "Color or something",
                       "value": "Awesome Copper Bench"
                     }
-                  ]
+                  ],
+                  "presentmentPrices": {
+                    "pageInfo": {
+                      "hasNextPage": false,
+                      "hasPreviousPage": false
+                    },
+                    "edges": [
+                      {
+                        "node": {
+                          "price": {
+                            "amount": "64.99",
+                            "currencyCode": "USD"
+                          },
+                          "compareAtPrice": null
+                        }
+                      }
+                    ]
+                  }
                 },
                 "quantity": 5,
                 "customAttributes": []
