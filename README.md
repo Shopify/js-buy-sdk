@@ -96,12 +96,22 @@ import Client from 'shopify-buy/index.unoptimized.umd';
 ## Examples
 
 ### Initializing the Client
+If your store supports multiple languages, Storefront API can return translated resource types and fields. Learn more about [translating content](https://help.shopify.com/en/api/guides/multi-language/translating-content-api).
+
 ```javascript
 import Client from 'shopify-buy';
 
+// Initializing a client
 const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
+});
+
+// Initializing a client to return translated content
+const clientWithTranslatedContent = Client.buildClient({
+  domain: 'your-shop-name.myshopify.com',
+  storefrontAccessToken: 'your-storefront-access-token',
+  language: 'ja-JP'
 });
 ```
 

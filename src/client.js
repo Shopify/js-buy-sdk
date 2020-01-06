@@ -51,6 +51,10 @@ class Client {
       headers['X-SDK-Variant-Source'] = config.source;
     }
 
+    if (config.language) {
+      headers['Accept-Language'] = config.language;
+    }
+
     if (fetchFunction) {
       headers['Content-Type'] = 'application/json';
       headers.Accept = 'application/json';
