@@ -89,7 +89,18 @@ export default {
                         "name": "Fur",
                         "value": "Fluffy"
                       }
-                    ]
+                    ],
+                    "unitPrice": {
+                      "amount": "0.00",
+                      "currencyCode": "CAD"
+                    },
+                    "unitPriceMeasurement": {
+                      "measuredType": "VOLUME",
+                      "quantityUnit": "ML",
+                      "quantityValue": 5.0,
+                      "referenceUnit": "ML",
+                      "referenceValue": 1
+                    }
                   }
                 },
                 {
@@ -113,7 +124,15 @@ export default {
                         "name": "Fur",
                         "value": "Extra Fluffy"
                       }
-                    ]
+                    ],
+                    "unitPrice": null,
+                    "unitPriceMeasurement": {
+                      "measuredType": null,
+                      "quantityUnit": null,
+                      "quantityValue": 0.0,
+                      "referenceUnit": null,
+                      "referenceValue": 0
+                    }
                   }
                 },
                 {
@@ -137,7 +156,15 @@ export default {
                         "name": "Fur",
                         "value": "Mega Fluff"
                       }
-                    ]
+                    ],
+                    "unitPrice": null,
+                    "unitPriceMeasurement": {
+                      "measuredType": null,
+                      "quantityUnit": null,
+                      "quantityValue": 0.0,
+                      "referenceUnit": null,
+                      "referenceValue": 0
+                    }
                   }
                 }
               ]
@@ -234,7 +261,15 @@ export default {
                         "name": "Size",
                         "value": "small"
                       }
-                    ]
+                    ],
+                    "unitPrice": null,
+                    "unitPriceMeasurement": {
+                      "measuredType": null,
+                      "quantityUnit": null,
+                      "quantityValue": 0.0,
+                      "referenceUnit": null,
+                      "referenceValue": 0
+                    }
                   }
                 },
                 {
@@ -257,7 +292,15 @@ export default {
                         "name": "Size",
                         "value": "large"
                       }
-                    ]
+                    ],
+                    "unitPrice": null,
+                    "unitPriceMeasurement": {
+                      "measuredType": null,
+                      "quantityUnit": null,
+                      "quantityValue": 0.0,
+                      "referenceUnit": null,
+                      "referenceValue": 0
+                    }
                   }
                 },
                 {
@@ -280,7 +323,15 @@ export default {
                         "name": "Size",
                         "value": "very large"
                       }
-                    ]
+                    ],
+                    "unitPrice": null,
+                    "unitPriceMeasurement": {
+                      "measuredType": null,
+                      "quantityUnit": null,
+                      "quantityValue": 0.0,
+                      "referenceUnit": null,
+                      "referenceValue": 0
+                    }
                   }
                 }
               ]

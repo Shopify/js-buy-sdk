@@ -37,4 +37,15 @@ fragment VariantFragment on ProductVariant {
     name
     value
   }
+  unitPrice {
+    amount
+    currencyCode
+  }
+  unitPriceMeasurement {
+    measuredType
+    quantityUnit
+    quantityValue
+    referenceUnit
+    referenceValue
+  }
 }

@@ -126,7 +126,15 @@ export default {
                   "name": "Size",
                   "value": "X-Small"
                 }
-              ]
+              ],
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           },
           {
@@ -154,7 +162,18 @@ export default {
                   "name": "Size",
                   "value": "Small"
                 }
-              ]
+              ],
+              "unitPrice": {
+                "amount": "1.00",
+                "currencyCode": "CAD"
+              },
+              "unitPriceMeasurement": {
+                "measuredType": "VOLUME",
+                "quantityUnit": "ML",
+                "quantityValue": 788.0,
+                "referenceUnit": "ML",
+                "referenceValue": 1
+              }
             }
           },
           {
@@ -182,7 +201,15 @@ export default {
                   "name": "Size",
                   "value": "Medium"
                 }
-              ]
+              ],
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           },
           {
@@ -213,7 +240,18 @@ export default {
                   "name": "Size",
                   "value": "X-Small"
                 }
-              ]
+              ],
+              "unitPrice": {
+                "amount": "1.00",
+                "currencyCode": "CAD"
+              },
+              "unitPriceMeasurement": {
+                "measuredType": "VOLUME",
+                "quantityUnit": "ML",
+                "quantityValue": 750.0,
+                "referenceUnit": "ML",
+                "referenceValue": 1
+              }
             }
           },
           {
@@ -244,7 +282,15 @@ export default {
                   "name": "Size",
                   "value": "Small"
                 }
-              ]
+              ],
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           },
           {
@@ -275,7 +321,15 @@ export default {
                   "name": "Size",
                   "value": "Medium"
                 }
-              ]
+              ],
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           },
           {
@@ -306,7 +360,18 @@ export default {
                   "name": "Size",
                   "value": "Large"
                 }
-              ]
+              ],
+              "unitPrice": {
+                "amount": "1.00",
+                "currencyCode": "CAD"
+              },
+              "unitPriceMeasurement": {
+                "measuredType": "VOLUME",
+                "quantityUnit": "ML",
+                "quantityValue": 788.0,
+                "referenceUnit": "ML",
+                "referenceValue": 1
+              }
             }
           }
         ]
