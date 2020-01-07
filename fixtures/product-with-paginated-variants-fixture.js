@@ -46,7 +46,15 @@ export default {
                 "amount": "5.00",
                 "currencyCode": "CAD"
               },
-              "weight": 18
+              "weight": 18,
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           }
         ]

@@ -123,7 +123,15 @@ export default {
                           "name": "Size",
                           "value": "Medium"
                         }
-                      ]
+                      ],
+                      "unitPrice": null,
+                      "unitPriceMeasurement": {
+                        "measuredType": null,
+                        "quantityUnit": null,
+                        "quantityValue": 0.0,
+                        "referenceUnit": null,
+                        "referenceValue": 0
+                      }
                     }
                   },
                   {
@@ -155,7 +163,18 @@ export default {
                           "name": "Size",
                           "value": "Small"
                         }
-                      ]
+                      ],
+                      "unitPrice": {
+                        "amount": "0.00",
+                        "currencyCode": "CAD"
+                      },
+                      "unitPriceMeasurement": {
+                        "measuredType": "VOLUME",
+                        "quantityUnit": "ML",
+                        "quantityValue": 5.0,
+                        "referenceUnit": "ML",
+                        "referenceValue": 1
+                      }
                     }
                   },
                   {
@@ -187,7 +206,18 @@ export default {
                           "name": "Size",
                           "value": "Large"
                         }
-                      ]
+                      ],
+                      "unitPrice": {
+                        "amount": "0.00",
+                        "currencyCode": "CAD"
+                      },
+                      "unitPriceMeasurement": {
+                        "measuredType": "VOLUME",
+                        "quantityUnit": "ML",
+                        "quantityValue": 5.0,
+                        "referenceUnit": "ML",
+                        "referenceValue": 1
+                      }
                     }
                   }
                 ]
@@ -259,7 +289,15 @@ export default {
                           "name": "Title",
                           "value": "Default Title"
                         }
-                      ]
+                      ],
+                      "unitPrice": null,
+                      "unitPriceMeasurement": {
+                        "measuredType": null,
+                        "quantityUnit": null,
+                        "quantityValue": 0.0,
+                        "referenceUnit": null,
+                        "referenceValue": 0
+                      }
                     }
                   }
                 ]

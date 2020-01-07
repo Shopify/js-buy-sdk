@@ -72,7 +72,18 @@ export default {
                         "name": "Fur",
                         "value": "Fluffy"
                       }
-                    ]
+                    ],
+                    "unitPrice": {
+                      "amount": "0.00",
+                      "currencyCode": "CAD"
+                    },
+                    "unitPriceMeasurement": {
+                      "measuredType": "VOLUME",
+                      "quantityUnit": "ML",
+                      "quantityValue": 5.0,
+                      "referenceUnit": "ML",
+                      "referenceValue": 1
+                    }
                   }
                 }
               ]

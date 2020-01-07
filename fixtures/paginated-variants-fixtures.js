@@ -30,7 +30,15 @@ export const secondPageVariantsFixture = {
                   "name": "Fur",
                   "value": "Extra Fluffy"
                 }
-              ]
+              ],
+              "unitPrice": null,
+              "unitPriceMeasurement": {
+                "measuredType": null,
+                "quantityUnit": null,
+                "quantityValue": 0.0,
+                "referenceUnit": null,
+                "referenceValue": 0
+              }
             }
           }
         ]
@@ -71,7 +79,18 @@ export const thirdPageVariantsFixture = {
                   "name": "Fur",
                   "value": "Mega Fluff"
                 }
-              ]
+              ],
+              "unitPrice": {
+                "amount": "0.00",
+                "currencyCode": "CAD"
+              },
+              "unitPriceMeasurement": {
+                "measuredType": "VOLUME",
+                "quantityUnit": "ML",
+                "quantityValue": 5.0,
+                "referenceUnit": "ML",
+                "referenceValue": 1
+              }
             }
           }
         ]
