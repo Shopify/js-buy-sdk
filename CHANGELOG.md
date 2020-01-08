@@ -1,5 +1,12 @@
 # Changelog
 
+### v2.9.0 (January 8, 2020)
+* Bumps the SDK to use Storefront API version `2020-01`. For more information, see the [Release Notes](https://help.shopify.com/en/api/versioning/release-notes/2020-01#storefront-api-changes).
+* Adds a language option to the client config to support retrieving translated content from the Storefront API. For more information, see the [Multi-Language API Guide](https://help.shopify.com/en/api/guides/multi-language/translating-content-api).
+* Adds `compareAtPrice` to the `presentmentPrices` object in the variant fragment
+* Adds `unitPrice` and `unitPriceMeasurement` fields to the variant fragment
+* Updates `graphql-js-client` to fix an error when calling `fetchNextPage` for products in the `fetchWithProducts` and `fetchAllWithProducts` collection queries
+
 ### v2.8.1 (November 15, 2019)
 * Updates some description strings in the Storefront API schema version `2019-10`.
 * Adds an optional param to `collection.fetchWithProducts` for specifying the number of products to return.
