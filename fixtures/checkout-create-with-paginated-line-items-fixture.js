@@ -20,6 +20,7 @@ export default {
                   "id": "gid://shopify/ProductVariant/1",
                   "title": "Awesome Copper Bench",
                   "price": "64.99",
+                  "compareAtPrice": "69.99",
                   "weight": 4.5,
                   "image": null,
                   "selectedOptions": [
@@ -27,7 +28,27 @@ export default {
                       "name": "Color or something",
                       "value": "Awesome Copper Bench"
                     }
-                  ]
+                  ],
+                  "presentmentPrices": {
+                    "pageInfo": {
+                      "hasNextPage": false,
+                      "hasPreviousPage": false
+                    },
+                    "edges": [
+                      {
+                        "node": {
+                          "price": {
+                            "amount": "64.99",
+                            "currencyCode": "USD"
+                          },
+                          "compareAtPrice": {
+                            "amount": "69.99",
+                            "currencyCode": "USD"
+                          }
+                        }
+                      }
+                    ]
+                  }
                 },
                 "quantity": 5,
                 "customAttributes": []

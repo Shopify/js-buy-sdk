@@ -17,6 +17,10 @@ fragment VariantFragment on ProductVariant {
           amount
           currencyCode
         }
+        compareAtPrice {
+          amount
+          currencyCode
+        }
       }
     }
   }
