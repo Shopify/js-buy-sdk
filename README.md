@@ -101,7 +101,7 @@ If your store supports multiple languages, Storefront API can return translated 
 ```javascript
 import Client from 'shopify-buy';
 
-// Initializing a client
+// Initializing a client to return content in the store's primary language
 const client = Client.buildClient({
   domain: 'your-shop-name.myshopify.com',
   storefrontAccessToken: 'your-storefront-access-token'
