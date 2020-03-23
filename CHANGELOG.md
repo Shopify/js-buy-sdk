@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.9.2 (March 23, 2020)
+* Update the client to always set the `accept-language` header for all requests and will use `*` as the default value when a language config is not set during client initialization
+
+### v2.9.1 (February 19, 2020)
+* Update `handleCheckoutMutation` to invoke proper schema level error when no data/model is provided
+
 ### v2.9.0 (January 8, 2020)
 * Bumps the SDK to use Storefront API version `2020-01`. For more information, see the [Release Notes](https://help.shopify.com/en/api/versioning/release-notes/2020-01#storefront-api-changes).
 * Adds a language option to the client config to support retrieving translated content from the Storefront API. For more information, see the [Multi-Language API Guide](https://help.shopify.com/en/api/guides/multi-language/translating-content-api).
