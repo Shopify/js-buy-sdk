@@ -31,6 +31,7 @@ suite('client-test', () => {
     assert.equal(passedUrl, `https://${config.domain}/api/${config.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
+        'Accept-Language': '*',
         'X-SDK-Variant': 'javascript',
         'X-SDK-Version': version,
         'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
@@ -61,6 +62,7 @@ suite('client-test', () => {
     assert.equal(passedUrl, `https://${withSourceConfig.domain}/api/${withSourceConfig.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
+        'Accept-Language': '*',
         'X-SDK-Variant': 'javascript',
         'X-SDK-Version': version,
         'X-Shopify-Storefront-Access-Token': withSourceConfig.storefrontAccessToken,
@@ -134,6 +136,7 @@ suite('client-test', () => {
       assert.deepEqual(passedHeaders, {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        'Accept-Language': '*',
         'X-SDK-Variant': 'javascript',
         'X-SDK-Version': version,
         'X-Shopify-Storefront-Access-Token': config.storefrontAccessToken
