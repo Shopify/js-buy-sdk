@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.10.0 (April 24, 2020)
+* Bumps the SDK to use Storefront API version `2020-04`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2020-04).
+
+### v2.9.3 (April 6, 2020)
+* Update code of conduct report link
+
 ### v2.9.2 (March 23, 2020)
 * Update the client to always set the `accept-language` header for all requests and will use `*` as the default value when a language config is not set during client initialization
 
