@@ -3842,6 +3842,12 @@
               "description": "Unable to apply discount.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "DISCOUNT_ALREADY_APPLIED",
+              "description": "Discount already applied.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -5655,7 +5661,7 @@
             },
             {
               "name": "AX",
-              "description": "Aland Islands.",
+              "description": "Åland Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5691,7 +5697,7 @@
             },
             {
               "name": "AG",
-              "description": "Antigua And Barbuda.",
+              "description": "Antigua & Barbuda.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5799,7 +5805,7 @@
             },
             {
               "name": "BA",
-              "description": "Bosnia And Herzegovina.",
+              "description": "Bosnia & Herzegovina.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5931,13 +5937,13 @@
             },
             {
               "name": "CG",
-              "description": "Congo.",
+              "description": "Congo - Brazzaville.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "CD",
-              "description": "Congo, The Democratic Republic Of The.",
+              "description": "Congo - Kinshasa.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5979,13 +5985,13 @@
             },
             {
               "name": "CZ",
-              "description": "Czech Republic.",
+              "description": "Czechia.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "CI",
-              "description": "Côte d'Ivoire.",
+              "description": "Côte d’Ivoire.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6063,7 +6069,7 @@
             },
             {
               "name": "FK",
-              "description": "Falkland Islands (Malvinas).",
+              "description": "Falkland Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6189,7 +6195,7 @@
             },
             {
               "name": "GW",
-              "description": "Guinea Bissau.",
+              "description": "Guinea-Bissau.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6207,13 +6213,13 @@
             },
             {
               "name": "HM",
-              "description": "Heard Island And Mcdonald Islands.",
+              "description": "Heard & McDonald Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "VA",
-              "description": "Holy See (Vatican City State).",
+              "description": "Vatican City.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6225,7 +6231,7 @@
             },
             {
               "name": "HK",
-              "description": "Hong Kong.",
+              "description": "Hong Kong SAR China.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6255,7 +6261,7 @@
             },
             {
               "name": "IR",
-              "description": "Iran, Islamic Republic Of.",
+              "description": "Iran.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6273,7 +6279,7 @@
             },
             {
               "name": "IM",
-              "description": "Isle Of Man.",
+              "description": "Isle of Man.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6333,7 +6339,7 @@
             },
             {
               "name": "KP",
-              "description": "Korea, Democratic People's Republic Of.",
+              "description": "North Korea.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6357,7 +6363,7 @@
             },
             {
               "name": "LA",
-              "description": "Lao People's Democratic Republic.",
+              "description": "Laos.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6387,7 +6393,7 @@
             },
             {
               "name": "LY",
-              "description": "Libyan Arab Jamahiriya.",
+              "description": "Libya.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6411,7 +6417,7 @@
             },
             {
               "name": "MO",
-              "description": "Macao.",
+              "description": "Macao SAR China.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6483,7 +6489,7 @@
             },
             {
               "name": "MD",
-              "description": "Moldova, Republic of.",
+              "description": "Moldova.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6525,7 +6531,7 @@
             },
             {
               "name": "MM",
-              "description": "Myanmar.",
+              "description": "Myanmar (Burma).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6627,7 +6633,7 @@
             },
             {
               "name": "PS",
-              "description": "Palestinian Territory, Occupied.",
+              "description": "Palestinian Territories.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6663,7 +6669,7 @@
             },
             {
               "name": "PN",
-              "description": "Pitcairn.",
+              "description": "Pitcairn Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6687,13 +6693,13 @@
             },
             {
               "name": "CM",
-              "description": "Republic of Cameroon.",
+              "description": "Cameroon.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "RE",
-              "description": "Reunion.",
+              "description": "Réunion.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6717,37 +6723,37 @@
             },
             {
               "name": "BL",
-              "description": "Saint Barthélemy.",
+              "description": "St. Barthélemy.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "SH",
-              "description": "Saint Helena.",
+              "description": "St. Helena.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "KN",
-              "description": "Saint Kitts And Nevis.",
+              "description": "St. Kitts & Nevis.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "LC",
-              "description": "Saint Lucia.",
+              "description": "St. Lucia.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "MF",
-              "description": "Saint Martin.",
+              "description": "St. Martin.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "PM",
-              "description": "Saint Pierre And Miquelon.",
+              "description": "St. Pierre & Miquelon.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6765,7 +6771,7 @@
             },
             {
               "name": "ST",
-              "description": "Sao Tome And Principe.",
+              "description": "São Tomé & Príncipe.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6843,7 +6849,7 @@
             },
             {
               "name": "GS",
-              "description": "South Georgia And The South Sandwich Islands.",
+              "description": "South Georgia & South Sandwich Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6873,7 +6879,7 @@
             },
             {
               "name": "VC",
-              "description": "St. Vincent.",
+              "description": "St. Vincent & Grenadines.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6891,7 +6897,7 @@
             },
             {
               "name": "SJ",
-              "description": "Svalbard And Jan Mayen.",
+              "description": "Svalbard & Jan Mayen.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6927,7 +6933,7 @@
             },
             {
               "name": "TZ",
-              "description": "Tanzania, United Republic Of.",
+              "description": "Tanzania.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6939,7 +6945,7 @@
             },
             {
               "name": "TL",
-              "description": "Timor Leste.",
+              "description": "Timor-Leste.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6963,7 +6969,7 @@
             },
             {
               "name": "TT",
-              "description": "Trinidad and Tobago.",
+              "description": "Trinidad & Tobago.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6987,7 +6993,7 @@
             },
             {
               "name": "TC",
-              "description": "Turks and Caicos Islands.",
+              "description": "Turks & Caicos Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -7029,7 +7035,7 @@
             },
             {
               "name": "UM",
-              "description": "United States Minor Outlying Islands.",
+              "description": "U.S. Outlying Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -7065,13 +7071,13 @@
             },
             {
               "name": "VG",
-              "description": "Virgin Islands, British.",
+              "description": "British Virgin Islands.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "WF",
-              "description": "Wallis And Futuna.",
+              "description": "Wallis & Futuna.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8624,7 +8630,7 @@
             },
             {
               "name": "tags",
-              "description": "A list of tags assigned to the customer.\nAdditional access scope required: unauthenticated_read_customer_tags.\n",
+              "description": "A comma separated list of tags that have been added to the customer.\nAdditional access scope required: unauthenticated_read_customer_tags.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -9992,7 +9998,7 @@
             },
             {
               "name": "phone",
-              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -10390,8 +10396,8 @@
             {
               "name": "ONE",
               "description": "The value is specifically applied onto a particular line.",
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use ACROSS instead."
             }
           ],
           "possibleTypes": null
@@ -16876,12 +16882,12 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
-              "name": "PricingPercentageValue",
+              "name": "MoneyV2",
               "ofType": null
             },
             {
               "kind": "OBJECT",
-              "name": "MoneyV2",
+              "name": "PricingPercentageValue",
               "ofType": null
             }
           ]
@@ -17565,7 +17571,7 @@
             },
             {
               "name": "tags",
-              "description": "A categorization that a product can be tagged with, commonly used for filtering and searching.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n",
+              "description": "A comma separated list of tags that have been added to the product.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -18298,7 +18304,7 @@
             },
             {
               "name": "currentlyNotInStock",
-              "description": "Whether the product variant is available for sale but currently out of stock.",
+              "description": "Whether a product is out of stock but still available for purchase (used for backorders).",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -20653,7 +20659,7 @@
             },
             {
               "name": "productTags",
-              "description": "Tags added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
+              "description": "A comma separated list of tags that have been added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
               "args": [
                 {
                   "name": "first",
@@ -22688,6 +22694,18 @@
             },
             {
               "name": "accessRestrictedReason",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "componentName",
               "description": null,
               "args": [],
               "type": {
