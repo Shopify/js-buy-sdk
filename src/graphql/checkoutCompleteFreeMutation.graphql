@@ -1,0 +1,10 @@
+mutation ($checkoutId: ID!) {
+  checkoutCompleteFree(checkoutId: $checkoutId) {
+    checkoutUserErrors {
+      ...CheckoutUserErrorFragment
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
