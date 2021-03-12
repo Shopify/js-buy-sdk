@@ -81,9 +81,8 @@ class CustomerResource extends Resource {
     return this.graphQLClient
       .send(customerAccessTokenDeleteMutation, {customerAccessToken})
       .then(defaultResolver('customerAccessTokenDelete'));
-    
   }
-  
+
   /**
    * Renew a access token.
    *
@@ -103,7 +102,7 @@ class CustomerResource extends Resource {
       .send(customerAccessTokenCreateWithMultipassMutation, {multipassToken})
       .then(defaultResolver('customerAccessTokenCreateWithMultipass'));
   }
-  
+
   /**
    * Activate customer account.
    *
