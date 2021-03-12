@@ -21,3 +21,6 @@ secrets.json
 
 # VSCode settings
 .vscode
+
+#Emacs
+*~
