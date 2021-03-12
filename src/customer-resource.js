@@ -50,80 +50,94 @@ class CustomerResource extends Resource {
   create(input) {
     return this.graphQLClient
       .send(customerCreateMutation, {input})
-      .then(defaultResolver('customerCreate.customer'));
+      .then(defaultResolver('customerCreate'));
+  }
+
+  update(customerAccessToken, customer) {
+    return this.graphQLClient
+      .send(customerUpdateMutation, {customerAccessToken, customer})
+      .then(defaultResolver('customerUpdate'));
   }
 
   createAccessToken(input) {
     return this.graphQLClient
       .send(customerAccessTokenCreateMutation, {input})
-      .then(defaultResolver('customerAccessTokenCreate.customerAccessToken'));
+      .then(defaultResolver('customerAccessTokenCreate'));
   }
 
-  // not implemented
-  createAccessTokenWithMultipass(multipassToken) {
-    return this.graphQLClient
-      .send(customerAccessTokenCreateWithMultipassMutation, {multipassToken});
-  }
-  
   deleteAccessToken(customerAccessToken) {
     return this.graphQLClient
-      .send(customerAccessTokenDeleteMutation, {customerAccessToken});
+      .send(customerAccessTokenDeleteMutation, {customerAccessToken})
+      .then(defaultResolver('customerAccessTokenDelete'));
+    
   }
   
   renewAccessToken(customerAccessToken) {
     return this.graphQLClient
-      .send(customerAccessTokenRenewMutation, {customerAccessToken});
+      .send(customerAccessTokenRenewMutation, {customerAccessToken})
+      .then(defaultResolver('customerAccessTokenRenew'));
   }
 
+  createAccessTokenWithMultipass(multipassToken) {
+    return this.graphQLClient
+      .send(customerAccessTokenCreateWithMultipassMutation, {multipassToken})
+      .then(defaultResolver('customerAccessTokenCreateWithMultipass'));
+  }
+  
   activate(id, input) {
     return this.graphQLClient
       .send(customerActivateMutation, {id, input})
+      .then(defaultResolver('customerActivate'));
   }
 
   activateByUrl(activationUrl, password) {
     return this.graphQLClient
-      .send(customerActivateByUrlMutation, {activationUrl, password});
+      .send(customerActivateByUrlMutation, {activationUrl, password})
+      .then(defaultResolver('customerActivateByUrl'));
   }
 
   createAddress(customerAccessToken, address) {
     return this.graphQLClient
-      .send(customerAddressCreateMutation, {customerAccessToken, address});
+      .send(customerAddressCreateMutation, {customerAccessToken, address})
+      .then(defaultResolver('customerAddressCreate'));
   }
 
   deleteAddress(id, customerAccessToken) {
     return this.graphQLClient
-      .send(customerAddressDeleteMutation, {id, customerAccessToken});
+      .send(customerAddressDeleteMutation, {id, customerAccessToken})
+      .then(defaultResolver('customerAddressDelete'));
   }
 
   updateAddress(customerAccessToken, id, address) {
     return this.graphQLClient
-      .send(customerAddressUpdateMutation, {customerAccessToken, id, address});
+      .send(customerAddressUpdateMutation, {customerAccessToken, id, address})
+      .then(defaultResolver('customerAddressUpdate'));
   }
 
   updateDefaultAddress(customerAccessToken, addressId) {
     return this.graphQLClient
-      .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId});
+      .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId})
+      .then(defaultResolver('customerDefaultAddressUpdate'));
   }
 
   recover(email) {
     return this.graphQLClient
-      .send(customerRecoverMutation, {email});
+      .send(customerRecoverMutation, {email})
+      .then(defaultResolver('customerRecover'));
   }
 
   reset(id, input) {
     return this.graphQLClient
-      .send(customerResetMutation, {id, input});
+      .send(customerResetMutation, {id, input})
+      .then(defaultResolver('customerReset'));
   }
 
   resetByUrl(resetUrl, password) {
     return this.graphQLClient
-      .send(customerResetByUrlMutation, {resetUrl, password});
+      .send(customerResetByUrlMutation, {resetUrl, password})
+      .then(defaultResolver('customerResetByUrl'));
   }
 
-  update(customerAccessToken, customer) {
-    return this.graphQLClient
-      .send(customerUpdateMutation, {customerAccessToken, customer});
-  }
 }
 
 export default CustomerResource;
