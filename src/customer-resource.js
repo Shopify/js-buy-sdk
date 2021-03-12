@@ -53,18 +53,30 @@ class CustomerResource extends Resource {
       .then(defaultResolver('customerCreate'));
   }
 
+  /**
+   * Update a customer.
+   *
+   */
   update(customerAccessToken, customer) {
     return this.graphQLClient
       .send(customerUpdateMutation, {customerAccessToken, customer})
       .then(defaultResolver('customerUpdate'));
   }
 
+  /**
+   * Create a access token.
+   *
+   */
   createAccessToken(input) {
     return this.graphQLClient
       .send(customerAccessTokenCreateMutation, {input})
       .then(defaultResolver('customerAccessTokenCreate'));
   }
 
+  /**
+   * Delete a access token.
+   *
+   */
   deleteAccessToken(customerAccessToken) {
     return this.graphQLClient
       .send(customerAccessTokenDeleteMutation, {customerAccessToken})
@@ -72,66 +84,110 @@ class CustomerResource extends Resource {
     
   }
   
+  /**
+   * Renew a access token.
+   *
+   */
   renewAccessToken(customerAccessToken) {
     return this.graphQLClient
       .send(customerAccessTokenRenewMutation, {customerAccessToken})
       .then(defaultResolver('customerAccessTokenRenew'));
   }
 
+  /**
+   * Create a access token with Multipass.
+   *
+   */
   createAccessTokenWithMultipass(multipassToken) {
     return this.graphQLClient
       .send(customerAccessTokenCreateWithMultipassMutation, {multipassToken})
       .then(defaultResolver('customerAccessTokenCreateWithMultipass'));
   }
   
+  /**
+   * Activate customer account.
+   *
+   */
   activate(id, input) {
     return this.graphQLClient
       .send(customerActivateMutation, {id, input})
       .then(defaultResolver('customerActivate'));
   }
 
+  /**
+   * Activate customer account by URL.
+   *
+   */
   activateByUrl(activationUrl, password) {
     return this.graphQLClient
       .send(customerActivateByUrlMutation, {activationUrl, password})
       .then(defaultResolver('customerActivateByUrl'));
   }
 
+  /**
+   * Create customer's address.
+   *
+   */
   createAddress(customerAccessToken, address) {
     return this.graphQLClient
       .send(customerAddressCreateMutation, {customerAccessToken, address})
       .then(defaultResolver('customerAddressCreate'));
   }
 
+  /**
+   * Delete customer's address.
+   *
+   */
   deleteAddress(id, customerAccessToken) {
     return this.graphQLClient
       .send(customerAddressDeleteMutation, {id, customerAccessToken})
       .then(defaultResolver('customerAddressDelete'));
   }
 
+  /**
+   * Update customer's address.
+   *
+   */
   updateAddress(customerAccessToken, id, address) {
     return this.graphQLClient
       .send(customerAddressUpdateMutation, {customerAccessToken, id, address})
       .then(defaultResolver('customerAddressUpdate'));
   }
 
+  /**
+   * Update customer's default address.
+   *
+   */
   updateDefaultAddress(customerAccessToken, addressId) {
     return this.graphQLClient
       .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId})
       .then(defaultResolver('customerDefaultAddressUpdate'));
   }
 
+  /**
+   * Recover customer.
+   *
+   */
   recover(email) {
     return this.graphQLClient
       .send(customerRecoverMutation, {email})
       .then(defaultResolver('customerRecover'));
   }
 
+  /**
+   * Reset customer password.
+   *
+   */
   reset(id, input) {
     return this.graphQLClient
       .send(customerResetMutation, {id, input})
       .then(defaultResolver('customerReset'));
   }
 
+  /**
+   * Reset customer password by Url.
+   *
+   */
   resetByUrl(resetUrl, password) {
     return this.graphQLClient
       .send(customerResetByUrlMutation, {resetUrl, password})
