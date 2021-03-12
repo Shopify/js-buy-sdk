@@ -3,6 +3,7 @@ import defaultResolver from './default-resolver';
 
 // GraphQL
 import customerCreateMutation from './graphql/customerCreateMutation.graphql';
+import customerAccessTokenCreateMutation from './graphql/customerAccessTokenCreateMutation.graphql';
 
 /**
  * The JS Buy SDK customer resource
@@ -34,6 +35,11 @@ class CustomerResource extends Resource {
       .then(defaultResolver('customerCreate.customer'));
   }
 
+  createAccessToken(input) {
+    return this.graphQLClient
+      .send(customerAccessTokenCreateMutation, {input})
+  }
+  
 }
 
 export default CustomerResource;
