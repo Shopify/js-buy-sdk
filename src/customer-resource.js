@@ -1,5 +1,5 @@
 import Resource from './resource';
-import defaultResolver from './default-resolver';
+import handleCustomerMutation from './handle-customer-mutation';
 
 // GraphQL
 import customerCreateMutation from './graphql/customerCreateMutation.graphql';
@@ -50,7 +50,7 @@ class CustomerResource extends Resource {
   create(input) {
     return this.graphQLClient
       .send(customerCreateMutation, {input})
-      .then(defaultResolver('customerCreate'));
+      .then(handleCustomerMutation('customerCreate'));
   }
 
   /**
@@ -60,7 +60,7 @@ class CustomerResource extends Resource {
   update(customerAccessToken, customer) {
     return this.graphQLClient
       .send(customerUpdateMutation, {customerAccessToken, customer})
-      .then(defaultResolver('customerUpdate'));
+      .then(handleCustomerMutation('customerUpdate'));
   }
 
   /**
@@ -70,7 +70,7 @@ class CustomerResource extends Resource {
   createAccessToken(input) {
     return this.graphQLClient
       .send(customerAccessTokenCreateMutation, {input})
-      .then(defaultResolver('customerAccessTokenCreate'));
+      .then(handleCustomerMutation('customerAccessTokenCreate'));
   }
 
   /**
@@ -80,7 +80,7 @@ class CustomerResource extends Resource {
   deleteAccessToken(customerAccessToken) {
     return this.graphQLClient
       .send(customerAccessTokenDeleteMutation, {customerAccessToken})
-      .then(defaultResolver('customerAccessTokenDelete'));
+      .then(handleCustomerMutation('customerAccessTokenDelete'));
   }
 
   /**
@@ -90,7 +90,7 @@ class CustomerResource extends Resource {
   renewAccessToken(customerAccessToken) {
     return this.graphQLClient
       .send(customerAccessTokenRenewMutation, {customerAccessToken})
-      .then(defaultResolver('customerAccessTokenRenew'));
+      .then(handleCustomerMutation('customerAccessTokenRenew'));
   }
 
   /**
@@ -100,7 +100,7 @@ class CustomerResource extends Resource {
   createAccessTokenWithMultipass(multipassToken) {
     return this.graphQLClient
       .send(customerAccessTokenCreateWithMultipassMutation, {multipassToken})
-      .then(defaultResolver('customerAccessTokenCreateWithMultipass'));
+      .then(handleCustomerMutation('customerAccessTokenCreateWithMultipass'));
   }
 
   /**
@@ -110,7 +110,7 @@ class CustomerResource extends Resource {
   activate(id, input) {
     return this.graphQLClient
       .send(customerActivateMutation, {id, input})
-      .then(defaultResolver('customerActivate'));
+      .then(handleCustomerMutation('customerActivate'));
   }
 
   /**
@@ -120,7 +120,7 @@ class CustomerResource extends Resource {
   activateByUrl(activationUrl, password) {
     return this.graphQLClient
       .send(customerActivateByUrlMutation, {activationUrl, password})
-      .then(defaultResolver('customerActivateByUrl'));
+      .then(handleCustomerMutation('customerActivateByUrl'));
   }
 
   /**
@@ -130,7 +130,7 @@ class CustomerResource extends Resource {
   createAddress(customerAccessToken, address) {
     return this.graphQLClient
       .send(customerAddressCreateMutation, {customerAccessToken, address})
-      .then(defaultResolver('customerAddressCreate'));
+      .then(handleCustomerMutation('customerAddressCreate'));
   }
 
   /**
@@ -140,7 +140,7 @@ class CustomerResource extends Resource {
   deleteAddress(id, customerAccessToken) {
     return this.graphQLClient
       .send(customerAddressDeleteMutation, {id, customerAccessToken})
-      .then(defaultResolver('customerAddressDelete'));
+      .then(handleCustomerMutation('customerAddressDelete'));
   }
 
   /**
@@ -150,7 +150,7 @@ class CustomerResource extends Resource {
   updateAddress(customerAccessToken, id, address) {
     return this.graphQLClient
       .send(customerAddressUpdateMutation, {customerAccessToken, id, address})
-      .then(defaultResolver('customerAddressUpdate'));
+      .then(handleCustomerMutation('customerAddressUpdate'));
   }
 
   /**
@@ -160,7 +160,7 @@ class CustomerResource extends Resource {
   updateDefaultAddress(customerAccessToken, addressId) {
     return this.graphQLClient
       .send(customerDefaultAddressUpdateMutation, {customerAccessToken, addressId})
-      .then(defaultResolver('customerDefaultAddressUpdate'));
+      .then(handleCustomerMutation('customerDefaultAddressUpdate'));
   }
 
   /**
@@ -170,7 +170,7 @@ class CustomerResource extends Resource {
   recover(email) {
     return this.graphQLClient
       .send(customerRecoverMutation, {email})
-      .then(defaultResolver('customerRecover'));
+      .then(handleCustomerMutation('customerRecover'));
   }
 
   /**
@@ -180,7 +180,7 @@ class CustomerResource extends Resource {
   reset(id, input) {
     return this.graphQLClient
       .send(customerResetMutation, {id, input})
-      .then(defaultResolver('customerReset'));
+      .then(handleCustomerMutation('customerReset'));
   }
 
   /**
@@ -190,7 +190,7 @@ class CustomerResource extends Resource {
   resetByUrl(resetUrl, password) {
     return this.graphQLClient
       .send(customerResetByUrlMutation, {resetUrl, password})
-      .then(defaultResolver('customerResetByUrl'));
+      .then(handleCustomerMutation('customerResetByUrl'));
   }
 
 }
