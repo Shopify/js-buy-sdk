@@ -5,6 +5,7 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 // GraphQL
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
+import checkoutCustomerAssociateV2 from './graphql/checkoutCustomerAssociateV2.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
@@ -78,6 +79,12 @@ class CheckoutResource extends Resource {
       .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
   }
 
+  associateCustomer(checkoutId, customerAccessToken) {
+    return this.graphQLClient
+      .send(checkoutCustomerAssociateV2, {checkoutId, customerAccessToken})
+      .then(handleCheckoutMutation('checkoutCustomerAssociateV2', this.graphQLClient));
+  }
+  
   /**
    * Replaces the value of checkout's custom attributes and/or note with values defined in the input
    *
