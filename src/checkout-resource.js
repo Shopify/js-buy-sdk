@@ -84,7 +84,7 @@ class CheckoutResource extends Resource {
       .send(checkoutCustomerAssociateV2, {checkoutId, customerAccessToken})
       .then(handleCheckoutMutation('checkoutCustomerAssociateV2', this.graphQLClient));
   }
-  
+
   /**
    * Replaces the value of checkout's custom attributes and/or note with values defined in the input
    *

@@ -1,8 +1,7 @@
 export default function handleCustomerMutation(mutationRootKey) {
-  return function({data = {}, errors, model = {}}) {
+  return function({data = {}, errors}) {
     try {
       const rootData = data[mutationRootKey];
-      const rootModel = model[mutationRootKey];
 
       if (errors && errors.length) {
         return Promise.reject(new Error(JSON.stringify(errors)));
@@ -19,7 +18,7 @@ export default function handleCustomerMutation(mutationRootKey) {
       if (rootData) {
         return rootData;
       }
-    
+
       return Promise.reject(new Error(`The ${mutationRootKey} mutation failed due to an unknown error.`));
     } catch (_) {
       return Promise.reject(new Error(`The ${mutationRootKey} mutation failed due to an unknown error.`));
