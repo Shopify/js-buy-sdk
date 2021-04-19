@@ -662,7 +662,7 @@
         {
           "kind": "OBJECT",
           "name": "ArticleConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Articles.\n",
           "fields": [
             {
               "name": "edges",
@@ -713,7 +713,7 @@
         {
           "kind": "OBJECT",
           "name": "ArticleEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Article and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -1250,7 +1250,7 @@
         {
           "kind": "OBJECT",
           "name": "BlogConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Blogs.\n",
           "fields": [
             {
               "name": "edges",
@@ -1301,7 +1301,7 @@
         {
           "kind": "OBJECT",
           "name": "BlogEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Blog and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -1396,37 +1396,37 @@
           "enumValues": [
             {
               "name": "VISA",
-              "description": "Visa",
+              "description": "Visa.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "MASTERCARD",
-              "description": "Mastercard",
+              "description": "Mastercard.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "DISCOVER",
-              "description": "Discover",
+              "description": "Discover.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "AMERICAN_EXPRESS",
-              "description": "American Express",
+              "description": "American Express.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "DINERS_CLUB",
-              "description": "Diners Club",
+              "description": "Diners Club.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "JCB",
-              "description": "JCB",
+              "description": "JCB.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1718,7 +1718,7 @@
             },
             {
               "name": "lineItemsSubtotalPrice",
-              "description": "The sum of all the prices of all the items in the checkout. Taxes, shipping and discounts excluded.",
+              "description": "The sum of all the prices of all the items in the checkout. Duties, taxes, shipping and discounts excluded.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1786,7 +1786,7 @@
             },
             {
               "name": "paymentDueV2",
-              "description": "The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.",
+              "description": "The amount left to be paid. This is equal to the cost of the line items, duties, taxes and shipping minus discounts and gift cards.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1898,7 +1898,7 @@
             },
             {
               "name": "subtotalPriceV2",
-              "description": "Price of the checkout before shipping and taxes.",
+              "description": "Price of the checkout before duties, shipping and taxes.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1962,7 +1962,7 @@
             },
             {
               "name": "totalPriceV2",
-              "description": "The sum of all the prices of all the items in the checkout, taxes and discounts included.",
+              "description": "The sum of all the prices of all the items in the checkout, duties, taxes and discounts included.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -3616,7 +3616,7 @@
         {
           "kind": "ENUM",
           "name": "CheckoutErrorCode",
-          "description": "Possible error codes that could be returned by a checkout mutation.",
+          "description": "Possible error codes that could be returned by CheckoutUserError.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -4284,7 +4284,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutLineItemConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple CheckoutLineItems.\n",
           "fields": [
             {
               "name": "edges",
@@ -4335,7 +4335,7 @@
         {
           "kind": "OBJECT",
           "name": "CheckoutLineItemEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one CheckoutLineItem and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -5290,7 +5290,7 @@
         {
           "kind": "OBJECT",
           "name": "CollectionConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Collections.\n",
           "fields": [
             {
               "name": "edges",
@@ -5341,7 +5341,7 @@
         {
           "kind": "OBJECT",
           "name": "CollectionEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Collection and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -5554,7 +5554,7 @@
         {
           "kind": "OBJECT",
           "name": "CommentConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Comments.\n",
           "fields": [
             {
               "name": "edges",
@@ -5605,7 +5605,7 @@
         {
           "kind": "OBJECT",
           "name": "CommentEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Comment and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -5716,6 +5716,12 @@
             {
               "name": "AW",
               "description": "Aruba.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AC",
+              "description": "Ascension Island.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6231,7 +6237,7 @@
             },
             {
               "name": "HK",
-              "description": "Hong Kong SAR China.",
+              "description": "Hong Kong SAR.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6417,7 +6423,7 @@
             },
             {
               "name": "MO",
-              "description": "Macao SAR China.",
+              "description": "Macao SAR.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -6974,6 +6980,12 @@
               "deprecationReason": null
             },
             {
+              "name": "TA",
+              "description": "Tristan da Cunha.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TN",
               "description": "Tunisia.",
               "isDeprecated": false,
@@ -7237,7 +7249,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7314,7 +7326,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -7527,12 +7539,6 @@
               "deprecationReason": null
             },
             {
-              "name": "BYR",
-              "description": "Belarusian Ruble (BYR).",
-              "isDeprecated": true,
-              "deprecationReason": "`BYR` is deprecated. Use `BYN` available from version `2019-10` onwards instead."
-            },
-            {
               "name": "BZD",
               "description": "Belize Dollar (BZD).",
               "isDeprecated": false,
@@ -7671,12 +7677,6 @@
               "deprecationReason": null
             },
             {
-              "name": "DJF",
-              "description": "Djiboutian Franc (DJF).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "DOP",
               "description": "Dominican Peso (DOP).",
               "isDeprecated": false,
@@ -7701,12 +7701,6 @@
               "deprecationReason": null
             },
             {
-              "name": "FKP",
-              "description": "Falkland Islands Pounds (FKP).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "XPF",
               "description": "CFP Franc (XPF).",
               "isDeprecated": false,
@@ -7715,12 +7709,6 @@
             {
               "name": "FJD",
               "description": "Fijian Dollars (FJD).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "GIP",
-              "description": "Gibraltar Pounds (GIP).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -7751,12 +7739,6 @@
             {
               "name": "GEL",
               "description": "Georgian Lari (GEL).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "GNF",
-              "description": "Guinean Franc (GNF).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -7805,12 +7787,6 @@
             {
               "name": "ILS",
               "description": "Israeli New Shekel (NIS).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "IRR",
-              "description": "Iranian Rial (IRR).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -7895,12 +7871,6 @@
             {
               "name": "LRD",
               "description": "Liberian Dollar (LRD).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "LYD",
-              "description": "Libyan Dinar (LYD).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8103,12 +8073,6 @@
               "deprecationReason": null
             },
             {
-              "name": "SHP",
-              "description": "Saint Helena Pounds (SHP).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SAR",
               "description": "Saudi Riyal (SAR).",
               "isDeprecated": false,
@@ -8129,12 +8093,6 @@
             {
               "name": "SCR",
               "description": "Seychellois Rupee (SCR).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SLL",
-              "description": "Sierra Leonean Leone (SLL).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8223,20 +8181,8 @@
               "deprecationReason": null
             },
             {
-              "name": "TJS",
-              "description": "Tajikistani Somoni (TJS).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "TZS",
               "description": "Tanzanian Shilling (TZS).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TOP",
-              "description": "Tongan Pa'anga (TOP).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8301,12 +8247,6 @@
               "deprecationReason": null
             },
             {
-              "name": "VEF",
-              "description": "Venezuelan Bolivares (VEF).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "VND",
               "description": "Vietnamese đồng (VND).",
               "isDeprecated": false,
@@ -8329,6 +8269,78 @@
               "description": "Zambian Kwacha (ZMW).",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "BYR",
+              "description": "Belarusian Ruble (BYR).",
+              "isDeprecated": true,
+              "deprecationReason": "`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead."
+            },
+            {
+              "name": "DJF",
+              "description": "Djiboutian Franc (DJF).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FKP",
+              "description": "Falkland Islands Pounds (FKP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIP",
+              "description": "Gibraltar Pounds (GIP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GNF",
+              "description": "Guinean Franc (GNF).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IRR",
+              "description": "Iranian Rial (IRR).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LYD",
+              "description": "Libyan Dinar (LYD).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SLL",
+              "description": "Sierra Leonean Leone (SLL).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SHP",
+              "description": "Saint Helena Pounds (SHP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TJS",
+              "description": "Tajikistani Somoni (TJS).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOP",
+              "description": "Tongan Pa'anga (TOP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VEF",
+              "description": "Venezuelan Bolivares (VEF).",
+              "isDeprecated": true,
+              "deprecationReason": "`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead."
             }
           ],
           "possibleTypes": null
@@ -9598,7 +9610,7 @@
         {
           "kind": "ENUM",
           "name": "CustomerErrorCode",
-          "description": "Possible error codes that could be returned by a customer mutation.",
+          "description": "Possible error codes that could be returned by CustomerUserError.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -10405,7 +10417,7 @@
         {
           "kind": "OBJECT",
           "name": "DiscountApplicationConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple DiscountApplications.\n",
           "fields": [
             {
               "name": "edges",
@@ -10456,7 +10468,7 @@
         {
           "kind": "OBJECT",
           "name": "DiscountApplicationEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one DiscountApplication and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -11058,7 +11070,7 @@
         {
           "kind": "OBJECT",
           "name": "FulfillmentLineItemConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple FulfillmentLineItems.\n",
           "fields": [
             {
               "name": "edges",
@@ -11109,7 +11121,7 @@
         {
           "kind": "OBJECT",
           "name": "FulfillmentLineItemEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -11481,7 +11493,7 @@
         {
           "kind": "OBJECT",
           "name": "ImageConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Images.\n",
           "fields": [
             {
               "name": "edges",
@@ -11561,7 +11573,7 @@
         {
           "kind": "OBJECT",
           "name": "ImageEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Image and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -11896,7 +11908,7 @@
         {
           "kind": "OBJECT",
           "name": "MailingAddressConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple MailingAddresses.\n",
           "fields": [
             {
               "name": "edges",
@@ -11947,7 +11959,7 @@
         {
           "kind": "OBJECT",
           "name": "MailingAddressEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one MailingAddress and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -12282,7 +12294,7 @@
         {
           "kind": "OBJECT",
           "name": "MediaConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Media.\n",
           "fields": [
             {
               "name": "edges",
@@ -12368,7 +12380,7 @@
         {
           "kind": "OBJECT",
           "name": "MediaEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Media and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -12658,7 +12670,7 @@
         {
           "kind": "OBJECT",
           "name": "MetafieldConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Metafields.\n",
           "fields": [
             {
               "name": "edges",
@@ -12709,7 +12721,7 @@
         {
           "kind": "OBJECT",
           "name": "MetafieldEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Metafield and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -13071,7 +13083,7 @@
         {
           "kind": "OBJECT",
           "name": "MoneyV2Connection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple MoneyV2s.\n",
           "fields": [
             {
               "name": "edges",
@@ -13122,7 +13134,7 @@
         {
           "kind": "OBJECT",
           "name": "MoneyV2Edge",
-          "description": null,
+          "description": "An auto-generated type which holds one MoneyV2 and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -14053,8 +14065,8 @@
                 "name": "CheckoutLineItemsAddPayload",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "checkoutLineItemsRemove",
@@ -14102,8 +14114,8 @@
                 "name": "CheckoutLineItemsRemovePayload",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "checkoutLineItemsReplace",
@@ -14200,8 +14212,8 @@
                 "name": "CheckoutLineItemsUpdatePayload",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutLineItemsReplace` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "checkoutShippingAddressUpdate",
@@ -15012,7 +15024,7 @@
           "fields": [
             {
               "name": "cancelReason",
-              "description": "Represents the reason for the order's cancellation. Returns null if the order wasn't canceled.",
+              "description": "The reason for the order's cancellation. Returns `null` if the order wasn't canceled.",
               "args": [],
               "type": {
                 "kind": "ENUM",
@@ -15052,7 +15064,7 @@
             },
             {
               "name": "currentSubtotalPrice",
-              "description": "The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order.",
+              "description": "The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15068,7 +15080,7 @@
             },
             {
               "name": "currentTotalPrice",
-              "description": "The total amount of the order, including taxes and discounts, minus amounts for line items that have been removed.",
+              "description": "The total amount of the order, including duties, taxes and discounts, minus amounts for line items that have been removed.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15470,7 +15482,7 @@
             },
             {
               "name": "subtotalPriceV2",
-              "description": "Price of the order before shipping and taxes.",
+              "description": "Price of the order before duties, shipping and taxes.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -15529,7 +15541,7 @@
             },
             {
               "name": "totalPriceV2",
-              "description": "The sum of all the prices of all the items in the order, taxes and discounts included (must be positive).",
+              "description": "The sum of all the prices of all the items in the order, duties, taxes and discounts included (must be positive).",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15687,7 +15699,7 @@
         {
           "kind": "OBJECT",
           "name": "OrderConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Orders.\n",
           "fields": [
             {
               "name": "edges",
@@ -15738,7 +15750,7 @@
         {
           "kind": "OBJECT",
           "name": "OrderEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Order and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -16038,7 +16050,7 @@
         {
           "kind": "OBJECT",
           "name": "OrderLineItemConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple OrderLineItems.\n",
           "fields": [
             {
               "name": "edges",
@@ -16089,7 +16101,7 @@
         {
           "kind": "OBJECT",
           "name": "OrderLineItemEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one OrderLineItem and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -16312,7 +16324,7 @@
         {
           "kind": "OBJECT",
           "name": "PageConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Pages.\n",
           "fields": [
             {
               "name": "edges",
@@ -16363,7 +16375,7 @@
         {
           "kind": "OBJECT",
           "name": "PageEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Page and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -16588,7 +16600,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A client-side generated token to identify a payment and perform idempotent operations.",
+              "description": "A client-side generated token to identify a payment and perform idempotent operations.\nFor more information, refer to\n[Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).\n",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -17403,7 +17415,7 @@
             },
             {
               "name": "options",
-              "description": "List of custom product options (maximum of 3 per product).",
+              "description": "List of product options.",
               "args": [
                 {
                   "name": "first",
@@ -17623,7 +17635,7 @@
             },
             {
               "name": "updatedAt",
-              "description": "The date and time when the product was last modified.",
+              "description": "The date and time when the product was last modified.\nA product's `updatedAt` value can change for different reasons. For example, if an order\nis placed for a product that has inventory tracking set up, then the inventory adjustment\nis counted as an update.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -17844,7 +17856,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Products.\n",
           "fields": [
             {
               "name": "edges",
@@ -17895,7 +17907,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one Product and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -17973,7 +17985,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductOption",
-          "description": "Custom product property names like \"Size\", \"Color\", and \"Material\".\nProducts are based on permutations of these options.\nA product may have a maximum of 3 options.\n255 characters limit each.\n",
+          "description": "Product property names like \"Size\", \"Color\", and \"Material\" that the customers can select.\nVariants are selected based on permutations of these options.\n255 characters limit each.\n",
           "fields": [
             {
               "name": "id",
@@ -18089,7 +18101,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductPriceRangeConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple ProductPriceRanges.\n",
           "fields": [
             {
               "name": "edges",
@@ -18140,7 +18152,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductPriceRangeEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one ProductPriceRange and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -18875,7 +18887,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductVariantConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple ProductVariants.\n",
           "fields": [
             {
               "name": "edges",
@@ -18926,7 +18938,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductVariantEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one ProductVariant and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -19008,7 +19020,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductVariantPricePairConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple ProductVariantPricePairs.\n",
           "fields": [
             {
               "name": "edges",
@@ -19059,7 +19071,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductVariantPricePairEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one ProductVariantPricePair and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -19489,7 +19501,7 @@
             },
             {
               "name": "node",
-              "description": null,
+              "description": "Returns a specific node by ID.",
               "args": [
                 {
                   "name": "id",
@@ -19516,7 +19528,7 @@
             },
             {
               "name": "nodes",
-              "description": null,
+              "description": "Returns the list of nodes with the given IDs.",
               "args": [
                 {
                   "name": "ids",
@@ -20079,7 +20091,7 @@
         {
           "kind": "OBJECT",
           "name": "SelectedOption",
-          "description": "Custom properties that a shop owner can use to define product variants.\nMultiple options can exist. Options are represented as: option1, option2, option3, etc.\n",
+          "description": "Properties used by customers to select a product variant.\nProducts can have multiple options, like different sizes or colors.\n",
           "fields": [
             {
               "name": "name",
@@ -20659,7 +20671,7 @@
             },
             {
               "name": "productTags",
-              "description": "A comma separated list of tags that have been added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
+              "description": "A list of tags that have been added to products.\nAdditional access scope required: unauthenticated_read_product_tags.\n",
               "args": [
                 {
                   "name": "first",
@@ -20982,7 +20994,7 @@
         {
           "kind": "OBJECT",
           "name": "StringConnection",
-          "description": null,
+          "description": "An auto-generated type for paginating through multiple Strings.\n",
           "fields": [
             {
               "name": "edges",
@@ -21033,7 +21045,7 @@
         {
           "kind": "OBJECT",
           "name": "StringEdge",
-          "description": null,
+          "description": "An auto-generated type which holds one String and a cursor during pagination.\n",
           "fields": [
             {
               "name": "cursor",
@@ -21095,7 +21107,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -21196,7 +21208,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -21297,7 +21309,7 @@
             },
             {
               "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one.",
+              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/concepts/about-apis/idempotent-requests).",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -21482,38 +21494,38 @@
         {
           "kind": "ENUM",
           "name": "TransactionKind",
-          "description": null,
+          "description": "The different kinds of order transactions.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
           "enumValues": [
             {
               "name": "SALE",
-              "description": null,
+              "description": "An authorization and capture performed together in a single step.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "CAPTURE",
-              "description": null,
+              "description": "A transfer of the money that was reserved during the authorization stage.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "AUTHORIZATION",
-              "description": null,
+              "description": "An amount reserved against the cardholder's funding source.\nMoney does not change hands until the authorization is captured.\n",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "EMV_AUTHORIZATION",
-              "description": null,
+              "description": "An authorization for a payment taken with an EMV credit card reader.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "CHANGE",
-              "description": null,
+              "description": "Money returned to the customer when they have paid too much.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -21523,32 +21535,32 @@
         {
           "kind": "ENUM",
           "name": "TransactionStatus",
-          "description": null,
+          "description": "Transaction statuses describe the status of a transaction.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
           "enumValues": [
             {
               "name": "PENDING",
-              "description": null,
+              "description": "The transaction is pending.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "SUCCESS",
-              "description": null,
+              "description": "The transaction succeeded.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "FAILURE",
-              "description": null,
+              "description": "The transaction failed.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "ERROR",
-              "description": null,
+              "description": "There was an error while processing the transaction.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -22045,7 +22057,18 @@
             {
               "name": "args",
               "description": null,
-              "args": [],
+              "args": [
+                {
+                  "name": "includeDeprecated",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -22394,7 +22417,18 @@
             {
               "name": "args",
               "description": null,
-              "args": [],
+              "args": [
+                {
+                  "name": "includeDeprecated",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -22523,6 +22557,18 @@
               "deprecationReason": null
             },
             {
+              "name": "deprecationReason",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "description",
               "description": null,
               "args": [],
@@ -22530,6 +22576,22 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isDeprecated",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -22793,7 +22855,18 @@
             {
               "name": "inputFields",
               "description": null,
-              "args": [],
+              "args": [
+                {
+                  "name": "includeDeprecated",
+                  "description": null,
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -23024,7 +23097,9 @@
           "description": "Marks an element of a GraphQL schema as no longer supported.",
           "locations": [
             "FIELD_DEFINITION",
-            "ENUM_VALUE"
+            "ENUM_VALUE",
+            "ARGUMENT_DEFINITION",
+            "INPUT_FIELD_DEFINITION"
           ],
           "args": [
             {
