@@ -28,6 +28,7 @@ fragment VariantFragment on ProductVariant {
   available: availableForSale
   sku
   compareAtPrice
+  quantityAvailable
   compareAtPriceV2 {
     amount
     currencyCode
