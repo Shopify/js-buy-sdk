@@ -6,7 +6,7 @@
   "jsnext:main": "index.es.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "publishConfig": {
-    "registry": "https://nexus.qa.whoop.com/repository/npm-private"
+    "registry": "https://nexus.qa.whoop.com/repository/npm-group"
   },
   "scripts": {
     "prepublish": "yarn run build",
