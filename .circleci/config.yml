@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Build
           command: |
+            yarn
             yarn run build
 
       - run:
