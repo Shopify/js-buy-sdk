@@ -6,7 +6,6 @@
   "jsnext:main": "index.es.js",
   "repository": "git@github.com:Shopify/js-buy-sdk.git",
   "publishConfig": {
-    "access": "restricted",
     "registry": "https://nexus.qa.whoop.com/repository/npm-private"
   },
   "scripts": {
