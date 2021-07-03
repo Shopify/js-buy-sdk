@@ -1,7 +1,10 @@
 import Resource from './resource';
+import defaultResolver from './default-resolver';
 import handleCustomerMutation from './handle-customer-mutation';
 
 // GraphQL
+import customerNodeQuery from './graphql/customerNodeQuery.graphql';
+
 import customerCreateMutation from './graphql/customerCreateMutation.graphql';
 
 import customerAccessTokenCreateMutation from './graphql/customerAccessTokenCreateMutation.graphql';
@@ -28,6 +31,11 @@ import customerUpdateMutation from './graphql/customerUpdateMutation.graphql';
  * @class
  */
 class CustomerResource extends Resource {
+  fetch(customerAccessToken) {
+    return this.graphQLClient
+      .send(customerNodeQuery, {customerAccessToken})
+      .then(defaultResolver('customer'))
+  }
 
   /**
    * Creates a customer.
