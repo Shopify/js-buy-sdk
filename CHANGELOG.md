@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.12.0 (August 30, 2021)
+* Bumps the SDK to use Storefront API version `2021-07`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2021-07).
+
 ### v2.11.0 (July 7, 2020)
 * Bumps the SDK to use Storefront API version `2020-07`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2020-07).
 
