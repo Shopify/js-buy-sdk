@@ -1,13 +1,10 @@
 name: Node CI
 
 on:
-  push:
-    branches: [ $default-branch ]
-  pull_request:
-    branches: [ $default-branch ]
+  push
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 
@@ -22,9 +19,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install dependencies
-      run: yarn --frozen-lockfile
-    - run: yarn run build --if-present
+        cache: 'yarn'
+    - run: yarn --frozen-lockfile
     - run: yarn test
 
