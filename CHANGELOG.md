@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.13.0 (October 28, 2021)
+* Bumps the SDK to use Storefront API version `2021-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2021-10).
+* Add image `width` and `height` fields to the `ProductFragment` and `VariantFragment`.
+
 ### v2.12.0 (August 30, 2021)
 * Bumps the SDK to use Storefront API version `2021-07`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2021-07).
 
