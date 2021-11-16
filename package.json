@@ -36,7 +36,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "aws-sdk": "2.162.0",
+    "aws-sdk": "2.814.0",
     "babel": "6.23.0",
     "babel-core": "6.26.0",
     "babel-minify": "0.5.1",
