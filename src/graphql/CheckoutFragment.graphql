@@ -62,6 +62,7 @@ fragment CheckoutFragment on Checkout {
       hasPreviousPage
     }
     edges {
+      cursor
       node {
         ...DiscountApplicationFragment
       }

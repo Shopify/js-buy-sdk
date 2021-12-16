@@ -1,21 +1,15 @@
 fragment ProductFragment on Product {
   id
-  availableForSale
-  createdAt
-  updatedAt
-  descriptionHtml
-  description
-  handle
-  productType
   title
+  handle
   vendor
-  publishedAt
-  onlineStoreUrl
-  options {
-    name
-    values
+  description
+  descriptionHtml
+  productType
+  primaryCollection: metafield(namespace: "dailywire", key: "primary_collection") {
+    value
   }
-  images(first: 250) {
+  collections(first: 10) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -24,14 +18,36 @@ fragment ProductFragment on Product {
       cursor
       node {
         id
-        src
-        altText
-        width
-        height
+        handle
+        title
+        image {
+          id
+          altText
+          originalSrc
+          src
+          height
+          width
+        }
       }
     }
   }
-  variants(first: 250) {
+  options {
+    id
+    name
+    values
+  }
+  priceRange {
+    maxVariantPrice {
+      amount
+      currencyCode
+    }
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+  }
+  requiresSellingPlan
+  variants(first: 10) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -39,8 +55,91 @@ fragment ProductFragment on Product {
     edges {
       cursor
       node {
-        ...VariantFragment
+        id
+        sku
+        title
+        availableForSale
+        selectedOptions {
+          name
+          value
+        }
+        image {
+          id
+          altText
+          originalSrc
+          src
+          width
+          height
+        }
+        priceV2 {
+          amount
+          currencyCode
+        }
+        compareAtPriceV2 {
+          amount
+          currencyCode
+        }
       }
     }
   }
+  images(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        altText
+        originalSrc
+        src
+        width
+        height
+      }
+    }
+  }
+  media(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        ... on MediaImage {
+          previewImage {
+            altText
+            height
+            width
+            id
+            originalSrc
+            src
+          }
+        }
+        ... on Video {
+          alt
+          id
+          mediaContentType
+          previewImage {
+            id
+            altText
+            originalSrc
+            src
+            width
+            height
+          }
+          sources {
+            format
+            height
+            mimeType
+            url
+            width
+          }
+        }
+      }
+    }
+  }
+  tags
+  availableForSale
 }

@@ -3,5 +3,11 @@ fragment VariantWithProductFragment on ProductVariant {
   product {
     id
     handle
+    title
+    options {
+      id
+      name
+      values
+    }
   }
 }

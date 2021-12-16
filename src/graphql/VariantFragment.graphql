@@ -12,6 +12,7 @@ fragment VariantFragment on ProductVariant {
       hasPreviousPage
     }
     edges {
+      cursor
       node {
         price {
           amount
