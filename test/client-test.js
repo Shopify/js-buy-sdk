@@ -9,7 +9,7 @@ suite('client-test', () => {
   const config = {
     domain: 'sendmecats.myshopify.com',
     storefrontAccessToken: 'abc123',
-    apiVersion: '2021-10'
+    apiVersion: '2022-01'
   };
 
   test('it instantiates a GraphQL client with the given config', () => {
