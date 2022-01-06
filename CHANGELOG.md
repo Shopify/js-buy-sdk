@@ -1,5 +1,11 @@
 # Changelog
 
+### v2.14.0 (January 6, 2022)
+* Bumps the SDK to use Storefront API version `2022-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-01).
+* Replace deprecated `description` with `title` in `ScriptDiscountApplication` typed `value` object in discount application fragment
+* Remove deprecated `currencyCode` from shop fragment
+* Remove deprecated `presentmentPrices` from product variant fragment
+
 ### v2.13.0 (October 28, 2021)
 * Bumps the SDK to use Storefront API version `2021-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2021-10).
 * Add image `width` and `height` fields to the `ProductFragment` and `VariantFragment`.
