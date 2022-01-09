@@ -6,24 +6,6 @@ fragment VariantFragment on ProductVariant {
     amount
     currencyCode
   }
-  presentmentPrices(first: 20) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
-    edges {
-      node {
-        price {
-          amount
-          currencyCode
-        }
-        compareAtPrice {
-          amount
-          currencyCode
-        }
-      }
-    }
-  }
   weight
   available: availableForSale
   sku
@@ -36,6 +18,8 @@ fragment VariantFragment on ProductVariant {
     id
     src: originalSrc
     altText
+    width
+    height
   }
   selectedOptions {
     name

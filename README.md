@@ -1,5 +1,5 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
-[![Travis](https://travis-ci.com/Shopify/js-buy-sdk.svg?branch=master)](https://travis-ci.com/Shopify/js-buy-sdk)
+![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
 [Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/master/tutorials/MIGRATION_GUIDE.md).
