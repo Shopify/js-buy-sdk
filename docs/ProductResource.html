@@ -93,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line16">line 16</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -250,7 +250,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line50">line 50</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line51">line 51</a>
     </li></ul></dd>
     
 
@@ -431,7 +431,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line32">line 32</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -600,7 +600,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line87">line 87</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -769,7 +769,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line69">line 69</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line70">line 70</a>
     </li></ul></dd>
     
 
@@ -1134,7 +1134,7 @@ documented as <a href="https://help.shopify.com/api/storefront-api/reference/enu
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line110">line 110</a>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -1197,6 +1197,177 @@ documented as <a href="https://help.shopify.com/api/storefront-api/reference/enu
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="fetchRecommendations"><span class="type-signature"></span>fetchRecommendations<span class="signature">(productId)</span><span class="type-signature"> &rarr; {Promise|Array.&lt;GraphModel>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Find recommended products related to a given productId.
+To learn more about how recommendations are generated, see https://shopify.dev/themes/product-merchandising/recommendations.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>productId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The id of the product to fetch.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="product-resource.js.html">product-resource.js</a>, <a href="product-resource.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>A promise resolving with an array of <code>GraphModel</code>s of the products.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+|
+
+<span class="param-type">Array.&lt;GraphModel></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>const productId 'Xk9lM2JkNzFmNzIQ4NTIY4ZDFi9DaGVja291dC9lM2JkN==';
+client.product.fetchProductRecommendations(productId).then((products) => {
+  // Do something with the products
+});</code></pre>
+
+
+
+        
     
 
     
@@ -1218,7 +1389,7 @@ documented as <a href="https://help.shopify.com/api/storefront-api/reference/enu
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Aug 30 2021 17:03:36 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Jan 18 2022 10:11:11 GMT+0200 (Eastern European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
