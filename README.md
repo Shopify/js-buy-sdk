@@ -53,13 +53,13 @@ $ npm install shopify-buy
 
 **CDN:**
 
-There is a minified UMD build available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about the latest release):
+There is a minified UMD build of the latest release available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about the latest release):
 
 ```html
 <script src="http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script>
 ```
 
-You can also use a specific release version:
+If you **don't** want to use the latest version, you can use a specific older release version:
 
 ```html
 <script src="https://sdks.shopifycdn.com/js-buy-sdk/1.11.0/index.umd.min.js"></script>
