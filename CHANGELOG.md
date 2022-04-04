@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.15.1 (April 4, 2022)
+* Bumps the SDK to use Storefront API version `2022-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-04).
+* Add `product.fetchRecommendations` function that allows for fetching recommended products for a product.
+
 ### v2.14.0 (January 6, 2022)
 * Bumps the SDK to use Storefront API version `2022-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-01).
 * Replace deprecated `description` with `title` in `ScriptDiscountApplication` typed `value` object in discount application fragment
