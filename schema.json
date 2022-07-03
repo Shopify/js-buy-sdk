@@ -638,12 +638,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             },
             {
@@ -772,6 +772,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in ArticleEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Article",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -882,7 +906,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1449,12 +1473,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             },
             {
@@ -1487,6 +1511,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "BlogEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in BlogEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Blog",
                       "ofType": null
                     }
                   }
@@ -1588,7 +1636,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1655,7 +1703,7 @@
         {
           "kind": "OBJECT",
           "name": "Cart",
-          "description": "A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart. To learn how to interact with a cart during a customer's session, refer to the [Cart guide](https://shopify.dev/custom-storefronts/cart).",
+          "description": "A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart. To learn how to interact with a cart during a customer's session, refer to [Manage a cart with the Storefront API](https://shopify.dev/api/examples/cart).",
           "fields": [
             {
               "name": "attributes",
@@ -1730,6 +1778,73 @@
               "deprecationReason": null
             },
             {
+              "name": "deliveryGroups",
+              "description": "The delivery groups available for the cart, based on the default address of the logged-in customer.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartDeliveryGroupConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "discountCodes",
               "description": "The discount codes that have been applied to the cart.",
               "args": [],
@@ -1755,7 +1870,7 @@
             },
             {
               "name": "estimatedCost",
-              "description": "The estimated costs that the buyer will pay at checkout. The estimated costs are subject to change and changes will be reflected at checkout.",
+              "description": "The estimated costs that the buyer will pay at checkout. The estimated costs are subject to change and changes will be reflected at checkout. The `estimatedCost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2050,7 +2165,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartBuyerIdentityInput",
-          "description": "Specifies the input fields to update the buyer information associated with a cart.",
+          "description": "Specifies the input fields to update the buyer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout)\nand should match the customer's shipping address.\n",
           "fields": null,
           "inputFields": [
             {
@@ -2242,6 +2357,337 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CartDeliveryGroup",
+          "description": "Information about the options available for one or more line items to be delivered to a specific address.",
+          "fields": [
+            {
+              "name": "cartLines",
+              "description": "A list of cart lines for the delivery group.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartLineConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "deliveryAddress",
+              "description": "The destination address for the delivery group.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MailingAddress",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "deliveryOptions",
+              "description": "The delivery options available for the delivery group.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartDeliveryOption",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "The ID for the delivery group.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryGroupConnection",
+          "description": "An auto-generated type for paginating through multiple CartDeliveryGroups.\n",
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartDeliveryGroupEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in CartDeliveryGroupEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartDeliveryGroup",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryGroupEdge",
+          "description": "An auto-generated type which holds one CartDeliveryGroup and a cursor during pagination.\n",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of CartDeliveryGroupEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartDeliveryGroup",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryOption",
+          "description": "Information about a delivery option.",
+          "fields": [
+            {
+              "name": "code",
+              "description": "The code of the delivery option.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "deliveryMethodType",
+              "description": "The method for the delivery option.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "DeliveryMethodType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "The description of the delivery option.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "estimatedCost",
+              "description": "The estimated cost for the delivery option.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the delivery option.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INTERFACE",
           "name": "CartDiscountAllocation",
           "description": "The discounts that have been applied to the cart line.",
@@ -2264,7 +2710,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -2413,7 +2859,7 @@
         {
           "kind": "OBJECT",
           "name": "CartEstimatedCost",
-          "description": "The estimated costs that the buyer will pay at checkout.",
+          "description": "The estimated costs that the buyer will pay at checkout.\nIt uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).\n",
           "fields": [
             {
               "name": "subtotalAmount",
@@ -2549,7 +2995,7 @@
             },
             {
               "name": "buyerIdentity",
-              "description": "The customer associated with the cart.",
+              "description": "The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.",
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "CartBuyerIdentityInput",
@@ -2724,6 +3170,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartLineEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in CartLineEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartLine",
                       "ofType": null
                     }
                   }
@@ -3316,7 +3786,7 @@
             },
             {
               "name": "currencyCode",
-              "description": "The currency code for the Checkout.",
+              "description": "The currency code for the checkout.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -3714,7 +4184,7 @@
             },
             {
               "name": "taxExempt",
-              "description": "Specifies if the Checkout is tax exempt.",
+              "description": "Whether the checkout is tax exempt.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -3730,7 +4200,7 @@
             },
             {
               "name": "taxesIncluded",
-              "description": "Specifies if taxes are included in the line item and shipping line prices.",
+              "description": "Whether taxes are included in the line item and shipping line prices.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -6217,6 +6687,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in CheckoutLineItemEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CheckoutLineItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -7257,6 +7751,22 @@
               "deprecationReason": null
             },
             {
+              "name": "seo",
+              "description": "The collection's SEO information.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SEO",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "title",
               "description": "The collection’s name. Limit of 255 characters.",
               "args": [],
@@ -7293,12 +7803,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             },
             {
@@ -7331,6 +7841,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CollectionEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in CollectionEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Collection",
                       "ofType": null
                     }
                   }
@@ -7432,7 +7966,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -7604,6 +8138,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in CommentEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Comment",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -7673,6 +8231,30 @@
           "name": "Country",
           "description": "A country.",
           "fields": [
+            {
+              "name": "availableLanguages",
+              "description": "The languages available for the country.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Language",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "currency",
               "description": "The currency of the country.",
@@ -12542,6 +13124,53 @@
         },
         {
           "kind": "ENUM",
+          "name": "DeliveryMethodType",
+          "description": "List of different delivery method types.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "SHIPPING",
+              "description": "Shipping.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PICK_UP",
+              "description": "Local Pickup.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RETAIL",
+              "description": "Retail.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LOCAL",
+              "description": "Local Delivery.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PICKUP_POINT",
+              "description": "Shipping to a Pickup Point.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NONE",
+              "description": "None.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
           "name": "DigitalWallet",
           "description": "Digital wallet, such as Apple Pay, which can be used for accelerated checkouts.",
           "fields": null,
@@ -12689,7 +13318,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -12764,6 +13393,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "DiscountApplicationEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in DiscountApplicationEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INTERFACE",
+                      "name": "DiscountApplication",
                       "ofType": null
                     }
                   }
@@ -13045,7 +13698,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -13147,6 +13800,22 @@
               "deprecationReason": null
             },
             {
+              "name": "embedUrl",
+              "description": "The embed URL of the video for the respective host.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "embeddedUrl",
               "description": "The URL.",
               "args": [],
@@ -13211,6 +13880,22 @@
               "deprecationReason": null
             },
             {
+              "name": "originUrl",
+              "description": "The origin URL of the video on the respective host.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "previewImage",
               "description": "The preview image for the media.",
               "args": [],
@@ -13227,12 +13912,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "Media",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "Media",
+              "name": "Node",
               "ofType": null
             }
           ],
@@ -13339,6 +14024,12 @@
             {
               "name": "PRICE_RANGE",
               "description": "A range of prices.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BOOLEAN",
+              "description": "A boolean value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -13628,6 +14319,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in FulfillmentLineItemEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "FulfillmentLineItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -13724,6 +14439,99 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GenericFile",
+          "description": "The generic file resource lets you manage files in a merchant’s store. Generic files include any file that doesn’t fit into a designated type such as image or video. Example: PDF, JSON.",
+          "fields": [
+            {
+              "name": "alt",
+              "description": "A word or phrase to indicate the contents of a file.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A globally-unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "mimeType",
+              "description": "The MIME type of the file.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "originalFileSize",
+              "description": "The size of the original file in bytes.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "previewImage",
+              "description": "The preview image for the file.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Image",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "url",
+              "description": "The URL of the file.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "URL",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -13901,7 +14709,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -14103,7 +14911,7 @@
             },
             {
               "name": "url",
-              "description": "The location of the image as a URL.\n\nIf no transform options are specified, then the original image will be preserved including any pre-applied transforms.\n\nAll transformation options are considered \"best-effort\". Any transformation that the original image type doesn't support will be ignored.\n\nIf you need multiple variations of the same image, then you can use [GraphQL field aliases](https://graphql.org/learn/queries/#aliases). For example:\n\n```graphql\n{\n  ... on Image {\n    original: url\n    thumbnail: url(transform: { maxWidth: 80, maxHeight: 80 })\n    retina: url(transform: { scale: 2 })\n  }\n}\n```\n",
+              "description": "The location of the image as a URL.\n\nIf no transform options are specified, then the original image will be preserved including any pre-applied transforms.\n\nAll transformation options are considered \"best-effort\". Any transformation that the original image type doesn't support will be ignored.\n\nIf you need multiple variations of the same image, then you can use [GraphQL aliases](https://graphql.org/learn/queries/#aliases).\n",
               "args": [
                 {
                   "name": "transform",
@@ -14167,6 +14975,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "ImageEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in ImageEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Image",
                       "ofType": null
                     }
                   }
@@ -14352,12 +15184,904 @@
         },
         {
           "kind": "OBJECT",
+          "name": "Language",
+          "description": "A language.",
+          "fields": [
+            {
+              "name": "endonymName",
+              "description": "The name of the language in the language itself. If the language uses capitalization, it is capitalized for a mid-sentence position.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isoCode",
+              "description": "The ISO code.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "LanguageCode",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The name of the language in the current language.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "LanguageCode",
+          "description": "ISO 369 language codes supported by Shopify.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "AF",
+              "description": "Afrikaans.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AK",
+              "description": "Akan.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AM",
+              "description": "Amharic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AR",
+              "description": "Arabic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AS",
+              "description": "Assamese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AZ",
+              "description": "Azerbaijani.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BE",
+              "description": "Belarusian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BG",
+              "description": "Bulgarian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BM",
+              "description": "Bambara.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BN",
+              "description": "Bangla.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BO",
+              "description": "Tibetan.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BR",
+              "description": "Breton.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BS",
+              "description": "Bosnian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CA",
+              "description": "Catalan.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CE",
+              "description": "Chechen.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CS",
+              "description": "Czech.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CU",
+              "description": "Church Slavic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CY",
+              "description": "Welsh.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DA",
+              "description": "Danish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DE",
+              "description": "German.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DZ",
+              "description": "Dzongkha.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EE",
+              "description": "Ewe.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EL",
+              "description": "Greek.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EN",
+              "description": "English.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EO",
+              "description": "Esperanto.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ES",
+              "description": "Spanish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ET",
+              "description": "Estonian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EU",
+              "description": "Basque.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FA",
+              "description": "Persian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FF",
+              "description": "Fulah.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FI",
+              "description": "Finnish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FO",
+              "description": "Faroese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FR",
+              "description": "French.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FY",
+              "description": "Western Frisian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GA",
+              "description": "Irish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GD",
+              "description": "Scottish Gaelic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GL",
+              "description": "Galician.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GU",
+              "description": "Gujarati.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GV",
+              "description": "Manx.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HA",
+              "description": "Hausa.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HE",
+              "description": "Hebrew.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HI",
+              "description": "Hindi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HR",
+              "description": "Croatian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HU",
+              "description": "Hungarian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HY",
+              "description": "Armenian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IA",
+              "description": "Interlingua.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ID",
+              "description": "Indonesian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IG",
+              "description": "Igbo.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "II",
+              "description": "Sichuan Yi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IS",
+              "description": "Icelandic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "IT",
+              "description": "Italian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "JA",
+              "description": "Japanese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "JV",
+              "description": "Javanese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KA",
+              "description": "Georgian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KI",
+              "description": "Kikuyu.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KK",
+              "description": "Kazakh.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KL",
+              "description": "Kalaallisut.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KM",
+              "description": "Khmer.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KN",
+              "description": "Kannada.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KO",
+              "description": "Korean.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KS",
+              "description": "Kashmiri.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KU",
+              "description": "Kurdish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KW",
+              "description": "Cornish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "KY",
+              "description": "Kyrgyz.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LB",
+              "description": "Luxembourgish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LG",
+              "description": "Ganda.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LN",
+              "description": "Lingala.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LO",
+              "description": "Lao.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LT",
+              "description": "Lithuanian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LU",
+              "description": "Luba-Katanga.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LV",
+              "description": "Latvian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MG",
+              "description": "Malagasy.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MI",
+              "description": "Maori.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MK",
+              "description": "Macedonian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ML",
+              "description": "Malayalam.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MN",
+              "description": "Mongolian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MR",
+              "description": "Marathi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MS",
+              "description": "Malay.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MT",
+              "description": "Maltese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MY",
+              "description": "Burmese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NB",
+              "description": "Norwegian (Bokmål).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ND",
+              "description": "North Ndebele.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NE",
+              "description": "Nepali.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NL",
+              "description": "Dutch.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NN",
+              "description": "Norwegian Nynorsk.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NO",
+              "description": "Norwegian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "OM",
+              "description": "Oromo.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "OR",
+              "description": "Odia.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "OS",
+              "description": "Ossetic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PA",
+              "description": "Punjabi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PL",
+              "description": "Polish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PS",
+              "description": "Pashto.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PT_BR",
+              "description": "Portuguese (Brazil).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PT_PT",
+              "description": "Portuguese (Portugal).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "QU",
+              "description": "Quechua.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RM",
+              "description": "Romansh.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RN",
+              "description": "Rundi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RO",
+              "description": "Romanian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RU",
+              "description": "Russian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RW",
+              "description": "Kinyarwanda.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SD",
+              "description": "Sindhi.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SE",
+              "description": "Northern Sami.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SG",
+              "description": "Sango.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SI",
+              "description": "Sinhala.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SK",
+              "description": "Slovak.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SL",
+              "description": "Slovenian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SN",
+              "description": "Shona.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SO",
+              "description": "Somali.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SQ",
+              "description": "Albanian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SR",
+              "description": "Serbian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SU",
+              "description": "Sundanese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SV",
+              "description": "Swedish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SW",
+              "description": "Swahili.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TA",
+              "description": "Tamil.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TE",
+              "description": "Telugu.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TG",
+              "description": "Tajik.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TH",
+              "description": "Thai.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TI",
+              "description": "Tigrinya.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TK",
+              "description": "Turkmen.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TO",
+              "description": "Tongan.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TR",
+              "description": "Turkish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TT",
+              "description": "Tatar.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UG",
+              "description": "Uyghur.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UK",
+              "description": "Ukrainian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UR",
+              "description": "Urdu.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UZ",
+              "description": "Uzbek.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VI",
+              "description": "Vietnamese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VO",
+              "description": "Volapük.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WO",
+              "description": "Wolof.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "XH",
+              "description": "Xhosa.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "YI",
+              "description": "Yiddish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "YO",
+              "description": "Yoruba.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ZH_CN",
+              "description": "Chinese (Simplified).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ZH_TW",
+              "description": "Chinese (Traditional).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ZU",
+              "description": "Zulu.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ZH",
+              "description": "Chinese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PT",
+              "description": "Portuguese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "Localization",
           "description": "Information about the localized experiences configured for the shop.",
           "fields": [
             {
               "name": "availableCountries",
-              "description": "List of countries with enabled localized experiences.",
+              "description": "The list of countries with enabled localized experiences.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -14380,6 +16104,30 @@
               "deprecationReason": null
             },
             {
+              "name": "availableLanguages",
+              "description": "The list of languages available for the active country.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Language",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "country",
               "description": "The country of the active localized experience. Use the `@inContext` directive to change this value.",
               "args": [],
@@ -14389,6 +16137,22 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "Country",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "language",
+              "description": "The language of the active localized experience. Use the `@inContext` directive to change this value.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Language",
                   "ofType": null
                 }
               },
@@ -14663,6 +16427,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in LocationEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Location",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -14769,7 +16557,7 @@
           "fields": [
             {
               "name": "address1",
-              "description": "The first line of the address. Typically the street address or PO Box number.\n",
+              "description": "The first line of the address. Typically the street address or PO Box number.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -15065,6 +16853,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "MailingAddressEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in MailingAddressEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "MailingAddress",
                       "ofType": null
                     }
                   }
@@ -15405,7 +17217,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -15451,6 +17263,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "MediaEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in MediaEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INTERFACE",
+                      "name": "Media",
                       "ofType": null
                     }
                   }
@@ -15660,16 +17496,335 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "Media",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "Media",
+              "name": "Node",
               "ofType": null
             }
           ],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Menu",
+          "description": "A menu used for navigation within a storefront.\n",
+          "fields": [
+            {
+              "name": "handle",
+              "description": "The menu's handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A globally-unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "items",
+              "description": "The menu's child items.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "MenuItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "itemsCount",
+              "description": "The count of items on the menu.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The menu's title.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MenuItem",
+          "description": "A menu item within a parent menu.\n",
+          "fields": [
+            {
+              "name": "id",
+              "description": "A globally-unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "items",
+              "description": "The menu item's child items.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "MenuItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "resourceId",
+              "description": "The ID of the linked resource.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "tags",
+              "description": "The menu item's tags to filter a collection.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The menu item's title.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "type",
+              "description": "The menu item's type.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "MenuItemType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "url",
+              "description": "The menu item's URL.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "URL",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "MenuItemType",
+          "description": "A menu item type.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "FRONTPAGE",
+              "description": "A frontpage link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "COLLECTION",
+              "description": "A collection link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "COLLECTIONS",
+              "description": "A collection link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRODUCT",
+              "description": "A product link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CATALOG",
+              "description": "A catalog link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PAGE",
+              "description": "A page link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BLOG",
+              "description": "A blog link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ARTICLE",
+              "description": "An article link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SEARCH",
+              "description": "A search link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SHOP_POLICY",
+              "description": "A shop policy link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HTTP",
+              "description": "An http link.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -15887,6 +18042,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in MetafieldEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Metafield",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -15954,7 +18133,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "MetafieldFilter",
-          "description": "A filter used to view a subset of products in a collection matching a specific metafield value.\n\nOnly the following metafield types are currently supported:\n- `number_integer`\n- `number_decimal`\n- `single_line_text_field`\n",
+          "description": "A filter used to view a subset of products in a collection matching a specific metafield value.\n\nOnly the following metafield types are currently supported:\n- `number_integer`\n- `number_decimal`\n- `single_line_text_field`\n- `boolean` as of 2022-04.\n",
           "fields": null,
           "inputFields": [
             {
@@ -16071,6 +18250,11 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
+              "name": "GenericFile",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "MediaImage",
               "ofType": null
             },
@@ -16087,6 +18271,11 @@
             {
               "kind": "OBJECT",
               "name": "ProductVariant",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Video",
               "ofType": null
             }
           ]
@@ -16181,12 +18370,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "Media",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "Media",
+              "name": "Node",
               "ofType": null
             }
           ],
@@ -16416,7 +18605,7 @@
             },
             {
               "name": "cartBuyerIdentityUpdate",
-              "description": "Updates customer information associated with a cart.",
+              "description": "Updates customer information associated with a cart.\nBuyer identity is used to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout)\nand should match the customer's shipping address.\n",
               "args": [
                 {
                   "name": "cartId",
@@ -16434,7 +18623,7 @@
                 },
                 {
                   "name": "buyerIdentity",
-                  "description": "The customer associated with the cart.",
+                  "description": "The customer associated with the cart. Used to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-checkout). Buyer identity should match the customer's shipping address.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -18450,7 +20639,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -18505,6 +20694,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "GenericFile",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "Location",
               "ofType": null
             },
@@ -18516,6 +20710,16 @@
             {
               "kind": "OBJECT",
               "name": "MediaImage",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Menu",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "MenuItem",
               "ofType": null
             },
             {
@@ -18560,6 +20764,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "Shop",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "ShopPolicy",
               "ofType": null
             },
@@ -18589,7 +20798,7 @@
             }
           ],
           "inputFields": null,
-          "interfaces": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": [
             {
@@ -19392,12 +21601,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             }
           ],
@@ -19466,6 +21675,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "OrderEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in OrderEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Order",
                       "ofType": null
                     }
                   }
@@ -19838,6 +22071,30 @@
               "deprecationReason": null
             },
             {
+              "name": "nodes",
+              "description": "A list of the nodes contained in OrderLineItemEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "OrderLineItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pageInfo",
               "description": "Information to aid in pagination.",
               "args": [],
@@ -19930,7 +22187,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -20201,12 +22458,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             },
             {
@@ -20239,6 +22496,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "PageEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in PageEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Page",
                       "ofType": null
                     }
                   }
@@ -20318,6 +22599,18 @@
           "description": "Returns information about pagination in a connection, in accordance with the\n[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).\n",
           "fields": [
             {
+              "name": "endCursor",
+              "description": "The cursor corresponding to the last node in edges.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "hasNextPage",
               "description": "Whether there are more pages to fetch following the current page.",
               "args": [],
@@ -20345,6 +22638,18 @@
                   "name": "Boolean",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "startCursor",
+              "description": "The cursor corresponding to the first node in edges.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -20383,7 +22688,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -21712,12 +24017,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             },
             {
@@ -21781,7 +24086,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -21833,6 +24138,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "Filter",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in ProductEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Product",
                       "ofType": null
                     }
                   }
@@ -22015,7 +24344,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -22044,7 +24373,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -22225,7 +24554,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -22770,12 +25099,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "HasMetafields",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "HasMetafields",
+              "name": "Node",
               "ofType": null
             }
           ],
@@ -22803,6 +25132,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "ProductVariantEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in ProductVariantEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ProductVariant",
                       "ofType": null
                     }
                   }
@@ -22910,7 +25263,7 @@
             },
             {
               "name": "RELEVANCE",
-              "description": "During a search (i.e. when the `query` parameter has been specified on the connection) this sorts the\nresults by relevance to the search term(s). When no search query is specified, this sort key is not\ndeterministic and should not be used.\n",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -23456,6 +25809,33 @@
                   "name": "LocationConnection",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "menu",
+              "description": "A storefront menu.",
+              "args": [
+                {
+                  "name": "handle",
+                  "description": "Returns a storefront menu by the specified handle.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Menu",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -24232,7 +26612,7 @@
             },
             {
               "name": "options",
-              "description": "Represents the selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.",
+              "description": "The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24256,7 +26636,7 @@
             },
             {
               "name": "priceAdjustments",
-              "description": "Represents how a selling plan affects pricing when a variant is purchased with a selling plan.",
+              "description": "The price adjustments that a selling plan makes when a variant is purchased with a selling plan.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24307,7 +26687,7 @@
           "fields": [
             {
               "name": "priceAdjustments",
-              "description": "A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders.",
+              "description": "A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. A price adjustment represents how a selling plan affects pricing when a variant is purchased with a selling plan. Prices display in the customer's currency if the shop is configured for it.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24372,6 +26752,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "SellingPlanAllocationEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in SellingPlanAllocationEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "SellingPlanAllocation",
                       "ofType": null
                     }
                   }
@@ -24537,6 +26941,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "SellingPlanEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in SellingPlanEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "SellingPlan",
                       "ofType": null
                     }
                   }
@@ -24815,6 +27243,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "SellingPlanGroupEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in SellingPlanGroupEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "SellingPlanGroup",
                       "ofType": null
                     }
                   }
@@ -25159,6 +27611,22 @@
               "deprecationReason": null
             },
             {
+              "name": "id",
+              "description": "A globally-unique identifier.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "metafield",
               "description": "Returns a metafield found by namespace and key.",
               "args": [
@@ -25431,6 +27899,11 @@
               "kind": "INTERFACE",
               "name": "HasMetafields",
               "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
             }
           ],
           "enumValues": null,
@@ -25700,6 +28173,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "StoreAvailabilityEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in StoreAvailabilityEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "StoreAvailability",
                       "ofType": null
                     }
                   }
@@ -26765,12 +29262,12 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
-              "name": "Node",
+              "name": "Media",
               "ofType": null
             },
             {
               "kind": "INTERFACE",
-              "name": "Media",
+              "name": "Node",
               "ofType": null
             }
           ],
@@ -26950,6 +29447,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isRepeatable",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -27162,6 +29671,12 @@
             {
               "name": "INPUT_FIELD_DEFINITION",
               "description": "Location adjacent to an input object field definition.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VARIABLE_DEFINITION",
+              "description": "Location adjacent to a variable definition.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -27493,6 +30008,18 @@
           "name": "__Schema",
           "description": "A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.",
           "fields": [
+            {
+              "name": "description",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "directives",
               "description": "A list of all directives supported by this server.",
@@ -27828,6 +30355,18 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "specifiedByUrl",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -27990,7 +30529,7 @@
         },
         {
           "name": "inContext",
-          "description": "Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/custom-storefronts/products/international-pricing#query-product-prices) in a storefront within the context of Canada.",
+          "description": "Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/api/examples/international-pricing#query-product-prices) in a storefront within the context of Canada.",
           "locations": [
             "QUERY",
             "MUTATION"
@@ -28002,6 +30541,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "CountryCode",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "language",
+              "description": "The language code for context. For example, `EN`.",
+              "type": {
+                "kind": "ENUM",
+                "name": "LanguageCode",
                 "ofType": null
               },
               "defaultValue": null
