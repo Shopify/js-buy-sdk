@@ -1,5 +1,9 @@
 # Changelog
 
+### v2.16.0 (July 5, 2022)
+* Bumps the SDK to use Storefront API version `2022-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-07).
+* Update all instances of `Image.src` to use `Image.url`.
+
 ### v2.15.1 (April 4, 2022)
 * Bumps the SDK to use Storefront API version `2022-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-04).
 * Add `product.fetchRecommendations` function that allows for fetching recommended products for a product.

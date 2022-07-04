@@ -24,7 +24,7 @@ fragment ProductFragment on Product {
       cursor
       node {
         id
-        src
+        src: url
         altText
         width
         height
