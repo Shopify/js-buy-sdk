@@ -441,7 +441,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -455,7 +455,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -478,80 +478,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "onlineStoreUrl",
@@ -1316,7 +1282,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -1330,7 +1296,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -1353,80 +1319,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "onlineStoreUrl",
@@ -1706,6 +1638,33 @@
           "description": "A cart represents the merchandise that a buyer intends to purchase, and the estimated cost associated with the cart. To learn how to interact with a cart during a customer's session, refer to [Manage a cart with the Storefront API](https://shopify.dev/api/examples/cart).",
           "fields": [
             {
+              "name": "attribute",
+              "description": "An attribute associated with the cart.",
+              "args": [
+                {
+                  "name": "key",
+                  "description": "The key of the attribute.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Attribute",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "attributes",
               "description": "The attributes associated with the cart. Attributes are represented as key-value pairs.",
               "args": [],
@@ -1755,6 +1714,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cost",
+              "description": "The estimated costs that the buyer will pay at checkout. The costs are subject to change and changes will be reflected at checkout. The `cost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartCost",
                   "ofType": null
                 }
               },
@@ -1845,8 +1820,32 @@
               "deprecationReason": null
             },
             {
+              "name": "discountAllocations",
+              "description": "The discounts that have been applied to the entire cart.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INTERFACE",
+                      "name": "CartDiscountAllocation",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "discountCodes",
-              "description": "The discount codes that have been applied to the cart.",
+              "description": "The case-insensitive discount codes that the customer added at checkout.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1881,8 +1880,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `cost` instead"
             },
             {
               "name": "id",
@@ -1975,6 +1974,22 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalQuantity",
+              "description": "The total number of items in the cart.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -2311,6 +2326,153 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CartCost",
+          "description": "The costs that the buyer will pay at checkout.\nIt uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).\n",
+          "fields": [
+            {
+              "name": "checkoutChargeAmount",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, the checkout charge amount is equivalent to subtotalAmount.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subtotalAmount",
+              "description": "The amount, before taxes and cart-level discounts, for the customer to pay.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subtotalAmountEstimated",
+              "description": "Whether or not the subtotal amount is estimated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalAmount",
+              "description": "The total amount for the customer to pay.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalAmountEstimated",
+              "description": "Whether or not the total amount is estimated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalDutyAmount",
+              "description": "The duty amount for the customer to pay at checkout.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalDutyAmountEstimated",
+              "description": "Whether or not the total duty amount is estimated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalTaxAmount",
+              "description": "The tax amount for the customer to pay at checkout.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalTaxAmountEstimated",
+              "description": "Whether or not the total tax amount is estimated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CartCreatePayload",
           "description": "Return type for `cartCreate` mutation.",
           "fields": [
@@ -2353,6 +2515,55 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartCustomDiscountAllocation",
+          "description": "The discounts automatically applied to the cart line based on prerequisites that have been met.",
+          "fields": [
+            {
+              "name": "discountedAmount",
+              "description": "The discounted amount that has been applied to the cart line.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The title of the allocated discount.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "CartDiscountAllocation",
+              "ofType": null
+            }
+          ],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -2722,6 +2933,11 @@
               "kind": "OBJECT",
               "name": "CartCodeDiscountAllocation",
               "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "CartCustomDiscountAllocation",
+              "ofType": null
             }
           ]
         },
@@ -2862,8 +3078,24 @@
           "description": "The estimated costs that the buyer will pay at checkout.\nIt uses [`CartBuyerIdentity`](https://shopify.dev/api/storefront/reference/cart/cartbuyeridentity) to determine\n[international pricing](https://shopify.dev/api/examples/international-pricing#create-a-cart).\n",
           "fields": [
             {
+              "name": "checkoutChargeAmount",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, then the checkout charge amount is equivalent to`subtotal_amount`.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "subtotalAmount",
-              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout.",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2879,7 +3111,7 @@
             },
             {
               "name": "totalAmount",
-              "description": "The estimated total amount for the customer to pay at checkout.",
+              "description": "The estimated total amount for the customer to pay.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2967,7 +3199,7 @@
             },
             {
               "name": "discountCodes",
-              "description": "The discount codes to apply to the cart.",
+              "description": "The case-insensitive discount codes that the customer added at checkout.\n",
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -3014,6 +3246,33 @@
           "description": "Represents information about the merchandise in the cart.",
           "fields": [
             {
+              "name": "attribute",
+              "description": "An attribute associated with the cart line.",
+              "args": [
+                {
+                  "name": "key",
+                  "description": "The key of the attribute.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Attribute",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "attributes",
               "description": "The attributes associated with the cart line. Attributes are represented as key-value pairs.",
               "args": [],
@@ -3032,6 +3291,22 @@
                       "ofType": null
                     }
                   }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cost",
+              "description": "The cost of the merchandise that the buyer will pay for at checkout. The costs are subject to change and changes will be reflected at checkout.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartLineCost",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -3074,8 +3349,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `cost` instead"
             },
             {
               "name": "id",
@@ -3226,6 +3501,77 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CartLineCost",
+          "description": "The cost of the merchandise line that the buyer will pay at checkout.",
+          "fields": [
+            {
+              "name": "amountPerQuantity",
+              "description": "The amount of the merchandise line.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "compareAtAmountPerQuantity",
+              "description": "The compare at amount of the merchandise line.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "subtotalAmount",
+              "description": "The cost of the merchandise line before line-level discounts.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalAmount",
+              "description": "The total cost of the merchandise line.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CartLineEdge",
           "description": "An auto-generated type which holds one CartLine and a cursor during pagination.\n",
           "fields": [
@@ -3272,6 +3618,34 @@
           "name": "CartLineEstimatedCost",
           "description": "The estimated cost of the merchandise line that the buyer will pay at checkout.",
           "fields": [
+            {
+              "name": "amount",
+              "description": "The amount of the merchandise line.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "compareAtAmount",
+              "description": "The compare at amount of the merchandise line.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MoneyV2",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "subtotalAmount",
               "description": "The estimated cost of the merchandise line before discounts.",
@@ -4336,130 +4710,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "CheckoutAttributesUpdateInput",
-          "description": "Specifies the fields required to update a checkout's attributes.",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "note",
-              "description": "The text of an optional note that a shop owner can attach to the checkout.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "customAttributes",
-              "description": "A list of extra information that is added to the checkout.",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "AttributeInput",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "allowPartialAddresses",
-              "description": "Allows setting partial addresses on a Checkout, skipping the full validation of attributes.\nThe required attributes are city, province, and country.\nFull validation of the addresses is still done at completion time. Defaults to `false` with\neach operation.\n",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutAttributesUpdatePayload",
-          "description": "Return type for `checkoutAttributesUpdate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "CheckoutAttributesUpdateV2Input",
           "description": "Specifies the fields required to update a checkout's attributes.",
           "fields": null,
@@ -4699,265 +4949,8 @@
         },
         {
           "kind": "OBJECT",
-          "name": "CheckoutCompleteWithCreditCardPayload",
-          "description": "Return type for `checkoutCompleteWithCreditCard` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout on which the payment was applied.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payment",
-              "description": "A representation of the attempted payment.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Payment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "CheckoutCompleteWithCreditCardV2Payload",
           "description": "Return type for `checkoutCompleteWithCreditCardV2` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout on which the payment was applied.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Checkout",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payment",
-              "description": "A representation of the attempted payment.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Payment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCompleteWithTokenizedPaymentPayload",
-          "description": "Return type for `checkoutCompleteWithTokenizedPayment` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout on which the payment was applied.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "payment",
-              "description": "A representation of the attempted payment.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Payment",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutCompleteWithTokenizedPaymentV2Payload",
-          "description": "Return type for `checkoutCompleteWithTokenizedPaymentV2` mutation.",
           "fields": [
             {
               "name": "checkout",
@@ -5203,16 +5196,6 @@
               "defaultValue": null
             },
             {
-              "name": "presentmentCurrencyCode",
-              "description": "The three-letter currency code of one of the shop's enabled presentment currencies.\nIncluding this field creates a checkout in the specified currency. By default, new\ncheckouts are created in the shop's primary currency.\n This argument is deprecated: Use `country` field instead.",
-              "type": {
-                "kind": "ENUM",
-                "name": "CurrencyCode",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "buyerIdentity",
               "description": "The identity of the customer associated with the checkout.",
               "type": {
@@ -5312,69 +5295,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "CheckoutCustomerAssociatePayload",
-          "description": "Return type for `checkoutCustomerAssociate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "customer",
-              "description": "The associated customer object.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Customer",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "CheckoutCustomerAssociateV2Payload",
           "description": "Return type for `checkoutCustomerAssociateV2` mutation.",
           "fields": [
@@ -5458,81 +5378,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "CheckoutCustomerDisassociatePayload",
-          "description": "Return type for `checkoutCustomerDisassociate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "CheckoutCustomerDisassociateV2Payload",
           "description": "Return type for `checkoutCustomerDisassociateV2` mutation.",
           "fields": [
@@ -5544,81 +5389,6 @@
                 "kind": "OBJECT",
                 "name": "Checkout",
                 "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutDiscountCodeApplyPayload",
-          "description": "Return type for `checkoutDiscountCodeApply` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -5761,81 +5531,6 @@
                 "kind": "OBJECT",
                 "name": "Checkout",
                 "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutEmailUpdatePayload",
-          "description": "Return type for `checkoutEmailUpdate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The checkout object with the updated email.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -6226,156 +5921,6 @@
               "deprecationReason": null
             }
           ],
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutGiftCardApplyPayload",
-          "description": "Return type for `checkoutGiftCardApply` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CheckoutGiftCardRemovePayload",
-          "description": "Return type for `checkoutGiftCardRemove` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -7153,81 +6698,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "CheckoutShippingAddressUpdatePayload",
-          "description": "Return type for `checkoutShippingAddressUpdate` mutation.",
-          "fields": [
-            {
-              "name": "checkout",
-              "description": "The updated checkout object.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Checkout",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "checkoutUserErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CheckoutUserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "UserError",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutUserErrors` instead"
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "CheckoutShippingAddressUpdateV2Payload",
           "description": "Return type for `checkoutShippingAddressUpdateV2` mutation.",
           "fields": [
@@ -7531,7 +7001,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -7545,7 +7015,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -7568,80 +7038,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "onlineStoreUrl",
@@ -8328,7 +7764,7 @@
         {
           "kind": "ENUM",
           "name": "CountryCode",
-          "description": "ISO 3166-1 alpha-2 country codes with some differences.",
+          "description": "The code designating a country/region, which generally follows ISO 3166-1 alpha-2 guidelines.\nIf a territory doesn't have a country code value in the `CountryCode` enum, then it might be considered a subdivision\nof another country. For example, the territories associated with Spain are represented by the country code `ES`,\nand the territories associated with the United States of America are represented by the country code `US`.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -9915,83 +9351,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "CreditCardPaymentInput",
-          "description": "Specifies the fields required to complete a checkout with\na Shopify vaulted credit card payment.\n",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "amount",
-              "description": "The amount of the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "vaultId",
-              "description": "The ID returned by Shopify's Card Vault.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "test",
-              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "CreditCardPaymentInputV2",
           "description": "Specifies the fields required to complete a checkout with\na Shopify vaulted credit card payment.\n",
           "fields": null,
@@ -10824,12 +10183,6 @@
               "deprecationReason": null
             },
             {
-              "name": "STD",
-              "description": "Sao Tome And Principe Dobra (STD).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "RSD",
               "description": "Serbian dinar (RSD).",
               "isDeprecated": false,
@@ -11100,6 +10453,18 @@
               "deprecationReason": null
             },
             {
+              "name": "STD",
+              "description": "Sao Tome And Principe Dobra (STD).",
+              "isDeprecated": true,
+              "deprecationReason": "`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead."
+            },
+            {
+              "name": "STN",
+              "description": "Sao Tome And Principe Dobra (STN).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TJS",
               "description": "Tajikistani Somoni (TJS).",
               "isDeprecated": false,
@@ -11108,6 +10473,12 @@
             {
               "name": "TOP",
               "description": "Tongan Pa'anga (TOP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VED",
+              "description": "Venezuelan Bolivares (VED).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -11334,7 +10705,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -11348,7 +10719,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -11371,80 +10742,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "orders",
@@ -13105,7 +12442,7 @@
         {
           "kind": "SCALAR",
           "name": "DateTime",
-          "description": "Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.\nFor example, 3:30 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is\nrepresented as `\"2019-09-07T15:50:00Z`\".\n",
+          "description": "Represents an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)-encoded date and time string.\nFor example, 3:50 pm on September 7, 2019 in the time zone of UTC (Coordinated Universal Time) is\nrepresented as `\"2019-09-07T15:50:00Z`\".\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -13493,7 +12830,7 @@
         {
           "kind": "ENUM",
           "name": "DiscountApplicationTargetSelection",
-          "description": "Which lines on the order that the discount is allocated over, of the type\ndefined by the Discount Application's target_type.\n",
+          "description": "The lines on the order to which the discount is applied, of the type defined by\nthe discount application's `targetType`. For example, the value `ENTITLED`, combined with a `targetType` of\n`LINE_ITEM`, applies the discount on all line items that are entitled to the discount.\nThe value `ALL`, combined with a `targetType` of `SHIPPING_LINE`, applies the discount on all shipping lines.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -13506,7 +12843,7 @@
             },
             {
               "name": "ENTITLED",
-              "description": "The discount is allocated onto only the lines it is entitled for.",
+              "description": "The discount is allocated onto only the lines that it's entitled for.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -14010,7 +13347,7 @@
         {
           "kind": "ENUM",
           "name": "FilterType",
-          "description": "Denotes the type of data this filter group represents.",
+          "description": "The type of data that the filter group represents.\n\nFor more information, refer to [Filter products in a collection with the Storefront API]\n(https://shopify.dev/api/examples/filter-products).\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -14595,7 +13932,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -14609,7 +13946,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -14632,80 +13969,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -14758,6 +14061,45 @@
               "ofType": null
             }
           ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "HasMetafieldsIdentifier",
+          "description": "Identifies a metafield on an owner resource by namespace and key.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "namespace",
+              "description": "A container for a set of metafields.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "key",
+              "description": "The identifier for the metafield.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
         },
         {
           "kind": "SCALAR",
@@ -15109,7 +14451,7 @@
           "inputFields": [
             {
               "name": "crop",
-              "description": "Crop the image according to the specified region.",
+              "description": "Region of the image to remain after cropping.\nMust be used in conjunction with maxWidth and/or maxHeight fields where the maxWidth / maxHeight are not equal.\nThe crop parameter should coincide with the smaller value (i.e. smaller maxWidth indicates a LEFT / RIGHT crop, while\nsmaller maxHeight indicates a TOP / BOTTOM crop). For example, { maxWidth: 5, maxHeight: 10, crop: LEFT } will result\nin an image with width 5 and height 10, where the right side of the image is removed.\n",
               "type": {
                 "kind": "ENUM",
                 "name": "CropRegion",
@@ -15244,7 +14586,7 @@
         {
           "kind": "ENUM",
           "name": "LanguageCode",
-          "description": "ISO 369 language codes supported by Shopify.",
+          "description": "ISO 639-1 language codes supported by Shopify.",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -18013,124 +17355,6 @@
           "possibleTypes": null
         },
         {
-          "kind": "OBJECT",
-          "name": "MetafieldConnection",
-          "description": "An auto-generated type for paginating through multiple Metafields.\n",
-          "fields": [
-            {
-              "name": "edges",
-              "description": "A list of edges.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "MetafieldEdge",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "nodes",
-              "description": "A list of the nodes contained in MetafieldEdge.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "Metafield",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "pageInfo",
-              "description": "Information to aid in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "PageInfo",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "MetafieldEdge",
-          "description": "An auto-generated type which holds one Metafield and a cursor during pagination.\n",
-          "fields": [
-            {
-              "name": "cursor",
-              "description": "A cursor for use in pagination.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "node",
-              "description": "The item at the end of MetafieldEdge.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "Metafield",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
           "kind": "INPUT_OBJECT",
           "name": "MetafieldFilter",
           "description": "A filter used to view a subset of products in a collection matching a specific metafield value.\n\nOnly the following metafield types are currently supported:\n- `number_integer`\n- `number_decimal`\n- `single_line_text_field`\n- `boolean` as of 2022-04.\n",
@@ -18687,7 +17911,7 @@
                 },
                 {
                   "name": "discountCodes",
-                  "description": "The discount codes to apply to the cart.",
+                  "description": "The case-insensitive discount codes that the customer added at checkout.\n",
                   "type": {
                     "kind": "LIST",
                     "name": null,
@@ -18897,47 +18121,6 @@
               "deprecationReason": null
             },
             {
-              "name": "checkoutAttributesUpdate",
-              "description": "Updates the attributes of a checkout if `allowPartialAddresses` is `true`.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "input",
-                  "description": "The fields used to update a checkout's attributes.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "CheckoutAttributesUpdateInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutAttributesUpdatePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutAttributesUpdateV2` instead"
-            },
-            {
               "name": "checkoutAttributesUpdateV2",
               "description": "Updates the attributes of a checkout if `allowPartialAddresses` is `true`.",
               "args": [
@@ -19006,47 +18189,6 @@
               "deprecationReason": null
             },
             {
-              "name": "checkoutCompleteWithCreditCard",
-              "description": "Completes a checkout using a credit card token from Shopify's Vault.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "payment",
-                  "description": "The credit card info to apply as a payment.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "CreditCardPaymentInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutCompleteWithCreditCardPayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutCompleteWithCreditCardV2` instead"
-            },
-            {
               "name": "checkoutCompleteWithCreditCardV2",
               "description": "Completes a checkout using a credit card token from Shopify's card vault. Before you can complete checkouts using CheckoutCompleteWithCreditCardV2, you need to  [_request payment processing_](https://shopify.dev/apps/channels/getting-started#request-payment-processing).",
               "args": [
@@ -19086,88 +18228,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "checkoutCompleteWithTokenizedPayment",
-              "description": "Completes a checkout with a tokenized payment.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "payment",
-                  "description": "The info to apply as a tokenized payment.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "TokenizedPaymentInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutCompleteWithTokenizedPaymentPayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutCompleteWithTokenizedPaymentV2` instead"
-            },
-            {
-              "name": "checkoutCompleteWithTokenizedPaymentV2",
-              "description": "Completes a checkout with a tokenized payment.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "payment",
-                  "description": "The info to apply as a tokenized payment.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "TokenizedPaymentInputV2",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutCompleteWithTokenizedPaymentV2Payload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutCompleteWithTokenizedPaymentV3` instead"
             },
             {
               "name": "checkoutCompleteWithTokenizedPaymentV3",
@@ -19248,47 +18308,6 @@
               "deprecationReason": null
             },
             {
-              "name": "checkoutCustomerAssociate",
-              "description": "Associates a customer to the checkout.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "customerAccessToken",
-                  "description": "The customer access token of the customer to associate.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutCustomerAssociatePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutCustomerAssociateV2` instead"
-            },
-            {
               "name": "checkoutCustomerAssociateV2",
               "description": "Associates a customer to the checkout.",
               "args": [
@@ -19330,33 +18349,6 @@
               "deprecationReason": null
             },
             {
-              "name": "checkoutCustomerDisassociate",
-              "description": "Disassociates the current checkout customer from the checkout.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutCustomerDisassociatePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutCustomerDisassociateV2` instead"
-            },
-            {
               "name": "checkoutCustomerDisassociateV2",
               "description": "Disassociates the current checkout customer from the checkout.",
               "args": [
@@ -19382,47 +18374,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "checkoutDiscountCodeApply",
-              "description": "Applies a discount to an existing checkout using a discount code.",
-              "args": [
-                {
-                  "name": "discountCode",
-                  "description": "The discount code to apply to the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutDiscountCodeApplyPayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutDiscountCodeApplyV2` instead"
             },
             {
               "name": "checkoutDiscountCodeApplyV2",
@@ -19467,7 +18418,7 @@
             },
             {
               "name": "checkoutDiscountCodeRemove",
-              "description": "Removes the applied discount from an existing checkout.",
+              "description": "Removes the applied discounts from an existing checkout.",
               "args": [
                 {
                   "name": "checkoutId",
@@ -19491,47 +18442,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "checkoutEmailUpdate",
-              "description": "Updates the email on an existing checkout.",
-              "args": [
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "email",
-                  "description": "The email to update the checkout with.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutEmailUpdatePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutEmailUpdateV2` instead"
             },
             {
               "name": "checkoutEmailUpdateV2",
@@ -19573,88 +18483,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "checkoutGiftCardApply",
-              "description": "Applies a gift card to an existing checkout using a gift card code. This will replace all currently applied gift cards.",
-              "args": [
-                {
-                  "name": "giftCardCode",
-                  "description": "The code of the gift card to apply on the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutGiftCardApplyPayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutGiftCardsAppend` instead"
-            },
-            {
-              "name": "checkoutGiftCardRemove",
-              "description": "Removes an applied gift card from the checkout.",
-              "args": [
-                {
-                  "name": "appliedGiftCardId",
-                  "description": "The ID of the Applied Gift Card to remove from the Checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutGiftCardRemovePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutGiftCardRemoveV2` instead"
             },
             {
               "name": "checkoutGiftCardRemoveV2",
@@ -19941,47 +18769,6 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "checkoutShippingAddressUpdate",
-              "description": "Updates the shipping address of an existing checkout.",
-              "args": [
-                {
-                  "name": "shippingAddress",
-                  "description": "The shipping address to where the line items will be shipped.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "MailingAddressInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "checkoutId",
-                  "description": "The ID of the checkout.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CheckoutShippingAddressUpdatePayload",
-                "ofType": null
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `checkoutShippingAddressUpdateV2` instead"
             },
             {
               "name": "checkoutShippingAddressUpdateV2",
@@ -20774,6 +19561,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "UrlRedirect",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "Video",
               "ofType": null
             }
@@ -21169,7 +19961,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -21183,7 +19975,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -21206,80 +19998,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "name",
@@ -22285,7 +21043,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -22299,7 +21057,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -22322,80 +21080,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "onlineStoreUrl",
@@ -22826,7 +21550,7 @@
             },
             {
               "name": "ready",
-              "description": "Whether or not the payment is still processing asynchronously.",
+              "description": "Whether the payment is still processing asynchronously.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -23510,7 +22234,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -23524,7 +22248,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -23547,80 +22271,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "onlineStoreUrl",
@@ -24668,7 +23358,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -24682,7 +23372,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -24705,80 +23395,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "price",
@@ -26340,6 +24996,73 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "urlRedirects",
+              "description": "A list of redirects for a shop.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "UrlRedirectConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -26567,6 +25290,22 @@
           "description": "Represents how products and variants can be sold and purchased.",
           "fields": [
             {
+              "name": "checkoutCharge",
+              "description": "The initial payment due for the purchase.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SellingPlanCheckoutCharge",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "description",
               "description": "The description of the selling plan.",
               "args": [],
@@ -26686,6 +25425,22 @@
           "description": "Represents an association between a variant and a selling plan. Selling plan allocations describe the options offered for each variant, and the price of the variant when purchased with a selling plan.",
           "fields": [
             {
+              "name": "checkoutChargeAmount",
+              "description": "The checkout charge amount due for the purchase.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "priceAdjustments",
               "description": "A list of price adjustments, with a maximum of two. When there are two, the first price adjustment goes into effect at the time of purchase, while the second one starts after a certain number of orders. A price adjustment represents how a selling plan affects pricing when a variant is purchased with a selling plan. Prices display in the customer's currency if the shop is configured for it.",
               "args": [],
@@ -26704,6 +25459,22 @@
                       "ofType": null
                     }
                   }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "remainingBalanceChargeAmount",
+              "description": "The remaining balance charge amount due for the purchase.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
@@ -26919,6 +25690,120 @@
           "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SellingPlanCheckoutCharge",
+          "description": "The initial payment due for the purchase.",
+          "fields": [
+            {
+              "name": "type",
+              "description": "The charge type for the checkout charge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "SellingPlanCheckoutChargeType",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "value",
+              "description": "The charge value for the checkout charge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "SellingPlanCheckoutChargeValue",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SellingPlanCheckoutChargePercentageValue",
+          "description": "The percentage value of the price used for checkout charge.",
+          "fields": [
+            {
+              "name": "percentage",
+              "description": "The percentage value of the price used for checkout charge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SellingPlanCheckoutChargeType",
+          "description": "The checkout charge when the full amount isn't charged at checkout.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "PERCENTAGE",
+              "description": "The checkout charge is a percentage of the product or variant price.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRICE",
+              "description": "The checkout charge is a fixed price amount.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "SellingPlanCheckoutChargeValue",
+          "description": "The portion of the price to be charged at checkout.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "MoneyV2",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SellingPlanCheckoutChargePercentageValue",
+              "ofType": null
+            }
+          ]
         },
         {
           "kind": "OBJECT",
@@ -27632,7 +26517,7 @@
               "args": [
                 {
                   "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "description": "A container for a set of metafields.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -27646,7 +26531,7 @@
                 },
                 {
                   "name": "key",
-                  "description": "Identifier for the metafield (maximum of 30 characters).",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -27669,80 +26554,46 @@
             },
             {
               "name": "metafields",
-              "description": "A paginated list of metafields associated with the resource.",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "Container for a set of metafields (maximum of 20 characters).",
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "first",
-                  "description": "Returns up to the first `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "after",
-                  "description": "Returns the elements that come after the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "last",
-                  "description": "Returns up to the last `n` elements from the list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "before",
-                  "description": "Returns the elements that come before the specified cursor.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
                 }
               ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "OBJECT",
-                  "name": "MetafieldConnection",
-                  "ofType": null
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "The `metafields` field will be removed in the future in favor of using [aliases](https://graphql.org/learn/queries/#aliases) with the `metafield` field.\n"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "moneyFormat",
@@ -28100,7 +26951,7 @@
           "fields": [
             {
               "name": "available",
-              "description": "Whether or not this product variant is in-stock at this location.",
+              "description": "Whether the product variant is in-stock at this location.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -28371,208 +27222,6 @@
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "TokenizedPaymentInput",
-          "description": "Specifies the fields required to complete a checkout with\na tokenized payment.\n",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "amount",
-              "description": "The amount of the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "type",
-              "description": "The type of payment token.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "paymentData",
-              "description": "A simple string or JSON containing the required payment data for the tokenized payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "test",
-              "description": "Executes the payment in test mode if possible. Defaults to `false`.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            },
-            {
-              "name": "identifier",
-              "description": "Public Hash Key used for AndroidPay payments only.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "TokenizedPaymentInputV2",
-          "description": "Specifies the fields required to complete a checkout with\na tokenized payment.\n",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "paymentAmount",
-              "description": "The amount and currency of the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MoneyInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "idempotencyKey",
-              "description": "A unique client generated key used to avoid duplicate charges. When a duplicate payment is found, the original is returned instead of creating a new one. For more information, refer to [Idempotent requests](https://shopify.dev/api/usage/idempotent-requests).",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "paymentData",
-              "description": "A simple string or JSON containing the required payment data for the tokenized payment.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "test",
-              "description": "Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": "false"
-            },
-            {
-              "name": "identifier",
-              "description": "Public Hash Key used for AndroidPay payments only.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "type",
-              "description": "The type of payment token.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -29078,6 +27727,189 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UrlRedirect",
+          "description": "A redirect on the online store.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "The ID of the URL redirect.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "path",
+              "description": "The old path to be redirected from. When the user visits this path, they'll be redirected to the target location.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "target",
+              "description": "The target location where the user will be redirected to.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UrlRedirectConnection",
+          "description": "An auto-generated type for paginating through multiple UrlRedirects.\n",
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UrlRedirectEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in UrlRedirectEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "UrlRedirect",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "UrlRedirectEdge",
+          "description": "An auto-generated type which holds one UrlRedirect and a cursor during pagination.\n",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of UrlRedirectEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "UrlRedirect",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
