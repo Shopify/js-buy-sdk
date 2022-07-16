@@ -16,7 +16,7 @@ fragment VariantFragment on ProductVariant {
   }
   image {
     id
-    src: originalSrc
+    src: url
     altText
     width
     height
