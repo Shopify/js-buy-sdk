@@ -81,13 +81,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `amountUsedV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "amountUsedV2",
@@ -102,8 +102,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `amountUsed` instead"
             },
             {
               "name": "balance",
@@ -113,13 +113,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `balanceV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "balanceV2",
@@ -134,8 +134,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `balance` instead"
             },
             {
               "name": "id",
@@ -1586,6 +1586,187 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "Brand",
+          "description": "The store's branding configuration.\n",
+          "fields": [
+            {
+              "name": "colors",
+              "description": "The colors of the store's brand.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "BrandColors",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "coverImage",
+              "description": "The store's cover image.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MediaImage",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "logo",
+              "description": "The store's default logo.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MediaImage",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "shortDescription",
+              "description": "The store's short description.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "slogan",
+              "description": "The store's slogan.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "squareLogo",
+              "description": "The store's preferred logo for square UI elements.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MediaImage",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BrandColorGroup",
+          "description": "A group of related colors for the shop's brand.\n",
+          "fields": [
+            {
+              "name": "background",
+              "description": "The background color.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Color",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "foreground",
+              "description": "The foreground color.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Color",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "BrandColors",
+          "description": "The colors of the shop's brand.\n",
+          "fields": [
+            {
+              "name": "primary",
+              "description": "The shop's primary brand colors.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "BrandColorGroup",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "secondary",
+              "description": "The shop's secondary brand colors.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "BrandColorGroup",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "ENUM",
           "name": "CardBrand",
           "description": "Card brand, such as Visa or Mastercard, which can be used for payments.",
@@ -1626,6 +1807,18 @@
             {
               "name": "JCB",
               "description": "JCB.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UNIONPAY",
+              "description": "UnionPay.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ELO",
+              "description": "Elo.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1754,7 +1947,7 @@
             },
             {
               "name": "deliveryGroups",
-              "description": "The delivery groups available for the cart, based on the default address of the logged-in customer.",
+              "description": "The delivery groups available for the cart, based on the buyer identity delivery address or the default address of the logged-in customer.",
               "args": [
                 {
                   "name": "first",
@@ -2148,6 +2341,18 @@
               "deprecationReason": null
             },
             {
+              "name": "deliveryAddress",
+              "description": "The address where the merchandise will be delivered.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MailingAddress",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "email",
               "description": "The email address of the buyer that is interacting with the cart.",
               "args": [],
@@ -2219,6 +2424,16 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "deliveryAddress",
+              "description": "The delivery address of the buyer that is interacting with the cart.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "MailingAddressInput",
                 "ofType": null
               },
               "defaultValue": null
@@ -2331,7 +2546,7 @@
           "fields": [
             {
               "name": "checkoutChargeAmount",
-              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, the checkout charge amount is equivalent to subtotalAmount.",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, then the checkout charge amount is equivalent to `subtotalAmount`.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2363,7 +2578,7 @@
             },
             {
               "name": "subtotalAmountEstimated",
-              "description": "Whether or not the subtotal amount is estimated.",
+              "description": "Whether the subtotal amount is estimated.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2395,7 +2610,7 @@
             },
             {
               "name": "totalAmountEstimated",
-              "description": "Whether or not the total amount is estimated.",
+              "description": "Whether the total amount is estimated.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2423,7 +2638,7 @@
             },
             {
               "name": "totalDutyAmountEstimated",
-              "description": "Whether or not the total duty amount is estimated.",
+              "description": "Whether the total duty amount is estimated.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2451,7 +2666,7 @@
             },
             {
               "name": "totalTaxAmountEstimated",
-              "description": "Whether or not the total tax amount is estimated.",
+              "description": "Whether the total tax amount is estimated.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4414,23 +4629,7 @@
             },
             {
               "name": "paymentDue",
-              "description": "The amount left to be paid. This is equal to the cost of the line items, taxes and shipping minus discounts and gift cards.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `paymentDueV2` instead"
-            },
-            {
-              "name": "paymentDueV2",
-              "description": "The amount left to be paid. This is equal to the cost of the line items, duties, taxes and shipping minus discounts and gift cards.",
+              "description": "The amount left to be paid. This is equal to the cost of the line items, taxes, and shipping, minus discounts and gift cards.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4443,6 +4642,22 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "paymentDueV2",
+              "description": "The amount left to be paid. This is equal to the cost of the line items, duties, taxes, and shipping, minus discounts and gift cards.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `paymentDue` instead"
             },
             {
               "name": "ready",
@@ -4526,23 +4741,7 @@
             },
             {
               "name": "subtotalPrice",
-              "description": "Price of the checkout before shipping and taxes.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `subtotalPriceV2` instead"
-            },
-            {
-              "name": "subtotalPriceV2",
-              "description": "Price of the checkout before duties, shipping and taxes.",
+              "description": "The price at checkout before shipping and taxes.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4555,6 +4754,22 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "subtotalPriceV2",
+              "description": "The price at checkout before duties, shipping, and taxes.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `subtotalPrice` instead"
             },
             {
               "name": "taxExempt",
@@ -4602,23 +4817,7 @@
             },
             {
               "name": "totalPrice",
-              "description": "The sum of all the prices of all the items in the checkout, taxes and discounts included.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalPriceV2` instead"
-            },
-            {
-              "name": "totalPriceV2",
-              "description": "The sum of all the prices of all the items in the checkout, duties, taxes and discounts included.",
+              "description": "The sum of all the prices of all the items in the checkout, including taxes and duties.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4633,6 +4832,22 @@
               "deprecationReason": null
             },
             {
+              "name": "totalPriceV2",
+              "description": "The sum of all the prices of all the items in the checkout, including taxes and duties.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalPrice` instead"
+            },
+            {
               "name": "totalTax",
               "description": "The sum of all the taxes applied to the line items and shipping lines in the checkout.",
               "args": [],
@@ -4640,13 +4855,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalTaxV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "totalTaxV2",
@@ -4661,8 +4876,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalTax` instead"
             },
             {
               "name": "updatedAt",
@@ -5843,6 +6058,12 @@
               "deprecationReason": null
             },
             {
+              "name": "HIGHER_VALUE_DISCOUNT_APPLIED",
+              "description": "Higher value discount applied.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "DISCOUNT_NOT_FOUND",
               "description": "Discount not found.",
               "isDeprecated": false,
@@ -5917,6 +6138,12 @@
             {
               "name": "INVALID_COUNTRY_AND_CURRENCY",
               "description": "Cannot specify country and presentment currency code.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRODUCT_NOT_AVAILABLE",
+              "description": "Product is not published for this customer.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -7407,6 +7634,16 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Color",
+          "description": "A string containing a hexadecimal representation of a color.\n\nFor example, \"#6A8D48\".\n",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -12537,6 +12774,12 @@
               "description": "Shopify Pay.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "FACEBOOK_PAY",
+              "description": "Facebook Pay.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -14396,6 +14639,12 @@
               "description": "A WEBP image.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "BMP",
+              "description": "A BMP image.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -14446,12 +14695,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "ImageTransformInput",
-          "description": "The available options for transforming an image.\n\nAll transformation options are considered \"best-effort\". Any transformation that the original image type doesn't support will be ignored.\n",
+          "description": "The available options for transforming an image.\n\nAll transformation options are considered best effort. Any transformation that the original image type doesn't support will be ignored.\n",
           "fields": null,
           "inputFields": [
             {
               "name": "crop",
-              "description": "Region of the image to remain after cropping.\nMust be used in conjunction with maxWidth and/or maxHeight fields where the maxWidth / maxHeight are not equal.\nThe crop parameter should coincide with the smaller value (i.e. smaller maxWidth indicates a LEFT / RIGHT crop, while\nsmaller maxHeight indicates a TOP / BOTTOM crop). For example, { maxWidth: 5, maxHeight: 10, crop: LEFT } will result\nin an image with width 5 and height 10, where the right side of the image is removed.\n",
+              "description": "The region of the image to remain after cropping.\nMust be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal.\nThe `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while\na smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result\nin an image with a width of 5 and height of 10, where the right side of the image is removed.\n",
               "type": {
                 "kind": "ENUM",
                 "name": "CropRegion",
@@ -14684,12 +14933,6 @@
             {
               "name": "CS",
               "description": "Czech.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CU",
-              "description": "Church Slavic.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -15025,7 +15268,7 @@
             },
             {
               "name": "MI",
-              "description": "Maori.",
+              "description": "Māori.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -15354,12 +15597,6 @@
               "deprecationReason": null
             },
             {
-              "name": "VO",
-              "description": "Volapük.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "WO",
               "description": "Wolof.",
               "isDeprecated": false,
@@ -15402,6 +15639,30 @@
               "deprecationReason": null
             },
             {
+              "name": "CKB",
+              "description": "Central Kurdish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FIL",
+              "description": "Filipino.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SA",
+              "description": "Sanskrit.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SC",
+              "description": "Sardinian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "ZH",
               "description": "Chinese.",
               "isDeprecated": false,
@@ -15410,6 +15671,18 @@
             {
               "name": "PT",
               "description": "Portuguese.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CU",
+              "description": "Church Slavic.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VO",
+              "description": "Volapük.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -17295,6 +17568,59 @@
               "deprecationReason": null
             },
             {
+              "name": "references",
+              "description": "A list of reference objects if the metafield's type is a resource reference list.",
+              "args": [
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetafieldReferenceConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "type",
               "description": "The type name of the metafield.\nSee the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).\n",
               "args": [],
@@ -17506,6 +17832,124 @@
         },
         {
           "kind": "OBJECT",
+          "name": "MetafieldReferenceConnection",
+          "description": "An auto-generated type for paginating through multiple MetafieldReferences.\n",
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "MetafieldReferenceEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in MetafieldReferenceEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "UNION",
+                      "name": "MetafieldReference",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MetafieldReferenceEdge",
+          "description": "An auto-generated type which holds one MetafieldReference and a cursor during pagination.\n",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of MetafieldReferenceEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "MetafieldReference",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "Model3d",
           "description": "Represents a Shopify hosted 3D model.",
           "fields": [
@@ -17678,16 +18122,6 @@
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Money",
-          "description": "A monetary value string without a currency symbol or code. Example value: `\"100.57\"`.",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -18881,11 +19315,11 @@
             },
             {
               "name": "customerAccessTokenCreateWithMultipass",
-              "description": "Creates a customer access token using a multipass token instead of email and password.\nA customer record is created if customer does not exist. If a customer record already\nexists but the record is disabled, then it's enabled.\n",
+              "description": "Creates a customer access token using a\n[multipass token](https://shopify.dev/api/multipass) instead of email and\npassword. A customer record is created if the customer doesn't exist. If a customer\nrecord already exists but the record is disabled, then the customer record is enabled.\n",
               "args": [
                 {
                   "name": "multipassToken",
-                  "description": "A valid multipass token to be authenticated.",
+                  "description": "A valid [multipass token](https://shopify.dev/api/multipass) to be authenticated.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -20184,12 +20618,12 @@
               "description": "Price of the order before shipping and taxes.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "Money",
+                "kind": "OBJECT",
+                "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `subtotalPriceV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "subtotalPriceV2",
@@ -20200,8 +20634,8 @@
                 "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `subtotalPrice` instead"
             },
             {
               "name": "successfulFulfillments",
@@ -20236,22 +20670,6 @@
             },
             {
               "name": "totalPrice",
-              "description": "The sum of all the prices of all the items in the order, taxes and discounts included (must be positive).",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalPriceV2` instead"
-            },
-            {
-              "name": "totalPriceV2",
               "description": "The sum of all the prices of all the items in the order, duties, taxes and discounts included (must be positive).",
               "args": [],
               "type": {
@@ -20267,6 +20685,22 @@
               "deprecationReason": null
             },
             {
+              "name": "totalPriceV2",
+              "description": "The sum of all the prices of all the items in the order, duties, taxes and discounts included (must be positive).",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalPrice` instead"
+            },
+            {
               "name": "totalRefunded",
               "description": "The total amount that has been refunded.",
               "args": [],
@@ -20274,13 +20708,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalRefundedV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "totalRefundedV2",
@@ -20295,27 +20729,11 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalRefunded` instead"
             },
             {
               "name": "totalShippingPrice",
-              "description": "The total cost of shipping.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalShippingPriceV2` instead"
-            },
-            {
-              "name": "totalShippingPriceV2",
               "description": "The total cost of shipping.",
               "args": [],
               "type": {
@@ -20331,16 +20749,32 @@
               "deprecationReason": null
             },
             {
+              "name": "totalShippingPriceV2",
+              "description": "The total cost of shipping.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalShippingPrice` instead"
+            },
+            {
               "name": "totalTax",
               "description": "The total cost of taxes.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "Money",
+                "kind": "OBJECT",
+                "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `totalTaxV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "totalTaxV2",
@@ -20351,8 +20785,8 @@
                 "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `totalTax` instead"
             }
           ],
           "inputFields": null,
@@ -20577,6 +21011,12 @@
             {
               "name": "REFUNDED",
               "description": "Displayed as **Refunded**.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EXPIRED",
+              "description": "Displayed as **Expired**.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -21432,13 +21872,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `amountV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "amountV2",
@@ -21453,8 +21893,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `amount` instead"
             },
             {
               "name": "billingAddress",
@@ -22152,6 +22592,22 @@
               "deprecationReason": null
             },
             {
+              "name": "isGiftCard",
+              "description": "Whether the product is a gift card.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "media",
               "description": "The media associated with the product.",
               "args": [
@@ -22554,6 +23010,30 @@
                 "kind": "SCALAR",
                 "name": "Int",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "typePath",
+              "description": "A path that includes all of the standardized and custom product types associated with a product.\nThe path increases in specificity from top to bottom. It begins with the standardized product type\nand terminates with the custom product type. For example,\nClothing & Accessories > Clothing > Shirts & Tops > Polo Shirts.\n",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ProductTypePathNode",
+                      "ofType": null
+                    }
+                  }
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -23253,6 +23733,33 @@
         },
         {
           "kind": "OBJECT",
+          "name": "ProductTypePathNode",
+          "description": "A node in the product type path.",
+          "fields": [
+            {
+              "name": "name",
+              "description": "The name of the node. For example, Polo Shirts.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "ProductVariant",
           "description": "A product variant represents a different version of a product, such as differing sizes or differing colors.",
           "fields": [
@@ -23289,12 +23796,12 @@
               "description": "The compare at price of the variant. This can be used to mark a variant as on sale, when `compareAtPrice` is higher than `price`.",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "Money",
+                "kind": "OBJECT",
+                "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `compareAtPriceV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "compareAtPriceV2",
@@ -23305,8 +23812,8 @@
                 "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `compareAtPrice` instead"
             },
             {
               "name": "currentlyNotInStock",
@@ -23444,13 +23951,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `priceV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "priceV2",
@@ -23465,8 +23972,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `price` instead"
             },
             {
               "name": "product",
@@ -24167,11 +24674,11 @@
             },
             {
               "name": "cart",
-              "description": "Find a cart by its ID.",
+              "description": "Retrieve a cart by its ID. For more information, refer to [Manage a cart with the Storefront API](https://shopify.dev/api/examples/cart).",
               "args": [
                 {
                   "name": "id",
-                  "description": "The id of the cart.",
+                  "description": "The ID of the cart.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -24752,7 +25259,7 @@
               "args": [
                 {
                   "name": "handle",
-                  "description": "The handle of the product.",
+                  "description": "A unique string that identifies the product. Handles are automatically generated based on the product's title, and are always lowercase. Whitespace and special characters are replaced with a hyphen: `-`. If there are multiple consecutive whitespace or special characters, then they're replaced with a single hyphen. Whitespace or special characters at the beginning are removed. If a duplicate product title is used, then the handle is auto-incremented by one. For example, if you had two products called `Potion`, then their handles would be `potion` and `potion-1`. After a product has been created, changing the product title doesn't update the handle.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -25351,7 +25858,7 @@
             },
             {
               "name": "options",
-              "description": "The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product.",
+              "description": "The selling plan options available in the drop-down list in the storefront. For example, 'Delivery every week' or 'Delivery every 2 weeks' specifies the delivery frequency options for the product. Individual selling plans contribute their options to the associated selling plan group. For example, a selling plan group might have an option called `option1: Delivery every`. One selling plan in that group could contribute `option1: 2 weeks` with the pricing for that option, and another selling plan could contribute `option1: 4 weeks`, with different pricing.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -26228,7 +26735,7 @@
         {
           "kind": "OBJECT",
           "name": "SellingPlanGroupOption",
-          "description": "Represents an option on a selling plan group that's available in the drop-down list in the storefront.",
+          "description": "Represents an option on a selling plan group that's available in the drop-down list in the storefront.\n\nIndividual selling plans contribute their options to the associated selling plan group. For example, a selling plan group might have an option called `option1: Delivery every`. One selling plan in that group could contribute `option1: 2 weeks` with the pricing for that option, and another selling plan could contribute `option1: 4 weeks`, with different pricing.",
           "fields": [
             {
               "name": "name",
@@ -26341,7 +26848,7 @@
         {
           "kind": "OBJECT",
           "name": "SellingPlanPriceAdjustment",
-          "description": "Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments.",
+          "description": "Represents by how much the price of a variant associated with a selling plan is adjusted. Each variant can have up to two price adjustments. If a variant has multiple price adjustments, then the first price adjustment applies when the variant is initially purchased. The second price adjustment applies after a certain number of orders (specified by the `orderCount` field) are made. If a selling plan doesn't have any price adjustments, then the unadjusted price of the variant is the effective price.",
           "fields": [
             {
               "name": "adjustmentValue",
@@ -26361,7 +26868,7 @@
             },
             {
               "name": "orderCount",
-              "description": "The number of orders that the price adjustment applies to If the price adjustment always applies, then this field is `null`.",
+              "description": "The number of orders that the price adjustment applies to. If the price adjustment always applies, then this field is `null`.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -26432,13 +26939,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `priceV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "priceV2",
@@ -26453,8 +26960,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `price` instead"
             },
             {
               "name": "title",
@@ -26483,6 +26990,18 @@
           "name": "Shop",
           "description": "Shop represents a collection of the general settings and information about the shop.",
           "fields": [
+            {
+              "name": "brand",
+              "description": "The shop's branding configuration.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Brand",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "description",
               "description": "A description of the shop.",
@@ -26645,7 +27164,7 @@
             },
             {
               "name": "primaryDomain",
-              "description": "The shop’s primary domain.",
+              "description": "The primary domain of the shop’s Online Store.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -27339,13 +27858,13 @@
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Money",
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
                   "ofType": null
                 }
               },
-              "isDeprecated": true,
-              "deprecationReason": "Use `amountV2` instead"
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "amountV2",
@@ -27360,8 +27879,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Use `amount` instead"
             },
             {
               "name": "kind",
@@ -28691,6 +29210,22 @@
               "deprecationReason": null
             },
             {
+              "name": "isProtected",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "name",
               "description": null,
               "args": [],
@@ -28702,6 +29237,30 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "protectedContent",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "protectedSubject",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -29117,6 +29676,22 @@
               "deprecationReason": null
             },
             {
+              "name": "isProtected",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "kind",
               "description": null,
               "args": [],
@@ -29172,6 +29747,18 @@
                     "ofType": null
                   }
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "protectedSubject",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
