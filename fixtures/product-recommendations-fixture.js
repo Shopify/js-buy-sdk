@@ -1,7 +1,7 @@
 export default {
   data: {
     productRecommendations: [{
-      id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzk1NTUyMjc0NjI=',
+      id: 'gid://shopify/Product/9555227462',
       createdAt: '2017-02-15T15:08:51Z',
       title: 'Cape Dress',
       updatedAt: '2017-06-07T15:18:50Z',
@@ -13,7 +13,7 @@ export default {
       publishedAt: '2017-02-15T15:09:45Z',
       options: [
         {
-          id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0T3B0aW9uLzExNTI2MDQwNzc0',
+          id: 'gid://shopify/ProductOption/11526040774',
           name: 'Color',
           values: [
             'Black',
@@ -21,7 +21,7 @@ export default {
           ]
         },
         {
-          id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0T3B0aW9uLzExNTI2MDQwODM4',
+          id: 'gid://shopify/ProductOption/11526040838',
           name: 'Size',
           values: [
             'X-Small',
@@ -39,56 +39,56 @@ export default {
         edges: [
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgxNjY=',
+              id: 'gid://shopify/ProductImage/22932908166',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/babyandco5.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgyMzA=',
+              id: 'gid://shopify/ProductImage/22932908230',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24008.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgyOTQ=',
+              id: 'gid://shopify/ProductImage/22932908294',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24015.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDgzNTg=',
+              id: 'gid://shopify/ProductImage/22932908358',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24020.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0MjI=',
+              id: 'gid://shopify/ProductImage/22932908422',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0ODY=',
+              id: 'gid://shopify/ProductImage/22932908486',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg1NTA=',
+              id: 'gid://shopify/ProductImage/22932908550',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332',
               altText: null
             }
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg2MTQ=',
+              id: 'gid://shopify/ProductImage/22932908614',
               src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332',
               altText: null
             }
@@ -103,16 +103,19 @@ export default {
         edges: [
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDIxNA==',
+              id: 'gid://shopify/ProductVariant/35831174214',
               available: true,
               weight: 0,
-              price: '788.00',
+              price: {
+                amount: '788.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
-                amount: '788.00',
+                amount: '788.0',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '888.00',
+                amount: '888.0',
                 currencyCode: 'CAD'
               },
               title: 'Black / X-Small',
@@ -139,10 +142,13 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDQwNg==',
+              id: 'gid://shopify/ProductVariant/35831174406',
               available: true,
               weight: 0,
-              price: '788.00',
+              price: {
+                amount: '788.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
                 amount: '788.00',
                 currencyCode: 'CAD'
@@ -178,10 +184,13 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDUzNA==',
+              id: 'gid://shopify/ProductVariant/35831174534',
               available: false,
               weight: 0,
-              price: '788.00',
+              price: {
+                amount: '788.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
                 amount: '788.00',
                 currencyCode: 'CAD'
@@ -214,21 +223,24 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDcyNg==',
+              id: 'gid://shopify/ProductVariant/35831174726',
               available: true,
               weight: 0,
-              price: '750.00',
+              price: {
+                amount: '750.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
-                amount: '750.00',
+                amount: '750.0',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '850.00',
+                amount: '850.0',
                 currencyCode: 'CAD'
               },
               title: 'Dark Green / X-Small',
               image: {
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0MjI=',
+                id: 'gid://shopify/ProductImage/22932908422',
                 src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24037.jpg?v=1487171332'
               },
               selectedOptions: [
@@ -256,21 +268,24 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NDkxOA==',
+              id: 'gid://shopify/ProductVariant/35831174918',
               available: false,
               weight: 0,
-              price: '750.00',
+              price: {
+                amount: '750.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
-                amount: '750.00',
+                amount: '750.0',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '850.00',
+                amount: '850.0',
                 currencyCode: 'CAD'
               },
               title: 'Dark Green / Small',
               image: {
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg2MTQ=',
+                id: 'gid://shopify/ProductImage/22932908614',
                 src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_34_51031_24040.jpg?v=1487171332'
               },
               selectedOptions: [
@@ -295,21 +310,24 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8zNTgzMTE3NTExMA==',
+              id: 'gid://shopify/ProductVariant/35831175110',
               available: true,
               weight: 0,
-              price: '788.00',
+              price: {
+                amount: '788.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
-                amount: '788.00',
+                amount: '788.0',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '888.00',
+                amount: '888.0',
                 currencyCode: 'CAD'
               },
               title: 'Dark Green / Medium',
               image: {
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg1NTA=',
+                id: 'gid://shopify/ProductImage/22932908550',
                 src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24034.jpg?v=1487171332'
               },
               selectedOptions: [
@@ -334,21 +352,24 @@ export default {
           },
           {
             node: {
-              id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MjgyNzA5NjcyNQ==',
+              id: 'gid://shopify/ProductVariant/42827096725',
               available: true,
               weight: 0,
-              price: '788.00',
+              price: {
+                amount: '788.0',
+                currencyCode: 'CAD'
+              },
               priceV2: {
-                amount: '788.00',
+                amount: '788.0',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '888.00',
+                amount: '888.0',
                 currencyCode: 'CAD'
               },
               title: 'Dark Green / Large',
               image: {
-                id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMjI5MzI5MDg0ODY=',
+                id: 'gid://shopify/ProductImage/22932908486',
                 src: 'https://cdn.shopify.com/s/files/1/1019/0495/products/2015-07-02_Ashley_33_51032_24024.jpg?v=1487171332'
               },
               selectedOptions: [

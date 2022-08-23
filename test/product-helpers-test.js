@@ -16,7 +16,7 @@ suite('product-helpers-test', () => {
   test('it returns the variant based on options given', () => {
     const variant = productHelpers.variantForOptions(productModel.node, {Fur: 'Fluffy', Size: 'Medium'});
 
-    assert.equal(variant.id, 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=');
+    assert.equal(variant.id, 'gid://shopify/ProductVariant/25602235976');
   });
 
   test('it returns undefined if the variant does not exist', () => {
