@@ -11,6 +11,7 @@ fragment ProductFragment on Product {
   vendor
   publishedAt
   onlineStoreUrl
+  tags
   options {
     name
     values
@@ -39,7 +40,7 @@ fragment ProductFragment on Product {
     edges {
       cursor
       node {
-        ...VariantFragment
+        ...VariantWithProductFragment
       }
     }
   }

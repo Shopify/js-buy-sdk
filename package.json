@@ -1,13 +1,12 @@
 {
-  "name": "shopify-buy",
+  "name": "@hellojuniper-com/shopify-buy",
   "version": "2.16.1",
-  "description": "The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website. It is based on Shopify's API and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.",
+  "description": "Juniper's forked version of the shopify-buy Javascript SDK.",
   "main": "index.js",
   "jsnext:main": "index.es.js",
-  "repository": "git@github.com:Shopify/js-buy-sdk.git",
+  "repository": "git@github.com:hellojuniper-com/shopify-buy-sdk.git",
   "publishConfig": {
-    "access": "public",
-    "@shopify:registry": "https://registry.npmjs.org/"
+    "registry": "https://npm.pkg.github.com/"
   },
   "scripts": {
     "prepublish": "yarn run build",
@@ -32,7 +31,7 @@
     "minify-umd:optimized": "babel-minify index.umd.js > index.umd.min.js",
     "minify-umd:unoptimized": "babel-minify index.unoptimized.umd.js > index.unoptimized.umd.min.js"
   },
-  "author": "Shopify Inc.",
+  "author": "Juniper Creates",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
