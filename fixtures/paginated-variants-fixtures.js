@@ -13,6 +13,7 @@ export const secondPageVariantsFixture = {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjA0MH0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
+              "availableForSale": true,
               "title": "Extra Fluffy",
               "price": "0.00",
               "priceV2": {
@@ -62,6 +63,7 @@ export const thirdPageVariantsFixture = {
             "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNjEwNH0=",
             "node": {
               "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc4NTk3MjA=",
+              "availableForSale": true,
               "title": "Mega Fluff",
               "price": "0.00",
               "priceV2": {
