@@ -144,7 +144,7 @@ client.product.fetchAll().then((products) => {
 });
 
 // Fetch a single product by ID
-const productId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+const productId = 'gid://shopify/Product/7857989384';
 
 client.product.fetch(productId).then((product) => {
   // Do something with the product
@@ -168,7 +168,7 @@ client.collection.fetchAllWithProducts().then((collections) => {
 });
 
 // Fetch a single collection by ID, including its products
-const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
+const collectionId = 'gid://shopify/Collection/369312584';
 // Set a parameter for first x products, defaults to 20 if you don't provide a param
 
 client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((collection) => {
@@ -185,7 +185,7 @@ client.checkout.create().then((checkout) => {
 });
 </code></pre>
 <h3 id="updating-checkout-attributes">Updating checkout attributes</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8';
 const input = {customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]};
 
 client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
@@ -193,10 +193,10 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 });
 </code></pre>
 <h3 id="adding-line-items">Adding Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemsToAdd = [
   {
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==',
+    variantId: 'gid://shopify/ProductVariant/29106064584',
     quantity: 5,
     customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]
   }
@@ -209,31 +209,31 @@ client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
 });
 </code></pre>
 <h3 id="updating-line-items">Updating Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemsToUpdate = [
-  {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2}
+  {id: 'gid://shopify/Product/7857989384', quantity: 2}
 ];
 
 // Update the line item on the checkout (change the quantity or variant)
 client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
   // Do something with the updated checkout
-  console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
+  console.log(checkout.lineItems); // Quantity of line item 'gid://shopify/Product/7857989384' updated to 2
 });
 </code></pre>
 <h3 id="removing-line-items">Removing Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemIdsToRemove = [
-  'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
+  'gid://shopify/Product/7857989384'
 ];
 
 // Remove an item from the checkout
 client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
   // Do something with the updated checkout
-  console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
+  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/Product/7857989384' removed
 });
 </code></pre>
 <h3 id="fetching-a-checkout">Fetching a Checkout</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'
 
 client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
@@ -241,7 +241,7 @@ client.checkout.fetch(checkoutId).then((checkout) => {
 });
 </code></pre>
 <h3 id="adding-a-discount">Adding a Discount</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const discountCode = 'best-discount-ever';
 
 // Add a discount code to the checkout
@@ -251,7 +251,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
 });
 </code></pre>
 <h3 id="removing-a-discount">Removing a Discount</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 
 // Removes the applied discount from an existing checkout.
 client.checkout.removeDiscount(checkoutId).then(checkout => {
@@ -260,7 +260,7 @@ client.checkout.removeDiscount(checkoutId).then(checkout => {
 });
 </code></pre>
 <h3 id="updating-a-shipping-address">Updating a Shipping Address</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 
 const shippingAddress = {
    address1: 'Chestnut Street 92',
@@ -342,7 +342,7 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTI
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Jul 04 2022 13:51:51 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Oct 06 2022 14:19:55 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
