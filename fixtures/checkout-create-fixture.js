@@ -4,7 +4,7 @@ export default {
       checkoutUserErrors: [],
       userErrors: [],
       checkout: {
-        id: 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=',
+        id: 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8',
         ready: true,
         lineItems: {
           pageInfo: {
@@ -17,9 +17,12 @@ export default {
               node: {
                 title: 'Intelligent Granite Table',
                 variant: {
-                  id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==',
+                  id: 'gid://shopify/ProductVariant/29106064584',
                   title: 'Awesome Copper Bench',
-                  price: '64.99',
+                  price: {
+                    amount: '64.99',
+                    currencyCode: 'CAD'
+                  },
                   compareAtPrice: null,
                   weight: 4.5,
                   image: null,
@@ -64,19 +67,31 @@ export default {
         requiresShipping: true,
         customAttributes: [],
         note: null,
-        paymentDue: '367.19',
+        paymentDue: {
+          amount: '367.19',
+          currencyCode: 'CAD'
+        },
         webUrl: 'https://checkout.myshopify.io/1/checkouts/c4abf4bf036239ab5e3d0bf93c642c96',
         orderStatusUrl: null,
         taxExempt: false,
         taxesIncluded: false,
         currencyCode: 'CAD',
-        totalTax: '42.24',
+        totalTax: {
+          amount: '42.24',
+          currencyCode: 'CAD'
+        },
         lineItemsSubtotalPrice: {
           amount: '324.95',
           currencyCode: 'CAD'
         },
-        subtotalPrice: '324.95',
-        totalPrice: '367.19',
+        subtotalPrice: {
+          amount: '324.95',
+          currencyCode: 'CAD'
+        },
+        totalPrice: {
+          amount: '367.19',
+          currencyCode: 'CAD'
+        },
         completedAt: null,
         createdAt: '2017-03-28T16:58:31Z',
         updatedAt: '2017-03-28T16:58:31Z'

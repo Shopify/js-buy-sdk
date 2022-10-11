@@ -1,59 +1,62 @@
 export default {
-  "data": {
-    "node": {
-      "__typename": "Product",
-      "id": "Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==",
-      "handle": "cat",
-      "title": "Cat",
-      "updatedAt": "2017-01-16T15:42:21Z",
-      "images": {
-        "pageInfo": {
-          "hasNextPage": false,
-          "hasPreviousPage": false
+  data: {
+    node: {
+      __typename: 'Product',
+      id: 'gid://shopify/Collection/369312584',
+      handle: 'cat',
+      title: 'Cat',
+      updatedAt: '2017-01-16T15:42:21Z',
+      images: {
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false
         },
-        "edges": [
+        edges: [
           {
-            "cursor": "eyJsYXN0X2lkIjoxNjMwNjgxMjY4MH0=",
-            "node": {
-              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTYzMDY4MTI2ODA=",
-              "src": "https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096"
+            cursor: 'eyJsYXN0X2lkIjoxNjMwNjgxMjY4MH0=',
+            node: {
+              id: 'gid://shopify/ProductImage/16306812680',
+              src: 'https://cdn.shopify.com/s/files/1/1510/7238/products/cat.jpg?v=1474839096'
             }
           }
         ]
       },
-      "options": [
+      options: [
         {
-          "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3OTA2NjQ=",
-          "name": "Fur"
+          id: 'gid://shopify/ProductImage/18217790664',
+          name: 'Fur'
         }
       ],
-      "variants": {
-        "pageInfo": {
-          "hasNextPage": true,
-          "hasPreviousPage": false
+      variants: {
+        pageInfo: {
+          hasNextPage: true,
+          hasPreviousPage: false
         },
-        "edges": [
+        edges: [
           {
-            "cursor": "eyJsYXN0X2lkIjoyNTYwMjIzNTk3Nn0=",
-            "node": {
-              "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc4MTk0MDA=",
-              "price": "0.00",
-              "priceV2": {
-                "amount": "0.00",
-                "currencyCode": "CAD"
+            cursor: 'eyJsYXN0X2lkIjoyNTYwMjIzNTk3Nn0=',
+            node: {
+              id: 'gid://shopify/ProductImage/18217819400',
+              price: {
+                amount: '0.0',
+                currencyCode: 'CAD'
               },
-              "compareAtPriceV2": {
-                "amount": "5.00",
-                "currencyCode": "CAD"
+              priceV2: {
+                amount: '0.0',
+                currencyCode: 'CAD'
               },
-              "weight": 18,
-              "unitPrice": null,
-              "unitPriceMeasurement": {
-                "measuredType": null,
-                "quantityUnit": null,
-                "quantityValue": 0.0,
-                "referenceUnit": null,
-                "referenceValue": 0
+              compareAtPriceV2: {
+                amount: '5.0',
+                currencyCode: 'CAD'
+              },
+              weight: 18,
+              unitPrice: null,
+              unitPriceMeasurement: {
+                measuredType: null,
+                quantityUnit: null,
+                quantityValue: 0.0,
+                referenceUnit: null,
+                referenceValue: 0
               }
             }
           }
