@@ -24,10 +24,12 @@ fragment CheckoutFragment on Checkout {
   requiresShipping
   note
   paymentDue {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   paymentDueV2: paymentDue {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   webUrl
   orderStatusUrl
@@ -35,25 +37,32 @@ fragment CheckoutFragment on Checkout {
   taxesIncluded
   currencyCode
   totalTax {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   totalTaxV2: totalTax {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   lineItemsSubtotalPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   subtotalPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   subtotalPriceV2: subtotalPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   totalPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   totalPriceV2: totalPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   completedAt
   createdAt
@@ -79,10 +88,12 @@ fragment CheckoutFragment on Checkout {
   shippingLine {
     handle
     price {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     priceV2: price {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     title
   }
@@ -95,35 +106,45 @@ fragment CheckoutFragment on Checkout {
     processedAt
     orderNumber
     subtotalPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     subtotalPriceV2: subtotalPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalShippingPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalShippingPriceV2: totalShippingPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalTax {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalTaxV2: totalTax {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     totalPriceV2: totalPrice {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     currencyCode
     totalRefunded {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
-    totalRefundedV2: totalRefunded {
-      ...MoneyFragment
+    totalRefundedV2: totalRefunded{
+      amount
+      currencyCode
     }
     customerUrl
     shippingAddress {
@@ -170,7 +191,8 @@ fragment CheckoutFragment on Checkout {
         }
         discountAllocations {
           allocatedAmount {
-            ...MoneyFragment
+            amount
+            currencyCode
           }
           discountApplication {
             ...DiscountApplicationFragment

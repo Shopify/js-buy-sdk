@@ -1,18 +1,23 @@
 fragment AppliedGiftCardFragment on AppliedGiftCard {
   amountUsed {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   amountUsedV2: amountUsed {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   balance {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   balanceV2: balance {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   presentmentAmountUsed {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   id
   lastCharacters

@@ -4,7 +4,8 @@ fragment DiscountApplicationFragment on DiscountApplication {
   targetType
   value {
     ... on MoneyV2 {
-      ...MoneyFragment
+      amount
+      currencyCode
     }
     ... on PricingPercentageValue {
       percentage
