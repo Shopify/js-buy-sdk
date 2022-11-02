@@ -201,7 +201,7 @@ client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
 ```javascript
 const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemsToUpdate = [
-  {id: 'gid://shopify/Product/7857989384', quantity: 2}
+  {id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef', quantity: 2}
 ];
 
 // Update the line item on the checkout (change the quantity or variant)
@@ -215,13 +215,13 @@ client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) =
 ```javascript
 const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemIdsToRemove = [
-  'gid://shopify/Product/7857989384'
+  'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef'
 ];
 
 // Remove an item from the checkout
 client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
   // Do something with the updated checkout
-  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/Product/7857989384' removed
+  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef' removed
 });
 ```
 

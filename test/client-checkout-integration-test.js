@@ -248,7 +248,7 @@ suite('client-checkout-integration-test', () => {
     const checkoutId = checkoutLineItemsUpdateFixture.data.checkoutLineItemsUpdate.checkout.id;
     const lineItems = [
       {
-        id: 'id1',
+        id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef',
         quantity: 2,
         variantId: 'variant-id'
       }
