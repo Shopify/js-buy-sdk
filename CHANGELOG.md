@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.17.1 (November 2, 2022)
+* Removed the common `MoneyFragment` and replaced all usage of the fragment with the corresponding `MoneyV2` fields. This fixes an error that was occuring when `client.fetchNextPage()` is called
+
 ### v2.17.0 (October 11, 2022)
 * Bumps the SDK to use Storefront API version `2022-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-10).
 * **NOTABLE API DATA CHANGE:** Storefront API version `2022-10` includes the removal of the `Money` scalar and all fields that had previously returned a [Money](https://shopify.dev/api/storefront/2022-07/scalars/Money) scalar will now return a [MoneyV2](https://shopify.dev/api/storefront/2022-10/objects/MoneyV2) object. Affected fields include:
