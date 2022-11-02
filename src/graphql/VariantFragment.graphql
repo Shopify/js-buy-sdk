@@ -3,20 +3,24 @@ fragment VariantFragment on ProductVariant {
   id
   title
   price {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   priceV2: price {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
   weight
   available: availableForSale
   sku
   compareAtPrice {
-      ...MoneyFragment
-    }
-  compareAtPriceV2: compareAtPrice {
-    ...MoneyFragment
+    amount
+    currencyCode
   }
+  compareAtPriceV2: compareAtPrice {
+  amount
+  currencyCode
+}
   image {
     id
     src: url
@@ -29,8 +33,9 @@ fragment VariantFragment on ProductVariant {
     value
   }
   unitPrice {
-    ...MoneyFragment
-  }
+  amount
+  currencyCode
+}
   unitPriceMeasurement {
     measuredType
     quantityUnit
