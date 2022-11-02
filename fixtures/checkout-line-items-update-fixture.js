@@ -15,7 +15,7 @@ export default {
             {
               cursor: 'eyJsYXN0X2lkIjoiZmI3MTEwMmYwZDM4ZGU0NmUwMzdiMzBmODE3ZTlkYjUifQ==',
               node: {
-                id: 'zUzNzQ1ZjU0OTVlZjIyYzIxYzVkZj9rZXk9MTlkMjljZDgwYjg3MGMxNmRmNjNjM2JjODUzYjY3MTY=',
+                id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef',
                 title: 'Arena Zip Boot',
                 variant: {
                   id: 'gid://shopify/ProductVariant/29106064584',
