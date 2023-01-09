@@ -1,6 +1,6 @@
 # Changelog
 
-### v2.18.0 (January 9, 2022)
+### v2.18.0 (January 9, 2023)
 * Bumps the SDK to use Storefront API version `2023-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-01).
 
 ### v2.17.1 (November 2, 2022)
