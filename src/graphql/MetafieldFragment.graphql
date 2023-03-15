@@ -1,0 +1,6 @@
+fragment MetafieldFragment on Metafield {
+    key
+    namespace
+    type
+    value
+}

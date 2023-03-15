@@ -12,6 +12,7 @@ fragment ProductFragment on Product {
   publishedAt
   onlineStoreUrl
   tags
+  quantity: totalInventory
   options {
     name
     values
@@ -43,5 +44,11 @@ fragment ProductFragment on Product {
         ...VariantWithProductFragment
       }
     }
+  }
+  metafields(identifiers: [
+    {namespace: "taiga", key: "preOrderStopCondition"},
+    {namespace: "taiga", key: "preOrderTimelineMessage"}
+  ]) {
+    ...MetafieldFragment
   }
 }

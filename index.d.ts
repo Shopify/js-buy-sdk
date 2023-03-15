@@ -206,6 +206,16 @@ declare namespace ShopifyBuy {
          * The product's tags.
          */
         tags: Scalar[];
+
+        /**
+         * The product's custom metafields.
+         */
+        metafields: Array<Metafield | null>
+
+        /**
+         * The sellable quantity of the product.
+         */
+        quantity: number;
     }
 
     export interface ProductVariant extends GraphModel {
@@ -256,6 +266,16 @@ declare namespace ShopifyBuy {
          * Title of variant
          */
         title: string;
+
+        /**
+         * The variant's custom metafields.
+         */
+        metafields: Array<Metafield | null>;
+
+        /**
+         * The sellable quantity of the variant.
+         */
+        quantity: number;
     }
 
     export interface ProductOption {
@@ -461,6 +481,14 @@ declare namespace ShopifyBuy {
     export interface ProductWithinVariant extends Pick<Product, "title" | "id">{}
 
     export interface Scalar {
+        value: string;
+    }
+
+    export interface Metafield {
+        id: string;
+        key: string;
+        namespace: string;
+        type: string;
         value: string;
     }
 }
