@@ -475,10 +475,10 @@ declare namespace ShopifyBuy {
     }
 
     /**
-     * A subset of a product object that only includes the id and title. This exists in
-     * variants, so that they each have a reference back to their parent product node.
+     * A subset of a product object that only includes the id, title, and metafields. This
+     * exists in variants, so that they each have a reference back to their parent product node.
      */
-    export interface ProductWithinVariant extends Pick<Product, "title" | "id">{}
+    export interface ProductWithinVariant extends Pick<Product, "title" | "id" | "metafields">{}
 
     export interface Scalar {
         value: string;

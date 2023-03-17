@@ -39,7 +39,7 @@ fragment VariantFragment on ProductVariant {
   }
   metafields(identifiers: [
     {namespace: "taiga", key: "preOrderStopCondition"},
-    {namespace: "taiga", key: "preOrderTimelineMessage"}
+    {namespace: "taiga", key: "preOrderDateEstimate"}
   ]) {
     ...MetafieldFragment
   }
