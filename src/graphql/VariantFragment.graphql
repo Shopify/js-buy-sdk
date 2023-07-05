@@ -1,51 +1,42 @@
+
 fragment VariantFragment on ProductVariant {
   id
   title
-  price
-  priceV2 {
+  price {
     amount
     currencyCode
   }
-  presentmentPrices(first: 20) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
-    edges {
-      node {
-        price {
-          amount
-          currencyCode
-        }
-        compareAtPrice {
-          amount
-          currencyCode
-        }
-      }
-    }
+  priceV2: price {
+    amount
+    currencyCode
   }
   weight
   available: availableForSale
   sku
-  compareAtPrice
   quantityAvailable
-  compareAtPriceV2 {
+  compareAtPrice {
     amount
     currencyCode
   }
+  compareAtPriceV2: compareAtPrice {
+  amount
+  currencyCode
+}
   image {
     id
-    src: originalSrc
+    src: url
     altText
+    width
+    height
   }
   selectedOptions {
     name
     value
   }
   unitPrice {
-    amount
-    currencyCode
-  }
+  amount
+  currencyCode
+}
   unitPriceMeasurement {
     measuredType
     quantityUnit

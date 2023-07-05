@@ -1,6 +1,6 @@
 export default {
   data: {
-    productByHandle: {
+    productRecommendations: [{
       id: 'gid://shopify/Product/9555227462',
       createdAt: '2017-02-15T15:08:51Z',
       title: 'Cape Dress',
@@ -150,11 +150,11 @@ export default {
                 currencyCode: 'CAD'
               },
               priceV2: {
-                amount: '788.0',
+                amount: '788.00',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '888.0',
+                amount: '888.00',
                 currencyCode: 'CAD'
               },
               title: 'Black / Small',
@@ -192,11 +192,11 @@ export default {
                 currencyCode: 'CAD'
               },
               priceV2: {
-                amount: '788.0',
+                amount: '788.00',
                 currencyCode: 'CAD'
               },
               compareAtPriceV2: {
-                amount: '888.0',
+                amount: '888.00',
                 currencyCode: 'CAD'
               },
               title: 'Black / Medium',
@@ -397,6 +397,6 @@ export default {
           }
         ]
       }
-    }
+    }]
   }
 };

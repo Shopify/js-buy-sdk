@@ -1,5 +1,48 @@
 # Changelog
 
+### v2.20.0 (July 5, 2023)
+* Bumps the SDK to use Storefront API version `2023-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-07).
+
+### v2.19.0 (April 4, 2023)
+* Bumps the SDK to use Storefront API version `2023-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-04).
+* [Security patch](https://github.com/Shopify/js-buy-sdk/pull/940) handlebars version vulnerability
+
+### v2.18.0 (January 9, 2023)
+* Bumps the SDK to use Storefront API version `2023-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-01).
+
+### v2.17.1 (November 2, 2022)
+* Removed the common `MoneyFragment` and replaced all usage of the fragment with the corresponding `MoneyV2` fields. This fixes an error that was occuring when `client.fetchNextPage()` is called
+
+### v2.17.0 (October 11, 2022)
+* Bumps the SDK to use Storefront API version `2022-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-10).
+* **NOTABLE API DATA CHANGE:** Storefront API version `2022-10` includes the removal of the `Money` scalar and all fields that had previously returned a [Money](https://shopify.dev/api/storefront/2022-07/scalars/Money) scalar will now return a [MoneyV2](https://shopify.dev/api/storefront/2022-10/objects/MoneyV2) object. Affected fields include:
+  * AppliedGiftCard fields: `amountUsed`, `balance`
+  * Checkout fields: `paymentDue`, `totalTax`, `subtotalPrice`, `totalPrice`
+  * ShippingRate fields: `price`
+  * Order fields: `subtotalPrice`, `totalShippingPrice`, `totalTax`, `totalPrice`, `totalRefunded`
+  * ProductVariant fields: `price`, `compareAtPrice`
+
+### v2.16.1 (July 5, 2022)
+* Bumps the SDK to use Storefront API version `2022-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-07).
+* Alias all instances of `Image.src` to use `Image.url`.
+
+### v2.15.1 (April 4, 2022)
+* Bumps the SDK to use Storefront API version `2022-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-04).
+* Add `product.fetchRecommendations` function that allows for fetching recommended products for a product.
+
+### v2.14.0 (January 6, 2022)
+* Bumps the SDK to use Storefront API version `2022-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-01).
+* Replace deprecated `description` with `title` in `ScriptDiscountApplication` typed `value` object in discount application fragment
+* Remove deprecated `currencyCode` from shop fragment
+* Remove deprecated `presentmentPrices` from product variant fragment
+
+### v2.13.0 (October 28, 2021)
+* Bumps the SDK to use Storefront API version `2021-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2021-10).
+* Add image `width` and `height` fields to the `ProductFragment` and `VariantFragment`.
+
+### v2.12.0 (August 30, 2021)
+* Bumps the SDK to use Storefront API version `2021-07`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2021-07).
+
 ### v2.11.0 (July 7, 2020)
 * Bumps the SDK to use Storefront API version `2020-07`. For more information, see the [Release Notes](https://shopify.dev/concepts/about-apis/versioning/release-notes/2020-07).
 
