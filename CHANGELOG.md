@@ -69,7 +69,7 @@
 * Updates some description strings in the Storefront API schema version `2019-10`.
 * Adds an optional param to `collection.fetchWithProducts` for specifying the number of products to return.
 * Adds `priceV2` to the `shippingLine` object in the checkout fragment
-* Update the [contributing guide](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md) to recommend using `yarn` instead of `npm`.
+* Update the [contributing guide](https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING.md) to recommend using `yarn` instead of `npm`.
 
 ### v2.8.0 (October 3, 2019)
 * Bumps the SDK to use Storefront API version `2019-10`. For more information, see the [Release Notes](https://help.shopify.com/en/api/versioning/release-notes/2019-10#storefront-api-changes).

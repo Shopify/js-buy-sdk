@@ -2,7 +2,7 @@
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
-[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/master/tutorials/MIGRATION_GUIDE.md).
+[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/main/tutorials/MIGRATION_GUIDE.md).
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
@@ -12,7 +12,7 @@ and provides the ability to retrieve products and collections from your shop, ad
 
 ## Changelog
 
-View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about our releases.
+View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md) for details about our releases.
 
 ## Table Of Contents
 
@@ -53,7 +53,7 @@ $ npm install shopify-buy
 
 **CDN:**
 
-There is a minified UMD build of the latest release available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about the latest release):
+There is a minified UMD build of the latest release available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md) for details about the latest release):
 
 ```html
 <script src="https://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script>
@@ -330,14 +330,14 @@ There are JS Buy SDK specific example apps in Node, Ember, and React. You can us
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md).
+please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING.md).
 
 ## Code of Conduct
 All developers who wish to contribute through code or issues, take a look at the
-[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/master/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/master/LICENSE.txt) for details.
+MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/main/LICENSE.txt) for details.
 
 <img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" />
