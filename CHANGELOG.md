@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.20.0 (July 5, 2023)
+* Bumps the SDK to use Storefront API version `2023-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-07).
+
 ### v2.19.0 (April 4, 2023)
 * Bumps the SDK to use Storefront API version `2023-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-04).
 * [Security patch](https://github.com/Shopify/js-buy-sdk/pull/940) handlebars version vulnerability
