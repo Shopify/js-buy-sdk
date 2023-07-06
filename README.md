@@ -14,6 +14,10 @@ and provides the ability to retrieve products and collections from your shop, ad
 
 View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md) for details about our releases.
 
+## Support
+
+Each version of JS Buy SDK uses a specific Storefront API version and the support of an SDK version is directly linked to the support of the corresponding Storefront API version. Supported Storefront API version can be found [here](https://shopify.dev/docs/api/usage/versioning).
+
 ## Table Of Contents
 
 - [Installation](#installation)
