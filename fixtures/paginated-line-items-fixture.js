@@ -2,7 +2,7 @@ export const secondPageLineItemsFixture = {
   "data": {
     "node": {
       "__typename": "Checkout",
-      "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
+      "id": "gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8",
       "lineItems": {
         "pageInfo": {
           "hasNextPage": true,
@@ -30,7 +30,7 @@ export const thirdPageLineItemsFixture = {
   "data": {
     "node": {
       "__typename": "Checkout",
-      "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
+      "id": "gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8",
       "lineItems": {
         "pageInfo": {
           "hasNextPage": false,

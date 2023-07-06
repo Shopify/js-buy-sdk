@@ -14,6 +14,7 @@ import {secondPageImagesFixture, thirdPageImagesFixture, fourthPageImagesFixture
 import productWithPaginatedVariantsFixture from '../fixtures/product-with-paginated-variants-fixture';
 import {secondPageVariantsFixture, thirdPageVariantsFixture} from '../fixtures/paginated-variants-fixtures';
 import productByHandleFixture from '../fixtures/product-by-handle-fixture';
+import productRecommendationsFixture from '../fixtures/product-recommendations-fixture';
 import collectionByHandleFixture from '../fixtures/collection-by-handle-fixture';
 import collectionWithProductsFixture from '../fixtures/collection-with-products-fixture';
 import shopWithCollectionsWithPaginationFixture from '../fixtures/query-collections-with-pagination-fixture';
@@ -62,6 +63,17 @@ suite('client-integration-test', () => {
     return client.product.fetch(id).then((product) => {
       assert.ok(!Array.isArray(product), 'product is not an array');
       assert.equal(product.id, id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves recommended products on Client.product#fetchRecommendations', () => {
+    fetchMockPostOnce(fetchMock, apiUrl, productRecommendationsFixture);
+
+    const productId = productRecommendationsFixture.data.productRecommendations[0].id;
+
+    return client.product.fetchRecommendations(productId).then((products) => {
+      assert.ok(Array.isArray(products), 'recommended products are an array');
       assert.ok(fetchMock.done());
     });
   });

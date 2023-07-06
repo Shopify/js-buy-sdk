@@ -1,6 +1,5 @@
 query {
   shop {
-    currencyCode
     paymentSettings {
       enabledPresentmentCurrencies
     }

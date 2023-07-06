@@ -23,8 +23,11 @@ fragment CheckoutFragment on Checkout {
   ready
   requiresShipping
   note
-  paymentDue
-  paymentDueV2 {
+  paymentDue {
+    amount
+    currencyCode
+  }
+  paymentDueV2: paymentDue {
     amount
     currencyCode
   }
@@ -33,8 +36,11 @@ fragment CheckoutFragment on Checkout {
   taxExempt
   taxesIncluded
   currencyCode
-  totalTax
-  totalTaxV2 {
+  totalTax {
+    amount
+    currencyCode
+  }
+  totalTaxV2: totalTax {
     amount
     currencyCode
   }
@@ -42,13 +48,19 @@ fragment CheckoutFragment on Checkout {
     amount
     currencyCode
   }
-  subtotalPrice
-  subtotalPriceV2 {
+  subtotalPrice {
     amount
     currencyCode
   }
-  totalPrice
-  totalPriceV2 {
+  subtotalPriceV2: subtotalPrice {
+    amount
+    currencyCode
+  }
+  totalPrice {
+    amount
+    currencyCode
+  }
+  totalPriceV2: totalPrice {
     amount
     currencyCode
   }
@@ -75,8 +87,11 @@ fragment CheckoutFragment on Checkout {
   }
   shippingLine {
     handle
-    price
-    priceV2 {
+    price {
+      amount
+      currencyCode
+    }
+    priceV2: price {
       amount
       currencyCode
     }
@@ -90,29 +105,44 @@ fragment CheckoutFragment on Checkout {
     id
     processedAt
     orderNumber
-    subtotalPrice
-    subtotalPriceV2 {
+    subtotalPrice {
       amount
       currencyCode
     }
-    totalShippingPrice
-    totalShippingPriceV2 {
+    subtotalPriceV2: subtotalPrice {
       amount
       currencyCode
     }
-    totalTax
-    totalTaxV2 {
+    totalShippingPrice {
       amount
       currencyCode
     }
-    totalPrice
-    totalPriceV2 {
+    totalShippingPriceV2: totalShippingPrice {
+      amount
+      currencyCode
+    }
+    totalTax {
+      amount
+      currencyCode
+    }
+    totalTaxV2: totalTax {
+      amount
+      currencyCode
+    }
+    totalPrice {
+      amount
+      currencyCode
+    }
+    totalPriceV2: totalPrice {
       amount
       currencyCode
     }
     currencyCode
-    totalRefunded
-    totalRefundedV2 {
+    totalRefunded {
+      amount
+      currencyCode
+    }
+    totalRefundedV2: totalRefunded{
       amount
       currencyCode
     }
