@@ -1,8 +1,12 @@
+
 fragment VariantFragment on ProductVariant {
   id
   title
-  price
-  priceV2 {
+  price {
+    amount
+    currencyCode
+  }
+  priceV2: price {
     amount
     currencyCode
   }
@@ -10,11 +14,14 @@ fragment VariantFragment on ProductVariant {
   available: availableForSale
   currentlyNotInStock
   sku
-  compareAtPrice
-  compareAtPriceV2 {
+  compareAtPrice {
     amount
     currencyCode
   }
+  compareAtPriceV2: compareAtPrice {
+  amount
+  currencyCode
+}
   image {
     id
     src: url
@@ -27,9 +34,9 @@ fragment VariantFragment on ProductVariant {
     value
   }
   unitPrice {
-    amount
-    currencyCode
-  }
+  amount
+  currencyCode
+}
   unitPriceMeasurement {
     measuredType
     quantityUnit

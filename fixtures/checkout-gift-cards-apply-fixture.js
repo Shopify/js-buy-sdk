@@ -1,108 +1,123 @@
 export default {
-  "data": {
-    "checkoutGiftCardsAppend": {
-      "checkoutUserErrors": [],
-      "userErrors": [],
-      "checkout": {
-        "id": "Z2lkOi8vc2hvcGlmeS9DaGVja291dC9lM2JkNzFmNzI0OGM4MDZmMzM3MjVhNTNlMzM5MzFlZj9rZXk9NDcwOTJlNDQ4NTI5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=",
-        "appliedGiftCards": [
+  data: {
+    checkoutGiftCardsAppend: {
+      checkoutUserErrors: [],
+      userErrors: [],
+      checkout: {
+        id: 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8',
+        appliedGiftCards: [
           {
-            "amountUsedV2": {
-              "amount": "45.0",
-              "currencyCode": "USD"
+            amountUsedV2: {
+              amount: '45.0',
+              currencyCode: 'USD'
             },
-            "balanceV2": {
-              "amount": "45.0",
-              "currencyCode": "USD"
+            balanceV2: {
+              amount: '45.0',
+              currencyCode: 'USD'
             },
-            "id": "Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=",
-            "lastCharacters": "949f"
+            id: 'gid://shopify/AppliedGiftCard/42854580312',
+            lastCharacters: '949f'
           },
           {
-            "amountUsedV2": {
-              "amount": "96.18",
-              "currencyCode": "USD"
+            amountUsedV2: {
+              amount: '96.18',
+              currencyCode: 'USD'
             },
-            "balanceV2": {
-              "amount": "6000.12",
-              "currencyCode": "USD"
+            balanceV2: {
+              amount: '6000.12',
+              currencyCode: 'USD'
             },
-            "id": "Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ2MTMwODc=",
-            "lastCharacters": "hb6a"
+            id: 'gid://shopify/AppliedGiftCard/42854613087',
+            lastCharacters: 'hb6a'
           }
         ],
-        "createdAt": "2017-03-17T16:00:40Z",
-        "updatedAt": "2017-03-17T16:00:40Z",
-        "requiresShipping": true,
-        "shippingLine": null,
-        "order": null,
-        "orderStatusUrl": null,
-        "taxExempt": false,
-        "taxesIncluded": false,
-        "currencyCode": "CAD",
-        "totalPrice": "80.28",
-        "lineItemsSubtotalPrice": {
-          "amount": "74.99",
-          "currencyCode": "CAD"
+        createdAt: '2017-03-17T16:00:40Z',
+        updatedAt: '2017-03-17T16:00:40Z',
+        requiresShipping: true,
+        shippingLine: null,
+        order: null,
+        orderStatusUrl: null,
+        taxExempt: false,
+        taxesIncluded: false,
+        currencyCode: 'CAD',
+        totalPrice: {
+          amount: '80.28',
+          currencyCode: 'CAD'
         },
-        "subtotalPrice": "67.50",
-        "totalTax": "8.78",
-        "paymentDue": "80.28",
-        "completedAt": null,
-        "shippingAddress": {
-          "address1": "123 Cat Road",
-          "address2": null,
-          "city": "Cat Land",
-          "company": "Catmart",
-          "country": "Canada",
-          "firstName": "Meow",
-          "formatted": [
-            "Catmart",
-            "123 Cat Road",
-            "Cat Land ON M3O 0W1",
-            "Canada"
+        lineItemsSubtotalPrice: {
+          amount: '74.99',
+          currencyCode: 'CAD'
+        },
+        subtotalPrice: {
+          amount: '67.50',
+          currencyCode: 'CAD'
+        },
+        totalTax: {
+          amount: '8.78',
+          currencyCode: 'CAD'
+        },
+        paymentDue: {
+          amount: '80.28',
+          currencyCode: 'CAD'
+        },
+        completedAt: null,
+        shippingAddress: {
+          address1: '123 Cat Road',
+          address2: null,
+          city: 'Cat Land',
+          company: 'Catmart',
+          country: 'Canada',
+          firstName: 'Meow',
+          formatted: [
+            'Catmart',
+            '123 Cat Road',
+            'Cat Land ON M3O 0W1',
+            'Canada'
           ],
-          "lastName": "Meowington",
-          "latitude": null,
-          "longitude": null,
-          "phone": "4161234566",
-          "province": "Ontario",
-          "zip": "M3O 0W1",
-          "name": "Meow Meowington",
-          "countryCode": "CA",
-          "provinceCode": "ON",
-          "id": "291dC9lM2JkNzHJnnf8a89njNJNKAhu1gn7lMzM5MzFlZj9rZXk9NDcwOTJ=="
+          lastName: 'Meowington',
+          latitude: null,
+          longitude: null,
+          phone: '4161234566',
+          province: 'Ontario',
+          zip: 'M3O 0W1',
+          name: 'Meow Meowington',
+          countryCode: 'CA',
+          provinceCode: 'ON',
+          id: '291dC9lM2JkNzHJnnf8a89njNJNKAhu1gn7lMzM5MzFlZj9rZXk9NDcwOTJ=='
         },
-        "lineItems": {
-          "pageInfo": {
-            "hasNextPage": false,
-            "hasPreviousPage": false
+        lineItems: {
+          pageInfo: {
+            hasNextPage: false,
+            hasPreviousPage: false
           },
-          "edges": [
+          edges: [
             {
-              "cursor": "eyJsYXN0X2lkIjoiZDUyZWU5ZTEwYmQxMWE0NDlkNmQzMWNkMzBhMGFjNzMifQ==",
-              "node": {
-                "title": "Intelligent Granite Table",
-                "variant": {
-                  "id": "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjA2NDU4NA==",
-                  "price": "74.99"
+              cursor: 'eyJsYXN0X2lkIjoiZDUyZWU5ZTEwYmQxMWE0NDlkNmQzMWNkMzBhMGFjNzMifQ==',
+              node: {
+                title: 'Intelligent Granite Table',
+                variant: {
+                  id: 'gid://shopify/ProductVariant/29106064584',
+                  price: {
+                    amount: '74.99',
+                    currencyCode: 'CAD'
+                  }
                 },
-                "quantity": 5,
-                "customAttributes": [],
-                "discountAllocations": [
+                quantity: 5,
+                customAttributes: [],
+                discountAllocations: [
                   {
-                    "allocatedAmount": {
-                      "amount": "7.49",
-                      "currencyCode": "CAD"
+                    allocatedAmount: {
+                      amount: '7.49',
+                      currencyCode: 'CAD'
                     },
-                    "discountApplication": {
-                      "targetSelection": "ALL",
-                      "allocationMethod": "ACROSS",
-                      "targetType": "LINE_ITEM",
-                      "code": "TENPERCENTOFF",
-                      "applicable": true,
-                      "value": {
-                        "percentage": "10"
+                    discountApplication: {
+                      targetSelection: 'ALL',
+                      allocationMethod: 'ACROSS',
+                      targetType: 'LINE_ITEM',
+                      code: 'TENPERCENTOFF',
+                      applicable: true,
+                      value: {
+                        percentage: '10'
                       }
                     }
                   }
@@ -111,21 +126,21 @@ export default {
             }
           ]
         },
-        "discountApplications": {
-          "pageInfo": {
-            "hasNextPage": false,
-            "hasPreviousPage": false
+        discountApplications: {
+          pageInfo: {
+            hasNextPage: false,
+            hasPreviousPage: false
           },
-          "edges": [
+          edges: [
             {
-              "node": {
-                "targetSelection": "ALL",
-                "allocationMethod": "ACROSS",
-                "targetType": "LINE_ITEM",
-                "code": "TENPERCENTOFF",
-                "applicable": true,
-                "value": {
-                  "percentage": "10"
+              node: {
+                targetSelection: 'ALL',
+                allocationMethod: 'ACROSS',
+                targetType: 'LINE_ITEM',
+                code: 'TENPERCENTOFF',
+                applicable: true,
+                value: {
+                  percentage: '10'
                 }
               }
             }

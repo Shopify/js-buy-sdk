@@ -2,7 +2,7 @@
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
-[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/master/tutorials/MIGRATION_GUIDE.md).
+[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/main/tutorials/MIGRATION_GUIDE.md).
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
@@ -12,7 +12,11 @@ and provides the ability to retrieve products and collections from your shop, ad
 
 ## Changelog
 
-View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about our releases.
+View our [Changelog](https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md) for details about our releases.
+
+## SDK Version Support
+
+Each version of the JS Buy SDK uses a specific Storefront API version and the support of an SDK version is directly linked to the support of the corresponding Storefront API version. Storefront API versioning information can be found [here](https://shopify.dev/docs/api/usage/versioning).
 
 ## Table Of Contents
 
@@ -53,10 +57,10 @@ $ npm install shopify-buy
 
 **CDN:**
 
-There is a minified UMD build of the latest release available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/master/CHANGELOG.md) for details about the latest release):
+There is a minified UMD build of the latest release available via CDN (see the [Changelog](https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md) for details about the latest release):
 
 ```html
-<script src="http://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script>
+<script src="https://sdks.shopifycdn.com/js-buy-sdk/v2/latest/index.umd.min.js"></script>
 ```
 
 If you **don't** want to use the latest version, you can use a specific older release version:
@@ -124,7 +128,7 @@ client.product.fetchAll().then((products) => {
 });
 
 // Fetch a single product by ID
-const productId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=';
+const productId = 'gid://shopify/Product/7857989384';
 
 client.product.fetch(productId).then((product) => {
   // Do something with the product
@@ -150,7 +154,7 @@ client.collection.fetchAllWithProducts().then((collections) => {
 });
 
 // Fetch a single collection by ID, including its products
-const collectionId = 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzM2OTMxMjU4NA==';
+const collectionId = 'gid://shopify/Collection/369312584';
 // Set a parameter for first x products, defaults to 20 if you don't provide a param
 
 client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((collection) => {
@@ -171,7 +175,7 @@ client.checkout.create().then((checkout) => {
 
 ### Updating checkout attributes
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8';
 const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
 
 client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
@@ -181,10 +185,10 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
 
 ### Adding Line Items
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemsToAdd = [
   {
-    variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==',
+    variantId: 'gid://shopify/ProductVariant/29106064584',
     quantity: 5,
     customAttributes: [{key: "MyKey", value: "MyValue"}]
   }
@@ -199,35 +203,35 @@ client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
 
 ### Updating Line Items
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemsToUpdate = [
-  {id: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=', quantity: 2}
+  {id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef', quantity: 2}
 ];
 
 // Update the line item on the checkout (change the quantity or variant)
 client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
   // Do something with the updated checkout
-  console.log(checkout.lineItems); // Quantity of line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' updated to 2
+  console.log(checkout.lineItems); // Quantity of line item 'gid://shopify/Product/7857989384' updated to 2
 });
 ```
 
 ### Removing Line Items
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const lineItemIdsToRemove = [
-  'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ='
+  'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef'
 ];
 
 // Remove an item from the checkout
 client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
   // Do something with the updated checkout
-  console.log(checkout.lineItems); // Checkout with line item 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0Lzc4NTc5ODkzODQ=' removed
+  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef' removed
 });
 ```
 
 ### Fetching a Checkout
 ```javascript
-const checkoutId = '2U4NWNkYzI4ZWEyOTdlOD9rZXk9MDVjMzY3Zjk3YWM0YWJjNGRhMTkwMDgwYTUzOGJmYmI='
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'
 
 client.checkout.fetch(checkoutId).then((checkout) => {
   // Do something with the checkout
@@ -237,7 +241,7 @@ client.checkout.fetch(checkoutId).then((checkout) => {
 
 ### Adding a Discount
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 const discountCode = 'best-discount-ever';
 
 // Add a discount code to the checkout
@@ -249,7 +253,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
 
 ### Removing a Discount
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 
 // Removes the applied discount from an existing checkout.
 client.checkout.removeDiscount(checkoutId).then(checkout => {
@@ -260,7 +264,7 @@ client.checkout.removeDiscount(checkoutId).then(checkout => {
 
 ### Updating a Shipping Address
 ```javascript
-const checkoutId = 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0SW1hZ2UvMTgyMTc3ODc1OTI='; // ID of an existing checkout
+const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
 
 const shippingAddress = {
    address1: 'Chestnut Street 92',
@@ -330,14 +334,14 @@ There are JS Buy SDK specific example apps in Node, Ember, and React. You can us
 
 ## Contributing
 For help on setting up the repo locally, building, testing, and contributing
-please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md).
+please see [CONTRIBUTING.md](https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING.md).
 
 ## Code of Conduct
 All developers who wish to contribute through code or issues, take a look at the
-[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/master/CODE_OF_CONDUCT.md).
+[CODE_OF_CONDUCT.md](https://github.com/Shopify/js-buy-sdk/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
-MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/master/LICENSE.txt) for details.
+MIT, see [LICENSE.md](https://github.com/Shopify/js-buy-sdk/blob/main/LICENSE.txt) for details.
 
 <img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" />

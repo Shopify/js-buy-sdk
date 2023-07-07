@@ -1,5 +1,27 @@
 # Changelog
 
+### v2.20.0 (July 5, 2023)
+* Bumps the SDK to use Storefront API version `2023-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-07).
+
+### v2.19.0 (April 4, 2023)
+* Bumps the SDK to use Storefront API version `2023-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-04).
+* [Security patch](https://github.com/Shopify/js-buy-sdk/pull/940) handlebars version vulnerability
+
+### v2.18.0 (January 9, 2023)
+* Bumps the SDK to use Storefront API version `2023-01`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-01).
+
+### v2.17.1 (November 2, 2022)
+* Removed the common `MoneyFragment` and replaced all usage of the fragment with the corresponding `MoneyV2` fields. This fixes an error that was occuring when `client.fetchNextPage()` is called
+
+### v2.17.0 (October 11, 2022)
+* Bumps the SDK to use Storefront API version `2022-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-10).
+* **NOTABLE API DATA CHANGE:** Storefront API version `2022-10` includes the removal of the `Money` scalar and all fields that had previously returned a [Money](https://shopify.dev/api/storefront/2022-07/scalars/Money) scalar will now return a [MoneyV2](https://shopify.dev/api/storefront/2022-10/objects/MoneyV2) object. Affected fields include:
+  * AppliedGiftCard fields: `amountUsed`, `balance`
+  * Checkout fields: `paymentDue`, `totalTax`, `subtotalPrice`, `totalPrice`
+  * ShippingRate fields: `price`
+  * Order fields: `subtotalPrice`, `totalShippingPrice`, `totalTax`, `totalPrice`, `totalRefunded`
+  * ProductVariant fields: `price`, `compareAtPrice`
+
 ### v2.16.1 (July 5, 2022)
 * Bumps the SDK to use Storefront API version `2022-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2022-07).
 * Alias all instances of `Image.src` to use `Image.url`.
@@ -47,7 +69,7 @@
 * Updates some description strings in the Storefront API schema version `2019-10`.
 * Adds an optional param to `collection.fetchWithProducts` for specifying the number of products to return.
 * Adds `priceV2` to the `shippingLine` object in the checkout fragment
-* Update the [contributing guide](https://github.com/Shopify/js-buy-sdk/blob/master/CONTRIBUTING.md) to recommend using `yarn` instead of `npm`.
+* Update the [contributing guide](https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING.md) to recommend using `yarn` instead of `npm`.
 
 ### v2.8.0 (October 3, 2019)
 * Bumps the SDK to use Storefront API version `2019-10`. For more information, see the [Release Notes](https://help.shopify.com/en/api/versioning/release-notes/2019-10#storefront-api-changes).
