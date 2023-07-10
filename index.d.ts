@@ -139,6 +139,13 @@ declare namespace ShopifyBuy {
         reverse?: boolean | undefined;
     }
 
+    export type CurrencyCode = "GBP" | "EUR" | "USD" | "CAD";
+
+    export interface MoneyV2 {
+        amount: number;
+        currencyCode: CurrencyCode;
+    }
+
     export interface Product extends GraphModel {
         /**
          * A product description.
@@ -228,7 +235,7 @@ declare namespace ShopifyBuy {
          * Compare at price for variant. The compareAtPrice would be the price of the
          * product previously before the product went on sale.
          */
-        compareAtPrice: string;
+        compareAtPrice: MoneyV2;
 
         /**
          *  Indicates whether the variant is out of stock but still available for purchase (used
@@ -248,9 +255,9 @@ declare namespace ShopifyBuy {
         image: Image;
 
         /**
-         * Price of the variant. The price will be in the following form: "10.00"
+         * Price of the variant.
          */
-        price: string;
+        price: MoneyV2;
 
         /**
          * A limited reference to the variant's product.
@@ -334,7 +341,7 @@ declare namespace ShopifyBuy {
          * Example: two items have been added to the cart that cost $1.25 then the subtotal will be
          * 2.50
          */
-        subtotalPrice: string;
+        subtotalPrice: MoneyV2;
 
         /**
          * Get completed at date.
