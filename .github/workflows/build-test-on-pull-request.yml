@@ -1,0 +1,36 @@
+run-name: Build + Test | @${{ github.repository }} [${{ github.head_ref }}]
+
+on:
+  pull_request
+env:
+  # Unit tests should always be local
+  JUNIPER_STAGE: LOCAL
+  # JUNIPER_NPM_TOKEN should be an organization secret,
+  #  we just present it as an ENV var during runtime for the .npmrc to consume
+  JUNIPER_NPM_TOKEN: ${{ secrets.JUNIPER_NPM_TOKEN }}
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      # https://stackoverflow.com/a/69984661
+      - run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
+      - run: npm run build --if-present
+      - run: npm test
