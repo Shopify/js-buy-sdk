@@ -142,7 +142,7 @@ declare namespace ShopifyBuy {
     export type CurrencyCode = "GBP" | "EUR" | "USD" | "CAD";
 
     export interface MoneyV2 {
-        amount: number;
+        amount: number | string;
         currencyCode: CurrencyCode;
     }
 
@@ -235,7 +235,7 @@ declare namespace ShopifyBuy {
          * Compare at price for variant. The compareAtPrice would be the price of the
          * product previously before the product went on sale.
          */
-        compareAtPrice: MoneyV2;
+        compareAtPrice: MoneyV2 | null;
 
         /**
          *  Indicates whether the variant is out of stock but still available for purchase (used
