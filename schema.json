@@ -293,7 +293,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -563,7 +563,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -752,6 +752,18 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -769,6 +781,11 @@
             {
               "kind": "INTERFACE",
               "name": "OnlineStorePublishable",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Trackable",
               "ofType": null
             }
           ],
@@ -1075,7 +1092,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "AttributeInput",
-          "description": "Specifies the input fields required for an attribute.",
+          "description": "The input fields for an attribute.",
           "fields": null,
           "inputFields": [
             {
@@ -1369,7 +1386,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1441,6 +1458,11 @@
             {
               "kind": "OBJECT",
               "name": "CartLine",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ComponentizableCartLine",
               "ofType": null
             }
           ]
@@ -1724,7 +1746,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2050,7 +2072,7 @@
         {
           "kind": "OBJECT",
           "name": "Brand",
-          "description": "The store's branding configuration.\n",
+          "description": "The store's [branding configuration](https://help.shopify.com/en/manual/promoting-marketing/managing-brand-assets).\n",
           "fields": [
             {
               "name": "colors",
@@ -2528,7 +2550,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -3023,7 +3045,7 @@
             },
             {
               "name": "walletPreferences",
-              "description": "A set of wallet preferences tied to the buyer that is interacting with the cart.\nPreferences can be used to populate relevant payment fields in the checkout flow.\n",
+              "description": "A set of wallet preferences tied to the buyer that is interacting with the cart.\nPreferences can be used to populate relevant payment fields in the checkout flow.\n  Accepted value: `[\"shop_pay\"]`.\n",
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -3089,6 +3111,23 @@
           "inputFields": null,
           "interfaces": [],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "CartCardSource",
+          "description": "Represents how credit card details are provided for a direct payment.\n",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "SAVED_CREDIT_CARD",
+              "description": "The credit card was provided by a third party and vaulted on their system.\nUsing this value requires a separate permission from Shopify.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -4026,6 +4065,16 @@
                 }
               },
               "defaultValue": null
+            },
+            {
+              "name": "cardSource",
+              "description": "The source of the credit card payment.",
+              "type": {
+                "kind": "ENUM",
+                "name": "CartCardSource",
+                "ofType": null
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -4353,7 +4402,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartInput",
-          "description": "Specifies the input fields to create a cart.",
+          "description": "The input fields to create a cart.",
           "fields": null,
           "inputFields": [
             {
@@ -4456,7 +4505,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartInputMetafieldInput",
-          "description": "Specifies the input fields for a cart metafield value to set.",
+          "description": "The input fields for a cart metafield value to set.",
           "fields": null,
           "inputFields": [
             {
@@ -4620,7 +4669,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4840,7 +4889,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartLineInput",
-          "description": "Specifies the input fields to create a merchandise line on a cart.",
+          "description": "The input fields to create a merchandise line on a cart.",
           "fields": null,
           "inputFields": [
             {
@@ -4873,7 +4922,7 @@
             },
             {
               "name": "merchandiseId",
-              "description": "The identifier of the merchandise that the buyer intends to purchase.",
+              "description": "The ID of the merchandise that the buyer intends to purchase.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4887,7 +4936,7 @@
             },
             {
               "name": "sellingPlanId",
-              "description": "The identifier of the selling plan that the merchandise is being purchased with.",
+              "description": "The ID of the selling plan that the merchandise is being purchased with.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
@@ -4903,12 +4952,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartLineUpdateInput",
-          "description": "Specifies the input fields to update a line item on a cart.",
+          "description": "The input fields to update a line item on a cart.",
           "fields": null,
           "inputFields": [
             {
               "name": "id",
-              "description": "The identifier of the merchandise line.",
+              "description": "The ID of the merchandise line.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4932,7 +4981,7 @@
             },
             {
               "name": "merchandiseId",
-              "description": "The identifier of the merchandise for the line item.",
+              "description": "The ID of the merchandise for the line item.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
@@ -4960,7 +5009,7 @@
             },
             {
               "name": "sellingPlanId",
-              "description": "The identifier of the selling plan that the merchandise is being purchased with.",
+              "description": "The ID of the selling plan that the merchandise is being purchased with.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
@@ -5117,7 +5166,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartMetafieldDeleteInput",
-          "description": "Specifies the input fields to delete a cart metafield.",
+          "description": "The input fields to delete a cart metafield.",
           "fields": null,
           "inputFields": [
             {
@@ -5136,7 +5185,7 @@
             },
             {
               "name": "key",
-              "description": "The key name of the cart metafield.",
+              "description": "The key name of the cart metafield. Can either be a composite key (`namespace.key`) or a simple key\n that relies on the default app-reserved namespace.\n",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5203,7 +5252,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CartMetafieldsSetInput",
-          "description": "Specifies the input fields for a cart metafield value to set.",
+          "description": "The input fields for a cart metafield value to set.",
           "fields": null,
           "inputFields": [
             {
@@ -5947,7 +5996,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -6379,7 +6428,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutAttributesUpdateV2Input",
-          "description": "Specifies the fields required to update a checkout's attributes.",
+          "description": "The input fields required to update a checkout's attributes.",
           "fields": null,
           "inputFields": [
             {
@@ -6522,7 +6571,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutBuyerIdentityInput",
-          "description": "Specifies the identity of the customer associated with the checkout.",
+          "description": "The input fields for the identity of the customer associated with the checkout.",
           "fields": null,
           "inputFields": [
             {
@@ -6784,7 +6833,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutCreateInput",
-          "description": "Specifies the fields required to create a checkout.",
+          "description": "The input fields required to create a checkout.",
           "fields": null,
           "inputFields": [
             {
@@ -7812,7 +7861,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -8015,7 +8064,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutLineItemInput",
-          "description": "Specifies the input fields to create a line item on a checkout.",
+          "description": "The input fields to create a line item on a checkout.",
           "fields": null,
           "inputFields": [
             {
@@ -8052,7 +8101,7 @@
             },
             {
               "name": "variantId",
-              "description": "The identifier of the product variant for the line item.",
+              "description": "The ID of the product variant for the line item.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -8072,12 +8121,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CheckoutLineItemUpdateInput",
-          "description": "Specifies the input fields to update a line item on the checkout.",
+          "description": "The input fields to update a line item on the checkout.",
           "fields": null,
           "inputFields": [
             {
               "name": "id",
-              "description": "The identifier of the line item.",
+              "description": "The ID of the line item.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
@@ -8087,7 +8136,7 @@
             },
             {
               "name": "variantId",
-              "description": "The variant identifier of the line item.",
+              "description": "The variant ID of the line item.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
@@ -8661,7 +8710,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -8911,6 +8960,18 @@
               "deprecationReason": null
             },
             {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updatedAt",
               "description": "The date and time when the collection was last modified.",
               "args": [],
@@ -8942,6 +9003,11 @@
             {
               "kind": "INTERFACE",
               "name": "OnlineStorePublishable",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Trackable",
               "ofType": null
             }
           ],
@@ -9011,6 +9077,22 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalCount",
+              "description": "The total count of Collections.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "UnsignedInt64",
                   "ofType": null
                 }
               },
@@ -9177,7 +9259,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -9513,6 +9595,219 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ComponentizableCartLine",
+          "description": "Represents information about the grouped merchandise in the cart.",
+          "fields": [
+            {
+              "name": "attribute",
+              "description": "An attribute associated with the cart line.",
+              "args": [
+                {
+                  "name": "key",
+                  "description": "The key of the attribute.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Attribute",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "attributes",
+              "description": "The attributes associated with the cart line. Attributes are represented as key-value pairs.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Attribute",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cost",
+              "description": "The cost of the merchandise that the buyer will pay for at checkout. The costs are subject to change and changes will be reflected at checkout.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartLineCost",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "discountAllocations",
+              "description": "The discounts that have been applied to the cart line.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INTERFACE",
+                      "name": "CartDiscountAllocation",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "estimatedCost",
+              "description": "The estimated cost of the merchandise that the buyer will pay for at checkout. The estimated costs are subject to change and changes will be reflected at checkout.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartLineEstimatedCost",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "Use `cost` instead."
+            },
+            {
+              "name": "id",
+              "description": "A globally-unique ID.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lineComponents",
+              "description": "The components of the line item.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartLine",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "merchandise",
+              "description": "The merchandise that the buyer intends to purchase.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "Merchandise",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "quantity",
+              "description": "The quantity of the merchandise that the customer intends to purchase.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sellingPlanAllocation",
+              "description": "The selling plan associated with the cart line and the effect that each selling plan has on variants when they're purchased.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "SellingPlanAllocation",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "BaseCartLine",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -12526,7 +12821,7 @@
             },
             {
               "name": "id",
-              "description": "A unique identifier for the customer.",
+              "description": "A unique ID for the customer.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -12861,7 +13156,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CustomerAccessTokenCreateInput",
-          "description": "Specifies the input fields required to create a customer access token.",
+          "description": "The input fields required to create a customer access token.",
           "fields": null,
           "inputFields": [
             {
@@ -13183,7 +13478,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CustomerActivateInput",
-          "description": "Specifies the input fields required to activate a customer.",
+          "description": "The input fields to activate a customer.",
           "fields": null,
           "inputFields": [
             {
@@ -13518,7 +13813,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CustomerCreateInput",
-          "description": "The fields required to create a new customer.",
+          "description": "The input fields to create a new customer.",
           "fields": null,
           "inputFields": [
             {
@@ -13982,7 +14277,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CustomerResetInput",
-          "description": "Specifies the fields required to reset a customer’s password.",
+          "description": "The input fields to reset a customer's password.",
           "fields": null,
           "inputFields": [
             {
@@ -14104,7 +14399,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "CustomerUpdateInput",
-          "description": "Specifies the fields required to update the Customer information.",
+          "description": "The input fields to update the Customer information.",
           "fields": null,
           "inputFields": [
             {
@@ -15124,7 +15419,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15748,7 +16043,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -15825,7 +16120,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "GeoCoordinateInput",
-          "description": "Used to specify a geographical location.",
+          "description": "The input fields used to specify a geographical location.",
           "fields": null,
           "inputFields": [
             {
@@ -16030,7 +16325,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "HasMetafieldsIdentifier",
-          "description": "Identifies a metafield on an owner resource by namespace and key.",
+          "description": "The input fields to identify a metafield on an owner resource by namespace and key.",
           "fields": null,
           "inputFields": [
             {
@@ -16107,7 +16402,7 @@
             },
             {
               "name": "id",
-              "description": "A unique identifier for the image.",
+              "description": "A unique ID for the image.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -17511,7 +17806,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -18122,7 +18417,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -18365,7 +18660,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "MailingAddressInput",
-          "description": "Specifies the fields accepted to create or update a mailing address.",
+          "description": "The input fields to create or update a mailing address.",
           "fields": null,
           "inputFields": [
             {
@@ -18605,7 +18900,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -18733,6 +19028,22 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A globally-unique ID.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -18999,7 +19310,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19116,7 +19427,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19168,7 +19479,7 @@
         {
           "kind": "OBJECT",
           "name": "Menu",
-          "description": "A menu used for navigation within a storefront.\n",
+          "description": "A [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) representing a hierarchy\nof hyperlinks (items).\n",
           "fields": [
             {
               "name": "handle",
@@ -19188,7 +19499,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19277,7 +19588,7 @@
           "fields": [
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19311,6 +19622,18 @@
                     }
                   }
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "resource",
+              "description": "The linked resource.",
+              "args": [],
+              "type": {
+                "kind": "UNION",
+                "name": "MenuItemResource",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -19406,6 +19729,47 @@
           ],
           "enumValues": null,
           "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "MenuItemResource",
+          "description": "The list of possible resources a `MenuItem` can reference.\n",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Article",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Blog",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Collection",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Page",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ShopPolicy",
+              "ofType": null
+            }
+          ]
         },
         {
           "kind": "ENUM",
@@ -19535,7 +19899,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19551,7 +19915,7 @@
             },
             {
               "name": "key",
-              "description": "The key name for a metafield.",
+              "description": "The unique identifier for the metafield within its namespace.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19567,7 +19931,7 @@
             },
             {
               "name": "namespace",
-              "description": "The namespace for a metafield.",
+              "description": "The container for a group of metafields that the metafield is associated with.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19583,7 +19947,7 @@
             },
             {
               "name": "parentResource",
-              "description": "The parent object that the metafield belongs to.",
+              "description": "The type of resource that the metafield is attached to.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19599,7 +19963,7 @@
             },
             {
               "name": "reference",
-              "description": "Returns a reference object if the metafield definition's type is a resource reference.",
+              "description": "Returns a reference object if the metafield's type is a resource reference.",
               "args": [],
               "type": {
                 "kind": "UNION",
@@ -19664,7 +20028,7 @@
             },
             {
               "name": "type",
-              "description": "The type name of the metafield.\nSee the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).\n",
+              "description": "The type name of the metafield.\nRefer to the list of [supported types](https://shopify.dev/apps/metafields/definitions/types).\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19680,7 +20044,7 @@
             },
             {
               "name": "updatedAt",
-              "description": "The date and time when the storefront metafield was updated.",
+              "description": "The date and time when the metafield was last updated.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -19696,7 +20060,7 @@
             },
             {
               "name": "value",
-              "description": "The value of a metafield.",
+              "description": "The data stored in the metafield. Always stored as a string, regardless of the metafield's type.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -20319,7 +20683,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -20673,7 +21037,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -20846,7 +21210,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "MoneyInput",
-          "description": "Specifies the fields for a monetary value with currency.",
+          "description": "The input fields for a monetary value with currency.",
           "fields": null,
           "inputFields": [
             {
@@ -22755,7 +23119,7 @@
           "fields": [
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -22817,6 +23181,11 @@
             {
               "kind": "OBJECT",
               "name": "Comment",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ComponentizableCartLine",
               "ofType": null
             },
             {
@@ -23270,7 +23639,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24435,7 +24804,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24574,6 +24943,18 @@
               "deprecationReason": null
             },
             {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updatedAt",
               "description": "The timestamp of the latest page update.",
               "args": [],
@@ -24605,6 +24986,11 @@
             {
               "kind": "INTERFACE",
               "name": "OnlineStorePublishable",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Trackable",
               "ofType": null
             }
           ],
@@ -24922,7 +25308,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25119,7 +25505,7 @@
             },
             {
               "name": "shopifyPaymentsAccountId",
-              "description": "The shop’s Shopify Payments account id.",
+              "description": "The shop’s Shopify Payments account ID.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -25201,9 +25587,204 @@
           "possibleTypes": null
         },
         {
+          "kind": "ENUM",
+          "name": "PredictiveSearchLimitScope",
+          "description": "Decides the distribution of results.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "ALL",
+              "description": "Return results up to limit across all types.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EACH",
+              "description": "Return results up to limit per type.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "PredictiveSearchResult",
+          "description": "A predictive search result represents a list of products, collections, pages, articles, and query suggestions\nthat matches the predictive search query.\n",
+          "fields": [
+            {
+              "name": "articles",
+              "description": "The articles that match the search query.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Article",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "collections",
+              "description": "The articles that match the search query.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Collection",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pages",
+              "description": "The pages that match the search query.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Page",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "products",
+              "description": "The products that match the search query.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Product",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "queries",
+              "description": "The query suggestions that are relevant to the search query.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "SearchQuerySuggestion",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "PredictiveSearchType",
+          "description": "The types of search items to perform predictive search on.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "COLLECTION",
+              "description": "Returns matching collections.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRODUCT",
+              "description": "Returns matching products.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PAGE",
+              "description": "Returns matching pages.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ARTICLE",
+              "description": "Returns matching articles.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "QUERY",
+              "description": "Returns matching query strings.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "PriceRangeFilter",
-          "description": "A filter used to view a subset of products in a collection matching a specific price range.",
+          "description": "The input fields for a filter used to view a subset of products in a collection matching a specific price range.\n",
           "fields": null,
           "inputFields": [
             {
@@ -25472,7 +26053,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25987,6 +26568,18 @@
               "deprecationReason": null
             },
             {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "updatedAt",
               "description": "The date and time when the product was last modified.\nA product's `updatedAt` value can change for different reasons. For example, if an order\nis placed for a product that has inventory tracking set up, then the inventory adjustment\nis counted as an update.\n",
               "args": [],
@@ -26146,6 +26739,11 @@
             {
               "kind": "INTERFACE",
               "name": "OnlineStorePublishable",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Trackable",
               "ofType": null
             }
           ],
@@ -26356,7 +26954,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "ProductFilter",
-          "description": "A filter used to view a subset of products in a collection.",
+          "description": "The input fields for a filter used to view a subset of products in a collection.\nBy default, the `available` and `price` filters are enabled. Filters are customized with the Shopify Search & Discovery app.\nLearn more about [customizing storefront filtering](https://help.shopify.com/manual/online-store/themes/customizing-themes/storefront-filters).\n",
           "fields": null,
           "inputFields": [
             {
@@ -26515,7 +27113,7 @@
           "fields": [
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -26787,7 +27385,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -27866,7 +28464,7 @@
             },
             {
               "name": "customer",
-              "description": "Find a customer by its access token.",
+              "description": "The customer associated with the given access token. Tokens are obtained by using the\n[`customerAccessTokenCreate` mutation](https://shopify.dev/docs/api/storefront/latest/mutations/customerAccessTokenCreate).\n",
               "args": [
                 {
                   "name": "customerAccessToken",
@@ -27996,11 +28594,11 @@
             },
             {
               "name": "menu",
-              "description": "A storefront menu.",
+              "description": "Retrieve a [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) by its handle.\n",
               "args": [
                 {
                   "name": "handle",
-                  "description": "Returns a storefront menu by the specified handle.",
+                  "description": "The navigation menu's handle.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -28363,6 +28961,99 @@
               "deprecationReason": null
             },
             {
+              "name": "predictiveSearch",
+              "description": "List of the predictive search results.",
+              "args": [
+                {
+                  "name": "limit",
+                  "description": "Limits the number of results based on `limit_scope`. The value can range from 1 to 10, and the default is 10.\n",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "limitScope",
+                  "description": "Decides the distribution of results.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "PredictiveSearchLimitScope",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "query",
+                  "description": "The search query.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "searchableFields",
+                  "description": "Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.\n",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "SearchableField",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "types",
+                  "description": "The types of resources to search for.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "PredictiveSearchType",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "unavailableProducts",
+                  "description": "Specifies how unavailable products are displayed in the search results.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "SearchUnavailableProductsType",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PredictiveSearchResult",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "product",
               "description": "Fetch a specific `Product` by one of its unique attributes.",
               "args": [
@@ -28641,6 +29332,153 @@
               "deprecationReason": null
             },
             {
+              "name": "search",
+              "description": "List of the search results.",
+              "args": [
+                {
+                  "name": "query",
+                  "description": "The search query.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "prefix",
+                  "description": "Specifies whether to perform a partial word match on the last search term.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "SearchPrefixQueryType",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "productFilters",
+                  "description": "Returns a subset of products matching all product filters.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "ProductFilter",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "sortKey",
+                  "description": "Sort the underlying list by the given key.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "SearchSortKeys",
+                    "ofType": null
+                  },
+                  "defaultValue": "RELEVANCE"
+                },
+                {
+                  "name": "types",
+                  "description": "The types of resrouces to search for.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "SearchType",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "unavailableProducts",
+                  "description": "Specifies how unavailable products are displayed in the search results.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "SearchUnavailableProductsType",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns up to the first `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "after",
+                  "description": "Returns the elements that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns up to the last `n` elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SearchResultItemConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "shop",
               "description": "The shop associated with the storefront access token.",
               "args": [],
@@ -28872,6 +29710,420 @@
           "possibleTypes": null
         },
         {
+          "kind": "ENUM",
+          "name": "SearchPrefixQueryType",
+          "description": "Specifies whether to perform a partial word match on the last search term.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "LAST",
+              "description": "Perform a partial word match on the last search term.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NONE",
+              "description": "Don't perform a partial word match on the last search term.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SearchQuerySuggestion",
+          "description": "A search query suggestion.",
+          "fields": [
+            {
+              "name": "styledText",
+              "description": "The text of the search query suggestion with highlighted HTML tags.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "text",
+              "description": "The text of the search query suggestion.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Trackable",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "SearchResultItem",
+          "description": "A search result that matches the search query.\n",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Article",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Page",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SearchResultItemConnection",
+          "description": "An auto-generated type for paginating through multiple SearchResultItems.\n",
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "SearchResultItemEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in SearchResultItemEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "UNION",
+                      "name": "SearchResultItem",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "productFilters",
+              "description": "A list of available filters.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "Filter",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "totalCount",
+              "description": "The total number of results.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SearchResultItemEdge",
+          "description": "An auto-generated type which holds one SearchResultItem and a cursor during pagination.\n",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of SearchResultItemEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "SearchResultItem",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SearchSortKeys",
+          "description": "The set of valid sort keys for the search query.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "PRICE",
+              "description": "Sort by the `price` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RELEVANCE",
+              "description": "Sort by relevance to the search terms.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SearchType",
+          "description": "The types of search items to perform search within.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "PRODUCT",
+              "description": "Returns matching products.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PAGE",
+              "description": "Returns matching pages.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ARTICLE",
+              "description": "Returns matching articles.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SearchUnavailableProductsType",
+          "description": "Specifies whether to display results for unavailable products.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "SHOW",
+              "description": "Show unavailable products in the order that they're found.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "HIDE",
+              "description": "Exclude unavailable products.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "LAST",
+              "description": "Show unavailable products after all other matching results. This is the default.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SearchableField",
+          "description": "Specifies the list of resource fields to search.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "AUTHOR",
+              "description": "Author of the page or article.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BODY",
+              "description": "Body of the page or article or product description or collection description.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PRODUCT_TYPE",
+              "description": "Product type.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TAG",
+              "description": "Tag associated with the product or article.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TITLE",
+              "description": "Title of the page or article or product title or collection title.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VARIANTS_BARCODE",
+              "description": "Variant barcode.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VARIANTS_SKU",
+              "description": "Variant SKU.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VARIANTS_TITLE",
+              "description": "Variant title.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VENDOR",
+              "description": "Product vendor.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "SelectedOption",
           "description": "Properties used by customers to select a product variant.\nProducts can have multiple options, like different sizes or colors.\n",
@@ -28917,7 +30169,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "SelectedOptionInput",
-          "description": "Specifies the input fields required for a selected option.",
+          "description": "The input fields required for a selected option.",
           "fields": null,
           "inputFields": [
             {
@@ -28988,7 +30240,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -30178,7 +31430,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -30519,7 +31771,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -30616,7 +31868,7 @@
             },
             {
               "name": "id",
-              "description": "The unique identifier of the policy. A default policy doesn't have an ID.",
+              "description": "The unique ID of the policy. A default policy doesn't have an ID.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -30711,6 +31963,22 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "quantityAvailable",
+              "description": "The quantity of the product variant in-stock at this location.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
                   "ofType": null
                 }
               },
@@ -31560,7 +32828,7 @@
           "fields": [
             {
               "name": "attemptId",
-              "description": "The id of the cart completion attempt that will be used for polling for the result.",
+              "description": "The ID of the cart completion attempt that will be used for polling for the result.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -31634,7 +32902,7 @@
           "fields": [
             {
               "name": "attemptId",
-              "description": "The id of the cart completion attempt that will be used for polling for the result.",
+              "description": "The ID of the cart completion attempt that will be used for polling for the result.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -31781,6 +33049,55 @@
           "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
+        },
+        {
+          "kind": "INTERFACE",
+          "name": "Trackable",
+          "description": "Represents a resource that you can track the origin of the search traffic.",
+          "fields": [
+            {
+              "name": "trackingParameters",
+              "description": "A URL parameters to be added to a page URL when it is linked from a GraphQL result. This allows for tracking the origin of the traffic.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Article",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Collection",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Page",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SearchQuerySuggestion",
+              "ofType": null
+            }
+          ]
         },
         {
           "kind": "OBJECT",
@@ -32434,7 +33751,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "VariantOptionFilter",
-          "description": "A filter used to view a subset of products in a collection matching a specific variant option.",
+          "description": "The input fields for a filter used to view a subset of products in a collection matching a specific variant option.\n",
           "fields": null,
           "inputFields": [
             {
@@ -32489,7 +33806,7 @@
             },
             {
               "name": "id",
-              "description": "A globally-unique identifier.",
+              "description": "A globally-unique ID.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",

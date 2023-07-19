@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.20.1 (July 19, 2023)
+* [Update `schema.json`](https://github.com/Shopify/js-buy-sdk/pull/963) to match Storefront API version `2023-07` schema.
+
 ### v2.20.0 (July 5, 2023)
 * Bumps the SDK to use Storefront API version `2023-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-07).
 
