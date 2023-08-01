@@ -54,7 +54,7 @@ fragment VariantFragment on ProductVariant {
     {namespace: "productListing", key: "headline"},
     {namespace: "productListing", key: "sizing"},
     {namespace: "productListing", key: "campaignStart"},
-    {namespace: "productListing", key: "campaignEnd"},
+    {namespace: "productListing", key: "campaignDuration"},
     {namespace: "productListing", key: "productionDuration"},
     {namespace: "productListing", key: "hidden"}
   ]) {
