@@ -497,6 +497,11 @@ declare namespace ShopifyBuy {
         namespace: string;
         type: string;
         value: string;
+        reference: {
+            image: {
+                originalSrc: string;
+            }
+        };
     }
 }
 
