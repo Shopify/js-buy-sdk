@@ -3,4 +3,11 @@ fragment MetafieldFragment on Metafield {
     namespace
     type
     value
+    reference {
+        ... on MediaImage {
+            image {
+               originalSrc
+            }
+        }
+    }
 }
