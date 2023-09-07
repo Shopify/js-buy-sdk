@@ -58,7 +58,8 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "campaignDuration"},
     {namespace: "productListing", key: "productionDuration"},
     {namespace: "productListing", key: "hidden"},
-    {namespace: "productListing", key: "banner"}
+    {namespace: "productListing", key: "banner"},
+    {namespace: "productListing", key: "details"}
   ]) {
     ...MetafieldFragment
   }
