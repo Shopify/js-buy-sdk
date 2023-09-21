@@ -57,7 +57,7 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "sizing"},
     {namespace: "productListing", key: "campaignStart"},
     {namespace: "productListing", key: "campaignEnd"},
-    {namespace: "productListing", key: "productionStarted"}
+    {namespace: "productListing", key: "productionStarted"},
     {namespace: "productListing", key: "productionEnd"},
     {namespace: "productListing", key: "banner"},
     {namespace: "productListing", key: "details"},
