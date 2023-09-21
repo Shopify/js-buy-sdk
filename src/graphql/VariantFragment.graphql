@@ -63,7 +63,8 @@ fragment VariantFragment on ProductVariant {
     {namespace: "productListing", key: "details"},
     {namespace: "productListing", key: "productVisibilityDate"},
     {namespace: "productListing", key: "overrideQuantity"},
-    {namespace: "productListing", key: "holidayCardLink"}
+    {namespace: "productListing", key: "holidayCardLink"},
+    {namespace: "productListing", key: "sizeGuide"}
   ]) {
     ...MetafieldFragment
   }
