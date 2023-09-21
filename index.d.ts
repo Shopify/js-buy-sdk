@@ -500,19 +500,15 @@ declare namespace ShopifyBuy {
     }
 
     export interface MetaobjectField {
+        id: string;
         key: string;
         type: string;
         value: string;
         reference: MetafieldReference | null;
     }
 
-    export interface Metafield {
-        id: string;
-        key: string;
+    export interface Metafield extends MetaobjectField {
         namespace: string;
-        type: string;
-        value: string;
-        reference: MetafieldReference | null;
     }
 }
 
