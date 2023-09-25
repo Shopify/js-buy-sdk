@@ -1,13 +1,27 @@
+fragment MediaFragment on MediaImage {
+    image {
+        originalSrc
+    }
+}
+
+fragment MetaobjectFragment on Metaobject {
+    fields {
+        key
+        type
+        value
+        reference {
+            ...MediaFragment
+        }
+    }
+}
+
 fragment MetafieldFragment on Metafield {
     key
     namespace
     type
     value
     reference {
-        ... on MediaImage {
-            image {
-               originalSrc
-            }
-        }
+        ...MediaFragment
+        ...MetaobjectFragment
     }
 }
