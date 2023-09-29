@@ -1,4 +1,4 @@
-# [Shopify](https://www.shopify.com) JavaScript Buy SDK
+# [Shopify](https://www.shopify.com) JavaScript Buy SDDK
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
