@@ -4283,6 +4283,12 @@
               "deprecationReason": null
             },
             {
+              "name": "VALIDATION_CUSTOM",
+              "description": "Validation failed.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "INVALID_METAFIELDS",
               "description": "The metafields were not valid.",
               "isDeprecated": false,
@@ -20740,6 +20746,30 @@
               "deprecationReason": null
             },
             {
+              "name": "onlineStoreUrl",
+              "description": "The URL used for viewing the metaobject on the shop's Online Store. Returns `null` if the metaobject definition doesn't have the `online_store` capability.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "URL",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "seo",
+              "description": "The metaobject's SEO information. Returns `null` if the metaobject definition\ndoesn't have the `renderable` capability.\n",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectSEO",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "type",
               "description": "The type of the metaobject. Defines the namespace of its associated metafields.",
               "args": [],
@@ -20777,6 +20807,11 @@
             {
               "kind": "INTERFACE",
               "name": "Node",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "OnlineStorePublishable",
               "ofType": null
             }
           ],
@@ -21057,6 +21092,41 @@
             }
           ],
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MetaobjectSEO",
+          "description": "SEO information for a metaobject.",
+          "fields": [
+            {
+              "name": "description",
+              "description": "The meta description.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectField",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The SEO title.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectField",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -23381,6 +23451,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "Metaobject",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "Page",
               "ofType": null
             },
@@ -24207,6 +24282,12 @@
             {
               "name": "DECLINED",
               "description": "Payment was declined.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "STAFF",
+              "description": "Staff made an error.",
               "isDeprecated": false,
               "deprecationReason": null
             },
