@@ -53,7 +53,7 @@
     "graphql-js-schema": "0.7.1",
     "graphql-js-schema-fetch": "1.1.2",
     "http-server": "0.10.0",
-    "jquery": "3.2.1",
+    "jquery": "3.5.0",
     "jsdoc": "3.6.3",
     "jsdoc-export-default-interop": "0.3.1",
     "jsdoc-to-markdown": "5.0.1",
