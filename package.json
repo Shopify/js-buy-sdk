@@ -58,7 +58,7 @@
     "jsdoc-export-default-interop": "0.3.1",
     "jsdoc-to-markdown": "5.0.1",
     "mime-types": "2.1.17",
-    "minimist": "1.2.0",
+    "minimist": "1.2.6",
     "mocha": "3.5.0",
     "node-fetch": "1.7.2",
     "node-jq": "0.7.0",
