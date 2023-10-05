@@ -48,7 +48,7 @@
             },
             {
               "name": "supported",
-              "description": "Whether the version is actively supported by Shopify. Supported API versions are guaranteed to be stable. Unsupported API versions include unstable, release candidate, and end-of-life versions that are marked as unsupported. For more information, refer to [Versioning](https://shopify.dev/api/usage/versioning).",
+              "description": "Whether the version is actively supported by Shopify. Supported API versions\nare guaranteed to be stable. Unsupported API versions include unstable,\nrelease candidate, and end-of-life versions that are marked as unsupported.\nFor more information, refer to\n[Versioning](https://shopify.dev/api/usage/versioning).\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -547,7 +547,7 @@
             },
             {
               "name": "handle",
-              "description": "A human-friendly unique string for the Article automatically generated from its title.\n",
+              "description": "A human-friendly unique string for the Article automatically generated from its title.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -594,8 +594,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -608,8 +608,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -632,7 +632,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -715,7 +715,7 @@
             },
             {
               "name": "tags",
-              "description": "A categorization that a article can be tagged with.",
+              "description": "A categorization that a article can be tagged with.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -1006,6 +1006,18 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "ID",
+              "description": "Sort by the `id` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RELEVANCE",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TITLE",
               "description": "Sort by the `title` value.",
               "isDeprecated": false,
@@ -1032,18 +1044,6 @@
             {
               "name": "PUBLISHED_AT",
               "description": "Sort by the `published_at` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ID",
-              "description": "Sort by the `id` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "RELEVANCE",
-              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -1275,7 +1275,7 @@
         {
           "kind": "INTERFACE",
           "name": "BaseCartLine",
-          "description": "Represents a cart line common fields.",
+          "description": "An object with an ID field to support global identification, in accordance with the\n[Relay specification](https://relay.dev/graphql/objectidentification.htm#sec-Node-Interface).\nThis interface is used by the [node](https://shopify.dev/api/admin-graphql/unstable/queries/node)\nand [nodes](https://shopify.dev/api/admin-graphql/unstable/queries/nodes) queries.\n",
           "fields": [
             {
               "name": "attribute",
@@ -1662,16 +1662,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -1680,6 +1670,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -1765,8 +1765,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -1779,8 +1779,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -1803,7 +1803,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -2033,8 +2033,14 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "HANDLE",
-              "description": "Sort by the `handle` value.",
+              "name": "ID",
+              "description": "Sort by the `id` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "RELEVANCE",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -2045,14 +2051,8 @@
               "deprecationReason": null
             },
             {
-              "name": "ID",
-              "description": "Sort by the `id` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "RELEVANCE",
-              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "name": "HANDLE",
+              "description": "Sort by the `handle` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -2355,7 +2355,7 @@
             },
             {
               "name": "buyerIdentity",
-              "description": "Information about the buyer that is interacting with the cart.",
+              "description": "Information about the buyer that's interacting with the cart.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2387,7 +2387,7 @@
             },
             {
               "name": "cost",
-              "description": "The estimated costs that the buyer will pay at checkout. The costs are subject to change and changes will be reflected at checkout. The `cost` field uses the `buyerIdentity` field to determine [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).",
+              "description": "The estimated costs that the buyer will pay at checkout. The costs are subject\nto change and changes will be reflected at checkout. The `cost` field uses the\n`buyerIdentity` field to determine [international pricing](https://shopify.dev/custom-storefronts/internationalization/international-pricing).\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2510,7 +2510,7 @@
             },
             {
               "name": "discountCodes",
-              "description": "The case-insensitive discount codes that the customer added at checkout.\n",
+              "description": "The case-insensitive discount codes that the customer added at checkout.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -2636,8 +2636,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -2650,8 +2650,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -2674,7 +2674,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -2717,7 +2717,7 @@
             },
             {
               "name": "note",
-              "description": "A note that is associated with the cart. For example, the note can be a personalized message to the buyer.",
+              "description": "A note that's associated with the cart. For example, the note can be a personalized message to the buyer.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -2927,7 +2927,7 @@
             },
             {
               "name": "email",
-              "description": "The email address of the buyer that is interacting with the cart.",
+              "description": "The email address of the buyer that's interacting with the cart.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -2939,7 +2939,7 @@
             },
             {
               "name": "phone",
-              "description": "The phone number of the buyer that is interacting with the cart.",
+              "description": "The phone number of the buyer that's interacting with the cart.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -2986,26 +2986,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "email",
-              "description": "The email address of the buyer that is interacting with the cart.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "phone",
-              "description": "The phone number of the buyer that is interacting with the cart.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "countryCode",
               "description": "The country where the buyer is located.",
               "type": {
@@ -3040,6 +3020,26 @@
                     "ofType": null
                   }
                 }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "email",
+              "description": "The email address of the buyer that is interacting with the cart.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "phone",
+              "description": "The phone number of the buyer that is interacting with the cart.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -3437,7 +3437,7 @@
           "fields": [
             {
               "name": "checkoutChargeAmount",
-              "description": "The estimated amount, before taxes and discounts, for the customer to pay at checkout. The checkout charge amount doesn't include any deferred payments that'll be paid at a later date. If the cart has no deferred payments, then the checkout charge amount is equivalent to `subtotalAmount`.",
+              "description": "The estimated amount, before taxes and discounts, for the customer to pay at\ncheckout. The checkout charge amount doesn't include any deferred payments\nthat'll be paid at a later date. If the cart has no deferred payments, then\nthe checkout charge amount is equivalent to `subtotalAmount`.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -4271,14 +4271,20 @@
               "deprecationReason": null
             },
             {
+              "name": "INVALID_PAYMENT_EMPTY_CART",
+              "description": "Cannot update payment on an empty cart",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "PAYMENT_METHOD_NOT_SUPPORTED",
               "description": "The payment method is not supported.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "INVALID_PAYMENT_EMPTY_CART",
-              "description": "Cannot update payment on an empty cart",
+              "name": "VALIDATION_CUSTOM",
+              "description": "Validation failed.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -4424,24 +4430,6 @@
               "defaultValue": null
             },
             {
-              "name": "lines",
-              "description": "A list of merchandise lines to add to the cart.",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "CartLineInput",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
               "name": "discountCodes",
               "description": "The case-insensitive discount codes that the customer added at checkout.\n",
               "type": {
@@ -4460,8 +4448,26 @@
               "defaultValue": null
             },
             {
+              "name": "lines",
+              "description": "A list of merchandise lines to add to the cart.",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "CartLineInput",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "note",
-              "description": "A note that is associated with the cart. For example, the note can be a personalized message to the buyer.",
+              "description": "A note that's associated with the cart. For example, the note can be a personalized message to the buyer.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -4523,8 +4529,8 @@
               "defaultValue": null
             },
             {
-              "name": "value",
-              "description": "The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.\n",
+              "name": "type",
+              "description": "The type of data that the cart metafield stores.\nThe type of data must be a [supported type](https://shopify.dev/apps/metafields/types).\n",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4537,8 +4543,8 @@
               "defaultValue": null
             },
             {
-              "name": "type",
-              "description": "The type of data that the cart metafield stores.\nThe type of data must be a [supported type](https://shopify.dev/apps/metafields/types).\n",
+              "name": "value",
+              "description": "The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.\n",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -4818,7 +4824,7 @@
         {
           "kind": "OBJECT",
           "name": "CartLineEstimatedCost",
-          "description": "The estimated cost of the merchandise line that the buyer will pay at checkout.",
+          "description": "The estimated cost of the merchandise line that the buyer will pay at checkout.\n",
           "fields": [
             {
               "name": "amount",
@@ -4970,21 +4976,21 @@
               "defaultValue": null
             },
             {
-              "name": "quantity",
-              "description": "The quantity of the line item.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "merchandiseId",
               "description": "The ID of the merchandise for the line item.",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "quantity",
+              "description": "The quantity of the line item.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null
               },
               "defaultValue": null
@@ -5256,20 +5262,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "ownerId",
-              "description": "The ID of the cart resource.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
               "name": "key",
               "description": "The key name of the cart metafield.",
               "type": {
@@ -5284,8 +5276,22 @@
               "defaultValue": null
             },
             {
-              "name": "value",
-              "description": "The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.\n",
+              "name": "ownerId",
+              "description": "The ID of the cart resource.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "type",
+              "description": "The type of data that the cart metafield stores.\nThe type of data must be a [supported type](https://shopify.dev/apps/metafields/types).\n",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5298,8 +5304,8 @@
               "defaultValue": null
             },
             {
-              "name": "type",
-              "description": "The type of data that the cart metafield stores.\nThe type of data must be a [supported type](https://shopify.dev/apps/metafields/types).\n",
+              "name": "value",
+              "description": "The data to store in the cart metafield. The data is always stored as a string, regardless of the metafield's type.\n",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -5893,7 +5899,7 @@
             },
             {
               "name": "customAttributes",
-              "description": "A list of extra information that is added to the checkout.",
+              "description": "A list of extra information that's added to the checkout.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -6119,7 +6125,7 @@
             },
             {
               "name": "orderStatusUrl",
-              "description": "The Order Status Page for this Checkout, null when checkout is not completed.",
+              "description": "The Order Status Page for this Checkout, null when checkout isn't completed.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -6231,7 +6237,7 @@
             },
             {
               "name": "shippingLine",
-              "description": "Once a shipping rate is selected by the customer it is transitioned to a `shipping_line` object.",
+              "description": "Once a shipping rate is selected by the customer it's transitioned to a `shipping_line` object.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -6432,18 +6438,8 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "note",
-              "description": "The text of an optional note that a shop owner can attach to the checkout.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "customAttributes",
-              "description": "A list of extra information that is added to the checkout.",
+              "description": "A list of extra information that's added to the checkout.",
               "type": {
                 "kind": "LIST",
                 "name": null,
@@ -6456,6 +6452,16 @@
                     "ofType": null
                   }
                 }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "note",
+              "description": "The text of an optional note that a shop owner can attach to the checkout.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "defaultValue": null
             },
@@ -6837,6 +6843,34 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "allowPartialAddresses",
+              "description": "Allows setting partial addresses on a Checkout, skipping the full validation of attributes.\nThe required attributes are city, province, and country.\nFull validation of addresses is still done at completion time. Defaults to `null`.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "customAttributes",
+              "description": "A list of extra information that's added to the checkout.",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "AttributeInput",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "email",
               "description": "The email with which the customer wants to checkout.",
               "type": {
@@ -6865,16 +6899,6 @@
               "defaultValue": null
             },
             {
-              "name": "shippingAddress",
-              "description": "The shipping address to where the line items will be shipped.",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "MailingAddressInput",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "note",
               "description": "The text of an optional note that a shop owner can attach to the checkout.",
               "type": {
@@ -6885,39 +6909,21 @@
               "defaultValue": null
             },
             {
-              "name": "customAttributes",
-              "description": "A list of extra information that is added to the checkout.",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "AttributeInput",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "allowPartialAddresses",
-              "description": "Allows setting partial addresses on a Checkout, skipping the full validation of attributes.\nThe required attributes are city, province, and country.\nFull validation of addresses is still done at completion time. Defaults to `null`.\n",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "buyerIdentity",
               "description": "The identity of the customer associated with the checkout.",
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "CheckoutBuyerIdentityInput",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "shippingAddress",
+              "description": "The shipping address to where the line items will be shipped.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "MailingAddressInput",
                 "ofType": null
               },
               "defaultValue": null
@@ -7416,14 +7422,14 @@
               "deprecationReason": null
             },
             {
-              "name": "GREATER_THAN_OR_EQUAL_TO",
-              "description": "The input value should be greater than or equal to the minimum value allowed.",
+              "name": "LESS_THAN_OR_EQUAL_TO",
+              "description": "The input value should be less than or equal to the maximum value allowed.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "LESS_THAN_OR_EQUAL_TO",
-              "description": "The input value should be less than or equal to the maximum value allowed.",
+              "name": "GREATER_THAN_OR_EQUAL_TO",
+              "description": "The input value should be greater than or equal to the minimum value allowed.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -8135,26 +8141,6 @@
               "defaultValue": null
             },
             {
-              "name": "variantId",
-              "description": "The variant ID of the line item.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "quantity",
-              "description": "The quantity of the line item.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "customAttributes",
               "description": "Extra information in the form of an array of Key-Value pairs about the line item.",
               "type": {
@@ -8169,6 +8155,26 @@
                     "ofType": null
                   }
                 }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "quantity",
+              "description": "The quantity of the line item.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "variantId",
+              "description": "The variant ID of the line item.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
               },
               "defaultValue": null
             }
@@ -8647,7 +8653,7 @@
         {
           "kind": "OBJECT",
           "name": "Collection",
-          "description": "A collection represents a grouping of products that a shop owner can create to organize them or make their shops easier to browse.",
+          "description": "A collection represents a grouping of products that a shop owner can create to\norganize them or make their shops easier to browse.\n",
           "fields": [
             {
               "name": "description",
@@ -8741,8 +8747,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -8755,8 +8761,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -8779,7 +8785,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -8877,16 +8883,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -8895,6 +8891,16 @@
                     "ofType": null
                   },
                   "defaultValue": "COLLECTION_DEFAULT"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "filters",
@@ -9157,18 +9163,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TITLE",
-              "description": "Sort by the `title` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UPDATED_AT",
-              "description": "Sort by the `updated_at` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "ID",
               "description": "Sort by the `id` value.",
               "isDeprecated": false,
@@ -9177,6 +9171,18 @@
             {
               "name": "RELEVANCE",
               "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UPDATED_AT",
+              "description": "Sort by the `updated_at` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -11516,14 +11522,14 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "paymentAmount",
-              "description": "The amount and currency of the payment.",
+              "name": "billingAddress",
+              "description": "The billing address for the payment.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "MoneyInput",
+                  "name": "MailingAddressInput",
                   "ofType": null
                 }
               },
@@ -11544,28 +11550,14 @@
               "defaultValue": null
             },
             {
-              "name": "billingAddress",
-              "description": "The billing address for the payment.",
+              "name": "paymentAmount",
+              "description": "The amount and currency of the payment.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "MailingAddressInput",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "vaultId",
-              "description": "The ID returned by Shopify's Card Vault.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "name": "MoneyInput",
                   "ofType": null
                 }
               },
@@ -11580,6 +11572,20 @@
                 "ofType": null
               },
               "defaultValue": "false"
+            },
+            {
+              "name": "vaultId",
+              "description": "The ID returned by Shopify's Card Vault.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
             }
           ],
           "interfaces": null,
@@ -11689,7 +11695,7 @@
         {
           "kind": "ENUM",
           "name": "CurrencyCode",
-          "description": "The three-letter currency codes that represent the world currencies used in stores. These include standard ISO 4217 codes, legacy codes,\nand non-standard codes.\n",
+          "description": "The three-letter currency codes that represent the world currencies used in\nstores. These include standard ISO 4217 codes, legacy codes,\nand non-standard codes.\n",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -11959,8 +11965,20 @@
               "deprecationReason": null
             },
             {
+              "name": "ERN",
+              "description": "Eritrean Nakfa (ERN).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "ETB",
               "description": "Ethiopian Birr (ETB).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FKP",
+              "description": "Falkland Islands Pounds (FKP).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -11973,6 +11991,12 @@
             {
               "name": "FJD",
               "description": "Fijian Dollars (FJD).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "GIP",
+              "description": "Gibraltar Pounds (GIP).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -12097,6 +12121,12 @@
               "deprecationReason": null
             },
             {
+              "name": "KID",
+              "description": "Kiribati Dollar (KID).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "KWD",
               "description": "Kuwaiti Dinar (KWD).",
               "isDeprecated": false,
@@ -12171,6 +12201,12 @@
             {
               "name": "MVR",
               "description": "Maldivian Rufiyaa (MVR).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MRU",
+              "description": "Mauritanian Ouguiya (MRU).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -12337,6 +12373,12 @@
               "deprecationReason": null
             },
             {
+              "name": "SHP",
+              "description": "Saint Helena Pounds (SHP).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SAR",
               "description": "Saudi Riyal (SAR).",
               "isDeprecated": false,
@@ -12363,6 +12405,12 @@
             {
               "name": "SDG",
               "description": "Sudanese Pound (SDG).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SOS",
+              "description": "Somali Shilling (SOS).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -12505,6 +12553,12 @@
               "deprecationReason": null
             },
             {
+              "name": "VES",
+              "description": "Venezuelan Bolivares Soberanos (VES).",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "VND",
               "description": "Vietnamese đồng (VND).",
               "isDeprecated": false,
@@ -12547,24 +12601,6 @@
               "deprecationReason": null
             },
             {
-              "name": "ERN",
-              "description": "Eritrean Nakfa (ERN).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "FKP",
-              "description": "Falkland Islands Pounds (FKP).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "GIP",
-              "description": "Gibraltar Pounds (GIP).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "GNF",
               "description": "Guinean Franc (GNF).",
               "isDeprecated": false,
@@ -12577,38 +12613,14 @@
               "deprecationReason": null
             },
             {
-              "name": "KID",
-              "description": "Kiribati Dollar (KID).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "LYD",
               "description": "Libyan Dinar (LYD).",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "MRU",
-              "description": "Mauritanian Ouguiya (MRU).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SLL",
               "description": "Sierra Leonean Leone (SLL).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SHP",
-              "description": "Saint Helena Pounds (SHP).",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SOS",
-              "description": "Somali Shilling (SOS).",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -12647,12 +12659,6 @@
               "description": "Venezuelan Bolivares (VEF).",
               "isDeprecated": true,
               "deprecationReason": "`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead."
-            },
-            {
-              "name": "VES",
-              "description": "Venezuelan Bolivares (VES).",
-              "isDeprecated": false,
-              "deprecationReason": null
             },
             {
               "name": "XXX",
@@ -12864,8 +12870,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -12878,8 +12884,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -12902,7 +12908,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -13004,16 +13010,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -13022,6 +13018,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -13817,6 +13823,20 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "email",
+              "description": "The customer’s email.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "firstName",
               "description": "The customer’s first name.",
               "type": {
@@ -13837,25 +13857,21 @@
               "defaultValue": null
             },
             {
-              "name": "email",
-              "description": "The customer’s email.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
               "name": "phone",
               "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "acceptsMarketing",
+              "description": "Indicates whether the customer has consented to be sent marketing material via email.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               },
               "defaultValue": null
@@ -13871,16 +13887,6 @@
                   "name": "String",
                   "ofType": null
                 }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "acceptsMarketing",
-              "description": "Indicates whether the customer has consented to be sent marketing material via email.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
               },
               "defaultValue": null
             }
@@ -14281,8 +14287,8 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "resetToken",
-              "description": "The reset token required to reset the customer’s password.",
+              "name": "password",
+              "description": "New password that will be set as part of the reset password process.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -14295,8 +14301,8 @@
               "defaultValue": null
             },
             {
-              "name": "password",
-              "description": "New password that will be set as part of the reset password process.",
+              "name": "resetToken",
+              "description": "The reset token required to reset the customer’s password.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -14403,6 +14409,16 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "email",
+              "description": "The customer’s email.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
               "name": "firstName",
               "description": "The customer’s first name.",
               "type": {
@@ -14423,8 +14439,8 @@
               "defaultValue": null
             },
             {
-              "name": "email",
-              "description": "The customer’s email.",
+              "name": "password",
+              "description": "The login password used by the customer.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -14435,16 +14451,6 @@
             {
               "name": "phone",
               "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_. To remove the phone number, specify `null`.\n",
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "password",
-              "description": "The login password used by the customer.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -15657,7 +15663,7 @@
             },
             {
               "name": "input",
-              "description": "An input object that can be used to filter by this value on the parent field.\n\nThe value is provided as a helper for building dynamic filtering UI. For example, if you have a list of selected `FilterValue` objects, you can combine their respective `input` values to use in a subsequent query.\n",
+              "description": "An input object that can be used to filter by this value on the parent field.\n\nThe value is provided as a helper for building dynamic filtering UI. For\nexample, if you have a list of selected `FilterValue` objects, you can combine\ntheir respective `input` values to use in a subsequent query.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -16176,8 +16182,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -16190,8 +16196,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -16214,7 +16220,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -16329,8 +16335,8 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "namespace",
-              "description": "A container for a set of metafields.",
+              "name": "key",
+              "description": "The identifier for the metafield.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -16343,8 +16349,8 @@
               "defaultValue": null
             },
             {
-              "name": "key",
-              "description": "The identifier for the metafield.",
+              "name": "namespace",
+              "description": "The container the metafield belongs to.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -16390,7 +16396,7 @@
             },
             {
               "name": "height",
-              "description": "The original height of the image in pixels. Returns `null` if the image is not hosted by Shopify.",
+              "description": "The original height of the image in pixels. Returns `null` if the image isn't hosted by Shopify.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -16446,14 +16452,14 @@
             },
             {
               "name": "transformedSrc",
-              "description": "The location of the transformed image as a URL.\n\nAll transformation arguments are considered \"best-effort\". If they can be applied to an image, they will be.\nOtherwise any transformations which an image type does not support will be ignored.\n",
+              "description": "The location of the transformed image as a URL.\n\nAll transformation arguments are considered \"best-effort\". If they can be applied to an image, they will be.\nOtherwise any transformations which an image type doesn't support will be ignored.\n",
               "args": [
                 {
-                  "name": "maxWidth",
-                  "description": "Image width in pixels between 1 and 5760.",
+                  "name": "crop",
+                  "description": "Crops the image according to the specified region.",
                   "type": {
-                    "kind": "SCALAR",
-                    "name": "Int",
+                    "kind": "ENUM",
+                    "name": "CropRegion",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -16469,11 +16475,21 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "crop",
-                  "description": "Crops the image according to the specified region.",
+                  "name": "maxWidth",
+                  "description": "Image width in pixels between 1 and 5760.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "preferredContentType",
+                  "description": "Best effort conversion of image into content type (SVG -> PNG, Anything -> JPG, Anything -> WEBP are supported).",
                   "type": {
                     "kind": "ENUM",
-                    "name": "CropRegion",
+                    "name": "ImageContentType",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -16487,16 +16503,6 @@
                     "ofType": null
                   },
                   "defaultValue": "1"
-                },
-                {
-                  "name": "preferredContentType",
-                  "description": "Best effort conversion of image into content type (SVG -> PNG, Anything -> JPG, Anything -> WEBP are supported).",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "ImageContentType",
-                    "ofType": null
-                  },
-                  "defaultValue": null
                 }
               ],
               "type": {
@@ -16540,7 +16546,7 @@
             },
             {
               "name": "width",
-              "description": "The original width of the image in pixels. Returns `null` if the image is not hosted by Shopify.",
+              "description": "The original width of the image in pixels. Returns `null` if the image isn't hosted by Shopify.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -16706,12 +16712,12 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "ImageTransformInput",
-          "description": "The available options for transforming an image.\n\nAll transformation options are considered best effort. Any transformation that the original image type doesn't support will be ignored.\n",
+          "description": "The available options for transforming an image.\n\nAll transformation options are considered best effort. Any transformation that\nthe original image type doesn't support will be ignored.\n",
           "fields": null,
           "inputFields": [
             {
               "name": "crop",
-              "description": "The region of the image to remain after cropping.\nMust be used in conjunction with the `maxWidth` and/or `maxHeight` fields, where the `maxWidth` and `maxHeight` aren't equal.\nThe `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while\na smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{ maxWidth: 5, maxHeight: 10, crop: LEFT }` will result\nin an image with a width of 5 and height of 10, where the right side of the image is removed.\n",
+              "description": "The region of the image to remain after cropping.\nMust be used in conjunction with the `maxWidth` and/or `maxHeight` fields,\nwhere the `maxWidth` and `maxHeight` aren't equal.\nThe `crop` argument should coincide with the smaller value. A smaller `maxWidth` indicates a `LEFT` or `RIGHT` crop, while\na smaller `maxHeight` indicates a `TOP` or `BOTTOM` crop. For example, `{\nmaxWidth: 5, maxHeight: 10, crop: LEFT }` will result\nin an image with a width of 5 and height of 10, where the right side of the image is removed.\n",
               "type": {
                 "kind": "ENUM",
                 "name": "CropRegion",
@@ -16942,6 +16948,12 @@
               "deprecationReason": null
             },
             {
+              "name": "CKB",
+              "description": "Central Kurdish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CS",
               "description": "Czech.",
               "isDeprecated": false,
@@ -17028,6 +17040,12 @@
             {
               "name": "FI",
               "description": "Finnish.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FIL",
+              "description": "Filipino.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -17446,6 +17464,18 @@
               "deprecationReason": null
             },
             {
+              "name": "SA",
+              "description": "Sanskrit.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SC",
+              "description": "Sardinian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SD",
               "description": "Sindhi.",
               "isDeprecated": false,
@@ -17672,6 +17702,24 @@
               "description": "Volapük.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "LA",
+              "description": "Latin.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SH",
+              "description": "Serbo-Croatian.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MO",
+              "description": "Moldavian.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -17825,8 +17873,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -17839,8 +17887,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -17863,7 +17911,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -18237,12 +18285,6 @@
               "deprecationReason": null
             },
             {
-              "name": "NAME",
-              "description": "Sort by the `name` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "CITY",
               "description": "Sort by the `city` value.",
               "isDeprecated": false,
@@ -18251,6 +18293,12 @@
             {
               "name": "DISTANCE",
               "description": "Sort by the `distance` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NAME",
+              "description": "Sort by the `name` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -18288,7 +18336,7 @@
             },
             {
               "name": "city",
-              "description": "The name of the city, district, village, or town.\n",
+              "description": "The name of the city, district, village, or town.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -18300,7 +18348,7 @@
             },
             {
               "name": "company",
-              "description": "The name of the customer's company or organization.\n",
+              "description": "The name of the customer's company or organization.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -18312,7 +18360,7 @@
             },
             {
               "name": "country",
-              "description": "The name of the country.\n",
+              "description": "The name of the country.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -18363,16 +18411,6 @@
               "description": "A formatted version of the address, customized by the provided arguments.",
               "args": [
                 {
-                  "name": "withName",
-                  "description": "Whether to include the customer's name in the formatted address.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "withCompany",
                   "description": "Whether to include the customer's company in the formatted address.",
                   "type": {
@@ -18381,6 +18419,16 @@
                     "ofType": null
                   },
                   "defaultValue": "true"
+                },
+                {
+                  "name": "withName",
+                  "description": "Whether to include the customer's name in the formatted address.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 }
               ],
               "type": {
@@ -18469,7 +18517,7 @@
             },
             {
               "name": "name",
-              "description": "The full name of the customer, based on firstName and lastName.\n",
+              "description": "The full name of the customer, based on firstName and lastName.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -18919,8 +18967,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -18933,8 +18981,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -18957,7 +19005,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -19584,7 +19632,7 @@
         {
           "kind": "OBJECT",
           "name": "MenuItem",
-          "description": "A menu item within a parent menu.\n",
+          "description": "A menu item within a parent menu.",
           "fields": [
             {
               "name": "id",
@@ -20181,8 +20229,8 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "namespace",
-              "description": "The namespace of the metafield to filter on.",
+              "name": "key",
+              "description": "The key of the metafield to filter on.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -20195,8 +20243,8 @@
               "defaultValue": null
             },
             {
-              "name": "key",
-              "description": "The key of the metafield to filter on.",
+              "name": "namespace",
+              "description": "The namespace of the metafield to filter on.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -20698,6 +20746,30 @@
               "deprecationReason": null
             },
             {
+              "name": "onlineStoreUrl",
+              "description": "The URL used for viewing the metaobject on the shop's Online Store. Returns `null` if the metaobject definition doesn't have the `online_store` capability.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "URL",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "seo",
+              "description": "The metaobject's SEO information. Returns `null` if the metaobject definition\ndoesn't have the `renderable` capability.\n",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectSEO",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "type",
               "description": "The type of the metaobject. Defines the namespace of its associated metafields.",
               "args": [],
@@ -20735,6 +20807,11 @@
             {
               "kind": "INTERFACE",
               "name": "Node",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "OnlineStorePublishable",
               "ofType": null
             }
           ],
@@ -21015,6 +21092,41 @@
             }
           ],
           "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "MetaobjectSEO",
+          "description": "SEO information for a metaobject.",
+          "fields": [
+            {
+              "name": "description",
+              "description": "The meta description.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectField",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "The SEO title.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "MetaobjectField",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -22435,20 +22547,6 @@
               "description": "Updates line items on a checkout.",
               "args": [
                 {
-                  "name": "checkoutId",
-                  "description": "The checkout on which to update line items.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
                   "name": "lineItems",
                   "description": "Line items to update.",
                   "type": {
@@ -22466,6 +22564,20 @@
                           "ofType": null
                         }
                       }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "checkoutId",
+                  "description": "The checkout on which to update line items.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
                     }
                   },
                   "defaultValue": null
@@ -22958,7 +23070,7 @@
             },
             {
               "name": "customerRecover",
-              "description": "Sends a reset password email to the customer. The reset password\nemail contains a reset password URL and token that you can pass to\nthe [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) or\n[`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) mutation to reset the\ncustomer password.\n\nThis mutation is throttled by IP. With authenticated access,\nyou can provide a [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) instead of the request IP.\n\nMake sure that the value provided to `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this\nmutation presents a security risk.\n",
+              "description": "Sends a reset password email to the customer. The reset password\nemail contains a reset password URL and token that you can pass to\nthe [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) or\n[`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) mutation to reset the\ncustomer password.\n\nThis mutation is throttled by IP. With private access,\nyou can provide a [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) instead of the request IP.\nThe header is case-sensitive and must be sent as `Shopify-Storefront-Buyer-IP`.\n\nMake sure that the value provided to `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this\nmutation presents a security risk.\n",
               "args": [
                 {
                   "name": "email",
@@ -23339,6 +23451,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "Metaobject",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "Page",
               "ofType": null
             },
@@ -23408,7 +23525,7 @@
             },
             {
               "name": "currentSubtotalPrice",
-              "description": "The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes are not included unless the order is a taxes-included order.",
+              "description": "The subtotal of line items and their discounts, excluding line items that have been removed. Does not contain order-level discounts, duties, shipping costs, or shipping discounts. Taxes aren't included unless the order is a taxes-included order.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -23725,8 +23842,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -23739,8 +23856,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -23763,7 +23880,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -24151,12 +24268,6 @@
               "deprecationReason": null
             },
             {
-              "name": "DECLINED",
-              "description": "Payment was declined.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "FRAUD",
               "description": "The order was fraudulent.",
               "isDeprecated": false,
@@ -24165,6 +24276,18 @@
             {
               "name": "INVENTORY",
               "description": "There was insufficient inventory.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DECLINED",
+              "description": "Payment was declined.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "STAFF",
+              "description": "Staff made an error.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -24516,7 +24639,7 @@
             },
             {
               "name": "originalTotalPrice",
-              "description": "The total price of the line item, not including any discounts. The total price is calculated using the original unit price multiplied by the quantity, and it is displayed in the presentment currency.",
+              "description": "The total price of the line item, not including any discounts. The total price is calculated using the original unit price multiplied by the quantity, and it's displayed in the presentment currency.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24823,8 +24946,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -24837,8 +24960,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -24861,7 +24984,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -25191,8 +25314,8 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TITLE",
-              "description": "Sort by the `title` value.",
+              "name": "ID",
+              "description": "Sort by the `id` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -25203,14 +25326,14 @@
               "deprecationReason": null
             },
             {
-              "name": "ID",
-              "description": "Sort by the `id` value.",
+              "name": "RELEVANCE",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "RELEVANCE",
-              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -25481,7 +25604,7 @@
             },
             {
               "name": "enabledPresentmentCurrencies",
-              "description": "A list of enabled currencies (ISO 4217 format) that the shop accepts. Merchants can enable currencies from their Shopify Payments settings in the Shopify admin.",
+              "description": "A list of enabled currencies (ISO 4217 format) that the shop accepts.\nMerchants can enable currencies from their Shopify Payments settings in the Shopify admin.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25788,16 +25911,6 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "min",
-              "description": "The minimum price in the range. Defaults to zero.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "defaultValue": "0.0"
-            },
-            {
               "name": "max",
               "description": "The maximum price in the range. Empty indicates no max price.",
               "type": {
@@ -25806,6 +25919,16 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "min",
+              "description": "The minimum price in the range. Defaults to zero.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "defaultValue": "0.0"
             }
           ],
           "interfaces": null,
@@ -25863,7 +25986,7 @@
         {
           "kind": "OBJECT",
           "name": "Product",
-          "description": "A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.\nFor example, a digital download (such as a movie, music or ebook file) also qualifies as a product, as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).",
+          "description": "A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.\nFor example, a digital download (such as a movie, music or ebook file) also\nqualifies as a product, as do services (such as equipment rental, work for hire,\ncustomization of another product or an extended warranty).\n",
           "fields": [
             {
               "name": "availableForSale",
@@ -26112,16 +26235,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -26130,6 +26243,16 @@
                     "ofType": null
                   },
                   "defaultValue": "POSITION"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 }
               ],
               "type": {
@@ -26205,16 +26328,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -26223,6 +26336,16 @@
                     "ofType": null
                   },
                   "defaultValue": "POSITION"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 }
               ],
               "type": {
@@ -26242,8 +26365,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -26256,8 +26379,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -26280,7 +26403,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -26675,16 +26798,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -26693,6 +26806,16 @@
                     "ofType": null
                   },
                   "defaultValue": "POSITION"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 }
               ],
               "type": {
@@ -26759,18 +26882,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TITLE",
-              "description": "Sort by the `title` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PRICE",
-              "description": "Sort by the `price` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "BEST_SELLING",
               "description": "Sort by the `best-selling` value.",
               "isDeprecated": false,
@@ -26779,6 +26890,12 @@
             {
               "name": "CREATED",
               "description": "Sort by the `created` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "COLLECTION_DEFAULT",
+              "description": "Sort by the `collection-default` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -26795,14 +26912,20 @@
               "deprecationReason": null
             },
             {
-              "name": "COLLECTION_DEFAULT",
-              "description": "Sort by the `collection-default` value.",
+              "name": "PRICE",
+              "description": "Sort by the `price` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "RELEVANCE",
               "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -26968,11 +27091,21 @@
               "defaultValue": null
             },
             {
-              "name": "variantOption",
-              "description": "A variant option to filter on.",
+              "name": "price",
+              "description": "A range of prices to filter with-in.",
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "VariantOptionFilter",
+                "name": "PriceRangeFilter",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "productMetafield",
+              "description": "A product metafield to filter on.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "MetafieldFilter",
                 "ofType": null
               },
               "defaultValue": null
@@ -26998,21 +27131,11 @@
               "defaultValue": null
             },
             {
-              "name": "price",
-              "description": "A range of prices to filter with-in.",
+              "name": "tag",
+              "description": "A product tag to filter on.",
               "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "PriceRangeFilter",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "productMetafield",
-              "description": "A product metafield to filter on.",
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "MetafieldFilter",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -27028,11 +27151,11 @@
               "defaultValue": null
             },
             {
-              "name": "tag",
-              "description": "A product tag to filter on.",
+              "name": "variantOption",
+              "description": "A variant option to filter on.",
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "INPUT_OBJECT",
+                "name": "VariantOptionFilter",
                 "ofType": null
               },
               "defaultValue": null
@@ -27254,26 +27377,8 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TITLE",
-              "description": "Sort by the `title` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PRODUCT_TYPE",
-              "description": "Sort by the `product_type` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "VENDOR",
-              "description": "Sort by the `vendor` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "UPDATED_AT",
-              "description": "Sort by the `updated_at` value.",
+              "name": "BEST_SELLING",
+              "description": "Sort by the `best_selling` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -27284,8 +27389,8 @@
               "deprecationReason": null
             },
             {
-              "name": "BEST_SELLING",
-              "description": "Sort by the `best_selling` value.",
+              "name": "ID",
+              "description": "Sort by the `id` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -27296,14 +27401,32 @@
               "deprecationReason": null
             },
             {
-              "name": "ID",
-              "description": "Sort by the `id` value.",
+              "name": "PRODUCT_TYPE",
+              "description": "Sort by the `product_type` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "RELEVANCE",
               "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "UPDATED_AT",
+              "description": "Sort by the `updated_at` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "VENDOR",
+              "description": "Sort by the `vendor` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -27313,7 +27436,7 @@
         {
           "kind": "OBJECT",
           "name": "ProductVariant",
-          "description": "A product variant represents a different version of a product, such as differing sizes or differing colors.",
+          "description": "A product variant represents a different version of a product, such as differing sizes or differing colors.\n",
           "fields": [
             {
               "name": "availableForSale",
@@ -27401,7 +27524,7 @@
             },
             {
               "name": "image",
-              "description": "Image associated with the product variant. This field falls back to the product image if no image is available.\n",
+              "description": "Image associated with the product variant. This field falls back to the product image if no image is available.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -27416,8 +27539,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -27430,8 +27553,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -27454,7 +27577,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -27679,6 +27802,16 @@
               "description": "The in-store pickup availability of this variant by location.",
               "args": [
                 {
+                  "name": "near",
+                  "description": "Used to sort results based on proximity to the provided location.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "GeoCoordinateInput",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
                   "name": "first",
                   "description": "Returns up to the first `n` elements from the list.",
                   "type": {
@@ -27727,16 +27860,6 @@
                     "ofType": null
                   },
                   "defaultValue": "false"
-                },
-                {
-                  "name": "near",
-                  "description": "Used to sort results based on proximity to the provided location.",
-                  "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "GeoCoordinateInput",
-                    "ofType": null
-                  },
-                  "defaultValue": null
                 }
               ],
               "type": {
@@ -27963,14 +28086,8 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TITLE",
-              "description": "Sort by the `title` value.",
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SKU",
-              "description": "Sort by the `sku` value.",
+              "name": "ID",
+              "description": "Sort by the `id` value.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -27981,14 +28098,20 @@
               "deprecationReason": null
             },
             {
-              "name": "ID",
-              "description": "Sort by the `id` value.",
+              "name": "RELEVANCE",
+              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "RELEVANCE",
-              "description": "Sort by relevance to the search terms when the `query` parameter is specified on the connection.\nDon't use this sort key when no search query is specified.\n",
+              "name": "TITLE",
+              "description": "Sort by the `title` value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SKU",
+              "description": "Sort by the `sku` value.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -28072,16 +28195,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -28090,6 +28203,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -28219,16 +28342,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -28237,6 +28350,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -28290,7 +28413,7 @@
             },
             {
               "name": "cartCompletionAttempt",
-              "description": "A poll for the status of the cart checkout completion and order creation.",
+              "description": "A poll for the status of the cart checkout completion and order creation.\n",
               "args": [
                 {
                   "name": "attemptId",
@@ -28320,21 +28443,21 @@
               "description": "Fetch a specific `Collection` by one of its unique attributes.",
               "args": [
                 {
-                  "name": "id",
-                  "description": "The ID of the `Collection`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "ID",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
                   "name": "handle",
                   "description": "The handle of the `Collection`.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "id",
+                  "description": "The ID of the `Collection`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -28420,16 +28543,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -28438,6 +28551,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -28507,8 +28630,18 @@
             },
             {
               "name": "locations",
-              "description": "List of the shop's locations that support in-store pickup.\n\nWhen sorting by distance, you must specify a location via the `near` argument.\n",
+              "description": "List of the shop's locations that support in-store pickup.\n\nWhen sorting by distance, you must specify a location via the `near` argument.\n\n",
               "args": [
+                {
+                  "name": "near",
+                  "description": "Used to sort results based on proximity to the provided location.",
+                  "type": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "GeoCoordinateInput",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
                 {
                   "name": "first",
                   "description": "Returns up to the first `n` elements from the list.",
@@ -28550,16 +28683,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -28570,14 +28693,14 @@
                   "defaultValue": "ID"
                 },
                 {
-                  "name": "near",
-                  "description": "Used to sort results based on proximity to the provided location.",
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
                   "type": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "GeoCoordinateInput",
+                    "kind": "SCALAR",
+                    "name": "Boolean",
                     "ofType": null
                   },
-                  "defaultValue": null
+                  "defaultValue": "false"
                 }
               ],
               "type": {
@@ -28594,7 +28717,7 @@
             },
             {
               "name": "menu",
-              "description": "Retrieve a [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) by its handle.\n",
+              "description": "Retrieve a [navigation menu](https://help.shopify.com/manual/online-store/menus-and-links) by its handle.",
               "args": [
                 {
                   "name": "handle",
@@ -28918,16 +29041,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -28936,6 +29049,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -28966,7 +29089,7 @@
               "args": [
                 {
                   "name": "limit",
-                  "description": "Limits the number of results based on `limit_scope`. The value can range from 1 to 10, and the default is 10.\n",
+                  "description": "Limits the number of results based on `limit_scope`. The value can range from 1 to 10, and the default is 10.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -29000,7 +29123,7 @@
                 },
                 {
                   "name": "searchableFields",
-                  "description": "Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.\n",
+                  "description": "Specifies the list of resource fields to use for search. The default fields searched on are TITLE, PRODUCT_TYPE, VARIANT_TITLE, and VENDOR. For the best search experience, you should search on the default field set.",
                   "type": {
                     "kind": "LIST",
                     "name": null,
@@ -29058,21 +29181,21 @@
               "description": "Fetch a specific `Product` by one of its unique attributes.",
               "args": [
                 {
-                  "name": "id",
-                  "description": "The ID of the `Product`.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "ID",
-                    "ofType": null
-                  },
-                  "defaultValue": null
-                },
-                {
                   "name": "handle",
                   "description": "The handle of the `Product`.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "id",
+                  "description": "The ID of the `Product`.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "ID",
                     "ofType": null
                   },
                   "defaultValue": null
@@ -29092,7 +29215,7 @@
               "args": [
                 {
                   "name": "handle",
-                  "description": "A unique string that identifies the product. Handles are automatically generated based on the product's title, and are always lowercase. Whitespace and special characters are replaced with a hyphen: `-`. If there are multiple consecutive whitespace or special characters, then they're replaced with a single hyphen. Whitespace or special characters at the beginning are removed. If a duplicate product title is used, then the handle is auto-incremented by one. For example, if you had two products called `Potion`, then their handles would be `potion` and `potion-1`. After a product has been created, changing the product title doesn't update the handle.",
+                  "description": "A unique string that identifies the product. Handles are automatically\ngenerated based on the product's title, and are always lowercase. Whitespace\nand special characters are replaced with a hyphen: `-`. If there are\nmultiple consecutive whitespace or special characters, then they're replaced\nwith a single hyphen. Whitespace or special characters at the beginning are\nremoved. If a duplicate product title is used, then the handle is\nauto-incremented by one. For example, if you had two products called\n`Potion`, then their handles would be `potion` and `potion-1`. After a\nproduct has been created, changing the product title doesn't update the handle.\n",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -29118,6 +29241,16 @@
               "description": "Find recommended products related to a given `product_id`.\nTo learn more about how recommendations are generated, see\n[*Showing product recommendations on product pages*](https://help.shopify.com/themes/development/recommended-products).\n",
               "args": [
                 {
+                  "name": "intent",
+                  "description": "The recommendation intent that is used to generate product recommendations. You can use intent to generate product recommendations on various pages across the channels, according to different strategies.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "ProductRecommendationIntent",
+                    "ofType": null
+                  },
+                  "defaultValue": "RELATED"
+                },
+                {
                   "name": "productId",
                   "description": "The id of the product.",
                   "type": {
@@ -29130,16 +29263,6 @@
                     }
                   },
                   "defaultValue": null
-                },
-                {
-                  "name": "intent",
-                  "description": "The recommendation intent that is used to generate product recommendations. You can use intent to generate product recommendations on various pages across the channels, according to different strategies.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "ProductRecommendationIntent",
-                    "ofType": null
-                  },
-                  "defaultValue": "RELATED"
                 }
               ],
               "type": {
@@ -29265,16 +29388,6 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
                   "name": "sortKey",
                   "description": "Sort the underlying list by the given key.",
                   "type": {
@@ -29283,6 +29396,16 @@
                     "ofType": null
                   },
                   "defaultValue": "ID"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
                 },
                 {
                   "name": "query",
@@ -29336,20 +29459,6 @@
               "description": "List of the search results.",
               "args": [
                 {
-                  "name": "query",
-                  "description": "The search query.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
                   "name": "prefix",
                   "description": "Specifies whether to perform a partial word match on the last search term.",
                   "type": {
@@ -29360,46 +29469,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "productFilters",
-                  "description": "Returns a subset of products matching all product filters.",
-                  "type": {
-                    "kind": "LIST",
-                    "name": null,
-                    "ofType": {
-                      "kind": "NON_NULL",
-                      "name": null,
-                      "ofType": {
-                        "kind": "INPUT_OBJECT",
-                        "name": "ProductFilter",
-                        "ofType": null
-                      }
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "reverse",
-                  "description": "Reverse the order of the underlying list.",
-                  "type": {
-                    "kind": "SCALAR",
-                    "name": "Boolean",
-                    "ofType": null
-                  },
-                  "defaultValue": "false"
-                },
-                {
-                  "name": "sortKey",
-                  "description": "Sort the underlying list by the given key.",
-                  "type": {
-                    "kind": "ENUM",
-                    "name": "SearchSortKeys",
-                    "ofType": null
-                  },
-                  "defaultValue": "RELEVANCE"
-                },
-                {
                   "name": "types",
-                  "description": "The types of resrouces to search for.",
+                  "description": "The types of resources to search for.",
                   "type": {
                     "kind": "LIST",
                     "name": null,
@@ -29462,6 +29533,58 @@
                     "kind": "SCALAR",
                     "name": "String",
                     "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "sortKey",
+                  "description": "Sort the underlying list by the given key.",
+                  "type": {
+                    "kind": "ENUM",
+                    "name": "SearchSortKeys",
+                    "ofType": null
+                  },
+                  "defaultValue": "RELEVANCE"
+                },
+                {
+                  "name": "reverse",
+                  "description": "Reverse the order of the underlying list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "query",
+                  "description": "The search query.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "productFilters",
+                  "description": "Returns a subset of products matching all product filters.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "ProductFilter",
+                        "ofType": null
+                      }
+                    }
                   },
                   "defaultValue": null
                 }
@@ -31449,8 +31572,8 @@
               "description": "Returns a metafield found by namespace and key.",
               "args": [
                 {
-                  "name": "namespace",
-                  "description": "A container for a set of metafields.",
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -31463,8 +31586,8 @@
                   "defaultValue": null
                 },
                 {
-                  "name": "key",
-                  "description": "The identifier for the metafield.",
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to.",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -31487,7 +31610,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.\n",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
               "args": [
                 {
                   "name": "identifiers",
@@ -32956,6 +33079,20 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "type",
+              "description": "The type of payment token.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "PaymentTokenType",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
               "name": "paymentAmount",
               "description": "The amount and currency of the payment.",
               "type": {
@@ -33013,7 +33150,7 @@
             },
             {
               "name": "test",
-              "description": "Whether to execute the payment in test mode, if possible. Test mode is not supported in production stores. Defaults to `false`.",
+              "description": "Whether to execute the payment in test mode, if possible. Test mode isn't supported in production stores. Defaults to `false`.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
@@ -33028,20 +33165,6 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "type",
-              "description": "The type of payment token.",
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "PaymentTokenType",
-                  "ofType": null
-                }
               },
               "defaultValue": null
             }
@@ -33751,7 +33874,7 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "VariantOptionFilter",
-          "description": "The input fields for a filter used to view a subset of products in a collection matching a specific variant option.\n",
+          "description": "The input fields for a filter used to view a subset of products in a collection matching a specific variant option.",
           "fields": null,
           "inputFields": [
             {
@@ -34399,34 +34522,6 @@
           "description": "Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.",
           "fields": [
             {
-              "name": "accessRestricted",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "accessRestrictedReason",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "args",
               "description": null,
               "args": [
@@ -34518,22 +34613,6 @@
               "deprecationReason": null
             },
             {
-              "name": "isProtected",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "name",
               "description": null,
               "args": [],
@@ -34545,30 +34624,6 @@
                   "name": "String",
                   "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "protectedContent",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "protectedSubject",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -34644,26 +34699,6 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "gidTypes",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -34839,46 +34874,6 @@
           "description": "The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.\n\nDepending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.",
           "fields": [
             {
-              "name": "accessRestricted",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "accessRestrictedReason",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "componentName",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "description",
               "description": null,
               "args": [],
@@ -35036,22 +35031,6 @@
               "deprecationReason": null
             },
             {
-              "name": "isProtected",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "kind",
               "description": null,
               "args": [],
@@ -35107,18 +35086,6 @@
                     "ofType": null
                   }
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "protectedSubject",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -35316,7 +35283,7 @@
         },
         {
           "name": "inContext",
-          "description": "Contextualizes data based on the additional information provided by the directive. For example, you can use the `@inContext(country: CA)` directive to [query a product's price](https://shopify.dev/custom-storefronts/internationalization/international-pricing) in a storefront within the context of Canada.",
+          "description": "Contextualizes data based on the additional information provided by the\ndirective. For example, you can use the `@inContext(country: CA)` directive to\n[query a product's price](https://shopify.dev/custom-storefronts/internationalization/international-pricing)\nin a storefront within the context of Canada.\n",
           "locations": [
             "QUERY",
             "MUTATION"
