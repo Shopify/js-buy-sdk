@@ -5,6 +5,7 @@ import handleCheckoutMutation from './handle-checkout-mutation';
 // GraphQL
 import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
 import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
+import checkoutCustomerAssociateV2 from './graphql/checkoutCustomerAssociateV2.graphql';
 import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
@@ -16,6 +17,7 @@ import checkoutGiftCardsAppendMutation from './graphql/checkoutGiftCardsAppendMu
 import checkoutGiftCardRemoveV2Mutation from './graphql/checkoutGiftCardRemoveV2Mutation.graphql';
 import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 import checkoutShippingAddressUpdateV2Mutation from './graphql/checkoutShippingAddressUpdateV2Mutation.graphql';
+import checkoutShippingLineUpdateMutation from './graphql/checkoutShippingLineUpdateMutation.graphql';
 
 /**
  * The JS Buy SDK checkout resource
@@ -76,6 +78,12 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutCreateMutation, {input})
       .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
+  }
+
+  associateCustomer(checkoutId, customerAccessToken) {
+    return this.graphQLClient
+      .send(checkoutCustomerAssociateV2, {checkoutId, customerAccessToken})
+      .then(handleCheckoutMutation('checkoutCustomerAssociateV2', this.graphQLClient));
   }
 
   /**
@@ -326,6 +334,20 @@ class CheckoutResource extends Resource {
       .send(checkoutShippingAddressUpdateV2Mutation, {checkoutId, shippingAddress})
       .then(handleCheckoutMutation('checkoutShippingAddressUpdateV2', this.graphQLClient));
   }
+
+  /**
+   * Updates the shipping lines on an existing checkout.
+   *
+   * @param  {String} checkoutId The ID of the checkout to update shipping address.
+   * @param  {Object} shippingRateHandle A unique identifier to a Checkout’s shipping provide
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateShippingLineAddress(checkoutId, shippingRateHandle) {
+    return this.graphQLClient
+      .send(checkoutShippingLineUpdateMutation, {checkoutId, shippingRateHandle})
+      .then(handleCheckoutMutation('checkoutShippingLineUpdate', this.graphQLClient));
+  }
+
 }
 
 export default CheckoutResource;
