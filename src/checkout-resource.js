@@ -9,6 +9,7 @@ import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation
 import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
 import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
+import checkoutShippingLineUpdateMutation from './graphql/checkoutShippingLineUpdateMutation.graphql';
 import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
 import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
@@ -325,6 +326,27 @@ class CheckoutResource extends Resource {
     return this.graphQLClient
       .send(checkoutShippingAddressUpdateV2Mutation, {checkoutId, shippingAddress})
       .then(handleCheckoutMutation('checkoutShippingAddressUpdateV2', this.graphQLClient));
+  }
+
+  /**
+   * Updates shipping line on an existing checkout .
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const shippingRateHandle = 'placeholder';
+   *
+   * client.checkout.updateShippingLine(checkoutId, shippingRateHandle).then(checkout => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param  {String} checkoutId The ID of the checkout to update shipping address.
+   * @param  {Object} shippingRateHandle A unique identifier to a Checkout’s shipping provider, price, and title combination, enabling the customer to select the availableShippingRates.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateShippingLine(checkoutId, shippingRateHandle) {
+    return this.graphQLClient
+      .send(checkoutShippingLineUpdateMutation, {checkoutId, shippingRateHandle})
+      .then(handleCheckoutMutation('checkoutShippingLineUpdate', this.graphQLClient));
   }
 }
 
