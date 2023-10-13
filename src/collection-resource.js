@@ -5,6 +5,7 @@ import {paginateCollectionsProductConnectionsAndResolve} from './paginators';
 // GraphQL
 import collectionNodeQuery from './graphql/collectionNodeQuery.graphql';
 import collectionNodeWithProductsQuery from './graphql/collectionNodeWithProductsQuery.graphql';
+import collectionNodeWithProductsQuerySimplified from './graphql/collectionNodeWithProductsQuerySimplified.graphql';
 import collectionConnectionQuery from './graphql/collectionConnectionQuery.graphql';
 import collectionConnectionWithProductsQuery from './graphql/collectionConnectionWithProductsQuery.graphql';
 import collectionByHandleQuery from './graphql/collectionByHandleQuery.graphql';
@@ -83,6 +84,13 @@ class CollectionResource extends Resource {
       .send(collectionNodeWithProductsQuery, {id, productsFirst})
       .then(defaultResolver('node'))
       .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
+  }
+
+  fetchWithProductsForCollectionView(id, {productsFirst = 20, numVariants = 5, numImages = 5} = {}) {
+    return this.graphQLClient
+      .send(collectionNodeWithProductsQuerySimplified, {id, productsFirst})
+      .then(defaultResolver('node'))
+      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient, {numVariants, numImages}));
   }
 
   /**

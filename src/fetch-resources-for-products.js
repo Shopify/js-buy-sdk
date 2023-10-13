@@ -1,4 +1,4 @@
-export default function fetchResourcesForProducts(productOrProduct, client) {
+export default function fetchResourcesForProducts(productOrProduct, client, {numVariants = 250, numImages = 250} = {}) {
   const products = [].concat(productOrProduct);
 
   return Promise.all(products.reduce((promiseAcc, product) => {
@@ -10,11 +10,11 @@ export default function fetchResourcesForProducts(productOrProduct, client) {
 
     // Fetch the rest of the images and variants for this product
     promiseAcc.push(client.fetchAllPages(product.images, {pageSize: 250}).then((images) => {
-      product.attrs.images = images;
+      product.attrs.images = images ? images.slice(0, numImages) : images;
     }));
 
     promiseAcc.push(client.fetchAllPages(product.variants, {pageSize: 250}).then((variants) => {
-      product.attrs.variants = variants;
+      product.attrs.variants = variants ? variants.slice(0, numVariants) : variants;
     }));
 
     return promiseAcc;

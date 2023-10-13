@@ -47,23 +47,6 @@ fragment VariantFragment on ProductVariant {
   metafields(identifiers: [
     {namespace: "taiga", key: "preOrderStopCondition"},
     {namespace: "taiga", key: "preOrderDateEstimate"},
-    {namespace: "productListing", key: "preOrderStopCondition"},
-    {namespace: "productListing", key: "launchType"},
-    {namespace: "productListing", key: "orderType"},
-    {namespace: "productListing", key: "startingQuantity"},
-    {namespace: "productListing", key: "endingQuantity"},
-    {namespace: "productListing", key: "headline"},
-    {namespace: "productListing", key: "sizing"},
-    {namespace: "productListing", key: "campaignStart"},
-    {namespace: "productListing", key: "campaignEnd"},
-    {namespace: "productListing", key: "productionStarted"},
-    {namespace: "productListing", key: "productionEnd"},
-    {namespace: "productListing", key: "banner"},
-    {namespace: "productListing", key: "details"},
-    {namespace: "productListing", key: "productVisibilityDate"},
-    {namespace: "productListing", key: "overrideQuantity"},
-    {namespace: "productListing", key: "holidayCardLink"},
-    {namespace: "productListing", key: "sizeGuide"}
   ]) {
     ...MetafieldFragment
   }
