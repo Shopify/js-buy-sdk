@@ -89,7 +89,7 @@ class CollectionResource extends Resource {
   fetchWithProductsForCollectionView(id, {productsFirst = 20} = {}) {
     return this.graphQLClient
       .send(collectionNodeWithProductsQuerySimplified, {id, productsFirst})
-      .then(defaultResolver('node'))
+      .then(defaultResolver('node'));
   }
 
   /**
