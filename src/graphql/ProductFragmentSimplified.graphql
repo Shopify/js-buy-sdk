@@ -17,7 +17,7 @@ fragment ProductFragmentSimplified on Product {
     name
     values
   }
-  images(first: 250) {
+  images(first: 5) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -33,7 +33,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  variants(first: 250) {
+  variants(first: 5) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -45,7 +45,10 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  metafields(identifiers: []) {
+  metafields(identifiers: [
+    {namespace: "taiga", key: "preOrderStopCondition"},
+    {namespace: "taiga", key: "preOrderDateEstimate"},
+  ]) {
     ...MetafieldFragment
   }
 }

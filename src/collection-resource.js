@@ -86,11 +86,10 @@ class CollectionResource extends Resource {
       .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient));
   }
 
-  fetchWithProductsForCollectionView(id, {productsFirst = 20, numVariants = 5, numImages = 5} = {}) {
+  fetchWithProductsForCollectionView(id, {productsFirst = 20} = {}) {
     return this.graphQLClient
       .send(collectionNodeWithProductsQuerySimplified, {id, productsFirst})
       .then(defaultResolver('node'))
-      .then(paginateCollectionsProductConnectionsAndResolve(this.graphQLClient, {numVariants, numImages}));
   }
 
   /**
