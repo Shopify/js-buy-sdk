@@ -58,6 +58,7 @@ declare namespace ShopifyBuy {
         fetchWithProducts(id: string, options?: {productsFirst: number}): Promise<any[]>;
         fetchAll(options?: {first: number, productsFirst: number}): Promise<any[]>;
         fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
+        fetchWithProductsForCollectionView(id, options?: {productsFirst: number, numVariants?: number, numImages?: number}): Promise<any[]>;
         fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
         fetchQuery(query: Query): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products
     }
