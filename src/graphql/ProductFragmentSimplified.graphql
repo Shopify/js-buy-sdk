@@ -17,7 +17,7 @@ fragment ProductFragmentSimplified on Product {
     name
     values
   }
-  images(first: 5) {
+  images(first: 2) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -33,7 +33,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  variants(first: 5) {
+  variants(first: 1) {
     pageInfo {
       hasNextPage
       hasPreviousPage
