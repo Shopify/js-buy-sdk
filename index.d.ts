@@ -56,6 +56,7 @@ declare namespace ShopifyBuy {
     export interface CollectionResource {
         fetch(id: string): Promise<Product[]>;
         fetchWithProducts(id: string, options?: {productsFirst: number}): Promise<any[]>;
+        fetchWithProductsForCollectionView(id, options?: {productsFirst: number}): Promise<any[]>;
         fetchAll(options?: {first: number, productsFirst: number}): Promise<any[]>;
         fetchAllWithProducts(): Promise<any[]>; // TODO fix to be a type: DOC: Fetches all collections on the shop, including products.
         fetchByHandle(handle: string): Promise<any[]>; // TODO fix to be a type: DOC: Fetches a collection by handle on the shop. Assuming it does not give products

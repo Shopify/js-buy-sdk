@@ -1,0 +1,54 @@
+fragment ProductFragmentSimplified on Product {
+  id
+  availableForSale
+  createdAt
+  updatedAt
+  descriptionHtml
+  description
+  handle
+  productType
+  title
+  vendor
+  publishedAt
+  onlineStoreUrl
+  tags
+  quantity: totalInventory
+  options {
+    name
+    values
+  }
+  images(first: 2) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        src: url
+        altText
+        width
+        height
+      }
+    }
+  }
+  variants(first: 1) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        ...VariantWithProductFragment
+      }
+    }
+  }
+  metafields(identifiers: [
+    {namespace: "taiga", key: "preOrderStopCondition"},
+    {namespace: "taiga", key: "preOrderDateEstimate"},
+  ]) {
+    ...MetafieldFragment
+  }
+}
