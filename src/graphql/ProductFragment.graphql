@@ -64,7 +64,8 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "productVisibilityDate"},
     {namespace: "productListing", key: "overrideQuantity"},
     {namespace: "productListing", key: "holidayCardLink"},
-    {namespace: "productListing", key: "sizeGuide"}
+    {namespace: "productListing", key: "sizeGuide"},
+    {namespace: "productListing", key: "elfsightInstagramId"}
   ]) {
     ...MetafieldFragment
   }
