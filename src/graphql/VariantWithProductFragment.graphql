@@ -7,6 +7,8 @@ fragment VariantWithProductFragment on ProductVariant {
     metafields(identifiers: [
       {namespace: "taiga", key: "preOrderStopCondition"},
       {namespace: "taiga", key: "preOrderDateEstimate"},
+      {namespace: "productListing", key: "startingQuantity"},
+      {namespace: "productListing", key: "endingQuantity"}
     ]) {
       ...MetafieldFragment
     }
