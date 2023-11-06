@@ -1,4 +1,3 @@
-
 fragment VariantFragment on ProductVariant {
   id
   title
@@ -19,9 +18,9 @@ fragment VariantFragment on ProductVariant {
     currencyCode
   }
   compareAtPriceV2: compareAtPrice {
-  amount
-  currencyCode
-}
+    amount
+    currencyCode
+  }
   image {
     id
     src: url
@@ -34,9 +33,9 @@ fragment VariantFragment on ProductVariant {
     value
   }
   unitPrice {
-  amount
-  currencyCode
-}
+    amount
+    currencyCode
+  }
   unitPriceMeasurement {
     measuredType
     quantityUnit
@@ -44,10 +43,15 @@ fragment VariantFragment on ProductVariant {
     referenceUnit
     referenceValue
   }
-  metafields(identifiers: [
-    {namespace: "taiga", key: "preOrderStopCondition"},
-    {namespace: "taiga", key: "preOrderDateEstimate"},
-  ]) {
+  metafields(
+    identifiers: [
+      { namespace: "taiga", key: "preOrderStopCondition" },
+      { namespace: "taiga", key: "preOrderDateEstimate" },
+      { namespace: "productListing", key: "startingQuantity" },
+      { namespace: "productListing", key: "endingQuantity" },
+      { namespace: "productListing", key: "donationAmount" }
+    ]
+  ) {
     ...MetafieldFragment
   }
   quantity: quantityAvailable
