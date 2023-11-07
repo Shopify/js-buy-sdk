@@ -69,7 +69,8 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "detailsJson"},
     {namespace: "productListing", key: "organizationName"},
     {namespace: "productListing", key: "organizationDescription"},
-    {namespace: "productListing", key: "organizationLink"}
+    {namespace: "productListing", key: "organizationLink"},
+    {namespace: "productListing", key: "fundraiserGoal"}
   ]) {
     ...MetafieldFragment
   }
