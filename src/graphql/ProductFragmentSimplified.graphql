@@ -33,7 +33,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  variants(first: 1) {
+  variants(first: 250) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -55,6 +55,7 @@ fragment ProductFragmentSimplified on Product {
     {namespace: "productListing", key: "campaignStart"},
     {namespace: "productListing", key: "campaignEnd"},
     {namespace: "productListing", key: "overrideQuantity"},
+    {namespace: "productListing", key: "fundraiserGoal"}
   ]) {
     ...MetafieldFragment
   }
