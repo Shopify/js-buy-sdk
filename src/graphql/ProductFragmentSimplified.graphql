@@ -33,7 +33,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  variants(first: 250) {
+  variants(first: 1) {
     pageInfo {
       hasNextPage
       hasPreviousPage
