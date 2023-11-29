@@ -32,7 +32,6 @@ fragment VariantFragmentSimplified on ProductVariant {
       { namespace: "productListing", key: "startingQuantity" },
       { namespace: "productListing", key: "endingQuantity" },
       { namespace: "productListing", key: "donationAmount" },
-      { namespace: "productListing", key: "timelineTextAddition" }
     ]
   ) {
     ...MetafieldFragment
