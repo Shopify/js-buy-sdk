@@ -1,6 +1,6 @@
 {
   "name": "@hellojuniper-com/shopify-buy",
-  "version": "2.20.12",
+  "version": "2.20.13",
   "description": "Juniper's forked version of the shopify-buy Javascript SDK.",
   "main": "index.js",
   "jsnext:main": "index.es.js",

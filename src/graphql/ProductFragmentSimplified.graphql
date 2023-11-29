@@ -1,16 +1,8 @@
 fragment ProductFragmentSimplified on Product {
   id
-  availableForSale
-  createdAt
-  updatedAt
-  descriptionHtml
-  description
   handle
-  productType
   title
   vendor
-  publishedAt
-  onlineStoreUrl
   tags
   quantity: totalInventory
   options {
@@ -33,7 +25,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  variants(first: 1) {
+  variants(first: 250) {
     pageInfo {
       hasNextPage
       hasPreviousPage
@@ -41,7 +33,7 @@ fragment ProductFragmentSimplified on Product {
     edges {
       cursor
       node {
-        ...VariantWithProductFragment
+        ...VariantWithProductFragmentSimplified
       }
     }
   }

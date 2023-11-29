@@ -1,0 +1,14 @@
+fragment VariantWithProductFragmentSimplified on ProductVariant {
+  ...VariantFragmentSimplified
+  product {
+    id
+    handle
+    title
+    metafields(identifiers: [
+      {namespace: "taiga", key: "preOrderStopCondition"},
+      {namespace: "taiga", key: "preOrderDateEstimate"},
+    ]) {
+      ...MetafieldFragment
+    }
+  }
+}
