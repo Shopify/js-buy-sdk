@@ -49,7 +49,8 @@ fragment VariantFragment on ProductVariant {
       { namespace: "taiga", key: "preOrderDateEstimate" },
       { namespace: "productListing", key: "startingQuantity" },
       { namespace: "productListing", key: "endingQuantity" },
-      { namespace: "productListing", key: "donationAmount" }
+      { namespace: "productListing", key: "donationAmount" },
+      { namespace: "productListing", key: "timelineTextAddition" }
     ]
   ) {
     ...MetafieldFragment
