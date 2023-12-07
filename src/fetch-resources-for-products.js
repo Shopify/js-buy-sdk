@@ -17,6 +17,13 @@ export default function fetchResourcesForProducts(productOrProduct, client) {
       product.attrs.variants = variants;
     }));
 
+    // This may appear as an array of null values, so we must remove them before fetching their child nodes.
+    const metafieldsWithReferenceList = (product.metafieldsWithReferenceList || []).filter((metafield) => Boolean(metafield));
+
+    promiseAcc.push(client.fetchAllPages(metafieldsWithReferenceList, {pageSize: 20}).then((_metafieldsWithReferenceList) => {
+      product.attrs.metafieldsWithReferenceList = _metafieldsWithReferenceList;
+    }));
+
     return promiseAcc;
   }, []));
 }

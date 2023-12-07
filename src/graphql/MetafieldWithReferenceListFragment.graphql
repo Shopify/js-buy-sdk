@@ -1,0 +1,22 @@
+fragment GenericFileFragment on GenericFile {
+    url
+    mimeType
+}
+
+fragment MetafieldWithReferenceListFragment on Metafield {
+    key
+    namespace
+    type
+    value
+    references(first: 20) {
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+        }
+        edges {
+            node {
+                ...GenericFileFragment
+            }
+        }
+    }
+}

@@ -45,7 +45,7 @@ fragment ProductFragment on Product {
       }
     }
   }
-  metafields(identifiers: [
+  metafieldsWithReference: metafields(identifiers: [
     {namespace: "taiga", key: "preOrderStopCondition"},
     {namespace: "taiga", key: "preOrderDateEstimate"},
     {namespace: "productListing", key: "preOrderStopCondition"},
@@ -72,6 +72,12 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "organizationLink"},
     {namespace: "productListing", key: "fundraiserGoal"}
   ]) {
-    ...MetafieldFragment
+    ...MetafieldWithReferenceFragment
   }
+  metafieldsWithReferenceList: metafields(identifiers: [
+    {namespace: "productListing", key: "audioFileList"}
+  ]) {
+    ...MetafieldWithReferenceListFragment
+  }
+
 }

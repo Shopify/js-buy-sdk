@@ -43,7 +43,7 @@ fragment VariantFragment on ProductVariant {
     referenceUnit
     referenceValue
   }
-  metafields(
+  metafieldsWithReference: metafields(
     identifiers: [
       { namespace: "taiga", key: "preOrderStopCondition" },
       { namespace: "taiga", key: "preOrderDateEstimate" },
@@ -53,7 +53,7 @@ fragment VariantFragment on ProductVariant {
       { namespace: "productListing", key: "timelineTextAddition" }
     ]
   ) {
-    ...MetafieldFragment
+    ...MetafieldWithReferenceFragment
   }
   quantity: quantityAvailable
 }

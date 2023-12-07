@@ -216,9 +216,16 @@ declare namespace ShopifyBuy {
         tags: Scalar[];
 
         /**
-         * The product's custom metafields.
+         * The product's custom metafields that each include only a single reference.
+         * https://shopify.dev/docs/api/storefront/2023-10/objects/Metafield#field-metafield-reference
          */
-        metafields: Array<Metafield | null>
+        metafieldsWithReference: Array<Omit<Metafield, "references"> | null>;
+
+        /**
+         * The product's custom metafields that each include a list of references.
+         * https://shopify.dev/docs/api/storefront/2023-10/objects/Metafield#connection-metafield-references
+         */
+        metafieldsWithReferenceList: Array<Required<Omit<Metafield, "reference">> | null>;
 
         /**
          * The sellable quantity of the product.
@@ -276,9 +283,16 @@ declare namespace ShopifyBuy {
         title: string;
 
         /**
-         * The variant's custom metafields.
+         * The variant's custom metafields that each include only a single reference.
+         * https://shopify.dev/docs/api/storefront/2023-10/objects/Metafield#field-metafield-reference
          */
-        metafields: Array<Metafield | null>;
+        metafieldsWithReference: Array<Omit<Metafield, "references"> | null>;
+
+        /**
+         * The variant's custom metafields that each include a list of references.
+         * https://shopify.dev/docs/api/storefront/2023-10/objects/Metafield#connection-metafield-references
+         */
+        metafieldsWithReferenceList: Array<Required<Omit<Metafield, "reference">> | null>;
 
         /**
          * The sellable quantity of the variant.
@@ -486,30 +500,65 @@ declare namespace ShopifyBuy {
      * A subset of a product object that only includes the id, title, and metafields. This
      * exists in variants, so that they each have a reference back to their parent product node.
      */
-    export interface ProductWithinVariant extends Pick<Product, "title" | "id" | "metafields">{}
+    export interface ProductWithinVariant extends Pick<
+        Product,
+        "title" | "id" | "metafieldsWithReference" | "metafieldsWithReferenceList"
+    >{}
 
     export interface Scalar {
         value: string;
     }
 
-    export interface MetafieldReference {
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/MediaImage
+     */
+    export interface MetafieldReferenceMediaImage {
         id: string;
-        fields?: MetaobjectField[];
         image?: {
             originalSrc: string;
         };
     }
 
-    export interface MetaobjectField {
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/GenericFile
+     */
+    export interface MetafieldReferenceGenericFile {
         id: string;
+        mimeType?: string;
+        url?: string;
+    }
+
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/Metaobject
+     */
+    export interface MetafieldReferenceMetaobject {
+        id: string;
+        fields: Array<MetaobjectField>;
+    }
+
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/unions/MetafieldReference
+     */
+    export type MetafieldReference =
+        MetafieldReferenceMediaImage |
+        MetafieldReferenceGenericFile |
+        MetafieldReferenceMetaobject;
+
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/MetaobjectField
+     */
+    export interface MetaobjectField {
         key: string;
         type: string;
-        value: string;
+        value: string | null;
         reference: MetafieldReference | null;
     }
 
     export interface Metafield extends MetaobjectField {
+        id: string;
         namespace: string;
+        reference: MetafieldReference | null;
+        references?: Array<MetafieldReference> | null;
     }
 }
 

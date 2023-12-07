@@ -12,12 +12,15 @@ suite('fetch-resources-for-product-test', () => {
   test('it fetches all pages of images and for a single product', () => {
     const imagesArray = ['images'];
     const variantsArray = ['variants'];
+    const metafieldsWithReferenceListArray = ['metafieldsWithReferenceList'];
     const fixture = {
       images: imagesArray,
       variants: variantsArray,
+      metafieldsWithReferenceList: metafieldsWithReferenceListArray,
       attrs: {
         images: imagesArray,
-        variants: variantsArray
+        variants: variantsArray,
+        metafieldsWithReferenceList: metafieldsWithReferenceListArray
       }
     };
     let fetchAllPagesCounter = 0;
@@ -33,21 +36,25 @@ suite('fetch-resources-for-product-test', () => {
     };
 
     return fetchResourcesForProducts(fixture, client).then(() => {
-      assert.equal(fetchAllPagesCounter, 2);
+      assert.equal(fetchAllPagesCounter, 3);
       assert.deepEqual(fixture.attrs.images, ['reassigned-array']);
       assert.deepEqual(fixture.attrs.variants, ['reassigned-array']);
+      assert.deepEqual(fixture.attrs.metafieldsWithReferenceList, ['reassigned-array']);
     });
   });
 
   test('it fetches all pages of images and for an array of products', () => {
     const imagesArray = ['images'];
     const variantsArray = ['variants'];
+    const metafieldsWithReferenceListArray = ['metafieldsWithReferenceList'];
     const fixture = {
       images: imagesArray,
       variants: variantsArray,
+      metafieldsWithReferenceList: metafieldsWithReferenceListArray,
       attrs: {
         images: imagesArray,
-        variants: variantsArray
+        variants: variantsArray,
+        metafieldsWithReferenceList: metafieldsWithReferenceListArray
       }
     };
     let fetchAllPagesCounter = 0;
@@ -63,9 +70,10 @@ suite('fetch-resources-for-product-test', () => {
     };
 
     return fetchResourcesForProducts([fixture], client).then(() => {
-      assert.equal(fetchAllPagesCounter, 2);
+      assert.equal(fetchAllPagesCounter, 3);
       assert.deepEqual(fixture.attrs.images, ['reassigned-array']);
       assert.deepEqual(fixture.attrs.variants, ['reassigned-array']);
+      assert.deepEqual(fixture.attrs.metafieldsWithReferenceList, ['reassigned-array']);
     });
   });
 });

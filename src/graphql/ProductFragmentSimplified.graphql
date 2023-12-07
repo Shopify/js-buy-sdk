@@ -37,7 +37,7 @@ fragment ProductFragmentSimplified on Product {
       }
     }
   }
-  metafields(identifiers: [
+  metafieldsWithReference: metafields(identifiers: [
     {namespace: "taiga", key: "preOrderStopCondition"},
     {namespace: "taiga", key: "preOrderDateEstimate"},
     {namespace: "productListing", key: "launchType"},
@@ -49,6 +49,6 @@ fragment ProductFragmentSimplified on Product {
     {namespace: "productListing", key: "overrideQuantity"},
     {namespace: "productListing", key: "fundraiserGoal"}
   ]) {
-    ...MetafieldFragment
+    ...MetafieldWithReferenceFragment
   }
 }

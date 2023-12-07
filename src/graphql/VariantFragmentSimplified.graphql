@@ -34,7 +34,7 @@ fragment VariantFragmentSimplified on ProductVariant {
       { namespace: "productListing", key: "donationAmount" },
     ]
   ) {
-    ...MetafieldFragment
+    ...MetafieldWithReferenceFragment
   }
   quantity: quantityAvailable
 }

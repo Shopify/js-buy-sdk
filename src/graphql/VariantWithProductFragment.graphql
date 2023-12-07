@@ -4,11 +4,11 @@ fragment VariantWithProductFragment on ProductVariant {
     id
     handle
     title
-    metafields(identifiers: [
+    metafieldsWithReference: metafields(identifiers: [
       {namespace: "taiga", key: "preOrderStopCondition"},
       {namespace: "taiga", key: "preOrderDateEstimate"},
     ]) {
-      ...MetafieldFragment
+      ...MetafieldWithReferenceFragment
     }
   }
 }
