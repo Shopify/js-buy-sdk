@@ -166,8 +166,27 @@ client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((col
 
 ### Creating a Cart
 ```javascript
-// Create an empty checkout
-client.cart.create().then((cart) => {
+const input = {
+  lines: {
+    merchandiseId: 'gid://shopify/ProductVariant/13666012889144',
+    quantity: 5,
+    attributes: [{key: "MyKey", value: "MyValue"}]
+  },
+  note: 'This is a cart note!'
+];
+
+// Create a cart
+client.cart.create(input).then((cart) => {
+  // Do something with the cart
+  console.log(cart);
+});
+```
+
+### Fetching a Cart
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLWV1cm9wZS13ZXN0NDowMUhOTTI0QVZYV1NOSEVNOUVCQ1JSNUhSVg'
+
+client.cart.fetch(cartId).then((cart) => {
   // Do something with the cart
   console.log(cart);
 });

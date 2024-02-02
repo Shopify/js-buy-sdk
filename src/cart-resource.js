@@ -1,10 +1,10 @@
 import Resource from './resource';
 import defaultResolver from './default-resolver';
-// import handleCheckoutMutation from './handle-checkout-mutation';
+import handleCartMutation from './handle-cart-mutation';
 
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
-// import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
+import cartCreateMutation from './graphql/cartCreateMutation.graphql';
 // import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 // import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 // import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
@@ -49,34 +49,33 @@ class CartResource extends Resource {
       });
   }
 
-  // /**
-  //  * Creates a checkout.
-  //  *
-  //  * @example
-  //  * const input = {
-  //  *   lineItems: [
-  //  *     {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
-  //  *   ]
-  //  * };
-  //  *
-  //  * client.checkout.create(input).then((checkout) => {
-  //  *   // Do something with the newly created checkout
-  //  * });
-  //  *
-  //  * @param {Object} [input] An input object containing zero or more of:
-  //  *   @param {String} [input.email] An email connected to the checkout.
-  //  *   @param {Object[]} [input.lineItems] A list of line items in the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
-  //  *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/mailingaddressinput|Storefront API reference} for valid input fields.
-  //  *   @param {String} [input.note] A note for the checkout.
-  //  *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
-  //  *   @param {String} [input.presentmentCurrencyCode ] A presentment currency code. See the {@link https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode|Storefront API reference} for valid currency code values.
-  //  * @return {Promise|GraphModel} A promise resolving with the created checkout.
-  //  */
-  // create(input = {}) {
-  //   return this.graphQLClient
-  //     .send(checkoutCreateMutation, {input})
-  //     .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
-  // }
+  /**
+   * Creates a cart.
+   *
+   * @example
+   * const input = {
+   *   lines: [
+   *     {merchandiseId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
+   *   ]
+   * };
+   *
+   * client.cart.create(input).then((cart) => {
+   *   // Do something with the newly created cart
+   * });
+   *
+   * @param {Object} [input] An input object containing zero or more of:
+   *   @param {String} [input.buyerIdentity.email] An email connected to the checkout.
+   *   @param {Object[]} [input.lines] A list of line items in the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   *   @param {Object} [input.deliveryAddressPreferences.deliveryAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/mailingaddressinput|Storefront API reference} for valid input fields.
+   *   @param {String} [input.note] A note for the checkout.
+   *   @param {Object[]} [input.attributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
+   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   */
+  create(input = {}) {
+    return this.graphQLClient
+      .send(cartCreateMutation, {input})
+      .then(handleCartMutation('cartCreate', this.graphQLClient));
+  }
 
   // /**
   //  * Replaces the value of checkout's custom attributes and/or note with values defined in the input

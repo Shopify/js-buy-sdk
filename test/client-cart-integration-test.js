@@ -5,9 +5,9 @@ import fetchMockPostOnce from './fetch-mock-helper';
 
 // fixtures
 import cartFixture from '../fixtures/cart-fixture';
-// import checkoutNullFixture from '../fixtures/node-null-fixture';
-// import checkoutCreateFixture from '../fixtures/checkout-create-fixture';
-// import checkoutCreateInvalidVariantIdErrorFixture from '../fixtures/checkout-create-invalid-variant-id-error-fixture';
+import cartNullFixture from '../fixtures/node-null-fixture';
+import cartCreateFixture from '../fixtures/cart-create-fixture';
+import cartCreateInvalidVariantIdErrorFixture from '../fixtures/cart-create-invalid-variant-id-error-fixture';
 // import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 // import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 // import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
@@ -71,54 +71,57 @@ suite('client-cart-integration-test', () => {
     });
   });
 
-  // test('it resolves with null on Client.checkout#fetch for a bad checkoutId', () => {
-  //   fetchMockPostOnce(fetchMock, apiUrl, checkoutNullFixture);
+  test('it resolves with null on Client.checkout#fetch for a bad checkoutId', () => {
+    fetchMockPostOnce(fetchMock, apiUrl, cartNullFixture);
 
-  //   const checkoutId = checkoutFixture.data.node.id;
+    const cartId = cartFixture.data.node.id;
 
-  //   return client.checkout.fetch(checkoutId).then((checkout) => {
-  //     assert.equal(checkout, null);
-  //     assert.ok(fetchMock.done());
-  //   });
-  // });
+    return client.cart.fetch(cartId).then((cart) => {
+      assert.equal(cart, null);
+      assert.ok(fetchMock.done());
+    });
+  });
 
-  // test('it resolves with a checkout on Client.checkout#create', () => {
-  //   const input = {
-  //     lineItems: [
-  //       {
-  //         variantId: 'an-id',
-  //         quantity: 5
-  //       }
-  //     ],
-  //     shippingAddress: {}
-  //   };
+  test('it resolves with a cart on Client.cart#create', () => {
+    const input = {
+      lines: [
+        {
+          merchandiseId: 'an-id',
+          quantity: 5
+        }
+      ],
+      note: 'This is a note!',
+      deliveryAddressPreferences: {
+        deliveryAddress: {}
+      }
+    };
 
-  //   fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, cartCreateFixture);
 
-  //   return client.checkout.create(input).then((checkout) => {
-  //     assert.equal(checkout.id, checkoutCreateFixture.data.checkoutCreate.checkout.id);
-  //     assert.ok(fetchMock.done());
-  //   });
-  // });
+    return client.cart.create(input).then((cart) => {
+      assert.equal(cart.id, cartCreateFixture.data.cartCreate.cart.id);
+      assert.ok(fetchMock.done());
+    });
+  });
 
-  // test('it resolve with user errors on Client.checkout#create when variantId is invalid', () => {
-  //   const input = {
-  //     lineItems: [
-  //       {
-  //         variantId: 'a-bad-id',
-  //         quantity: 5
-  //       }
-  //     ]
-  //   };
+  test('it resolve with user errors on Client.checkout#create when variantId is invalid', () => {
+    const input = {
+      lines: [
+        {
+          variantId: 'a-bad-id',
+          quantity: 5
+        }
+      ]
+    };
 
-  //   fetchMockPostOnce(fetchMock, apiUrl, checkoutCreateInvalidVariantIdErrorFixture);
+    fetchMockPostOnce(fetchMock, apiUrl, cartCreateInvalidVariantIdErrorFixture);
 
-  //   return client.checkout.create(input).then(() => {
-  //     assert.ok(false, 'Promise should not resolve');
-  //   }).catch((error) => {
-  //     assert.equal(error.message, '[{"message":"Variable input of type CheckoutCreateInput! was provided invalid value"}]');
-  //   });
-  // });
+    return client.cart.create(input).then(() => {
+      assert.ok(false, 'Promise should not resolve');
+    }).catch((error) => {
+      assert.equal(error.message, '[{"message":"Variable input of type CartInput! was provided invalid value"}]');
+    });
+  });
 
   // test('it resolves with a checkout on Client.checkout#updateAttributes', () => {
   //   const checkoutId = 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=';
