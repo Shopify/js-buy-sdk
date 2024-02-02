@@ -1,0 +1,57 @@
+fragment CartFragment on Cart {
+  id
+  createdAt
+  updatedAt
+  lines(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        id
+        merchandise {
+          ... on ProductVariant {
+            id
+          }
+        }
+      }
+    }
+  }
+  attributes {
+    key
+    value
+  }
+  cost {
+    totalAmount {
+      amount
+      currencyCode
+    }
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    totalTaxAmount {
+      amount
+      currencyCode
+    }
+    totalDutyAmount {
+      amount
+      currencyCode
+    }
+  }
+  checkoutUrl
+  discountCodes {
+    applicable
+    code
+  }
+  buyerIdentity {
+    countryCode
+    walletPreferences
+    email
+    phone
+    customer {
+      email
+    }
+  }
+}

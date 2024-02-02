@@ -164,6 +164,15 @@ client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((col
 });
 ```
 
+### Creating a Cart
+```javascript
+// Create an empty checkout
+client.cart.create().then((cart) => {
+  // Do something with the cart
+  console.log(cart);
+});
+```
+
 ### Creating a Checkout
 ```javascript
 // Create an empty checkout
