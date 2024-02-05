@@ -8,7 +8,7 @@ export default {
           value: 'This is a cart attribute'
         }
       ],
-      checkoutUrl: 'https://secure-us.gcds.com/cart/c/Z2NwLWV1cm9wZS13ZXN0NDowMUhOSERHWUNTNDlSMUtQNk1HUjlZOTdDSA?key=73de96370dea19c18996cebea3b31a1b',
+      checkoutUrl: 'https://myshopify.com/cart/c/Z2NwLWV1cm9wZS13ZXN0NDowMUhOSERHWUNTNDlSMUtQNk1HUjlZOTdDSA?key=73de96370dea19c18996cebea3b31a1b',
       discountCodes: [],
       id: 'gid://shopify/Cart/Z2NwLWV1cm9wZS13ZXN0NDowMUhOSERHWUNTNDlSMUtQNk1HUjlZOTdDSA',
       createdAt: '2024-02-01T04:06:11Z',

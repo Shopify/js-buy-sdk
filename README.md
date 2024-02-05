@@ -192,6 +192,16 @@ client.cart.fetch(cartId).then((cart) => {
 });
 ```
 
+### Updating Cart Attributes
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const attributes = [{key: "MyKey", value: "MyValue"}];
+
+client.cart.updateAttributes(cartId, attributes).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
 ### Creating a Checkout
 ```javascript
 // Create an empty checkout

@@ -2,14 +2,28 @@ import Resource from './resource';
 import defaultResolver from './default-resolver';
 import handleCartMutation from './handle-cart-mutation';
 
+/*
+- [x] cartCreate
+- [x] fetch
+- [x] cartAttributesUpdate
+
+- [ ] cartDiscountCodesUpdate
+- [ ] cartLinesAdd
+- [ ] cartLinesRemove
+- [ ] cartLinesUpdate
+- [ ] cartNoteUpdate
+- [ ] cartSelectedDeliveryOptionsUpdate
+*/
+
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
 import cartCreateMutation from './graphql/cartCreateMutation.graphql';
+import cartAttributesUpdate from './graphql/cartAttributesUpdateMutation.graphql';
+
 // import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 // import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
 // import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
 // import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
-// import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
 // import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
 // import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 // import checkoutGiftCardsAppendMutation from './graphql/checkoutGiftCardsAppendMutation.graphql';
@@ -77,29 +91,26 @@ class CartResource extends Resource {
       .then(handleCartMutation('cartCreate', this.graphQLClient));
   }
 
-  // /**
-  //  * Replaces the value of checkout's custom attributes and/or note with values defined in the input
-  //  *
-  //  * @example
-  //  * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
-  //  * const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
-  //  *
-  //  * client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-  //  *   // Do something with the updated checkout
-  //  * });
-  //  *
-  //  * @param {String} checkoutId The ID of the checkout to update.
-  //  * @param {Object} [input] An input object containing zero or more of:
-  //  *   @param {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
-  //  *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
-  //  *   @param {String} [input.note] A note for the checkout.
-  //  * @return {Promise|GraphModel} A promise resolving with the updated checkout.
-  //  */
-  // updateAttributes(checkoutId, input = {}) {
-  //   return this.graphQLClient
-  //     .send(checkoutAttributesUpdateV2Mutation, {checkoutId, input})
-  //     .then(handleCheckoutMutation('checkoutAttributesUpdateV2', this.graphQLClient));
-  // }
+  /**
+   * Replaces the value of a cart's custom attributes
+   *
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const attributes = [{key: "MyKey", value: "MyValue"}];
+   *
+   * client.cart.updateAttributes(cartId, attributes).then((cart) => {
+   *   // Do something with the updated cart
+   * });
+   *
+   * @param {String} cartId The ID of the cart to update.
+   * @param {Object[]} [attributes] A list of additional information about the cart. See the {@link https://shopify.dev/docs/api/storefront/unstable/input-objects/AttributeInput|Storefront API reference} for valid input fields.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   */
+  updateAttributes(cartId, attributes = []) {
+    return this.graphQLClient
+      .send(cartAttributesUpdate, {cartId, attributes})
+      .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
+  }
 
   // /**
   //  * Replaces the value of checkout's email address

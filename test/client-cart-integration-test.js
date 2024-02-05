@@ -8,6 +8,9 @@ import cartFixture from '../fixtures/cart-fixture';
 import cartNullFixture from '../fixtures/node-null-fixture';
 import cartCreateFixture from '../fixtures/cart-create-fixture';
 import cartCreateInvalidVariantIdErrorFixture from '../fixtures/cart-create-invalid-variant-id-error-fixture';
+import cartUpdateAttributesFixture from '../fixtures/cart-update-attrs-fixture';
+import cartUpdateAttributesWithUserErrorsFixture from '../fixtures/cart-update-attrs-with-user-errors-fixture';
+
 // import checkoutCreateWithPaginatedLineItemsFixture from '../fixtures/checkout-create-with-paginated-line-items-fixture';
 // import {secondPageLineItemsFixture, thirdPageLineItemsFixture} from '../fixtures/paginated-line-items-fixture';
 // import checkoutLineItemsAddFixture from '../fixtures/checkout-line-items-add-fixture';
@@ -18,8 +21,6 @@ import cartCreateInvalidVariantIdErrorFixture from '../fixtures/cart-create-inva
 // import checkoutLineItemsRemoveWithUserErrorsFixture from '../fixtures/checkout-line-items-remove-with-user-errors-fixture';
 // import checkoutLineItemsReplaceFixture from '../fixtures/checkout-line-items-replace-fixture';
 // import checkoutLineItemsReplaceWithUserErrorsFixture from '../fixtures/checkout-line-items-replace-with-user-errors-fixture';
-// import checkoutUpdateAttributesV2Fixture from '../fixtures/checkout-update-custom-attrs-fixture';
-// import checkoutUpdateAttributesV2WithUserErrorsFixture from '../fixtures/checkout-update-custom-attrs-with-user-errors-fixture';
 // import checkoutUpdateEmailV2Fixture from '../fixtures/checkout-update-email-fixture';
 // import checkoutUpdateEmailV2WithUserErrorsFixture from '../fixtures/checkout-update-email-with-user-errors-fixture';
 // import checkoutDiscountCodeApplyV2Fixture from '../fixtures/checkout-discount-code-apply-fixture';
@@ -104,11 +105,11 @@ suite('client-cart-integration-test', () => {
     });
   });
 
-  test('it resolve with user errors on Client.checkout#create when variantId is invalid', () => {
+  test('it resolve with user errors on Client.cart#create when merchandiseId is invalid', () => {
     const input = {
       lines: [
         {
-          variantId: 'a-bad-id',
+          merchandiseId: 'a-bad-id',
           quantity: 5
         }
       ]
@@ -123,41 +124,19 @@ suite('client-cart-integration-test', () => {
     });
   });
 
-  // test('it resolves with a checkout on Client.checkout#updateAttributes', () => {
-  //   const checkoutId = 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=';
-  //   const input = {
-  //     lineItems: [
-  //       {variantId: 'an-id', quantity: 5}
-  //     ],
-  //     customAttributes: [
-  //       {key: 'MyKey', value: 'MyValue'}
-  //     ]
-  //   };
+  test('it resolves with a checkout on Client.cart#updateAttributes', () => {
+    const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+    const attributes = [{key: 'MyKey', value: 'MyValue'}];
 
-  //   fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateAttributesV2Fixture);
+    fetchMockPostOnce(fetchMock, apiUrl, cartUpdateAttributesFixture);
 
-  //   return client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-  //     assert.equal(checkout.id, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.id);
-  //     assert.equal(checkout.customAttributes[0].key, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].key);
-  //     assert.equal(checkout.customAttributes[0].value, checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.customAttributes[0].value);
-  //     assert.ok(fetchMock.done());
-  //   });
-  // });
-
-  // test('it resolves with user errors on Client.checkout#updateAttributes when input is invalid', () => {
-  //   const checkoutId = checkoutUpdateAttributesV2Fixture.data.checkoutAttributesUpdateV2.checkout.id;
-  //   const input = {
-  //     note: 'Very long note'
-  //   };
-
-  //   fetchMockPostOnce(fetchMock, apiUrl, checkoutUpdateAttributesV2WithUserErrorsFixture);
-
-  //   return client.checkout.updateAttributes(checkoutId, input).then(() => {
-  //     assert.ok(false, 'Promise should not resolve');
-  //   }).catch((error) => {
-  //     assert.equal(error.message, '[{"message":"Note is too long (maximum is 5000 characters)","field":["input","note"],"code":"TOO_LONG"}]');
-  //   });
-  // });
+    return client.cart.updateAttributes(cartId, attributes).then((cart) => {
+      assert.equal(cart.id, cartUpdateAttributesFixture.data.cartAttributesUpdate.cart.id);
+      assert.equal(cart.attributes[0].key, cartUpdateAttributesFixture.data.cartAttributesUpdate.cart.attributes[0].key);
+      assert.equal(cart.attributes[0].value, cartUpdateAttributesFixture.data.cartAttributesUpdate.cart.attributes[0].value);
+      assert.ok(fetchMock.done());
+    });
+  });
 
   // test('it resolves with a checkout on Client.checkout#updateEmail', () => {
   //   const checkoutId = 'Z2lkOi8vU2hvcGlmeS9FeGFtcGxlLzE=';
