@@ -6,8 +6,9 @@ import handleCartMutation from './handle-cart-mutation';
 - [x] cartCreate
 - [x] fetch
 - [x] cartAttributesUpdate
+- [x] cartBuyerIdentityUpdate
+- [x] cartDiscountCodesUpdate
 
-- [ ] cartDiscountCodesUpdate
 - [ ] cartLinesAdd
 - [ ] cartLinesRemove
 - [ ] cartLinesUpdate
@@ -19,6 +20,7 @@ import handleCartMutation from './handle-cart-mutation';
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
 import cartCreateMutation from './graphql/cartCreateMutation.graphql';
 import cartAttributesUpdate from './graphql/cartAttributesUpdateMutation.graphql';
+import cartBuyerIdentityUpdate from './graphql/cartBuyerIdentityUpdate.graphql';
 
 // import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 // import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
@@ -28,7 +30,6 @@ import cartAttributesUpdate from './graphql/cartAttributesUpdateMutation.graphql
 // import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
 // import checkoutGiftCardsAppendMutation from './graphql/checkoutGiftCardsAppendMutation.graphql';
 // import checkoutGiftCardRemoveV2Mutation from './graphql/checkoutGiftCardRemoveV2Mutation.graphql';
-// import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
 // import checkoutShippingAddressUpdateV2Mutation from './graphql/checkoutShippingAddressUpdateV2Mutation.graphql';
 
 /**
@@ -110,6 +111,24 @@ class CartResource extends Resource {
     return this.graphQLClient
       .send(cartAttributesUpdate, {cartId, attributes})
       .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
+  }
+
+  /**
+   * Replaces the value of a cart's buyer identity
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const buyerIdentity = {email: "hello@hi.com"};
+   * client.cart.updateBuyerIdentity(cartId, buyerIdentity).then((cart) => {
+   *  // Do something with the updated cart
+   * });
+   * @param {String} cartId The ID of the cart to update.
+   * @param {Object} [buyerIdentity] A list of additional information about the cart. See the {@link https://shopify.dev/docs/api/storefront/unstable/input-objects/AttributeInput|Storefront API reference} for valid input fields.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  updateBuyerIdentity(cartId, buyerIdentity = {}) {
+    return this.graphQLClient
+      .send(cartBuyerIdentityUpdate, {cartId, buyerIdentity})
+      .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
 
   // /**
