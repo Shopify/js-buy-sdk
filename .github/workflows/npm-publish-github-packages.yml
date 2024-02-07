@@ -16,10 +16,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '20.x'
       # https://stackoverflow.com/a/69984661
       - run: |
           if [ -e yarn.lock ]; then
@@ -38,10 +38,10 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '20.x'
           registry-url: https://npm.pkg.github.com/
       # https://stackoverflow.com/a/69984661
       - run: |
