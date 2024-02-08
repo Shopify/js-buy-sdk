@@ -8,10 +8,10 @@ import handleCartMutation from './handle-cart-mutation';
 - [x] cartAttributesUpdate
 - [x] cartBuyerIdentityUpdate
 - [x] cartDiscountCodesUpdate
+- [x] cartLinesAdd
+- [x] cartLinesRemove
+- [x] cartLinesUpdate
 
-- [ ] cartLinesAdd
-- [ ] cartLinesRemove
-- [ ] cartLinesUpdate
 - [ ] cartNoteUpdate
 - [ ] cartSelectedDeliveryOptionsUpdate
 */
@@ -19,9 +19,12 @@ import handleCartMutation from './handle-cart-mutation';
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
 import cartCreateMutation from './graphql/cartCreateMutation.graphql';
-import cartAttributesUpdate from './graphql/cartAttributesUpdateMutation.graphql';
-import cartBuyerIdentityUpdate from './graphql/cartBuyerIdentityUpdate.graphql';
-import cartDiscountCodesUpdate from './graphql/cartDiscountCodesUpdate.graphql';
+import cartAttributesUpdateMutation from './graphql/cartAttributesUpdateMutation.graphql';
+import cartBuyerIdentityUpdateMutation from './graphql/cartBuyerIdentityUpdateMutation.graphql';
+import cartDiscountCodesUpdateMutation from './graphql/cartDiscountCodesUpdateMutation.graphql';
+import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
+import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
+import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
 
 // import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 // import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
@@ -109,7 +112,7 @@ class CartResource extends Resource {
    */
   updateAttributes(cartId, attributes = []) {
     return this.graphQLClient
-      .send(cartAttributesUpdate, {cartId, attributes})
+      .send(cartAttributesUpdateMutation, {cartId, attributes})
       .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
   }
 
@@ -127,7 +130,7 @@ class CartResource extends Resource {
    * */
   updateBuyerIdentity(cartId, buyerIdentity = {}) {
     return this.graphQLClient
-      .send(cartBuyerIdentityUpdate, {cartId, buyerIdentity})
+      .send(cartBuyerIdentityUpdateMutation, {cartId, buyerIdentity})
       .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
 
@@ -145,11 +148,64 @@ class CartResource extends Resource {
    * */
   updateDiscountCodes(cartId, discountCodes = []) {
     return this.graphQLClient
-      .send(cartDiscountCodesUpdate, {cartId, discountCodes})
+      .send(cartDiscountCodesUpdateMutation, {cartId, discountCodes})
       .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
+  /**
+   * Adds line items to a cart
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const lines = [{merchandiseId: 'gid://shopify/Product/123456', quantity: 5}];
+   * client.cart.addLineItems(cartId, lines).then((cart) => {
+   * // Do something with the updated cart
+   * });
+   * @param {String} cartId The ID of the cart to update.
+   * @param {Object[]} [lines] A list of merchandise lines to add to the cart.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  addLineItems(cartId, lines = []) {
+    return this.graphQLClient
+      .send(cartLinesAddMutation, {cartId, lines})
+      .then(handleCartMutation('cartLinesAdd', this.graphQLClient));
+  }
 
+  /**
+   * Removes line items from a cart
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const lineIds = ['gid://shopify/CartLineItem/123456'];
+   * client.cart.removeLineItems(cartId, lineIds).then((cart) => {
+   * // Do something with the updated cart
+   * });
+   * @param {String} cartId The ID of the cart to update.
+   * @param {String[]} [lineIds] A list of merchandise lines to remove from the cart.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   *
+   */
+  removeLineItems(cartId, lineIds = []) {
+    return this.graphQLClient
+      .send(cartLinesRemoveMutation, {cartId, lineIds})
+      .then(handleCartMutation('cartLinesRemove', this.graphQLClient));
+  }
+
+  /**
+   * Updates line items in a cart
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const lines = [{id: 'gid://shopify/CartLineItem/123456', quantity: 5}];
+   * client.cart.updateLineItems(cartId, lines).then((cart) => {
+   * // Do something with the updated cart
+   * });
+   * @param {String} cartId The ID of the cart to update.
+   * @param {Object[]} [lines] A list of merchandise lines to update in the cart.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  updateLineItems(cartId, lines = []) {
+    return this.graphQLClient
+      .send(cartLinesUpdateMutation, {cartId, lines})
+      .then(handleCartMutation('cartLinesUpdate', this.graphQLClient));
+  }
 }
 
 export default CartResource;

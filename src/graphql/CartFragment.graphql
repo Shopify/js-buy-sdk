@@ -15,6 +15,62 @@ fragment CartFragment on Cart {
             id
           }
         }
+        quantity
+        attributes {
+          key
+          value
+        }
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+          amountPerQuantity {
+            amount
+            currencyCode
+          }
+          compareAtAmountPerQuantity {
+            amount
+            currencyCode
+          }
+        }
+        discountAllocations {
+          discountedAmount {
+            amount
+            currencyCode
+          }
+        }
+        sellingPlanAllocation {
+          checkoutChargeAmount {
+            amount
+            currencyCode
+          }
+          sellingPlan {
+            id
+          }
+          priceAdjustments {
+            compareAtPrice {
+              amount
+              currencyCode
+            }
+            perDeliveryPrice {
+              amount
+              currencyCode
+            }
+            price {
+              amount
+              currencyCode
+            }
+            unitPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
       }
     }
   }
