@@ -28,11 +28,11 @@ Each version of the JS Buy SDK uses a specific Storefront API version and the su
   - [Fetching Products](#fetching-products)
   - [Fetching Collections](#fetching-collections)
   - [Carts](#carts)
-    - [Creting a Cart](#creating-a-cart)
+    - [Creating a Cart](#creating-a-cart)
     - [Fetching a Cart](#fetching-a-cart)
     - [Updating Cart Attributes](#updating-cart-attributes)
-    - [Updating Buyer Identity](#updating-cart-buyer-identity)
-    - [Updating Discount Codes](#updating-cart-discount-codes)
+    - [Updating Buyer Identity](#updating-buyer-identity)
+    - [Updating Discount Codes](#updating-discount-codes)
     - [Adding Cart Line Items](#adding-cart-line-items)
     - [Removing Cart Line Items](#removing-cart-line-items)
     - [Updating Cart Line Items](#updating-cart-line-items)
@@ -255,7 +255,7 @@ client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
 });
 ```
 
-### Adding Line Items
+### Adding Cart Line Items
 
 ```javascript
 const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
@@ -266,7 +266,7 @@ client.cart.addLineItems(cartId, lines).then((cart) => {
 });
 ```
 
-### Removing Line Items
+### Removing Cart Line Items
 
 ```javascript
 const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
@@ -277,7 +277,7 @@ client.cart.addLineItems(cartId, lineIdsToRemove).then((cart) => {
 });
 ```
 
-### Updating Line Items
+### Updating Cart Line Items
 
 ```javascript
 const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
@@ -320,6 +320,9 @@ client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then(
 To complete the purchase, redirect customers to the `checkoutUrl` property attached to the cart.
 
 ## Checkouts
+
+> [!WARNING]
+> Checkouts will [soon be deprecated](https://github.com/Shopify/storefront-api-feedback/discussions/225). Use [Carts](#carts) instead.
 
 ### Creating a Checkout
 
