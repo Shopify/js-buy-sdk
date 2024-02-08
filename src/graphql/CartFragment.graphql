@@ -113,4 +113,5 @@ fragment CartFragment on Cart {
       }
     }
   }
+  note
 }

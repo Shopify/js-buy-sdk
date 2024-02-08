@@ -11,8 +11,8 @@ import handleCartMutation from './handle-cart-mutation';
 - [x] cartLinesAdd
 - [x] cartLinesRemove
 - [x] cartLinesUpdate
+- [x] cartNoteUpdate
 
-- [ ] cartNoteUpdate
 - [ ] cartSelectedDeliveryOptionsUpdate
 */
 
@@ -25,6 +25,7 @@ import cartDiscountCodesUpdateMutation from './graphql/cartDiscountCodesUpdateMu
 import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
 import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
+import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
 
 // import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
 // import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
@@ -206,6 +207,27 @@ class CartResource extends Resource {
       .send(cartLinesUpdateMutation, {cartId, lines})
       .then(handleCartMutation('cartLinesUpdate', this.graphQLClient));
   }
+
+  /**
+   * Updates the note on a cart
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const note = 'A note for the cart';
+   * client.cart.updateNote(cartId, note).then((cart) => {
+   * // Do something with the updated cart
+   * }
+   * @param {String} cartId The ID of the cart to update.
+   * @param {String} [note] A note for the cart.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  updateNote(cartId, note) {
+    return this.graphQLClient
+      .send(cartNoteUpdateMutation, {cartId, note})
+      .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
+  }
+
+
+
 }
 
 export default CartResource;
