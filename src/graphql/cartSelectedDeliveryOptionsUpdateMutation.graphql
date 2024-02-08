@@ -1,0 +1,17 @@
+mutation cartSelectedDeliveryOptionsUpdate(
+  $cartId: ID!
+  $selectedDeliveryOptions: [CartSelectedDeliveryOptionInput!]!
+) {
+  cartSelectedDeliveryOptionsUpdate(
+    cartId: $cartId
+    selectedDeliveryOptions: $selectedDeliveryOptions
+  ) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      field
+      message
+    }
+  }
+}

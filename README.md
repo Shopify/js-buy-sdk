@@ -164,6 +164,8 @@ client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((col
 });
 ```
 
+## Carts
+
 ### Creating a Cart
 ```javascript
 const input = {
@@ -178,7 +180,6 @@ const input = {
 // Create a cart
 client.cart.create(input).then((cart) => {
   // Do something with the cart
-  console.log(cart);
 });
 ```
 
@@ -188,7 +189,6 @@ const cartId = 'gid://shopify/Cart/Z2NwLWV1cm9wZS13ZXN0NDowMUhOTTI0QVZYV1NOSEVNO
 
 client.cart.fetch(cartId).then((cart) => {
   // Do something with the cart
-  console.log(cart);
 });
 ```
 
@@ -201,6 +201,89 @@ client.cart.updateAttributes(cartId, attributes).then((cart) => {
   // Do something with the updated cart
 });
 ```
+
+### Updating Cart Buyer Identity
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const buyerIdentity = {email: "hello@hi.com"};
+
+client.cart.updateBuyerIdentity(cartId, buyerIdentity).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
+### Updating Cart Discount Codes
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const discountCodes = [{code: "MyCode"}];
+
+client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
+### Adding Cart Line Items
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const lines = [{merchandiseId: 'gid://shopify/Product/123456', quantity: 5}];
+
+client.cart.addLineItems(cartId, lines).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
+### Removing Cart Line Items
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const lineIdsToRemove = ['gid://shopify/CartLineItem/123456'];
+
+client.cart.addLineItems(cartId, lineIdsToRemove).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
+### Updating Cart Line Items
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const lines = [{id: 'gid://shopify/CartLineItem/123456', quantity: 5}];
+
+client.cart.updateLineItems(cartId, lines).then((cart) => {
+  // Do something with the updated cart
+});
+```
+
+### Updating Cart Notes
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const note = 'A note for the cart';
+
+client.cart.updateNote(cartId, note).then((cart) => {
+  // Do something with the updated cart
+}
+```
+
+### Updating Cart Selected Delivery Options
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const selectedDeliveryOptions = [
+  {
+    deliveryGroupId: '',
+    deliveryOptionHandle: ''
+  }
+];
+
+client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
+  // Do something with the updated cart
+}
+```
+
+### Complete the checkout
+
+To complete the checkout, redirect customers to the `checkoutUrl` property attached to the cart. This URL points to Shopify's checkout to complete the purchase.
+
+## Checkouts
+
+Note: [It's recommended to use Cart instead of Checkout](https://github.com/Shopify/storefront-api-feedback/discussions/225).
 
 ### Creating a Checkout
 ```javascript
