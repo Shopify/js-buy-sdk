@@ -9,68 +9,7 @@ fragment CartFragment on Cart {
     }
     edges {
       node {
-        id
-        merchandise {
-          ... on ProductVariant {
-            id
-          }
-        }
-        quantity
-        attributes {
-          key
-          value
-        }
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-          subtotalAmount {
-            amount
-            currencyCode
-          }
-          amountPerQuantity {
-            amount
-            currencyCode
-          }
-          compareAtAmountPerQuantity {
-            amount
-            currencyCode
-          }
-        }
-        discountAllocations {
-          discountedAmount {
-            amount
-            currencyCode
-          }
-        }
-        sellingPlanAllocation {
-          checkoutChargeAmount {
-            amount
-            currencyCode
-          }
-          sellingPlan {
-            id
-          }
-          priceAdjustments {
-            compareAtPrice {
-              amount
-              currencyCode
-            }
-            perDeliveryPrice {
-              amount
-              currencyCode
-            }
-            price {
-              amount
-              currencyCode
-            }
-            unitPrice {
-              amount
-              currencyCode
-            }
-          }
-        }
+        ...CartLineFragment
       }
     }
   }
@@ -108,6 +47,70 @@ fragment CartFragment on Cart {
     phone
     customer {
       email
+    }
+  }
+  deliveryGroups(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        deliveryAddress {
+          address1
+          address2
+          city
+          company
+          country
+          countryCodeV2
+          firstName
+          formatted
+          formattedArea
+          id
+          lastName
+          latitude
+          longitude
+          name
+          phone
+          province
+          provinceCode
+          zip
+        }
+        deliveryOptions {
+          code
+          deliveryMethodType
+          description
+          estimatedCost {
+            amount
+            currencyCode
+          }
+          handle
+          title
+        }
+        id
+        selectedDeliveryOption {
+          code
+          deliveryMethodType
+          description
+          estimatedCost {
+            amount
+            currencyCode
+          }
+          handle
+          title
+        }
+        cartLines(first: 10) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            node {
+              ...CartLineFragment
+            }
+          }
+        }
+      }
     }
   }
 }
