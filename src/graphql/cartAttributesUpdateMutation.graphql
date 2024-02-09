@@ -6,6 +6,7 @@ mutation cartAttributesUpdate($attributes: [AttributeInput!]!, $cartId: ID!) {
     userErrors {
       field
       message
+      code
     }
   }
 }

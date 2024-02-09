@@ -6,6 +6,7 @@ mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
     userErrors {
       field
       message
+      code
     }
   }
 }

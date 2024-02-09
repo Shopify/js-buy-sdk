@@ -6,6 +6,7 @@ mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]!) {
     userErrors {
       field
       message
+      code
     }
   }
 }

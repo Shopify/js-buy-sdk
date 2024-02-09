@@ -12,6 +12,7 @@ mutation cartSelectedDeliveryOptionsUpdate(
     userErrors {
       field
       message
+      code
     }
   }
 }

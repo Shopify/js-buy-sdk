@@ -6,6 +6,7 @@ mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
     userErrors {
       field
       message
+      code
     }
   }
 }

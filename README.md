@@ -299,22 +299,6 @@ client.cart.updateNote(cartId, note).then((cart) => {
 }
 ```
 
-### Updating Cart Selected Delivery Options
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const selectedDeliveryOptions = [
-  {
-    deliveryGroupId: '',
-    deliveryOptionHandle: ''
-  }
-];
-
-client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
-  // Do something with the updated cart
-}
-```
-
 ### Redirecting to Checkout
 
 To complete the purchase, redirect customers to the `checkoutUrl` property attached to the cart.
