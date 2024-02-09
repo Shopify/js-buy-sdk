@@ -215,7 +215,7 @@ client.cart.create(input).then((cart) => {
 ### Fetching a Cart
 
 ```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLWV1cm9wZS13ZXN0NDowMUhOTTI0QVZYV1NOSEVNOUVCQ1JSNUhSVg'
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR'
 
 client.cart.fetch(cartId).then((cart) => {
   // Do something with the cart
