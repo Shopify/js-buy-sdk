@@ -72,7 +72,9 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "organizationLink"},
     {namespace: "productListing", key: "fundraiserGoal"},
     {namespace: "productListing", key: "storeId"},
-    {namespace: "productListing", key: "hideBannerProductName"}
+    {namespace: "productListing", key: "hideBannerProductName"},
+    {namespace: "productListing", key: "targetQuantity"},
+    {namespace: "productListing", key: "fundraisedAmount"}
   ]) {
     ...MetafieldWithReferenceFragment
   }
