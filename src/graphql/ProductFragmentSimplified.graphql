@@ -42,8 +42,6 @@ fragment ProductFragmentSimplified on Product {
     {namespace: "taiga", key: "preOrderDateEstimate"},
     {namespace: "productListing", key: "launchType"},
     {namespace: "productListing", key: "orderType"},
-    {namespace: "productListing", key: "startingQuantity"},
-    {namespace: "productListing", key: "endingQuantity"},
     {namespace: "productListing", key: "campaignStart"},
     {namespace: "productListing", key: "campaignEnd"},
     {namespace: "productListing", key: "overrideQuantity"},
