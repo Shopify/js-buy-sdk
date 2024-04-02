@@ -51,8 +51,6 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "preOrderStopCondition"},
     {namespace: "productListing", key: "launchType"},
     {namespace: "productListing", key: "orderType"},
-    {namespace: "productListing", key: "startingQuantity"},
-    {namespace: "productListing", key: "endingQuantity"},
     {namespace: "productListing", key: "headline"},
     {namespace: "productListing", key: "sizing"},
     {namespace: "productListing", key: "campaignStart"},
@@ -74,7 +72,8 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "storeId"},
     {namespace: "productListing", key: "hideBannerProductName"},
     {namespace: "productListing", key: "targetQuantity"},
-    {namespace: "productListing", key: "fundraisedAmount"}
+    {namespace: "productListing", key: "fundraisedAmount"},
+    {namespace: "productListing", key: "processingTime"}
   ]) {
     ...MetafieldWithReferenceFragment
   }
