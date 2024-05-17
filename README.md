@@ -1,8 +1,11 @@
-# [Shopify](https://www.shopify.com) JavaScript Buy SDK
-![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
+> # Deprecation Notice
+> **The JS Buy SDK has been deprecated.** For more information, please see our [changelog announcement](https://shopify.dev/changelog/deprecation-of-js-buy-sdk).
+>
+> We recommend migrating to the new [Storefront API Client](https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme) by following the [migration guide](./migration-guide).
 
-**Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
-[Migration Guide](https://github.com/Shopify/js-buy-sdk/blob/main/tutorials/MIGRATION_GUIDE.md).
+---
+
+# Shopify JavaScript Buy SDK
 
 The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's [Storefront API](https://help.shopify.com/api/storefront-api/getting-started)
