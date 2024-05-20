@@ -216,7 +216,7 @@ Ensure to test your new implementation thoroughly to verify that all APIs are wo
 
 ## Equivalent queries
 
-During the migration process, it can be helpful to examine the original queries from the JS Buy SDK. We have archived these queries and their optimized versions [here](https://github.com/Shopify/storefront-api-client-js-queries/tree/sdk-operations/src/gql-compare).
+During the migration process, it can be helpful to examine the original queries from the JS Buy SDK. We have archived these queries and their optimized versions [here](./queries/).
 
 ## Learn more
 

@@ -1,0 +1,43 @@
+# collection.fetchAll() - query all collections key info and no products
+# collection.fetchQuery() - query all collections key info and no products with query, sort and reverse options
+
+# Removed:
+# collections.edges.[cursor, node] (replaced by collections.nodes)
+# collection.[descriptionHtml, updatedAt]
+# image.src (replaced by image.url)
+# image.[width, height]
+
+# Added:
+# collection.pageInfo[startCursor, endCursor]
+
+query (
+  $first: Int!
+  $query: String
+  $sortKey: CollectionSortKeys
+  $reverse: Boolean
+) {
+  collections(
+    first: $first
+    query: $query
+    sortKey: $sortKey
+    reverse: $reverse
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      id
+      handle
+      description
+      title
+      image {
+        id
+        url
+        altText
+      }
+    }
+  }
+}

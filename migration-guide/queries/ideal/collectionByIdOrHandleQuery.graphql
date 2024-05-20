@@ -1,0 +1,63 @@
+# collection.fetchByHandle() - query collection by handle
+# collection.fetchWithProducts() - query collection with product by id
+
+# Removed:
+# queryRoot.[node, collectionByHandle] (replace by queryRoot.collection)
+# collection.[descriptionHtml, updatedAt]
+# collection.products.edges.[cursor, node] (replaced by collection.products.nodes)
+# image.src (replaced by image.url)
+# product.[createdAt, updatedAt, descriptionHtml, productType, vendor, publishedAt, onlineStoreUrl]
+# product.images (replaced with product.featuredImage)
+# product.variants
+
+# Added:
+# collection.products.pageInfo[startCursor, endCursor]
+# product.priceRange
+
+query ($id: ID, $handle: String) {
+  collection(id: $id, handle: $handle) {
+    id
+    handle
+    description
+    title
+    image {
+      id
+      url
+      altText
+    }
+    products(first: 20) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      nodes {
+        id
+        availableForSale
+        description
+        handle
+        title
+        options {
+          name
+          values
+        }
+        featuredImage {
+          id
+          url
+          altText
+        }
+        priceRange {
+          maxVariantPrice {
+            amount
+            currencyCode
+          }
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+      }
+    }
+  }
+}

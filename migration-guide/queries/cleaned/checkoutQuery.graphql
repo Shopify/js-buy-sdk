@@ -1,0 +1,319 @@
+# checkout.fetch() - query checkout by id
+
+query ($id: ID!) {
+  node(id: $id) {
+    id
+    ready
+    requiresShipping
+    note
+    paymentDue {
+      amount
+      currencyCode
+    }
+    webUrl
+    orderStatusUrl
+    taxExempt
+    taxesIncluded
+    currencyCode
+    totalTax {
+      amount
+      currencyCode
+    }
+    lineItemsSubtotalPrice {
+      amount
+      currencyCode
+    }
+    subtotalPrice {
+      amount
+      currencyCode
+    }
+    totalPrice {
+      amount
+      currencyCode
+    }
+    completedAt
+    createdAt
+    updatedAt
+    email
+    discountApplications(first: 10) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          targetSelection
+          allocationMethod
+          targetType
+          value {
+            ... on MoneyV2 {
+              amount
+              currencyCode
+            }
+            ... on PricingPercentageValue {
+              percentage
+            }
+          }
+          ... on ManualDiscountApplication {
+            title
+            description
+          }
+          ... on DiscountCodeApplication {
+            code
+            applicable
+          }
+          ... on ScriptDiscountApplication {
+            title
+          }
+          ... on AutomaticDiscountApplication {
+            title
+          }
+        }
+      }
+    }
+    appliedGiftCards {
+      amountUsed {
+        amount
+        currencyCode
+      }
+      balance {
+        amount
+        currencyCode
+      }
+      presentmentAmountUsed {
+        amount
+        currencyCode
+      }
+      id
+      lastCharacters
+    }
+    shippingAddress {
+      id
+      address1
+      address2
+      city
+      company
+      country
+      firstName
+      formatted
+      lastName
+      latitude
+      longitude
+      phone
+      province
+      zip
+      name
+      countryCodeV2
+      provinceCode
+    }
+    shippingLine {
+      handle
+      price {
+        amount
+        currencyCode
+      }
+      title
+    }
+    customAttributes {
+      key
+      value
+    }
+    order {
+      id
+      processedAt
+      orderNumber
+      subtotalPrice {
+        amount
+        currencyCode
+      }
+      totalShippingPrice {
+        amount
+        currencyCode
+      }
+      totalTax {
+        amount
+        currencyCode
+      }
+      totalPrice {
+        amount
+        currencyCode
+      }
+      currencyCode
+      totalRefunded {
+        amount
+        currencyCode
+      }
+      customerUrl
+      shippingAddress {
+        id
+        address1
+        address2
+        city
+        company
+        country
+        firstName
+        formatted
+        lastName
+        latitude
+        longitude
+        phone
+        province
+        zip
+        name
+        countryCodeV2
+        provinceCode
+      }
+      lineItems(first: 250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            title
+            variant {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              weight
+              availableForSale
+              sku
+              compareAtPrice {
+                amount
+                currencyCode
+              }
+              image {
+                id
+                url
+                altText
+                width
+                height
+              }
+              selectedOptions {
+                name
+                value
+              }
+              unitPrice {
+                amount
+                currencyCode
+              }
+              unitPriceMeasurement {
+                measuredType
+                quantityUnit
+                quantityValue
+                referenceUnit
+                referenceValue
+              }
+              product {
+                id
+                handle
+              }
+            }
+            quantity
+            customAttributes {
+              key
+              value
+            }
+          }
+        }
+      }
+    }
+    lineItems(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          variant {
+            id
+            title
+            price {
+              amount
+              currencyCode
+            }
+            weight
+            availableForSale
+            sku
+            compareAtPrice {
+              amount
+              currencyCode
+            }
+            image {
+              id
+              url
+              altText
+              width
+              height
+            }
+            selectedOptions {
+              name
+              value
+            }
+            unitPrice {
+              amount
+              currencyCode
+            }
+            unitPriceMeasurement {
+              measuredType
+              quantityUnit
+              quantityValue
+              referenceUnit
+              referenceValue
+            }
+            product {
+              id
+              handle
+            }
+          }
+          quantity
+          customAttributes {
+            key
+            value
+          }
+          discountAllocations {
+            allocatedAmount {
+              amount
+              currencyCode
+            }
+            discountApplication {
+              targetSelection
+              allocationMethod
+              targetType
+              value {
+                ... on MoneyV2 {
+                  amount
+                  currencyCode
+                }
+                ... on PricingPercentageValue {
+                  percentage
+                }
+              }
+              ... on ManualDiscountApplication {
+                title
+                description
+              }
+              ... on DiscountCodeApplication {
+                code
+                applicable
+              }
+              ... on ScriptDiscountApplication {
+                title
+              }
+              ... on AutomaticDiscountApplication {
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
