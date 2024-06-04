@@ -25,8 +25,7 @@ fragment VariantFragmentSimplified on ProductVariant {
     width
     height
   }
-  metafields(
-    identifiers: [
+  metafieldsWithReference: metafields(identifiers: [
       { namespace: "taiga", key: "preOrderStopCondition" },
       { namespace: "taiga", key: "preOrderDateEstimate" },
       { namespace: "productListing", key: "startingQuantity" },
