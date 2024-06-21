@@ -10,4 +10,22 @@ fragment CollectionFragment on Collection {
     src: url
     altText
   }
+  metafieldsWithReference: metafields(identifiers: [
+    {namespace: "collection", key: "launchType"},
+    {namespace: "collection", key: "campaignStart"},
+    {namespace: "collection", key: "campaignEnd"},
+    {namespace: "collection", key: "fundraiserGoal"},
+    {namespace: "collection", key: "title"},
+    {namespace: "collection", key: "headline"},
+    {namespace: "collection", key: "storyTitle"},
+    {namespace: "collection", key: "story"},
+    {namespace: "collection", key: "video"},
+  ]) {
+    ...MetafieldWithReferenceFragment
+  }
+  metafieldsWithReferenceList: metafields(identifiers: [
+    {namespace: "collection", key: "images"}
+  ]) {
+    ...MetafieldWithReferenceListFragment
+  }
 }
