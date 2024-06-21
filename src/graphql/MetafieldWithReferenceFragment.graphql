@@ -1,6 +1,20 @@
 fragment MediaFragment on MediaImage {
     image {
         originalSrc
+        url
+    }
+}
+
+fragment VideoFragment on Video {
+    previewImage {
+        originalSrc
+        url
+    }
+    sources {
+        format
+        url
+        height
+        width
     }
 }
 
@@ -11,6 +25,7 @@ fragment MetaobjectFragment on Metaobject {
         value
         reference {
             ...MediaFragment
+            ...VideoFragment
         }
     }
 }
@@ -22,6 +37,7 @@ fragment MetafieldWithReferenceFragment on Metafield {
     value
     reference {
         ...MediaFragment
+        ...VideoFragment
         ...MetaobjectFragment
     }
 }

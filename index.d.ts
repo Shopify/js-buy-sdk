@@ -517,7 +517,23 @@ declare namespace ShopifyBuy {
         id: string;
         image?: {
             originalSrc: string;
+            url: string;
         };
+    }
+
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/Video
+    */
+    export interface MetafieldReferenceVideo {
+        id: string;
+        previewImage?: {
+            originalSrc: string;
+            url: string;
+        }
+        sources: {
+            url: string;
+            format: string;
+        }[];
     }
 
     /**
@@ -542,6 +558,7 @@ declare namespace ShopifyBuy {
      */
     export type MetafieldReference =
         MetafieldReferenceMediaImage |
+        MetafieldReferenceVideo |
         MetafieldReferenceGenericFile |
         MetafieldReferenceMetaobject;
 
