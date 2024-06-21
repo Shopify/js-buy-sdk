@@ -531,6 +531,8 @@ declare namespace ShopifyBuy {
             url: string;
         }
         sources: {
+            height: number,
+            width: number,
             url: string;
             format: string;
         }[];
