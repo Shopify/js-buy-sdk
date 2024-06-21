@@ -518,6 +518,8 @@ declare namespace ShopifyBuy {
         image?: {
             originalSrc: string;
             url: string;
+            id: string;
+            altText?: string;
         };
     }
 
