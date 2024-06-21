@@ -329,7 +329,8 @@ declare namespace ShopifyBuy {
         body_html: string;
         image: Image;
         id: string;
-        metafields: any[];
+        metafieldsWithReference: Array<Omit<Metafield, "references"> | null>;
+        metafieldsWithReferenceList: Array<Required<Omit<Metafield, "reference">> | null>;
         published: boolean;
         published_at: string;
         published_scope: string;
