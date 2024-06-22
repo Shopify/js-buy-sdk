@@ -1,0 +1,12 @@
+fragment VideoFragment on Video {
+    previewImage {
+        originalSrc
+        url
+    }
+    sources {
+        format
+        url
+        height
+        width
+    }
+}

@@ -3,6 +3,7 @@ fragment GenericFileFragment on GenericFile {
     mimeType
 }
 
+
 fragment MetafieldWithReferenceListFragment on Metafield {
     key
     namespace
@@ -16,6 +17,7 @@ fragment MetafieldWithReferenceListFragment on Metafield {
         edges {
             node {
                 ...GenericFileFragment
+                ...MediaImageFragment
             }
         }
     }

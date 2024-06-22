@@ -329,7 +329,8 @@ declare namespace ShopifyBuy {
         body_html: string;
         image: Image;
         id: string;
-        metafields: any[];
+        metafieldsWithReference: Array<Omit<Metafield, "references"> | null>;
+        metafieldsWithReferenceList: Array<Required<Omit<Metafield, "reference">> | null>;
         published: boolean;
         published_at: string;
         published_scope: string;
@@ -337,6 +338,7 @@ declare namespace ShopifyBuy {
         template_suffix: string;
         title: string;
         updated_at: string;
+        descriptionHtml: string;
     }
 
     export interface Cart extends GraphModel {
@@ -516,7 +518,27 @@ declare namespace ShopifyBuy {
         id: string;
         image?: {
             originalSrc: string;
+            url: string;
+            id: string;
+            altText?: string;
         };
+    }
+
+    /**
+     * https://shopify.dev/docs/api/storefront/2023-10/objects/Video
+    */
+    export interface MetafieldReferenceVideo {
+        id: string;
+        previewImage?: {
+            originalSrc: string;
+            url: string;
+        }
+        sources: {
+            height: number,
+            width: number,
+            url: string;
+            format: string;
+        }[];
     }
 
     /**
@@ -541,6 +563,7 @@ declare namespace ShopifyBuy {
      */
     export type MetafieldReference =
         MetafieldReferenceMediaImage |
+        MetafieldReferenceVideo |
         MetafieldReferenceGenericFile |
         MetafieldReferenceMetaobject;
 

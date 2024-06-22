@@ -18,6 +18,10 @@ fragment VariantFragmentSimplified on ProductVariant {
     amount
     currencyCode
   }
+  selectedOptions {
+    name
+    value
+  }
   image {
     id
     src: url

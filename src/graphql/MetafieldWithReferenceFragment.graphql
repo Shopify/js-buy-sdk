@@ -1,16 +1,11 @@
-fragment MediaFragment on MediaImage {
-    image {
-        originalSrc
-    }
-}
-
 fragment MetaobjectFragment on Metaobject {
     fields {
         key
         type
         value
         reference {
-            ...MediaFragment
+            ...MediaImageFragment
+            ...VideoFragment
         }
     }
 }
@@ -21,7 +16,8 @@ fragment MetafieldWithReferenceFragment on Metafield {
     type
     value
     reference {
-        ...MediaFragment
+        ...MediaImageFragment
+        ...VideoFragment
         ...MetaobjectFragment
     }
 }
