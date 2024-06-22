@@ -338,6 +338,7 @@ declare namespace ShopifyBuy {
         template_suffix: string;
         title: string;
         updated_at: string;
+        descriptionHtml: string;
     }
 
     export interface Cart extends GraphModel {
