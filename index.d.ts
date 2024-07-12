@@ -169,6 +169,11 @@ declare namespace ShopifyBuy {
         images: Array<Image>;
 
         /**
+         * An Array of Media that contains images and videos.
+         */
+        media: Array<Media>;
+
+        /**
          * All variants of a product.
          */
         variants: Array<ProductVariant>;
@@ -472,6 +477,11 @@ declare namespace ShopifyBuy {
         altText: string;
     }
 
+    /**
+     * Media: https://shopify.dev/docs/api/storefront/2024-07/interfaces/Media
+     */
+    export type Media = MediaImage | Video;
+
     export interface ImageVariant extends Image {
         name: string;
         dimensions: string;
@@ -514,23 +524,19 @@ declare namespace ShopifyBuy {
     /**
      * https://shopify.dev/docs/api/storefront/2023-10/objects/MediaImage
      */
-    export interface MetafieldReferenceMediaImage {
+    export interface MediaImage {
         id: string;
-        image?: {
-            originalSrc: string;
-            url: string;
-            id: string;
-            altText?: string;
-        };
+        mediaContentType: string;
+        image?: Image;
     }
 
     /**
      * https://shopify.dev/docs/api/storefront/2023-10/objects/Video
     */
-    export interface MetafieldReferenceVideo {
+    export interface Video {
         id: string;
+        mediaContentType: string;
         previewImage?: {
-            originalSrc: string;
             url: string;
         }
         sources: {
@@ -562,8 +568,8 @@ declare namespace ShopifyBuy {
      * https://shopify.dev/docs/api/storefront/2023-10/unions/MetafieldReference
      */
     export type MetafieldReference =
-        MetafieldReferenceMediaImage |
-        MetafieldReferenceVideo |
+        MediaImage |
+        Video |
         MetafieldReferenceGenericFile |
         MetafieldReferenceMetaobject;
 

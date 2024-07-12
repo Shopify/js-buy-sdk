@@ -1,8 +1,10 @@
 fragment MediaImageFragment on MediaImage {
+    mediaContentType
     image {
-        originalSrc
-        url
+        src: url
         altText
         id
+        width
+        height
     }
 }
