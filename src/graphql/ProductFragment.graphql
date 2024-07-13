@@ -33,6 +33,19 @@ fragment ProductFragment on Product {
       }
     }
   }
+  media(first: 250) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        ...MediaImageFragment
+        ...VideoFragment
+      }
+    }
+  }
   variants(first: 250) {
     pageInfo {
       hasNextPage

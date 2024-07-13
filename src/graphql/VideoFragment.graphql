@@ -1,4 +1,5 @@
 fragment VideoFragment on Video {
+    mediaContentType
     previewImage {
         originalSrc
         url
