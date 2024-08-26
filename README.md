@@ -1,5 +1,4 @@
-> # Deprecation Notice
-> **The JS Buy SDK has been deprecated.** For more information, please see our [changelog announcement](https://shopify.dev/changelog/deprecation-of-js-buy-sdk).
+> # The JS Buy SDK has been deprecated
 >
 > We recommend migrating to the new [Storefront API Client](https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme) by following the [migration guide](./migration-guide).
 
