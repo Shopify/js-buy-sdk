@@ -3,6 +3,33 @@ fragment CartLineFragment on CartLine {
   merchandise {
     ... on ProductVariant {
       id
+      title
+      image {
+        id
+        src: url
+        altText
+        width
+        height
+      }
+      product {
+        id
+        handle
+        title
+      }
+      weight
+      available: availableForSale
+      sku
+      selectedOptions {
+        name
+        value
+      }
+      unitPriceMeasurement {
+        measuredType
+        quantityUnit
+        quantityValue
+        referenceUnit
+        referenceValue
+      }
     }
   }
   quantity
