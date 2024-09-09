@@ -22,8 +22,19 @@ jobs:
             yarn
             yarn run build
 
+      - javascript/bump-package-version:
+          base_package_version: "2.20"
+
       - javascript/publish-to-nexus:
           nexus_repository_name: "npm-private"
+
+      - javascript/change-publish-registry-to-codeartifact:
+          code_artifact_repository_name: "whoop-npm"
+
+      - javascript/authenticate-with-codeartifact
+
+      - javascript/npm-codeartifact-auth:
+          code_artifact_repository_name: "whoop-npm"
 
       - javascript/publish-to-codeartifact:
           code_artifact_repository_name: "whoop-npm"
