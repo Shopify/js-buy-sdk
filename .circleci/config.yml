@@ -25,6 +25,9 @@ jobs:
       - javascript/bump-package-version:
           base_package_version: "2.20"
 
+      - javascript/npm-nexus-auth:
+          nexus_repository_name: "npm-private"
+
       - javascript/publish-to-nexus:
           nexus_repository_name: "npm-private"
 
