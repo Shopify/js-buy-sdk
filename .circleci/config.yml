@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  javascript: whoop/javascript@dev:alpha
+  javascript: whoop/javascript@2
 
 jobs:
   build:
