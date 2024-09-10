@@ -25,6 +25,16 @@ jobs:
       - javascript/bump-package-version:
           base_package_version: "2.20"
 
+      - run:
+          name: cat
+          command: |
+            cat package.json
+
+      - run:
+          name: npm config ls -l
+          command: |
+            npm config ls -l
+
       - javascript/publish-to-nexus:
           nexus_repository_name: "npm-private"
 
