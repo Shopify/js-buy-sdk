@@ -18,6 +18,7 @@ jobs:
 #          command: ./npm-login.sh
       - javascript/npm-nexus-auth:
           nexus_repository_name: "npm-group"
+
       - run:
           name: Build
           command: |
@@ -30,6 +31,7 @@ jobs:
       - run:
           name: npm config ls -l
           command: |
+            npm --version
             npm config ls -l
 
       - javascript/publish-to-nexus:
