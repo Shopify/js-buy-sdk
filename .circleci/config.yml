@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  javascript: whoop/javascript@2
+  javascript: whoop/javascript@dev:alpha
 
 jobs:
   build:
@@ -13,17 +13,15 @@ jobs:
     steps:
       - checkout
 
-      - javascript/npm-nexus-auth:
-          nexus_repository_name: "npm-group"
+      - run:
+          name: Log into nexus npm registry
+          command: ./npm-login.sh
 
       - run:
           name: Build
           command: |
             yarn
             yarn run build
-
-      - javascript/npm-nexus-auth:
-          nexus_repository_name: "npm-private"
 
       - javascript/bump-package-version:
           base_package_version: "2.20"
