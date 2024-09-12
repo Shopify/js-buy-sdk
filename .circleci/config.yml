@@ -13,10 +13,11 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Log into nexus npm registry
-          command: ./npm-login.sh
-
+#      - run:
+#          name: Log into nexus npm registry
+#          command: ./npm-login.sh
+      - javascript/npm-nexus-auth:
+          nexus_repository_name: "npm-group"
       - run:
           name: Build
           command: |
@@ -25,11 +26,6 @@ jobs:
 
       - javascript/bump-package-version:
           base_package_version: "2.20"
-
-      - run:
-          name: cat
-          command: |
-            cat package.json
 
       - run:
           name: npm config ls -l
