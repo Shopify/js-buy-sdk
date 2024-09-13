@@ -1,11 +1,14 @@
 version: 2.1
 
+orbs:
+  javascript: whoop/javascript@2
+
 jobs:
   build:
-    docker:
-      - image: circleci/node:14.10.1
-
-    working_directory: ~/js-buy-sdk
+    executor:
+      name: javascript/docker
+      executor_docker_image: cimg/node:14.10.1
+      working_directory: ~/js-buy-sdk
 
     steps:
       - checkout
@@ -20,10 +23,22 @@ jobs:
             yarn
             yarn run build
 
-      - run:
-          name: Publish to nexus
-          command: |
-            npm publish
+      - javascript/bump-package-version:
+          base_package_version: "2.20"
+
+      - javascript/publish-to-nexus:
+          nexus_repository_name: "npm-private"
+
+      - javascript/change-publish-registry-to-codeartifact:
+          code_artifact_repository_name: "whoop-npm"
+
+      - javascript/authenticate-with-codeartifact
+
+      - javascript/npm-codeartifact-auth:
+          code_artifact_repository_name: "whoop-npm"
+
+      - javascript/publish-to-codeartifact:
+          code_artifact_repository_name: "whoop-npm"
 
 workflows:
   build_and_test:
