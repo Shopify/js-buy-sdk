@@ -89,7 +89,7 @@ const client = createStorefrontApiClient({
 const {data, errors, extensions} = await client.request(operation);
 console.log(data.products);
 </code></pre>
-<p>Note that with the Storefront Client, you'll be crafting GraphQL operations directly, and can therefore customize it according to your needs. Refer to the <a href="https://shopify.dev/docs/api/storefront">Storefront API</a> documentation for common operations or see <span style="text-decoration:underline;">JS Buy SDK query equivalents</span>. !TODO: LINK THIS WHEN ADDED!</p>
+<p>Note that with the Storefront Client, you'll be crafting GraphQL operations directly, and can therefore customize it according to your needs. Refer to the <a href="https://shopify.dev/docs/api/storefront">Storefront API</a> documentation for common operations or see <a href="/migration-guide/queries/">JS Buy SDK query equivalents</a>.</p>
 <h4 id="carts-and-checkouts">Carts and checkouts</h4>
 <p>The JS Buy SDK uses the Checkout API (<a href="https://shopify.dev/changelog/deprecation-of-checkout-apis">which is deprecated</a>). With the Storefront Client, you can use the Cart API to create carts and send customers to checkout. <a href="https://shopify.dev/docs/custom-storefronts/building-with-the-storefront-api/cart/manage">Learn more</a>.</p>
 <pre class="prettyprint source lang-js"><code>const operation = `mutation createCart($cartInput: CartInput) {
