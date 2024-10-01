@@ -1,0 +1,17 @@
+# collection.fetch() - query collection by id
+
+query ($id: ID!) {
+  node(id: $id) {
+    id
+    handle
+    description
+    descriptionHtml
+    updatedAt
+    title
+    image {
+      id
+      url
+      altText
+    }
+  }
+}

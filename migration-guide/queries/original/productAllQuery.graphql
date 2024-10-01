@@ -1,0 +1,107 @@
+# product.fetchAll() - all products query
+# product.fetchQuery() - all products query with query, sort and reverse options
+
+query (
+  $first: Int!
+  $query: String
+  $sortKey: ProductSortKeys
+  $reverse: Boolean
+) {
+  products(first: $first, query: $query, sortKey: $sortKey, reverse: $reverse) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        availableForSale
+        createdAt
+        updatedAt
+        descriptionHtml
+        description
+        handle
+        productType
+        title
+        vendor
+        publishedAt
+        onlineStoreUrl
+        options {
+          name
+          values
+        }
+        images(first: 250) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              src: url
+              altText
+              width
+              height
+            }
+          }
+        }
+        variants(first: 250) {
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+          }
+          edges {
+            cursor
+            node {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              priceV2: price {
+                amount
+                currencyCode
+              }
+              weight
+              available: availableForSale
+              sku
+              compareAtPrice {
+                amount
+                currencyCode
+              }
+              compareAtPriceV2: compareAtPrice {
+                amount
+                currencyCode
+              }
+              image {
+                id
+                src: url
+                altText
+                width
+                height
+              }
+              selectedOptions {
+                name
+                value
+              }
+              unitPrice {
+                amount
+                currencyCode
+              }
+              unitPriceMeasurement {
+                measuredType
+                quantityUnit
+                quantityValue
+                referenceUnit
+                referenceValue
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

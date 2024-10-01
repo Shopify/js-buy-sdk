@@ -1,0 +1,82 @@
+# collection.fetchAllWithProducts() - query all collections with products
+
+# Removed:
+# collections.edges.[cursor, node] (replaced by collections.nodes)
+# collection.[descriptionHtml, updatedAt]
+# collection.products.edges.[cursor, node] (replaced by collection.products.nodes)
+# image.src (replaced by image.url)
+# product.[createdAt, updatedAt, descriptionHtml, productType, vendor, publishedAt, onlineStoreUrl]
+# product.images (replaced with product.featuredImage)
+# product.variants
+
+# Added:
+# collection.pageInfo[startCursor, endCursor]
+# collection.products.pageInfo[startCursor, endCursor]
+# product.priceRange
+
+query (
+  $first: Int!
+  $query: String
+  $sortKey: CollectionSortKeys
+  $reverse: Boolean
+  $productsFirst: Int!
+) {
+  collections(
+    first: $first
+    query: $query
+    sortKey: $sortKey
+    reverse: $reverse
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    nodes {
+      id
+      handle
+      description
+      title
+      image {
+        id
+        url
+        altText
+      }
+      products(first: $productsFirst) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+          startCursor
+          endCursor
+        }
+        nodes {
+          id
+          availableForSale
+          description
+          handle
+          title
+          options {
+            name
+            values
+          }
+          featuredImage {
+            id
+            url
+            altText
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+            minVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+}

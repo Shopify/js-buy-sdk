@@ -1,0 +1,383 @@
+# checkout.fetch() - query checkout by id
+
+query ($id: ID!) {
+  node(id: $id) {
+    id
+    ready
+    requiresShipping
+    note
+    paymentDue {
+      amount
+      currencyCode
+    }
+    paymentDueV2: paymentDue {
+      amount
+      currencyCode
+    }
+    webUrl
+    orderStatusUrl
+    taxExempt
+    taxesIncluded
+    currencyCode
+    totalTax {
+      amount
+      currencyCode
+    }
+    totalTaxV2: totalTax {
+      amount
+      currencyCode
+    }
+    lineItemsSubtotalPrice {
+      amount
+      currencyCode
+    }
+    subtotalPrice {
+      amount
+      currencyCode
+    }
+    subtotalPriceV2: subtotalPrice {
+      amount
+      currencyCode
+    }
+    totalPrice {
+      amount
+      currencyCode
+    }
+    totalPriceV2: totalPrice {
+      amount
+      currencyCode
+    }
+    completedAt
+    createdAt
+    updatedAt
+    email
+    discountApplications(first: 10) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          targetSelection
+          allocationMethod
+          targetType
+          value {
+            ... on MoneyV2 {
+              amount
+              currencyCode
+            }
+            ... on PricingPercentageValue {
+              percentage
+            }
+          }
+          ... on ManualDiscountApplication {
+            title
+            description
+          }
+          ... on DiscountCodeApplication {
+            code
+            applicable
+          }
+          ... on ScriptDiscountApplication {
+            title
+          }
+          ... on AutomaticDiscountApplication {
+            title
+          }
+        }
+      }
+    }
+    appliedGiftCards {
+      amountUsed {
+        amount
+        currencyCode
+      }
+      amountUsedV2: amountUsed {
+        amount
+        currencyCode
+      }
+      balance {
+        amount
+        currencyCode
+      }
+      balanceV2: balance {
+        amount
+        currencyCode
+      }
+      presentmentAmountUsed {
+        amount
+        currencyCode
+      }
+      id
+      lastCharacters
+    }
+    shippingAddress {
+      id
+      address1
+      address2
+      city
+      company
+      country
+      firstName
+      formatted
+      lastName
+      latitude
+      longitude
+      phone
+      province
+      zip
+      name
+      countryCode: countryCodeV2
+      provinceCode
+    }
+    shippingLine {
+      handle
+      price {
+        amount
+        currencyCode
+      }
+      priceV2: price {
+        amount
+        currencyCode
+      }
+      title
+    }
+    customAttributes {
+      key
+      value
+    }
+    order {
+      id
+      processedAt
+      orderNumber
+      subtotalPrice {
+        amount
+        currencyCode
+      }
+      subtotalPriceV2: subtotalPrice {
+        amount
+        currencyCode
+      }
+      totalShippingPrice {
+        amount
+        currencyCode
+      }
+      totalShippingPriceV2: totalShippingPrice {
+        amount
+        currencyCode
+      }
+      totalTax {
+        amount
+        currencyCode
+      }
+      totalTaxV2: totalTax {
+        amount
+        currencyCode
+      }
+      totalPrice {
+        amount
+        currencyCode
+      }
+      totalPriceV2: totalPrice {
+        amount
+        currencyCode
+      }
+      currencyCode
+      totalRefunded {
+        amount
+        currencyCode
+      }
+      totalRefundedV2: totalRefunded {
+        amount
+        currencyCode
+      }
+      customerUrl
+      shippingAddress {
+        id
+        address1
+        address2
+        city
+        company
+        country
+        firstName
+        formatted
+        lastName
+        latitude
+        longitude
+        phone
+        province
+        zip
+        name
+        countryCode: countryCodeV2
+        provinceCode
+      }
+      lineItems(first: 250) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            title
+            variant {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              priceV2: price {
+                amount
+                currencyCode
+              }
+              weight
+              available: availableForSale
+              sku
+              compareAtPrice {
+                amount
+                currencyCode
+              }
+              compareAtPriceV2: compareAtPrice {
+                amount
+                currencyCode
+              }
+              image {
+                id
+                src: url
+                altText
+                width
+                height
+              }
+              selectedOptions {
+                name
+                value
+              }
+              unitPrice {
+                amount
+                currencyCode
+              }
+              unitPriceMeasurement {
+                measuredType
+                quantityUnit
+                quantityValue
+                referenceUnit
+                referenceValue
+              }
+              product {
+                id
+                handle
+              }
+            }
+            quantity
+            customAttributes {
+              key
+              value
+            }
+          }
+        }
+      }
+    }
+    lineItems(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          variant {
+            id
+            title
+            price {
+              amount
+              currencyCode
+            }
+            priceV2: price {
+              amount
+              currencyCode
+            }
+            weight
+            available: availableForSale
+            sku
+            compareAtPrice {
+              amount
+              currencyCode
+            }
+            compareAtPriceV2: compareAtPrice {
+              amount
+              currencyCode
+            }
+            image {
+              id
+              src: url
+              altText
+              width
+              height
+            }
+            selectedOptions {
+              name
+              value
+            }
+            unitPrice {
+              amount
+              currencyCode
+            }
+            unitPriceMeasurement {
+              measuredType
+              quantityUnit
+              quantityValue
+              referenceUnit
+              referenceValue
+            }
+            product {
+              id
+              handle
+            }
+          }
+          quantity
+          customAttributes {
+            key
+            value
+          }
+          discountAllocations {
+            allocatedAmount {
+              amount
+              currencyCode
+            }
+            discountApplication {
+              targetSelection
+              allocationMethod
+              targetType
+              value {
+                ... on MoneyV2 {
+                  amount
+                  currencyCode
+                }
+                ... on PricingPercentageValue {
+                  percentage
+                }
+              }
+              ... on ManualDiscountApplication {
+                title
+                description
+              }
+              ... on DiscountCodeApplication {
+                code
+                applicable
+              }
+              ... on ScriptDiscountApplication {
+                title
+              }
+              ... on AutomaticDiscountApplication {
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

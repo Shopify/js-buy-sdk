@@ -1,0 +1,69 @@
+# product.fetchMultiple() - product by set of ids
+
+# Removed:
+# image.src (replaced by image.url)
+# product.[createdAt, updatedAt, descriptionHtml, productType, vendor, publishedAt, onlineStoreUrl]
+# product.images (replaced with product.featuredImage)
+# product.variants.edges.[cursor, node] (replaced by product.variants.nodes)
+# variant.[priceV2, compareAtPriceV2, compareAtPrice, weight, unitPrice, unitPriceMeasurement]
+# variant.available (replaced with product.availableForSale)
+
+# Added:
+# product.priceRange
+# product.variants.pageInfo[startCursor, endCursor]
+
+query ($ids: [ID!]!) {
+  nodes(ids: $ids) {
+    id
+    availableForSale
+    description
+    handle
+    title
+    options {
+      name
+      values
+    }
+    featuredImage {
+      id
+      url
+      altText
+    }
+    priceRange {
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    variants(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      nodes {
+        id
+        title
+        price {
+          amount
+          currencyCode
+        }
+        availableForSale
+        sku
+        image {
+          id
+          url
+          altText
+        }
+        selectedOptions {
+          name
+          value
+        }
+      }
+    }
+  }
+}

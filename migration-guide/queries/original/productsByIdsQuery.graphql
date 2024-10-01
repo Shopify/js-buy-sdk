@@ -1,0 +1,92 @@
+# product.fetchMultiple() - product by set of ids
+
+query ($ids: [ID!]!) {
+  nodes(ids: $ids) {
+    id
+    availableForSale
+    createdAt
+    updatedAt
+    descriptionHtml
+    description
+    handle
+    productType
+    title
+    vendor
+    publishedAt
+    onlineStoreUrl
+    options {
+      name
+      values
+    }
+    images(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          src: url
+          altText
+          width
+          height
+        }
+      }
+    }
+    variants(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          price {
+            amount
+            currencyCode
+          }
+          priceV2: price {
+            amount
+            currencyCode
+          }
+          weight
+          available: availableForSale
+          sku
+          compareAtPrice {
+            amount
+            currencyCode
+          }
+          compareAtPriceV2: compareAtPrice {
+            amount
+            currencyCode
+          }
+          image {
+            id
+            src: url
+            altText
+            width
+            height
+          }
+          selectedOptions {
+            name
+            value
+          }
+          unitPrice {
+            amount
+            currencyCode
+          }
+          unitPriceMeasurement {
+            measuredType
+            quantityUnit
+            quantityValue
+            referenceUnit
+            referenceValue
+          }
+        }
+      }
+    }
+  }
+}
