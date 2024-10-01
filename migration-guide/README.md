@@ -83,7 +83,7 @@ const {data, errors, extensions} = await client.request(operation);
 console.log(data.products);
 ```
 
-Note that with the Storefront Client, you'll be crafting GraphQL operations directly, and can therefore customize it according to your needs. Refer to the [Storefront API](https://shopify.dev/docs/api/storefront) documentation for common operations or see <span style="text-decoration:underline;">JS Buy SDK query equivalents</span>. !TODO: LINK THIS WHEN ADDED!
+Note that with the Storefront Client, you'll be crafting GraphQL operations directly, and can therefore customize it according to your needs. Refer to the [Storefront API](https://shopify.dev/docs/api/storefront) documentation for common operations or see <a href="/migration-guide/queries/">JS Buy SDK query equivalents</a>.
 
 #### Carts and checkouts
 
