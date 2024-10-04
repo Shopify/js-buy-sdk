@@ -18,6 +18,7 @@ import cartLineItemsUpdateFixtureWithUserErrors from '../fixtures/cart-line-item
 import cartLineItemsRemoveFixture from '../fixtures/cart-line-items-remove-fixture';
 import cartUpdateDiscountCodesFixture from '../fixtures/cart-update-discount-codes-fixture';
 import cartUpdateNoteFixture from '../fixtures/cart-update-note-fixture';
+import cartUpdateSelectedDeliveryOptionsFixture from '../fixtures/cart-update-selected-delivery-options-fixture';
 
 suite('client-cart-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -249,6 +250,18 @@ suite('client-cart-integration-test', () => {
 
     return client.cart.updateNote(cartId, note).then((cart) => {
       assert.equal(cart.id, cartUpdateNoteFixture.data.cartNoteUpdate.cart.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a cart on Client.cart#updateSelectedDeliveryOptions', () => {
+    const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+    const selectedDeliveryOptions = [{deliveryGroupId: 'gid://shopify/CartDeliveryGroup/269ea2856c41d63937d1ba5212c29713', deliveryOptionHandle: 'standard'}];
+
+    fetchMockPostOnce(fetchMock, apiUrl, cartUpdateSelectedDeliveryOptionsFixture);
+
+    return client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
+      assert.equal(cart.id, cartUpdateSelectedDeliveryOptionsFixture.data.cartSelectedDeliveryOptionsUpdate.cart.id);
       assert.ok(fetchMock.done());
     });
   });

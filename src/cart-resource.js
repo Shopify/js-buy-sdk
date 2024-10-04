@@ -12,6 +12,7 @@ import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
 import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
 import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
+import cartSelectedDeliveryOptionsUpdateMutation from './graphql/cartSelectedDeliveryOptionsUpdateMutation.graphql';
 
 /**
  * The JS Buy SDK cart resource
@@ -220,6 +221,27 @@ class CartResource extends Resource {
     return this.graphQLClient
       .send(cartNoteUpdateMutation, {cartId, note})
       .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
+  }
+
+  /**
+   * Updates the selected delivery options on a cart
+   *
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const selectedDeliveryOptions = [{deliveryGroupId: 'gid://shopify/CartDeliveryGroup/269ea2856c41d63937d1ba5212c29713', deliveryOptionHandle: 'standard'}];
+   *
+   * client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
+   * // Do something with the updated cart
+   * });
+   *
+   * @param {String} cartId The ID of the cart to update.
+   * @param {Object[]} [selectedDeliveryOptions] The selected delivery options.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions = []) {
+    return this.graphQLClient
+      .send(cartSelectedDeliveryOptionsUpdateMutation, {cartId, selectedDeliveryOptions})
+      .then(handleCartMutation('cartSelectedDeliveryOptionsUpdate', this.graphQLClient));
   }
 }
 
