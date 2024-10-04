@@ -61,7 +61,7 @@ export default {
         discountCodes: [],
         buyerIdentity: {
           countryCode: null,
-          walletPreferences: [],
+          preferences: [],
           email: 'hi@hello.com',
           phone: null,
           customer: null,

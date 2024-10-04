@@ -42,7 +42,18 @@ fragment CartFragment on Cart {
   }
   buyerIdentity {
     countryCode
-    walletPreferences
+    preferences {
+      delivery {
+        coordinates {
+          latitude
+          longitude
+          countryCode
+        }
+        deliveryMethod
+        pickupHandle
+      }
+      wallet
+    }
     email
     phone
     customer {
@@ -129,6 +140,21 @@ fragment CartFragment on Cart {
           }
         }
       }
+    }
+  }
+  appliedGiftCards {
+    id
+    amountUsed {
+      amount
+      currencyCode
+    }
+    balance {
+      amount
+    }
+    lastCharacters
+    presentmentAmountUsed {
+      amount
+      currencyCode
     }
   }
   note

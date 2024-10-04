@@ -29,7 +29,7 @@ export default {
         discountCodes: [],
         buyerIdentity: {
           countryCode: null,
-          walletPreferences: [],
+          preferences: [],
           email: null,
           phone: null,
           customer: null

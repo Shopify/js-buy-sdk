@@ -33,6 +33,7 @@ Each version of the JS Buy SDK uses a specific Storefront API version and the su
     - [Updating Cart Attributes](#updating-cart-attributes)
     - [Updating Buyer Identity](#updating-buyer-identity)
     - [Updating Discount Codes](#updating-discount-codes)
+    - [Updating Gift Card Codes](#updating-gift-card-codes)
     - [Adding Cart Line Items](#adding-cart-line-items)
     - [Removing Cart Line Items](#removing-cart-line-items)
     - [Updating Cart Line Items](#updating-cart-line-items)
@@ -243,6 +244,16 @@ client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
   // Do something with the updated cart
 });
 ```
+
+### Updating Gift Card Codes
+
+```javascript
+const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+const giftCardCodes = ["jmfxf9wmmmhgq379"];
+
+client.cart.updateGiftCardCodes(cartId, giftCardCodes).then((cart) => {
+  // Do something with the updated cart
+});
 
 ### Adding Cart Line Items
 

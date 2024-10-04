@@ -1,0 +1,12 @@
+mutation cartGiftCardCodesUpdate($cartId: ID!, $giftCardCodes: [String!]!) {
+  cartGiftCardCodesUpdate(cartId: $cartId, giftCardCodes: $giftCardCodes) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      field
+      message
+      code
+    }
+  }
+}

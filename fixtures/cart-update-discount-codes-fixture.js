@@ -66,7 +66,7 @@ export default {
         ],
         buyerIdentity: {
           countryCode: null,
-          walletPreferences: [],
+          preferences: [],
           email: null,
           phone: null,
           customer: null,

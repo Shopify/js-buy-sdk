@@ -8,6 +8,7 @@ import cartCreateMutation from './graphql/cartCreateMutation.graphql';
 import cartAttributesUpdateMutation from './graphql/cartAttributesUpdateMutation.graphql';
 import cartBuyerIdentityUpdateMutation from './graphql/cartBuyerIdentityUpdateMutation.graphql';
 import cartDiscountCodesUpdateMutation from './graphql/cartDiscountCodesUpdateMutation.graphql';
+import cartGiftCardCodesUpdateMutation from './graphql/cartGiftCardCodesUpdateMutation.graphql';
 import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
 import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
@@ -137,6 +138,28 @@ class CartResource extends Resource {
       .send(cartDiscountCodesUpdateMutation, {cartId, discountCodes})
       .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
+
+  /**
+   * Replaces the value of a cart's gift card codes
+   *
+   * @example
+   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+   * const giftCardCodes = ['jmfxf9wmmmhgq379'];
+   *
+   * client.cart.updateGiftCardCodes(cartId, giftCardCodes).then((cart) => {
+   * // Do something with the updated cart
+   * });
+
+   * @param {String} cartId The ID of the cart to update.
+   * @param {String[]} [giftCardCodes] The case-insensitive gift card codes.
+   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * */
+  updateGiftCardCodes(cartId, giftCardCodes = []) {
+    return this.graphQLClient
+      .send(cartGiftCardCodesUpdateMutation, {cartId, giftCardCodes})
+      .then(handleCartMutation('cartGiftCardCodesUpdate', this.graphQLClient));
+  }
+
 
   /**
    * Adds line items to a cart

@@ -19,6 +19,7 @@ import cartLineItemsRemoveFixture from '../fixtures/cart-line-items-remove-fixtu
 import cartUpdateDiscountCodesFixture from '../fixtures/cart-update-discount-codes-fixture';
 import cartUpdateNoteFixture from '../fixtures/cart-update-note-fixture';
 import cartUpdateSelectedDeliveryOptionsFixture from '../fixtures/cart-update-selected-delivery-options-fixture';
+import cartUpdateGiftCardCodesFixture from '../fixtures/cart-update-gift-card-codes-fixture';
 
 suite('client-cart-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -238,6 +239,18 @@ suite('client-cart-integration-test', () => {
 
     return client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
       assert.equal(cart.id, cartUpdateDiscountCodesFixture.data.cartDiscountCodesUpdate.cart.id);
+      assert.ok(fetchMock.done());
+    });
+  });
+
+  test('it resolves with a cart on Client.cart#updateGiftCardCodes', () => {
+    const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
+    const giftCardCodes = ['jmfxf9wmmmhgq379'];
+
+    fetchMockPostOnce(fetchMock, apiUrl, cartUpdateGiftCardCodesFixture);
+
+    return client.cart.updateGiftCardCodes(cartId, giftCardCodes).then((cart) => {
+      assert.equal(cart.id, cartUpdateGiftCardCodesFixture.data.cartGiftCardCodesUpdate.cart.id);
       assert.ok(fetchMock.done());
     });
   });
