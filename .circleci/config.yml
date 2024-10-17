@@ -13,9 +13,7 @@ jobs:
     steps:
       - checkout
 
-      - run:
-          name: Log into nexus npm registry
-          command: ./npm-login.sh
+      - javascript/pull-auth
 
       - run:
           name: Build
@@ -26,19 +24,7 @@ jobs:
       - javascript/bump-package-version:
           base_package_version: "2.20"
 
-      - javascript/publish-to-nexus:
-          nexus_repository_name: "npm-private"
-
-      - javascript/change-publish-registry-to-codeartifact:
-          code_artifact_repository_name: "whoop-npm"
-
-      - javascript/authenticate-with-codeartifact
-
-      - javascript/npm-codeartifact-auth:
-          code_artifact_repository_name: "whoop-npm"
-
-      - javascript/publish-to-codeartifact:
-          code_artifact_repository_name: "whoop-npm"
+      - javascript/publish
 
 workflows:
   build_and_test:
