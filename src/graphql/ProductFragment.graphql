@@ -88,7 +88,7 @@ fragment ProductFragment on Product {
     {namespace: "productListing", key: "fundraisedAmount"},
     {namespace: "productListing", key: "processingTime"},
     {namespace: "productListing", key: "liveStatus"},
-    {namespace: "productListing", key: "expectedStoreId"},
+    {namespace: "productListing", key: "storeIds"},
   ]) {
     ...MetafieldWithReferenceFragment
   }

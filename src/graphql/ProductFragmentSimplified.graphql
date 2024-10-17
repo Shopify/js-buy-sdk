@@ -50,6 +50,7 @@ fragment ProductFragmentSimplified on Product {
     {namespace: "productListing", key: "targetQuantity"},
     {namespace: "productListing", key: "fundraisedAmount"},
     {namespace: "productListing", key: "liveStatus"},
+    {namespace: "productListing", key: "storeIds"},
   ]) {
     ...MetafieldWithReferenceFragment
   }
