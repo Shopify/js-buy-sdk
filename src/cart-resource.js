@@ -36,15 +36,7 @@ class CartResource extends Resource {
     return this.graphQLClient
       .send(cartNodeQuery, {id})
       .then(defaultResolver('node'))
-      .then((cart) => {
-        if (!cart) { return null; }
-
-        return this.graphQLClient.fetchAllPages(cart.lines, {pageSize: 250}).then((lineItems) => {
-          cart.attrs.lineItems = lineItems;
-
-          return cart;
-        });
-      });
+      .then(this.payloadMapper.fetch);
   }
 
   /**
@@ -72,7 +64,7 @@ class CartResource extends Resource {
    */
   create(input = {}) {
     return this.graphQLClient
-      .send(cartCreateMutation, {input})
+      .send(cartCreateMutation, {input: this.inputMapper.create(input)})
       .then(handleCartMutation('cartCreate', this.graphQLClient));
   }
 

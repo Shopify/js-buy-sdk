@@ -1,14 +1,20 @@
+import PayloadMapper from './payload-map-resource';
+
 export default function handleCartMutation(mutationRootKey, client) {
+  const payloadMapper = new PayloadMapper(client);
+
   return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
 
     if (rootData && rootData.cart) {
-      return client.fetchAllPages(rootModel.cart.lineItems, {pageSize: 250}).then((lineItems) => {
-        rootModel.cart.attrs.lineItems = lineItems;
+      return client.fetchAllPages(rootModel.cart.lines, {pageSize: 250}).then((lines) => {
+        rootModel.cart.attrs.lines = lines;
         rootModel.cart.errors = errors;
 
-        return rootModel.cart;
+        const checkout = payloadMapper.checkout(rootModel.cart);
+
+        return checkout;
       });
     }
 

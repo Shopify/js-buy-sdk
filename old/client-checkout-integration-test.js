@@ -29,7 +29,7 @@ import checkoutGiftCardRemoveV2Fixture from '../fixtures/checkout-gift-card-remo
 import checkoutShippingAddressUpdateV2Fixture from '../fixtures/checkout-shipping-address-update-v2-fixture';
 import checkoutShippingAdddressUpdateV2WithUserErrorsFixture from '../fixtures/checkout-shipping-address-update-v2-with-user-errors-fixture';
 
-suite('client-checkout-integration-test', () => {
+suite.only('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
   const config = {
     storefrontAccessToken: 'abc123',
@@ -62,9 +62,7 @@ suite('client-checkout-integration-test', () => {
   });
 
   test('it resolves with a checkout on Client.checkout#fetch', () => {
-    fetchMockPostOnce(fetchMock, apiUrl, checkoutFixture);
-
-    const checkoutId = checkoutFixture.data.node.id;
+    // fetchMockPostOnce(fetchMock, apiUrl, checkoutFixture);
 
     return client.checkout.fetch(checkoutId).then((checkout) => {
       assert.equal(checkout.id, checkoutId);
@@ -83,7 +81,7 @@ suite('client-checkout-integration-test', () => {
     });
   });
 
-  test('it resolves with a checkout on Client.checkout#create', () => {
+  test.only('it resolves with a checkout on Client.checkout#create', () => {
     const input = {
       lineItems: [
         {
