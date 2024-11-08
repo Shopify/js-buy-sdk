@@ -28,13 +28,15 @@
     "lint": "eslint --max-warnings 0 -c .eslintrc.json $(yarn run lint:reporter-args 2>&1 >/dev/null) src/ test/",
     "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
-    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/2024-07/graphql.json' --header 'X-Shopify-Storefront-Access-Token: 595005d0c565f6969eece280de85edb5' | jq '.' > schema.json",
+    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/unstable/graphql.json' --header 'X-Shopify-Storefront-Access-Token: 595005d0c565f6969eece280de85edb5' | jq '.' > schema.json",
     "minify-umd:optimized": "babel-minify index.umd.js > index.umd.min.js",
     "minify-umd:unoptimized": "babel-minify index.unoptimized.umd.js > index.unoptimized.umd.min.js"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "country-to-currency": "^1.1.5"
+  },
   "devDependencies": {
     "aws-sdk": "2.162.0",
     "babel": "6.23.0",

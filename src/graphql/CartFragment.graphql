@@ -40,6 +40,24 @@ fragment CartFragment on Cart {
     applicable
     code
   }
+  discountAllocations {
+    ... on CartCodeDiscountAllocation {
+      targetType
+      code
+      discountedAmount {
+        amount
+        currencyCode
+      }
+    }
+    ... on CartAutomaticDiscountAllocation {
+      targetType
+      title
+      discountedAmount {
+        amount
+        currencyCode
+      }
+    }
+  }
   buyerIdentity {
     countryCode
     preferences {
@@ -77,6 +95,7 @@ fragment CartFragment on Cart {
         phone
         province
         provinceCode
+        zip
       }
     }
   }

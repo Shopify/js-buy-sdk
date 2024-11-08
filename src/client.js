@@ -39,7 +39,7 @@ class Client {
    * @param {Config} config An instance of {@link Config} used to configure the Client.
    */
   constructor(config, GraphQLClientClass = GraphQLJSClient, fetchFunction) {
-    const url = `https://${config.domain}/api/${config.apiVersion}/graphql`;
+    const url = `https://${config.domain}/api/unstable/graphql`;
 
     const headers = {
       'X-SDK-Variant': 'javascript',

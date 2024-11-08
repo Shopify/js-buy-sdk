@@ -1,16 +1,15 @@
 export const defaultErrors = [{message: 'an unknown error has occurred.'}];
 
-export default function defaultResolver(path) {
-  const keys = path.split('.');
-
-  return function({model, errors}) {
+export default function defaultResolver() {
+  return function({model, data, errors}) {
     return new Promise((resolve, reject) => {
+      if (data.cart === null) {
+        resolve(null);
+      }
       try {
-        const result = keys.reduce((ref, key) => {
-          return ref[key];
-        }, model);
+        data.cart.attrs = model.attrs.cart;
 
-        resolve(result);
+        resolve(data.cart);
       } catch (_) {
         if (errors) {
           reject(errors);

@@ -70,7 +70,7 @@ class CheckoutResource extends Resource {
    *   @param {String} [input.note] A note for the checkout.
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.presentmentCurrencyCode ] A presentment currency code. See the {@link https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode|Storefront API reference} for valid currency code values.
-   * @return {Promise|GraphModel} A promise resolving with the created checkout.
+   *   @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
   create(input = {}) {
     return this.graphQLClient

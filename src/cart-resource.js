@@ -35,80 +35,153 @@ class CartResource extends Resource {
   fetch(id) {
     return this.graphQLClient
       .send(cartNodeQuery, {id})
-      .then(defaultResolver('node'))
+      .then(defaultResolver('cart'))
       .then(this.payloadMapper.fetch);
   }
 
   /**
-   * Creates a cart.
+   * Creates a checkout.
    *
    * @example
    * const input = {
-   *   lines: [
-   *     {merchandiseId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
+   *   lineItems: [
+   *     {variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}
    *   ]
    * };
    *
-   * client.cart.create(input).then((cart) => {
-   *   // Do something with the newly created cart
+   * client.checkout.create(input).then((checkout) => {
+   *   // Do something with the newly created checkout
    * });
    *
    * @param {Object} [input] An input object containing zero or more of:
-   *   @param {Object[]} [input.attributes] A list of attributes for the cart. See the {@link https://shopify.dev/docs/api/storefront/latest/input-objects/AttributeInput|Storefront API reference} for valid input fields.
-   *   @param {Object} [input.buyerIdentity] The customer associated with the cart. See the {@link https://shopify.dev/docs/api/storefront/latest/input-objects/CartBuyerIdentityInput|Storefront API reference} for valid input fields.
-   *   @param {String[]} [input.discountCodes] The discount codes for the cart.
-   *   @param {Object[]} [input.lines] A list of line items in the cart. See the {@link https://shopify.dev/docs/api/storefront/latest/input-objects/CartLineInput|Storefront API reference} for valid input fields for each line item.
-   *   @param {Object[]} [input.metafields] The metafields for this cart.  See the {@link https://shopify.dev/docs/api/storefront/latest/input-objects/CartInputMetafieldInput|Storefront API reference} for valid input fields for each line item.
-   *   @param {String} [input.note] A note for the cart.
-   * @return {Promise|GraphModel} A promise resolving with the created cart.
+   *   @param {String} [input.email] An email connected to the checkout.
+   *   @param {Object[]} [input.lineItems] A list of line items in the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/mailingaddressinput|Storefront API reference} for valid input fields.
+   *   @param {String} [input.note] A note for the checkout.
+   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
+   *   @deprecated {String} [input.presentmentCurrencyCode ] A presentment currency code. See the {@link https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode|Storefront API reference} for valid currency code values.
+   *   @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
-  create(input = {}) {
+  create(i = {}) {
+    const input = this.inputMapper.create(i);
+
     return this.graphQLClient
-      .send(cartCreateMutation, {input: this.inputMapper.create(input)})
+      .send(cartCreateMutation, {input})
       .then(handleCartMutation('cartCreate', this.graphQLClient));
   }
 
   /**
-   * Replaces the value of a cart's custom attributes
+   * Replaces the value of checkout's custom attributes and/or note with values defined in the input
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const attributes = [{key: "MyKey", value: "MyValue"}];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
    *
-   * client.cart.updateAttributes(cartId, attributes).then((cart) => {
-   *   // Do something with the updated cart
+   * client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object[]} [attributes] A list of additional information about the cart. See the {@link https://shopify.dev/docs/api/storefront/unstable/input-objects/AttributeInput|Storefront API reference} for valid input fields.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
+   * @param {String} checkoutId The ID of the checkout to update.
+   * @param {Object} [input] An input object containing zero or more of:
+   *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
+   *   @param {String} [input.note] A note for the checkout.
+   *   @deprecated {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  updateAttributes(cartId, attributes = []) {
-    return this.graphQLClient
-      .send(cartAttributesUpdateMutation, {cartId, attributes})
-      .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
+  updateAttributes(checkoutId, input = {}) {
+    const {cartAttributesUpdateInput, cartNoteUpdateInput} = this.inputMapper.updateAttributes(checkoutId, input);
+    const promises = [];
+
+    function updateNote() {
+      return this.graphQLClient.send(cartNoteUpdateMutation, cartNoteUpdateInput)
+        .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
+    }
+
+    function updateAttributes() {
+      return this.graphQLClient.send(cartAttributesUpdateMutation, cartAttributesUpdateInput)
+        .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
+    }
+
+    if (typeof cartNoteUpdateInput.note !== 'undefined') {
+      promises.push(updateNote.bind(this));
+    }
+
+    if (cartAttributesUpdateInput.attributes.length) {
+      promises.push(updateAttributes.bind(this));
+    }
+
+    return sequentially(promises).then((checkout) => checkout);
   }
 
   /**
-   * Replaces the value of a cart's buyer identity
+   * Replaces the value of checkout's email address
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const buyerIdentity = {email: "hello@hi.com"};
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const email = 'user@example.com';
    *
-   * client.cart.updateBuyerIdentity(cartId, buyerIdentity).then((cart) => {
-   *  // Do something with the updated cart
+   * client.checkout.updateEmail(checkoutId, email).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object} [buyerIdentity] A list of additional information about the cart. See the {@link https://shopify.dev/docs/api/storefront/unstable/input-objects/AttributeInput|Storefront API reference} for valid input fields.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateBuyerIdentity(cartId, buyerIdentity = {}) {
+   * @param {String} checkoutId The ID of the checkout to update.
+   * @param {String} email The email address to apply to the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateEmail(checkoutId, email) {
+    const variables = this.inputMapper.updateEmail(checkoutId, email);
+
     return this.graphQLClient
-      .send(cartBuyerIdentityUpdateMutation, {cartId, buyerIdentity})
+      .send(cartBuyerIdentityUpdateMutation, variables)
       .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
+
+  /**
+   * Adds line items to an existing checkout.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
+   *
+   * client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to add line items to.
+   * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  addLineItems(checkoutId, lineItems = []) {
+    const variables = this.inputMapper.addLineItems(checkoutId, lineItems);
+
+    return this.graphQLClient
+      .send(cartLinesAddMutation, variables)
+      .then(handleCartMutation('cartLinesAdd', this.graphQLClient));
+  }
+
+   /**
+   * Applies a discount to an existing checkout using a discount code.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const discountCode = 'best-discount-ever';
+   *
+   * client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to add discount to.
+   * @param {String} discountCode The discount code to apply to the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  addDiscount(checkoutId, discountCode) {
+    const variables = this.inputMapper.addDiscount(checkoutId, discountCode);
+
+    return this.graphQLClient
+      .send(cartDiscountCodesUpdateMutation, variables)
+      .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
+  }
+
 
   /**
    * Replaces the value of a cart's discount codes
@@ -152,27 +225,6 @@ class CartResource extends Resource {
       .then(handleCartMutation('cartGiftCardCodesUpdate', this.graphQLClient));
   }
 
-
-  /**
-   * Adds line items to a cart
-   *
-   * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const lines = [{merchandiseId: 'gid://shopify/Product/123456', quantity: 5}];
-   *
-   * client.cart.addLineItems(cartId, lines).then((cart) => {
-   * // Do something with the updated cart
-   * });
-   *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object[]} [lines] A list of merchandise lines to add to the cart.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  addLineItems(cartId, lines = []) {
-    return this.graphQLClient
-      .send(cartLinesAddMutation, {cartId, lines})
-      .then(handleCartMutation('cartLinesAdd', this.graphQLClient));
-  }
 
   /**
    * Removes line items from a cart
@@ -258,6 +310,20 @@ class CartResource extends Resource {
       .send(cartSelectedDeliveryOptionsUpdateMutation, {cartId, selectedDeliveryOptions})
       .then(handleCartMutation('cartSelectedDeliveryOptionsUpdate', this.graphQLClient));
   }
+}
+
+// This function takes an array of functions that return promises
+function sequentially(taskArray) {
+  // Start with a resolved promise
+  let sequence = Promise.resolve();
+
+  // Chain each function in the taskArray sequentially
+  taskArray.forEach((task) => {
+    sequence = sequence.then(() => task());
+  });
+
+  // Return the final promise to allow handling of the last task's result
+  return sequence;
 }
 
 export default CartResource;
