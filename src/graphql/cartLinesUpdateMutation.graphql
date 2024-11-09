@@ -8,5 +8,10 @@ mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
       message
       code
     }
+    warnings {
+      code
+      message
+      target
+    }
   }
 }

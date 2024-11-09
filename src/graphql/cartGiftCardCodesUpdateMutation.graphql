@@ -8,10 +8,5 @@ mutation cartGiftCardCodesUpdate($cartId: ID!, $giftCardCodes: [String!]!) {
       message
       code
     }
-    warnings {
-      code
-      message
-      target
-    }
   }
 }

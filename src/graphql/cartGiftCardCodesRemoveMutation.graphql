@@ -8,10 +8,5 @@ mutation cartGiftCardCodesRemove($appliedGiftCardIds: [ID!]!, $cartId: ID!) {
       message
       code
     }
-    warnings {
-      code
-      message
-      target
-    }
   }
 }
