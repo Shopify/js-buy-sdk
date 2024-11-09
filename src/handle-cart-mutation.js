@@ -12,9 +12,8 @@ export default function handleCartMutation(mutationRootKey, client) {
         rootModel.cart.attrs.lines = lines;
         rootModel.cart.errors = errors;
 
-        const checkout = payloadMapper.checkout(rootData.cart);
+        return payloadMapper.checkout(rootData.cart);
 
-        return checkout;
       });
     }
 
