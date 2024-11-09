@@ -104,12 +104,138 @@ export default class InputMapper {
   addDiscount(checkoutId, discountCode) {
     return {
       cartId: checkoutId,
-      // NOTE: Checkout support only one discount code
-      discountCodes: Array.isArray(discountCode)
-        ? discountCode[0]
-        : discountCode
-          ? [discountCode]
-          : []
+      discountCodes: discountCode ? [discountCode] : []
+    };
+  }
+
+  removeDiscount(checkoutId) {
+    return {
+      cartId: checkoutId,
+      discountCodes: []
+    };
+  }
+
+  addGiftCards(checkoutId, giftCardCodes) {
+    return {
+      cartId: checkoutId,
+      giftCardCodes: giftCardCodes || []
+    };
+  }
+
+  removeGiftCard(checkoutId, appliedGiftCardId) {
+    return {
+      cartId: checkoutId,
+      appliedGiftCardIds: appliedGiftCardId ? [appliedGiftCardId] : []
+    };
+  }
+
+  removeLineItems(checkoutId, lineItemIds) {
+    return {
+      cartId: checkoutId,
+      lineIds: lineItemIds ? lineItemIds : []
+    };
+  }
+
+  replaceLineItems(checkoutId, lineItems) {
+    return {
+      cartId: checkoutId,
+      lines: lineItems.map((lineItem) => {
+        const line = {};
+
+        if (lineItem.quantity) {
+          line.quantity = lineItem.quantity;
+        }
+
+        if (lineItem.variantId) {
+          line.merchandiseId = lineItem.variantId;
+        }
+
+        if (lineItem.customAttributes) {
+          line.attributes = lineItem.customAttributes;
+        }
+
+        return line;
+      })
+    };
+  }
+
+  updateLineItems(checkoutId, lineItems) {
+    return {
+      cartId: checkoutId,
+      lines: lineItems.map((lineItem) => {
+        if (!lineItem.id) {
+          return null;
+        }
+
+        const line = {id: lineItem.id};
+
+        if (lineItem.quantity) {
+          line.quantity = lineItem.quantity;
+        }
+
+        if (lineItem.variantId) {
+          line.merchandiseId = lineItem.variantId;
+        }
+
+        if (lineItem.customAttributes) {
+          line.attributes = lineItem.customAttributes;
+        }
+
+        return line;
+      }).filter(Boolean)
+    };
+  }
+
+  updateShippingAddress(checkoutId, shippingAddress) {
+    const deliveryAddress = {};
+
+    if (shippingAddress.address1) {
+      deliveryAddress.address1 = shippingAddress.address1;
+    }
+
+    if (shippingAddress.address2) {
+      deliveryAddress.address2 = shippingAddress.address2;
+    }
+
+    if (shippingAddress.city) {
+      deliveryAddress.city = shippingAddress.city;
+    }
+
+    if (shippingAddress.company) {
+      deliveryAddress.company = shippingAddress.company;
+    }
+
+    if (shippingAddress.country) {
+      deliveryAddress.country = shippingAddress.country;
+    }
+
+    if (shippingAddress.firstName) {
+      deliveryAddress.firstName = shippingAddress.firstName;
+    }
+
+    if (shippingAddress.lastName) {
+      deliveryAddress.lastName = shippingAddress.lastName;
+    }
+
+    if (shippingAddress.phone) {
+      deliveryAddress.phone = shippingAddress.phone;
+    }
+
+    if (shippingAddress.zip) {
+      deliveryAddress.zip = shippingAddress.zip;
+    }
+
+    if (shippingAddress.province) {
+      deliveryAddress.province = shippingAddress.province;
+    }
+
+    const withDeliveryAddress = deliveryAddress && Object.keys(deliveryAddress).length > 0;
+
+    return {
+      cartId: checkoutId,
+      buyerIdentity: {
+        deliveryAddressPreferences: withDeliveryAddress ? [{deliveryAddress}] : []
+      }
     };
   }
 }
