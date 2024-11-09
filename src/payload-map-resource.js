@@ -7,6 +7,7 @@ export default class PayloadMapper {
     this.checkout = this.checkout.bind(this);
 
     // individual field mapping methods
+    this.appliedGiftCards = this.appliedGiftCards.bind(this);
     this.currencyCode = this.currencyCode.bind(this);
     this.customAttributes = this.customAttributes.bind(this);
     this.discountApplications = this.discountApplications.bind(this);
@@ -28,6 +29,7 @@ export default class PayloadMapper {
     this.cart = cart;
 
     const checkout = {
+      appliedGiftCards: this.appliedGiftCards(),
       currencyCode: this.currencyCode(),
       customAttributes: this.customAttributes(),
       discountApplications: this.discountApplications(),
@@ -46,6 +48,11 @@ export default class PayloadMapper {
     };
 
     return checkout;
+  }
+
+  // TODO: implement fully
+  appliedGiftCards() {
+    return this.cart.appliedGiftCards;
   }
 
   id() {

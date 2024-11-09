@@ -223,7 +223,7 @@ class CheckoutResource extends Resource {
   removeGiftCard(checkoutId, appliedGiftCardId) {
     return this.graphQLClient
       .send(checkoutGiftCardRemoveV2Mutation, {checkoutId, appliedGiftCardId})
-      .then(handleCheckoutMutation('checkoutGiftCardRemoveV2', this.graphQLClient));
+      .then(handleCheckoutMutation('cartGiftCardCodesRemove', this.graphQLClient));
   }
 
   /**
