@@ -1,22 +1,32 @@
+import PayloadMapper from './payload-map-resource';
+
 export const defaultErrors = [{message: 'an unknown error has occurred.'}];
 
-export default function defaultResolver() {
-  return function({model, data, errors}) {
-    return new Promise((resolve, reject) => {
-      if (data.cart === null) {
-        resolve(null);
-      }
-      try {
-        data.cart.attrs = model.attrs.cart;
+export default function defaultResolver(key, client) {
+  const payloadMapper = new PayloadMapper(client);
 
-        resolve(data.cart);
-      } catch (_) {
-        if (errors) {
-          reject(errors);
-        } else {
-          reject(defaultErrors);
-        }
+  return function({model, data, errors}) {
+    try {
+      const rootData = data[key];
+      const rootModel = model[key];
+
+      if (!rootData) {
+        Promise.resolve(null);
       }
-    });
+
+      return client.fetchAllPages(rootModel.lines, {pageSize: 250}).then((lines) => {
+        rootModel.attrs.lines = lines;
+        rootModel.errors = errors;
+
+        return payloadMapper.checkout(rootData);
+      });
+
+    } catch (_) {
+      if (errors) {
+        Promise.reject(errors);
+      } else {
+        Promise.reject(defaultErrors);
+      }
+    }
   };
 }
