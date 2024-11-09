@@ -372,13 +372,23 @@ suite.only('client-checkout-integration-test', () => {
     });
   });
 
-  suite(('removeLineItems'), () => {});
+  suite.only('removeLineItems', () => {
+    // TODO: implement
+  });
 
-  suite('replaceLineItems', () => {});
+  suite('replaceLineItems', () => {
+    // TODO: implement
+  });
 
-  suite('updateLineItems', () => {});
+  suite('updateLineItems', () => {
+    // TODO: implement
+  });
 
-  suite('updateShippingAddress', () => {});
+  suite('updateShippingAddress', () => {
+    // TODO: implement
+  });
 
-  suite('checkout totals', () => {});
+  suite('checkout totals', () => {
+    // TODO: implement
+  });
 });

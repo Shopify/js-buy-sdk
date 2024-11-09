@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Client from '../src/client';
 
-suite.only('client-checkout-integration-test', () => {
+suite('client-checkout-giftcards-integration-test', () => {
   const domain = 'juanprieto.myshopify.com';
 
   const config = {
@@ -21,7 +21,7 @@ suite.only('client-checkout-integration-test', () => {
     client = null;
   });
 
-  suite.only('addGiftCards', () => {
+  suite('addGiftCards', () => {
     suite('empty checkout', () => {
       test('it adds a single gift card to an empty checkout', () => {
         const input = {
