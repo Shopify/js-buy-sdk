@@ -372,10 +372,6 @@ suite.only('client-checkout-integration-test', () => {
     });
   });
 
-  suite(('addGiftCards'), () => {});
-
-  suite(('removeGiftCard'), () => {});
-
   suite(('removeLineItems'), () => {});
 
   suite('replaceLineItems', () => {});
