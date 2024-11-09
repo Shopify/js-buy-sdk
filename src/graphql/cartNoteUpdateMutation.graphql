@@ -8,10 +8,5 @@ mutation cartNoteUpdate($cartId: ID!, $note: String!) {
       message
       code
     }
-    warnings {
-      code
-      message
-      target
-    }
   }
 }

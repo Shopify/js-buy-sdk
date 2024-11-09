@@ -8,10 +8,5 @@ mutation cartAttributesUpdate($attributes: [AttributeInput!]!, $cartId: ID!) {
       message
       code
     }
-    warnings {
-      code
-      message
-      target
-    }
   }
 }

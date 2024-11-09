@@ -8,10 +8,5 @@ mutation ($input: CartInput!) {
       message
       code
     }
-    warnings {
-      code
-      message
-      target
-    }
   }
 }

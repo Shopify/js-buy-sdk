@@ -3,11 +3,10 @@ export default class PayloadMapper {
     this.graphQLClient = graphQLClient;
     this.cart = {};
 
-    // methods
+    // method to map the cart object to the checkout object
     this.checkout = this.checkout.bind(this);
-    this.fetch = this.fetch.bind(this);
 
-    // fields
+    // individual field mapping methods
     this.currencyCode = this.currencyCode.bind(this);
     this.customAttributes = this.customAttributes.bind(this);
     this.discountApplications = this.discountApplications.bind(this);
@@ -70,10 +69,12 @@ export default class PayloadMapper {
   }
 
   paymentDue() {
-    return this.moneyField(this.cart.cost.totalAmount);
+    // TODO: this is just a placeholder for now
+    return null;
   }
 
   paymentDueV2() {
+    // TODO: this is just a placeholder for now
     return this.moneyField(this.cart.cost.totalAmount);
   }
 
@@ -186,5 +187,4 @@ export default class PayloadMapper {
       }
     };
   }
-
 }

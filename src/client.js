@@ -79,7 +79,7 @@ class Client {
     this.product = new ProductResource(this.graphQLClient);
     this.collection = new CollectionResource(this.graphQLClient);
     this.shop = new ShopResource(this.graphQLClient);
-    this.cart = new CartResource(this.graphQLClient);
+    this.checkout = new CartResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
   }
 

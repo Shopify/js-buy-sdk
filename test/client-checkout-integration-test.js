@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Client from '../src/client';
 
-suite.only('client-cart-integration-test', () => {
+suite.only('client-checkout-integration-test', () => {
   const domain = 'juanprieto.myshopify.com';
 
   const config = {
@@ -14,7 +14,7 @@ suite.only('client-cart-integration-test', () => {
 
   setup(() => {
     client = Client.buildClient(config);
-    apiUrl = `https://${domain}/api/${client.config.apiVersion}/graphql`;
+    apiUrl = `https://${domain}/api/unstable/graphql`;
   });
 
   teardown(() => {
@@ -23,7 +23,7 @@ suite.only('client-cart-integration-test', () => {
 
   suite('create', () => {
     test('it resolves with an empty checkout', () => {
-      return client.cart.create({}).then((checkout) => {
+      return client.checkout.create({}).then((checkout) => {
         assert.ok((typeof checkout.webUrl === 'string'));
       });
     });
@@ -38,7 +38,7 @@ suite.only('client-cart-integration-test', () => {
         ]
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.deepEqual(checkout.customAttributes, [
           {
             key: 'my-key',
@@ -56,32 +56,13 @@ suite.only('client-cart-integration-test', () => {
       });
     });
 
-    test('it resolves a localized checkout created with buyerIdentity.countryCode', () => {
-      const input = {
-        buyerIdentity: {
-          countryCode: 'ES'
-        },
-        // NOTE: if we don't pass an item, the cart won't respect the countryCode and set the currencyCode to XXX
-        lineItems: [
-          {
-            variantId: 'gid://shopify/ProductVariant/48535896522774',
-            quantity: 1
-          }
-        ]
-      };
-
-      return client.cart.create(input).then((checkout) => {
-        console.log('EUR checkout', checkout);
-        assert.equal(checkout.paymentDueV2.currencyCode, 'EUR');
-      });
-    });
 
     test('it resolves with a checkout created with an email', () => {
       const input = {
         email: 'sdk@shopify.com'
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.email, input.email);
       });
     });
@@ -96,7 +77,7 @@ suite.only('client-cart-integration-test', () => {
         ]
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.lineItems.length, 1);
       });
     });
@@ -115,7 +96,7 @@ suite.only('client-cart-integration-test', () => {
         ]
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.lineItems.length, 2);
       });
     });
@@ -136,7 +117,7 @@ suite.only('client-cart-integration-test', () => {
         }
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.shippingAddress.address1, input.shippingAddress.address1);
         assert.equal(checkout.shippingAddress.city, input.shippingAddress.city);
         assert.equal(checkout.shippingAddress.province, input.shippingAddress.province);
@@ -150,8 +131,27 @@ suite.only('client-cart-integration-test', () => {
         note: 'This is a note!'
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.note, input.note);
+      });
+    });
+
+    test('it resolves a localized non-empty checkout created with buyerIdentity.countryCode', () => {
+      const input = {
+        buyerIdentity: {
+          countryCode: 'ES'
+        },
+        // NOTE: if we don't pass an item, the cart won't localize setting currencyCode to XXX
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        assert.equal(checkout.paymentDueV2.currencyCode, 'EUR');
       });
     });
 
@@ -164,26 +164,39 @@ suite.only('client-cart-integration-test', () => {
         presentmentCurrencyCode: 'EUR'
       };
 
-      return client.cart.create(input).then((checkout) => {
+      return client.checkout.create(input).then((checkout) => {
         assert.ok(checkout.paymentDueV2.currencyCode !== input.presentmentCurrencyCode);
       });
     });
+
+    // NOTE: if we don't pass an item, the updatedCheckout won't respect the countryCode and set the currencyCode to XXX
+    // this is a known Cart limitation tracked as Sev3
+    test('it does not resolve a localized empty checkout created with buyerIdentity.countryCode', () => {
+      const input = {
+        buyerIdentity: {
+          countryCode: 'ES'
+        }
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        assert.equal(checkout.paymentDueV2.currencyCode, 'XXX');
+      });
+    });
+
   });
 
   suite('fetch', () => {
-    test('it resolves with null on checkout.fetch for a bad checkoutId', () => {
-      return client.cart.fetch('gid://shopify/Cart/invalid').then((checkout) => {
+    test('it returns a null checkout for an invalid checkoutId', () => {
+      return client.checkout.fetch('gid://shopify/Cart/invalid').then((checkout) => {
         assert.equal(checkout, null);
       });
     });
 
-    test('it resolves with a cart on checkout.fetch', () => {
-      // should create a cart first and use that
-      return client.cart.create({}).then((newCart) => {
-
-        return client.cart.fetch(newCart.id).then((cart) => {
-          assert.ok(typeof cart.checkoutUrl === 'undefined');
-          assert.equal(cart.webUrl, newCart.webUrl);
+    test('it fetches a checkout by id', () => {
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.fetch(checkout.id).then((updatedCheckout) => {
+          assert.ok(typeof updatedCheckout.checkoutUrl === 'undefined');
+          assert.equal(updatedCheckout.webUrl, checkout.webUrl);
         });
       });
     });
@@ -195,9 +208,9 @@ suite.only('client-cart-integration-test', () => {
         note: 'This is a note!'
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.updateAttributes(newCart.id, input).then((cart) => {
-          assert.equal(cart.note, input.note);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.note, input.note);
         });
       });
     });
@@ -229,9 +242,9 @@ suite.only('client-cart-integration-test', () => {
           }]
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.updateAttributes(newCart.id, input).then((cart) => {
-          assert.deepEqual(cart.customAttributes, output.customAttributes);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
+          assert.deepEqual(updatedCheckout.customAttributes, output.customAttributes);
         });
       });
     });
@@ -283,10 +296,10 @@ suite.only('client-cart-integration-test', () => {
         note: 'This is a note!'
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.updateAttributes(newCart.id, input).then((cart) => {
-          assert.deepEqual(cart.customAttributes, output.customAttributes);
-          assert.equal(cart.note, input.note);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
+          assert.deepEqual(updatedCheckout.customAttributes, output.customAttributes);
+          assert.equal(updatedCheckout.note, input.note);
         });
       });
     });
@@ -299,9 +312,9 @@ suite.only('client-cart-integration-test', () => {
         allowPartialAddresses: true
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.updateAttributes(newCart.id, input).then((cart) => {
-          assert.equal(cart.id, newCart.id);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.id, checkout.id);
         });
       });
     });
@@ -311,9 +324,9 @@ suite.only('client-cart-integration-test', () => {
     test('it updates a checkout email via updateEmail', () => {
       const email = 'sdk@shopify.com';
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.updateEmail(newCart.id, email).then((cart) => {
-          assert.equal(cart.email, email);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateEmail(checkout.id, email).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.email, email);
         });
       });
     });
@@ -330,9 +343,9 @@ suite.only('client-cart-integration-test', () => {
         ]
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.addLineItems(newCart.id, input.lineItems).then((cart) => {
-          assert.equal(cart.lineItems.length, 1);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.addLineItems(checkout.id, input.lineItems).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems.length, 1);
         });
       });
     });
@@ -351,9 +364,9 @@ suite.only('client-cart-integration-test', () => {
         ]
       };
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.addLineItems(newCart.id, input.lineItems).then((cart) => {
-          assert.equal(cart.lineItems.length, 2);
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.addLineItems(checkout.id, input.lineItems).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems.length, 2);
         });
       });
     });
@@ -364,9 +377,9 @@ suite.only('client-cart-integration-test', () => {
       test('it does not add a fixed amount discount to an empty checkout via addDiscount', () => {
         const discountCode = '10OFF';
 
-        return client.cart.create({}).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 0);
+        return client.checkout.create({}).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 0);
           });
         });
       });
@@ -374,9 +387,9 @@ suite.only('client-cart-integration-test', () => {
       test('it does not add a percentage discount to an empty checkout via addDiscount', () => {
         const discountCode = '10PERCENTOFF';
 
-        return client.cart.create({}).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 0);
+        return client.checkout.create({}).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 0);
           });
         });
       });
@@ -386,20 +399,20 @@ suite.only('client-cart-integration-test', () => {
     suite('checkout with a single line item', () => {
       test('it adds a fixed amount discount to a checkout with a single line item via addDiscount', () => {
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, '10OFF').then((cart) => {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, '10OFF').then((updatedCheckout) => {
             // top-level discountApplication exists
-            assert.equal(cart.discountApplications.length, 1);
+            assert.equal(updatedCheckout.discountApplications.length, 1);
 
             // top-level discountApplications matches expected structure
-            assert.deepEqual(cart.discountApplications[0],
+            assert.deepEqual(updatedCheckout.discountApplications[0],
               {
                 __typename: 'DiscountCodeApplication',
                 targetSelection: 'ENTITLED',
@@ -434,10 +447,10 @@ suite.only('client-cart-integration-test', () => {
             );
 
             // line item discountAllocation exists
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
 
             // line item discountAllocation matches expected structure
-            assert.equal(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '10.0',
                 currencyCode: 'USD',
@@ -494,17 +507,17 @@ suite.only('client-cart-integration-test', () => {
       test('it adds a percentage discount to a checkout with a single line item via addDiscount', () => {
         const discountCode = '10PERCENTOFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ENTITLED',
               allocationMethod: 'EACH',
@@ -534,8 +547,8 @@ suite.only('client-cart-integration-test', () => {
                 discountCode: '10PERCENTOFF'
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '20.0',
                 currencyCode: 'USD',
@@ -590,17 +603,17 @@ suite.only('client-cart-integration-test', () => {
       test('it adds an order-level fixed amount discount to a checkout with a single line item via addDiscount', () => {
         const discountCode = 'ORDERFIXED50OFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -631,8 +644,8 @@ suite.only('client-cart-integration-test', () => {
                 discountCode: 'ORDERFIXED50OFF'
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.equal(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '50.0',
                 currencyCode: 'USD',
@@ -688,17 +701,17 @@ suite.only('client-cart-integration-test', () => {
       test('it adds an order-level percentage discount to a checkout with a single line item via addDiscount', () => {
         const discountCode = 'ORDER50PERCENTOFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -737,7 +750,7 @@ suite.only('client-cart-integration-test', () => {
       test('adds a fixed amount discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = '10OFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
@@ -748,11 +761,11 @@ suite.only('client-cart-integration-test', () => {
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
             // TODO: check for structure of discountApplications
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               allocatedAmount: {
                 amount: '10.0',
                 currencyCode: 'USD',
@@ -801,8 +814,8 @@ suite.only('client-cart-integration-test', () => {
                 implementsNode: false
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '10.0',
                 currencyCode: 'USD',
@@ -851,8 +864,8 @@ suite.only('client-cart-integration-test', () => {
                 implementsNode: false
               }
             });
-            assert.equal(cart.lineItems[1].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[1].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ENTITLED',
               allocationMethod: 'EACH',
@@ -891,7 +904,7 @@ suite.only('client-cart-integration-test', () => {
       test('adds a percentage discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = '10PERCENTOFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
@@ -902,10 +915,10 @@ suite.only('client-cart-integration-test', () => {
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ENTITLED',
               allocationMethod: 'EACH',
@@ -935,8 +948,8 @@ suite.only('client-cart-integration-test', () => {
                 discountCode: '10PERCENTOFF'
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '20.0',
                 currencyCode: 'USD',
@@ -984,8 +997,8 @@ suite.only('client-cart-integration-test', () => {
                 implementsNode: false
               }
             });
-            assert.equal(cart.lineItems[1].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[1].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               allocatedAmount: {
                 amount: '7.0',
                 currencyCode: 'USD',
@@ -1041,7 +1054,7 @@ suite.only('client-cart-integration-test', () => {
       test('adds an order-level fixed amount discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = 'ORDERFIXED50OFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
@@ -1052,10 +1065,10 @@ suite.only('client-cart-integration-test', () => {
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -1086,8 +1099,8 @@ suite.only('client-cart-integration-test', () => {
                 discountCode: 'ORDERFIXED50OFF'
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '37.04',
                 currencyCode: 'USD',
@@ -1136,8 +1149,8 @@ suite.only('client-cart-integration-test', () => {
                 implementsNode: false
               }
             });
-            assert.equal(cart.lineItems[1].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[1].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               allocatedAmount: {
                 amount: '12.96',
                 currencyCode: 'USD',
@@ -1190,12 +1203,12 @@ suite.only('client-cart-integration-test', () => {
         });
       });
 
-      // NOTE: We can't map this because Cart does not create a discountAllocation for the order-level discount on empty carts
+      // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
       // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDER50PERCENTOFF" } ]
       test('adds an order-level percentage discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = 'ORDER50PERCENTOFF';
 
-        return client.cart.create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/48535896522774',
@@ -1206,10 +1219,10 @@ suite.only('client-cart-integration-test', () => {
               quantity: 1
             }
           ]
-        }).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.equal(cart.discountApplications.length, 1);
-            assert.deepEqual(cart.discountApplications[0], {
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -1239,8 +1252,8 @@ suite.only('client-cart-integration-test', () => {
                 discountCode: 'ORDER50PERCENTOFF'
               }
             });
-            assert.equal(cart.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[0].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '100.0',
                 currencyCode: 'USD',
@@ -1288,8 +1301,8 @@ suite.only('client-cart-integration-test', () => {
                 implementsNode: false
               }
             });
-            assert.equal(cart.lineItems[1].discountAllocations.length, 1);
-            assert.deepEqual(cart.lineItems[1].discountAllocations[0], {
+            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -1327,14 +1340,14 @@ suite.only('client-cart-integration-test', () => {
 
   suite('addDiscount / not supported', () => {
     suite('empty checkout', () => {
-      // NOTE: We can't map this because Cart does not create a discountAllocation for the order-level discount on empty carts
+      // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
       // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDERFIXED50OFF" } ]
       test('it adds an order-level fixed amount discount to an empty checkout via addDiscount', () => {
         const discountCode = 'ORDERFIXED50OFF';
 
-        return client.cart.create({}).then((newCart) => {
-          return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-            assert.deepEqual(cart.discountApplications[0], {
+        return client.checkout.create({}).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            assert.deepEqual(updatedCheckout.discountApplications[0], {
               __typename: 'DiscountCodeApplication',
               targetSelection: 'ALL',
               allocationMethod: 'ACROSS',
@@ -1374,9 +1387,9 @@ suite.only('client-cart-integration-test', () => {
     test('it adds an order-level percentage discount to an empty checkout via addDiscount', () => {
       const discountCode = 'ORDER50PERCENTOFF';
 
-      return client.cart.create({}).then((newCart) => {
-        return client.cart.addDiscount(newCart.id, discountCode).then((cart) => {
-          assert.equal(cart.discountApplications[0], {
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.discountApplications[0], {
             __typename: 'DiscountCodeApplication',
             targetSelection: 'ALL',
             allocationMethod: 'ACROSS',
@@ -1412,7 +1425,7 @@ suite.only('client-cart-integration-test', () => {
     });
   });
 
-  suite('removeDiscount', () => { });
+  suite('removeDiscount', () => {});
 
   suite(('addGiftCards'), () => {});
 
@@ -1425,4 +1438,6 @@ suite.only('client-cart-integration-test', () => {
   suite('updateLineItems', () => {});
 
   suite('updateShippingAddress', () => {});
+
+  suite('checkout totals', () => {});
 });
