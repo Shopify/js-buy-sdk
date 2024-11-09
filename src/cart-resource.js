@@ -14,6 +14,7 @@ import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
 import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
 import cartSelectedDeliveryOptionsUpdateMutation from './graphql/cartSelectedDeliveryOptionsUpdateMutation.graphql';
+import cartGiftCardCodesRemoveMutation from './graphql/cartGiftCardCodesRemoveMutation.graphql';
 
 /**
  * The JS Buy SDK cart resource
@@ -35,8 +36,7 @@ class CartResource extends Resource {
   fetch(id) {
     return this.graphQLClient
       .send(cartNodeQuery, {id})
-      .then(defaultResolver('cart'))
-      .then(this.payloadMapper.fetch);
+      .then(defaultResolver('cart', this.graphQLClient));
   }
 
   /**
@@ -182,137 +182,204 @@ class CartResource extends Resource {
       .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
-
-  /**
-   * Replaces the value of a cart's discount codes
+    /**
+   * Removes the applied discount from an existing checkout.
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const discountCodes = [{code: "MyCode"}];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    *
-   * client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
-   * // Do something with the updated cart
+   * client.checkout.removeDiscount(checkoutId).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object[]} [discountCodes] A list of additional information about the cart. See the {@link https://shopify.dev/docs/api/storefront/unstable/input-objects/AttributeInput|Storefront API reference} for valid input fields.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateDiscountCodes(cartId, discountCodes = []) {
+   * @param {String} checkoutId The ID of the checkout to remove the discount from.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeDiscount(checkoutId) {
+    const variables = this.inputMapper.removeDiscount(checkoutId);
+
     return this.graphQLClient
-      .send(cartDiscountCodesUpdateMutation, {cartId, discountCodes})
+      .send(cartDiscountCodesUpdateMutation, variables)
       .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
-  /**
-   * Replaces the value of a cart's gift card codes
+    /**
+   * Applies gift cards to an existing checkout using a list of gift card codes
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const giftCardCodes = ['jmfxf9wmmmhgq379'];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const giftCardCodes = ['6FD8853DAGAA949F'];
    *
-   * client.cart.updateGiftCardCodes(cartId, giftCardCodes).then((cart) => {
-   * // Do something with the updated cart
+   * client.checkout.addGiftCards(checkoutId, giftCardCodes).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
+   *
+   * @param {String} checkoutId The ID of the checkout to add gift cards to.
+   * @param {String[]} giftCardCodes The gift card codes to apply to the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  addGiftCards(checkoutId, giftCardCodes) {
+    const variables = this.inputMapper.addGiftCards(checkoutId, giftCardCodes);
 
-   * @param {String} cartId The ID of the cart to update.
-   * @param {String[]} [giftCardCodes] The case-insensitive gift card codes.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateGiftCardCodes(cartId, giftCardCodes = []) {
     return this.graphQLClient
-      .send(cartGiftCardCodesUpdateMutation, {cartId, giftCardCodes})
+      .send(cartGiftCardCodesUpdateMutation, variables)
       .then(handleCartMutation('cartGiftCardCodesUpdate', this.graphQLClient));
   }
 
-
   /**
-   * Removes line items from a cart
+   * Remove a gift card from an existing checkout
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const lineIds = ['gid://shopify/CartLineItem/123456'];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const appliedGiftCardId = 'Z2lkOi8vc2hvcGlmeS9BcHBsaWVkR2lmdENhcmQvNDI4NTQ1ODAzMTI=';
    *
-   * client.cart.removeLineItems(cartId, lineIds).then((cart) => {
-   * // Do something with the updated cart
+   * client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {String[]} [lineIds] A list of merchandise lines to remove from the cart.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   *
+   * @param {String} checkoutId The ID of the checkout to add gift cards to.
+   * @param {String} appliedGiftCardId The gift card id to remove from the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  removeLineItems(cartId, lineIds = []) {
+  removeGiftCard(checkoutId, appliedGiftCardId) {
+    const variables = this.inputMapper.removeGiftCard(checkoutId, appliedGiftCardId);
+
     return this.graphQLClient
-      .send(cartLinesRemoveMutation, {cartId, lineIds})
+      .send(cartGiftCardCodesRemoveMutation, variables)
+      .then(handleCartMutation('cartGiftCardCodesRemove', this.graphQLClient));
+  }
+
+  /**
+   * Removes line items from an existing checkout.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const lineItemIds = ['TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU='];
+   *
+   * client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to remove line items from.
+   * @param {String[]} lineItemIds A list of the ids of line items to remove from the checkout.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  removeLineItems(checkoutId, lineIds = []) {
+    const variables = this.inputMapper.removeLineItems(checkoutId, lineIds);
+
+    return this.graphQLClient
+      .send(cartLinesRemoveMutation, variables)
       .then(handleCartMutation('cartLinesRemove', this.graphQLClient));
   }
 
   /**
-   * Updates line items in a cart
+   * Replace line items on an existing checkout.
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const lines = [{id: 'gid://shopify/CartLineItem/123456', quantity: 5}];
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const lineItems = [{variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg==', quantity: 5}];
    *
-   * client.cart.updateLineItems(cartId, lines).then((cart) => {
-   * // Do something with the updated cart
+   * client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object[]} [lines] A list of merchandise lines to update in the cart.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateLineItems(cartId, lines = []) {
+   * @param {String} checkoutId The ID of the checkout to add line items to.
+   * @param {Object[]} lineItems A list of line items to set on the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  replaceLineItems(checkoutId, lineItems) {
+    let checkout;
+
+    function getExistingCart() {
+      checkout = this.fetch(checkoutId);
+
+      return checkout;
+    }
+
+    // remove all existing lines
+    function removeExistingLines() {
+      const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
+
+      return this.removeLineItems(checkoutId, lineIds);
+    }
+
+    // add the replacing lines
+    function addReplacingLines() {
+      return this.addLineItems(checkoutId, lineItems);
+    }
+
+    return sequentially([
+      getExistingCart.bind(this),
+      removeExistingLines.bind(this),
+      addReplacingLines.bind(this)
+    ]);
+  }
+
+  /**
+   * Updates line items on an existing checkout.
+   *
+   * @example
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const lineItems = [
+   *   {
+   *     id: 'TViZGE5Y2U1ZDFhY2FiMmM2YT9rZXk9NTc2YjBhODcwNWIxYzg0YjE5ZjRmZGQ5NjczNGVkZGU=',
+   *     quantity: 5,
+   *     variantId: 'Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC8yOTEwNjAyMjc5Mg=='
+   *   }
+   * ];
+   *
+   * client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
+   *   // Do something with the updated checkout
+   * });
+   *
+   * @param {String} checkoutId The ID of the checkout to update a line item on.
+   * @param {Object[]} lineItems A list of line item information to update. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineitemupdateinput|Storefront API reference} for valid input fields for each line item.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateLineItems(checkoutId, lineItems) {
+    const variables = this.inputMapper.updateLineItems(checkoutId, lineItems);
+
     return this.graphQLClient
-      .send(cartLinesUpdateMutation, {cartId, lines})
+      .send(cartLinesUpdateMutation, variables)
       .then(handleCartMutation('cartLinesUpdate', this.graphQLClient));
   }
 
   /**
-   * Updates the note on a cart
+   * Updates shipping address on an existing checkout.
    *
    * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const note = 'A note for the cart';
+   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const shippingAddress = {
+   *    address1: 'Chestnut Street 92',
+   *    address2: 'Apartment 2',
+   *    city: 'Louisville',
+   *    company: null,
+   *    country: 'United States',
+   *    firstName: 'Bob',
+   *    lastName: 'Norman',
+   *    phone: '555-625-1199',
+   *    province: 'Kentucky',
+   *    zip: '40202'
+   *  };
    *
-   * client.cart.updateNote(cartId, note).then((cart) => {
-   * // Do something with the updated cart
-   * }
-   *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {String} [note] A note for the cart.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateNote(cartId, note) {
-    return this.graphQLClient
-      .send(cartNoteUpdateMutation, {cartId, note})
-      .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
-  }
-
-  /**
-   * Updates the selected delivery options on a cart
-   *
-   * @example
-   * const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-   * const selectedDeliveryOptions = [{deliveryGroupId: 'gid://shopify/CartDeliveryGroup/269ea2856c41d63937d1ba5212c29713', deliveryOptionHandle: 'standard'}];
-   *
-   * client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
-   * // Do something with the updated cart
+   * client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
+   *   // Do something with the updated checkout
    * });
    *
-   * @param {String} cartId The ID of the cart to update.
-   * @param {Object[]} [selectedDeliveryOptions] The selected delivery options.
-   * @return {Promise|GraphModel} A promise resolving with the updated cart.
-   * */
-  updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions = []) {
+   * @param  {String} checkoutId The ID of the checkout to update shipping address.
+   * @param  {Object} shippingAddress A shipping address.
+   * @return {Promise|GraphModel} A promise resolving with the updated checkout.
+   */
+  updateShippingAddress(checkoutId, shippingAddress) {
+    const variables = this.inputMapper.updateShippingAddress(checkoutId, shippingAddress);
+
     return this.graphQLClient
-      .send(cartSelectedDeliveryOptionsUpdateMutation, {cartId, selectedDeliveryOptions})
-      .then(handleCartMutation('cartSelectedDeliveryOptionsUpdate', this.graphQLClient));
+      .send(cartBuyerIdentityUpdateMutation, variables)
+      .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
 }
 
-// This function takes an array of functions that return promises
+// Execute an array of functions sequentially and return the result of the last promise
 function sequentially(taskArray) {
   // Start with a resolved promise
   let sequence = Promise.resolve();
