@@ -1,4 +1,3 @@
-
 export default class PayloadMapper {
   constructor(graphQLClient) {
     this.graphQLClient = graphQLClient;
@@ -104,6 +103,7 @@ export default class PayloadMapper {
     if (!lines) {
       return [];
     }
+
     // TODO: implement lineItem mapping of all fields
     return lines.edges.map(({node}) => node);
   }
@@ -126,6 +126,7 @@ export default class PayloadMapper {
     });
   }
 
+  // TODO: implement for all test cases
   discountApplications() {
     const applicableDiscountCodes = this.cart.discountCodes.filter((discount) => {
       return discount.applicable;
@@ -165,28 +166,6 @@ export default class PayloadMapper {
     return this.cart.buyerIdentity.deliveryAddressPreferences[0];
   }
 
-  fetch(cart) {
-    if (!cart) {
-      return null;
-    }
-
-    this.cart = cart;
-
-    console.log('cart', cart);
-
-    // convert cart to checkout
-    const checkout = this.checkout(cart);
-
-    // return this.graphQLClient.fetchAllPages(cart.lines, {pageSize: 250}).then((lines) => {
-    //   checkout.lineItems = this.lineItems(lines);
-    //
-    //   return checkout;
-    // });
-    console.log('checkout', checkout);
-
-    return checkout;
-  }
-
   // utilities
   moneyField(field) {
     if (!field) {
@@ -209,178 +188,3 @@ export default class PayloadMapper {
   }
 
 }
-
-/**
-{
-  "id": "gid://shopify/Checkout/243f4b20068ba08aa972fd67a027478c?key=ed04a7ca380e203b702f723629a91dcf",
-  "ready": false,
-  "requiresShipping": false,
-  "note": null,
-  "paymentDue": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "paymentDueV2": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "webUrl": "https://juanprieto.myshopify.com/60187836438/checkouts/243f4b20068ba08aa972fd67a027478c?key=ed04a7ca380e203b702f723629a91dcf",
-  "orderStatusUrl": null,
-  "taxExempt": false,
-  "taxesIncluded": false,
-  "currencyCode": "USD",
-  "totalTax": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "totalTaxV2": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "lineItemsSubtotalPrice": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "subtotalPrice": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "subtotalPriceV2": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "totalPrice": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "totalPriceV2": {
-    "amount": "0.0",
-    "currencyCode": "USD",
-    "type": {
-      "name": "MoneyV2",
-      "kind": "OBJECT",
-      "fieldBaseTypes": {
-        "amount": "Decimal",
-        "currencyCode": "CurrencyCode"
-      },
-      "implementsNode": false
-    }
-  },
-  "completedAt": null,
-  "createdAt": "2024-10-29T15:43:28Z",
-  "updatedAt": "2024-10-29T15:43:28Z",
-  "email": null,
-  "discountApplications": [],
-  "appliedGiftCards": [],
-  "shippingAddress": null,
-  "shippingLine": null,
-  "customAttributes": [],
-  "order": null,
-  "lineItems": [],
-  "type": {
-    "name": "Checkout",
-    "kind": "OBJECT",
-    "fieldBaseTypes": {
-      "appliedGiftCards": "AppliedGiftCard",
-      "completedAt": "DateTime",
-      "createdAt": "DateTime",
-      "currencyCode": "CurrencyCode",
-      "customAttributes": "Attribute",
-      "discountApplications": "DiscountApplicationConnection",
-      "email": "String",
-      "id": "ID",
-      "lineItems": "CheckoutLineItemConnection",
-      "lineItemsSubtotalPrice": "MoneyV2",
-      "note": "String",
-      "order": "Order",
-      "orderStatusUrl": "URL",
-      "paymentDue": "MoneyV2",
-      "ready": "Boolean",
-      "requiresShipping": "Boolean",
-      "shippingAddress": "MailingAddress",
-      "shippingLine": "ShippingRate",
-      "subtotalPrice": "MoneyV2",
-      "taxExempt": "Boolean",
-      "taxesIncluded": "Boolean",
-      "totalPrice": "MoneyV2",
-      "totalTax": "MoneyV2",
-      "updatedAt": "DateTime",
-      "webUrl": "URL"
-    },
-    "implementsNode": true
-  },
-  "userErrors": []
-}
-**/

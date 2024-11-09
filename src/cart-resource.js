@@ -13,7 +13,6 @@ import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
 import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
 import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
-import cartSelectedDeliveryOptionsUpdateMutation from './graphql/cartSelectedDeliveryOptionsUpdateMutation.graphql';
 import cartGiftCardCodesRemoveMutation from './graphql/cartGiftCardCodesRemoveMutation.graphql';
 
 /**
