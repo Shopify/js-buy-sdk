@@ -11,5 +11,10 @@ mutation cartBuyerIdentityUpdate(
       message
       code
     }
+    warnings {
+      code
+      message
+      target
+    }
   }
 }

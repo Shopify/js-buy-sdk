@@ -56,9 +56,21 @@ fragment CartLineFragment on CartLine {
     }
   }
   discountAllocations {
-    discountedAmount {
-      amount
-      currencyCode
+    ... on CartCodeDiscountAllocation {
+      targetType
+      code
+      discountedAmount {
+        amount
+        currencyCode
+      }
+    }
+    ... on CartAutomaticDiscountAllocation {
+      targetType
+      title
+      discountedAmount {
+        amount
+        currencyCode
+      }
     }
   }
   sellingPlanAllocation {

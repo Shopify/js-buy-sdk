@@ -6,6 +6,12 @@ mutation cartNoteUpdate($cartId: ID!, $note: String!) {
     userErrors {
       field
       message
+      code
+    }
+    warnings {
+      code
+      message
+      target
     }
   }
 }

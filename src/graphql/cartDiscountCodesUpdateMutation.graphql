@@ -8,5 +8,10 @@ mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]!) {
       message
       code
     }
+    warnings {
+      code
+      message
+      target
+    }
   }
 }
