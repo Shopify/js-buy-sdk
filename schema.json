@@ -5172,6 +5172,53 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CartGiftCardCodesRemovePayload",
+          "description": "Return type for `cartGiftCardCodesRemove` mutation.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The updated cart.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "CartInput",
           "description": "The input fields to create a cart.",
@@ -20497,6 +20544,55 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CartGiftCardCodesUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cartGiftCardCodesRemove",
+              "description": "Removes the gift card codes applied to the cart.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "giftCardCodes",
+                  "description": "The gift cards to remove.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "SCALAR",
+                          "name": "String",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartGiftCardCodesRemovePayload",
                 "ofType": null
               },
               "isDeprecated": false,
