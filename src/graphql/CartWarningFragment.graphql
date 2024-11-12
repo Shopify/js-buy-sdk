@@ -1,5 +1,5 @@
 fragment CartWarningFragment on CartWarning {
-    warnings {
+  warnings {
     code
     message
   }
