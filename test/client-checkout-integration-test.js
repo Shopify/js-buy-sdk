@@ -21,7 +21,7 @@ suite.only('client-checkout-integration-test', () => {
     client = null;
   });
 
-  suite.only('create', () => {
+  suite('create', () => {
     test('it resolves with an empty checkout', () => {
       return client.checkout.create({}).then((checkout) => {
         assert.ok((typeof checkout.webUrl === 'string'));
@@ -185,7 +185,7 @@ suite.only('client-checkout-integration-test', () => {
 
   });
 
-  suite.only('fetch', () => {
+  suite('fetch', () => {
     test('it returns a null checkout for an invalid checkoutId', () => {
       return client.checkout.fetch('gid://shopify/Cart/invalid').then((checkout) => {
         assert.equal(checkout, null);
@@ -373,19 +373,156 @@ suite.only('client-checkout-integration-test', () => {
   });
 
   suite('removeLineItems', () => {
-    // TODO: implement
+    test('it remotes a line item from a checkout via removeLineItems', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        return client.checkout.removeLineItems(checkout.id, checkout.lineItems[0].id).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems.length, 0);
+        });
+      });
+    });
+
+    test('it removes multiple line items from a checkout via removeLineItems', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774',
+            quantity: 1
+          },
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896555542',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        return client.checkout.removeLineItems(checkout.id, checkout.lineItems[0].id).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems.length, 1);
+            // TODO: needs lineItems to be properly mapped
+          assert.equal(updatedCheckout.lineItems[0].variant.Id, input.lineItems[1].variantId);
+        });
+      });
+    });
   });
 
   suite('replaceLineItems', () => {
-    // TODO: implement
+    test('it replaces a line item in a checkout via replaceLineItems', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774',
+            quantity: 1
+          }
+        ]
+      };
+
+      const replacement = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896555542',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        return client.checkout.replaceLineItems(checkout.id, replacement.lineItems).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems[0].variant.id, replacement.lineItems[0].variantId);
+        });
+      });
+    });
   });
 
   suite('updateLineItems', () => {
-    // TODO: implement
+    test('it updates a line item quantity in a checkout via updateLineItems', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774',
+            quantity: 1
+          }
+        ]
+      };
+
+      const updatedQuantity = 2;
+
+      return client.checkout.create(input).then((checkout) => {
+        return client.checkout.updateLineItems(checkout.id, [{id: checkout.lineItems[0].id, quantity: updatedQuantity}]).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems[0].quantity, updatedQuantity);
+        });
+      });
+    });
+
+    test('it updates multiple line items attributes in a checkout via updateLineItems', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896522774'
+          },
+          {
+            variantId: 'gid://shopify/ProductVariant/48535896555542'
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        const customAttributes = [{key: 'my-key', value: 'my-value'}];
+        const updateLines = checkout.lineItems.map((lineItem) => {
+          return {id: lineItem.id, customAttributes};
+        });
+
+        return client.checkout.updateLineItems(checkout.id, updateLines).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.lineItems[0].quantity, 1);
+          assert.equal(updatedCheckout.lineItems[1].quantity, 1);
+          // TODO: should pass when lineItems are properly mapped
+          assert.deepEqual(updatedCheckout.lineItems[0].customAttributes, customAttributes);
+          assert.deepEqual(updatedCheckout.lineItems[1].customAttributes, customAttributes);
+        });
+      });
+    });
   });
 
   suite('updateShippingAddress', () => {
-    // TODO: implement
+    test('it updates the shipping address of a checkout via updateShippingAddress', () => {
+      const input = {
+        shippingAddress: {
+          address1: '123 Oak St',
+          address2: 'Unit 2',
+          city: 'Ottawa',
+          company: 'Shopify',
+          country: 'Canada',
+          firstName: 'John',
+          lastName: 'Doe',
+          phone: '+16135551111',
+          province: 'ON',
+          zip: '123 ABC'
+        }
+      };
+
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.updateShippingAddress(checkout.id, input.shippingAddress).then((updatedCheckout) => {
+          assert.equal(updatedCheckout.shippingAddress.address1, input.shippingAddress.address1);
+          assert.equal(updatedCheckout.shippingAddress.address2, input.shippingAddress.address2);
+          assert.equal(updatedCheckout.shippingAddress.city, input.shippingAddress.city);
+          assert.equal(updatedCheckout.shippingAddress.company, input.shippingAddress.company);
+          assert.equal(updatedCheckout.shippingAddress.country, input.shippingAddress.country);
+          assert.equal(updatedCheckout.shippingAddress.firstName, input.shippingAddress.firstName);
+          assert.equal(updatedCheckout.shippingAddress.lastName, input.shippingAddress.lastName);
+          assert.equal(updatedCheckout.shippingAddress.phone, input.shippingAddress.phone);
+          assert.equal(updatedCheckout.shippingAddress.province, input.shippingAddress.province);
+          assert.equal(updatedCheckout.shippingAddress.zip, input.shippingAddress.zip);
+        });
+      });
+    });
   });
 
   suite('checkout totals', () => {
