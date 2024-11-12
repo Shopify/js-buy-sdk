@@ -372,7 +372,7 @@ suite.only('client-checkout-integration-test', () => {
     });
   });
 
-  suite.only('removeLineItems', () => {
+  suite('removeLineItems', () => {
     // TODO: implement
   });
 

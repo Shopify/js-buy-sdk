@@ -2826,6 +2826,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -2931,6 +2955,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -3174,6 +3222,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -3701,6 +3773,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -4609,6 +4705,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -4911,6 +5031,77 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CartGiftCardCodesRemovePayload",
+          "description": "Return type for `cartGiftCardCodesRemove` mutation.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The updated cart.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CartGiftCardCodesUpdatePayload",
           "description": "Return type for `cartGiftCardCodesUpdate` mutation.",
           "fields": [
@@ -4942,6 +5133,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -5637,6 +5852,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -5684,6 +5923,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -5724,6 +5987,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -5986,6 +6273,30 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -6091,6 +6402,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -6259,6 +6594,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
                       "ofType": null
                     }
                   }
@@ -6445,6 +6804,94 @@
           ],
           "interfaces": null,
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartWarning",
+          "description": "A warning that occurred during a cart mutation.",
+          "fields": [
+            {
+              "name": "code",
+              "description": "The code of the warning.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "CartWarningCode",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "message",
+              "description": "The message text of the warning.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "target",
+              "description": "The target of the warning.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "CartWarningCode",
+          "description": "The code for the cart warning.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "MERCHANDISE_NOT_ENOUGH_STOCK",
+              "description": "The merchandise does not have enough stock.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MERCHANDISE_OUT_OF_STOCK",
+              "description": "The merchandise is out of stock.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PAYMENTS_GIFT_CARDS_UNAVAILABLE",
+              "description": "Gift cards are not available as a payment method.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -8064,6 +8511,72 @@
             }
           ],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "Count",
+          "description": "Details for count of elements.",
+          "fields": [
+            {
+              "name": "count",
+              "description": "Count of elements.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "precision",
+              "description": "Precision of count, how exact is the value.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "CountPrecision",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "CountPrecision",
+          "description": "The precision of the value returned by a count field.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "EXACT",
+              "description": "The count is exactly the value.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AT_LEAST",
+              "description": "The count is at least the value. A limit was reached.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -18156,6 +18669,12 @@
               "description": "A metaobject page link.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "CUSTOMER_ACCOUNT_PAGE",
+              "description": "A customer account page link.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -19886,6 +20405,55 @@
               "deprecationReason": null
             },
             {
+              "name": "cartGiftCardCodesRemove",
+              "description": "Removes the gift card codes applied to the cart.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "appliedGiftCardIds",
+                  "description": "The gift cards to remove.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "SCALAR",
+                          "name": "ID",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartGiftCardCodesRemovePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "cartGiftCardCodesUpdate",
               "description": "Updates the gift card codes applied to the cart.",
               "args": [
@@ -21150,7 +21718,27 @@
             },
             {
               "kind": "OBJECT",
+              "name": "ShopPayInstallmentsFinancingPlan",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ShopPayInstallmentsFinancingPlanTerm",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ShopPayInstallmentsProductVariantPricing",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "ShopPolicy",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "TaxonomyCategory",
               "ofType": null
             },
             {
@@ -23103,12 +23691,63 @@
         },
         {
           "kind": "OBJECT",
+          "name": "PaginatedSitemapResources",
+          "description": "Type for paginating through multiple sitemap's resources.",
+          "fields": [
+            {
+              "name": "hasNextPage",
+              "description": "Whether there are more pages to fetch following the current page.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "items",
+              "description": "List of sitemap resources for the current page.\nNote: The number of items varies between 0 and 250 per page.\n",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INTERFACE",
+                      "name": "SitemapResourceInterface",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "PaymentSettings",
           "description": "Settings related to payments.",
           "fields": [
             {
               "name": "acceptedCardBrands",
-              "description": "List of the card brands which the shop accepts.",
+              "description": "List of the card brands which the business entity accepts.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -23148,7 +23787,7 @@
             },
             {
               "name": "countryCode",
-              "description": "The country where the shop is located.",
+              "description": "The country where the shop is located. When multiple business entities operate within the shop, then this will represent the country of the business entity that's serving the specified buyer context.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -23216,7 +23855,7 @@
             },
             {
               "name": "supportedDigitalWallets",
-              "description": "List of the digital wallets which the shop supports.",
+              "description": "List of the digital wallets which the business entity supports.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -23553,6 +24192,69 @@
           "description": "A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.\nFor example, a digital download (such as a movie, music or ebook file) also\nqualifies as a product, as do services (such as equipment rental, work for hire,\ncustomization of another product or an extended warranty).\n",
           "fields": [
             {
+              "name": "adjacentVariants",
+              "description": "A list of variants whose selected options differ with the provided selected options by one, ordered by variant id.\nIf selected options are not provided, adjacent variants to the first available variant is returned.\n\nNote that this field returns an array of variants. In most cases, the number of variants in this array will be low.\nHowever, with a low number of options and a high number of values per option, the number of variants returned\nhere can be high. In such cases, it recommended to avoid using this field.\n\nThis list of variants can be used in combination with the `options` field to build a rich variant picker that\nincludes variant availability or other variant information.\n",
+              "args": [
+                {
+                  "name": "selectedOptions",
+                  "description": "The input fields used for a selected option.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "SelectedOptionInput",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "ignoreUnknownOptions",
+                  "description": "Whether to ignore product options that are not present on the requested product.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "true"
+                },
+                {
+                  "name": "caseInsensitiveMatch",
+                  "description": "Whether to perform case insensitive match on option names and values.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ProductVariant",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "availableForSale",
               "description": "Indicates if at least one product variant is available for sale.",
               "args": [],
@@ -23564,6 +24266,18 @@
                   "name": "Boolean",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "category",
+              "description": "The taxonomy category for the product.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "TaxonomyCategory",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -23706,6 +24420,30 @@
                   "name": "HTML",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "encodedVariantAvailability",
+              "description": "An encoded string containing all option value combinations\nwith a corresponding variant that is currently available for sale.\n\nIntegers represent option and values:\n[0,1] represents option_value at array index 0 for the option at array index 0\n\n`:`, `,`, ` ` and `-` are control characters.\n`:` indicates a new option. ex: 0:1 indicates value 0 for the option in position 1, value 1 for the option in position 2.\n`,` indicates the end of a repeated prefix, mulitple consecutive commas indicate the end of multiple repeated prefixes.\n` ` indicates a gap in the sequence of option values. ex: 0 4 indicates option values in position 0 and 4 are present.\n`-` indicates a continuous range of option values. ex: 0 1-3 4\n\nDecoding process:\n\nExample options: [Size, Color, Material]\nExample values: [[Small, Medium, Large], [Red, Blue], [Cotton, Wool]]\nExample encoded string: \"0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,,\"\n\nStep 1: Expand ranges into the numbers they represent: \"0:0:0,1:0 1,,1:0:0 1,1:1,,2:0:1,1:0,,\"\nStep 2: Expand repeated prefixes: \"0:0:0,0:1:0 1,1:0:0 1,1:1:1,2:0:1,2:1:0,\"\nStep 3: Expand shared prefixes so data is encoded as a string: \"0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0,\"\nStep 4: Map to options + option values to determine existing variants:\n\n[Small, Red, Cotton] (0:0:0), [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] (0:1:1),\n[Medium, Red, Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), [Medium, Blue, Wool] (1:1:1),\n[Large, Red, Wool] (2:0:1), [Large, Blue, Cotton] (2:1:0).\n\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "encodedVariantExistence",
+              "description": "An encoded string containing all option value combinations with a corresponding variant.\n\nIntegers represent option and values:\n[0,1] represents option_value at array index 0 for the option at array index 0\n\n`:`, `,`, ` ` and `-` are control characters.\n`:` indicates a new option. ex: 0:1 indicates value 0 for the option in position 1, value 1 for the option in position 2.\n`,` indicates the end of a repeated prefix, mulitple consecutive commas indicate the end of multiple repeated prefixes.\n` ` indicates a gap in the sequence of option values. ex: 0 4 indicates option values in position 0 and 4 are present.\n`-` indicates a continuous range of option values. ex: 0 1-3 4\n\nDecoding process:\n\nExample options: [Size, Color, Material]\nExample values: [[Small, Medium, Large], [Red, Blue], [Cotton, Wool]]\nExample encoded string: \"0:0:0,1:0-1,,1:0:0-1,1:1,,2:0:1,1:0,,\"\n\nStep 1: Expand ranges into the numbers they represent: \"0:0:0,1:0 1,,1:0:0 1,1:1,,2:0:1,1:0,,\"\nStep 2: Expand repeated prefixes: \"0:0:0,0:1:0 1,1:0:0 1,1:1:1,2:0:1,2:1:0,\"\nStep 3: Expand shared prefixes so data is encoded as a string: \"0:0:0,0:1:0,0:1:1,1:0:0,1:0:1,1:1:1,2:0:1,2:1:0,\"\nStep 4: Map to options + option values to determine existing variants:\n\n[Small, Red, Cotton] (0:0:0), [Small, Blue, Cotton] (0:1:0), [Small, Blue, Wool] (0:1:1),\n[Medium, Red, Cotton] (1:0:0), [Medium, Red, Wool] (1:0:1), [Medium, Blue, Wool] (1:1:1),\n[Large, Red, Wool] (2:0:1), [Large, Blue, Cotton] (2:1:0).\n\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -24116,6 +24854,57 @@
               "deprecationReason": null
             },
             {
+              "name": "selectedOrFirstAvailableVariant",
+              "description": "Find an active product variant based on selected options, availability or the first variant.\n\nAll arguments are optional. If no selected options are provided, the first available variant is returned.\nIf no variants are available, the first variant is returned.\n",
+              "args": [
+                {
+                  "name": "selectedOptions",
+                  "description": "The input fields used for a selected option.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "SelectedOptionInput",
+                        "ofType": null
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "ignoreUnknownOptions",
+                  "description": "Whether to ignore unknown product options.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "true"
+                },
+                {
+                  "name": "caseInsensitiveMatch",
+                  "description": "Whether to perform case insensitive match on option names and values.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ProductVariant",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "sellingPlanGroups",
               "description": "A list of a product's available selling plan groups. A selling plan group represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans.",
               "args": [
@@ -24406,6 +25195,18 @@
                   "name": "ProductVariantConnection",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "variantsCount",
+              "description": "The total count of variants for this product.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Count",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -24911,6 +25712,18 @@
           "name": "ProductOptionValue",
           "description": "The product option value names. For example, \"Red\", \"Blue\", and \"Green\" for a \"Color\" option.\n",
           "fields": [
+            {
+              "name": "firstSelectableVariant",
+              "description": "The product variant that combines this option value with the\nlowest-position option values for all other options.\n\nThis field will always return a variant, provided a variant including this option value exists.\n",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ProductVariant",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "id",
               "description": "A globally-unique ID.",
@@ -25680,6 +26493,18 @@
                   "name": "SellingPlanAllocationConnection",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "shopPayInstallmentsPricing",
+              "description": "The Shop Pay Installments pricing information for the product variant.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ShopPayInstallmentsProductVariantPricing",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -27431,6 +28256,22 @@
               "deprecationReason": null
             },
             {
+              "name": "paymentSettings",
+              "description": "Settings related to payments.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PaymentSettings",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "predictiveSearch",
               "description": "List of the predictive search results.",
               "args": [
@@ -27698,7 +28539,7 @@
             },
             {
               "name": "products",
-              "description": "List of the shop’s products. For storefront search, use [`search` query](https://shopify.dev/docs/api/storefront/latest/queries/search).",
+              "description": "Returns a list of the shop's products. For storefront search, use the [`search`](https://shopify.dev/docs/api/storefront/latest/queries/search) query.",
               "args": [
                 {
                   "name": "first",
@@ -27762,7 +28603,7 @@
                 },
                 {
                   "name": "query",
-                  "description": "Apply one or multiple filters to the query.\n| name | description | acceptable_values | default_value | example_use |\n| ---- | ---- | ---- | ---- | ---- |\n| available_for_sale |\n| created_at |\n| product_type |\n| tag |\n| tag_not |\n| title |\n| updated_at |\n| variants.price |\n| vendor |\nRefer to the detailed [search syntax](https://shopify.dev/api/usage/search-syntax) for more information about using filters.\n",
+                  "description": "You can apply one or multiple filters to a query.\n| name | description | acceptable_values | default_value | example_use |\n| ---- | ---- | ---- | ---- | ---- |\n| available_for_sale | Filter by products that have at least one product variant available for sale. |\n| created_at | Filter by the date and time when the product was created. | | | - `created_at:>'2020-10-21T23:39:20Z'`<br/> - `created_at:<now`<br/> - `created_at:<=2024` |\n| product_type | Filter by a comma-separated list of [product types](https://help.shopify.com/en/manual/products/details/product-type). | | | `product_type:snowboard` |\n| tag | Filter products by the product [`tags`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-tags) field. | | | `tag:my_tag` |\n| tag_not | Filter by products that don't have the specified product [tags](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-tags). | | | `tag_not:my_tag` |\n| title | Filter by the product [`title`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-title) field. | | | `title:The Minimal Snowboard` |\n| updated_at | Filter by the date and time when the product was last updated. | | | - `updated_at:>'2020-10-21T23:39:20Z'`<br/> - `updated_at:<now`<br/> - `updated_at:<=2024` |\n| variants.price | Filter by the price of the product's variants. |\n| vendor | Filter by the product [`vendor`](https://shopify.dev/docs/api/storefront/latest/objects/Product#field-vendor) field. | | | - `vendor:Snowdevil`<br/> - `vendor:Snowdevil OR vendor:Icedevil` |\nLearn more about [Shopify API search syntax](https://shopify.dev/api/usage/search-syntax).\n",
                   "type": {
                     "kind": "SCALAR",
                     "name": "String",
@@ -27964,6 +28805,37 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "Shop",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "sitemap",
+              "description": "Contains all fields required to generate sitemaps.",
+              "args": [
+                {
+                  "name": "type",
+                  "description": "The type of the resource for the sitemap.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "SitemapType",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Sitemap",
                   "ofType": null
                 }
               },
@@ -29899,7 +30771,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Int",
+                  "name": "Float",
                   "ofType": null
                 }
               },
@@ -30313,6 +31185,18 @@
               "deprecationReason": null
             },
             {
+              "name": "shopPayInstallmentsPricing",
+              "description": "The Shop Pay Installments pricing information for the shop.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ShopPayInstallmentsPricing",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "subscriptionPolicy",
               "description": "The shop’s subscription policy.",
               "args": [],
@@ -30344,6 +31228,416 @@
               "name": "HasMetafields",
               "ofType": null
             },
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ShopPayInstallmentsFinancingPlan",
+          "description": "The financing plan in Shop Pay Installments.",
+          "fields": [
+            {
+              "name": "id",
+              "description": "A globally-unique ID.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxPrice",
+              "description": "The maximum price to qualify for the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minPrice",
+              "description": "The minimum price to qualify for the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "terms",
+              "description": "The terms of the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ShopPayInstallmentsFinancingPlanTerm",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "ShopPayInstallmentsFinancingPlanFrequency",
+          "description": "The payment frequency for a Shop Pay Installments Financing Plan.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "WEEKLY",
+              "description": "Weekly payment frequency.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MONTHLY",
+              "description": "Monthly payment frequency.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ShopPayInstallmentsFinancingPlanTerm",
+          "description": "The terms of the financing plan in Shop Pay Installments.",
+          "fields": [
+            {
+              "name": "apr",
+              "description": "The annual percentage rate (APR) of the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "frequency",
+              "description": "The payment frequency for the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ShopPayInstallmentsFinancingPlanFrequency",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A globally-unique ID.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "installmentsCount",
+              "description": "The number of installments for the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Count",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "loanType",
+              "description": "The type of loan for the financing plan.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ShopPayInstallmentsLoan",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "ShopPayInstallmentsLoan",
+          "description": "The loan type for a Shop Pay Installments Financing Plan Term.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "INTEREST",
+              "description": "An interest-bearing loan type.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SPLIT_PAY",
+              "description": "A split-pay loan type.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ZERO_PERCENT",
+              "description": "A zero-percent loan type.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ShopPayInstallmentsPricing",
+          "description": "The result for a Shop Pay Installments pricing request.",
+          "fields": [
+            {
+              "name": "financingPlans",
+              "description": "The financing plans available for the given price range.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "ShopPayInstallmentsFinancingPlan",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxPrice",
+              "description": "The maximum price to qualify for financing.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minPrice",
+              "description": "The minimum price to qualify for financing.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ShopPayInstallmentsProductVariantPricing",
+          "description": "The shop pay installments pricing information for a product variant.",
+          "fields": [
+            {
+              "name": "available",
+              "description": "Whether the product variant is available.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "eligible",
+              "description": "Whether the product variant is eligible for Shop Pay Installments.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "fullPrice",
+              "description": "The full price of the product variant.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "The ID of the product variant.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "installmentsCount",
+              "description": "The number of payment terms available for the product variant.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Count",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pricePerTerm",
+              "description": "The price per term for the product variant.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
             {
               "kind": "INTERFACE",
               "name": "Node",
@@ -32296,6 +33590,358 @@
         },
         {
           "kind": "OBJECT",
+          "name": "Sitemap",
+          "description": "Contains all fields required to generate sitemaps.",
+          "fields": [
+            {
+              "name": "pagesCount",
+              "description": "The number of sitemap's pages for a given type.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Count",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "resources",
+              "description": "A list of sitemap's resources for a given type.\n\nImportant Notes:\n  - The number of items per page varies from 0 to 250.\n  - Empty pages (0 items) may occur and do not necessarily indicate the end of results.\n  - Always check `hasNextPage` to determine if more pages are available.\n",
+              "args": [
+                {
+                  "name": "page",
+                  "description": "The page number to fetch.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "Int",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PaginatedSitemapResources",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SitemapImage",
+          "description": "Represents a sitemap's image.",
+          "fields": [
+            {
+              "name": "alt",
+              "description": "Image's alt text.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "filepath",
+              "description": "Path to the image.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the image was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SitemapResource",
+          "description": "Represents a sitemap resource that is not a metaobject.",
+          "fields": [
+            {
+              "name": "handle",
+              "description": "Resource's handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "image",
+              "description": "Resource's image.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "SitemapImage",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Resource's title.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the resource was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "SitemapResourceInterface",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INTERFACE",
+          "name": "SitemapResourceInterface",
+          "description": "Represents the common fields for all sitemap resource types.",
+          "fields": [
+            {
+              "name": "handle",
+              "description": "Resource's handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the resource was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "SitemapResource",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SitemapResourceMetaobject",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SitemapResourceMetaobject",
+          "description": "A SitemapResourceMetaobject represents a metaobject with\n[the `renderable` capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages).\n",
+          "fields": [
+            {
+              "name": "handle",
+              "description": "Resource's handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "onlineStoreUrlHandle",
+              "description": "The URL handle for accessing pages of this metaobject type in the Online Store.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "type",
+              "description": "The type of the metaobject. Defines the namespace of its associated metafields.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the resource was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "SitemapResourceInterface",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "SitemapType",
+          "description": "The types of resources potentially present in a sitemap.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "PRODUCT",
+              "description": "Products present in the sitemap.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "COLLECTION",
+              "description": "Collections present in the sitemap.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PAGE",
+              "description": "Pages present in the sitemap.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "METAOBJECT",
+              "description": "Metaobjects present in the sitemap. Only metaobject types with the\n[`renderable` capability](https://shopify.dev/docs/apps/build/custom-data/metaobjects/use-metaobject-capabilities#render-metaobjects-as-web-pages)\nare included in sitemap.\n",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "BLOG",
+              "description": "Blogs present in the sitemap.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ARTICLE",
+              "description": "Articles present in the sitemap.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "StoreAvailability",
           "description": "The availability of a product variant at a particular location.\nLocal pick-up must be enabled in the  store's shipping settings, otherwise this will return an empty result.\n",
           "fields": [
@@ -32500,7 +34146,7 @@
         {
           "kind": "OBJECT",
           "name": "StringConnection",
-          "description": "An auto-generated type for paginating through a list of Strings.\n",
+          "description": "An auto-generated type for paginating through multiple Strings.\n",
           "fields": [
             {
               "name": "edges",
@@ -32518,6 +34164,30 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "StringEdge",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of the nodes contained in StringEdge.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
                       "ofType": null
                     }
                   }
@@ -33359,6 +35029,79 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "TaxonomyCategory",
+          "description": "The taxonomy category for the product.\n",
+          "fields": [
+            {
+              "name": "ancestors",
+              "description": "All parent nodes of the current taxonomy category.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "TaxonomyCategory",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A static identifier for the taxonomy category.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The localized name of the taxonomy category.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
           "enumValues": null,
           "possibleTypes": null
         },
