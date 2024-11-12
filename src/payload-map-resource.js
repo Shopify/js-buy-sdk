@@ -107,7 +107,7 @@ export default class PayloadMapper {
   }
 
   email() {
-    if (!this.cart.buyerIdentity?.email) {
+    if (!this.cart.buyerIdentity || !this.cart.buyerIdentity.email) {
       return null;
     }
 
@@ -253,7 +253,9 @@ export default class PayloadMapper {
 
   subtotalPrice() {
     return this.moneyField({
-      amount: this.cart.cost.totalAmount.amount - (this.cart.cost.totalDutyAmount?.amount ?? 0) - (this.cart.cost.totalTaxAmount?.amount ?? 0),
+      amount: this.cart.cost.totalAmount.amount - 
+        (this.cart.cost.totalDutyAmount ? this.cart.cost.totalDutyAmount.amount : 0) - 
+        (this.cart.cost.totalTaxAmount ? this.cart.cost.totalTaxAmount.amount : 0),
       currencyCode: this.cart.cost.totalAmount.currencyCode,
     });
   }
