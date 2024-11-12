@@ -33,8 +33,6 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the cart.
    */
   fetch(id) {
-    console.log('fetch id', id);
-
     return this.graphQLClient
       .send(cartNodeQuery, {id})
       .then(defaultResolver('cart', this.graphQLClient));
