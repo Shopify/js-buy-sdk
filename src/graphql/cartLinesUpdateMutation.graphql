@@ -3,15 +3,7 @@ mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
     cart {
       ...CartFragment
     }
-    userErrors {
-      field
-      message
-      code
-    }
-    warnings {
-      code
-      message
-      target
-    }
+    ...CartUserErrorFragment
+    ...CartWarningFragment
   }
 }

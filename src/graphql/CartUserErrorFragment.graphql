@@ -1,0 +1,7 @@
+fragment CartUserErrorFragment on CartUserError {
+  userErrors {
+    field
+    message
+    code
+  }
+}
