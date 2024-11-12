@@ -21,7 +21,7 @@ suite.only('client-checkout-integration-test', () => {
     client = null;
   });
 
-  suite('create', () => {
+  suite.only('create', () => {
     test('it resolves with an empty checkout', () => {
       return client.checkout.create({}).then((checkout) => {
         assert.ok((typeof checkout.webUrl === 'string'));
@@ -185,7 +185,7 @@ suite.only('client-checkout-integration-test', () => {
 
   });
 
-  suite('fetch', () => {
+  suite.only('fetch', () => {
     test('it returns a null checkout for an invalid checkoutId', () => {
       return client.checkout.fetch('gid://shopify/Cart/invalid').then((checkout) => {
         assert.equal(checkout, null);

@@ -1,52 +1,43 @@
 import Resource from './resource';
 import defaultResolver from './default-resolver';
-import handleCheckoutMutation from './handle-checkout-mutation';
+import handleCartMutation from './handle-cart-mutation';
 
 // GraphQL
-import checkoutNodeQuery from './graphql/checkoutNodeQuery.graphql';
-import checkoutCreateMutation from './graphql/checkoutCreateMutation.graphql';
-import checkoutLineItemsAddMutation from './graphql/checkoutLineItemsAddMutation.graphql';
-import checkoutLineItemsRemoveMutation from './graphql/checkoutLineItemsRemoveMutation.graphql';
-import checkoutLineItemsReplaceMutation from './graphql/checkoutLineItemsReplaceMutation.graphql';
-import checkoutLineItemsUpdateMutation from './graphql/checkoutLineItemsUpdateMutation.graphql';
-import checkoutAttributesUpdateV2Mutation from './graphql/checkoutAttributesUpdateV2Mutation.graphql';
-import checkoutDiscountCodeApplyV2Mutation from './graphql/checkoutDiscountCodeApplyV2Mutation.graphql';
-import checkoutDiscountCodeRemoveMutation from './graphql/checkoutDiscountCodeRemoveMutation.graphql';
-import checkoutGiftCardsAppendMutation from './graphql/checkoutGiftCardsAppendMutation.graphql';
-import checkoutGiftCardRemoveV2Mutation from './graphql/checkoutGiftCardRemoveV2Mutation.graphql';
-import checkoutEmailUpdateV2Mutation from './graphql/checkoutEmailUpdateV2Mutation.graphql';
-import checkoutShippingAddressUpdateV2Mutation from './graphql/checkoutShippingAddressUpdateV2Mutation.graphql';
+import cartNodeQuery from './graphql/cartNodeQuery.graphql';
+import cartCreateMutation from './graphql/cartCreateMutation.graphql';
+import cartAttributesUpdateMutation from './graphql/cartAttributesUpdateMutation.graphql';
+import cartBuyerIdentityUpdateMutation from './graphql/cartBuyerIdentityUpdateMutation.graphql';
+import cartDiscountCodesUpdateMutation from './graphql/cartDiscountCodesUpdateMutation.graphql';
+import cartGiftCardCodesUpdateMutation from './graphql/cartGiftCardCodesUpdateMutation.graphql';
+import cartLinesAddMutation from './graphql/cartLinesAddMutation.graphql';
+import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
+import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
+import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
+import cartGiftCardCodesRemoveMutation from './graphql/cartGiftCardCodesRemoveMutation.graphql';
 
 /**
- * The JS Buy SDK checkout resource
+ * The JS Buy SDK cart resource
  * @class
  */
 class CheckoutResource extends Resource {
 
   /**
-   * Fetches a checkout by ID.
+   * Fetches a card by ID.
    *
    * @example
-   * client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
-   *   // Do something with the checkout
+   * client.cart.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((cart) => {
+   *   // Do something with the cart
    * });
    *
-   * @param {String} id The id of the checkout to fetch.
-   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the checkout.
+   * @param {String} id The id of the card to fetch.
+   * @return {Promise|GraphModel} A promise resolving with a `GraphModel` of the cart.
    */
   fetch(id) {
+    console.log('fetch id', id);
+
     return this.graphQLClient
-      .send(checkoutNodeQuery, {id})
-      .then(defaultResolver('node'))
-      .then((checkout) => {
-        if (!checkout) { return null; }
-
-        return this.graphQLClient.fetchAllPages(checkout.lineItems, {pageSize: 250}).then((lineItems) => {
-          checkout.attrs.lineItems = lineItems;
-
-          return checkout;
-        });
-      });
+      .send(cartNodeQuery, {id})
+      .then(defaultResolver('cart', this.graphQLClient));
   }
 
   /**
@@ -69,13 +60,15 @@ class CheckoutResource extends Resource {
    *   @param {Object} [input.shippingAddress] A shipping address. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/mailingaddressinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
-   *   @param {String} [input.presentmentCurrencyCode ] A presentment currency code. See the {@link https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode|Storefront API reference} for valid currency code values.
+   *   @deprecated {String} [input.presentmentCurrencyCode ] A presentment currency code. See the {@link https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode|Storefront API reference} for valid currency code values.
    *   @return {Promise|GraphModel} A promise resolving with the created checkout.
    */
-  create(input = {}) {
+  create(i = {}) {
+    const input = this.inputMapper.create(i);
+
     return this.graphQLClient
-      .send(checkoutCreateMutation, {input})
-      .then(handleCheckoutMutation('checkoutCreate', this.graphQLClient));
+      .send(cartCreateMutation, {input})
+      .then(handleCartMutation('cartCreate', this.graphQLClient));
   }
 
   /**
@@ -91,15 +84,34 @@ class CheckoutResource extends Resource {
    *
    * @param {String} checkoutId The ID of the checkout to update.
    * @param {Object} [input] An input object containing zero or more of:
-   *   @param {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
+   *   @deprecated {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateAttributes(checkoutId, input = {}) {
-    return this.graphQLClient
-      .send(checkoutAttributesUpdateV2Mutation, {checkoutId, input})
-      .then(handleCheckoutMutation('checkoutAttributesUpdateV2', this.graphQLClient));
+    const {cartAttributesUpdateInput, cartNoteUpdateInput} = this.inputMapper.updateAttributes(checkoutId, input);
+    const promises = [];
+
+    function updateNote() {
+      return this.graphQLClient.send(cartNoteUpdateMutation, cartNoteUpdateInput)
+        .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
+    }
+
+    function updateAttributes() {
+      return this.graphQLClient.send(cartAttributesUpdateMutation, cartAttributesUpdateInput)
+        .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
+    }
+
+    if (typeof cartNoteUpdateInput.note !== 'undefined') {
+      promises.push(updateNote.bind(this));
+    }
+
+    if (cartAttributesUpdateInput.attributes.length) {
+      promises.push(updateAttributes.bind(this));
+    }
+
+    return sequentially(promises).then((checkout) => checkout);
   }
 
   /**
@@ -118,9 +130,11 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateEmail(checkoutId, email) {
+    const variables = this.inputMapper.updateEmail(checkoutId, email);
+
     return this.graphQLClient
-      .send(checkoutEmailUpdateV2Mutation, {checkoutId, email})
-      .then(handleCheckoutMutation('checkoutEmailUpdateV2', this.graphQLClient));
+      .send(cartBuyerIdentityUpdateMutation, variables)
+      .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
 
   /**
@@ -138,13 +152,15 @@ class CheckoutResource extends Resource {
    * @param {Object[]} lineItems A list of line items to add to the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/checkoutlineiteminput|Storefront API reference} for valid input fields for each line item.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  addLineItems(checkoutId, lineItems) {
+  addLineItems(checkoutId, lineItems = []) {
+    const variables = this.inputMapper.addLineItems(checkoutId, lineItems);
+
     return this.graphQLClient
-      .send(checkoutLineItemsAddMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsAdd', this.graphQLClient));
+      .send(cartLinesAddMutation, variables)
+      .then(handleCartMutation('cartLinesAdd', this.graphQLClient));
   }
 
-  /**
+   /**
    * Applies a discount to an existing checkout using a discount code.
    *
    * @example
@@ -160,12 +176,14 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addDiscount(checkoutId, discountCode) {
+    const variables = this.inputMapper.addDiscount(checkoutId, discountCode);
+
     return this.graphQLClient
-      .send(checkoutDiscountCodeApplyV2Mutation, {checkoutId, discountCode})
-      .then(handleCheckoutMutation('checkoutDiscountCodeApplyV2', this.graphQLClient));
+      .send(cartDiscountCodesUpdateMutation, variables)
+      .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
-  /**
+    /**
    * Removes the applied discount from an existing checkout.
    *
    * @example
@@ -179,12 +197,14 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeDiscount(checkoutId) {
+    const variables = this.inputMapper.removeDiscount(checkoutId);
+
     return this.graphQLClient
-      .send(checkoutDiscountCodeRemoveMutation, {checkoutId})
-      .then(handleCheckoutMutation('checkoutDiscountCodeRemove', this.graphQLClient));
+      .send(cartDiscountCodesUpdateMutation, variables)
+      .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
-  /**
+    /**
    * Applies gift cards to an existing checkout using a list of gift card codes
    *
    * @example
@@ -200,9 +220,11 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addGiftCards(checkoutId, giftCardCodes) {
+    const variables = this.inputMapper.addGiftCards(checkoutId, giftCardCodes);
+
     return this.graphQLClient
-      .send(checkoutGiftCardsAppendMutation, {checkoutId, giftCardCodes})
-      .then(handleCheckoutMutation('checkoutGiftCardsAppend', this.graphQLClient));
+      .send(cartGiftCardCodesUpdateMutation, variables)
+      .then(handleCartMutation('cartGiftCardCodesUpdate', this.graphQLClient));
   }
 
   /**
@@ -221,9 +243,11 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeGiftCard(checkoutId, appliedGiftCardId) {
+    const variables = this.inputMapper.removeGiftCard(checkoutId, appliedGiftCardId);
+
     return this.graphQLClient
-      .send(checkoutGiftCardRemoveV2Mutation, {checkoutId, appliedGiftCardId})
-      .then(handleCheckoutMutation('cartGiftCardCodesRemove', this.graphQLClient));
+      .send(cartGiftCardCodesRemoveMutation, variables)
+      .then(handleCartMutation('cartGiftCardCodesRemove', this.graphQLClient));
   }
 
   /**
@@ -241,10 +265,12 @@ class CheckoutResource extends Resource {
    * @param {String[]} lineItemIds A list of the ids of line items to remove from the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
-  removeLineItems(checkoutId, lineItemIds) {
+  removeLineItems(checkoutId, lineIds = []) {
+    const variables = this.inputMapper.removeLineItems(checkoutId, lineIds);
+
     return this.graphQLClient
-      .send(checkoutLineItemsRemoveMutation, {checkoutId, lineItemIds})
-      .then(handleCheckoutMutation('checkoutLineItemsRemove', this.graphQLClient));
+      .send(cartLinesRemoveMutation, variables)
+      .then(handleCartMutation('cartLinesRemove', this.graphQLClient));
   }
 
   /**
@@ -263,9 +289,31 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   replaceLineItems(checkoutId, lineItems) {
-    return this.graphQLClient
-      .send(checkoutLineItemsReplaceMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsReplace', this.graphQLClient));
+    let checkout;
+
+    function getExistingCart() {
+      checkout = this.fetch(checkoutId);
+
+      return checkout;
+    }
+
+    // remove all existing lines
+    function removeExistingLines() {
+      const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
+
+      return this.removeLineItems(checkoutId, lineIds);
+    }
+
+    // add the replacing lines
+    function addReplacingLines() {
+      return this.addLineItems(checkoutId, lineItems);
+    }
+
+    return sequentially([
+      getExistingCart.bind(this),
+      removeExistingLines.bind(this),
+      addReplacingLines.bind(this)
+    ]);
   }
 
   /**
@@ -290,16 +338,18 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateLineItems(checkoutId, lineItems) {
+    const variables = this.inputMapper.updateLineItems(checkoutId, lineItems);
+
     return this.graphQLClient
-      .send(checkoutLineItemsUpdateMutation, {checkoutId, lineItems})
-      .then(handleCheckoutMutation('checkoutLineItemsUpdate', this.graphQLClient));
+      .send(cartLinesUpdateMutation, variables)
+      .then(handleCartMutation('cartLinesUpdate', this.graphQLClient));
   }
 
   /**
    * Updates shipping address on an existing checkout.
    *
    * @example
-   * const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+   * const checkoutId = `'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
    * const shippingAddress = {
    *    address1: 'Chestnut Street 92',
    *    address2: 'Apartment 2',
@@ -322,10 +372,26 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateShippingAddress(checkoutId, shippingAddress) {
+    const variables = this.inputMapper.updateShippingAddress(checkoutId, shippingAddress);
+
     return this.graphQLClient
-      .send(checkoutShippingAddressUpdateV2Mutation, {checkoutId, shippingAddress})
-      .then(handleCheckoutMutation('checkoutShippingAddressUpdateV2', this.graphQLClient));
+      .send(cartBuyerIdentityUpdateMutation, variables)
+      .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
+}
+
+// Execute an array of functions sequentially and return the result of the last promise
+function sequentially(taskArray) {
+  // Start with a resolved promise
+  let sequence = Promise.resolve();
+
+  // Chain each function in the taskArray sequentially
+  taskArray.forEach((task) => {
+    sequence = sequence.then(() => task());
+  });
+
+  // Return the final promise to allow handling of the last task's result
+  return sequence;
 }
 
 export default CheckoutResource;

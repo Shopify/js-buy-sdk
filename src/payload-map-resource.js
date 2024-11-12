@@ -89,7 +89,7 @@ export default class PayloadMapper {
   }
 
   id() {
-    return this.cart.id.replace('Cart', 'Checkout');
+    return this.cart.id;
   }
 
   // Removed from SF API
@@ -119,7 +119,7 @@ export default class PayloadMapper {
     // TODO - verify this assumption
     return this.moneyField({
       amount: this.cart.cost.totalAmount.amount - this.cart.appliedGiftCards.reduce((acc, giftCard) => acc + giftCard.presentmentAmountUsed.amount, 0),
-      currencyCode: this.cart.cost.totalAmount.currencyCode,
+      currencyCode: this.cart.cost.totalAmount.currencyCode
     });
   }
 
@@ -152,8 +152,8 @@ export default class PayloadMapper {
       // TODO - do we just want to return null here instead, even though it's non-nullable on the Checkout object?
       return this.moneyField({
         amount: 0,
-        currencyCode: this.cart.cost.totalAmount.currencyCode,
-      })
+        currencyCode: this.cart.cost.totalAmount.currencyCode
+      });
     }
 
     return this.moneyField(this.cart.cost.totalTaxAmount);
@@ -253,10 +253,10 @@ export default class PayloadMapper {
 
   subtotalPrice() {
     return this.moneyField({
-      amount: this.cart.cost.totalAmount.amount - 
-        (this.cart.cost.totalDutyAmount ? this.cart.cost.totalDutyAmount.amount : 0) - 
+      amount: this.cart.cost.totalAmount.amount -
+        (this.cart.cost.totalDutyAmount ? this.cart.cost.totalDutyAmount.amount : 0) -
         (this.cart.cost.totalTaxAmount ? this.cart.cost.totalTaxAmount.amount : 0),
-      currencyCode: this.cart.cost.totalAmount.currencyCode,
+      currencyCode: this.cart.cost.totalAmount.currencyCode
     });
   }
 
