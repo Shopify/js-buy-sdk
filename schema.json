@@ -2273,6 +2273,18 @@
               "description": "JCB.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "UNIONPAY",
+              "description": "UnionPay.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ELO",
+              "description": "Elo.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -4325,6 +4337,18 @@
               "deprecationReason": null
             },
             {
+              "name": "deliveryPromise",
+              "description": "The string format of the delivery promise.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "description",
               "description": "The description of the delivery option.",
               "args": [],
@@ -4364,6 +4388,30 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maxEstimatedDeliveryDate",
+              "description": "The maximum date and time by which the delivery is expected to be completed. You must enable\n      [processing time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment)\n      to have access to this field.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "minEstimatedDeliveryDate",
+              "description": "The minimum date and time by which the delivery is expected to be completed. You must enable\n      [processing time](https://help.shopify.com/manual/shipping/setting-up-and-managing-your-shipping/set-up-delivery-dates) or enroll in [Shopify Logistics](https://www.shopify.com/fulfillment)\n      to have access to this field.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "ISO8601DateTime",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -4793,6 +4841,12 @@
               "deprecationReason": null
             },
             {
+              "name": "DELIVERY_ADDRESS_NOT_EDITABLE",
+              "description": "Delivery addresses cannot be added nor changed.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "INVALID_PAYMENT",
               "description": "The payment wasn't valid.",
               "isDeprecated": false,
@@ -5157,53 +5211,6 @@
                     "ofType": {
                       "kind": "OBJECT",
                       "name": "CartWarning",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "CartGiftCardCodesRemovePayload",
-          "description": "Return type for `cartGiftCardCodesRemove` mutation.",
-          "fields": [
-            {
-              "name": "cart",
-              "description": "The updated cart.",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Cart",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "userErrors",
-              "description": "The list of errors that occurred from executing the mutation.",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "CartUserError",
                       "ofType": null
                     }
                   }
@@ -6570,6 +6577,79 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CartPrepareForCompletionPayload",
+          "description": "Return type for `cartPrepareForCompletion` mutation.",
+          "fields": [
+            {
+              "name": "result",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "UNION",
+                "name": "CartPrepareForCompletionResult",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "CartPrepareForCompletionResult",
+          "description": "The result of cart preparation.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "CartStatusNotReady",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "CartStatusReady",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "CartThrottled",
+              "ofType": null
+            }
+          ]
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "CartSelectedDeliveryOptionInput",
           "description": "The input fields for updating the selected delivery options for a delivery group.\n",
@@ -6681,6 +6761,76 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CartStatusNotReady",
+          "description": "Cart is not ready for payment update and completion.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "errors",
+              "description": "The list of errors that caused the cart to not be ready for payment update and completion.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "OperationError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartStatusReady",
+          "description": "Cart is ready for payment update and completion.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CartSubmitForCompletionPayload",
           "description": "Return type for `cartSubmitForCompletion` mutation.",
           "fields": [
@@ -6756,6 +6906,33 @@
               "ofType": null
             }
           ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartThrottled",
+          "description": "Response signifying that the access to cart request is currently being throttled.\nThe client can retry after `poll_after`.\n",
+          "fields": [
+            {
+              "name": "pollAfter",
+              "description": "The polling delay.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
         },
         {
           "kind": "OBJECT",
@@ -6939,6 +7116,84 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CategoryFilter",
+          "description": "A filter used to view a subset of products in a collection matching a specific category value.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "description": "The id of the category to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CategoryMetafieldFilter",
+          "description": "A filter used to view a subset of products in a collection matching a specific category metafield value.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "namespace",
+              "description": "The namespace of the metafield to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "key",
+              "description": "The key of the metafield to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "value",
+              "description": "The value of the metafield.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -8557,6 +8812,977 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagement",
+          "description": "Interaction of the current visitor consent with the configured consent policies of the shop.",
+          "fields": [
+            {
+              "name": "banner",
+              "description": "The privacy banner that should be displayed to the visitor, if any, plus the list of country/regions configured in the cookie banner visibility.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ConsentManagementBanner",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cookies",
+              "description": "Given the provided visitor consent, the resulting ConsentManagementCookies that need to be setin the browser for the Consent Management Platform to work and respect visitor consent.",
+              "args": [
+                {
+                  "name": "landingPage",
+                  "description": "A possible landing_page that was on hold to be set when consent is granted.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "origReferrer",
+                  "description": "A possible referrer that was on hold to be set when consent is granted.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "visitorConsent",
+                  "description": "The latest visitor consent that the cookies should be calculated for.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "VisitorConsent",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "visitorEmail",
+                  "description": "If known, the visitor email. It will be used to fetch their Do Not Sell my Data opt out preferences if any.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ConsentManagementCookies",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "saleOfDataRegions",
+              "description": "List of ISO3166 2-character country codes where the sale of data is enabled.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBanner",
+          "description": "A shop's privacy banner settings.",
+          "fields": [
+            {
+              "name": "buttonAcceptText",
+              "description": "Text for the accept button.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonDeclineText",
+              "description": "Text for the decline button.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonPrefsOpenText",
+              "description": "Text for the preference button.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "enabled",
+              "description": "Indicates if the banner is visible.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "experiment",
+              "description": "Experiment related fields of the banner.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ConsentManagementBannerExperiment",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "isDefault",
+              "description": "Whether the merchant changed or not any banner field from its default value.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "policyLinkText",
+              "description": "Text for the policy link.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "policyLinkUrl",
+              "description": "URL for the policy link.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "position",
+              "description": "Position of the banner.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ConsentManagementBannerPosition",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "preferences",
+              "description": "Fields for the banner preferences popup.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ConsentManagementBannerPreferences",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "regionVisibility",
+              "description": "List of ISO3166 2-character country codes where the banner should be visible.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "text",
+              "description": "Body text on the banner.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "theme",
+              "description": "Theme related fields of the banner.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ConsentManagementBannerTheme",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Title of the banner.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBannerBulletPoints",
+          "description": "Bullet points that provide clarity on the actions and consequences of cookie acceptance.\n",
+          "fields": [
+            {
+              "name": "enabled",
+              "description": "Whether bullet points are enabled.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "firstText",
+              "description": "Text of the first bullet point.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "secondText",
+              "description": "Text of the second bullet point.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "thirdText",
+              "description": "Text of the third bullet point.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Title of the bullet points.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBannerExperiment",
+          "description": "Represents experiment strings for the privacy banner.",
+          "fields": [
+            {
+              "name": "customizeYour",
+              "description": "Experiment banner customize text.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "preferences",
+              "description": "Experiment banner preferences text.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "privacyPolicy",
+              "description": "Experiment banner privacy policy text.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Experiment banner title text.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "ConsentManagementBannerPosition",
+          "description": "The possible positions of a privacy banner.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "bottom_full_width",
+              "description": "Banner spans the full width of the page at the bottom.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "center",
+              "description": "Banner is centered on the page.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "bottom_center",
+              "description": "Banner is centered at the bottom of the page.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "bottom_left",
+              "description": "Banner is aligned to the bottom left of the page.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "bottom_right",
+              "description": "Banner is aligned to the bottom right of the page.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBannerPreferences",
+          "description": "Settings related to the banner preferences.",
+          "fields": [
+            {
+              "name": "bulletPoints",
+              "description": "Data related to the bullet points of consent.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ConsentManagementBannerBulletPoints",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonAcceptText",
+              "description": "Accept button text.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonDeclineText",
+              "description": "Decline button text.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonSaveText",
+              "description": "Save button text.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "introText",
+              "description": "Introduction text.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "introTitle",
+              "description": "Introduction title.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "purposes",
+              "description": "Purpose descriptions.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ConsentManagementBannerPurposes",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Title for the banner preferences.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBannerPurposes",
+          "description": "Descriptions associated with each purpose.",
+          "fields": [
+            {
+              "name": "essentialDesc",
+              "description": "Long description for the essential purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "essentialName",
+              "description": "Short description for the essential purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "marketingDesc",
+              "description": "Long description for the marketing purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "marketingName",
+              "description": "Short description for the marketing purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "performanceDesc",
+              "description": "Long description for the performance purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "performanceName",
+              "description": "Short description for the performance purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "preferencesDesc",
+              "description": "Long description for the preferences purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "preferencesName",
+              "description": "Short description for the preferences purpose.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementBannerTheme",
+          "description": "Represents the theme settings for the privacy banner.",
+          "fields": [
+            {
+              "name": "backgroundColor",
+              "description": "Background color.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonBackgroundColor",
+              "description": "Button background color.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buttonFontColor",
+              "description": "Button font color.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "fontColor",
+              "description": "Font color.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "theme",
+              "description": "The chosen theme.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ConsentManagementBannerThemeEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "ConsentManagementBannerThemeEnum",
+          "description": "Possible themes for a privacy banner.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "dark",
+              "description": "Dark theme for the banner.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "light",
+              "description": "Light theme for the banner.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "custom",
+              "description": "Customized theme provided by the user.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ConsentManagementCookies",
+          "description": "Computed cookies needed by the Consent Management Platform to respect and query visitor consent.",
+          "fields": [
+            {
+              "name": "cookieDomain",
+              "description": "The domain that the cookies will be set for.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "landingPageCookie",
+              "description": "If needed, the _landing_page cookie to set.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "origReferrerCookie",
+              "description": "If needed, the _orig_referrer cookie to set.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "trackingConsentCookie",
+              "description": "The _tracking_consent cookie, already URI encoded and serialized.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -10255,8 +11481,81 @@
               "description": "Keep the right of the image.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "REGION",
+              "description": "Crop the exact region of the image specified by the crop_left, crop_top, crop_width and crop_height parameters.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CropRegionInput",
+          "description": "The input fields for defining an arbitrary cropping region.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "left",
+              "description": "Left position of the region of the image to extract when using the region crop mode.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "top",
+              "description": "Top position of the region of the image to extract when using the region crop mode.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "width",
+              "description": "Width of the region of the image to extract when using the region crop mode.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "height",
+              "description": "Height of the region of the image to extract when using the region crop mode.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -11293,6 +12592,41 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CustomConsent",
+          "description": "A key/value pair representing custom consent to be stored in the Consent Management Platform.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "key",
+              "description": "Key for the data, used to fetch it back.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "value",
+              "description": "Value of the data. Use `null` to erase that key from storage.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -12648,6 +13982,53 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CustomerEmailMarketingSubscribePayload",
+          "description": "Return type for `customerEmailMarketingSubscribe` mutation.",
+          "fields": [
+            {
+              "name": "customer",
+              "description": "The created customer object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CustomerMarketingSubscribe",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "customerUserErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "ENUM",
           "name": "CustomerErrorCode",
           "description": "Possible error codes that can be returned by `CustomerUserError`.",
@@ -12746,6 +14127,33 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CustomerMarketingSubscribe",
+          "description": "A filtered return of customer information for customerMarketingSubscribes. ",
+          "fields": [
+            {
+              "name": "id",
+              "description": "A unique ID for the customer.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -13005,6 +14413,53 @@
               },
               "isDeprecated": true,
               "deprecationReason": "Use `customerUserErrors` instead."
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CustomerSmsMarketingSubscribePayload",
+          "description": "Return type for `customerSmsMarketingSubscribe` mutation.",
+          "fields": [
+            {
+              "name": "customer",
+              "description": "The created customer object.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CustomerMarketingSubscribe",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "customerUserErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CustomerUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -13417,6 +14872,18 @@
             {
               "name": "SHOPIFY_PAY",
               "description": "Shopify Pay.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AMAZON_PAY",
+              "description": "Amazon Pay.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "FACEBOOK_PAY",
+              "description": "Facebook Pay.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -14203,6 +15670,18 @@
               "deprecationReason": null
             },
             {
+              "name": "operator",
+              "description": "The logical operator used by the filter.",
+              "args": [],
+              "type": {
+                "kind": "ENUM",
+                "name": "FilterOperatorType",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "presentation",
               "description": "Describes how to present the filter values.\nReturns a value only for filters of type `LIST`. Returns null for other types.\n",
               "args": [],
@@ -14258,6 +15737,29 @@
           "inputFields": null,
           "interfaces": [],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "FilterOperatorType",
+          "description": "Specifies the logical operator used for filtering multiple values within a filter.\nExample:\nGiven the filter is 'color' and values are 'red' and 'blue':\n  - If 'AND' is used, it will filter items that are both red and blue.\n  - If 'OR' is used, it will filter items that are either red or blue or both.\n",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "AND",
+              "description": "The logical operator AND.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "OR",
+              "description": "The logical operator OR.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -14750,6 +16252,289 @@
         },
         {
           "kind": "OBJECT",
+          "name": "GateConfiguration",
+          "description": "Represents a gate configuration.",
+          "fields": [
+            {
+              "name": "appId",
+              "description": "An ID that an owner can use to identify the gate configuration.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": true,
+              "deprecationReason": "`appId` is deprecated and `handle` should be used for identifying a gate."
+            },
+            {
+              "name": "createdAt",
+              "description": "The date and time when the gate configuration was created.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "handle",
+              "description": "A non-unique string used to group gate configurations.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "The ID of the gate configuration.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "metafield",
+              "description": "Returns a metafield found by namespace and key.",
+              "args": [
+                {
+                  "name": "namespace",
+                  "description": "The container the metafield belongs to. If omitted, the app-reserved namespace will be used.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "key",
+                  "description": "The identifier for the metafield.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Metafield",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "metafields",
+              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "args": [
+                {
+                  "name": "identifiers",
+                  "description": "The list of metafields to retrieve by namespace and key.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "HasMetafieldsIdentifier",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Metafield",
+                    "ofType": null
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The name of the gate configuration.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the gate configuration was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "HasMetafields",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "GateSubject",
+          "description": "Represents a connection from a subject to a gate configuration.",
+          "fields": [
+            {
+              "name": "active",
+              "description": "True when the subject gate is active, false otherwise.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "configuration",
+              "description": "The bound gate configuration.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "GateConfiguration",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "The date and time when the gate subject was created.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "The ID of the gate subject.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the gate subject was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "GenericFile",
           "description": "The generic file resource lets you manage files in a merchant’s store. Generic files include any file that doesn’t fit into a designated type such as image or video. Example: PDF, JSON.",
           "fields": [
@@ -14892,6 +16677,58 @@
         },
         {
           "kind": "INTERFACE",
+          "name": "HasGates",
+          "description": "Represents information about gates bound to a subject.",
+          "fields": [
+            {
+              "name": "gates",
+              "description": "Returns a list of GateSubjects bound to the subject.",
+              "args": [
+                {
+                  "name": "includeInactive",
+                  "description": "True to return both inactive and active gates, false or omit to return only active gates.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "GateSubject",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "Product",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "INTERFACE",
           "name": "HasMetafields",
           "description": "Represents information about the metafields associated to the specified resource.",
           "fields": [
@@ -15013,6 +16850,11 @@
             {
               "kind": "OBJECT",
               "name": "Customer",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "GateConfiguration",
               "ofType": null
             },
             {
@@ -15184,6 +17026,18 @@
               },
               "isDeprecated": true,
               "deprecationReason": "Use `url` instead."
+            },
+            {
+              "name": "thumbhash",
+              "description": "The ThumbHash of the image.\n\nUseful to display placeholder images while the original image is loading.\n\nSee https://evanw.github.io/thumbhash/ for details on how to use it.\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             },
             {
               "name": "transformedSrc",
@@ -15397,6 +17251,12 @@
               "description": "A WEBP image.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "BMP",
+              "description": "A BMP image.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "possibleTypes": null
@@ -15456,6 +17316,16 @@
               "type": {
                 "kind": "ENUM",
                 "name": "CropRegion",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "cropRegion",
+              "description": "Defines an arbitrary cropping region.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CropRegionInput",
                 "ofType": null
               },
               "defaultValue": null
@@ -19151,6 +21021,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "GateConfiguration",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "Location",
               "ofType": null
             },
@@ -20428,15 +22303,19 @@
                   "name": "discountCodes",
                   "description": "The case-insensitive discount codes that the customer added at checkout.\n\nThe input must not contain more than `250` values.",
                   "type": {
-                    "kind": "LIST",
+                    "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
-                      "kind": "NON_NULL",
+                      "kind": "LIST",
                       "name": null,
                       "ofType": {
-                        "kind": "SCALAR",
-                        "name": "String",
-                        "ofType": null
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "SCALAR",
+                          "name": "String",
+                          "ofType": null
+                        }
                       }
                     }
                   },
@@ -20544,55 +22423,6 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CartGiftCardCodesUpdatePayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "cartGiftCardCodesRemove",
-              "description": "Removes the gift card codes applied to the cart.",
-              "args": [
-                {
-                  "name": "cartId",
-                  "description": "The ID of the cart.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "ID",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                },
-                {
-                  "name": "giftCardCodes",
-                  "description": "The gift cards to remove.\n\nThe input must not contain more than `250` values.",
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "LIST",
-                      "name": null,
-                      "ofType": {
-                        "kind": "NON_NULL",
-                        "name": null,
-                        "ofType": {
-                          "kind": "SCALAR",
-                          "name": "String",
-                          "ofType": null
-                        }
-                      }
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "CartGiftCardCodesRemovePayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -20884,6 +22714,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CartPaymentUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cartPrepareForCompletion",
+              "description": "Prepare the cart for cart checkout completion.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartPrepareForCompletionPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21375,6 +23232,33 @@
               "deprecationReason": null
             },
             {
+              "name": "customerEmailMarketingSubscribe",
+              "description": "Subscribes a customer to the newsletter with an email address.",
+              "args": [
+                {
+                  "name": "email",
+                  "description": "The customer's email address.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CustomerEmailMarketingSubscribePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "customerRecover",
               "description": "Sends a reset password email to the customer. The reset password\nemail contains a reset password URL and token that you can pass to\nthe [`customerResetByUrl`](https://shopify.dev/api/storefront/latest/mutations/customerResetByUrl) or\n[`customerReset`](https://shopify.dev/api/storefront/latest/mutations/customerReset) mutation to reset the\ncustomer password.\n\nThis mutation is throttled by IP. With private access,\nyou can provide a [`Shopify-Storefront-Buyer-IP`](https://shopify.dev/api/usage/authentication#optional-ip-header) instead of the request IP.\nThe header is case-sensitive and must be sent as `Shopify-Storefront-Buyer-IP`.\n\nMake sure that the value provided to `Shopify-Storefront-Buyer-IP` is trusted. Unthrottled access to this\nmutation presents a security risk.\n",
               "args": [
@@ -21478,6 +23362,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CustomerResetByUrlPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "customerSmsMarketingSubscribe",
+              "description": "Subscribes a customer to the newsletter with a phone number.",
+              "args": [
+                {
+                  "name": "phoneNumber",
+                  "description": "The customer's phone number.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CustomerSmsMarketingSubscribePayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -21724,6 +23635,16 @@
             },
             {
               "kind": "OBJECT",
+              "name": "GateConfiguration",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "GateSubject",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "GenericFile",
               "ofType": null
             },
@@ -21902,6 +23823,45 @@
               "ofType": null
             }
           ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OperationError",
+          "description": "An error occurred during the cart operation.",
+          "fields": [
+            {
+              "name": "code",
+              "description": "The error code.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "message",
+              "description": "The error message.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
         },
         {
           "kind": "OBJECT",
@@ -22930,6 +24890,12 @@
             {
               "name": "REFUNDED",
               "description": "Displayed as **Refunded**.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "EXPIRED",
+              "description": "Displayed as **Expired**.",
               "isDeprecated": false,
               "deprecationReason": null
             }
@@ -24557,6 +26523,41 @@
               "deprecationReason": null
             },
             {
+              "name": "gates",
+              "description": "Returns a list of GateSubjects bound to the subject.",
+              "args": [
+                {
+                  "name": "includeInactive",
+                  "description": "True to return both inactive and active gates, false or omit to return only active gates.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "GateSubject",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "handle",
               "description": "A human-friendly unique string for the Product automatically generated from its title.\nThey are used by the Liquid templating language to refer to objects.\n",
               "args": [],
@@ -25328,6 +27329,11 @@
           "interfaces": [
             {
               "kind": "INTERFACE",
+              "name": "HasGates",
+              "ofType": null
+            },
+            {
+              "kind": "INTERFACE",
               "name": "HasMetafields",
               "ofType": null
             },
@@ -25573,6 +27579,26 @@
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "VariantOptionFilter",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "category",
+              "description": "A product category to filter on.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CategoryFilter",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "categoryMetafield",
+              "description": "A category metafield to filter on.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CategoryMetafieldFilter",
                 "ofType": null
               },
               "defaultValue": null
@@ -27847,6 +29873,22 @@
                 "ofType": {
                   "kind": "OBJECT",
                   "name": "CollectionConnection",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "consentManagement",
+              "description": "Interaction of the current visitor consent with the configured consent policies of the shop.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ConsentManagement",
                   "ofType": null
                 }
               },
@@ -31223,7 +33265,18 @@
             {
               "name": "privacyPolicy",
               "description": "The shop’s privacy policy.",
-              "args": [],
+              "args": [
+                {
+                  "name": "sanitized",
+                  "description": "Sanitize the policy content.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "ShopPolicy",
@@ -31235,7 +33288,18 @@
             {
               "name": "refundPolicy",
               "description": "The shop’s refund policy.",
-              "args": [],
+              "args": [
+                {
+                  "name": "sanitized",
+                  "description": "Sanitize the policy content.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "ShopPolicy",
@@ -31247,7 +33311,18 @@
             {
               "name": "shippingPolicy",
               "description": "The shop’s shipping policy.",
-              "args": [],
+              "args": [
+                {
+                  "name": "sanitized",
+                  "description": "Sanitize the policy content.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "ShopPolicy",
@@ -31295,7 +33370,18 @@
             {
               "name": "subscriptionPolicy",
               "description": "The shop’s subscription policy.",
-              "args": [],
+              "args": [
+                {
+                  "name": "sanitized",
+                  "description": "Sanitize the policy content.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "ShopPolicyWithDefault",
@@ -31307,7 +33393,18 @@
             {
               "name": "termsOfService",
               "description": "The shop’s terms of service.",
-              "args": [],
+              "args": [
+                {
+                  "name": "sanitized",
+                  "description": "Sanitize the policy content.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "ShopPolicy",
@@ -32150,6 +34247,127 @@
           "possibleTypes": null
         },
         {
+          "kind": "INPUT_OBJECT",
+          "name": "ShopPayPaymentRequestContactFieldInput",
+          "description": "The input fields to create a contact field.\n      This input type has been depreciated now that shipping_address is pulled from the payment_method.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "countryCode",
+              "description": "The country of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "postalCode",
+              "description": "The postal code of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "provinceCode",
+              "description": "The province of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "city",
+              "description": "The city of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "firstName",
+              "description": "The first name of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "lastName",
+              "description": "The first name of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "address1",
+              "description": "The first address line of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "address2",
+              "description": "The second address line of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "phone",
+              "description": "The phone number of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "email",
+              "description": "The email of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "companyName",
+              "description": "The company name of the contact field.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "ShopPayPaymentRequestDeliveryMethod",
           "description": "Represents a delivery method for a Shop Pay payment request.",
@@ -32710,6 +34928,22 @@
           "name": "ShopPayPaymentRequestLineItem",
           "description": "Represents a line item for a Shop Pay payment request.",
           "fields": [
+            {
+              "name": "amount",
+              "description": "The amount for the line item.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MoneyV2",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": true,
+              "deprecationReason": "This field is deprecated. Use final_line_price instead."
+            },
             {
               "name": "finalItemPrice",
               "description": "The final item price for the line item.",
@@ -33859,6 +36093,79 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "SitemapResourceBase",
+          "description": "Represents a sitemap resource that is not a metaobject.",
+          "fields": [
+            {
+              "name": "handle",
+              "description": "Resource's handle.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "image",
+              "description": "Resource's image.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "SitemapImage",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "title",
+              "description": "Resource's title.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The date and time when the resource was updated.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "SitemapResourceInterface",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INTERFACE",
           "name": "SitemapResourceInterface",
           "description": "Represents the common fields for all sitemap resource types.",
@@ -33903,6 +36210,11 @@
             {
               "kind": "OBJECT",
               "name": "SitemapResource",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SitemapResourceBase",
               "ofType": null
             },
             {
@@ -34014,6 +36326,12 @@
               "description": "Pages present in the sitemap.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "METAOBJECT_PAGE",
+              "description": "Metaobject pages present in the sitemap.",
+              "isDeprecated": true,
+              "deprecationReason": "Use `METAOBJECT` instead."
             },
             {
               "name": "METAOBJECT",
@@ -35059,6 +37377,22 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "redirectUrl",
+              "description": "The url to which the buyer should be redirected after the cart is successfully submitted.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -36055,6 +38389,75 @@
           ],
           "inputFields": null,
           "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "VisitorConsent",
+          "description": "The new consent to data processing purposes provided by a visitor of the shop. true meansaccepting the purposes, false declining them, and null means that the visitor didn't express a preference.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "preferences",
+              "description": "The visitor accepts or rejects the preferences data processing purpose.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "analytics",
+              "description": "The visitor accepts or rejects the analytics data processing purpose.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "marketing",
+              "description": "The visitor accepts or rejects the first and third party marketing data processing purposes.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "metafields",
+              "description": "Key/value pairs for the metafields.\n\nThe input must not contain more than `250` values.",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "CustomConsent",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "saleOfData",
+              "description": "The visitor accepts or rejects the sale or sharing of their data with third parties.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
