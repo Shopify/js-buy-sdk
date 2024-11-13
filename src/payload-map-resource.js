@@ -1,7 +1,6 @@
 export default class PayloadMapper {
-  constructor(graphQLClient) {
-    this.graphQLClient = graphQLClient;
-    this.cart = {};
+  constructor(cart) {
+    this.cart = cart;
 
     // method to map the cart object to the checkout object
     this.checkout = this.checkout.bind(this);
@@ -38,9 +37,7 @@ export default class PayloadMapper {
     this.webUrl = this.webUrl.bind(this);
   }
 
-  checkout(cart) {
-    this.cart = cart;
-
+  checkout() {
     const checkout = {
       appliedGiftCards: this.appliedGiftCards(),
       completedAt: this.completedAt(),
