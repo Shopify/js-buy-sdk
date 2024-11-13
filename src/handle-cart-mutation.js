@@ -1,8 +1,8 @@
-import PayloadMapper from './payload-map-resource';
+import CartPayloadMapper from './cart-payload-mapper';
 import checkoutUserErrorsMapper from './checkout-map-user-error-codes';
 
 export default function handleCartMutation(mutationRootKey, client) {
-  const payloadMapper = new PayloadMapper(client);
+  const payloadMapper = new CartPayloadMapper(client);
 
   return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];

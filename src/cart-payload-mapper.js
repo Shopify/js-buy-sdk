@@ -1,4 +1,4 @@
-export default class PayloadMapper {
+export default class CartPayloadMapper {
   constructor(cart) {
     this.cart = cart;
 
