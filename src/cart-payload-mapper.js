@@ -37,7 +37,11 @@ export default class CartPayloadMapper {
     this.webUrl = this.webUrl.bind(this);
   }
 
-  checkout() {
+  checkout(cart) {
+    if (cart) {
+      this.cart = cart;
+    }
+
     const checkout = {
       appliedGiftCards: this.appliedGiftCards(),
       completedAt: this.completedAt(),
