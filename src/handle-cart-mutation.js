@@ -1,4 +1,5 @@
 import PayloadMapper from './payload-map-resource';
+import checkoutUserErrorsMapper from './checkout-map-user-error-codes';
 
 export default function handleCartMutation(mutationRootKey, client) {
   const payloadMapper = new PayloadMapper(client);
@@ -21,8 +22,9 @@ export default function handleCartMutation(mutationRootKey, client) {
       return Promise.reject(new Error(JSON.stringify(errors)));
     }
 
-    if (rootData && rootData.userErrors && rootData.userErrors.length) {
-      return Promise.reject(new Error(JSON.stringify(rootData.userErrors)));
+    if (rootData && (rootData.userErrors || rootData.warnings)) {
+      const checkoutUserErrors = checkoutUserErrorsMapper(rootData.userErrors, rootData.warnings);
+      return Promise.reject(new Error(JSON.stringify(checkoutUserErrors)));
     }
 
     return Promise.reject(new Error(`The ${mutationRootKey} mutation failed due to an unknown error.`));
