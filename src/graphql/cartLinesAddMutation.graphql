@@ -3,7 +3,11 @@ mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

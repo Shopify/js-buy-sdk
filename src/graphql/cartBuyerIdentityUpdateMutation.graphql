@@ -6,7 +6,11 @@ mutation cartBuyerIdentityUpdate(
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

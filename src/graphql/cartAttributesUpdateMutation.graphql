@@ -3,7 +3,11 @@ mutation cartAttributesUpdate($attributes: [AttributeInput!]!, $cartId: ID!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

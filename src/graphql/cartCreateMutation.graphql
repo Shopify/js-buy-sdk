@@ -3,7 +3,11 @@ mutation ($input: CartInput!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

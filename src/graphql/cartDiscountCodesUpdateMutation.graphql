@@ -3,7 +3,11 @@ mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

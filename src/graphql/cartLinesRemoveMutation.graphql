@@ -3,7 +3,11 @@ mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }

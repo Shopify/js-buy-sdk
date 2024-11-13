@@ -3,7 +3,11 @@ mutation cartGiftCardCodesRemove($appliedGiftCardIds: [ID!]!, $cartId: ID!) {
     cart {
       ...CartFragment
     }
-    ...CartUserErrorFragment
-    ...CartWarningFragment
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
   }
 }
