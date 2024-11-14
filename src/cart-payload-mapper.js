@@ -94,6 +94,7 @@ export default class CartPayloadMapper {
   }
 
   // Removed from SF API
+  // TODO: should we return null instead?
   ready() {
     return false;
   }
@@ -116,9 +117,13 @@ export default class CartPayloadMapper {
   }
 
   paymentDue() {
+    if (!this.cart.appliedGiftCards.length) {
+      return CartPayloadMapper.moneyField(this.cart.cost.totalAmount);
+    }
+
     // Assuming cart's totalAmount will have the same currency code as gift cards' presentmentAmountUsed
     // TODO - verify this assumption
-    return this.moneyField({
+    return CartPayloadMapper.moneyField({
       amount: this.cart.cost.totalAmount.amount - this.cart.appliedGiftCards.reduce((acc, giftCard) => acc + giftCard.presentmentAmountUsed.amount, 0),
       currencyCode: this.cart.cost.totalAmount.currencyCode
     });
@@ -144,20 +149,20 @@ export default class CartPayloadMapper {
   }
 
   totalPrice() {
-    return this.moneyField(this.cart.cost.totalAmount);
+    return CartPayloadMapper.moneyField(this.cart.cost.totalAmount);
   }
 
   totalTax() {
     // Field is nullable on Cart object but non-nullable on Checkout object
     if (!this.cart.cost.totalTaxAmount) {
       // TODO - do we just want to return null here instead, even though it's non-nullable on the Checkout object?
-      return this.moneyField({
+      return CartPayloadMapper.moneyField({
         amount: 0,
         currencyCode: this.cart.cost.totalAmount.currencyCode
       });
     }
 
-    return this.moneyField(this.cart.cost.totalTaxAmount);
+    return CartPayloadMapper.moneyField(this.cart.cost.totalTaxAmount);
   }
 
   updatedAt() {
@@ -180,7 +185,7 @@ export default class CartPayloadMapper {
   }
 
   lineItemsSubtotalPrice() {
-    return this.moneyField(this.cart.cost.checkoutChargeAmount);
+    return CartPayloadMapper.moneyField(this.cart.cost.checkoutChargeAmount);
   }
 
   customAttributes() {
@@ -253,7 +258,7 @@ export default class CartPayloadMapper {
   }
 
   subtotalPrice() {
-    return this.moneyField({
+    return CartPayloadMapper.moneyField({
       amount: this.cart.cost.totalAmount.amount -
         (this.cart.cost.totalDutyAmount ? this.cart.cost.totalDutyAmount.amount : 0) -
         (this.cart.cost.totalTaxAmount ? this.cart.cost.totalTaxAmount.amount : 0),
@@ -262,7 +267,7 @@ export default class CartPayloadMapper {
   }
 
   // utilities
-  moneyField(field) {
+  static moneyField(field) {
     if (!field) {
       return null;
     }
