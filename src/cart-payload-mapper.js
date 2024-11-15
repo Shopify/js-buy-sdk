@@ -118,15 +118,16 @@ export default class CartPayloadMapper {
 
   paymentDue() {
     if (!this.cart.appliedGiftCards.length) {
-      return CartPayloadMapper.moneyField(this.cart.cost.totalAmount);
+      return this.cart.cost.totalAmount;
     }
 
     // Assuming cart's totalAmount will have the same currency code as gift cards' presentmentAmountUsed
     // TODO - verify this assumption
-    return CartPayloadMapper.moneyField({
+    return {
       amount: this.cart.cost.totalAmount.amount - this.cart.appliedGiftCards.reduce((acc, giftCard) => acc + giftCard.presentmentAmountUsed.amount, 0),
-      currencyCode: this.cart.cost.totalAmount.currencyCode
-    });
+      currencyCode: this.cart.cost.totalAmount.currencyCode,
+      type: this.cart.cost.totalAmount.type
+    };
   }
 
   webUrl() {
@@ -149,20 +150,21 @@ export default class CartPayloadMapper {
   }
 
   totalPrice() {
-    return CartPayloadMapper.moneyField(this.cart.cost.totalAmount);
+    return this.cart.cost.totalAmount;
   }
 
   totalTax() {
     // Field is nullable on Cart object but non-nullable on Checkout object
     if (!this.cart.cost.totalTaxAmount) {
       // TODO - do we just want to return null here instead, even though it's non-nullable on the Checkout object?
-      return CartPayloadMapper.moneyField({
+      return {
         amount: 0,
-        currencyCode: this.cart.cost.totalAmount.currencyCode
-      });
+        currencyCode: this.cart.cost.totalAmount.currencyCode,
+        type: this.cart.cost.totalAmount.type
+      };
     }
 
-    return CartPayloadMapper.moneyField(this.cart.cost.totalTaxAmount);
+    return this.cart.cost.totalTaxAmount;
   }
 
   updatedAt() {
@@ -185,25 +187,11 @@ export default class CartPayloadMapper {
   }
 
   lineItemsSubtotalPrice() {
-    return CartPayloadMapper.moneyField(this.cart.cost.checkoutChargeAmount);
+    return this.cart.cost.checkoutChargeAmount;
   }
 
   customAttributes() {
-    return this.cart.attributes.map((attr) => {
-      return {
-        key: attr.key,
-        value: attr.value,
-        type: {
-          name: 'Attribute',
-          kind: 'OBJECT',
-          fieldBaseTypes: {
-            key: 'String',
-            value: 'String'
-          },
-          implementsNode: false
-        }
-      };
-    });
+    return this.cart.attributes;
   }
 
   // TODO: implement for all test cases
@@ -223,17 +211,6 @@ export default class CartPayloadMapper {
         value: discount.value,
         allocationMethod: discount.allocationMethod,
         // TODO: implement the rest of the fields
-        type: {
-          name: 'DiscountApplication',
-          kind: 'OBJECT',
-          fieldBaseTypes: {
-            targetSelection: 'DiscountApplicationTargetSelection',
-            targetType: 'DiscountApplicationTargetType',
-            value: 'PricingValue',
-            allocationMethod: 'DiscountApplicationAllocationMethod'
-          },
-          implementsNode: false
-        }
       };
     });
   }
@@ -258,32 +235,12 @@ export default class CartPayloadMapper {
   }
 
   subtotalPrice() {
-    return CartPayloadMapper.moneyField({
+    return {
       amount: this.cart.cost.totalAmount.amount -
         (this.cart.cost.totalDutyAmount ? this.cart.cost.totalDutyAmount.amount : 0) -
         (this.cart.cost.totalTaxAmount ? this.cart.cost.totalTaxAmount.amount : 0),
-      currencyCode: this.cart.cost.totalAmount.currencyCode
-    });
-  }
-
-  // utilities
-  static moneyField(field) {
-    if (!field) {
-      return null;
-    }
-
-    return {
-      amount: field.amount,
-      currencyCode: field.currencyCode,
-      type: {
-        name: 'MoneyV2',
-        kind: 'OBJECT',
-        fieldBaseTypes: {
-          amount: 'Decimal',
-          currencyCode: 'CurrencyCode'
-        },
-        implementsNode: false
-      }
+      currencyCode: this.cart.cost.totalAmount.currencyCode,
+      type: this.cart.cost.totalAmount.type
     };
   }
 }

@@ -1,50 +1,15 @@
 import assert from 'assert';
 import CartPayloadMapper from '../src/cart-payload-mapper';
-
-const MOCK_DATE = '2017-03-28T16:58:31Z';
-const MOCK_CART_COST = {
-  checkoutChargeAmount: { amount: 45, currencyCode: "USD" },
-  subtotalAmount: { amount: 39, currencyCode: "USD" },
-  subtotalAmountEstimated: false,
-  totalAmount: { amount: 317, currencyCode: "USD" },
-  totalAmountEstimated: false,
-  totalDutyAmount: { amount: 10, currencyCode: "USD" },
-  totalDutyAmountEstimated: false,
-  totalTaxAmount: { amount: 15, currencyCode: "USD" },
-  totalTaxAmountEstimated: false,
-}
+import { MOCK_CART_ATTRIBUTES, MOCK_CART_COST, MOCK_DATE, MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD } from './cart-payload-mapper-fixtures';
+import { withType } from './cart-payload-mapper-utilities';
 
 suite('cart-payload-mapper-test', () => {
   suite('appliedGiftCards', () => {
     test('it returns applied gift cards from cart', () => {
       const cart = {
-        appliedGiftCards: [
-          {
-            amountUsedV2: {
-              amount: '45.0',
-              currencyCode: 'USD'
-            },
-            balanceV2: {
-              amount: '45.0',
-              currencyCode: 'USD'
-            },
-            id: 'gid://shopify/AppliedGiftCard/42854580312',
-            lastCharacters: '949f'
-          },
-          {
-            amountUsedV2: {
-              amount: '96.18',
-              currencyCode: 'USD'
-            },
-            balanceV2: {
-              amount: '6000.12',
-              currencyCode: 'USD'
-            },
-            id: 'gid://shopify/AppliedGiftCard/42854613087',
-            lastCharacters: 'hb6a'
-          }
-        ],
+        appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
       };
+
       assert.deepStrictEqual(new CartPayloadMapper(cart).appliedGiftCards(), cart.appliedGiftCards);
     });
 
@@ -64,6 +29,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         createdAt: MOCK_DATE
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).createdAt(), cart.createdAt);
     });
   });
@@ -80,52 +46,33 @@ suite('cart-payload-mapper-test', () => {
   
   suite('currencyCode', () => {
     test("it returns currency code from cart's total amount", () => {
-      const cart = {
-        cost: {
-          checkoutChargeAmount: { amount: 45, currencyCode: "CAD" },
-          subtotalAmount: { amount: 39, currencyCode: "AUD" },
-          subtotalAmountEstimated: false,
-          totalAmount: { amount: 317, currencyCode: "KRW" },
-          totalAmountEstimated: false,
-        }
+      const costWithMultipleCurrencyCodes = {
+        checkoutChargeAmount: Object.assign({}, MOCK_CART_COST.checkoutChargeAmount, {
+          currencyCode: "CAD"
+        }),
+        subtotalAmount: Object.assign({}, MOCK_CART_COST.subtotalAmount, {
+          currencyCode: "AUD"
+        }),
+        totalAmount: Object.assign({}, MOCK_CART_COST.totalAmount, {
+          currencyCode: "KRW"
+        })
       };
+
+      const cart = {
+        cost: costWithMultipleCurrencyCodes
+      };
+
       assert.strictEqual(new CartPayloadMapper(cart).currencyCode(), cart.cost.totalAmount.currencyCode);
     });
   });
   
   suite('customAttributes', () => {
-    test('it maps cart attributes to custom attributes', () => {
+    test('it returns cart attributes', () => {
       const cart = {
-        attributes: [{ key: 'color', value: 'blue' }, { key: 'size', value: 'large' }]
+        attributes: MOCK_CART_ATTRIBUTES
       };
-      const expected = [{
-        key: 'color',
-        value: 'blue',
-        type: {
-          name: 'Attribute',
-          kind: 'OBJECT',
-          fieldBaseTypes: {
-            key: 'String',
-            value: 'String'
-          },
-          implementsNode: false
-        }
-      },
-      {
-        key: 'size',
-        value: 'large',
-        type: {
-          name: 'Attribute',
-          kind: 'OBJECT',
-          fieldBaseTypes: {
-            key: 'String',
-            value: 'String'
-          },
-          implementsNode: false
-        }
-      }
-    ];
-      assert.deepStrictEqual(new CartPayloadMapper(cart).customAttributes(), expected);
+
+      assert.deepStrictEqual(new CartPayloadMapper(cart).customAttributes(), cart.attributes);
     });
   });
   
@@ -135,6 +82,7 @@ suite('cart-payload-mapper-test', () => {
         discountCodes: [],
         discountAllocations: []
       };
+
       assert.deepStrictEqual(new CartPayloadMapper(cart).discountApplications(), []);
     });
 
@@ -148,11 +96,13 @@ suite('cart-payload-mapper-test', () => {
           email: 'test@example.com'
         }
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).email(), cart.buyerIdentity.email);
     });
 
     it('returns null when there is no buyer identity', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).email(), null);
     });
 
@@ -162,6 +112,7 @@ suite('cart-payload-mapper-test', () => {
           email: '',
         }
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).email(), null);
     });
 
@@ -169,6 +120,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         buyerIdentity: {}
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).email(), null);
     });
   });
@@ -178,6 +130,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         lines: null
       };
+
       assert.deepStrictEqual(new CartPayloadMapper(cart).lineItems(), []);
     });
 
@@ -191,7 +144,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       assert.deepStrictEqual(new CartPayloadMapper(cart).lineItemsSubtotalPrice(), 
-        CartPayloadMapper.moneyField(cart.cost.checkoutChargeAmount));
+        cart.cost.checkoutChargeAmount, 'MoneyV2');
     });
   });
   
@@ -200,6 +153,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         note: 'Test note'
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).note(), cart.note);
     });
   });
@@ -207,6 +161,7 @@ suite('cart-payload-mapper-test', () => {
   suite('order', () => {
     test('it returns null', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).order(), null);
     });
   });
@@ -214,6 +169,7 @@ suite('cart-payload-mapper-test', () => {
   suite('orderStatusUrl', () => {
     test('it returns null', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).orderStatusUrl(), null);
     });
   });
@@ -225,74 +181,21 @@ suite('cart-payload-mapper-test', () => {
         appliedGiftCards: []
       };
 
-      const expected = CartPayloadMapper.moneyField(cart.cost.totalAmount);
-
-      assert.deepStrictEqual(new CartPayloadMapper(cart).paymentDue(), expected);
+      assert.deepStrictEqual(new CartPayloadMapper(cart).paymentDue(), cart.cost.totalAmount);
     });
   
     test("returns cart's total cost minus applied gift cards", () => {
-      const giftCard10Cad = {
-        amountUsed: {
-          amount: 10,
-          currencyCode: "CAD",
-        },
-        amountUsedV2: {
-          amount: 10,
-          currencyCode: "CAD",
-        },
-        balance: {
-          amount: 0,
-          currencyCode: "CAD",
-        },
-        balanceV2: {
-          amount: 0,
-          currencyCode: "CAD",
-        },
-        id: "gid://shopify/AppliedGiftCard/123",
-        lastCharacters: "123",
-        presentmentAmountUsed: {
-          amount: 7.18,
-          currencyCode: "USD",
-        },
-      };
-  
-      const giftCard15Usd = {
-        amountUsed: {
-          amount: 15,
-          currencyCode: "USD",
-        },
-        amountUsedV2: {
-          amount: 15,
-          currencyCode: "USD",
-        },
-        balance: {
-          amount: 0,
-          currencyCode: "USD",
-        },
-        balanceV2: {
-          amount: 0,
-          currencyCode: "USD",
-        },
-        id: "gid://shopify/AppliedGiftCard/456",
-        lastCharacters: "456",
-        presentmentAmountUsed: {
-          amount: 15,
-          currencyCode: "USD",
-        },
-      };
-
       const cart = {
         cost: MOCK_CART_COST,
-        appliedGiftCards: [giftCard10Cad, giftCard15Usd]
+        appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
       };
 
       assert.deepStrictEqual(
         new CartPayloadMapper(cart).paymentDue(),
-        CartPayloadMapper.moneyField(
-        {
+        withType({
           amount: 294.82,
           currencyCode: "USD",
-        })
+        }, 'MoneyV2')
       );
     });
   });
@@ -300,6 +203,7 @@ suite('cart-payload-mapper-test', () => {
   suite('ready', () => {
     test('it returns false', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).ready(), false);
     });
   });
@@ -307,6 +211,7 @@ suite('cart-payload-mapper-test', () => {
   suite('requiresShipping', () => {
     test('it returns null', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).requiresShipping(), null);
     });
   });
@@ -319,11 +224,13 @@ suite('cart-payload-mapper-test', () => {
           deliveryAddressPreferences: addresses
         }
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), addresses[0]);
     });
 
     test('returns null when there is no buyer identity', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), null);
     });
 
@@ -333,6 +240,7 @@ suite('cart-payload-mapper-test', () => {
           deliveryAddressPreferences: []
         }
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), null);
     });
   });
@@ -340,6 +248,7 @@ suite('cart-payload-mapper-test', () => {
   suite('shippingLine', () => {
     test('it returns null', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).shippingLine(), null);
     });
   });
@@ -347,54 +256,33 @@ suite('cart-payload-mapper-test', () => {
   suite('subtotalPrice', () => {
     test("it returns cart's total amount with duties and taxes subtracted", () => {
       const cart = {
-        cost: {
-          checkoutChargeAmount: { amount: 45, currencyCode: "USD" },
-          subtotalAmount: { amount: 39, currencyCode: "USD" },
-          subtotalAmountEstimated: false,
-          totalAmount: { amount: 317, currencyCode: "USD" },
-          totalAmountEstimated: false,
-          totalDutyAmount: { amount: 10, currencyCode: "USD" },
-          totalDutyAmountEstimated: false,
-          totalTaxAmount: { amount: 15, currencyCode: "USD" },
-          totalTaxAmountEstimated: false,
-        }
+        cost: MOCK_CART_COST
       };
 
-      const expected = CartPayloadMapper.moneyField({
+      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), withType({
         amount: 292,
         currencyCode: "USD",
-      });
-
-      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), expected);
+      }, 'MoneyV2'));
     });
   
     test("returns cart's total amount when there are no duties and taxes", () => {
+      const costWithNoDutiesAndTax = Object.assign({}, MOCK_CART_COST, { totalTaxAmount: null, totalDutyAmount: null });
+
       const cart = {
-        cost: {
-          checkoutChargeAmount: { amount: 45, currencyCode: "USD" },
-          subtotalAmount: { amount: 39, currencyCode: "USD" },
-          subtotalAmountEstimated: false,
-          totalAmount: { amount: 317, currencyCode: "USD" },
-          totalAmountEstimated: false,
-          totalDutyAmount: { amount: 0, currencyCode: "USD" },
-          totalDutyAmountEstimated: false,
-          totalTaxAmount: { amount: 0, currencyCode: "USD" },
-          totalTaxAmountEstimated: false,
-        }
+        cost: costWithNoDutiesAndTax
       };
 
-      const expected = CartPayloadMapper.moneyField({
+      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), withType({
         amount: 317,
         currencyCode: "USD",
-      });
-
-      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), expected);
+      }, 'MoneyV2'));
     });
   });
   
   suite('taxExempt', () => {
     test('it returns false', () => {
       const cart = {};
+  
       assert.strictEqual(new CartPayloadMapper(cart).taxExempt(), false);
     });
   });
@@ -402,6 +290,7 @@ suite('cart-payload-mapper-test', () => {
   suite('taxesIncluded', () => {
     test('it returns false', () => {
       const cart = {};
+
       assert.strictEqual(new CartPayloadMapper(cart).taxesIncluded(), false);
     });
   });
@@ -411,8 +300,8 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         cost: MOCK_CART_COST
       };
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalPrice(), 
-        CartPayloadMapper.moneyField(cart.cost.totalAmount));
+
+      assert.deepStrictEqual(new CartPayloadMapper(cart).totalPrice(), cart.cost.totalAmount);
     });
   });
   
@@ -421,29 +310,21 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         cost: MOCK_CART_COST
       };
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), 
-        CartPayloadMapper.moneyField(cart.cost.totalTaxAmount));
+
+      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), cart.cost.totalTaxAmount);
     });
 
     test("returns a value of zero when there is no total tax amount", () => {
+      const costWithNoTax = Object.assign({}, MOCK_CART_COST, { totalTaxAmount: null });
+
       const cart = {
-        cost: {
-          checkoutChargeAmount: { amount: 45, currencyCode: "USD" },
-          subtotalAmount: { amount: 39, currencyCode: "USD" },
-          subtotalAmountEstimated: false,
-          totalAmount: { amount: 317, currencyCode: "USD" },
-          totalAmountEstimated: false,
-          totalDutyAmount: { amount: 10, currencyCode: "USD" },
-          totalDutyAmountEstimated: false,
-        }
+        cost: costWithNoTax
       };
 
-      const expected = CartPayloadMapper.moneyField({
+      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), withType({
         amount: 0,
         currencyCode: "USD",
-      });
-
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), expected);
+      }, 'MoneyV2'));
     });
   });
   
@@ -452,6 +333,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         updatedAt: MOCK_DATE
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).updatedAt(), cart.updatedAt);
     });
   });
@@ -461,6 +343,7 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         checkoutUrl: 'https://shop.com/checkout'
       };
+
       assert.strictEqual(new CartPayloadMapper(cart).webUrl(), cart.checkoutUrl);
     });
   });

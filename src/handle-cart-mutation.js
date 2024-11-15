@@ -12,9 +12,9 @@ export default function handleCartMutation(mutationRootKey, client) {
       return client.fetchAllPages(rootModel.cart.lines, {pageSize: 250}).then((lines) => {
         rootModel.cart.attrs.lines = lines;
         rootModel.cart.errors = errors;
+        rootModel.cart.userErrors = rootData.userErrors;
 
-        return payloadMapper.checkout(rootData.cart);
-
+        return payloadMapper.checkout(rootModel.cart);
       });
     }
 
