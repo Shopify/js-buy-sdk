@@ -73,6 +73,7 @@ export default class CartPayloadMapper {
       webUrl: this.webUrl()
     };
 
+    // TODO: map type property
     return checkout;
   }
 
@@ -182,8 +183,23 @@ export default class CartPayloadMapper {
       return [];
     }
 
-    // TODO: implement lineItem mapping of all fields
-    return lines.edges.map(({node}) => node);
+    // TODO: map type property
+    return lines.map((line) => ({
+      customAttributes: line.attributes,
+      discountAllocations: line.discountAllocations.map((discountAllocation) => ({
+        allocatedAmount: discountAllocation.discountedAmount,
+        discountApplication: {
+          targetType: discountAllocation.targetType,
+          value: discountAllocation.value,
+          allocationMethod: discountAllocation.allocationMethod,
+          targetSelection: discountAllocation.targetSelection,
+        },
+      })),
+      id: line.id,
+      quantity: line.quantity,
+      variant: line.merchandise,
+      title: line.merchandise.title,
+    }));
   }
 
   lineItemsSubtotalPrice() {
@@ -211,6 +227,7 @@ export default class CartPayloadMapper {
         value: discount.value,
         allocationMethod: discount.allocationMethod,
         // TODO: implement the rest of the fields
+        // TODO: map type property
       };
     });
   }
