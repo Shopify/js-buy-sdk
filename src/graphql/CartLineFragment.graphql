@@ -23,6 +23,18 @@ fragment CartLineFragment on CartLine {
         name
         value
       }
+      compareAtPrice {
+        amount
+        currencyCode
+      }
+      price {
+        amount
+        currencyCode
+      }
+      unitPrice {
+        amount
+        currencyCode
+      }
       unitPriceMeasurement {
         measuredType
         quantityUnit

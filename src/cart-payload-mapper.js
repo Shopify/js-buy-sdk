@@ -183,23 +183,82 @@ export default class CartPayloadMapper {
       return [];
     }
 
-    // TODO: map type property
-    return lines.map((line) => ({
-      customAttributes: line.attributes,
-      discountAllocations: line.discountAllocations.map((discountAllocation) => ({
-        allocatedAmount: discountAllocation.discountedAmount,
-        discountApplication: {
-          targetType: discountAllocation.targetType,
-          value: discountAllocation.value,
-          allocationMethod: discountAllocation.allocationMethod,
-          targetSelection: discountAllocation.targetSelection,
-        },
-      })),
-      id: line.id,
-      quantity: line.quantity,
-      variant: line.merchandise,
-      title: line.merchandise.title,
-    }));
+    return lines.map((line) => {
+      // The actual Cart merchandise and Checkout variant objects map cleanly to each other,
+      // but the SDK wasn't fetching the title from the product object, so we need to remove it
+      const productWithoutTitle = Object.fromEntries(
+        Object.entries(line.merchandise.product)
+          .filter(([key]) => key !== 'title')
+      );
+
+      // `priceV2` and `compareAtPriceV2` still exist in the Cart API but are deprecated,
+      // so assigning them to `price` and `compareAtPrice` is more future-proof than asking for
+      // them in the GraphQL payload
+      const variant = Object.assign(
+        {},
+        Object.fromEntries(
+          Object.entries(line.merchandise)
+            .filter(([key]) => key !== 'product')
+        ),
+        {
+          priceV2: line.merchandise.price,
+          compareAtPriceV2: line.merchandise.compareAtPrice,
+          product: productWithoutTitle,
+          type: {
+            name: "ProductVariant",
+            kind: "OBJECT",
+            fieldBaseTypes: {
+              availableForSale: "Boolean",
+              compareAtPrice: "MoneyV2",
+              id: "ID",
+              image: "Image",
+              price: "MoneyV2",
+              product: "Product",
+              selectedOptions: "SelectedOption",
+              sku: "String",
+              title: "String",
+              unitPrice: "MoneyV2",
+              unitPriceMeasurement: "UnitPriceMeasurement",
+              weight: "Float"
+            },
+            implementsNode: true
+          }
+        }
+      );
+
+      return {
+        customAttributes: line.attributes,
+        discountAllocations: line.discountAllocations.map((discountAllocation) => ({
+          allocatedAmount: discountAllocation.discountedAmount,
+          discountApplication: {
+            targetType: discountAllocation.targetType,
+            value: discountAllocation.value,
+            allocationMethod: discountAllocation.allocationMethod,
+            targetSelection: discountAllocation.targetSelection,
+          },
+        })),
+        id: line.id,
+        quantity: line.quantity,
+        title: line.merchandise.product.title,
+        variant,
+        hasNextPage: line.hasNextPage,
+        hasPreviousPage: line.hasPreviousPage,
+        variableValues: line.variableValues,
+        type: {
+          name: "CheckoutLineItem",
+          kind: "OBJECT",
+          fieldBaseTypes: {
+            customAttributes: "Attribute",
+            discountAllocations: "Object[]",
+            id: "ID",
+            quantity: "Int",
+            title: "String",
+            variant: "Merchandise"
+          },
+          implementsNode: true
+        }
+      };
+    });
   }
 
   lineItemsSubtotalPrice() {

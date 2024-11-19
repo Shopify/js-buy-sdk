@@ -1,6 +1,14 @@
 import assert from 'assert';
 import CartPayloadMapper from '../src/cart-payload-mapper';
-import { MOCK_CART_ATTRIBUTES, MOCK_CART_COST, MOCK_DATE, MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD } from './cart-payload-mapper-fixtures';
+import {
+  MOCK_CART_ATTRIBUTES,
+  MOCK_CART_COST,
+  MOCK_DATE,
+  MOCK_10_CAD_GIFT_CARD,
+  MOCK_15_USD_GIFT_CARD,
+  MOCK_CHECKOUT_LINE_ITEMS,
+  MOCK_CART_LINE_ITEMS
+} from './cart-payload-mapper-fixtures';
 import { withType } from './cart-payload-mapper-utilities';
 
 suite('cart-payload-mapper-test', () => {
@@ -134,7 +142,85 @@ suite('cart-payload-mapper-test', () => {
       assert.deepStrictEqual(new CartPayloadMapper(cart).lineItems(), []);
     });
 
-    // TODO add more tests here
+    test('it returns line items from cart', () => {
+      const cart = {
+        lines: MOCK_CART_LINE_ITEMS
+      };
+
+      const mappedLineItems = new CartPayloadMapper(cart).lineItems();
+      const allExpectedFields = [
+        'customAttributes',
+        'discountAllocations',
+        'id',
+        'quantity',
+        'title',
+        'variant',
+        'type',
+        'hasNextPage',
+        'hasPreviousPage',
+        'variableValues'
+      ];
+
+      assert.deepStrictEqual(mappedLineItems.length, MOCK_CART_LINE_ITEMS.length);
+      mappedLineItems.forEach((lineItem, index) => {
+        assert.deepStrictEqual(Object.keys(lineItem).sort(), allExpectedFields.sort());
+
+        // Properties we add on manually
+        assert.deepStrictEqual(lineItem.type, {
+          name: "CheckoutLineItem",
+          kind: "OBJECT",
+          fieldBaseTypes: {
+            customAttributes: "Attribute",
+            discountAllocations: "Object[]",
+            id: "ID",
+            quantity: "Int",
+            title: "String",
+            variant: "Merchandise"
+          },
+          implementsNode: true
+        });
+        assert.deepStrictEqual(lineItem.variant.type, {
+          name: "ProductVariant",
+          kind: "OBJECT",
+          fieldBaseTypes: {
+            availableForSale: "Boolean",
+            compareAtPrice: "MoneyV2",
+            id: "ID",
+            image: "Image",
+            price: "MoneyV2",
+            product: "Product",
+            selectedOptions: "SelectedOption",
+            sku: "String",
+            title: "String",
+            unitPrice: "MoneyV2",
+            unitPriceMeasurement: "UnitPriceMeasurement",
+            weight: "Float"
+          },
+          implementsNode: true
+        });
+
+        // Properties we preserve as is from cart
+        assert.deepStrictEqual(lineItem.id, MOCK_CART_LINE_ITEMS[index].id);
+        assert.deepStrictEqual(lineItem.hasNextPage, MOCK_CART_LINE_ITEMS[index].hasNextPage);
+        assert.deepStrictEqual(lineItem.hasPreviousPage, MOCK_CART_LINE_ITEMS[index].hasPreviousPage);
+        assert.deepStrictEqual(lineItem.variableValues, MOCK_CART_LINE_ITEMS[index].variableValues);
+
+        // Properties we map from cart to checkout
+        assert.deepStrictEqual(lineItem.customAttributes, MOCK_CHECKOUT_LINE_ITEMS[index].customAttributes);
+        assert.deepStrictEqual(lineItem.discountAllocations, MOCK_CHECKOUT_LINE_ITEMS[index].discountAllocations);
+        assert.deepStrictEqual(lineItem.quantity, MOCK_CHECKOUT_LINE_ITEMS[index].quantity);
+        assert.deepStrictEqual(lineItem.title, MOCK_CHECKOUT_LINE_ITEMS[index].title);
+        assert.deepStrictEqual(lineItem.variant, MOCK_CHECKOUT_LINE_ITEMS[index].variant);
+      });
+    });
+
+    test('it maps the lines passed in as an argument, when provided', () => {
+      const cart = {
+        lines: MOCK_CART_LINE_ITEMS
+      };
+
+      assert.deepStrictEqual(new CartPayloadMapper(cart).lineItems([]), []);
+    });
   });
   
   suite('lineItemsSubtotalPrice', () => {
