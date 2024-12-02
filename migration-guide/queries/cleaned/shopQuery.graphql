@@ -1,0 +1,17 @@
+# shop.fetchInfo() - query basic shop info
+
+query {
+  shop {
+    paymentSettings {
+      enabledPresentmentCurrencies
+    }
+    description
+    moneyFormat
+    name
+    primaryDomain {
+      host
+      sslEnabled
+      url
+    }
+  }
+}

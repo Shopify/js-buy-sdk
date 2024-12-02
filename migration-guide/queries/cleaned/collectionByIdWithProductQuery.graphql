@@ -1,0 +1,108 @@
+# collection.fetchWithProducts() - query collection with product by id
+
+query ($id: ID!, $productsFirst: Int!) {
+  node(id: $id) {
+    id
+    handle
+    description
+    descriptionHtml
+    updatedAt
+    title
+    image {
+      id
+      src: url
+      altText
+    }
+    ... on Collection {
+      products(first: $productsFirst) {
+        pageInfo {
+          hasNextPage
+          hasPreviousPage
+        }
+        edges {
+          cursor
+          node {
+            id
+            availableForSale
+            createdAt
+            updatedAt
+            descriptionHtml
+            description
+            handle
+            productType
+            title
+            vendor
+            publishedAt
+            onlineStoreUrl
+            options {
+              name
+              values
+            }
+            images(first: 250) {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+              }
+              edges {
+                cursor
+                node {
+                  id
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+            }
+            variants(first: 250) {
+              pageInfo {
+                hasNextPage
+                hasPreviousPage
+              }
+              edges {
+                cursor
+                node {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  weight
+                  availableForSale
+                  sku
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
+                  image {
+                    id
+                    url
+                    altText
+                    width
+                    height
+                  }
+                  selectedOptions {
+                    name
+                    value
+                  }
+                  unitPrice {
+                    amount
+                    currencyCode
+                  }
+                  unitPriceMeasurement {
+                    measuredType
+                    quantityUnit
+                    quantityValue
+                    referenceUnit
+                    referenceValue
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
