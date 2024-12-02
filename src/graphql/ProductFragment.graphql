@@ -15,6 +15,26 @@ fragment ProductFragment on Product {
     name
     values
   }
+  priceRange {
+    maxVariantPrice {
+      amount
+      currencyCode
+    }
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+ }
+  compareAtPriceRange {
+    maxVariantPrice {
+      amount
+      currencyCode
+    }
+    minVariantPrice {
+      amount
+      currencyCode
+    }
+  }
   images(first: 250) {
     pageInfo {
       hasNextPage
