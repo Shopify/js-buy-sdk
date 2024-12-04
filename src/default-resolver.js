@@ -1,10 +1,8 @@
-import CartPayloadMapper from './cart-payload-mapper';
+import { mapCartPayload } from './cart-payload-mapper';
 
 export const defaultErrors = [{message: 'an unknown error has occurred.'}];
 
 export default function defaultResolver(key, client) {
-  const payloadMapper = new CartPayloadMapper(client);
-
   return function({model, data, errors}) {
     try {
       const rootData = data[key];
@@ -18,7 +16,7 @@ export default function defaultResolver(key, client) {
         rootModel.attrs.lines = lines;
         rootModel.errors = errors;
 
-        return payloadMapper.checkout(rootData);
+        return mapCartPayload(rootData);
       });
 
     } catch (_) {

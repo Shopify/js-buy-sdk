@@ -1,5 +1,5 @@
 import assert from 'assert';
-import CartPayloadMapper from '../src/cart-payload-mapper';
+import { mapCartPayload } from '../src/cart-payload-mapper';
 import {
   MOCK_CART_ATTRIBUTES,
   MOCK_CART_COST,
@@ -18,17 +18,22 @@ suite('cart-payload-mapper-test', () => {
         appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).appliedGiftCards(), cart.appliedGiftCards);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.appliedGiftCards, cart.appliedGiftCards);
     });
 
     test('it returns empty array when there are no applied gift cards', () => {
-      assert.deepStrictEqual(new CartPayloadMapper({appliedGiftCards: []}).appliedGiftCards(), []);
+      const cart = { appliedGiftCards: [] };
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.appliedGiftCards, []);
     });
   });
   
   suite('completedAt', () => {
     test('it returns null', () => {
-      assert.strictEqual(new CartPayloadMapper({}).completedAt(), null);
+      const cart = {};
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.completedAt, null);
     });
   });
   
@@ -38,7 +43,8 @@ suite('cart-payload-mapper-test', () => {
         createdAt: MOCK_DATE
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).createdAt(), cart.createdAt);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.createdAt, cart.createdAt);
     });
   });
 
@@ -48,7 +54,8 @@ suite('cart-payload-mapper-test', () => {
         id: "gid://shopify/Cart/Z2NwLXVzLWNlbnRyYWwxOjAxSkNFV1ROLkZORzJZOUg5V1gwWTI1RDRL?key=d4438ff09137256a69a03e246c531b87"
       };
 
-      assert.strictEqual(cart.id, new CartPayloadMapper(cart).id());
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.id, cart.id);
     });
   });
   
@@ -70,7 +77,8 @@ suite('cart-payload-mapper-test', () => {
         cost: costWithMultipleCurrencyCodes
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).currencyCode(), cart.cost.totalAmount.currencyCode);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.currencyCode, cart.cost.totalAmount.currencyCode);
     });
   });
   
@@ -80,7 +88,8 @@ suite('cart-payload-mapper-test', () => {
         attributes: MOCK_CART_ATTRIBUTES
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).customAttributes(), cart.attributes);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.customAttributes, cart.attributes);
     });
   });
   
@@ -88,10 +97,12 @@ suite('cart-payload-mapper-test', () => {
     test('it returns empty array when there are no applicable discounts', () => {
       const cart = {
         discountCodes: [],
-        discountAllocations: []
+        discountAllocations: [],
+        lineItems: []
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).discountApplications(), []);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.discountApplications, []);
     });
 
     // TODO add more tests here
@@ -105,49 +116,53 @@ suite('cart-payload-mapper-test', () => {
         }
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).email(), cart.buyerIdentity.email);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.email, cart.buyerIdentity.email);
     });
 
-    it('returns null when there is no buyer identity', () => {
+    test('returns null when there is no buyer identity', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).email(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.email, null);
     });
 
-    it('returns null when email is an empty string', () => {
+    test('returns null when email is an empty string', () => {
       const cart = {
         buyerIdentity: {
           email: '',
         }
       };
-
-      assert.strictEqual(new CartPayloadMapper(cart).email(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.email, null);
     });
 
-    it('returns null when there is no email', () => {
+    test('returns null when there is no email', () => {
       const cart = {
         buyerIdentity: {}
       };
-
-      assert.strictEqual(new CartPayloadMapper(cart).email(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.email, null);
     });
   });
   
   suite('lineItems', () => {
     test('it returns empty array when no lines', () => {
       const cart = {
-        lines: null
+        lineItems: null
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).lineItems(), []);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.lineItems, []);
     });
 
     test('it returns line items from cart', () => {
       const cart = {
-        lines: MOCK_CART_LINE_ITEMS
+        lineItems: MOCK_CART_LINE_ITEMS,
+        discountCodes: [],
+        discountAllocations: []
       };
 
-      const mappedLineItems = new CartPayloadMapper(cart).lineItems();
+      const result = mapCartPayload(cart);
       const allExpectedFields = [
         'customAttributes',
         'discountAllocations',
@@ -161,8 +176,8 @@ suite('cart-payload-mapper-test', () => {
         'variableValues'
       ];
 
-      assert.deepStrictEqual(mappedLineItems.length, MOCK_CART_LINE_ITEMS.length);
-      mappedLineItems.forEach((lineItem, index) => {
+      assert.deepStrictEqual(result.lineItems.length, MOCK_CART_LINE_ITEMS.length);
+      result.lineItems.forEach((lineItem, index) => {
         assert.deepStrictEqual(Object.keys(lineItem).sort(), allExpectedFields.sort());
 
         // Properties we add on manually
@@ -213,14 +228,6 @@ suite('cart-payload-mapper-test', () => {
         assert.deepStrictEqual(lineItem.variant, MOCK_CHECKOUT_LINE_ITEMS[index].variant);
       });
     });
-
-    test('it maps the lines passed in as an argument, when provided', () => {
-      const cart = {
-        lines: MOCK_CART_LINE_ITEMS
-      };
-
-      assert.deepStrictEqual(new CartPayloadMapper(cart).lineItems([]), []);
-    });
   });
   
   suite('lineItemsSubtotalPrice', () => {
@@ -229,8 +236,8 @@ suite('cart-payload-mapper-test', () => {
         cost: MOCK_CART_COST
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).lineItemsSubtotalPrice(), 
-        cart.cost.checkoutChargeAmount, 'MoneyV2');
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.lineItemsSubtotalPrice, cart.cost.checkoutChargeAmount);
     });
   });
   
@@ -240,23 +247,24 @@ suite('cart-payload-mapper-test', () => {
         note: 'Test note'
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).note(), cart.note);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.note, cart.note);
     });
   });
   
   suite('order', () => {
     test('it returns null', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).order(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.order, null);
     });
   });
   
   suite('orderStatusUrl', () => {
     test('it returns null', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).orderStatusUrl(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.orderStatusUrl, null);
     });
   });
   
@@ -267,7 +275,8 @@ suite('cart-payload-mapper-test', () => {
         appliedGiftCards: []
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).paymentDue(), cart.cost.totalAmount);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.paymentDue, cart.cost.totalAmount);
     });
   
     test("returns cart's total cost minus applied gift cards", () => {
@@ -276,8 +285,9 @@ suite('cart-payload-mapper-test', () => {
         appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
       };
 
+      const result = mapCartPayload(cart);
       assert.deepStrictEqual(
-        new CartPayloadMapper(cart).paymentDue(),
+        result.paymentDue,
         withType({
           amount: 294.82,
           currencyCode: "USD",
@@ -289,16 +299,16 @@ suite('cart-payload-mapper-test', () => {
   suite('ready', () => {
     test('it returns false', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).ready(), false);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.ready, false);
     });
   });
   
   suite('requiresShipping', () => {
     test('it returns null', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).requiresShipping(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.requiresShipping, null);
     });
   });
   
@@ -311,13 +321,14 @@ suite('cart-payload-mapper-test', () => {
         }
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), addresses[0]);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.shippingAddress, addresses[0]);
     });
 
     test('returns null when there is no buyer identity', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.shippingAddress, null);
     });
 
     test('returns null when there are no delivery address preferences', () => {
@@ -327,15 +338,16 @@ suite('cart-payload-mapper-test', () => {
         }
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).shippingAddress(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.shippingAddress, null);
     });
   });
   
   suite('shippingLine', () => {
     test('it returns null', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).shippingLine(), null);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.shippingLine, null);
     });
   });
   
@@ -345,7 +357,8 @@ suite('cart-payload-mapper-test', () => {
         cost: MOCK_CART_COST
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), withType({
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.subtotalPrice, withType({
         amount: 292,
         currencyCode: "USD",
       }, 'MoneyV2'));
@@ -353,12 +366,12 @@ suite('cart-payload-mapper-test', () => {
   
     test("returns cart's total amount when there are no duties and taxes", () => {
       const costWithNoDutiesAndTax = Object.assign({}, MOCK_CART_COST, { totalTaxAmount: null, totalDutyAmount: null });
-
       const cart = {
         cost: costWithNoDutiesAndTax
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).subtotalPrice(), withType({
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.subtotalPrice, withType({
         amount: 317,
         currencyCode: "USD",
       }, 'MoneyV2'));
@@ -368,16 +381,16 @@ suite('cart-payload-mapper-test', () => {
   suite('taxExempt', () => {
     test('it returns false', () => {
       const cart = {};
-  
-      assert.strictEqual(new CartPayloadMapper(cart).taxExempt(), false);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.taxExempt, false);
     });
   });
   
   suite('taxesIncluded', () => {
     test('it returns false', () => {
       const cart = {};
-
-      assert.strictEqual(new CartPayloadMapper(cart).taxesIncluded(), false);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.taxesIncluded, false);
     });
   });
   
@@ -387,7 +400,8 @@ suite('cart-payload-mapper-test', () => {
         cost: MOCK_CART_COST
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalPrice(), cart.cost.totalAmount);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.totalPrice, cart.cost.totalAmount);
     });
   });
   
@@ -397,17 +411,18 @@ suite('cart-payload-mapper-test', () => {
         cost: MOCK_CART_COST
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), cart.cost.totalTaxAmount);
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.totalTax, cart.cost.totalTaxAmount);
     });
 
     test("returns a value of zero when there is no total tax amount", () => {
       const costWithNoTax = Object.assign({}, MOCK_CART_COST, { totalTaxAmount: null });
-
       const cart = {
         cost: costWithNoTax
       };
 
-      assert.deepStrictEqual(new CartPayloadMapper(cart).totalTax(), withType({
+      const result = mapCartPayload(cart);
+      assert.deepStrictEqual(result.totalTax, withType({
         amount: 0,
         currencyCode: "USD",
       }, 'MoneyV2'));
@@ -420,7 +435,8 @@ suite('cart-payload-mapper-test', () => {
         updatedAt: MOCK_DATE
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).updatedAt(), cart.updatedAt);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.updatedAt, cart.updatedAt);
     });
   });
   
@@ -430,7 +446,10 @@ suite('cart-payload-mapper-test', () => {
         checkoutUrl: 'https://shop.com/checkout'
       };
 
-      assert.strictEqual(new CartPayloadMapper(cart).webUrl(), cart.checkoutUrl);
+      const result = mapCartPayload(cart);
+      assert.strictEqual(result.webUrl, cart.checkoutUrl);
     });
   });
 });
+
+

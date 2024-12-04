@@ -1,7 +1,7 @@
 import assert from 'assert';
 import Client from '../src/client';
 
-suite.only('client-checkout-integration-test', () => {
+suite('client-checkout-integration-test', () => {
   const domain = 'juanprieto.myshopify.com';
 
   const config = {

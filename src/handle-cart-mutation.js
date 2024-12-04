@@ -1,9 +1,7 @@
-import CartPayloadMapper from './cart-payload-mapper';
+import { mapCartPayload } from './cart-payload-mapper';
 import checkoutUserErrorsMapper from './checkout-map-user-error-codes';
 
 export default function handleCartMutation(mutationRootKey, client) {
-  const payloadMapper = new CartPayloadMapper(client);
-
   return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
@@ -14,7 +12,7 @@ export default function handleCartMutation(mutationRootKey, client) {
         rootModel.cart.errors = errors;
         rootModel.cart.userErrors = rootData.userErrors;
 
-        return payloadMapper.checkout(rootModel.cart);
+        return mapCartPayload(rootModel.cart);
       });
     }
 
