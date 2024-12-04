@@ -1,0 +1,3 @@
+# collection.fetchWithProducts() - query collection with product by id
+
+# Same as collectionByIdOrHandleQuery.graphql

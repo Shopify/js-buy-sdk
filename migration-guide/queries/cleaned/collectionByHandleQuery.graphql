@@ -1,0 +1,106 @@
+# collection.fetchByHandle() - query collection by handle
+
+query ($handle: String!) {
+  collectionByHandle(handle: $handle) {
+    id
+    handle
+    description
+    descriptionHtml
+    updatedAt
+    title
+    image {
+      id
+      url
+      altText
+    }
+    products(first: 20) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          availableForSale
+          createdAt
+          updatedAt
+          descriptionHtml
+          description
+          handle
+          productType
+          title
+          vendor
+          publishedAt
+          onlineStoreUrl
+          options {
+            name
+            values
+          }
+          images(first: 250) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                id
+                url
+                altText
+                width
+                height
+              }
+            }
+          }
+          variants(first: 250) {
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+            }
+            edges {
+              cursor
+              node {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+                weight
+                availableForSale
+                sku
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
+                image {
+                  id
+                  url
+                  altText
+                  width
+                  height
+                }
+                selectedOptions {
+                  name
+                  value
+                }
+                unitPrice {
+                  amount
+                  currencyCode
+                }
+                unitPriceMeasurement {
+                  measuredType
+                  quantityUnit
+                  quantityValue
+                  referenceUnit
+                  referenceValue
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

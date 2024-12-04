@@ -1,0 +1,33 @@
+# shop.fetchPolicies() - query shop policies
+
+# Added:
+# shop.shippingPolicy
+
+query {
+  shop {
+    privacyPolicy {
+      id
+      title
+      url
+      body
+    }
+    termsOfService {
+      id
+      title
+      url
+      body
+    }
+    refundPolicy {
+      id
+      title
+      url
+      body
+    }
+    shippingPolicy {
+      id
+      title
+      url
+      body
+    }
+  }
+}

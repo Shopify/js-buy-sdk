@@ -1,0 +1,37 @@
+# collection.fetchAll() - query all collections key info and no products
+# collection.fetchQuery() - query all collections key info and no products with query, sort and reverse options
+
+query (
+  $first: Int!
+  $query: String
+  $sortKey: CollectionSortKeys
+  $reverse: Boolean
+) {
+  collections(
+    first: $first
+    query: $query
+    sortKey: $sortKey
+    reverse: $reverse
+  ) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        handle
+        description
+        descriptionHtml
+        updatedAt
+        title
+        image {
+          id
+          url
+          altText
+        }
+      }
+    }
+  }
+}
