@@ -1,6 +1,6 @@
 import Resource from './resource';
-import defaultResolver from './default-resolver';
 import handleCartMutation from './handle-cart-mutation';
+import { mapCartPayload } from './cart-payload-mapper';
 
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
@@ -35,7 +35,28 @@ class CheckoutResource extends Resource {
   fetch(id) {
     return this.graphQLClient
       .send(cartNodeQuery, {id})
-      .then(defaultResolver('cart', this.graphQLClient));
+      .then(({model, data}) => {
+        return new Promise((resolve, reject) => {
+          try {
+            const cart = data.cart || data.node;
+            
+            if (!cart) {
+              return resolve(null);
+            }
+
+            return this.graphQLClient.fetchAllPages(model.cart.lines, {pageSize: 250}).then((lines) => {
+              model.cart.attrs.lines = lines;
+              return resolve(mapCartPayload(cart));
+            });
+          } catch (error) {
+            if (error) {
+              reject(error);
+            } else {
+              reject([{message: 'an unknown error has occurred.'}]);
+            }
+          }
+        });
+      });
   }
 
   /**

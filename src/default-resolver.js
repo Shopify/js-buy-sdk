@@ -1,30 +1,23 @@
-import { mapCartPayload } from './cart-payload-mapper';
-
 export const defaultErrors = [{message: 'an unknown error has occurred.'}];
 
-export default function defaultResolver(key, client) {
-  return function({model, data, errors}) {
-    try {
-      const rootData = data[key];
-      const rootModel = model[key];
+export default function defaultResolver(path) {
+  const keys = path.split('.');
 
-      if (!rootData) {
-        Promise.resolve(null);
+  return function({model, errors}) {
+    return new Promise((resolve, reject) => {
+      try {
+        const result = keys.reduce((ref, key) => {
+          return ref[key];
+        }, model);
+
+        resolve(result);
+      } catch (_) {
+        if (errors) {
+          reject(errors);
+        } else {
+          reject(defaultErrors);
+        }
       }
-
-      return client.fetchAllPages(rootModel.lines, {pageSize: 250}).then((lines) => {
-        rootModel.attrs.lines = lines;
-        rootModel.errors = errors;
-
-        return mapCartPayload(rootData);
-      });
-
-    } catch (_) {
-      if (errors) {
-        Promise.reject(errors);
-      } else {
-        Promise.reject(defaultErrors);
-      }
-    }
+    });
   };
 }
