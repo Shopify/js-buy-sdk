@@ -2,10 +2,10 @@ import assert from 'assert';
 import Client from '../src/client';
 
 suite('client-checkout-discounts-integration-test', () => {
-  const domain = 'juanprieto.myshopify.com';
+  const domain = 'graphql.myshopify.com';
 
   const config = {
-    storefrontAccessToken: 'c23ad8269962738dd66dfd85d9b45a2d',
+    storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
     domain,
     apiVersion: 'unstable'
   };
@@ -51,7 +51,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             }
           ]
@@ -159,7 +159,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             }
           ]
@@ -255,7 +255,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             }
           ]
@@ -353,7 +353,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             }
           ]
@@ -402,7 +402,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             },
             {
@@ -556,7 +556,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             },
             {
@@ -706,7 +706,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             },
             {
@@ -860,7 +860,7 @@ suite('client-checkout-discounts-integration-test', () => {
         return client.checkout.create({
           lineItems: [
             {
-              variantId: 'gid://shopify/ProductVariant/48535896522774',
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             },
             {
