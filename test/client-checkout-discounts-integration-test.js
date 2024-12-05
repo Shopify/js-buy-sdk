@@ -406,7 +406,7 @@ suite('client-checkout-discounts-integration-test', () => {
               quantity: 1
             },
             {
-              variantId: 'gid://shopify/ProductVariant/48535896555542',
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
               quantity: 1
             }
           ]
@@ -560,7 +560,7 @@ suite('client-checkout-discounts-integration-test', () => {
               quantity: 1
             },
             {
-              variantId: 'gid://shopify/ProductVariant/48535896555542',
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
               quantity: 1
             }
           ]
@@ -710,7 +710,7 @@ suite('client-checkout-discounts-integration-test', () => {
               quantity: 1
             },
             {
-              variantId: 'gid://shopify/ProductVariant/48535896555542',
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
               quantity: 1
             }
           ]
@@ -864,7 +864,7 @@ suite('client-checkout-discounts-integration-test', () => {
               quantity: 1
             },
             {
-              variantId: 'gid://shopify/ProductVariant/48535896555542',
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
               quantity: 1
             }
           ]

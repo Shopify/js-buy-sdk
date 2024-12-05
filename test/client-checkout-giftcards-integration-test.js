@@ -1,11 +1,12 @@
 import assert from 'assert';
 import Client from '../src/client';
 
+
 suite('client-checkout-giftcards-integration-test', () => {
-  const domain = 'juanprieto.myshopify.com';
+  const domain = 'graphql.myshopify.com';
 
   const config = {
-    storefrontAccessToken: 'c23ad8269962738dd66dfd85d9b45a2d',
+    storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
     domain,
     apiVersion: 'unstable'
   };
