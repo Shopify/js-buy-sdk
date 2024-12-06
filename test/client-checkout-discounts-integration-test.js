@@ -1,6 +1,11 @@
 import assert from 'assert';
 import Client from '../src/client';
 
+// NOTE:
+// graphql.myshopify.com
+// gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
+// gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
+
 suite('client-checkout-discounts-integration-test', () => {
   const domain = 'graphql.myshopify.com';
 
@@ -69,7 +74,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '10.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -102,7 +107,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.equal(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '10.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -120,7 +125,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '10.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -200,7 +205,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '20.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -269,7 +274,7 @@ suite('client-checkout-discounts-integration-test', () => {
               targetType: 'LINE_ITEM',
               value: {
                 amount: '50.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'PricingValue',
                   kind: 'UNION'
@@ -297,7 +302,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.equal(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '50.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -315,7 +320,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '50.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -417,7 +422,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.discountApplications[0], {
               allocatedAmount: {
                 amount: '10.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -435,7 +440,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '20.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -467,7 +472,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '10.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -485,7 +490,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '20.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -521,7 +526,7 @@ suite('client-checkout-discounts-integration-test', () => {
               targetType: 'LINE_ITEM',
               value: {
                 amount: '20.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'PricingValue',
                   kind: 'UNION'
@@ -601,7 +606,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '20.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -650,7 +655,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               allocatedAmount: {
                 amount: '7.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -724,7 +729,7 @@ suite('client-checkout-discounts-integration-test', () => {
               targetType: 'LINE_ITEM',
               value: {
                 amount: '50.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'PricingValue',
                   kind: 'UNION'
@@ -752,7 +757,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '37.04',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -770,7 +775,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '50.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -802,7 +807,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[1].discountAllocations[0], {
               allocatedAmount: {
                 amount: '12.96',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -820,7 +825,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 targetType: 'LINE_ITEM',
                 value: {
                   amount: '50.0',
-                  currencyCode: 'USD',
+                  currencyCode: 'CAD',
                   type: {
                     name: 'PricingValue',
                     kind: 'UNION'
@@ -905,7 +910,7 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0], {
               allocatedAmount: {
                 amount: '100.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'MoneyV2',
                   kind: 'OBJECT',
@@ -1003,7 +1008,7 @@ suite('client-checkout-discounts-integration-test', () => {
               targetType: 'LINE_ITEM',
               value: {
                 amount: '0.0',
-                currencyCode: 'USD',
+                currencyCode: 'CAD',
                 type: {
                   name: 'PricingValue',
                   kind: 'UNION'

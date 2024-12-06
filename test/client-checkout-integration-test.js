@@ -483,7 +483,6 @@ suite('client-checkout-integration-test', () => {
         return client.checkout.updateLineItems(checkout.id, updateLines).then((updatedCheckout) => {
           assert.equal(updatedCheckout.lineItems[0].quantity, 1);
           assert.equal(updatedCheckout.lineItems[1].quantity, 1);
-          // TODO: should pass when lineItems are properly mapped
           assert.deepEqual(updatedCheckout.lineItems[0].customAttributes, customAttributes);
           assert.deepEqual(updatedCheckout.lineItems[1].customAttributes, customAttributes);
         });
@@ -523,9 +522,5 @@ suite('client-checkout-integration-test', () => {
         });
       });
     });
-  });
-
-  suite('checkout totals', () => {
-    // TODO: implement
   });
 });

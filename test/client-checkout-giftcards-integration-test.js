@@ -632,7 +632,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.paymentDue, {
             amount: '120.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -646,7 +646,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.totalTax, {
             amount: '0.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -660,7 +660,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.lineItemsSubtotalPrice, {
             amount: '270.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -674,7 +674,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.subtotalPrice, {
             amount: '270.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -688,7 +688,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.totalPrice, {
             amount: '220.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -702,7 +702,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.totalPriceV2, {
             amount: '220.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -716,7 +716,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.subtotalPriceV2, {
             amount: '220.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -730,7 +730,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.lineItemsSubtotalPrice, {
             amount: '270.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -744,7 +744,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.subtotalPrice, {
             amount: '270.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -758,7 +758,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.totalPrice, {
             amount: '220.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
@@ -772,7 +772,7 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           assert.deepEqual(updatedCheckout.totalPriceV2, {
             amount: '220.0',
-            currencyCode: 'USD',
+            currencyCode: 'CAD',
             type: {
               name: 'MoneyV2',
               kind: 'OBJECT',
