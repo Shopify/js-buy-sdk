@@ -120,15 +120,15 @@ function mapLineItems(lines, discountApplications) {
 
 export function mapDiscountsAndLines(cart) {
   var result = discountMapper({
-    cartLineItems: cart.lineItems || [],
+    cartLineItems: cart.lines || [],
     cartDiscountAllocations: cart.discountAllocations || [],
     cartDiscountCodes: cart.discountCodes || []
   });
 
-  var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations, result.discountApplications);
+  var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations, result.discountApplications || []);
 
   return {
-    discountApplications: result.discountApplications,
+    discountApplications: result.discountApplications || [],
     cartLinesWithDiscounts: mappedLines
   };
 }
