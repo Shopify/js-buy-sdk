@@ -5,6 +5,8 @@ export default function handleCartMutation(mutationRootKey, client) {
   return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
+    // console.log("rootData", JSON.stringify(rootData, null, 2));
+    console.log("--------------------------------")
 
     if (rootData && rootData.cart) {
       return client.fetchAllPages(rootModel.cart.lines, {pageSize: 250}).then((lines) => {

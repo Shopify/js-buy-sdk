@@ -41,21 +41,32 @@ fragment CartFragment on Cart {
     code
   }
   discountAllocations {
-    ... on CartCodeDiscountAllocation {
+    discountedAmount {
+      amount
+      currencyCode
+    }
+    discountApplication {
       targetType
-      code
-      discountedAmount {
-        amount
-        currencyCode
+      allocationMethod
+      targetSelection
+      value {
+        ... on PricingPercentageValue {
+          percentage
+        }
+        ... on MoneyV2 {
+          amount
+          currencyCode
+        }
       }
     }
+    ... on CartCodeDiscountAllocation {
+      code
+    }
     ... on CartAutomaticDiscountAllocation {
-      targetType
       title
-      discountedAmount {
-        amount
-        currencyCode
-      }
+    }
+    ... on CartCustomDiscountAllocation {
+      title
     }
   }
   buyerIdentity {
