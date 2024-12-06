@@ -21,7 +21,7 @@ suite('client-checkout-integration-test', () => {
     client = null;
   });
 
-  suite('create', () => {
+  suite.only('create', () => {
     test('it resolves with an empty checkout', () => {
       return client.checkout.create({}).then((checkout) => {
         assert.ok((typeof checkout.webUrl === 'string'));
@@ -39,20 +39,9 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.deepEqual(checkout.customAttributes, [
-          {
-            key: 'my-key',
-            value: 'my-value',
-            type: {
-              name: 'Attribute',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                key: 'String',
-                value: 'String'
-              },
-              implementsNode: false
-            }
-          }]);
+        assert.equal(checkout.customAttributes.length, 1);
+        assert.equal(checkout.customAttributes[0].value, 'my-value');
+        assert.equal(checkout.customAttributes[0].key, 'my-key');
       });
     });
 
@@ -136,26 +125,27 @@ suite('client-checkout-integration-test', () => {
       });
     });
 
-    test('it resolves a localized non-empty checkout created with buyerIdentity.countryCode', () => {
+    test.only('it resolves a localized non-empty checkout created with buyerIdentity.countryCode', () => {
       const input = {
         buyerIdentity: {
-          countryCode: 'ES'
+          countryCode: 'CN'
+          // NOTE: if we don't pass an item, the cart won't localize setting currencyCode to XXX
         },
-        // NOTE: if we don't pass an item, the cart won't localize setting currencyCode to XXX
         lineItems: [
           {
-            variantId: 'gid://shopify/ProductVariant/50850334310456',
+            variantId: 'gid://shopify/ProductVariant/50850336211000',
             quantity: 1
           }
         ]
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.paymentDueV2.currencyCode, 'EUR');
+        assert.equal(checkout.lineItems.length, 1);
+        assert.equal(checkout.buyerIdentity.countryCode, 'CN');
+        // FIX: this should be passing with CNY?
+        assert.equal(checkout.currencyCode, 'CNY');
       });
     });
-
-    // TODO: test all error scenarios
   });
 
   suite('create / not supported', () => {

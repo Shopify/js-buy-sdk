@@ -1,6 +1,6 @@
 import Resource from './resource';
 import handleCartMutation from './handle-cart-mutation';
-import { mapCartPayload } from './cart-payload-mapper';
+import {mapCartPayload} from './cart-payload-mapper';
 
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
@@ -39,13 +39,14 @@ class CheckoutResource extends Resource {
         return new Promise((resolve, reject) => {
           try {
             const cart = data.cart || data.node;
-            
+
             if (!cart) {
               return resolve(null);
             }
 
             return this.graphQLClient.fetchAllPages(model.cart.lines, {pageSize: 250}).then((lines) => {
               model.cart.attrs.lines = lines;
+
               return resolve(mapCartPayload(cart));
             });
           } catch (error) {
@@ -84,6 +85,8 @@ class CheckoutResource extends Resource {
    */
   create(i = {}) {
     const input = this.inputMapper.create(i);
+
+    console.log('create input', JSON.stringify(input, null, 2));
 
     return this.graphQLClient
       .send(cartCreateMutation, {input})

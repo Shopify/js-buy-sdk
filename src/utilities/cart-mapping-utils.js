@@ -158,4 +158,3 @@ export default {
   mapLineItems: mapLineItems,
   mapDiscountsAndLines: mapDiscountsAndLines
 };
-
