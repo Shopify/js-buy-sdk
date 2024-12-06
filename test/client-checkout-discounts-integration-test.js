@@ -7,6 +7,11 @@ import { deepSortLines, deepSortDiscountApplications } from '../src/utilities/ca
 // gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
 // gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
 
+// NOTE:
+// graphql.myshopify.com
+// gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
+// gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
+
 suite('client-checkout-discounts-integration-test', () => {
   const domain = 'graphql.myshopify.com';
 
@@ -210,6 +215,7 @@ suite('client-checkout-discounts-integration-test', () => {
             //   }
             // }
             // );
+
           });
         });
       });
