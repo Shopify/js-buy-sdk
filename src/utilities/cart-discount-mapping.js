@@ -1,9 +1,10 @@
 export function getDiscountAllocationId(discountAllocation) {
-  const discountId = discountAllocation.code || discountAllocation.title;
+  const discountApp = discountAllocation.discountApplication;
+  const discountId = discountApp.code || discountApp.title;
 
   if (!discountId) {
     throw new Error(
-      `Discount allocation must have either code or title: ${JSON.stringify(
+      `Discount allocation must have either code or title in discountApplication: ${JSON.stringify(
         discountAllocation
       )}`
     );
@@ -27,7 +28,7 @@ export function getDiscountApplicationId(discountApplication) {
 
 export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDiscountCodes }) {
   if (
-    !cartLineItems.some(({ discountAllocations }) => discountAllocations.length) &&
+    !cartLineItems.some(({ discountAllocations }) => discountAllocations && discountAllocations.length) &&
     !cartDiscountAllocations.length
   ) {
     return {
@@ -39,10 +40,10 @@ export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDis
   const cartLinesWithAllDiscountAllocations =
     mergeCartOrderLevelDiscountAllocationsToCartLineDiscountAllocations({
       lineItems: cartLineItems,
-      orderLevelDiscountAllocationsWithLineIds: findLineIdForEachOrderLevelDiscountAllocation({
-        cartLines: cartLineItems,
-        orderLevelDiscountAllocations: cartDiscountAllocations
-      })
+      orderLevelDiscountAllocationsForLines: findLineIdForEachOrderLevelDiscountAllocation(
+        cartLineItems,
+        cartDiscountAllocations
+      )
     });
 
   const discountIdToDiscountApplicationMap = generateDiscountApplications(
@@ -79,9 +80,12 @@ function mergeCartOrderLevelDiscountAllocationsToCartLineDiscountAllocations({
     const orderLevelDiscountAllocationsForLine =
       orderLevelDiscountAllocationsForLines
         .filter(({ id }) => id === lineItemId)
-        .map(({ discountAllocation }) => discountAllocation);
+        .map(({ discountAllocation }) => ({
+          discountedAmount: discountAllocation.discountedAmount,
+          discountApplication: discountAllocation.discountApplication
+        }));
 
-    const mergedDiscountAllocations = line.discountAllocations.concat(orderLevelDiscountAllocationsForLine);
+    const mergedDiscountAllocations = (line.discountAllocations || []).concat(orderLevelDiscountAllocationsForLine);
     const result = Object.assign({}, line, {
       discountAllocations: mergedDiscountAllocations
     });
@@ -127,26 +131,31 @@ const findLineIdForEachOrderLevelDiscountAllocation = (
       return sortedCartLineItems.map((lineItem, index) => {
         return {
           id: lineItem.id,
-          discountAllocation: allocations[index],
+          discountAllocation: {
+            discountedAmount: allocations[index].discountedAmount,
+            discountApplication: allocations[index].discountApplication
+          }
         };
       });
     }
   );
 };
 
-function generateDiscountApplications({
-  cartLinesWithAllDiscountAllocations,
-  discountCodes
-}) {
+function generateDiscountApplications(cartLinesWithAllDiscountAllocations, discountCodes) {
   const discountIdToDiscountApplicationMap = new Map();
 
+  if (!cartLinesWithAllDiscountAllocations) return discountIdToDiscountApplicationMap;
+
   cartLinesWithAllDiscountAllocations.forEach(({ discountAllocations }) => {
+    if (!discountAllocations) return;
+
     discountAllocations.forEach((discountAllocation) => {
+      const discountApp = discountAllocation.discountApplication;
       const discountId = getDiscountAllocationId(discountAllocation);
 
       if (!discountId) {
         throw new Error(
-          `Discount allocation must have either code or title: ${JSON.stringify(
+          `Discount allocation must have either code or title in discountApplication: ${JSON.stringify(
             discountAllocation
           )}`
         );
@@ -162,13 +171,13 @@ function generateDiscountApplications({
         }
       } else {
         let discountApplication = {
-          targetSelection: discountAllocation.targetSelection,
-          allocationMethod: discountAllocation.allocationMethod,
-          targetType: discountAllocation.targetType,
-          value: discountAllocation.value,
+          targetSelection: discountApp.targetSelection,
+          allocationMethod: discountApp.allocationMethod,
+          targetType: discountApp.targetType,
+          value: discountApp.value,
         };
 
-        if ("code" in discountAllocation) {
+        if ("code" in discountApp) {
           const discountCode = discountCodes.find(
             ({ code }) => code === discountId
           );
@@ -181,12 +190,12 @@ function generateDiscountApplications({
             );
           }
           discountApplication = Object.assign({}, discountApplication, {
-            code: discountAllocation.code,
+            code: discountApp.code,
             applicable: discountCode.applicable,
           });
         } else {
           discountApplication = Object.assign({}, discountApplication, {
-            title: discountAllocation.title,
+            title: discountApp.title,
           });
         }
 

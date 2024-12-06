@@ -68,6 +68,8 @@ function mapVariant(merchandise) {
 }
 
 function mapDiscountAllocations(discountAllocations, discountApplications) {
+  if (!discountAllocations) return [];
+  
   var result = [];
   for (var i = 0; i < discountAllocations.length; i++) {
     var allocation = discountAllocations[i];
@@ -94,11 +96,13 @@ function mapDiscountAllocations(discountAllocations, discountApplications) {
 }
 
 function mapLineItems(lines, discountApplications) {
-  if (!lines) return [];
+  if (!lines || !Array.isArray(lines)) return [];
 
   var result = [];
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
+    if (!line || !line.merchandise || !line.merchandise.product) continue;
+    
     var variant = mapVariant(line.merchandise);
     
     result.push({
@@ -119,13 +123,15 @@ function mapLineItems(lines, discountApplications) {
 }
 
 export function mapDiscountsAndLines(cart) {
+  if (!cart) return { discountApplications: [], cartLinesWithDiscounts: [] };
+
   var result = discountMapper({
-    cartLineItems: cart.lines || [],
+    cartLineItems: cart.lineItems || [],
     cartDiscountAllocations: cart.discountAllocations || [],
     cartDiscountCodes: cart.discountCodes || []
   });
 
-  var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations, result.discountApplications || []);
+  var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations || [], result.discountApplications || []);
 
   return {
     discountApplications: result.discountApplications || [],
