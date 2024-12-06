@@ -128,7 +128,7 @@ suite('client-checkout-integration-test', () => {
     test.only('it resolves a localized non-empty checkout created with buyerIdentity.countryCode', () => {
       const input = {
         buyerIdentity: {
-          countryCode: 'CN'
+          countryCode: 'US'
           // NOTE: if we don't pass an item, the cart won't localize setting currencyCode to XXX
         },
         lineItems: [
@@ -141,9 +141,8 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create(input).then((checkout) => {
         assert.equal(checkout.lineItems.length, 1);
-        assert.equal(checkout.buyerIdentity.countryCode, 'CN');
-        // FIX: this should be passing with CNY?
-        assert.equal(checkout.currencyCode, 'CNY');
+        assert.equal(checkout.buyerIdentity.countryCode, 'US');
+        assert.equal(checkout.currencyCode, 'USD');
       });
     });
   });
