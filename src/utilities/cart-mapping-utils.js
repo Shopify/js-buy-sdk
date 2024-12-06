@@ -1,22 +1,22 @@
-import { discountMapper, getDiscountAllocationId, getDiscountApplicationId } from './cart-discount-mapping';
+import {discountMapper, getDiscountAllocationId, getDiscountApplicationId} from './cart-discount-mapping';
 
 function getVariantType() {
   return {
-    name: "ProductVariant",
-    kind: "OBJECT",
+    name: 'ProductVariant',
+    kind: 'OBJECT',
     fieldBaseTypes: {
-      availableForSale: "Boolean",
-      compareAtPrice: "MoneyV2",
-      id: "ID",
-      image: "Image",
-      price: "MoneyV2",
-      product: "Product",
-      selectedOptions: "SelectedOption",
-      sku: "String",
-      title: "String",
-      unitPrice: "MoneyV2",
-      unitPriceMeasurement: "UnitPriceMeasurement",
-      weight: "Float"
+      availableForSale: 'Boolean',
+      compareAtPrice: 'MoneyV2',
+      id: 'ID',
+      image: 'Image',
+      price: 'MoneyV2',
+      product: 'Product',
+      selectedOptions: 'SelectedOption',
+      sku: 'String',
+      title: 'String',
+      unitPrice: 'MoneyV2',
+      unitPriceMeasurement: 'UnitPriceMeasurement',
+      weight: 'Float'
     },
     implementsNode: true
   };
@@ -24,15 +24,15 @@ function getVariantType() {
 
 function getLineItemType() {
   return {
-    name: "CheckoutLineItem",
-    kind: "OBJECT",
+    name: 'CheckoutLineItem',
+    kind: 'OBJECT',
     fieldBaseTypes: {
-      customAttributes: "Attribute",
-      discountAllocations: "Object[]",
-      id: "ID",
-      quantity: "Int",
-      title: "String",
-      variant: "Merchandise"
+      customAttributes: 'Attribute',
+      discountAllocations: 'Object[]',
+      id: 'ID',
+      quantity: 'Int',
+      title: 'String',
+      variant: 'Merchandise'
     },
     implementsNode: true
   };
@@ -40,7 +40,7 @@ function getLineItemType() {
 
 function mapVariant(merchandise) {
   // Copy all properties except 'product'
-  var result = {};
+  const result = {};
   for (var key in merchandise) {
     if (merchandise.hasOwnProperty(key) && key !== 'product') {
       result[key] = merchandise[key];
@@ -49,7 +49,7 @@ function mapVariant(merchandise) {
 
   // The actual Cart merchandise and Checkout variant objects map cleanly to each other,
   // but the SDK wasn't fetching the title from the product object, so we need to remove it
-  var productWithoutTitle = {};
+  const productWithoutTitle = {};
   if (merchandise.product) {
     for (var key in merchandise.product) {
       if (merchandise.product.hasOwnProperty(key) && key !== 'title') {
@@ -70,14 +70,14 @@ function mapVariant(merchandise) {
 function mapDiscountAllocations(discountAllocations, discountApplications) {
   // console.log("discountAllocations", JSON.stringify(discountAllocations, null, 2));
   // console.log("discountApplications", JSON.stringify(discountApplications, null, 2));
-  if (!discountAllocations) return [];
-  
-  var result = [];
-  for (var i = 0; i < discountAllocations.length; i++) {
-    var allocation = discountAllocations[i];
-    var application = null;
-    
-    for (var j = 0; j < discountApplications.length; j++) {
+  if (!discountAllocations) { return []; }
+
+  const result = [];
+  for (let i = 0; i < discountAllocations.length; i++) {
+    const allocation = discountAllocations[i];
+    let application = null;
+
+    for (let j = 0; j < discountApplications.length; j++) {
       if (getDiscountAllocationId(allocation) === getDiscountApplicationId(discountApplications[j])) {
         application = discountApplications[j];
         break;
@@ -85,10 +85,10 @@ function mapDiscountAllocations(discountAllocations, discountApplications) {
     }
 
     if (!application) {
-      throw new Error('Missing discount application for allocation: ' + JSON.stringify(allocation));
+      throw new Error(`Missing discount application for allocation: ${JSON.stringify(allocation)}`);
     }
 
-    var discountApp = Object.assign({}, application);
+    const discountApp = Object.assign({}, application);
     if (allocation.code) {
       discountApp.code = allocation.code;
     } else if (allocation.title) {
@@ -104,15 +104,15 @@ function mapDiscountAllocations(discountAllocations, discountApplications) {
 }
 
 function mapLineItems(lines, discountApplications) {
-  if (!lines || !Array.isArray(lines)) return [];
+  if (!lines || !Array.isArray(lines)) { return []; }
 
-  var result = [];
-  for (var i = 0; i < lines.length; i++) {
-    var line = lines[i];
-    if (!line || !line.merchandise || !line.merchandise.product) continue;
-    
-    var variant = mapVariant(line.merchandise);
-    
+  const result = [];
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line || !line.merchandise || !line.merchandise.product) { continue; }
+
+    const variant = mapVariant(line.merchandise);
+
     result.push({
       customAttributes: line.attributes,
       discountAllocations: mapDiscountAllocations(line.discountAllocations || [], discountApplications),
@@ -131,10 +131,10 @@ function mapLineItems(lines, discountApplications) {
 }
 
 export function mapDiscountsAndLines(cart) {
-  if (!cart) return { discountApplications: [], cartLinesWithDiscounts: [] };
+  if (!cart) { return {discountApplications: [], cartLinesWithDiscounts: []}; }
 
   // console.log("cart", JSON.stringify(cart.lines, null, 2));
-  var result = discountMapper({
+  const result = discountMapper({
     cartLineItems: cart.lines || [],
     cartDiscountAllocations: cart.discountAllocations || [],
     cartDiscountCodes: cart.discountCodes || []
@@ -142,7 +142,7 @@ export function mapDiscountsAndLines(cart) {
   // console.log("result", JSON.stringify(result, null, 2));
   // console.log("--------------------------------")
 
-  var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations || [], result.discountApplications || []);
+  const mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations || [], result.discountApplications || []);
 
   return {
     discountApplications: result.discountApplications || [],
@@ -150,11 +150,12 @@ export function mapDiscountsAndLines(cart) {
   };
 }
 
-module.exports = {
+export default {
   getVariantType: getVariantType,
   getLineItemType: getLineItemType,
   mapVariant: mapVariant,
   mapDiscountAllocations: mapDiscountAllocations,
   mapLineItems: mapLineItems,
   mapDiscountsAndLines: mapDiscountsAndLines
-}; 
+};
+
