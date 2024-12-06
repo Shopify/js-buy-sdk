@@ -1,6 +1,8 @@
 export function getDiscountAllocationId(discountAllocation) {
+  // console.log("discountAllocation", JSON.stringify(discountAllocation, null, 2));
   const discountApp = discountAllocation.discountApplication;
-  const discountId = discountApp.code || discountApp.title;
+  const discountId = discountAllocation.code || discountAllocation.title || discountApp.code || discountApp.title;
+  // console.log("discountId", discountId);
 
   if (!discountId) {
     throw new Error(
@@ -31,6 +33,8 @@ export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDis
     !cartLineItems.some(({ discountAllocations }) => discountAllocations && discountAllocations.length) &&
     !cartDiscountAllocations.length
   ) {
+    console.log("NO DISCOUNTS")
+    // console.log("cartLineItems", JSON.stringify(cartLineItems, null, 2));
     return {
       discountApplications: [],
       cartLinesWithAllDiscountAllocations: cartLineItems,
@@ -46,10 +50,13 @@ export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDis
       )
     });
 
+  // console.log("cartLinesWithAllDiscountAllocations", JSON.stringify(cartLinesWithAllDiscountAllocations, null, 2));
+
   const discountIdToDiscountApplicationMap = generateDiscountApplications(
     cartLinesWithAllDiscountAllocations,
     cartDiscountCodes
   );
+  console.log("discountIdToDiscountApplicationMap", JSON.stringify(discountIdToDiscountApplicationMap, null, 2));
 
   cartDiscountCodes.forEach(({ code }) => {
     if (!discountIdToDiscountApplicationMap.has(code)) {
@@ -149,6 +156,8 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
   cartLinesWithAllDiscountAllocations.forEach(({ discountAllocations }) => {
     if (!discountAllocations) return;
 
+    // console.log("discountAllocations", JSON.stringify(discountAllocations, null, 2));
+
     discountAllocations.forEach((discountAllocation) => {
       const discountApp = discountAllocation.discountApplication;
       const discountId = getDiscountAllocationId(discountAllocation);
@@ -162,6 +171,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
       }
 
       if (discountIdToDiscountApplicationMap.has(discountId)) {
+        console.log("HAS")
         const existingDiscountApplication =
           discountIdToDiscountApplicationMap.get(discountId);
         // if existingDiscountApplication.value is of type MoneyV2 (has an amount field rather than a percentage field)
@@ -170,6 +180,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
             discountAllocation.discountedAmount.amount;
         }
       } else {
+        console.log("NOT HAS")
         let discountApplication = {
           targetSelection: discountApp.targetSelection,
           allocationMethod: discountApp.allocationMethod,
@@ -177,7 +188,8 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
           value: discountApp.value,
         };
 
-        if ("code" in discountApp) {
+        if ("code" in discountAllocation) {
+          console.log("CODE")
           const discountCode = discountCodes.find(
             ({ code }) => code === discountId
           );
@@ -190,12 +202,13 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
             );
           }
           discountApplication = Object.assign({}, discountApplication, {
-            code: discountApp.code,
+            code: discountAllocation.code,
             applicable: discountCode.applicable,
           });
         } else {
+          console.log("TITLE")
           discountApplication = Object.assign({}, discountApplication, {
-            title: discountApp.title,
+            title: discountAllocation.title,
           });
         }
 

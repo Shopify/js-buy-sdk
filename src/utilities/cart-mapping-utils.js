@@ -68,6 +68,8 @@ function mapVariant(merchandise) {
 }
 
 function mapDiscountAllocations(discountAllocations, discountApplications) {
+  // console.log("discountAllocations", JSON.stringify(discountAllocations, null, 2));
+  // console.log("discountApplications", JSON.stringify(discountApplications, null, 2));
   if (!discountAllocations) return [];
   
   var result = [];
@@ -86,9 +88,15 @@ function mapDiscountAllocations(discountAllocations, discountApplications) {
       throw new Error('Missing discount application for allocation: ' + JSON.stringify(allocation));
     }
 
+    var discountApp = Object.assign({}, application);
+    if (allocation.code) {
+      discountApp.code = allocation.code;
+    } else if (allocation.title) {
+      discountApp.title = allocation.title;
+    }
     result.push({
       allocatedAmount: allocation.discountedAmount,
-      discountApplication: application
+      discountApplication: discountApp
     });
   }
 
@@ -125,11 +133,14 @@ function mapLineItems(lines, discountApplications) {
 export function mapDiscountsAndLines(cart) {
   if (!cart) return { discountApplications: [], cartLinesWithDiscounts: [] };
 
+  // console.log("cart", JSON.stringify(cart.lines, null, 2));
   var result = discountMapper({
-    cartLineItems: cart.lineItems || [],
+    cartLineItems: cart.lines || [],
     cartDiscountAllocations: cart.discountAllocations || [],
     cartDiscountCodes: cart.discountCodes || []
   });
+  // console.log("result", JSON.stringify(result, null, 2));
+  // console.log("--------------------------------")
 
   var mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations || [], result.discountApplications || []);
 
