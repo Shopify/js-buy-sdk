@@ -29,8 +29,16 @@ export function getDiscountApplicationId(discountApplication) {
 }
 
 export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDiscountCodes }) {
+  let hasDiscountAllocations = false;
+  for (let i = 0; i < cartLineItems.length; i++) {
+    const { discountAllocations } = cartLineItems[i];
+    if (discountAllocations && discountAllocations.length) {
+      hasDiscountAllocations = true;
+      break;
+    }
+  }
   if (
-    !cartLineItems.some(({ discountAllocations }) => discountAllocations && discountAllocations.length) &&
+    !hasDiscountAllocations &&
     !cartDiscountAllocations.length
   ) {
     console.log("NO DISCOUNTS")
