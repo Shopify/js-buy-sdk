@@ -111,27 +111,29 @@ class CheckoutResource extends Resource {
    */
   updateAttributes(checkoutId, input = {}) {
     const {cartAttributesUpdateInput, cartNoteUpdateInput} = this.inputMapper.updateAttributes(checkoutId, input);
-    const promises = [];
+    let promise = Promise.resolve();
 
     function updateNote() {
-      return this.graphQLClient.send(cartNoteUpdateMutation, cartNoteUpdateInput)
+      return this.graphQLClient
+        .send(cartNoteUpdateMutation, cartNoteUpdateInput)
         .then(handleCartMutation('cartNoteUpdate', this.graphQLClient));
     }
 
     function updateAttributes() {
-      return this.graphQLClient.send(cartAttributesUpdateMutation, cartAttributesUpdateInput)
+      return this.graphQLClient
+        .send(cartAttributesUpdateMutation, cartAttributesUpdateInput)
         .then(handleCartMutation('cartAttributesUpdate', this.graphQLClient));
     }
 
     if (typeof cartNoteUpdateInput.note !== 'undefined') {
-      promises.push(updateNote.bind(this));
+      promise = promise.then(() => updateNote.call(this));
     }
 
     if (cartAttributesUpdateInput.attributes.length) {
-      promises.push(updateAttributes.bind(this));
+      promise = promise.then(() => updateAttributes.call(this));
     }
 
-    return sequentially(promises).then((checkout) => checkout);
+    return promise;
   }
 
   /**
@@ -312,7 +314,6 @@ class CheckoutResource extends Resource {
     return this.fetch(checkoutId)
       .then((checkout) => {
         const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
-
         return this.removeLineItems(checkoutId, lineIds);
       })
       .then(() => {
@@ -382,20 +383,6 @@ class CheckoutResource extends Resource {
       .send(cartBuyerIdentityUpdateMutation, variables)
       .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
   }
-}
-
-// Execute an array of functions sequentially and return the result of the last promise
-function sequentially(taskArray) {
-  // Start with a resolved promise
-  let sequence = Promise.resolve();
-
-  // Chain each function in the taskArray sequentially
-  taskArray.forEach((task) => {
-    sequence = sequence.then(() => task());
-  });
-
-  // Return the final promise to allow handling of the last task's result
-  return sequence;
 }
 
 export default CheckoutResource;
