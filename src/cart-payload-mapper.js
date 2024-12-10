@@ -1,15 +1,12 @@
 import {mapDiscountsAndLines} from './utilities/cart-mapping-utils';
 
+// NOTE: fields such as availableShippingRates are not included because they are not queried by the JS Buy SDK
 const UNSUPPORTED_FIELDS = {
-  // TODO: confirm all default values and their potential impact downstream
-  // https://shopify.dev/docs/api/storefront/2024-01/objects/Checkout
-  availableShippingRates: null,
   completedAt: null,
   order: null,
   orderStatusUrl: null,
   ready: false,
-  requiresShipping: false,
-  shippingDiscountAllocations: [],
+  requiresShipping: true,
   shippingLine: null,
   taxExempt: false,
   taxesIncluded: false
