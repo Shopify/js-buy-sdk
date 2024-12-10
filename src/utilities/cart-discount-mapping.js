@@ -27,7 +27,47 @@ export function getDiscountApplicationId(discountApplication) {
   return discountId;
 }
 
-export function discountMapper({cartLineItems, cartDiscountAllocations, cartDiscountCodes}) {
+function convertToCheckoutDiscountApplicationType(cartLineItems, cartOrderLevelDiscountAllocations) {
+  // For each discount allocation, move the code/title field to be inside the discountApplication field
+  for (let i = 0; i < cartLineItems.length; i++) {
+    const { discountAllocations } = cartLineItems[i];
+    if (!discountAllocations) continue;
+    
+    for (let j = 0; j < discountAllocations.length; j++) {
+      const allocation = discountAllocations[j];
+      const newDiscountApplication = Object.assign({}, 
+        allocation.discountApplication || {},
+        allocation.code ? { code: allocation.code } : null,
+        allocation.title ? { title: allocation.title } : null
+      );
+
+      const newAllocation = Object.assign({}, allocation);
+      delete newAllocation.code;
+      delete newAllocation.title;
+      newAllocation.discountApplication = newDiscountApplication;
+      
+      discountAllocations[j] = newAllocation;
+    }
+  }
+
+  for (let i = 0; i < cartOrderLevelDiscountAllocations.length; i++) {
+    const allocation = cartOrderLevelDiscountAllocations[i];
+    const newDiscountApplication = Object.assign({},
+      allocation.discountApplication || {},
+      allocation.code ? { code: allocation.code } : null,
+      allocation.title ? { title: allocation.title } : null
+    );
+
+    const newAllocation = Object.assign({}, allocation);
+    delete newAllocation.code;
+    delete newAllocation.title;
+    newAllocation.discountApplication = newDiscountApplication;
+    
+    cartOrderLevelDiscountAllocations[i] = newAllocation;
+  }
+}
+
+export function discountMapper({ cartLineItems, cartDiscountAllocations, cartDiscountCodes }) {
   let hasDiscountAllocations = false;
   for (let i = 0; i < cartLineItems.length; i++) {
     const {discountAllocations} = cartLineItems[i];
@@ -45,6 +85,16 @@ export function discountMapper({cartLineItems, cartDiscountAllocations, cartDisc
       cartLinesWithAllDiscountAllocations: cartLineItems
     };
   }
+
+  // console.log("BEFORE")
+  // console.log("cartLineItems", JSON.stringify(cartLineItems, null, 2));
+  // console.log("cartDiscountAllocations", JSON.stringify(cartDiscountAllocations, null, 2));
+
+  convertToCheckoutDiscountApplicationType(cartLineItems, cartDiscountAllocations);
+
+  // console.log("AFTER")
+  // console.log("cartLineItems", JSON.stringify(cartLineItems, null, 2));
+  // console.log("cartDiscountAllocations", JSON.stringify(cartDiscountAllocations, null, 2));
 
   const cartLinesWithAllDiscountAllocations =
     mergeCartOrderLevelDiscountAllocationsToCartLineDiscountAllocations({
@@ -179,8 +229,11 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
           discountIdToDiscountApplicationMap.get(discountId);
         // if existingDiscountApplication.value is of type MoneyV2 (has an amount field rather than a percentage field)
         if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
-          existingDiscountApplication.value.amount +=
-            discountAllocation.discountedAmount.amount;
+          existingDiscountApplication.value = {
+            amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(1),
+            currencyCode: existingDiscountApplication.value.currencyCode,
+            type: existingDiscountApplication.value.type
+          };
         }
       } else {
         console.log('NOT HAS');
@@ -192,7 +245,6 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
         };
 
         if ('code' in discountAllocation) {
-          console.log('CODE');
           const discountCode = discountCodes.find(
             ({code}) => code === discountId
           );
@@ -205,13 +257,12 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
             );
           }
           discountApplication = Object.assign({}, discountApplication, {
-            code: discountAllocation.code,
+            code: discountAllocation.discountApplication.code,
             applicable: discountCode.applicable
           });
         } else {
-          console.log('TITLE');
           discountApplication = Object.assign({}, discountApplication, {
-            title: discountAllocation.title
+            title: discountAllocation.discountApplication.title
           });
         }
 
