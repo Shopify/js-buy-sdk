@@ -13,7 +13,7 @@ import {withType} from './cart-payload-mapper-utilities';
 import {deepSortLines, deepSortDiscountApplications} from '../src/utilities/cart-discount-mapping';
 
 suite('cart-payload-mapper-test', () => {
-  suite.only('appliedGiftCards', () => {
+  suite('appliedGiftCards', () => {
     test('it returns applied gift cards from cart', () => {
       const cart = {
         appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]

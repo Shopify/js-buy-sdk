@@ -86,8 +86,6 @@ class CheckoutResource extends Resource {
   create(i = {}) {
     const input = this.inputMapper.create(i);
 
-    console.log('create input', JSON.stringify(input, null, 2));
-
     return this.graphQLClient
       .send(cartCreateMutation, {input})
       .then(handleCartMutation('cartCreate', this.graphQLClient));
@@ -311,31 +309,15 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   replaceLineItems(checkoutId, lineItems) {
-    let checkout;
+    return this.fetch(checkoutId)
+      .then((checkout) => {
+        const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
 
-    function getExistingCart() {
-      checkout = this.fetch(checkoutId);
-
-      return checkout;
-    }
-
-    // remove all existing lines
-    function removeExistingLines() {
-      const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
-
-      return this.removeLineItems(checkoutId, lineIds);
-    }
-
-    // add the replacing lines
-    function addReplacingLines() {
-      return this.addLineItems(checkoutId, lineItems);
-    }
-
-    return sequentially([
-      getExistingCart.bind(this),
-      removeExistingLines.bind(this),
-      addReplacingLines.bind(this)
-    ]);
+        return this.removeLineItems(checkoutId, lineIds);
+      })
+      .then(() => {
+        return this.addLineItems(checkoutId, lineItems);
+      });
   }
 
   /**

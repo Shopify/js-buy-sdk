@@ -34,83 +34,26 @@ suite('client-checkout-giftcards-integration-test', () => {
             assert.deepEqual(updatedCheckout.appliedGiftCards[0], {
               amountUsed: {
                 amount: '0.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'MoneyV2',
-                  kind: 'OBJECT',
-                  fieldBaseTypes: {
-                    amount: 'Decimal',
-                    currencyCode: 'CurrencyCode'
-                  },
-                  implementsNode: false
-                }
+                currencyCode: 'CAD'
               },
               amountUsedV2: {
                 amount: '0.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'MoneyV2',
-                  kind: 'OBJECT',
-                  fieldBaseTypes: {
-                    amount: 'Decimal',
-                    currencyCode: 'CurrencyCode'
-                  },
-                  implementsNode: false
-                }
+                currencyCode: 'CAD'
               },
               balance: {
                 amount: '100.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'MoneyV2',
-                  kind: 'OBJECT',
-                  fieldBaseTypes: {
-                    amount: 'Decimal',
-                    currencyCode: 'CurrencyCode'
-                  },
-                  implementsNode: false
-                }
+                currencyCode: 'CAD'
               },
               balanceV2: {
                 amount: '100.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'MoneyV2',
-                  kind: 'OBJECT',
-                  fieldBaseTypes: {
-                    amount: 'Decimal',
-                    currencyCode: 'CurrencyCode'
-                  },
-                  implementsNode: false
-                }
+                currencyCode: 'CAD'
               },
               presentmentAmountUsed: {
                 amount: '0.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'MoneyV2',
-                  kind: 'OBJECT',
-                  fieldBaseTypes: {
-                    amount: 'Decimal',
-                    currencyCode: 'CurrencyCode'
-                  },
-                  implementsNode: false
-                }
+                currencyCode: 'CAD'
               },
               id: 'gid://shopify/AppliedGiftCard/639934201912',
-              lastCharacters: 'card',
-              type: {
-                name: 'AppliedGiftCard',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amountUsed: 'MoneyV2',
-                  balance: 'MoneyV2',
-                  id: 'ID',
-                  lastCharacters: 'String',
-                  presentmentAmountUsed: 'MoneyV2'
-                },
-                implementsNode: true
-              }
+              lastCharacters: 'card'
             });
           });
         });
@@ -128,165 +71,51 @@ suite('client-checkout-giftcards-integration-test', () => {
           assert.deepEqual(updatedCheckout.appliedGiftCards[0], {
             amountUsed: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             amountUsedV2: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balance: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balanceV2: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             presentmentAmountUsed: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             id: 'gid://shopify/AppliedGiftCard/639934201912',
-            lastCharacters: 'card',
-            type: {
-              name: 'AppliedGiftCard',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amountUsed: 'MoneyV2',
-                balance: 'MoneyV2',
-                id: 'ID',
-                lastCharacters: 'String',
-                presentmentAmountUsed: 'MoneyV2'
-              },
-              implementsNode: true
-            }
+            lastCharacters: 'card'
           });
 
           assert.equal(updatedCheckout.appliedGiftCards[1], {
             amountUsed: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             amountUsedV2: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balance: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balanceV2: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             presentmentAmountUsed: {
               amount: '0.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             id: 'gid://shopify/AppliedGiftCard/639934234680',
-            lastCharacters: 'card',
-            type: {
-              name: 'AppliedGiftCard',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amountUsed: 'MoneyV2',
-                balance: 'MoneyV2',
-                id: 'ID',
-                lastCharacters: 'String',
-                presentmentAmountUsed: 'MoneyV2'
-              },
-              implementsNode: true
-            }
+            lastCharacters: 'card'
           });
         });
       });
@@ -304,153 +133,51 @@ suite('client-checkout-giftcards-integration-test', () => {
           assert.deepEqual(updatedCheckout.appliedGiftCards[0], {
             amountUsed: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             amountUsedV2: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balance: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balanceV2: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             presentmentAmountUsed: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             id: 'gid://shopify/AppliedGiftCard/639934201912',
-            lastCharacters: 'card',
-            type: {
-              name: 'AppliedGiftCard',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amountUsed: 'MoneyV2',
-                balance: 'MoneyV2',
-                id: 'ID',
-                lastCharacters: 'String',
-                presentmentAmountUsed: 'MoneyV2'
-              },
-              implementsNode: true
-            }
+            lastCharacters: 'card'
           });
 
           assert.deepEqual(updatedCheckout.paymentDue, {
             amount: '100.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalTax, {
             amount: '0.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.lineItemsSubtotalPrice, {
             amount: '200.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.subtotalPrice, {
             amount: '200.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalPrice, {
             amount: '200.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
         });
       });
@@ -468,320 +195,107 @@ suite('client-checkout-giftcards-integration-test', () => {
           assert.deepEqual(updatedCheckout.appliedGiftCards[0], {
             amountUsed: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             amountUsedV2: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balance: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balanceV2: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             presentmentAmountUsed: {
               amount: '100.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             id: 'gid://shopify/AppliedGiftCard/639934201912',
-            lastCharacters: 'card',
-            type: {
-              name: 'AppliedGiftCard',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amountUsed: 'MoneyV2',
-                balance: 'MoneyV2',
-                id: 'ID',
-                lastCharacters: 'String',
-                presentmentAmountUsed: 'MoneyV2'
-              },
-              implementsNode: true
-            }
+            lastCharacters: 'card'
           });
 
 
           assert.deepEqual(updatedCheckout.appliedGiftCards[1], {
             amountUsed: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             amountUsedV2: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balance: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             balanceV2: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             presentmentAmountUsed: {
               amount: '50.0',
-              currencyCode: 'CAD',
-              type: {
-                name: 'MoneyV2',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  amount: 'Decimal',
-                  currencyCode: 'CurrencyCode'
-                },
-                implementsNode: false
-              }
+              currencyCode: 'CAD'
             },
             id: 'gid://shopify/AppliedGiftCard/639934234680',
-            lastCharacters: 'card',
-            type: {
-              name: 'AppliedGiftCard',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amountUsed: 'MoneyV2',
-                balance: 'MoneyV2',
-                id: 'ID',
-                lastCharacters: 'String',
-                presentmentAmountUsed: 'MoneyV2'
-              },
-              implementsNode: true
-            }
+            lastCharacters: 'card'
           });
 
           assert.deepEqual(updatedCheckout.paymentDue, {
             amount: '120.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalTax, {
             amount: '0.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.lineItemsSubtotalPrice, {
             amount: '270.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.subtotalPrice, {
             amount: '270.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalPrice, {
             amount: '220.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalPriceV2, {
             amount: '220.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.subtotalPriceV2, {
             amount: '220.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.lineItemsSubtotalPrice, {
             amount: '270.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.subtotalPrice, {
             amount: '270.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalPrice, {
             amount: '220.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
           assert.deepEqual(updatedCheckout.totalPriceV2, {
             amount: '220.0',
-            currencyCode: 'CAD',
-            type: {
-              name: 'MoneyV2',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                amount: 'Decimal',
-                currencyCode: 'CurrencyCode'
-              },
-              implementsNode: false
-            }
+            currencyCode: 'CAD'
           });
 
         });

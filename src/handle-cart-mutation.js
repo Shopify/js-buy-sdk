@@ -1,12 +1,10 @@
-import { mapCartPayload } from './cart-payload-mapper';
+import {mapCartPayload} from './cart-payload-mapper';
 import checkoutUserErrorsMapper from './checkout-map-user-error-codes';
 
 export default function handleCartMutation(mutationRootKey, client) {
   return function({data = {}, errors, model = {}}) {
     const rootData = data[mutationRootKey];
     const rootModel = model[mutationRootKey];
-    // console.log("rootData", JSON.stringify(rootData, null, 2));
-    console.log("--------------------------------")
 
     if (rootData && rootData.cart) {
       return client.fetchAllPages(rootModel.cart.lines, {pageSize: 250}).then((lines) => {
@@ -14,7 +12,7 @@ export default function handleCartMutation(mutationRootKey, client) {
         rootModel.cart.errors = errors;
         rootModel.cart.userErrors = rootData.userErrors;
 
-        return mapCartPayload(rootModel.cart);
+        return mapCartPayload(rootModel.cart, mutationRootKey);
       });
     }
 
@@ -24,6 +22,7 @@ export default function handleCartMutation(mutationRootKey, client) {
 
     if (rootData && (rootData.userErrors || rootData.warnings)) {
       const checkoutUserErrors = checkoutUserErrorsMapper(rootData.userErrors, rootData.warnings);
+
       return Promise.reject(new Error(JSON.stringify(checkoutUserErrors)));
     }
 

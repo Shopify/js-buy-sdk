@@ -15,7 +15,7 @@ const UNSUPPORTED_FIELDS = {
   taxesIncluded: false
 };
 
-export function mapCartPayload(cart) {
+export function mapCartPayload(cart, key) {
   if (!cart) { return null; }
 
   const result = mapDiscountsAndLines(cart);
