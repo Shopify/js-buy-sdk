@@ -173,19 +173,7 @@ fragment CartFragment on Cart {
     }
   }
   appliedGiftCards {
-    id
-    amountUsed {
-      amount
-      currencyCode
-    }
-    balance {
-      amount
-    }
-    lastCharacters
-    presentmentAmountUsed {
-      amount
-      currencyCode
-    }
+    ...AppliedGiftCardFragment
   }
   note
 }
