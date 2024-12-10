@@ -3,7 +3,8 @@ export default class InputMapper {
     const cartInput = {};
 
     if (input.presentmentCurrencyCode) {
-      // NOTE: Not supported by the Cart API
+      // eslint-disable-next-line no-console
+      console.warn('presentmentCurrencyCode is not supported by the Cart API');
     }
 
     // SDK checkout input fields we can map:
