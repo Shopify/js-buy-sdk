@@ -4,6 +4,7 @@ import ProductResource from './product-resource';
 import CollectionResource from './collection-resource';
 import ShopResource from './shop-resource';
 import CheckoutResource from './checkout-resource';
+import CustomerResource from './customer-resource';
 import ImageResource from './image-resource';
 import {version} from '../package.json';
 
@@ -80,6 +81,7 @@ class Client {
     this.collection = new CollectionResource(this.graphQLClient);
     this.shop = new ShopResource(this.graphQLClient);
     this.checkout = new CheckoutResource(this.graphQLClient);
+    this.customer = new CustomerResource(this.graphQLClient);
     this.image = new ImageResource(this.graphQLClient);
   }
 
