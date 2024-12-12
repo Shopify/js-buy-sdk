@@ -28,6 +28,7 @@ import checkoutGiftCardsAppendFixture from '../fixtures/checkout-gift-cards-appl
 import checkoutGiftCardRemoveV2Fixture from '../fixtures/checkout-gift-card-remove-fixture';
 import checkoutShippingAddressUpdateV2Fixture from '../fixtures/checkout-shipping-address-update-v2-fixture';
 import checkoutShippingAdddressUpdateV2WithUserErrorsFixture from '../fixtures/checkout-shipping-address-update-v2-with-user-errors-fixture';
+import checkoutShippingLineUpdateFixture from '../fixtures/checkout-shipping-line-update-fixture';
 
 suite('client-checkout-integration-test', () => {
   const domain = 'client-integration-tests.myshopify.io';
@@ -481,6 +482,27 @@ suite('client-checkout-integration-test', () => {
       assert.ok(false, 'Promise should not resolve.');
     }).catch((error) => {
       assert.equal(error.message, '[{"message":"Country is not supported","field":["shippingAddress","country"],"code":"NOT_SUPPORTED"}]');
+    });
+  });
+
+  test('it resolves with a checkout on Client.checkout#updateShippingLine', () => {
+    const {id: checkoutId} = checkoutShippingLineUpdateFixture.data.checkoutShippingLineUpdate.checkout;
+    const {
+      handle: shippingLineName,
+      priceV2: shippingLinePriceV2,
+      title: shippingLineTitle
+    } = checkoutShippingLineUpdateFixture.data.checkoutShippingLineUpdate.checkout.shippingLine;
+    const shippingHandle = 'standard-shipping';
+
+    fetchMockPostOnce(fetchMock, apiUrl, checkoutShippingLineUpdateFixture);
+
+    return client.checkout.updateShippingLine(checkoutId, shippingHandle).then((checkout) => {
+      assert.equal(checkout.id, checkoutId);
+      assert.equal(checkout.shippingLine.handle, shippingLineName);
+      assert.equal(checkout.shippingLine.priceV2.amount, shippingLinePriceV2.amount);
+      assert.equal(checkout.shippingLine.priceV2.currencyCode, shippingLinePriceV2.currencyCode);
+      assert.equal(checkout.shippingLine.title, shippingLineTitle);
+      assert.ok(fetchMock.done());
     });
   });
 
