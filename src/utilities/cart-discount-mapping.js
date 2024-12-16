@@ -29,6 +29,8 @@ export function getDiscountApplicationId(discountApplication) {
 
 function convertToCheckoutDiscountApplicationType(cartLineItems, cartOrderLevelDiscountAllocations) {
   // For each discount allocation, move the code/title field to be inside the discountApplication field
+  // This is because the code/title field is part of the discount allocation for a Cart, but part of
+  // the discount application for a checkout
   for (let i = 0; i < cartLineItems.length; i++) {
     const {discountAllocations} = cartLineItems[i];
 
@@ -232,7 +234,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
         const existingDiscountApplication =
           discountIdToDiscountApplicationMap.get(discountId);
 
-        // if existingDiscountApplication.value is of type MoneyV2 (has an amount field rather than a percentage field)
+        // if existingDiscountApplication.value is an amount rather than a percentage discount
         if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
           existingDiscountApplication.value = {
             amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(1),
@@ -242,13 +244,16 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
         }
       } else {
         let discountApplication = {
+          __typename: 'DiscountApplication',
           targetSelection: discountApp.targetSelection,
           allocationMethod: discountApp.allocationMethod,
           targetType: discountApp.targetType,
-          value: discountApp.value
+          value: discountApp.value,
+          hasNextPage: false,
+          hasPreviousPage: false
         };
 
-        if ('code' in discountAllocation) {
+        if ('code' in discountAllocation.discountApplication) {
           const discountCode = discountCodes.find(
             ({code}) => code === discountId
           );
@@ -262,11 +267,29 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
           }
           discountApplication = Object.assign({}, discountApplication, {
             code: discountAllocation.discountApplication.code,
-            applicable: discountCode.applicable
+            applicable: discountCode.applicable,
+            type: {
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false,
+              kind: 'OBJECT',
+              name: 'DiscountApplication'
+            }
           });
         } else {
           discountApplication = Object.assign({}, discountApplication, {
-            title: discountAllocation.discountApplication.title
+            title: discountAllocation.discountApplication.title,
+            type: {
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                title: 'String'
+              },
+              implementsNode: false,
+              kind: 'OBJECT',
+              name: 'DiscountApplication'
+            }
           });
         }
 

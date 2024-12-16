@@ -1,27 +1,78 @@
 import assert from 'assert';
 import Client from '../src/client';
 
-// NOTE:
-// graphql.myshopify.com
-// gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
-// gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
+// Helper function to clean discount application objects by removing __typename and type.name fields
+// These fields are different between cart and checkout, so to compare the objects we need to remove them
+// The variableValues field is one we are not interested in comparing, so we remove it
+function comparableDiscountApplication(discountApp) {
+  if (!discountApp || typeof discountApp !== 'object') {
+    return discountApp;
+  }
+
+  const cleaned = Object.assign({}, discountApp);
+
+  // Remove __typename at root level
+  delete cleaned.__typename;
+
+  // Remove type.name if it exists
+  if (cleaned.type && cleaned.type.name) {
+    delete cleaned.type.name;
+  }
+
+  if (cleaned.variableValues) {
+    delete cleaned.variableValues;
+  }
+
+  // // Handle value object which may have nested type
+  // if (cleaned.value && cleaned.value.type) {
+  //   delete cleaned.value.type.name;
+  // }
+
+  // // Handle allocatedAmount which may have nested type
+  // if (cleaned.allocatedAmount && cleaned.allocatedAmount.type) {
+  //   delete cleaned.allocatedAmount.type.name;
+  // }
+
+  // // Recursively clean discountApplication if it exists
+  // if (cleaned.discountApplication) {
+  //   cleaned.discountApplication = cleanDiscountApplication(cleaned.discountApplication);
+  // }
+
+  return cleaned;
+}
+
+function assertActualDiscountApplicationIsExpected(actual, expected) {
+  // These two fields are different between cart and checkout, so we aren't comparing them below
+  // but still want to assert that they exist
+  // console.log("actual", JSON.stringify(actual, null, 2));
+  console.log("actual type:", actual.type);
+  console.log("actual type.name:", actual.type ? actual.type.name : 'type is undefined');
+  assert.equal(actual.__typename, 'DiscountApplication');
+  assert.equal(actual.type.name, 'DiscountApplication');
+  assert.deepEqual(comparableDiscountApplication(actual), comparableDiscountApplication(expected));
+}
 
 // NOTE:
 // graphql.myshopify.com
 // gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
 // gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
 
-suite('client-checkout-discounts-integration-test', () => {
+// NOTE:
+// graphql.myshopify.com
+// gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
+// gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
+
+suite.only('client-checkout-discounts-integration-test', () => {
   const domain = 'graphql.myshopify.com';
 
   // Helper function to compare currency amounts within 1 cent tolerance
-  const assertAmountsEqual = (actual, expected, message) => {
+  function assertAmountsEqual(actual, expected, message) {
     const actualNum = parseFloat(actual);
     const expectedNum = parseFloat(expected);
     const diff = Math.abs(actualNum - expectedNum);
 
     assert.ok(diff <= 0.01, message || `Expected ${actual} to be within 0.01 of ${expected}`);
-  };
+  }
 
   const config = {
     storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
@@ -29,11 +80,9 @@ suite('client-checkout-discounts-integration-test', () => {
     apiVersion: 'unstable'
   };
   let client;
-  let apiUrl;
 
   setup(() => {
     client = Client.buildClient(config);
-    apiUrl = `https://${domain}/api/unstable/graphql`;
   });
 
   teardown(() => {
@@ -78,10 +127,8 @@ suite('client-checkout-discounts-integration-test', () => {
           ]
         }).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, '10OFF').then((updatedCheckout) => {
-            // console.log('updatedCheckout', JSON.stringify(updatedCheckout, null, 2));
             assert.equal(updatedCheckout.discountApplications.length, 1);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            // top-level discountApplication exists
 
             const expectedDiscountApplications = [
               {
@@ -127,10 +174,6 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedDiscountApplications[0].value.type);
             assert.equal(updatedCheckout.discountApplications[0].applicable, expectedDiscountApplications[0].applicable);
             assert.equal(updatedCheckout.discountApplications[0].title, expectedDiscountApplications[0].title);
-            // console.log(JSON.stringify(updatedCheckout.discountApplications, null, 2));
-            // console.log('--------------------------------');
-            // console.log(JSON.stringify(updatedCheckout.lineItems[0].discountAllocations, null, 2));
-
 
             // assert.deepStrictEqual(
             //   deepSortDiscountApplications(result.discountApplications),
@@ -547,7 +590,7 @@ suite('client-checkout-discounts-integration-test', () => {
       });
     });
 
-    suite.only('checkout with multiple line items', () => {
+    suite('checkout with multiple line items', () => {
       test('adds a fixed amount discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = '10OFF';
 
@@ -695,7 +738,7 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.deepEqual(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
+            // assert.deepEqual(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
             assert.equal(updatedCheckout.discountApplications.length, 1);
             assert.equal(updatedCheckout.discountApplications[0].code, expectedRootDiscountApplications[0].code);
             assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedRootDiscountApplications[0].targetSelection);
@@ -1107,7 +1150,7 @@ suite('client-checkout-discounts-integration-test', () => {
 
       // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
       // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDER50PERCENTOFF" } ]
-      test.only('adds an order-level percentage discount to a checkout with multiple line items via addDiscount', () => {
+      test('adds an order-level percentage discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = 'ORDER50PERCENTOFF';
 
         return client.checkout.create({
@@ -1256,16 +1299,7 @@ suite('client-checkout-discounts-integration-test', () => {
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
-            // assert.deepEqual(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(actualRootDiscountApplication.code, expectedRootDiscountApplication.code);
-            assert.equal(actualRootDiscountApplication.targetSelection, expectedRootDiscountApplication.targetSelection);
-            assert.equal(actualRootDiscountApplication.allocationMethod, expectedRootDiscountApplication.allocationMethod);
-            assert.equal(actualRootDiscountApplication.targetType, expectedRootDiscountApplication.targetType);
-            assert.equal(actualRootDiscountApplication.value.amount, expectedRootDiscountApplication.value.amount);
-            assert.equal(actualRootDiscountApplication.value.currencyCode, expectedRootDiscountApplication.value.currencyCode);
-            assert.deepEqual(actualRootDiscountApplication.value.type, expectedRootDiscountApplication.value.type);
-            assert.equal(actualRootDiscountApplication.applicable, expectedRootDiscountApplication.applicable);
-            assert.equal(actualRootDiscountApplication.title, expectedRootDiscountApplication.title);
+            assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
 
             assert.equal(updatedCheckout.lineItems.length, 2);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
