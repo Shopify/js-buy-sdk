@@ -20,12 +20,14 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.appliedGiftCards, cart.appliedGiftCards);
     });
 
     test('it returns empty array when there are no applied gift cards', () => {
       const cart = {appliedGiftCards: []};
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.appliedGiftCards, []);
     });
   });
@@ -34,6 +36,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns null', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.completedAt, null);
     });
   });
@@ -45,6 +48,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.createdAt, cart.createdAt);
     });
   });
@@ -56,6 +60,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.id, cart.id);
     });
   });
@@ -77,8 +82,8 @@ suite('cart-payload-mapper-test', () => {
       const cart = {
         cost: costWithMultipleCurrencyCodes
       };
-
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.currencyCode, cart.cost.totalAmount.currencyCode);
     });
   });
@@ -90,6 +95,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.customAttributes, cart.attributes);
     });
   });
@@ -103,6 +109,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.discountApplications, []);
     });
 
@@ -751,7 +758,7 @@ suite('cart-payload-mapper-test', () => {
 
     test('it returns line items from cart', () => {
       const cart = {
-        lineItems: MOCK_CART_LINE_ITEMS,
+        lines: MOCK_CART_LINE_ITEMS,
         discountCodes: [],
         discountAllocations: []
       };
@@ -770,7 +777,7 @@ suite('cart-payload-mapper-test', () => {
         'variableValues'
       ];
 
-      assert.deepStrictEqual(result.lineItems.length, MOCK_CART_LINE_ITEMS.length);
+      assert.equal(result.lineItems.length, MOCK_CART_LINE_ITEMS.length);
       result.lineItems.forEach((lineItem, index) => {
         assert.deepStrictEqual(Object.keys(lineItem).sort(), allExpectedFields.sort());
 
@@ -902,7 +909,8 @@ suite('cart-payload-mapper-test', () => {
     test('it returns null', () => {
       const cart = {};
       const result = mapCartPayload(cart);
-      assert.strictEqual(result.requiresShipping, null);
+
+      assert.strictEqual(result.requiresShipping, false);
     });
   });
 

@@ -89,11 +89,11 @@ function mapDiscountAllocations(discountAllocations, discountApplications) {
     }
 
     const discountApp = Object.assign({}, application);
-    if (allocation.code) {
-      discountApp.code = allocation.code;
-    } else if (allocation.title) {
-      discountApp.title = allocation.title;
-    }
+    // if (allocation.code) {
+    //   discountApp.code = allocation.code;
+    // } else if (allocation.title) {
+    //   discountApp.title = allocation.title;
+    // }
     result.push({
       allocatedAmount: allocation.discountedAmount,
       discountApplication: discountApp
