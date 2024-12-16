@@ -12,7 +12,7 @@ const UNSUPPORTED_FIELDS = {
   taxesIncluded: false
 };
 
-export function mapCartPayload(cart, key) {
+export function mapCartPayload(cart) {
   if (!cart) { return null; }
 
   const result = mapDiscountsAndLines(cart);
@@ -24,11 +24,13 @@ export function mapCartPayload(cart, key) {
   };
 
   let email = null;
+
   if (cart.buyerIdentity && cart.buyerIdentity.email) {
     email = cart.buyerIdentity.email;
   }
 
   let shippingAddress = null;
+
   if (cart.buyerIdentity &&
     cart.buyerIdentity.deliveryAddressPreferences &&
     cart.buyerIdentity.deliveryAddressPreferences.length) {
@@ -67,21 +69,21 @@ export function mapCartPayload(cart, key) {
   }
 
   return Object.assign({
-    appliedGiftCards: appliedGiftCards,
-    buyerIdentity: buyerIdentity,
+    appliedGiftCards,
+    buyerIdentity,
     createdAt: cart.createdAt,
-    currencyCode: currencyCode,
+    currencyCode,
     customAttributes: cart.attributes,
-    discountApplications: discountApplications,
-    email: email,
+    discountApplications,
+    email,
     id: cart.id,
     lineItems: cartLinesWithDiscounts,
     lineItemsSubtotalPrice: checkoutChargeAmount,
     note: cart.note,
-    paymentDue: paymentDue,
+    paymentDue,
     paymentDueV2: paymentDue,
-    shippingAddress: shippingAddress,
-    subtotalPrice: subtotalPrice,
+    shippingAddress,
+    subtotalPrice,
     subtotalPriceV2: subtotalPrice,
     totalPrice: totalAmount,
     totalPriceV2: totalAmount,
@@ -96,7 +98,7 @@ export function mapCartPayload(cart, key) {
 function getDefaultMoneyObject(currencyCode, totalAmount) {
   return {
     amount: 0,
-    currencyCode: currencyCode,
+    currencyCode,
     type: totalAmount && totalAmount.type
   };
 }
@@ -109,6 +111,7 @@ function calculatePaymentDue(cart, totalAmount) {
   // Assuming cart's totalAmount will have the same currency code as gift cards' presentmentAmountUsed
   // TODO - verify this assumption
   let giftCardTotal = 0;
+
   for (let i = 0; i < cart.appliedGiftCards.length; i++) {
     giftCardTotal += cart.appliedGiftCards[i].presentmentAmountUsed.amount;
   }
