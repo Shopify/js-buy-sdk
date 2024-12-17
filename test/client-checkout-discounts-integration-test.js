@@ -125,6 +125,42 @@ suite('client-checkout-discounts-integration-test', () => {
       });
     });
 
+    suite('edge cases', () => {
+      test('it gracefully handles a discount code that is not found', () => {
+        const discountCode = 'NOTFOUND';
+
+        return client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 1
+            }
+          ]
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
+            // In this case, the SF API doesn't return any user errors or throw an error
+            assert.equal(updatedCheckout.discountApplications.length, 0);
+            assert.equal(updatedCheckout.lineItems.length, 1);
+          });
+        });
+      });
+
+      test('it throws an error if the checkout ID is not valid', () => {
+        return client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 1
+            }
+          ]
+        }).then(() => {
+          return client.checkout.addDiscount('this is not a valid ID', 'DISCOUNT').catch((error) => {
+            assert.ok(Boolean(error));
+          });
+        });
+      });
+    });
+
     suite('checkout with a single line item', () => {
       test('it adds a fixed amount discount to a checkout with a single line item via addDiscount', () => {
         return client.checkout.create({
