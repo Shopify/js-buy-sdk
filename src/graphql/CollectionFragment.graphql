@@ -22,7 +22,7 @@ fragment CollectionFragment on Collection {
     {namespace: "collection", key: "video"},
     {namespace: "collection", key: "videoThumbnail"},
     {namespace: "collection", key: "banner"},
-
+    {namespace: "collection", key: "pageUrl"},
   ]) {
     ...MetafieldWithReferenceFragment
   }
