@@ -1,15 +1,24 @@
 import assert from 'assert';
 import Client from '../src/client';
 
+// Helper function to compare currency amounts within 1 cent tolerance
+function assertAmountsEqual(actual, expected, message) {
+  const actualNum = parseFloat(actual);
+  const expectedNum = parseFloat(expected);
+  const diff = Math.abs(actualNum - expectedNum);
+
+  assert.ok(diff <= 0.01, message || `Expected ${actual} to be within 0.01 of ${expected}`);
+}
+
 // Helper function to clean discount application objects by removing __typename and type.name fields
 // These fields are different between cart and checkout, so to compare the objects we need to remove them
-// The variableValues field is one we are not interested in comparing, so we remove it
 function comparableDiscountApplication(discountApp) {
   if (!discountApp || typeof discountApp !== 'object') {
     return discountApp;
   }
 
-  const cleaned = Object.assign({}, discountApp);
+  // Create a deep copy to avoid modifying the original object
+  const cleaned = JSON.parse(JSON.stringify(discountApp));
 
   // Remove __typename at root level
   delete cleaned.__typename;
@@ -19,24 +28,21 @@ function comparableDiscountApplication(discountApp) {
     delete cleaned.type.name;
   }
 
+  // We aren't guaranteeing this field anymore
   if (cleaned.variableValues) {
     delete cleaned.variableValues;
   }
 
-  // // Handle value object which may have nested type
-  // if (cleaned.value && cleaned.value.type) {
-  //   delete cleaned.value.type.name;
-  // }
-
-  // // Handle allocatedAmount which may have nested type
-  // if (cleaned.allocatedAmount && cleaned.allocatedAmount.type) {
-  //   delete cleaned.allocatedAmount.type.name;
-  // }
-
-  // // Recursively clean discountApplication if it exists
-  // if (cleaned.discountApplication) {
-  //   cleaned.discountApplication = cleanDiscountApplication(cleaned.discountApplication);
-  // }
+  // No longer returning hasNextPage/hasPreviousPage fields for discount applications at the root level
+  // These fields existed at the root discount applications, but not at the discount application inside discount allocation level
+  // These fields didn't return any actual information, since the values were always false (because we fetch the LIMIT number of discount applications).
+  // There is therefore no point in modifying the code to accommodate the discrepancy between root level and line item level discount applications
+  if (cleaned.hasNextPage != null) {
+    delete cleaned.hasNextPage;
+  }
+  if (cleaned.hasPreviousPage != null) {
+    delete cleaned.hasPreviousPage;
+  }
 
   return cleaned;
 }
@@ -44,12 +50,26 @@ function comparableDiscountApplication(discountApp) {
 function assertActualDiscountApplicationIsExpected(actual, expected) {
   // These two fields are different between cart and checkout, so we aren't comparing them below
   // but still want to assert that they exist
-  // console.log("actual", JSON.stringify(actual, null, 2));
-  console.log("actual type:", actual.type);
-  console.log("actual type.name:", actual.type ? actual.type.name : 'type is undefined');
   assert.equal(actual.__typename, 'DiscountApplication');
   assert.equal(actual.type.name, 'DiscountApplication');
   assert.deepEqual(comparableDiscountApplication(actual), comparableDiscountApplication(expected));
+}
+
+function assertActualDiscountAllocationIsExpected(actual, expected) {
+  assertAmountsEqual(actual.allocatedAmount.amount, expected.allocatedAmount.amount);
+  assertActualDiscountApplicationIsExpected(actual.discountApplication, expected.discountApplication);
+
+  // Create a deep copy to avoid modifying the original object
+  const cleanedActualWithoutApplication = JSON.parse(JSON.stringify(actual));
+  const cleanedExpectedWithoutApplication = JSON.parse(JSON.stringify(expected));
+
+  // Allows us to compare all fields except those we already asserted above
+  delete cleanedActualWithoutApplication.discountApplication;
+  delete cleanedActualWithoutApplication.allocatedAmount;
+  delete cleanedExpectedWithoutApplication.discountApplication;
+  delete cleanedExpectedWithoutApplication.allocatedAmount;
+
+  assert.deepEqual(cleanedActualWithoutApplication, cleanedExpectedWithoutApplication);
 }
 
 // NOTE:
@@ -62,17 +82,8 @@ function assertActualDiscountApplicationIsExpected(actual, expected) {
 // gid://shopify/ProductVariant/50850334310456 Arena Zip Boot SDK
 // gid://shopify/ProductVariant/50850336211000 Brace Tonic Crew SDK /48535896555542
 
-suite.only('client-checkout-discounts-integration-test', () => {
+suite('client-checkout-discounts-integration-test', () => {
   const domain = 'graphql.myshopify.com';
-
-  // Helper function to compare currency amounts within 1 cent tolerance
-  function assertAmountsEqual(actual, expected, message) {
-    const actualNum = parseFloat(actual);
-    const expectedNum = parseFloat(expected);
-    const diff = Math.abs(actualNum - expectedNum);
-
-    assert.ok(diff <= 0.01, message || `Expected ${actual} to be within 0.01 of ${expected}`);
-  }
 
   const config = {
     storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
@@ -112,12 +123,10 @@ suite.only('client-checkout-discounts-integration-test', () => {
           });
         });
       });
-
     });
 
     suite('checkout with a single line item', () => {
       test('it adds a fixed amount discount to a checkout with a single line item via addDiscount', () => {
-
         return client.checkout.create({
           lineItems: [
             {
@@ -130,7 +139,7 @@ suite.only('client-checkout-discounts-integration-test', () => {
             assert.equal(updatedCheckout.discountApplications.length, 1);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
 
-            const expectedDiscountApplications = [
+            const expectedRootDiscountApplications = [
               {
                 __typename: 'DiscountCodeApplication',
                 targetSelection: 'ENTITLED',
@@ -163,121 +172,63 @@ suite.only('client-checkout-discounts-integration-test', () => {
                 }
               }
             ];
-            // assert.deepStrictEqual(updatedCheckout.discountApplications, expectedDiscountApplications);
+            const expectedLineItemDiscountAllocations = [
+              {
+                allocatedAmount: {
+                  amount: '10.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountCodeApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '10.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  code: '10OFF',
+                  applicable: true,
+                  type: {
+                    name: 'DiscountCodeApplication',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false
+                  }
+                },
+                type: {
+                  name: 'DiscountAllocation',
+                  kind: 'OBJECT',
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false
+                }
+              }
+            ];
 
-            assert.equal(updatedCheckout.discountApplications[0].code, expectedDiscountApplications[0].code);
-            assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedDiscountApplications[0].targetSelection);
-            assert.equal(updatedCheckout.discountApplications[0].allocationMethod, expectedDiscountApplications[0].allocationMethod);
-            assert.equal(updatedCheckout.discountApplications[0].targetType, expectedDiscountApplications[0].targetType);
-            assert.equal(updatedCheckout.discountApplications[0].value.amount, expectedDiscountApplications[0].value.amount);
-            assert.equal(updatedCheckout.discountApplications[0].value.currencyCode, expectedDiscountApplications[0].value.currencyCode);
-            assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedDiscountApplications[0].value.type);
-            assert.equal(updatedCheckout.discountApplications[0].applicable, expectedDiscountApplications[0].applicable);
-            assert.equal(updatedCheckout.discountApplications[0].title, expectedDiscountApplications[0].title);
-
-            // assert.deepStrictEqual(
-            //   deepSortDiscountApplications(result.discountApplications),
-            //   deepSortDiscountApplications(expectedDiscountApplications)
-            // );
-
-            // const sortedResult = deepSortLines(result.lineItems);
-            // const sortedExpected = deepSortLines(expectedLineItems);
-
-            // for (let i = 0; i < result.lineItems.length; i++) {
-            //   assert.deepStrictEqual(sortedResult[i].discountAllocations, sortedExpected[i].discountAllocations);
-            // }
-
-
-            // top-level discountApplications matches expected structure
-            // assert.deepEqual(updatedCheckout.discountApplications[0],
-            //   {
-            //     __typename: 'DiscountCodeApplication',
-            //     targetSelection: 'ENTITLED',
-            //     allocationMethod: 'EACH',
-            //     targetType: 'LINE_ITEM',
-            //     value: {
-            //       amount: '10.0',
-            //       currencyCode: 'USD',
-            //       type: {
-            //         name: 'PricingValue',
-            //         kind: 'UNION'
-            //       }
-            //     },
-            //     code: '10OFF',
-            //     applicable: true,
-            //     type: {
-            //       name: 'DiscountCodeApplication',
-            //       kind: 'OBJECT',
-            //       fieldBaseTypes: {
-            //         applicable: 'Boolean',
-            //         code: 'String'
-            //       },
-            //       implementsNode: false
-            //     },
-            //     hasNextPage: false,
-            //     hasPreviousPage: false,
-            //     variableValues: {
-            //       checkoutId: 'gid://shopify/Checkout/e780a1b5bffd6a9ef530f1718b854e4f?key=f06572e061a9cc7e3b73e9a235239f42',
-            //       discountCode: '10OFF'
-            //     }
-            //   }
-            // );
-
-            // line item discountAllocation exists
-
-
-            // line item discountAllocation matches expected structure
-            // assert.equal(updatedCheckout.lineItems[0].discountAllocations[0], {
-            //   allocatedAmount: {
-            //     amount: '10.0',
-            //     currencyCode: 'CAD',
-            //     type: {
-            //       name: 'MoneyV2',
-            //       kind: 'OBJECT',
-            //       fieldBaseTypes: {
-            //         amount: 'Decimal',
-            //         currencyCode: 'CurrencyCode'
-            //       },
-            //       implementsNode: false
-            //     }
-            //   },
-            //   discountApplication: {
-            //     __typename: 'DiscountCodeApplication',
-            //     targetSelection: 'ENTITLED',
-            //     allocationMethod: 'EACH',
-            //     targetType: 'LINE_ITEM',
-            //     value: {
-            //       amount: '10.0',
-            //       currencyCode: 'CAD',
-            //       type: {
-            //         name: 'PricingValue',
-            //         kind: 'UNION'
-            //       }
-            //     },
-            //     code: '10OFF',
-            //     applicable: true,
-            //     type: {
-            //       name: 'DiscountCodeApplication',
-            //       kind: 'OBJECT',
-            //       fieldBaseTypes: {
-            //         applicable: 'Boolean',
-            //         code: 'String'
-            //       },
-            //       implementsNode: false
-            //     }
-            //   },
-            //   type: {
-            //     name: 'DiscountAllocation',
-            //     kind: 'OBJECT',
-            //     fieldBaseTypes: {
-            //       allocatedAmount: 'MoneyV2',
-            //       discountApplication: 'DiscountApplication'
-            //     },
-            //     implementsNode: false
-            //   }
-            // }
-            // );
-
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
+            assert.equal(updatedCheckout.lineItems.length, 1);
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
       });
@@ -328,17 +279,6 @@ suite.only('client-checkout-discounts-integration-test', () => {
                 }
               }
             ];
-
-            // assert.deepEqual(updatedCheckout.discountApplications, expectedRootDiscountApplications);
-            assert.equal(updatedCheckout.discountApplications[0].code, expectedRootDiscountApplications[0].code);
-            assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedRootDiscountApplications[0].targetSelection);
-            assert.equal(updatedCheckout.discountApplications[0].allocationMethod, expectedRootDiscountApplications[0].allocationMethod);
-            assert.equal(updatedCheckout.discountApplications[0].targetType, expectedRootDiscountApplications[0].targetType);
-            assert.equal(updatedCheckout.discountApplications[0].value.amount, expectedRootDiscountApplications[0].value.amount);
-            assert.equal(updatedCheckout.discountApplications[0].value.currencyCode, expectedRootDiscountApplications[0].value.currencyCode);
-            assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedRootDiscountApplications[0].value.type);
-            assert.equal(updatedCheckout.discountApplications[0].applicable, expectedRootDiscountApplications[0].applicable);
-            assert.equal(updatedCheckout.discountApplications[0].title, expectedRootDiscountApplications[0].title);
 
             const expectedLineItemDiscountAllocations = [
               {
@@ -391,16 +331,11 @@ suite.only('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            // assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations, expectedLineItemDiscountAllocations);
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
+            assert.equal(updatedCheckout.lineItems.length, 1);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.code, expectedLineItemDiscountAllocations[0].discountApplication.code);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.targetSelection, expectedLineItemDiscountAllocations[0].discountApplication.targetSelection);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.allocationMethod, expectedLineItemDiscountAllocations[0].discountApplication.allocationMethod);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.targetType, expectedLineItemDiscountAllocations[0].discountApplication.targetType);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].allocatedAmount.amount, expectedLineItemDiscountAllocations[0].allocatedAmount.amount);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].allocatedAmount.currencyCode, expectedLineItemDiscountAllocations[0].allocatedAmount.currencyCode);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.value.type, expectedLineItemDiscountAllocations[0].discountApplication.value.type);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.applicable, expectedLineItemDiscountAllocations[0].discountApplication.applicable);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
       });
@@ -450,18 +385,6 @@ suite.only('client-checkout-discounts-integration-test', () => {
                 }
               }
             ];
-
-            // assert.deepEqual(updatedCheckout.discountApplications, expectedRootDiscountApplications);
-            assert.equal(updatedCheckout.discountApplications.length, 1);
-            assert.equal(updatedCheckout.discountApplications[0].code, expectedRootDiscountApplications[0].code);
-            assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedRootDiscountApplications[0].targetSelection);
-            assert.equal(updatedCheckout.discountApplications[0].allocationMethod, expectedRootDiscountApplications[0].allocationMethod);
-            assert.equal(updatedCheckout.discountApplications[0].targetType, expectedRootDiscountApplications[0].targetType);
-            assert.equal(updatedCheckout.discountApplications[0].value.amount, expectedRootDiscountApplications[0].value.amount);
-            assert.equal(updatedCheckout.discountApplications[0].value.currencyCode, expectedRootDiscountApplications[0].value.currencyCode);
-            assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedRootDiscountApplications[0].value.type);
-            assert.equal(updatedCheckout.discountApplications[0].applicable, expectedRootDiscountApplications[0].applicable);
-            assert.equal(updatedCheckout.discountApplications[0].title, expectedRootDiscountApplications[0].title);
 
             const expectedLineItemDiscountAllocations = [
               {
@@ -515,16 +438,11 @@ suite.only('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            // assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations, expectedLineItemDiscountAllocations);
+            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
+            assert.equal(updatedCheckout.lineItems.length, 1);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.code, expectedLineItemDiscountAllocations[0].discountApplication.code);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.targetSelection, expectedLineItemDiscountAllocations[0].discountApplication.targetSelection);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.allocationMethod, expectedLineItemDiscountAllocations[0].discountApplication.allocationMethod);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.targetType, expectedLineItemDiscountAllocations[0].discountApplication.targetType);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].allocatedAmount.amount, expectedLineItemDiscountAllocations[0].allocatedAmount.amount);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].allocatedAmount.currencyCode, expectedLineItemDiscountAllocations[0].allocatedAmount.currencyCode);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.value.type, expectedLineItemDiscountAllocations[0].discountApplication.value.type);
-            assert.deepEqual(updatedCheckout.lineItems[0].discountAllocations[0].discountApplication.applicable, expectedLineItemDiscountAllocations[0].discountApplication.applicable);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
       });
@@ -575,16 +493,7 @@ suite.only('client-checkout-discounts-integration-test', () => {
             ];
 
             assert.equal(updatedCheckout.discountApplications.length, 1);
-            // assert.deepEqual(updatedCheckout.discountApplications, expectedRootDiscountApplications);
-            assert.equal(updatedCheckout.discountApplications[0].code, expectedRootDiscountApplications[0].code);
-            assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedRootDiscountApplications[0].targetSelection);
-            assert.equal(updatedCheckout.discountApplications[0].allocationMethod, expectedRootDiscountApplications[0].allocationMethod);
-            assert.equal(updatedCheckout.discountApplications[0].targetType, expectedRootDiscountApplications[0].targetType);
-            assert.equal(updatedCheckout.discountApplications[0].value.amount, expectedRootDiscountApplications[0].value.amount);
-            assert.equal(updatedCheckout.discountApplications[0].value.currencyCode, expectedRootDiscountApplications[0].value.currencyCode);
-            assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedRootDiscountApplications[0].value.type);
-            assert.equal(updatedCheckout.discountApplications[0].applicable, expectedRootDiscountApplications[0].applicable);
-            assert.equal(updatedCheckout.discountApplications[0].title, expectedRootDiscountApplications[0].title);
+            assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
           });
         });
       });
@@ -738,33 +647,17 @@ suite.only('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            // assert.deepEqual(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
             assert.equal(updatedCheckout.discountApplications.length, 1);
-            assert.equal(updatedCheckout.discountApplications[0].code, expectedRootDiscountApplications[0].code);
-            assert.equal(updatedCheckout.discountApplications[0].targetSelection, expectedRootDiscountApplications[0].targetSelection);
-            assert.equal(updatedCheckout.discountApplications[0].allocationMethod, expectedRootDiscountApplications[0].allocationMethod);
-            assert.equal(updatedCheckout.discountApplications[0].targetType, expectedRootDiscountApplications[0].targetType);
-            assert.equal(updatedCheckout.discountApplications[0].value.amount, expectedRootDiscountApplications[0].value.amount);
-            assert.equal(updatedCheckout.discountApplications[0].value.currencyCode, expectedRootDiscountApplications[0].value.currencyCode);
-            assert.deepEqual(updatedCheckout.discountApplications[0].value.type, expectedRootDiscountApplications[0].value.type);
-            assert.equal(updatedCheckout.discountApplications[0].applicable, expectedRootDiscountApplications[0].applicable);
-            assert.equal(updatedCheckout.discountApplications[0].title, expectedRootDiscountApplications[0].title);
 
-            for (let i = 0; i < updatedCheckout.lineItems.length; i++) {
-              assert.equal(updatedCheckout.lineItems[i].discountAllocations.length, 1);
-              const actualDiscountAllocation = updatedCheckout.lineItems[i].discountAllocations[0];
-              const expectedDiscountAllocation = expectedLineItemDiscountAllocations[i];
+            const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
+            const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
-              // assert.deepEqual(actualDiscountAllocation, expectedDiscountAllocation);
-              assert.equal(actualDiscountAllocation.discountApplication.code, expectedDiscountAllocation.discountApplication.code);
-              assert.equal(actualDiscountAllocation.discountApplication.targetSelection, expectedDiscountAllocation.discountApplication.targetSelection);
-              assert.equal(actualDiscountAllocation.discountApplication.allocationMethod, expectedDiscountAllocation.discountApplication.allocationMethod);
-              assert.equal(actualDiscountAllocation.discountApplication.targetType, expectedDiscountAllocation.discountApplication.targetType);
-              assertAmountsEqual(actualDiscountAllocation.allocatedAmount.amount, expectedDiscountAllocation.allocatedAmount.amount);
-              assert.equal(actualDiscountAllocation.allocatedAmount.currencyCode, expectedDiscountAllocation.allocatedAmount.currencyCode);
-              assert.deepEqual(actualDiscountAllocation.discountApplication.value.type, expectedDiscountAllocation.discountApplication.value.type);
-              assert.equal(actualDiscountAllocation.discountApplication.applicable, expectedDiscountAllocation.discountApplication.applicable);
-            }
+            assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
+            assert.equal(updatedCheckout.lineItems.length, 2);
+            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
           });
         });
       });
@@ -922,37 +815,12 @@ suite.only('client-checkout-discounts-integration-test', () => {
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
-            // assert.deepEqual(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(actualRootDiscountApplication.code, expectedRootDiscountApplication.code);
-            assert.equal(actualRootDiscountApplication.targetSelection, expectedRootDiscountApplication.targetSelection);
-            assert.equal(actualRootDiscountApplication.allocationMethod, expectedRootDiscountApplication.allocationMethod);
-            assert.equal(actualRootDiscountApplication.targetType, expectedRootDiscountApplication.targetType);
-            assert.equal(actualRootDiscountApplication.value.amount, expectedRootDiscountApplication.value.amount);
-            assert.equal(actualRootDiscountApplication.value.currencyCode, expectedRootDiscountApplication.value.currencyCode);
-            assert.deepEqual(actualRootDiscountApplication.value.type, expectedRootDiscountApplication.value.type);
-            assert.equal(actualRootDiscountApplication.applicable, expectedRootDiscountApplication.applicable);
-            assert.equal(actualRootDiscountApplication.title, expectedRootDiscountApplication.title);
-
+            assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
             assert.equal(updatedCheckout.lineItems.length, 2);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
-            for (let i = 0; i < updatedCheckout.lineItems.length; i++) {
-              assert.equal(updatedCheckout.lineItems[i].discountAllocations.length, 1);
-              const actualDiscountAllocation = updatedCheckout.lineItems[i].discountAllocations[0];
-              // The actual order is inverted but we are not guaranteeing we will preserve the ordering, just that
-              // all the line items/discount allocations are present and correct.
-              const expectedDiscountAllocation = expectedLineItemDiscountAllocations[(expectedLineItemDiscountAllocations.length - 1) - i];
-
-              // assert.deepEqual(actualDiscountAllocation, expectedDiscountAllocation);
-              assert.equal(actualDiscountAllocation.discountApplication.code, expectedDiscountAllocation.discountApplication.code);
-              assert.equal(actualDiscountAllocation.discountApplication.targetSelection, expectedDiscountAllocation.discountApplication.targetSelection);
-              assert.equal(actualDiscountAllocation.discountApplication.allocationMethod, expectedDiscountAllocation.discountApplication.allocationMethod);
-              assert.equal(actualDiscountAllocation.discountApplication.targetType, expectedDiscountAllocation.discountApplication.targetType);
-              assertAmountsEqual(actualDiscountAllocation.allocatedAmount.amount, expectedDiscountAllocation.allocatedAmount.amount);
-              assert.equal(actualDiscountAllocation.allocatedAmount.currencyCode, expectedDiscountAllocation.allocatedAmount.currencyCode);
-              assert.deepEqual(actualDiscountAllocation.discountApplication.value.type, expectedDiscountAllocation.discountApplication.value.type);
-              assert.equal(actualDiscountAllocation.discountApplication.applicable, expectedDiscountAllocation.discountApplication.applicable);
-            }
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
 
@@ -1113,43 +981,16 @@ suite.only('client-checkout-discounts-integration-test', () => {
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
-            // assert.deepEqual(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(actualRootDiscountApplication.code, expectedRootDiscountApplication.code);
-            assert.equal(actualRootDiscountApplication.targetSelection, expectedRootDiscountApplication.targetSelection);
-            assert.equal(actualRootDiscountApplication.allocationMethod, expectedRootDiscountApplication.allocationMethod);
-            assert.equal(actualRootDiscountApplication.targetType, expectedRootDiscountApplication.targetType);
-            assert.equal(actualRootDiscountApplication.value.amount, expectedRootDiscountApplication.value.amount);
-            assert.equal(actualRootDiscountApplication.value.currencyCode, expectedRootDiscountApplication.value.currencyCode);
-            assert.deepEqual(actualRootDiscountApplication.value.type, expectedRootDiscountApplication.value.type);
-            assert.equal(actualRootDiscountApplication.applicable, expectedRootDiscountApplication.applicable);
-            assert.equal(actualRootDiscountApplication.title, expectedRootDiscountApplication.title);
-
+            assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
             assert.equal(updatedCheckout.lineItems.length, 2);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
-            for (let i = 0; i < updatedCheckout.lineItems.length; i++) {
-              assert.equal(updatedCheckout.lineItems[i].discountAllocations.length, 1);
-              const actualDiscountAllocation = updatedCheckout.lineItems[i].discountAllocations[0];
-              // The actual order is inverted but we are not guaranteeing we will preserve the ordering, just that
-              // all the line items/discount allocations are present and correct.
-              const expectedDiscountAllocation = expectedLineItemDiscountAllocations[(expectedLineItemDiscountAllocations.length - 1) - i];
-
-              // assert.deepEqual(actualDiscountAllocation, expectedDiscountAllocation);
-              assert.equal(actualDiscountAllocation.discountApplication.code, expectedDiscountAllocation.discountApplication.code);
-              assert.equal(actualDiscountAllocation.discountApplication.targetSelection, expectedDiscountAllocation.discountApplication.targetSelection);
-              assert.equal(actualDiscountAllocation.discountApplication.allocationMethod, expectedDiscountAllocation.discountApplication.allocationMethod);
-              assert.equal(actualDiscountAllocation.discountApplication.targetType, expectedDiscountAllocation.discountApplication.targetType);
-              assertAmountsEqual(actualDiscountAllocation.allocatedAmount.amount, expectedDiscountAllocation.allocatedAmount.amount);
-              assert.equal(actualDiscountAllocation.allocatedAmount.currencyCode, expectedDiscountAllocation.allocatedAmount.currencyCode);
-              assert.deepEqual(actualDiscountAllocation.discountApplication.value.type, expectedDiscountAllocation.discountApplication.value.type);
-              assert.equal(actualDiscountAllocation.discountApplication.applicable, expectedDiscountAllocation.discountApplication.applicable);
-            }
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
       });
 
-      // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
-      // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDER50PERCENTOFF" } ]
       test('adds an order-level percentage discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = 'ORDER50PERCENTOFF';
 
@@ -1290,6 +1131,15 @@ suite.only('client-checkout-discounts-integration-test', () => {
                     checkoutId: 'gid://shopify/Checkout/2a45b2a7497f72213129cd312e355395?key=3318f8152c39a5e5ef82c2e86f427ee6',
                     discountCode: 'ORDER50PERCENTOFF'
                   }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
                 }
               }
             ];
@@ -1300,27 +1150,11 @@ suite.only('client-checkout-discounts-integration-test', () => {
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
             assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
-
             assert.equal(updatedCheckout.lineItems.length, 2);
             assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
-            for (let i = 0; i < updatedCheckout.lineItems.length; i++) {
-              assert.equal(updatedCheckout.lineItems[i].discountAllocations.length, 1);
-              const actualDiscountAllocation = updatedCheckout.lineItems[i].discountAllocations[0];
-              // The actual order is inverted but we are not guaranteeing we will preserve the ordering, just that
-              // all the line items/discount allocations are present and correct.
-              const expectedDiscountAllocation = expectedLineItemDiscountAllocations[(expectedLineItemDiscountAllocations.length - 1) - i];
-
-              // assert.deepEqual(actualDiscountAllocation, expectedDiscountAllocation);
-              assert.equal(actualDiscountAllocation.discountApplication.code, expectedDiscountAllocation.discountApplication.code);
-              assert.equal(actualDiscountAllocation.discountApplication.targetSelection, expectedDiscountAllocation.discountApplication.targetSelection);
-              assert.equal(actualDiscountAllocation.discountApplication.allocationMethod, expectedDiscountAllocation.discountApplication.allocationMethod);
-              assert.equal(actualDiscountAllocation.discountApplication.targetType, expectedDiscountAllocation.discountApplication.targetType);
-              assertAmountsEqual(actualDiscountAllocation.allocatedAmount.amount, expectedDiscountAllocation.allocatedAmount.amount);
-              assert.equal(actualDiscountAllocation.allocatedAmount.currencyCode, expectedDiscountAllocation.allocatedAmount.currencyCode);
-              assert.deepEqual(actualDiscountAllocation.discountApplication.value.type, expectedDiscountAllocation.discountApplication.value.type);
-              assert.equal(actualDiscountAllocation.discountApplication.applicable, expectedDiscountAllocation.discountApplication.applicable);
-            }
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
+            assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
       });
@@ -1331,43 +1165,13 @@ suite.only('client-checkout-discounts-integration-test', () => {
     suite('empty checkout', () => {
       // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
       // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDERFIXED50OFF" } ]
+      // Therefore we decided to just return an empty array for discountApplications
       test('it adds an order-level fixed amount discount to an empty checkout via addDiscount', () => {
         const discountCode = 'ORDERFIXED50OFF';
 
         return client.checkout.create({}).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-            assert.deepEqual(updatedCheckout.discountApplications[0], {
-              __typename: 'DiscountCodeApplication',
-              targetSelection: 'ALL',
-              allocationMethod: 'ACROSS',
-              targetType: 'LINE_ITEM',
-              value: {
-                amount: '0.0',
-                currencyCode: 'CAD',
-                type: {
-                  name: 'PricingValue',
-                  kind: 'UNION'
-                }
-              },
-              code: 'ORDERFIXED50OFF',
-              applicable: true,
-              type: {
-                name: 'DiscountCodeApplication',
-                kind: 'OBJECT',
-                fieldBaseTypes: {
-                  applicable: 'Boolean',
-                  code: 'String'
-                },
-                implementsNode: false
-              },
-              hasNextPage: false,
-              hasPreviousPage: false,
-              variableValues: {
-                checkoutId: 'gid://shopify/Checkout/691e9abfdb5b913c8a2ae1bc7ac97367?key=afec92d9a7c509fe9a750e7af9e54b4a',
-                discountCode: 'ORDERFIXED50OFF'
-              }
-            }
-            );
+            assert.equal(updatedCheckout.discountApplications.length, 0);
           });
         });
       });
@@ -1378,37 +1182,7 @@ suite.only('client-checkout-discounts-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.discountApplications[0], {
-            __typename: 'DiscountCodeApplication',
-            targetSelection: 'ALL',
-            allocationMethod: 'ACROSS',
-            targetType: 'LINE_ITEM',
-            value: {
-              percentage: 50,
-              type: {
-                name: 'PricingValue',
-                kind: 'UNION'
-              }
-            },
-            code: 'ORDER50PERCENTOFF',
-            applicable: true,
-            type: {
-              name: 'DiscountCodeApplication',
-              kind: 'OBJECT',
-              fieldBaseTypes: {
-                applicable: 'Boolean',
-                code: 'String'
-              },
-              implementsNode: false
-            },
-            hasNextPage: false,
-            hasPreviousPage: false,
-            variableValues: {
-              checkoutId: 'gid://shopify/Checkout/bc569367501dd75c7902f633b8e32212?key=6b03d9b61df6dcde7a255b25e133f566',
-              discountCode: 'ORDER50PERCENTOFF'
-            }
-          }
-          );
+          assert.equal(updatedCheckout.discountApplications.length, 0);
         });
       });
     });

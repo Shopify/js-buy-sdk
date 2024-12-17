@@ -38,6 +38,18 @@ export function getLineItemType() {
   };
 }
 
+function getDiscountAllocationType() {
+  return {
+    fieldBaseTypes: {
+      allocatedAmount: 'MoneyV2',
+      discountApplication: 'DiscountApplication'
+    },
+    implementsNode: false,
+    kind: 'OBJECT',
+    name: 'DiscountAllocation'
+  };
+}
+
 export function mapVariant(merchandise) {
   // Copy all properties except 'product'
   const result = {};
@@ -93,7 +105,8 @@ export function mapDiscountAllocations(discountAllocations, discountApplications
 
     result.push({
       allocatedAmount: allocation.discountedAmount,
-      discountApplication: discountApp
+      discountApplication: discountApp,
+      type: getDiscountAllocationType()
     });
   }
 
