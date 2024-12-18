@@ -7,7 +7,7 @@ suite('client-checkout-giftcards-integration-test', () => {
   const config = {
     storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
     domain,
-    apiVersion: 'unstable'
+    apiVersion: '2025-01'
   };
   let client;
 

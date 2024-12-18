@@ -5,8 +5,8 @@ import Client from '../src/client';
 
 suite('manual-lint-test', () => {
   const config = {
-    domain: 'sendmecats.myshopify.com',
-    storefrontAccessToken: 'abc123'
+    domain: 'graphql.myshopify.com',
+    storefrontAccessToken: '595005d0c565f6969eece280de85edb5'
   };
 
   test('it has pageInfo on all relay connection types', () => {
