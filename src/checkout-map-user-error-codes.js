@@ -27,29 +27,31 @@ const CartErrorCodeToCheckoutErrorCode = {
   PROVINCE_NOT_FOUND: 'INVALID_PROVINCE_IN_COUNTRY',
   UNSPECIFIED_ADDRESS_ERROR: 'INVALID',
   VALIDATION_CUSTOM: 'INVALID',
-  ZIP_CODE_NOT_SUPPORTED: 'NOT_SUPPORTED',
+  ZIP_CODE_NOT_SUPPORTED: 'NOT_SUPPORTED'
 };
 
 const CartWarningCodeToCheckoutErrorCode = {
   MERCHANDISE_NOT_ENOUGH_STOCK: 'NOT_ENOUGH_IN_STOCK',
   MERCHANDISE_OUT_OF_STOCK: 'NOT_ENOUGH_IN_STOCK',
-  PAYMENTS_GIFT_CARDS_UNAVAILABLE: 'NOT_SUPPORTED',
+  PAYMENTS_GIFT_CARDS_UNAVAILABLE: 'NOT_SUPPORTED'
 };
 
-const userErrorsMapper = (userErrors) => {
-  return userErrors.map(({ code, field, message }) => ({
+function userErrorsMapper(userErrors) {
+  return userErrors.map(({code, field, message}) => ({
+    // eslint-disable-next-line no-undefined
     code: code ? CartErrorCodeToCheckoutErrorCode[code] : undefined,
     field,
-    message,
+    message
   }));
-};
+}
 
-const warningsMapper = (warnings) => {
-  return warnings.map(({ code, message }) => ({
+function warningsMapper(warnings) {
+  return warnings.map(({code, message}) => ({
+    // eslint-disable-next-line no-undefined
     code: code ? CartWarningCodeToCheckoutErrorCode[code] : undefined,
-    message,
+    message
   }));
-};
+}
 
 export default function checkoutUserErrorsMapper(userErrors, warnings) {
   const hasUserErrors = userErrors && userErrors.length;
@@ -61,5 +63,6 @@ export default function checkoutUserErrorsMapper(userErrors, warnings) {
 
   const checkoutUserErrors = hasUserErrors ? userErrorsMapper(userErrors) : [];
   const checkoutWarnings = hasWarnings ? warningsMapper(warnings) : [];
+
   return [...checkoutUserErrors, ...checkoutWarnings];
 }

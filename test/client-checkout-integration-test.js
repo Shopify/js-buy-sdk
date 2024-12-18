@@ -10,11 +10,9 @@ suite('client-checkout-integration-test', () => {
     apiVersion: 'unstable'
   };
   let client;
-  let apiUrl;
 
   setup(() => {
     client = Client.buildClient(config);
-    apiUrl = `https://${domain}/api/unstable/graphql`;
   });
 
   teardown(() => {

@@ -230,7 +230,7 @@ export default class InputMapper {
       deliveryAddress.province = shippingAddress.province;
     }
 
-    const withDeliveryAddress = deliveryAddress && Object.keys(deliveryAddress).length > 0;
+    const withDeliveryAddress = deliveryAddress && (Object.keys(deliveryAddress).length > 0);
 
     return {
       cartId: checkoutId,

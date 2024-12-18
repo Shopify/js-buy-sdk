@@ -52,11 +52,9 @@ suite('client-integration-test', () => {
     domain
   };
   let client;
-  let apiUrl;
 
   setup(() => {
     client = Client.buildClient(config);
-    apiUrl = `https://${domain}/api/${client.config.apiVersion}/graphql`;
   });
 
   teardown(() => {
@@ -163,6 +161,7 @@ suite('client-integration-test', () => {
 
     return client.collection.fetchAllWithProducts().then((collections) => {
       const collectionProducts = collections[3].products;
+
       assert.ok(collectionProducts.length > 0, 'collection returned with products');
     });
   });

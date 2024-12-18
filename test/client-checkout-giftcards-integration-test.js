@@ -10,11 +10,9 @@ suite('client-checkout-giftcards-integration-test', () => {
     apiVersion: 'unstable'
   };
   let client;
-  let apiUrl;
 
   setup(() => {
     client = Client.buildClient(config);
-    apiUrl = `https://${domain}/api/unstable/graphql`;
   });
 
   teardown(() => {
@@ -179,8 +177,8 @@ suite('client-checkout-giftcards-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addGiftCards(checkout.id, input.giftCardCodes).then((updatedCheckout) => {
-          return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.appliedGiftCards.length, 0);
+          return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckoutTwo) => {
+            assert.equal(updatedCheckoutTwo.appliedGiftCards.length, 0);
           });
         });
       });
@@ -199,12 +197,11 @@ suite('client-checkout-giftcards-integration-test', () => {
 
       return client.checkout.create(createInput).then((checkout) => {
         return client.checkout.addGiftCards(checkout.id, giftCardCodes).then((updatedCheckout) => {
-          return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.appliedGiftCards.length, 0);
+          return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckoutTwo) => {
+            assert.equal(updatedCheckoutTwo.appliedGiftCards.length, 0);
           });
         });
       });
     });
   });
-
 });

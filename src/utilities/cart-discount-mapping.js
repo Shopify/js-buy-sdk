@@ -104,13 +104,13 @@ function findLineIdForEachOrderLevelDiscountAllocation(
   // Sort each array within the Map by discountedAmount so that the lowest discounted amount appears first
   discountIdToDiscountAllocationsMap.forEach((allocations) => {
     allocations.sort(
-      (a, b) => a.discountedAmount.amount - b.discountedAmount.amount
+      (first, second) => first.discountedAmount.amount - second.discountedAmount.amount
     );
   });
 
   // Sort cart line items so that the item with the lowest cost (after line-level discounts) appears first
-  const sortedCartLineItems = [...cartLines].sort((a, b) => {
-    return a.cost.totalAmount.amount - b.cost.totalAmount.amount;
+  const sortedCartLineItems = [...cartLines].sort((first, second) => {
+    return first.cost.totalAmount.amount - second.cost.totalAmount.amount;
   });
 
   // For each discount, the discount allocation with the smallest amount should be applied
@@ -128,7 +128,7 @@ function findLineIdForEachOrderLevelDiscountAllocation(
       });
     }
   );
-};
+}
 
 export function discountMapper({cartLineItems, cartDiscountAllocations, cartDiscountCodes}) {
   let hasDiscountAllocations = false;
@@ -304,9 +304,9 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
 export function deepSortLines(lineItems) {
   return lineItems
     .map((lineItem) => {
-      const sortedDiscountAllocations = lineItem.discountAllocations.sort((a, b) =>
-        getDiscountApplicationId(a.discountApplication).localeCompare(
-          getDiscountApplicationId(b.discountApplication)
+      const sortedDiscountAllocations = lineItem.discountAllocations.sort((first, second) =>
+        getDiscountApplicationId(first.discountApplication).localeCompare(
+          getDiscountApplicationId(second.discountApplication)
         )
       );
 
@@ -314,11 +314,11 @@ export function deepSortLines(lineItems) {
         discountAllocations: sortedDiscountAllocations
       });
     })
-    .sort((a, b) => a.id.localeCompare(b.id));
+    .sort((first, second) => first.id.localeCompare(second.id));
 }
 
 export function deepSortDiscountApplications(discountApplications) {
-  return discountApplications.sort((a, b) =>
-    getDiscountApplicationId(a).localeCompare(getDiscountApplicationId(b))
+  return discountApplications.sort((first, second) =>
+    getDiscountApplicationId(first).localeCompare(getDiscountApplicationId(second))
   );
 }

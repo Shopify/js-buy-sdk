@@ -1223,7 +1223,4 @@ suite('client-checkout-discounts-integration-test', () => {
       });
     });
   });
-
-  suite('removeDiscount', () => {});
-
 });

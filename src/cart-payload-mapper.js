@@ -109,7 +109,6 @@ function calculatePaymentDue(cart, totalAmount) {
   }
 
   // Assuming cart's totalAmount will have the same currency code as gift cards' presentmentAmountUsed
-  // TODO - verify this assumption
   let giftCardTotal = 0;
 
   for (let i = 0; i < cart.appliedGiftCards.length; i++) {

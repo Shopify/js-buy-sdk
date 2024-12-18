@@ -8,9 +8,10 @@ const typeMap = {
     },
     implementsNode: false
   }
-}
+};
 
-export const withType = (field, type) => {
+export function withType(field, type) {
   field.type = typeMap[type];
+
   return field;
 }

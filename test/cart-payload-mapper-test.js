@@ -326,67 +326,11 @@ suite('cart-payload-mapper-test', () => {
           }
         }
       ];
-      const expectedLineItems = [
-        {
-          id: 'gid://shopify/CartLine/2b437fb9-33fd-4424-8ea0-fcd275ae65f7?cart=Z2NwLXVzLWNlbnRyYWwxOjAxSkU1MDFNOVpZWjhaUkVHNFgzN000RDhB',
-          quantity: 3,
-          discountAllocations: [
-            {
-              allocatedAmount: {
-                amount: 450.0,
-                currencyCode: 'USD'
-              },
-              discountApplication: {
-                title: '150offvariant',
-                targetSelection: 'ENTITLED',
-                allocationMethod: 'EACH',
-                targetType: 'LINE_ITEM',
-                value: {
-                  amount: 450.0,
-                  currencyCode: 'USD'
-                }
-              }
-            }
-          ]
-        },
-        {
-          id: 'gid://shopify/CartLine/fbb590ba-b078-4d80-a95a-f7252174f06f?cart=Z2NwLXVzLWNlbnRyYWwxOjAxSkU1MDFNOVpZWjhaUkVHNFgzN000RDhB',
-          quantity: 1,
-          discountAllocations: [
-            {
-              allocatedAmount: {
-                amount: 5.0,
-                currencyCode: 'USD'
-              },
-              discountApplication: {
-                targetSelection: 'ENTITLED',
-                allocationMethod: 'EACH',
-                targetType: 'LINE_ITEM',
-                value: {
-                  amount: 5.0,
-                  currencyCode: 'USD'
-                },
-                title: '5OFFPRODUCT'
-              }
-            }
-          ]
-        }
-      ];
 
       assert.deepStrictEqual(
         deepSortDiscountApplications(result.discountApplications),
         deepSortDiscountApplications(expectedDiscountApplications)
       );
-
-      const sortedResult = deepSortLines(result.lineItems);
-      const sortedExpected = deepSortLines(expectedLineItems);
-
-      // for (let i = 0; i < result.lineItems.length; i++) {
-      //   assert.deepStrictEqual(
-      //     sortedResult[i].discountAllocations,
-      //     sortedExpected[i].discountAllocations
-      //   )
-      // }
     });
 
     test('can map a cart with a combination of multiple order discounts and multiple product discounts', () => {
@@ -718,12 +662,14 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.email, cart.buyerIdentity.email);
     });
 
     test('returns null when there is no buyer identity', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.email, null);
     });
 
@@ -734,6 +680,7 @@ suite('cart-payload-mapper-test', () => {
         }
       };
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.email, null);
     });
 
@@ -742,6 +689,7 @@ suite('cart-payload-mapper-test', () => {
         buyerIdentity: {}
       };
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.email, null);
     });
   });
@@ -753,6 +701,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.lineItems, []);
     });
 
@@ -838,6 +787,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.lineItemsSubtotalPrice, cart.cost.checkoutChargeAmount);
     });
   });
@@ -849,6 +799,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.note, cart.note);
     });
   });
@@ -857,6 +808,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns null', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.order, null);
     });
   });
@@ -865,6 +817,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns null', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.orderStatusUrl, null);
     });
   });
@@ -877,6 +830,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.paymentDue, cart.cost.totalAmount);
     });
 
@@ -887,6 +841,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(
         result.paymentDue,
         withType({
@@ -901,6 +856,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns false', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.ready, false);
     });
   });
@@ -924,12 +880,14 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.shippingAddress, addresses[0]);
     });
 
     test('returns null when there is no buyer identity', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.shippingAddress, null);
     });
 
@@ -941,6 +899,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.shippingAddress, null);
     });
   });
@@ -949,6 +908,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns null', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.shippingLine, null);
     });
   });
@@ -960,6 +920,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.subtotalPrice, withType({
         amount: 292,
         currencyCode: 'USD'
@@ -973,6 +934,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.subtotalPrice, withType({
         amount: 317,
         currencyCode: 'USD'
@@ -984,6 +946,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns false', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.taxExempt, false);
     });
   });
@@ -992,6 +955,7 @@ suite('cart-payload-mapper-test', () => {
     test('it returns false', () => {
       const cart = {};
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.taxesIncluded, false);
     });
   });
@@ -1003,6 +967,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.totalPrice, cart.cost.totalAmount);
     });
   });
@@ -1014,6 +979,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.totalTax, cart.cost.totalTaxAmount);
     });
 
@@ -1024,6 +990,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.deepStrictEqual(result.totalTax, withType({
         amount: 0,
         currencyCode: 'USD'
@@ -1038,6 +1005,7 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.updatedAt, cart.updatedAt);
     });
   });
@@ -1049,9 +1017,8 @@ suite('cart-payload-mapper-test', () => {
       };
 
       const result = mapCartPayload(cart);
+
       assert.strictEqual(result.webUrl, cart.checkoutUrl);
     });
   });
 });
-
-

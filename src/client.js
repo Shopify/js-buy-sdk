@@ -6,7 +6,7 @@ import ShopResource from './shop-resource';
 import CheckoutResource from './checkout-resource';
 import ImageResource from './image-resource';
 import {version} from '../package.json';
-import { apiUrlParam} from '../api-url-param';
+import {apiUrlParam} from '../api-url-param';
 // GraphQL
 import types from '../schema.json';
 

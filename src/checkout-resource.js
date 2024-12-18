@@ -56,6 +56,8 @@ class CheckoutResource extends Resource {
               reject([{message: 'an unknown error has occurred.'}]);
             }
           }
+
+          return resolve(null);
         });
       });
   }
@@ -314,6 +316,7 @@ class CheckoutResource extends Resource {
     return this.fetch(checkoutId)
       .then((checkout) => {
         const lineIds = checkout.lineItems.map((lineItem) => lineItem.id);
+
         return this.removeLineItems(checkoutId, lineIds);
       })
       .then(() => {
