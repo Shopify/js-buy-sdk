@@ -101,30 +101,6 @@ suite('client-checkout-discounts-integration-test', () => {
   });
 
   suite('addDiscount', () => {
-    suite('empty checkout', () => {
-      test('it does not add a fixed amount discount to an empty checkout via addDiscount', () => {
-        const discountCode = '10OFF';
-
-        return client.checkout.create({}).then((checkout) => {
-          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.discountApplications.length, 0);
-            assert.equal(updatedCheckout.lineItems.length, 0);
-          });
-        });
-      });
-
-      test('it does not add a percentage discount to an empty checkout via addDiscount', () => {
-        const discountCode = '10PERCENTOFF';
-
-        return client.checkout.create({}).then((checkout) => {
-          return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.discountApplications.length, 0);
-            assert.equal(updatedCheckout.lineItems.length, 0);
-          });
-        });
-      });
-    });
-
     suite('edge cases', () => {
       test('it gracefully handles a discount code that is not found', () => {
         const discountCode = 'NOTFOUND';

@@ -5,15 +5,15 @@
 
 ## Deprecation Notice
 
-The JavaScript Buy SDK v3.0 will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some key [limitations](#v3-checkout-limitations) inherit to the lack of parity of these two APIs.
+The JavaScript Buy SDK `v3.0` will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some limitations inherit to the different scope of both APIs.
 
-## Updated Checkout Interface
+## Updated SDK Checkout interface
 
-Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. The updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases.
+Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. This updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases supported by the current API.
 
 ## Cart-based checkout object compatibility table
 
-The following table highlights the supported and unsupported fields returned in the new checkout object
+The following table highlights the supported and _unsupported_ fields returned in the mimicked checkout object
 
 | field | compatibility  | notes  |
 |---|---|:-:|
@@ -23,7 +23,7 @@ The following table highlights the supported and unsupported fields returned in 
 | customAttributes | ✅ |   |
 | discountApplications | ✅ |   |
 | email | ✅ |   |
-| id | ✅ℹ️ | The return ID will be a Cart ID e.g gid://shopify/Cart/...' |
+| id | ✅ℹ️ | The return ID will be a Cart ID e.g `gid://shopify/Cart/...` |
 | lineItems | ✅ |   |
 | lineItemsSubtotalPrice | ✅ |   |
 | note  | ✅ |   |
@@ -39,7 +39,7 @@ The following table highlights the supported and unsupported fields returned in 
 | updatedAt | ✅ |   |
 | webUrl | ✅ |   |
 
-Not supported
+Fields _not_ supported
 
 | field | compatibility  | notes  |
 |---|---|:-:|
@@ -52,23 +52,27 @@ Not supported
 | taxExempt | ⚠️ | Not supported. Defaults to `false` |
 | taxesIncluded | ⚠️ | Not supported. Defaults to `false` |
 
-### .checkout methods compatibility table
+### `.checkout` methods compatibility table
+
+The updated checkout interface supports all existing methods with some limitations:
 
 | method | compatibility  | notes |
 |---|---|:-:|
 | fetch | ✅ |   |
-| create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
+| create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` <br /> - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
 | updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
 | updateEmail  | ✅ |   |
 | addLineItems | ✅ |   |
 | replaceLineItems | ✅ |   |
 | updateLineItems | ✅ |   |
 | removeLineItems | ✅ |   |
-| addDiscount | ✅ |   |
+| addDiscount | ✅ | - It does not apply an order-level fixed amount discount to an empty checkout <br />  - It does not apply an order-level percentage discount to an empty checkout |
 | removeDiscount | ✅ |   |
 | addGiftCards | ✅ |   |
 | removeGiftCard | ✅ |   |
 | updateShippingAddress | ✅ |   |
+
+### Other considerations
 
 ---
 
