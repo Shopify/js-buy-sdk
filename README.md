@@ -16,7 +16,7 @@ Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/
 The following table highlights the supported and unsupported fields returned in the new checkout object
 
 | field | compatibility  | notes  |
-|---|---|:-:|:-:|
+|---|---|:-:|
 | appliedGiftCards | ✅ |   |
 | createdAt | ✅ |   |
 | currencyCode | ✅ |   |
@@ -41,6 +41,8 @@ The following table highlights the supported and unsupported fields returned in 
 
 Not supported
 
+| field | compatibility  | notes  |
+|---|---|:-:|
 | completedAt | ⚠️ | Not supported. Defaults to `null` |
 | order | ⚠️ | Not supported. Defaults to `null` |
 | orderStatusUrl | ⚠️ | Not supported. Defaults to `null` |
@@ -53,7 +55,7 @@ Not supported
 ### .checkout methods compatibility table
 
 | method | compatibility  | notes |
-|---|---|:-:|:-:|
+|---|---|:-:|
 | fetch | ✅ |   |
 | create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
 | updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
