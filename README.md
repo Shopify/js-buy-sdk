@@ -1,5 +1,75 @@
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 
+> [!WARNING]  
+> This library is now deprecated.
+
+## Deprecation Notice
+
+The JavaScript Buy SDK v3.0 will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some key [limitations](#v3-checkout-limitations) inherit to the lack of parity of these two APIs.
+
+## Updated Checkout Interface
+
+Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. The updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases.
+
+## Cart-based checkout object compatibility table
+
+The following table highlights the supported and unsupported fields returned in the new checkout object
+
+| field | compatibility  | notes  |
+|---|---|:-:|:-:|
+| appliedGiftCards | ✅ |   |
+| createdAt | ✅ |   |
+| currencyCode | ✅ |   |
+| customAttributes | ✅ |   |
+| discountApplications | ✅ |   |
+| email | ✅ |   |
+| id | ✅ℹ️ | The return ID will be a Cart ID e.g gid://shopify/Cart/...' |
+| lineItems | ✅ |   |
+| lineItemsSubtotalPrice | ✅ |   |
+| note  | ✅ |   |
+| paymentDue | ✅ |   |
+| paymentDueV2 | ✅ |   |
+| shippingAddress | ✅ |   |
+| subtotalPrice | ✅ |   |
+| subtotalPriceV2 | ✅ |   |
+| totalPrice | ✅ |   |
+| totalPriceV2 | ✅ |   |
+| totalTax | ✅ |   |
+| totalTaxV2 | ✅ |   |
+| updatedAt | ✅ |   |
+| webUrl | ✅ |   |
+
+Not supported
+
+| completedAt | ⚠️ | Not supported. Defaults to `null` |
+| order | ⚠️ | Not supported. Defaults to `null` |
+| orderStatusUrl | ⚠️ | Not supported. Defaults to `null` |
+| ready | ⚠️ | Not supported. Defaults to `false` |
+| requiresShipping | ⚠️ | Not supported. Defaults to `true` |
+| shippingLine | ⚠️ | Not supported. Defaults to `null` |
+| taxExempt | ⚠️ | Not supported. Defaults to `false` |
+| taxesIncluded | ⚠️ | Not supported. Defaults to `false` |
+
+### .checkout methods compatibility table
+
+| method | compatibility  | notes |
+|---|---|:-:|:-:|
+| fetch | ✅ |   |
+| create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
+| updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
+| updateEmail  | ✅ |   |
+| addLineItems | ✅ |   |
+| replaceLineItems | ✅ |   |
+| updateLineItems | ✅ |   |
+| removeLineItems | ✅ |   |
+| addDiscount | ✅ |   |
+| removeDiscount | ✅ |   |
+| addGiftCards | ✅ |   |
+| removeGiftCard | ✅ |   |
+| updateShippingAddress | ✅ |   |
+
+---
+
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
 
 **Note**: For help with migrating from v0 of JS Buy SDK to v1 check out the
