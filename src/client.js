@@ -6,7 +6,7 @@ import ShopResource from './shop-resource';
 import CheckoutResource from './checkout-resource';
 import ImageResource from './image-resource';
 import {version} from '../package.json';
-import {apiUrlParam} from '../api-url-param';
+
 // GraphQL
 import types from '../schema.json';
 
@@ -39,7 +39,7 @@ class Client {
    * @param {Config} config An instance of {@link Config} used to configure the Client.
    */
   constructor(config, GraphQLClientClass = GraphQLJSClient, fetchFunction) {
-    const url = `https://${config.domain}/api/2025-01/graphql?${apiUrlParam}`;
+    const url = `https://${config.domain}/api/2025-01/graphql`;
 
     const headers = {
       'X-SDK-Variant': 'javascript',
