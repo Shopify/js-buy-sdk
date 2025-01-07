@@ -473,7 +473,7 @@
               "args": [
                 {
                   "name": "truncateAt",
-                  "description": "Truncates string after the given length.",
+                  "description": "Truncates a string after the given length.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -516,7 +516,7 @@
               "args": [
                 {
                   "name": "truncateAt",
-                  "description": "Truncates string after the given length.",
+                  "description": "Truncates a string after the given length.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -591,7 +591,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -628,7 +628,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -1711,7 +1711,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -1748,7 +1748,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -2422,6 +2422,22 @@
               "deprecationReason": null
             },
             {
+              "name": "delivery",
+              "description": "The delivery properties of the cart.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "CartDelivery",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "deliveryGroups",
               "description": "The delivery groups available for the cart, based on the buyer identity default\ndelivery address preference or the default address of the logged-in customer.\n",
               "args": [
@@ -2647,7 +2663,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -2684,7 +2700,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -2783,6 +2799,53 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "CartAddress",
+          "description": "A delivery address of the buyer that is interacting with the cart.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "CartDeliveryAddress",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CartAddressInput",
+          "description": "The input fields to provide exactly one of a variety of delivery address types.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "deliveryAddress",
+              "description": "A delivery address stored on this cart.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CartDeliveryAddressInput",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "copyFromCustomerAddressId",
+              "description": "Copies details from the customer address to an address on this cart.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -3719,8 +3782,8 @@
                 "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n"
             },
             {
               "name": "totalDutyAmountEstimated",
@@ -3735,8 +3798,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n"
             },
             {
               "name": "totalTaxAmount",
@@ -3747,8 +3810,8 @@
                 "name": "MoneyV2",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n"
             },
             {
               "name": "totalTaxAmountEstimated",
@@ -3763,8 +3826,8 @@
                   "ofType": null
                 }
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Tax and duty amounts are no longer available and will be removed in a future version.\nPlease see [the changelog](https://shopify.dev/changelog/tax-and-duties-are-deprecated-in-storefront-cart-api)\nfor more information.\n"
             }
           ],
           "inputFields": null,
@@ -3921,6 +3984,600 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDelivery",
+          "description": "The delivery properties of the cart.\n",
+          "fields": [
+            {
+              "name": "addresses",
+              "description": "Selectable addresses to present to the buyer on the cart.",
+              "args": [
+                {
+                  "name": "selected",
+                  "description": "Filter the addresses by selected status.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartSelectableAddress",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryAddress",
+          "description": "Represents a mailing address for customers and shipping.",
+          "fields": [
+            {
+              "name": "address1",
+              "description": "The first line of the address. Typically the street address or PO Box number.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "address2",
+              "description": "The second line of the address. Typically the number of the apartment, suite, or unit.\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "city",
+              "description": "The name of the city, district, village, or town.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "company",
+              "description": "The name of the customer's company or organization.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "countryCode",
+              "description": "The two-letter code for the country of the address.\n\nFor example, US.\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "firstName",
+              "description": "The first name of the customer.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "formatted",
+              "description": "A formatted version of the address, customized by the provided arguments.",
+              "args": [
+                {
+                  "name": "withName",
+                  "description": "Whether to include the customer's name in the formatted address.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "false"
+                },
+                {
+                  "name": "withCompany",
+                  "description": "Whether to include the customer's company in the formatted address.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "true"
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "String",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "formattedArea",
+              "description": "A comma-separated list of the values for city, province, and country.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lastName",
+              "description": "The last name of the customer.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "latitude",
+              "description": "The latitude coordinate of the customer address.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "longitude",
+              "description": "The longitude coordinate of the customer address.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The full name of the customer, based on firstName and lastName.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "phone",
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "provinceCode",
+              "description": "The alphanumeric code for the region.\n\nFor example, ON.\n",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "zip",
+              "description": "The zip or postal code of the address.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CartDeliveryAddressInput",
+          "description": "The input fields to create or update a cart address.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "address1",
+              "description": "The first line of the address. Typically the street address or PO Box number.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "address2",
+              "description": "The second line of the address. Typically the number of the apartment, suite, or unit.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "city",
+              "description": "The name of the city, district, village, or town.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "company",
+              "description": "The name of the customer's company or organization.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "countryCode",
+              "description": "The name of the country.",
+              "type": {
+                "kind": "ENUM",
+                "name": "CountryCode",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "firstName",
+              "description": "The first name of the customer.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "lastName",
+              "description": "The last name of the customer.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "phone",
+              "description": "A unique phone number for the customer.\n\nFormatted using E.164 standard. For example, _+16135551111_.\n",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "provinceCode",
+              "description": "The region of the address, such as the province, state, or district.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "zip",
+              "description": "The zip or postal code of the address.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryAddressesAddPayload",
+          "description": "Return type for `cartDeliveryAddressesAdd` mutation.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The updated cart.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryAddressesRemovePayload",
+          "description": "Return type for `cartDeliveryAddressesRemove` mutation.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The updated cart.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartDeliveryAddressesUpdatePayload",
+          "description": "Return type for `cartDeliveryAddressesUpdate` mutation.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The updated cart.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "warnings",
+              "description": "A list of warnings that occurred during the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartWarning",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
           "enumValues": null,
           "possibleTypes": null
         },
@@ -4340,6 +4997,35 @@
           "possibleTypes": null
         },
         {
+          "kind": "INPUT_OBJECT",
+          "name": "CartDeliveryInput",
+          "description": "The input fields for the cart's delivery properties.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "addresses",
+              "description": "Selectable addresses to present to the buyer on the cart.\n\nThe input must not contain more than `250` values.",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "CartSelectableAddressInput",
+                    "ofType": null
+                  }
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "CartDeliveryOption",
           "description": "Information about a delivery option.",
@@ -4605,6 +5291,16 @@
                 "ofType": null
               },
               "defaultValue": null
+            },
+            {
+              "name": "acceptedSubscriptionTerms",
+              "description": "Indicates if the customer has accepted the subscription terms. Defaults to false.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": "false"
             }
           ],
           "interfaces": null,
@@ -4988,6 +5684,24 @@
             {
               "name": "MAXIMUM_EXCEEDED",
               "description": "The quantity must be below the specified maximum for the item.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TOO_MANY_DELIVERY_ADDRESSES",
+              "description": "Too many delivery addresses on Cart.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ONLY_ONE_DELIVERY_ADDRESS_CAN_BE_SELECTED",
+              "description": "Only one delivery address can be selected.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "INVALID_DELIVERY_ADDRESS_ID",
+              "description": "The delivery address was not found.",
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -5389,24 +6103,6 @@
               "defaultValue": null
             },
             {
-              "name": "discountCodes",
-              "description": "The case-insensitive discount codes that the customer added at checkout.\n\nThe input must not contain more than `250` values.",
-              "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
-                }
-              },
-              "defaultValue": null
-            },
-            {
               "name": "note",
               "description": "A note that's associated with the cart. For example, the note can be a personalized message to the buyer.\n",
               "type": {
@@ -5422,6 +6118,16 @@
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "CartBuyerIdentityInput",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "delivery",
+              "description": "The delivery-related fields for the cart.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CartDeliveryInput",
                 "ofType": null
               },
               "defaultValue": null
@@ -6462,6 +7168,45 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CartOperationError",
+          "description": "An error occurred during the cart operation.",
+          "fields": [
+            {
+              "name": "code",
+              "description": "The error code.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "message",
+              "description": "The error message.",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "CartPaymentInput",
           "description": "The input fields for updating the payment method that will be used to checkout.\n",
@@ -6680,6 +7425,274 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "CartPrepareForCompletionPayload",
+          "description": "Return type for `cartPrepareForCompletion` mutation.",
+          "fields": [
+            {
+              "name": "result",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "UNION",
+                "name": "CartPrepareForCompletionResult",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "userErrors",
+              "description": "The list of errors that occurred from executing the mutation.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartUserError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "UNION",
+          "name": "CartPrepareForCompletionResult",
+          "description": "The result of cart preparation.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": [
+            {
+              "kind": "OBJECT",
+              "name": "CartStatusNotReady",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "CartStatusReady",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "CartThrottled",
+              "ofType": null
+            }
+          ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartSelectableAddress",
+          "description": "A selectable delivery address for a cart.\n",
+          "fields": [
+            {
+              "name": "address",
+              "description": "The delivery address.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "UNION",
+                  "name": "CartAddress",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": "A unique identifier for the address, specific to this cart.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "oneTimeUse",
+              "description": "This delivery address will not be associated with the buyer after a successful checkout.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "selected",
+              "description": "Sets exactly one address as pre-selected for the buyer.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CartSelectableAddressInput",
+          "description": "The input fields for a selectable delivery address in a cart.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "address",
+              "description": "Exactly one kind of delivery address.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "CartAddressInput",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "selected",
+              "description": "Sets exactly one address as pre-selected for the buyer.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "oneTimeUse",
+              "description": "When true, this delivery address will not be associated with the buyer after a successful checkout.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "validationStrategy",
+              "description": "Defines what kind of address validation is requested.",
+              "type": {
+                "kind": "ENUM",
+                "name": "DeliveryAddressValidationStrategy",
+                "ofType": null
+              },
+              "defaultValue": "COUNTRY_CODE_ONLY"
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CartSelectableAddressUpdateInput",
+          "description": "The input fields to update a line item on a cart.",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "description": "The id of the selectable address.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "address",
+              "description": "Exactly one kind of delivery address.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CartAddressInput",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "selected",
+              "description": "Sets exactly one address as pre-selected for the buyer.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "oneTimeUse",
+              "description": "When true, this delivery address will not be associated with the buyer after a successful checkout.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "validationStrategy",
+              "description": "Defines what kind of address validation is requested.",
+              "type": {
+                "kind": "ENUM",
+                "name": "DeliveryAddressValidationStrategy",
+                "ofType": null
+              },
+              "defaultValue": "COUNTRY_CODE_ONLY"
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "CartSelectedDeliveryOptionInput",
           "description": "The input fields for updating the selected delivery options for a delivery group.\n",
@@ -6791,6 +7804,76 @@
         },
         {
           "kind": "OBJECT",
+          "name": "CartStatusNotReady",
+          "description": "Cart is not ready for payment update and completion.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "errors",
+              "description": "The list of errors that caused the cart to not be ready for payment update and completion.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "OBJECT",
+                      "name": "CartOperationError",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartStatusReady",
+          "description": "Cart is ready for payment update and completion.",
+          "fields": [
+            {
+              "name": "cart",
+              "description": "The result of cart preparation for completion.",
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Cart",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
           "name": "CartSubmitForCompletionPayload",
           "description": "Return type for `cartSubmitForCompletion` mutation.",
           "fields": [
@@ -6866,6 +7949,33 @@
               "ofType": null
             }
           ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "CartThrottled",
+          "description": "Response signifying that the access to cart request is currently being throttled.\nThe client can retry after `poll_after`.\n",
+          "fields": [
+            {
+              "name": "pollAfter",
+              "description": "The polling delay.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
         },
         {
           "kind": "OBJECT",
@@ -7047,8 +8157,39 @@
               "description": "Gift cards are not available as a payment method.",
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "DUPLICATE_DELIVERY_ADDRESS",
+              "description": "A delivery address with the same details already exists on this cart.",
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "CategoryFilter",
+          "description": "A filter used to view a subset of products in a collection matching a specific category value.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "id",
+              "description": "The id of the category to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -7062,7 +8203,7 @@
               "args": [
                 {
                   "name": "truncateAt",
-                  "description": "Truncates string after the given length.",
+                  "description": "Truncates a string after the given length.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7145,7 +8286,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -7182,7 +8323,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -7623,7 +8764,7 @@
               "args": [
                 {
                   "name": "truncateAt",
-                  "description": "Truncates string after the given length.",
+                  "description": "Truncates a string after the given length.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -7900,7 +9041,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -7937,7 +9078,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -8179,7 +9320,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -8216,7 +9357,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -11591,7 +12732,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -11628,7 +12769,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -15007,7 +16148,7 @@
           "fields": [
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -15044,7 +16185,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -16801,7 +17942,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -16838,7 +17979,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -17891,7 +19032,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -17928,7 +19069,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -20517,6 +21658,153 @@
               "deprecationReason": null
             },
             {
+              "name": "cartDeliveryAddressesAdd",
+              "description": "Adds delivery addresses to the cart.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "addresses",
+                  "description": "A list of delivery addresses to add to the cart.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "CartSelectableAddressInput",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartDeliveryAddressesAddPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cartDeliveryAddressesRemove",
+              "description": "Removes delivery addresses from the cart.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "addressIds",
+                  "description": "A list of delivery addresses by handle to remove from the cart.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "SCALAR",
+                          "name": "ID",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartDeliveryAddressesRemovePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cartDeliveryAddressesUpdate",
+              "description": "Updates one or more delivery addresses on a cart.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                },
+                {
+                  "name": "addresses",
+                  "description": "The delivery addresses to update.\n\nThe input must not contain more than `250` values.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "LIST",
+                      "name": null,
+                      "ofType": {
+                        "kind": "NON_NULL",
+                        "name": null,
+                        "ofType": {
+                          "kind": "INPUT_OBJECT",
+                          "name": "CartSelectableAddressUpdateInput",
+                          "ofType": null
+                        }
+                      }
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartDeliveryAddressesUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "cartDiscountCodesUpdate",
               "description": "Updates the discount codes applied to the cart.",
               "args": [
@@ -20945,6 +22233,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "CartPaymentUpdatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "cartPrepareForCompletion",
+              "description": "Prepare the cart for cart checkout completion.",
+              "args": [
+                {
+                  "name": "cartId",
+                  "description": "The ID of the cart.",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "SCALAR",
+                      "name": "ID",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "CartPrepareForCompletionPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -22353,7 +23668,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -22390,7 +23705,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -23453,7 +24768,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -23490,7 +24805,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -24346,7 +25661,7 @@
         {
           "kind": "OBJECT",
           "name": "Product",
-          "description": "A product represents an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.\nFor example, a digital download (such as a movie, music or ebook file) also\nqualifies as a product, as do services (such as equipment rental, work for hire,\ncustomization of another product or an extended warranty).\n",
+          "description": "The `Product` object lets you manage products in a merchant’s store.\n\nProducts are the goods and services that merchants offer to customers.\nThey can include various details such as title, description, price, images, and options such as size or color.\nYou can use [product variants](/docs/api/storefront/latest/objects/ProductVariant)\nto create or update different versions of the same product.\nYou can also add or update product [media](/docs/api/storefront/latest/interfaces/Media).\nProducts can be organized by grouping them into a [collection](/docs/api/storefront/latest/objects/Collection).\n\nLearn more about working with [products and collections](/docs/storefronts/headless/building-with-the-storefront-api/products-collections).\n",
           "fields": [
             {
               "name": "adjacentVariants",
@@ -24429,7 +25744,7 @@
             },
             {
               "name": "category",
-              "description": "The taxonomy category for the product.",
+              "description": "The category of a product from [Shopify's Standard Product Taxonomy](https://shopify.github.io/product-taxonomy/releases/unstable/?categoryId=sg-4-17-2-17).",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -24441,7 +25756,7 @@
             },
             {
               "name": "collections",
-              "description": "List of collections a product belongs to.",
+              "description": "A list of [collections](/docs/api/storefront/latest/objects/Collection) that include the product.",
               "args": [
                 {
                   "name": "first",
@@ -24508,7 +25823,7 @@
             },
             {
               "name": "compareAtPriceRange",
-              "description": "The compare at price of the product across all variants.",
+              "description": "The [compare-at price range](https://help.shopify.com/manual/products/details/product-pricing/sale-pricing) of the product in the shop's default currency.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24540,11 +25855,11 @@
             },
             {
               "name": "description",
-              "description": "Stripped description of the product, single line with HTML tags removed.",
+              "description": "A single-line description of the product, with [HTML tags](https://developer.mozilla.org/en-US/docs/Web/HTML) removed.",
               "args": [
                 {
                   "name": "truncateAt",
-                  "description": "Truncates string after the given length.",
+                  "description": "Truncates a string after the given length.",
                   "type": {
                     "kind": "SCALAR",
                     "name": "Int",
@@ -24567,7 +25882,7 @@
             },
             {
               "name": "descriptionHtml",
-              "description": "The description of the product, complete with HTML formatting.",
+              "description": "The description of the product, with\nHTML tags. For example, the description might include\nbold `<strong></strong>` and italic `<i></i>` text.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24619,7 +25934,7 @@
             },
             {
               "name": "handle",
-              "description": "A human-friendly unique string for the Product automatically generated from its title.\nThey are used by the Liquid templating language to refer to objects.\n",
+              "description": "A unique, human-readable string of the product's title.\nA handle can contain letters, hyphens (`-`), and numbers, but no spaces.\nThe handle is used in the online store URL for the product.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24744,7 +26059,7 @@
             },
             {
               "name": "media",
-              "description": "The media associated with the product.",
+              "description": "The [media](/docs/apps/build/online-store/product-media) that are associated with the product. Valid media are images, 3D models, videos.",
               "args": [
                 {
                   "name": "first",
@@ -24821,7 +26136,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -24858,7 +26173,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -24901,7 +26216,7 @@
             },
             {
               "name": "onlineStoreUrl",
-              "description": "The URL used for viewing the resource on the shop's Online Store. Returns\n`null` if the resource is currently not published to the Online Store sales channel.\n",
+              "description": "The product's URL on the online store.\nIf `null`, then the product isn't published to the online store sales channel.\n",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -24913,7 +26228,7 @@
             },
             {
               "name": "options",
-              "description": "List of product options.",
+              "description": "A list of product options. The limit is defined by the [shop's resource limits for product options](/docs/api/admin-graphql/latest/objects/Shop#field-resourcelimits) (`Shop.resourceLimits.maxProductOptions`).",
               "args": [
                 {
                   "name": "first",
@@ -24948,7 +26263,7 @@
             },
             {
               "name": "priceRange",
-              "description": "The price range.",
+              "description": "The minimum and maximum prices of a product, expressed in decimal numbers.\nFor example, if the product is priced between $10.00 and $50.00,\nthen the price range is $10.00 - $50.00.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24964,7 +26279,7 @@
             },
             {
               "name": "productType",
-              "description": "A categorization that a product can be tagged with, commonly used for filtering and searching.",
+              "description": "The [product type](https://help.shopify.com/manual/products/details/product-type)\nthat merchants define.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -24996,7 +26311,7 @@
             },
             {
               "name": "requiresSellingPlan",
-              "description": "Whether the product can only be purchased with a selling plan.",
+              "description": "Whether the product can only be purchased with a [selling plan](/docs/apps/build/purchase-options/subscriptions/selling-plans). Products that are sold on subscription (`requiresSellingPlan: true`) can be updated only for online stores. If you update a product to be subscription-only (`requiresSellingPlan:false`), then the product is unpublished from all channels, except the online store.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25063,7 +26378,7 @@
             },
             {
               "name": "sellingPlanGroups",
-              "description": "A list of a product's available selling plan groups. A selling plan group represents a selling method. For example, 'Subscribe and save' is a selling method where customers pay for goods or services per delivery. A selling plan group contains individual selling plans.",
+              "description": "A list of all [selling plan groups](/docs/apps/build/purchase-options/subscriptions/selling-plans/build-a-selling-plan) that are associated with the product either directly, or through the product's variants.",
               "args": [
                 {
                   "name": "first",
@@ -25130,7 +26445,7 @@
             },
             {
               "name": "seo",
-              "description": "The product's SEO information.",
+              "description": "The [SEO title and description](https://help.shopify.com/manual/promoting-marketing/seo/adding-keywords)\nthat are associated with a product.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25146,7 +26461,7 @@
             },
             {
               "name": "tags",
-              "description": "A comma separated list of tags that have been added to the product.\nAdditional access scope required for private apps: unauthenticated_read_product_tags.\n",
+              "description": "A comma-separated list of searchable keywords that are\nassociated with the product. For example, a merchant might apply the `sports`\nand `summer` tags to products that are associated with sportwear for summer.\nUpdating `tags` overwrites any existing tags that were previously added to the product.\nTo add new tags without overwriting existing tags,\nuse the GraphQL Admin API's [`tagsAdd`](/docs/api/admin-graphql/latest/mutations/tagsadd)\nmutation.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25170,7 +26485,7 @@
             },
             {
               "name": "title",
-              "description": "The product’s title.",
+              "description": "The name for the product that displays to customers. The title is used to construct the product's handle.\nFor example, if a product is titled \"Black Sunglasses\", then the handle is `black-sunglasses`.\n",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25186,7 +26501,7 @@
             },
             {
               "name": "totalInventory",
-              "description": "The total quantity of inventory in stock for this Product.",
+              "description": "The quantity of inventory that's in stock.",
               "args": [],
               "type": {
                 "kind": "SCALAR",
@@ -25281,7 +26596,7 @@
             },
             {
               "name": "variants",
-              "description": "List of the product’s variants.",
+              "description": "A list of [variants](/docs/api/storefront/latest/objects/ProductVariant) that are associated with the product.",
               "args": [
                 {
                   "name": "first",
@@ -25358,7 +26673,7 @@
             },
             {
               "name": "variantsCount",
-              "description": "The total count of variants for this product.",
+              "description": "The number of [variants](/docs/api/storefront/latest/objects/ProductVariant) that are associated with the product.",
               "args": [],
               "type": {
                 "kind": "OBJECT",
@@ -25370,7 +26685,7 @@
             },
             {
               "name": "vendor",
-              "description": "The product’s vendor name.",
+              "description": "The name of the product's vendor.",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
@@ -25634,6 +26949,26 @@
               "type": {
                 "kind": "INPUT_OBJECT",
                 "name": "VariantOptionFilter",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "category",
+              "description": "A product category to filter on.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "CategoryFilter",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "taxonomyMetafield",
+              "description": "A standard product attribute metafield to filter on.",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "TaxonomyMetafieldFilter",
                 "ofType": null
               },
               "defaultValue": null
@@ -26320,7 +27655,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -26357,7 +27692,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -28560,7 +29895,7 @@
               "args": [
                 {
                   "name": "handle",
-                  "description": "A unique string that identifies the product. Handles are automatically\ngenerated based on the product's title, and are always lowercase. Whitespace\nand special characters are replaced with a hyphen: `-`. If there are\nmultiple consecutive whitespace or special characters, then they're replaced\nwith a single hyphen. Whitespace or special characters at the beginning are\nremoved. If a duplicate product title is used, then the handle is\nauto-incremented by one. For example, if you had two products called\n`Potion`, then their handles would be `potion` and `potion-1`. After a\nproduct has been created, changing the product title doesn't update the handle.\n",
+                  "description": "A unique, human-readable string of the product's title.\nA handle can contain letters, hyphens (`-`), and numbers, but no spaces.\nThe handle is used in the online store URL for the product.\n",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
@@ -29785,7 +31120,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -29822,7 +31157,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -31139,7 +32474,7 @@
             },
             {
               "name": "metafield",
-              "description": "Returns a metafield found by namespace and key.",
+              "description": "A [custom field](https://shopify.dev/docs/apps/build/custom-data), including its `namespace` and `key`, that's associated with a Shopify resource for the purposes of adding and storing additional information.",
               "args": [
                 {
                   "name": "namespace",
@@ -31176,7 +32511,7 @@
             },
             {
               "name": "metafields",
-              "description": "The metafields associated with the resource matching the supplied list of namespaces and keys.",
+              "description": "A list of [custom fields](/docs/apps/build/custom-data) that a merchant associates with a Shopify resource.",
               "args": [
                 {
                   "name": "identifiers",
@@ -35120,6 +36455,22 @@
               },
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "redirectUrl",
+              "description": "The url to which the buyer should be redirected after the cart is successfully submitted.",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "URL",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "inputFields": null,
@@ -35259,6 +36610,59 @@
               "ofType": null
             }
           ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "TaxonomyMetafieldFilter",
+          "description": "A filter used to view a subset of products in a collection matching a specific taxonomy metafield value.\n",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "namespace",
+              "description": "The namespace of the metafield to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "key",
+              "description": "The key of the metafield to filter on.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "value",
+              "description": "The value of the metafield.",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
