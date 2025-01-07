@@ -96,31 +96,4 @@ fragment CartLineFragment on CartLine {
       title
     }
   }
-  sellingPlanAllocation {
-    checkoutChargeAmount {
-      amount
-      currencyCode
-    }
-    sellingPlan {
-      id
-    }
-    priceAdjustments {
-      compareAtPrice {
-        amount
-        currencyCode
-      }
-      perDeliveryPrice {
-        amount
-        currencyCode
-      }
-      price {
-        amount
-        currencyCode
-      }
-      unitPrice {
-        amount
-        currencyCode
-      }
-    }
-  }
 }

@@ -47,7 +47,7 @@ class CheckoutResource extends Resource {
             return this.graphQLClient.fetchAllPages(model.cart.lines, {pageSize: 250}).then((lines) => {
               model.cart.attrs.lines = lines;
 
-              return resolve(mapCartPayload(cart));
+              return resolve(mapCartPayload(model.cart));
             });
           } catch (error) {
             if (error) {
