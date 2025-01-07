@@ -89,7 +89,7 @@ export default class InputMapper {
           line.attributes = lineItem.customAttributes;
         }
 
-        if (lineItem.quantity) {
+        if (typeof lineItem.quantity !== 'undefined') {
           line.quantity = lineItem.quantity;
         }
 
@@ -143,7 +143,7 @@ export default class InputMapper {
       lines: lineItems.map((lineItem) => {
         const line = {};
 
-        if (lineItem.quantity) {
+        if (typeof lineItem.quantity !== 'undefined') {
           line.quantity = lineItem.quantity;
         }
 
@@ -170,7 +170,7 @@ export default class InputMapper {
 
         const line = {id: lineItem.id};
 
-        if (lineItem.quantity) {
+        if (typeof lineItem.quantity !== 'undefined') {
           line.quantity = lineItem.quantity;
         }
 
