@@ -1199,4 +1199,35 @@ suite('client-checkout-discounts-integration-test', () => {
       });
     });
   });
+
+  suite('removeDiscount', () => {
+    test('it removes a discount from a checkout via removeDiscount', () => {
+      const discountCode = '10OFF';
+
+      return client.checkout.create({
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/50850334310456',
+            quantity: 1
+          }
+        ]
+      }).then((checkout) => {
+        return client.checkout.addDiscount(checkout.id, discountCode).then((checkoutWithDiscount) => {
+          return client.checkout.removeDiscount(checkoutWithDiscount.id).then((checkoutWithoutDiscount) => {
+            assert.equal(checkoutWithoutDiscount.discountApplications.length, 0);
+            assert.equal(checkoutWithoutDiscount.lineItems.length, 1);
+            assert.equal(checkoutWithoutDiscount.lineItems[0].discountAllocations.length, 0);
+          });
+        });
+      });
+    }).timeout(3000);
+
+    test('it returns an error when the checkout ID is invalid', () => {
+      const invalidCheckoutId = 'invalid-checkout-id';
+
+      return client.checkout.removeDiscount(invalidCheckoutId).catch((error) => {
+        assert.ok(error.message.includes('invalid value'));
+      });
+    });
+  });
 });
