@@ -29,10 +29,14 @@ export default class InputMapper {
     if (input.customAttributes) { cartInput.attributes = input.customAttributes; }
 
     // Fields that aren't documented in SDK but could still be passed in:
-    // Ignoring `allowPartialAddresses` for now
     if (input.buyerIdentity) {
       if (!cartInput.buyerIdentity) { cartInput.buyerIdentity = {}; }
       cartInput.buyerIdentity.countryCode = input.buyerIdentity.countryCode;
+    }
+
+    if (input.allowPartialAddresses) {
+      // eslint-disable-next-line no-console
+      console.warn('allowPartialAddresses is not supported by the Cart API');
     }
 
     return cartInput;
@@ -63,7 +67,8 @@ export default class InputMapper {
     }
 
     if (input.allowPartialAddresses) {
-      // Ignoring `allowPartialAddresses` for now
+      // eslint-disable-next-line no-console
+      console.warn('allowPartialAddresses is not supported by the Cart API');
     }
 
     // With cart, we will need to execute two separate mutations (one for attributes and one for note)

@@ -108,7 +108,6 @@ class CheckoutResource extends Resource {
    * @param {Object} [input] An input object containing zero or more of:
    *   @param {Object[]} [input.customAttributes] A list of custom attributes for the checkout. See the {@link https://help.shopify.com/api/storefront-api/reference/input-object/attributeinput|Storefront API reference} for valid input fields.
    *   @param {String} [input.note] A note for the checkout.
-   *   @deprecated {Boolean} [input.allowPartialAddresses] An email connected to the checkout.
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateAttributes(checkoutId, input = {}) {
