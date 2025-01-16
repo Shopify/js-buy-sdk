@@ -1,3 +1,5 @@
+import {countryNameToCode} from './utilities/country-name-to-code-map';
+
 export default class InputMapper {
   create(input = {}) {
     const cartInput = {};
@@ -22,8 +24,39 @@ export default class InputMapper {
     if (input.email) { cartInput.buyerIdentity = {email: input.email}; }
 
     if (input.shippingAddress) {
-      if (!cartInput.buyerIdentity) { cartInput.buyerIdentity = {}; }
-      cartInput.buyerIdentity.deliveryAddressPreferences = [{deliveryAddress: input.shippingAddress}];
+      if (!cartInput.delivery) {
+        cartInput.delivery = {};
+      }
+
+      // Create a copy of the shipping address to modify
+      const processedAddress = {};
+      const shippingAddress = input.shippingAddress;
+
+      // Copy all fields except province and country
+      if (shippingAddress.address1) { processedAddress.address1 = shippingAddress.address1; }
+      if (shippingAddress.address2) { processedAddress.address2 = shippingAddress.address2; }
+      if (shippingAddress.city) { processedAddress.city = shippingAddress.city; }
+      if (shippingAddress.company) { processedAddress.company = shippingAddress.company; }
+      if (shippingAddress.firstName) { processedAddress.firstName = shippingAddress.firstName; }
+      if (shippingAddress.lastName) { processedAddress.lastName = shippingAddress.lastName; }
+      if (shippingAddress.phone) { processedAddress.phone = shippingAddress.phone; }
+      if (shippingAddress.zip) { processedAddress.zip = shippingAddress.zip; }
+      if (shippingAddress.provinceCode) { processedAddress.provinceCode = shippingAddress.provinceCode; }
+
+      // Cart APIs don't support country field, so we map country name to country code if it exists
+      if (shippingAddress.country && !shippingAddress.countryCode) {
+        const countryCode = countryNameToCode[shippingAddress.country] || shippingAddress.country.toUpperCase();
+
+        processedAddress.countryCode = countryCode;
+      } else {
+        processedAddress.countryCode = shippingAddress.countryCode;
+      }
+
+      cartInput.delivery.addresses = [{
+        address: {
+          deliveryAddress: processedAddress
+        }
+      }];
     }
 
     if (input.customAttributes) { cartInput.attributes = input.customAttributes; }
@@ -193,55 +226,38 @@ export default class InputMapper {
   }
 
   updateShippingAddress(checkoutId, shippingAddress) {
-    const deliveryAddress = {};
+    const processedAddress = {};
 
-    if (shippingAddress.address1) {
-      deliveryAddress.address1 = shippingAddress.address1;
+    // Copy all fields except province and country
+    if (shippingAddress.address1) { processedAddress.address1 = shippingAddress.address1; }
+    if (shippingAddress.address2) { processedAddress.address2 = shippingAddress.address2; }
+    if (shippingAddress.city) { processedAddress.city = shippingAddress.city; }
+    if (shippingAddress.company) { processedAddress.company = shippingAddress.company; }
+    if (shippingAddress.firstName) { processedAddress.firstName = shippingAddress.firstName; }
+    if (shippingAddress.lastName) { processedAddress.lastName = shippingAddress.lastName; }
+    if (shippingAddress.phone) { processedAddress.phone = shippingAddress.phone; }
+    if (shippingAddress.zip) { processedAddress.zip = shippingAddress.zip; }
+    if (shippingAddress.provinceCode) { processedAddress.provinceCode = shippingAddress.provinceCode; }
+
+    // Cart APIs don't support country field, so we map country name to country code if it exists
+    if (shippingAddress.country && !shippingAddress.countryCode) {
+      const countryCode = countryNameToCode[shippingAddress.country] || shippingAddress.country.toUpperCase();
+
+      processedAddress.countryCode = countryCode;
+    } else {
+      processedAddress.countryCode = shippingAddress.countryCode;
     }
 
-    if (shippingAddress.address2) {
-      deliveryAddress.address2 = shippingAddress.address2;
-    }
 
-    if (shippingAddress.city) {
-      deliveryAddress.city = shippingAddress.city;
-    }
-
-    if (shippingAddress.company) {
-      deliveryAddress.company = shippingAddress.company;
-    }
-
-    if (shippingAddress.country) {
-      deliveryAddress.country = shippingAddress.country;
-    }
-
-    if (shippingAddress.firstName) {
-      deliveryAddress.firstName = shippingAddress.firstName;
-    }
-
-    if (shippingAddress.lastName) {
-      deliveryAddress.lastName = shippingAddress.lastName;
-    }
-
-    if (shippingAddress.phone) {
-      deliveryAddress.phone = shippingAddress.phone;
-    }
-
-    if (shippingAddress.zip) {
-      deliveryAddress.zip = shippingAddress.zip;
-    }
-
-    if (shippingAddress.province) {
-      deliveryAddress.province = shippingAddress.province;
-    }
-
-    const withDeliveryAddress = deliveryAddress && (Object.keys(deliveryAddress).length > 0);
+    const withDeliveryAddress = processedAddress && (Object.keys(processedAddress).length > 0);
 
     return {
       cartId: checkoutId,
-      buyerIdentity: {
-        deliveryAddressPreferences: withDeliveryAddress ? [{deliveryAddress}] : []
-      }
+      addresses: withDeliveryAddress ? [{
+        address: {
+          deliveryAddress: processedAddress
+        }
+      }] : []
     };
   }
 }

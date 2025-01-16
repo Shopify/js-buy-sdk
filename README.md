@@ -29,7 +29,7 @@ The following table highlights the supported and _unsupported_ fields returned i
 | note  | ✅ |   |
 | paymentDue | ✅ |   |
 | paymentDueV2 | ✅ |   |
-| shippingAddress | ✅ |   |
+| shippingAddress | ✅ | The province field will no longer be returned, even if passed as input |
 | subtotalPrice | ✅ |   |
 | subtotalPriceV2 | ✅ |   |
 | totalPrice | ✅ |   |
@@ -59,7 +59,7 @@ The updated checkout interface supports all existing methods with some limitatio
 | method | compatibility  | notes |
 |---|---|---|
 | fetch | ✅ |   |
-| create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` <br /> - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
+| create | ✅⚠️ | - Does not create a localized checkout when passing `presentmentCurrencyCode` <br /> - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) <br /> When specifying a shipping address, the input's `province` field is ignored. The input must specify a `provinceCode` field in order to set the province for a shipping address. |
 | updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
 | updateEmail  | ✅ |   |
 | addLineItems | ✅ |   |
@@ -70,7 +70,7 @@ The updated checkout interface supports all existing methods with some limitatio
 | removeDiscount | ✅ |   |
 | addGiftCards | ✅ |   |
 | removeGiftCard | ✅ |   |
-| updateShippingAddress | ✅ |   |
+| updateShippingAddress | ✅ | When specifying a shipping address, the input's `province` field is ignored. The input must specify a `provinceCode` field in order to set the province for a shipping address. |
 
 ### Other considerations
 

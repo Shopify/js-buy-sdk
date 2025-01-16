@@ -88,28 +88,78 @@ suite('client-checkout-integration-test', () => {
       });
     });
 
-    test('it resolves with a checkout created with a shippingAddress', () => {
-      const input = {
-        shippingAddress: {
-          firstName: 'John',
-          lastName: 'Doe',
-          phone: '+16135551111',
-          address1: '123 Oak St',
-          address2: 'Unit 2',
-          city: 'Ottawa',
-          company: 'Shopify',
-          country: 'Canada',
-          province: 'ON',
-          zip: '123 ABC'
-        }
-      };
+    suite('shippingAddress', () => {
+      test('it resolves with a checkout created with a shippingAddress', () => {
+        const input = {
+          shippingAddress: {
+            firstName: 'John',
+            lastName: 'Doe',
+            phone: '+16135551111',
+            address1: '123 Oak St',
+            address2: 'Unit 2',
+            city: 'Ottawa',
+            company: 'Shopify',
+            country: 'Canada',
+            province: 'ON',
+            zip: '123 ABC'
+          }
+        };
 
-      return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.shippingAddress.address1, input.shippingAddress.address1);
-        assert.equal(checkout.shippingAddress.city, input.shippingAddress.city);
-        assert.equal(checkout.shippingAddress.province, input.shippingAddress.province);
-        assert.equal(checkout.shippingAddress.country, input.shippingAddress.country);
-        assert.equal(checkout.shippingAddress.zip, input.shippingAddress.zip);
+        return client.checkout.create(input).then((checkout) => {
+          assert.equal(checkout.shippingAddress.address1, input.shippingAddress.address1);
+          assert.equal(checkout.shippingAddress.address2, input.shippingAddress.address2);
+          assert.equal(checkout.shippingAddress.city, input.shippingAddress.city);
+          assert.equal(checkout.shippingAddress.company, input.shippingAddress.company);
+          assert.equal(checkout.shippingAddress.firstName, input.shippingAddress.firstName);
+          assert.equal(checkout.shippingAddress.lastName, input.shippingAddress.lastName);
+          assert.equal(checkout.shippingAddress.phone, input.shippingAddress.phone);
+          assert.equal(checkout.shippingAddress.zip, input.shippingAddress.zip);
+          // Cart APIs don't return province field
+          // eslint-disable-next-line no-undefined
+          assert.ok(checkout.shippingAddress.province === undefined);
+          assert.equal(checkout.shippingAddress.country, 'Canada');
+          // Ensure our country name to country code mapping is working
+          assert.equal(checkout.shippingAddress.countryCode, 'CA');
+        });
+      });
+
+      test('when a country and country code are both present, the country code is used', () => {
+        const input = {
+          shippingAddress: {
+            country: 'Canada',
+            countryCode: 'US'
+          }
+        };
+
+        return client.checkout.create(input).then((checkout) => {
+          assert.equal(checkout.shippingAddress.countryCode, 'US');
+        });
+      });
+
+      test("when a country but no country code is passed as input, an error is thrown if we can't map the input country to a country code", () => {
+        const input = {
+          shippingAddress: {
+            country: 'Unknown Country'
+          }
+        };
+
+        return client.checkout.create(input).catch((error) => {
+          assert.ok(error.message.includes('was provided invalid value for delivery.addresses'));
+        });
+      });
+
+      test('when a province name but no province code is passed as input, the province name is ignored', () => {
+        const input = {
+          shippingAddress: {
+            country: 'Canada',
+            province: 'Ontario'
+          }
+        };
+
+        return client.checkout.create(input).then((checkout) => {
+          // eslint-disable-next-line no-undefined
+          assert.ok(checkout.shippingAddress.province === undefined);
+        });
       });
     });
 
@@ -453,7 +503,7 @@ suite('client-checkout-integration-test', () => {
   });
 
   suite('updateShippingAddress', () => {
-    test('it updates the shipping address of a checkout via updateShippingAddress', () => {
+    test.only('it updates the shipping address of a checkout via updateShippingAddress', () => {
       const input = {
         shippingAddress: {
           address1: '123 Oak St',

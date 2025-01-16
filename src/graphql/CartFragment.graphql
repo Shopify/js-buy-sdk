@@ -88,43 +88,16 @@ fragment CartFragment on Cart {
     customer {
       email
     }
-    deliveryAddressPreferences {
-      ... on MailingAddress {
-        address1
-        address2
-        city
-        company
-        country
-        countryCodeV2
-        firstName
-        formatted
-        formattedArea
-        lastName
-        latitude
-        longitude
-        name
-        phone
-        province
-        provinceCode
-        zip
-      }
-    }
   }
-  deliveryGroups(first: 10) {
-    pageInfo {
-      hasNextPage
-      hasPreviousPage
-    }
-    edges {
-      node {
-        id
-        deliveryAddress {
+  delivery {
+    addresses {
+      address {
+        ... on CartDeliveryAddress {
           address2
           address1
           city
           company
-          country
-          countryCodeV2
+          countryCode
           firstName
           formatted
           formattedArea
@@ -133,41 +106,8 @@ fragment CartFragment on Cart {
           longitude
           name
           phone
-          province
           provinceCode
-        }
-        deliveryOptions {
-          code
-          deliveryMethodType
-          description
-          estimatedCost {
-            amount
-            currencyCode
-          }
-          handle
-          title
-        }
-        selectedDeliveryOption {
-          code
-          deliveryMethodType
-          description
-          estimatedCost {
-            amount
-            currencyCode
-          }
-          handle
-          title
-        }
-        cartLines(first: 10) {
-          pageInfo {
-            hasNextPage
-            hasPreviousPage
-          }
-          edges {
-            node {
-              id
-            }
-          }
+          zip
         }
       }
     }

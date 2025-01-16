@@ -317,36 +317,32 @@ suite('cart-payload-mapper-test', () => {
   });
 
   suite('shippingAddress', () => {
-    test('it returns first delivery address preference', () => {
-      const addresses = [{address1: '123 Main St'}, {address1: '456 Main St'}];
+    test('it returns first delivery address', () => {
+      const addresses = [{address: {address1: '123 Main St'}}, {address: {address1: '456 Main St'}}];
       const cart = {
-        buyerIdentity: {
-          deliveryAddressPreferences: addresses
+        delivery: {
+          addresses
         }
       };
 
       const result = mapCartPayload(cart);
 
-      assert.strictEqual(result.shippingAddress, addresses[0]);
+      assert.strictEqual(result.shippingAddress, addresses[0].address);
     });
 
-    test('returns null when there is no buyer identity', () => {
-      const cart = {};
+    test('returns null when there are no delivery addresses', () => {
+      const cart = {delivery: {addresses: []}};
       const result = mapCartPayload(cart);
 
       assert.strictEqual(result.shippingAddress, null);
     });
 
-    test('returns null when there are no delivery address preferences', () => {
-      const cart = {
-        buyerIdentity: {
-          deliveryAddressPreferences: []
-        }
-      };
-
+    test('it returns both country name and country code if country code is present in payload', () => {
+      const cart = {delivery: {addresses: [{address: {countryCode: 'CA'}}]}};
       const result = mapCartPayload(cart);
 
-      assert.strictEqual(result.shippingAddress, null);
+      assert.strictEqual(result.shippingAddress.countryCode, 'CA');
+      assert.strictEqual(result.shippingAddress.country, 'Canada');
     });
   });
 

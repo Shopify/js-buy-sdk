@@ -2,6 +2,7 @@ import Resource from './resource';
 import handleCartMutation from './handle-cart-mutation';
 import {mapCartPayload} from './cart-payload-mapper';
 
+<<<<<<< Updated upstream
 // GraphQL
 import cartNodeQuery from './graphql/cartNodeQuery.graphql';
 import cartCreateMutation from './graphql/cartCreateMutation.graphql';
@@ -14,6 +15,20 @@ import cartLinesRemoveMutation from './graphql/cartLinesRemoveMutation.graphql';
 import cartLinesUpdateMutation from './graphql/cartLinesUpdateMutation.graphql';
 import cartNoteUpdateMutation from './graphql/cartNoteUpdateMutation.graphql';
 import cartGiftCardCodesRemoveMutation from './graphql/cartGiftCardCodesRemoveMutation.graphql';
+=======
+import cartNodeQuery from './graphql/CartNodeQuery.graphql';
+import cartCreateMutation from './graphql/CartCreateMutation.graphql';
+import cartAttributesUpdateMutation from './graphql/CartAttributesUpdateMutation.graphql';
+import cartBuyerIdentityUpdateMutation from './graphql/CartBuyerIdentityUpdateMutation.graphql';
+import cartDeliveryAddressesUpdateMutation from './graphql/CartDeliveryAddressesUpdate.graphql';
+import cartDiscountCodesUpdateMutation from './graphql/CartDiscountCodesUpdateMutation.graphql';
+import cartGiftCardCodesUpdateMutation from './graphql/CartGiftCardCodesUpdateMutation.graphql';
+import cartLinesAddMutation from './graphql/CartLinesAddMutation.graphql';
+import cartLinesRemoveMutation from './graphql/CartLinesRemoveMutation.graphql';
+import cartLinesUpdateMutation from './graphql/CartLinesUpdateMutation.graphql';
+import cartNoteUpdateMutation from './graphql/CartNoteUpdateMutation.graphql';
+import cartGiftCardCodesRemoveMutation from './graphql/CartGiftCardCodesRemoveMutation.graphql';
+>>>>>>> Stashed changes
 
 /**
  * The JS Buy SDK cart resource
@@ -381,9 +396,10 @@ class CheckoutResource extends Resource {
   updateShippingAddress(checkoutId, shippingAddress) {
     const variables = this.inputMapper.updateShippingAddress(checkoutId, shippingAddress);
 
+    // cartDeliveryAddressesUpdate requires that we pass in an address's ID
     return this.graphQLClient
-      .send(cartBuyerIdentityUpdateMutation, variables)
-      .then(handleCartMutation('cartBuyerIdentityUpdate', this.graphQLClient));
+      .send(cartDeliveryAddressesUpdateMutation, variables)
+      .then(handleCartMutation('cartDeliveryAddressesUpdate', this.graphQLClient));
   }
 }
 

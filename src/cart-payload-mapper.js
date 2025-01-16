@@ -1,4 +1,5 @@
 import {mapDiscountsAndLines} from './utilities/cart-mapping-utils';
+import {countryCodeToName} from './utilities/country-code-to-name-map';
 
 // NOTE: fields such as availableShippingRates are not included because they are not queried by the JS Buy SDK
 const UNSUPPORTED_FIELDS = {
@@ -31,10 +32,14 @@ export function mapCartPayload(cart) {
 
   let shippingAddress = null;
 
-  if (cart.buyerIdentity &&
-    cart.buyerIdentity.deliveryAddressPreferences &&
-    cart.buyerIdentity.deliveryAddressPreferences.length) {
-    shippingAddress = cart.buyerIdentity.deliveryAddressPreferences[0];
+  if (cart.delivery &&
+    cart.delivery.addresses.length &&
+    cart.delivery.addresses[0].address) {
+    shippingAddress = cart.delivery.addresses[0].address;
+
+    if (shippingAddress.countryCode) {
+      shippingAddress.country = countryCodeToName[shippingAddress.countryCode];
+    }
   }
 
   let currencyCode = null;
