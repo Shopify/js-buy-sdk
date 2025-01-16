@@ -1,0 +1,4 @@
+fragment CartWarningFragment on CartWarning {
+  code
+  message
+}
