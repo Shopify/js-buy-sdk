@@ -65,13 +65,22 @@ export function mapCartPayload(cart) {
   }
 
   const appliedGiftCards = cart.appliedGiftCards || [];
-  let subtotalPrice = null;
-  let paymentDue = null;
+  let totalPrice = null;
 
+  // This field will be defined in the API, but we're making it "optional" here so that our
+  // unit tests for other fields work while only passing in the relevant fields
   if (totalAmount) {
-    subtotalPrice = calculateSubtotalPrice(totalAmount, totalDutyAmount, totalTaxAmount);
-    paymentDue = calculatePaymentDue(cart, totalAmount);
+    totalPrice = calculateTotalPrice(cart, totalAmount);
   }
+
+  let subtotalPrice = null;
+
+  // This field will be defined in the API, but we're making it "optional" here so that our
+  // unit tests for other fields work while only passing in the relevant fields
+  if (totalPrice) {
+    subtotalPrice = calculateSubtotalPrice(totalPrice, totalDutyAmount, totalTaxAmount);
+  }
+
 
   return Object.assign({
     appliedGiftCards,
@@ -85,13 +94,13 @@ export function mapCartPayload(cart) {
     lineItems: cartLinesWithDiscounts,
     lineItemsSubtotalPrice: checkoutChargeAmount,
     note: cart.note,
-    paymentDue,
-    paymentDueV2: paymentDue,
+    paymentDue: totalAmount,
+    paymentDueV2: totalAmount,
     shippingAddress,
     subtotalPrice,
     subtotalPriceV2: subtotalPrice,
-    totalPrice: totalAmount,
-    totalPriceV2: totalAmount,
+    totalPrice,
+    totalPriceV2: totalPrice,
     totalTax: totalTaxAmount || getDefaultMoneyObject(currencyCode, totalAmount),
     totalTaxV2: totalTaxAmount || getDefaultMoneyObject(currencyCode, totalAmount),
     updatedAt: cart.updatedAt,
@@ -108,7 +117,7 @@ function getDefaultMoneyObject(currencyCode, totalAmount) {
   };
 }
 
-function calculatePaymentDue(cart, totalAmount) {
+function calculateTotalPrice(cart, totalAmount) {
   if (!cart.appliedGiftCards || !cart.appliedGiftCards.length) {
     return totalAmount;
   }
@@ -127,13 +136,13 @@ function calculatePaymentDue(cart, totalAmount) {
   };
 }
 
-function calculateSubtotalPrice(totalAmount, totalDutyAmount, totalTaxAmount) {
+function calculateSubtotalPrice(totalPrice, totalDutyAmount, totalTaxAmount) {
   const dutyAmount = totalDutyAmount ? totalDutyAmount.amount : 0;
   const taxAmount = totalTaxAmount ? totalTaxAmount.amount : 0;
 
   return {
-    amount: totalAmount.amount - dutyAmount - taxAmount,
-    currencyCode: totalAmount.currencyCode,
-    type: totalAmount.type
+    amount: totalPrice.amount - dutyAmount - taxAmount,
+    currencyCode: totalPrice.currencyCode,
+    type: totalPrice.type
   };
 }

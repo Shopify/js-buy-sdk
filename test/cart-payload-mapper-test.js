@@ -11,7 +11,7 @@ import {
 } from './cart-payload-mapper-fixtures';
 import {withType} from './cart-payload-mapper-utilities';
 
-suite('cart-payload-mapper-test', () => {
+suite.only('cart-payload-mapper-test', () => {
   suite('appliedGiftCards', () => {
     test('it returns applied gift cards from cart', () => {
       const cart = {
@@ -269,32 +269,14 @@ suite('cart-payload-mapper-test', () => {
   });
 
   suite('paymentDue', () => {
-    test("returns cart's total cost when there are no applied gift cards", () => {
+    test("it returns cart's total amount", () => {
       const cart = {
-        cost: MOCK_CART_COST,
-        appliedGiftCards: []
+        cost: MOCK_CART_COST
       };
 
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.paymentDue, cart.cost.totalAmount);
-    });
-
-    test("returns cart's total cost minus applied gift cards", () => {
-      const cart = {
-        cost: MOCK_CART_COST,
-        appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
-      };
-
-      const result = mapCartPayload(cart);
-
-      assert.deepStrictEqual(
-        result.paymentDue,
-        withType({
-          amount: 294.82,
-          currencyCode: 'USD'
-        }, 'MoneyV2')
-      );
     });
   });
 
@@ -356,7 +338,7 @@ suite('cart-payload-mapper-test', () => {
   });
 
   suite('subtotalPrice', () => {
-    test("it returns cart's total amount with duties and taxes subtracted", () => {
+    test("when there are no gift cards, it returns cart's total amount with duties and taxes subtracted", () => {
       const cart = {
         cost: MOCK_CART_COST
       };
@@ -369,7 +351,21 @@ suite('cart-payload-mapper-test', () => {
       }, 'MoneyV2'));
     });
 
-    test("returns cart's total amount when there are no duties and taxes", () => {
+    test("it returns cart's total amount with gift cards, duties, and taxes subtracted", () => {
+      const cart = {
+        cost: MOCK_CART_COST,
+        appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.deepStrictEqual(result.subtotalPrice, withType({
+        amount: 269.82,
+        currencyCode: 'USD'
+      }, 'MoneyV2'));
+    });
+
+    test("returns cart's total amount when there are no duties, taxes, or gift cards", () => {
       const costWithNoDutiesAndTax = Object.assign({}, MOCK_CART_COST, {totalTaxAmount: null, totalDutyAmount: null});
       const cart = {
         cost: costWithNoDutiesAndTax
@@ -403,14 +399,32 @@ suite('cart-payload-mapper-test', () => {
   });
 
   suite('totalPrice', () => {
-    test("it returns cart's total amount", () => {
+    test("returns cart's total cost when there are no applied gift cards", () => {
       const cart = {
-        cost: MOCK_CART_COST
+        cost: MOCK_CART_COST,
+        appliedGiftCards: []
       };
 
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.totalPrice, cart.cost.totalAmount);
+    });
+
+    test("returns cart's total cost minus applied gift cards", () => {
+      const cart = {
+        cost: MOCK_CART_COST,
+        appliedGiftCards: [MOCK_10_CAD_GIFT_CARD, MOCK_15_USD_GIFT_CARD]
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.deepStrictEqual(
+        result.totalPrice,
+        withType({
+          amount: 294.82,
+          currencyCode: 'USD'
+        }, 'MoneyV2')
+      );
     });
   });
 
