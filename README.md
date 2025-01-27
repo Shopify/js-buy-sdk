@@ -14,9 +14,6 @@
 
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 
-> [!WARNING]  
-> This library is now deprecated.
-
 ## Deprecation Notice
 
 The JavaScript Buy SDK `v3.0` will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some limitations inherit to the different scope of both APIs.
