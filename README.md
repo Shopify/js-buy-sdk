@@ -21,6 +21,22 @@
 
 The JavaScript Buy SDK `v3.0` will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some limitations inherit to the different scope of both APIs.
 
+## How to upgrade to v3.0?
+
+To upgrade simply run either of the following commands
+
+If using NPM
+
+```bash 
+npm install shopify-buy@3
+```
+
+If using Yarn
+
+```bash 
+yarn install shopify-buy@3
+```
+
 ## Updated SDK Checkout interface
 
 Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. This updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases supported by the current API.
