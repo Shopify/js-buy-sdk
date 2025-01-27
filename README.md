@@ -34,7 +34,11 @@ If using Yarn
 yarn install shopify-buy@3
 ```
 
-To validate that the upgrade was successful, open your `package.json` and make sure the `shopify-buy` dependecy is now set to `3.0.0`.
+## How validate that I am using v3.0?
+
+To validate that the upgrade was successful or that your are using v3.0, open your `package.json` and make sure the `shopify-buy` dependecy is set to `3.0.0` or higher.
+
+In addition you can check that the client is using the Cart API by monitoring the network tab on your preferred developer tools when adding a line item to the cart. If you see that the operation performed was `cartLinesAdd` rather than `checkoutCreate`, then you are using v3.0.
 
 ## Updated SDK Checkout interface
 
