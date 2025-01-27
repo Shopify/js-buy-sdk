@@ -37,6 +37,8 @@ If using Yarn
 yarn install shopify-buy@3
 ```
 
+To validate that the upgrade was successful, open your `package.json` and make sure the `shopify-buy` dependecy is now set to `3.0.0`.
+
 ## Updated SDK Checkout interface
 
 Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. This updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases supported by the current API.
