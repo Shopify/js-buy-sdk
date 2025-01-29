@@ -34,9 +34,9 @@ If using Yarn
 yarn install shopify-buy@3
 ```
 
-## How validate that I am using v3.0?
+## How to validate that I am using v3.0?
 
-To validate that the upgrade was successful or that your are using v3.0, open your `package.json` and make sure the `shopify-buy` dependecy is set to `3.0.0` or higher.
+To validate that the upgrade was successful or that your are using v3.0, open your `package.json` and make sure the `shopify-buy` dependency is set to `3.0.0` or higher.
 
 In addition you can check that the client is using the Cart API by monitoring the network tab on your preferred developer tools when adding a line item to the cart. If you see that the operation performed was `cartLinesAdd` rather than `checkoutCreate`, then you are using v3.0.
 
@@ -44,9 +44,9 @@ In addition you can check that the client is using the Cart API by monitoring th
 
 Prior to v3.0 the SDK [checkout interface](https://shopify.github.io/js-buy-sdk/#creating-a-checkout) used the [deprecated](https://shopify.dev/changelog/deprecation-of-checkout-apis) [Checkout API](https://shopify.dev/docs/api/storefront/2024-04/objects/Checkout) to handle both Cart and Checkout use cases. This updated `.checkout` interface is now based on the Cart API, which means that it can only handle Cart use cases supported by the current API.
 
-## Cart-based checkout object compatibility table
+## Cart-based checkout object compatibility
 
-The following table highlights the supported and _unsupported_ fields returned in the mimicked checkout object
+The following table highlights the supported and _unsupported_ fields returned in the cart-driven checkout object
 
 | field | compatibility  | notes  |
 |---|---|---|
@@ -85,7 +85,7 @@ Fields _not_ supported
 | taxExempt | ⚠️ | Not supported. Defaults to `false` |
 | taxesIncluded | ⚠️ | Not supported. Defaults to `false` |
 
-### `.checkout` methods compatibility table
+### Updated `.checkout` methods compatibility table
 
 The updated checkout interface supports all existing methods with some limitations:
 
@@ -104,8 +104,6 @@ The updated checkout interface supports all existing methods with some limitatio
 | addGiftCards | ✅ |   |
 | removeGiftCard | ✅ |   |
 | updateShippingAddress | ✅ |   |
-
-### Other considerations
 
 ---
 
