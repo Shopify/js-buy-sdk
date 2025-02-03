@@ -132,8 +132,8 @@ export function mapLineItems(lines, discountApplications) {
       quantity: line.quantity,
       title: line.merchandise.product.title,
       variant,
-      hasNextPage: line.hasNextPage,
-      hasPreviousPage: line.hasPreviousPage,
+      hasNextPage: false,
+      hasPreviousPage: false,
       variableValues: line.variableValues,
       type: getLineItemType()
     });
