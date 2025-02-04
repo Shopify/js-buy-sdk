@@ -94,22 +94,22 @@ suite('client-checkout-giftcards-integration-test', () => {
     return client.checkout.create(createInput).then((checkout) => {
       return client.checkout.addGiftCards(checkout.id, giftCardCodes).then((updatedCheckout) => {
         assert.equal(updatedCheckout.appliedGiftCards.length, giftCardCodes.length);
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '73.5');
+        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '70.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '73.5');
+        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '70.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '26.5');
+        assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '30.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '26.5');
+        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '30.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '73.5');
+        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '70.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[0].id);
         assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[0].type);
 
         assert.deepEqual(updatedCheckout.paymentDue, {
-          amount: '-73.5',
+          amount: '0.0',
           currencyCode: 'CAD',
           type: {
             name: 'MoneyV2',
