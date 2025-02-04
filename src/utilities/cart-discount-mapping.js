@@ -167,8 +167,8 @@ export function discountMapper({cartLineItems, cartDiscountAllocations, cartDisc
     cartDiscountCodes
   );
 
-  cartDiscountCodes.forEach(({code}) => {
-    if (!discountIdToDiscountApplicationMap.has(code)) {
+  cartDiscountCodes.forEach(({code, codeIsApplied}) => {
+    if (codeIsApplied && !discountIdToDiscountApplicationMap.has(code)) {
       throw new Error(
         `Discount code ${code} not found in discount application map. 
         Discount application map: ${JSON.stringify(
