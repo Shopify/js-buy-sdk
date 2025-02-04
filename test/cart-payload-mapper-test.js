@@ -11,7 +11,7 @@ import {
 } from '../fixtures/cart-payload-mapper-fixture';
 import {withType} from './cart-payload-mapper-test-utilities';
 
-suite.only('cart-payload-mapper-test', () => {
+suite('cart-payload-mapper-test', () => {
   suite('appliedGiftCards', () => {
     test('it returns applied gift cards from cart', () => {
       const cart = {
