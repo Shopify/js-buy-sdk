@@ -138,14 +138,6 @@ The updated checkout interface supports all existing methods with some limitatio
 | updateShippingAddress | ✅ |   |
 
 
-### [after July 1] I’m very upset! My customers are not able to complete their purchases. What’s going on?
-
-If your customers are not able to complete purchases, we recommend you first verify if your e-commerce experience is using the JS Buy SDK. You can verify this by checking the `package.json` as highlighted in our validation guide. If this is the case, then there are two options available:
-
-a. Switch to the [Storefront API Client](https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme), which manages the API's authentication information and provides various methods that enable devs to interact with the API. This is the preferred and more future-proof solution. 
-
-b. Upgrade to JS Buy SDK v3.0. This latest version will work for most use cases and the process is more straightforward. We created a [migration guide](https://github.com/Shopify/js-buy-sdk/tree/sd-deprecation/migration-guide) to help you upgrade.
-
 ---
 
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
