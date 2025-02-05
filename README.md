@@ -14,10 +14,6 @@
 
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 
-## Deprecation Notice
-
-The JavaScript Buy SDK `v3.0` will be the final release of this library. The main goal of this version is to extend the gracing period of SDK `.checkout` interface by replacing it with an equivalent interface based on the [Cart API](https://shopify.dev/docs/api/storefront/latest/objects/Cart) with some limitations inherit to the different scope of both APIs.
-
 ## How to upgrade to v3.0?
 
 To upgrade simply run either of the following commands
@@ -112,8 +108,7 @@ If you migrate to Storefront API Client, there is virtually no use case that can
 | ready | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field. |
 | requiresShipping | ⚠️ | Not supported. Defaults to `true` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields. |
 | shippingLine | ⚠️ | Not supported. Defaults to `null` | same as above |
-| taxExempt | ⚠️ | Not supported. Defaults to `false` | 
-The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field. |
+| taxExempt | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field. |
 | taxesIncluded | ⚠️ | Not supported. Defaults to `false` | same as above |
 
 
@@ -137,6 +132,10 @@ The updated checkout interface supports all existing methods with some limitatio
 | removeGiftCard | ✅ |   |
 | updateShippingAddress | ✅ |   |
 
+
+### Where can I find the Checkout interface documentation?
+
+The Checkout API is deprecated. To find the legacy documentation, you can visit this [page](https://github.com/Shopify/js-buy-sdk/blob/main/CHECKOUT_DOCS.md)
 
 ---
 
@@ -167,19 +166,6 @@ Each version of the JS Buy SDK uses a specific Storefront API version and the su
   - [Initializing the Client](#initializing-the-client)
   - [Fetching Products](#fetching-products)
   - [Fetching Collections](#fetching-collections)
-  - [Carts](#carts)
-    - [Creating a Cart](#creating-a-cart)
-    - [Fetching a Cart](#fetching-a-cart)
-    - [Updating Cart Attributes](#updating-cart-attributes)
-    - [Updating Buyer Identity](#updating-buyer-identity)
-    - [Updating Discount Codes](#updating-discount-codes)
-    - [Updating Gift Card Codes](#updating-gift-card-codes)
-    - [Adding Cart Line Items](#adding-cart-line-items)
-    - [Removing Cart Line Items](#removing-cart-line-items)
-    - [Updating Cart Line Items](#updating-cart-line-items)
-    - [Updating Cart Notes](#updating-cart-notes)
-    - [Updating Cart Selected Delivery Options](#updating-cart-selected-delivery-options)
-    - [Redirecting to Checkout](#redirecting-to-checkout)
   - [Checkouts](#checkouts)
     - [Creating a Checkout](#creating-a-checkout)
     - [Updating Checkout Attributes](#updating-checkout-attributes)
@@ -332,277 +318,6 @@ client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((col
   console.log(collection.products);
 });
 ```
-
-## Carts
-
-### Creating a Cart
-
-```javascript
-const input = {
-  lines: {
-    merchandiseId: 'gid://shopify/ProductVariant/13666012889144',
-    quantity: 5,
-    attributes: [{key: "MyKey", value: "MyValue"}]
-  },
-  note: 'This is a cart note!'
-];
-
-// Create a cart
-client.cart.create(input).then((cart) => {
-  // Do something with the cart
-});
-```
-
-### Fetching a Cart
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR'
-
-client.cart.fetch(cartId).then((cart) => {
-  // Do something with the cart
-});
-```
-
-### Updating Cart Attributes
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const attributes = [{key: "MyKey", value: "MyValue"}];
-
-client.cart.updateAttributes(cartId, attributes).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Updating Buyer Identity
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const buyerIdentity = {email: "hello@hi.com"};
-
-client.cart.updateBuyerIdentity(cartId, buyerIdentity).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Updating Discount Codes
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const discountCodes = [{code: "MyCode"}];
-
-client.cart.updateDiscountCodes(cartId, discountCodes).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Updating Gift Card Codes
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const giftCardCodes = ["jmfxf9wmmmhgq379"];
-
-client.cart.updateGiftCardCodes(cartId, giftCardCodes).then((cart) => {
-  // Do something with the updated cart
-});
-
-### Adding Cart Line Items
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const lines = [{merchandiseId: 'gid://shopify/Product/123456', quantity: 5}];
-
-client.cart.addLineItems(cartId, lines).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Removing Cart Line Items
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const lineIdsToRemove = ['gid://shopify/CartLineItem/123456'];
-
-client.cart.addLineItems(cartId, lineIdsToRemove).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Updating Cart Line Items
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const lines = [{id: 'gid://shopify/CartLineItem/123456', quantity: 5}];
-
-client.cart.updateLineItems(cartId, lines).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Updating Cart Notes
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const note = 'A note for the cart';
-
-client.cart.updateNote(cartId, note).then((cart) => {
-  // Do something with the updated cart
-}
-```
-
-### Updating Cart Selected Delivery Options
-
-```javascript
-const cartId = 'gid://shopify/Cart/Z2NwLXVzLWVhc3QxOjAxSE5WWTAyVjlETjFDNVowVFZEWVMwMVJR';
-const selectedDeliveryOptions = [{deliveryGroupId: 'gid://shopify/CartDeliveryGroup/269ea2856c41d63937d1ba5212c29713', deliveryOptionHandle: 'standard'}];
-
-client.cart.updateSelectedDeliveryOptions(cartId, selectedDeliveryOptions).then((cart) => {
-  // Do something with the updated cart
-});
-```
-
-### Redirecting to Checkout
-
-To complete the purchase, redirect customers to the `checkoutUrl` property attached to the cart.
-
-## Checkouts
-
-> [!WARNING]
-> Checkouts will [soon be deprecated](https://github.com/Shopify/storefront-api-feedback/discussions/225). Use [Carts](#carts) instead.
-
-### Creating a Checkout
-
-```javascript
-// Create an empty checkout
-client.checkout.create().then((checkout) => {
-  // Do something with the checkout
-  console.log(checkout);
-});
-```
-
-### Updating checkout attributes
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8';
-const input = {customAttributes: [{key: "MyKey", value: "MyValue"}]};
-
-client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-  // Do something with the updated checkout
-});
-```
-
-### Adding Line Items
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemsToAdd = [
-  {
-    variantId: 'gid://shopify/ProductVariant/29106064584',
-    quantity: 5,
-    customAttributes: [{key: "MyKey", value: "MyValue"}]
-  }
-];
-
-// Add an item to the checkout
-client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Array with one additional line item
-});
-```
-
-### Updating Line Items
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemsToUpdate = [
-  {id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef', quantity: 2}
-];
-
-// Update the line item on the checkout (change the quantity or variant)
-client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Quantity of line item 'gid://shopify/Product/7857989384' updated to 2
-});
-```
-
-### Removing Line Items
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemIdsToRemove = [
-  'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef'
-];
-
-// Remove an item from the checkout
-client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef' removed
-});
-```
-
-### Fetching a Checkout
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'
-
-client.checkout.fetch(checkoutId).then((checkout) => {
-  // Do something with the checkout
-  console.log(checkout);
-});
-```
-
-### Adding a Discount
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const discountCode = 'best-discount-ever';
-
-// Add a discount code to the checkout
-client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
-  // Do something with the updated checkout
-  console.log(checkout);
-});
-```
-
-### Removing a Discount
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-
-// Removes the applied discount from an existing checkout.
-client.checkout.removeDiscount(checkoutId).then(checkout => {
-  // Do something with the updated checkout
-  console.log(checkout);
-});
-```
-
-### Updating a Shipping Address
-
-```javascript
-const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-
-const shippingAddress = {
-   address1: 'Chestnut Street 92',
-   address2: 'Apartment 2',
-   city: 'Louisville',
-   company: null,
-   country: 'United States',
-   firstName: 'Bob',
-   lastName: 'Norman',
-   phone: '555-625-1199',
-   province: 'Kentucky',
-   zip: '40202'
- };
-
-// Update the shipping address for an existing checkout.
-client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
-  // Do something with the updated checkout
-});
-```
-
-### Completing a checkout
-
-The simplest way to complete a checkout is to use the [webUrl](https://help.shopify.com/en/api/storefront-api/reference/object/checkout) property that is returned when creating a checkout. This URL redirects the customer to Shopify's [online checkout](https://help.shopify.com/en/manual/checkout-settings) to complete the purchase.
 
 ## Expanding the SDK
 
