@@ -36,6 +36,50 @@ To validate that the upgrade was successful or that your are using v3.0, open yo
 
 In addition you can check that the client is using the Cart API by monitoring the network tab on your preferred developer tools when adding a line item to the cart. If you see that the operation performed was `cartLinesAdd` rather than `checkoutCreate`, then you are using v3.0.
 
+
+### 2.x -> 3.0 Migration guide
+
+How will I know my e-commerce experience will still work after I take action?
+
+If you migrate to Storefront API Client, there is virtually no use case that can’t be addressed with the right technical implementation. Upfront planning and following the migration guide will be critical to a smooth successful migration. If you decide to switch to the JS Buy SDK v3.0, the majority of use cases should still work successfully, but there’s no guarantee it will work with future Shopify features. Additionally, there are several fields that are no longer compatible:
+
+> [!NOTE] 
+> If you don't use any of thes fields, you only have to bump the package version and everything will work
+
+#### Fields no longer supported
+
+| field | compatibility  | notes  | solution? |
+|---|---|---|---|
+| completedAt | ⚠️ | Not supported. Defaults to `null` | The Cart API does not maintain the state of a completed Cart that became an order. |
+| order | ⚠️ | Not supported. Defaults to `null` | To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer). |
+| orderStatusUrl | ⚠️ | Not supported. Defaults to `null` | same as above |
+| ready | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field. |
+| requiresShipping | ⚠️ | Not supported. Defaults to `true` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields. |
+| shippingLine | ⚠️ | Not supported. Defaults to `null` | same as above |
+| taxExempt | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field. |
+| taxesIncluded | ⚠️ | Not supported. Defaults to `false` | same as above |
+
+
+#### Updated `.checkout` methods
+
+The updated checkout interface supports all existing methods with some limitations:
+
+| method | compatibility  | notes |
+|---|---|---|
+| fetch | ✅ |   |
+| create | ✅⚠️ | - Does not create localized checkouts when passing `presentmentCurrencyCode` <br /> - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
+| updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
+| updateEmail  | ✅ |   |
+| addLineItems | ✅ |   |
+| replaceLineItems | ✅ |   |
+| updateLineItems | ✅ |   |
+| removeLineItems | ✅ |   |
+| addDiscount | ✅ | - It does not apply an order-level fixed amount discount to an empty checkout <br />  - It does not apply an order-level percentage discount to an empty checkout |
+| removeDiscount | ✅ |   |
+| addGiftCards | ✅ |   |
+| removeGiftCard | ✅ |   |
+| updateShippingAddress | ✅ |   |
+
 ## FAQ
 
 <details>
@@ -138,47 +182,6 @@ Once you have updated your project to use v3.0, you can check your package.json 
 
 <summary>I’m debating if I should migrate to the Storefront API Client. What are the benefits?</summary>
 Migrating to the Storefront API Client is a great way to future-proof your e-commerce experience by gaining full control on how your store interacts with Shopify APIs. You will get access to [globally-deployed Carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage), offering improved performance, scalability, and a richer feature set including subscriptions, product bundles, contextual pricing, Shopify Functions, and UI extensions, and more. In addition, we have other solutions available that might better fit your needs like Hydrogen, Storefront Web Components or Online Store Editor.
-</details>
-
-<details>
-
-<summary>How will I know my e-commerce experience will still work after I take action?</summary>
-If you migrate to Storefront API Client, there is virtually no use case that can’t be addressed with the right technical implementation. Upfront planning and following the migration guide will be critical to a smooth successful migration. If you decide to switch to the JS Buy SDK v3.0, the majority of use cases should still work successfully, but there’s no guarantee it will work with future Shopify features. Additionally, there are several fields that are no longer compatible:
-
-#### Fields no longer supported
-
-| field | compatibility  | notes  | solution? |
-|---|---|---|---|
-| completedAt | ⚠️ | Not supported. Defaults to `null` | The Cart API does not maintain the state of a completed Cart that became an order. |
-| order | ⚠️ | Not supported. Defaults to `null` | To retrieve customer orders, please use either the [Customer Account API](https://shopify.dev/docs/api/customer) or the legacy [Customer API](https://shopify.dev/docs/api/storefront/2025-01/objects/customer). |
-| orderStatusUrl | ⚠️ | Not supported. Defaults to `null` | same as above |
-| ready | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field. |
-| requiresShipping | ⚠️ | Not supported. Defaults to `true` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields. |
-| shippingLine | ⚠️ | Not supported. Defaults to `null` | same as above |
-| taxExempt | ⚠️ | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field. |
-| taxesIncluded | ⚠️ | Not supported. Defaults to `false` | same as above |
-
-
-#### Updated `.checkout` methods
-
-The updated checkout interface supports all existing methods with some limitations:
-
-| method | compatibility  | notes |
-|---|---|---|
-| fetch | ✅ |   |
-| create | ✅⚠️ | - Does not create localized checkouts when passing `presentmentCurrencyCode` <br /> - Does not localize an _empty_ checkout created with `buyerIdentity.countryCode`. (Must create with lineItems) |
-| updateAttributes | ✅⚠️ | - It does not update a checkout to support `allowPartialAddresses` |
-| updateEmail  | ✅ |   |
-| addLineItems | ✅ |   |
-| replaceLineItems | ✅ |   |
-| updateLineItems | ✅ |   |
-| removeLineItems | ✅ |   |
-| addDiscount | ✅ | - It does not apply an order-level fixed amount discount to an empty checkout <br />  - It does not apply an order-level percentage discount to an empty checkout |
-| removeDiscount | ✅ |   |
-| addGiftCards | ✅ |   |
-| removeGiftCard | ✅ |   |
-| updateShippingAddress | ✅ |   |
-
 </details>
 
 <details>
