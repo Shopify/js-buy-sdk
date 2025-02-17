@@ -1,3 +1,7 @@
+> [!NOTE]
+> # Wisdom Panel Version
+> **Note: This branch is forked from the pre-released [sdk-v3](https://github.com/Shopify/js-buy-sdk/tree/sdk-v3) branch and published to our private package registry @wisdomhealth-inc/shopify-js-buy-sdk
+
 > [!CAUTION]
 > # Deprecation notice
 > **Note: The JS Buy SDK is deprecated as of January, 2025.** It will no longer be updated or maintained by Shopify past that point. A final major version will be released in January 2025 to remove the SDK's dependency on the [deprecated Checkout APIs](https://shopify.dev/changelog/deprecation-of-checkout-apis), replacing them with [Cart APIs](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart). Updating to this new version will allow the SDK to continue to function for most use cases.
@@ -215,20 +219,30 @@ Each version of the JS Buy SDK uses a specific Storefront API version and the su
 
 ## Table Of Contents
 
-- [Installation](#installation)
-- [Builds](#builds)
-- [Examples](#examples)
-  - [Initializing the Client](#initializing-the-client)
-  - [Fetching Products](#fetching-products)
-  - [Fetching Collections](#fetching-collections)
-- [Expanding the SDK](#expanding-the-sdk)
-  - [Initializing the Client](#initializing-the-client-1)
-  - [Fetching Products](#fetching-products-1)
-- [Example Apps](#example-apps)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-- [Code of Conduct](#code-of-conduct)
-- [License](#license)
+- [Shopify JavaScript Buy SDK](#shopify-javascript-buy-sdk)
+  - [How to upgrade to v3.0?](#how-to-upgrade-to-v30)
+  - [How to validate that I am using v3.0?](#how-to-validate-that-i-am-using-v30)
+    - [2.x -\> 3.0 Migration guide](#2x---30-migration-guide)
+      - [Fields no longer supported](#fields-no-longer-supported)
+      - [Updated `.checkout` methods](#updated-checkout-methods)
+  - [FAQ](#faq)
+  - [Changelog](#changelog)
+  - [SDK Version Support](#sdk-version-support)
+  - [Table Of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Builds](#builds)
+  - [Examples](#examples)
+    - [Initializing the Client](#initializing-the-client)
+    - [Fetching Products](#fetching-products)
+    - [Fetching Collections](#fetching-collections)
+  - [Expanding the SDK](#expanding-the-sdk)
+    - [Initializing the Client](#initializing-the-client-1)
+    - [Fetching Products](#fetching-products-1)
+  - [Example Apps](#example-apps)
+  - [Documentation](#documentation)
+  - [Contributing](#contributing)
+  - [Code of Conduct](#code-of-conduct)
+  - [License](#license)
 
 ## Installation
 
