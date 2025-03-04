@@ -12,7 +12,11 @@ export default function handleCartMutation(mutationRootKey, client) {
         rootModel.cart.errors = errors;
         rootModel.cart.userErrors = rootData.userErrors;
 
-        return mapCartPayload(rootModel.cart, mutationRootKey);
+        try {
+          return mapCartPayload(rootModel.cart, mutationRootKey);
+        } catch (error) {
+          return Promise.reject(new Error(JSON.stringify(error.message)));
+        }
       });
     }
 
