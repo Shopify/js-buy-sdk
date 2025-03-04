@@ -11,39 +11,13 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-    <style>
-    /* Hide the deprecation notice on the home page so we don't double up  */
-    body.home blockquote:nth-of-type(1), body.home hr:nth-of-type(1) {
-      display: none;
-    }
-    /* Tidy headings */
-    section h1 {
-      margin-left: 0;
-    }
-    #deprecation-notice {
-      background-color: #fff9e3;
-      border: 1px solid #ff9900;
-      border-radius: 5px;
-      color: #333;
-      margin: 20px;
-      padding: 10px 20px;
-      font-family: Arial;
-    }
-    </style>
 </head>
 
-<body class="class: checkoutresource">
-
-
+<body>
 
 <div id="main">
-    <div id="deprecation-notice">
-      <strong>The JS Buy SDK is deprecated as of January, 2025.</strong> For more information, please see the <a href="https://github.com/Shopify/js-buy-sdk/blob/main/README.md" target="_blank">README</a>.
-    </div>
 
-    
-      <h1 class="page-title">Class: CheckoutResource</h1>
-    
+    <h1 class="page-title">Class: CheckoutResource</h1>
 
     
 
@@ -56,7 +30,7 @@
     
         <h2><span class="attribs"><span class="type-signature"></span></span>CheckoutResource<span class="signature">()</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>The JS Buy SDK checkout resource</p></div>
+            <div class="class-description"><p>The JS Buy SDK cart resource</p></div>
         
     
 </header>
@@ -119,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line24">line 24</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -299,7 +273,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line162">line 162</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line200">line 200</a>
     </li></ul></dd>
     
 
@@ -494,7 +468,7 @@ client.checkout.addDiscount(checkoutId, discountCode).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line202">line 202</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line244">line 244</a>
     </li></ul></dd>
     
 
@@ -689,7 +663,7 @@ client.checkout.addGiftCards(checkoutId, giftCardCodes).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line141">line 141</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line177">line 177</a>
     </li></ul></dd>
     
 
@@ -1022,39 +996,6 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
         </tr>
 
     
-
-        <tr>
-            
-                <td class="name"><code>presentmentCurrencyCode</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>A presentment currency code. See the <a href="https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode">Storefront API reference</a> for valid currency code values.</p></td>
-        </tr>
-
-    
     </tbody>
 </table>
 
@@ -1087,6 +1028,8 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     
 
     
+        <dt class="important tag-deprecated">Deprecated:</dt><dd><ul class="dummy"><li>{String} [input.presentmentCurrencyCode ] A presentment currency code. See the <a href="https://help.shopify.com/en/api/storefront-api/reference/enum/currencycode">Storefront API reference</a> for valid currency code values.</li></ul></dd>
+    
 
     
 
@@ -1099,7 +1042,7 @@ client.checkout.addLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line75">line 75</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line87">line 87</a>
     </li></ul></dd>
     
 
@@ -1181,7 +1124,7 @@ client.checkout.create(input).then((checkout) => {
 
 
 <div class="description">
-    <p>Fetches a checkout by ID.</p>
+    <p>Fetches a card by ID.</p>
 </div>
 
 
@@ -1233,7 +1176,7 @@ client.checkout.create(input).then((checkout) => {
 
             
 
-            <td class="description last"><p>The id of the checkout to fetch.</p></td>
+            <td class="description last"><p>The id of the card to fetch.</p></td>
         </tr>
 
     
@@ -1274,7 +1217,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line37">line 37</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line34">line 34</a>
     </li></ul></dd>
     
 
@@ -1303,7 +1246,7 @@ client.checkout.create(input).then((checkout) => {
 
         
 <div class="param-desc">
-    <p>A promise resolving with a <code>GraphModel</code> of the checkout.</p>
+    <p>A promise resolving with a <code>GraphModel</code> of the cart.</p>
 </div>
 
 
@@ -1330,8 +1273,8 @@ client.checkout.create(input).then((checkout) => {
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>client.checkout.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((checkout) => {
-  // Do something with the checkout
+    <pre class="prettyprint"><code>client.cart.fetch('FlZj9rZXlN5MDY4ZDFiZTUyZTUwNTE2MDNhZjg=').then((cart) => {
+  // Do something with the cart
 });</code></pre>
 
 
@@ -1443,7 +1386,7 @@ client.checkout.create(input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line181">line 181</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line221">line 221</a>
     </li></ul></dd>
     
 
@@ -1637,7 +1580,7 @@ client.checkout.removeDiscount(checkoutId).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line223">line 223</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line267">line 267</a>
     </li></ul></dd>
     
 
@@ -1832,7 +1775,7 @@ client.checkout.removeGiftCard(checkoutId, appliedGiftCardId).then((checkout) =>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line244">line 244</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line290">line 290</a>
     </li></ul></dd>
     
 
@@ -2027,7 +1970,7 @@ client.checkout.removeLineItems(checkoutId, lineItemIds).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line265">line 265</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line313">line 313</a>
     </li></ul></dd>
     
 
@@ -2229,39 +2172,6 @@ client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
 
         <tr>
             
-                <td class="name"><code>allowPartialAddresses</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Boolean</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>An email connected to the checkout.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>customAttributes</code></td>
             
 
@@ -2369,7 +2279,7 @@ client.checkout.replaceLineItems(checkoutId, lineItems).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line99">line 99</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line112">line 112</a>
     </li></ul></dd>
     
 
@@ -2564,7 +2474,7 @@ client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line120">line 120</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line154">line 154</a>
     </li></ul></dd>
     
 
@@ -2759,7 +2669,7 @@ client.checkout.updateEmail(checkoutId, email).then((checkout) => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line292">line 292</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line346">line 346</a>
     </li></ul></dd>
     
 
@@ -2960,7 +2870,7 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line324">line 324</a>
+        <a href="checkout-resource.js.html">checkout-resource.js</a>, <a href="checkout-resource.js.html#line380">line 380</a>
     </li></ul></dd>
     
 
@@ -3016,7 +2926,7 @@ client.checkout.updateLineItems(checkoutId, lineItems).then(checkout => {
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const checkoutId = 'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
+    <pre class="prettyprint"><code>const checkoutId = `'Z2lkOi8vc2hvcGlmeS9DaGVja291dC9kMTZmM2EzMDM4Yjc4N=';
 const shippingAddress = {
    address1: 'Chestnut Street 92',
    address2: 'Apartment 2',
@@ -3052,13 +2962,13 @@ client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Dec 03 2024 13:47:23 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Mar 03 2025 19:39:39 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -11,40 +11,29 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-    <style>
-    /* Hide the deprecation notice on the home page so we don't double up  */
-    body.home blockquote:nth-of-type(1), body.home hr:nth-of-type(1) {
-      display: none;
-    }
-    /* Tidy headings */
-    section h1 {
-      margin-left: 0;
-    }
-    #deprecation-notice {
-      background-color: #fff9e3;
-      border: 1px solid #ff9900;
-      border-radius: 5px;
-      color: #333;
-      margin: 20px;
-      padding: 10px 20px;
-      font-family: Arial;
-    }
-    </style>
 </head>
 
-<body class="home">
-
-
+<body>
 
 <div id="main">
 
-    <div id="deprecation-notice">
-      <strong>The JS Buy SDK is deprecated as of January, 2025.</strong> For more information, please see the <a href="https://github.com/Shopify/js-buy-sdk/blob/main/README.md" target="_blank">README</a>.
-    </div>
+    <h1 class="page-title">Home</h1>
+
+    
 
 
 
-  
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
 
 
 
@@ -54,9 +43,247 @@
 
 
     <section>
-      <article>
-<h1 id="shopify-javascript-buy-sdk">Shopify JavaScript Buy SDK</h1>
-
+        <article><blockquote>
+<p>[!CAUTION]</p>
+<h1 id="deprecation-notice">Deprecation notice</h1>
+<p><strong>Note: The JS Buy SDK is deprecated as of January, 2025.</strong> It will no longer be updated or maintained by Shopify past that point. A final major version will be released in January 2025 to remove the SDK's dependency on the <a href="https://shopify.dev/changelog/deprecation-of-checkout-apis">deprecated Checkout APIs</a>, replacing them with <a href="https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart">Cart APIs</a>. Updating to this new version will allow the SDK to continue to function for most use cases.</p>
+<p>If you are using the JS Buy SDK, you have two options:</p>
+<ol>
+<li>
+<p>Recommended Option: switch to the <a href="https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme">Storefront API Client</a></p>
+<ol>
+<li>The Storefront API Client manages the API's authentication information and provides various methods that enable devs to interact with the API. This is the preferred and more future-proof solution. See this <a href="./migration-guide">migration guide</a> to help you transition.</li>
+</ol>
+</li>
+<li>
+<p>Stopgap Option: Upgrade to JS Buy SDK V3 (coming soon)</p>
+<ol>
+<li>This allows you to maintain your current setup with minimal changes for use cases that are supported by the Cart API. A migration guide with details on supported use cases will be available soon. If you choose this option, we still recommend that you switch to the Storefront API Client in the future.</li>
+</ol>
+</li>
+</ol>
+<p><strong>Critical Deadline: July 1st, 2025.</strong> You must implement one of these changes by this date, or customers will not be able to complete purchases. Please choose the option that best suits your needs and timelines.</p>
+</blockquote>
+<h1 id="shopify-javascript-buy-sdk"><a href="https://www.shopify.com">Shopify</a> JavaScript Buy SDK</h1>
+<h2 id="how-to-upgrade-to-v3.0%3F">How to upgrade to v3.0?</h2>
+<p>To upgrade simply run either of the following commands</p>
+<p>If using NPM</p>
+<pre class="prettyprint source lang-bash"><code>npm install shopify-buy@3
+</code></pre>
+<p>If using Yarn</p>
+<pre class="prettyprint source lang-bash"><code>yarn install shopify-buy@3
+</code></pre>
+<h2 id="how-to-validate-that-i-am-using-v3.0%3F">How to validate that I am using v3.0?</h2>
+<p>To validate that the upgrade was successful or that your are using v3.0, open your <code>package.json</code> and make sure the <code>shopify-buy</code> dependency is set to <code>3.0.0</code> or higher.</p>
+<p>In addition you can check that the client is using the Cart API by monitoring the network tab on your preferred developer tools when adding a line item to the cart. If you see that the operation performed was <code>cartLinesAdd</code> rather than <code>checkoutCreate</code>, then you are using v3.0.</p>
+<h3 id="2.x--%3E-3.0-migration-guide">2.x -&gt; 3.0 Migration guide</h3>
+<p>How will I know my e-commerce experience will still work after I take action?</p>
+<p>If you migrate to Storefront API Client, there is virtually no use case that can’t be addressed with the right technical implementation. Upfront planning and following the migration guide will be critical to a smooth successful migration. If you decide to switch to the JS Buy SDK v3.0, the majority of use cases should still work successfully, but there’s no guarantee it will work with future Shopify features. Additionally, there are several fields that are no longer compatible:</p>
+<blockquote>
+<p>[!NOTE]
+If you don't use any of thes fields, you only have to bump the package version and everything will work</p>
+</blockquote>
+<h4 id="fields-no-longer-supported">Fields no longer supported</h4>
+<table>
+<thead>
+<tr>
+<th>field</th>
+<th>compatibility</th>
+<th>notes</th>
+<th>solution?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>completedAt</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>null</code></td>
+<td>The Cart API does not maintain the state of a completed Cart that became an order.</td>
+</tr>
+<tr>
+<td>order</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>null</code></td>
+<td>To retrieve customer orders, please use either the <a href="https://shopify.dev/docs/api/customer">Customer Account API</a> or the legacy <a href="https://shopify.dev/docs/api/storefront/2025-01/objects/customer">Customer API</a>.</td>
+</tr>
+<tr>
+<td>orderStatusUrl</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>null</code></td>
+<td>same as above</td>
+</tr>
+<tr>
+<td>ready</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>false</code></td>
+<td>The <a href="https://shopify.dev/docs/api/storefront/2025-01/objects/cart">Cart API</a> returns only carts that are considered ready. Simply bypass or remove any existing code depending on this field.</td>
+</tr>
+<tr>
+<td>requiresShipping</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>true</code></td>
+<td>The <a href="https://shopify.dev/docs/api/storefront/2025-01/objects/cart">Cart API</a> does not contain shipping information, this is currently handled in the Checkout flow. Remove any existing code depending on these fields.</td>
+</tr>
+<tr>
+<td>shippingLine</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>null</code></td>
+<td>same as above</td>
+</tr>
+<tr>
+<td>taxExempt</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>false</code></td>
+<td>The <a href="https://shopify.dev/docs/api/storefront/2025-01/objects/cart">Cart API</a> does not have Tax aware as this is currently handled in the Checkout flow. Remove any existing code depending on this field.</td>
+</tr>
+<tr>
+<td>taxesIncluded</td>
+<td>⚠️</td>
+<td>Not supported. Defaults to <code>false</code></td>
+<td>same as above</td>
+</tr>
+</tbody>
+</table>
+<h4 id="updated-.checkout-methods">Updated <code>.checkout</code> methods</h4>
+<p>The updated checkout interface supports all existing methods with some limitations:</p>
+<table>
+<thead>
+<tr>
+<th>method</th>
+<th>compatibility</th>
+<th>notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fetch</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>create</td>
+<td>✅⚠️</td>
+<td>- Does not create localized checkouts when passing <code>presentmentCurrencyCode</code> <br /> - Does not localize an <em>empty</em> checkout created with <code>buyerIdentity.countryCode</code>. (Must create with lineItems)</td>
+</tr>
+<tr>
+<td>updateAttributes</td>
+<td>✅⚠️</td>
+<td>- It does not update a checkout to support <code>allowPartialAddresses</code></td>
+</tr>
+<tr>
+<td>updateEmail</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>addLineItems</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>replaceLineItems</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>updateLineItems</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>removeLineItems</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>addDiscount</td>
+<td>✅</td>
+<td>- It does not apply an order-level fixed amount discount to an empty checkout <br />  - It does not apply an order-level percentage discount to an empty checkout</td>
+</tr>
+<tr>
+<td>removeDiscount</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>addGiftCards</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>removeGiftCard</td>
+<td>✅</td>
+<td></td>
+</tr>
+<tr>
+<td>updateShippingAddress</td>
+<td>✅</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="faq">FAQ</h2>
+<details>
+<summary>Why is the JS Buy SDK being deprecated?</summary>
+<p>We know the important role the JS Buy SDK library played in allowing merchants to create e-commerce experiences. When it was first released in 2016, our main priority was to provide quick and easy ways to interact with our GraphQL APIs. However, over the years, a lot has changed and the SDK is no longer the optimal client to fully leverage all of Shopify capabilities.</p>
+</details>
+<details>
+<summary>What do I need to do now? </summary>
+<p>You have multiple options: a) switch to the Storefront API Client, our recommendation and more future-proof solution; see <a href="https://github.com/Shopify/js-buy-sdk/tree/sd-deprecation/migration-guide">our migration guide</a> to help you transition, <a href="https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme">docs</a>, <a href="https://www.npmjs.com/package/@shopify/storefront-api-client">NPM package</a> or b) upgrade to JS Buy SDK V3, our last and final release of the JS Buy SDK library. See <a href="https://github.com/Shopify/js-buy-sdk/blob/main/README.md##how-to-upgrade-to-v30">this upgrade guide</a> to install v3.0. c) switch to <a href="https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/getting-started">one of our other solutions</a>.</p>
+<p>Shopify has evolved since the JS Buy SDK was first released, so we encourage you to explore and determine if one of our themes for an Online Store is a better fit for your needs. This action must be completed before July 1, 2025 11:00 AM ET.</p>
+</details>
+<details>
+<summary>Something’s gone wrong and I’m not sure what it is. Is the JS Buy SDK the reason?</summary>
+<p>The only functionality that should be affected is the cart and checkout. For example, customers can’t complete purchases or the website crashes when a customer attempts to add to cart or view their cart. Other possible issues could be related to any existing workflows that rely on the <code>.order</code>, <code>.completedAt</code> or any other no longer supported Checkout specific fields. We have set these fields to their default values to mitigate any breaking changes, but we can’t guarantee all existing functionality.</p>
+</details>
+<details>
+<summary>What if I run into issues upgrading?</summary>
+<p>You may be using one of the fields that is no longer supported in JS Buy SDK v3.0. If you are not a developer, we recommend contacting the people who last worked on your store, whether that was to initially build it or help maintain it over time. If you are looking to work with an agency, check out our <a href="https://www.shopify.com/partners/directory">partner directory</a> for more information.</p>
+</details>
+<details>
+<summary>How do I find out if my store is using JS Buy SDK?</summary>
+<p>If your store is affected, you would have received an email from us. Another way to verify is to search for <code>shopify-buy</code> in your codebase or the snippets you embedded into your site. If this is not possible, then we recommend contacting a third-party partner.</p>
+</details>
+<details>
+<summary>I think I’m on an earlier version of JS Buy SDK. How do I upgrade to v3.0?</summary>
+<p>We’d recommend reviewing our <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md">changelog</a> to first upgrade your store to v2.22.0 of the JS Buy SDK, and then upgrade to v3.0 after that. In addition, we are constantly evolving our <a href="https://www.shopify.com/online">solutions</a> and we encourage you to explore them and see if one might better fit your needs.</p>
+</details>
+<details>
+<summary>What happens if I do not take any action?</summary>
+<p>If you do not take any action before <code>July 1, 2025 11:00 AM ET</code>, your store will lose the ability for customers to complete purchases and your site may become unavailable for users with existing carts.</p>
+</details>
+<details>
+<summary>I read that the Checkout API is being deprecated in April 2025, but the JS Buy SDK that uses Checkout APIs is being deprecated on July 1, 2025. Which date is it? and what if I can’t complete the upgrade by April?</summary>
+<p>All merchants using JS Buy SDK will be granted an automatic one-time extension to complete the switch to v3.0 before July 1, 2025 at 11:00 AM ET. The JS Buy SDK v3.0 update removes the dependency on Checkout APIs and replaces them with Cart APIs. This means that when you call methods on the Checkout resource, they’ll use Cart APIs instead. We did our best to keep the inputs and outputs the same, but some features from the Checkout APIs do not have a Cart API equivalent, so please test thoroughly after upgrading.</p>
+</details>
+<details>
+<summary>How long will JS Buy SDK v3.0 be supported? </summary>
+<p>JS Buy SDK v3.0 will be supported until January 1, 2026. Upgrading to JS Buy SDK v3.0 should be considered a short-term solution before implementing a long-term solution such as <a href="https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme">Storefront Client</a>, <a href="https://hydrogen.shopify.dev/">Hydrogen</a>, or <a href="https://shopify.dev/docs/storefronts/headless/additional-sdks/web-components">Storefront Web Components</a> or <a href="https://www.shopify.com/website/builder">Online Store Editor</a>.</p>
+</details>
+<details>
+<summary>Why would I upgrade to JS Buy SDK v3.0 if it’s the last and final release?</summary>
+<p>This option is the easiest and fastest way to remain functional and give you more time to consider, plan and implement a better long-term solution such as using the Storefront Client.</p>
+</details>
+<details>
+<summary>How long will it take to migrate to Storefront API Client? </summary>
+<p>This will heavily depend on your e-commerce experience and what level of technical resources you have available. If you do not have access to technical resources or are unsure where to begin, you can review the <a href="https://github.com/Shopify/js-buy-sdk/tree/sd-deprecation/migration-guide">migration guide</a>, or contact a <a href="https://www.shopify.com/partners/directory">third-party agency</a> who could provide consultation.</p>
+</details>
+<details>
+<summary>How will I know I have successfully switched to JS Buy SDK v3.0?</summary>
+<p>Once you have updated your project to use v3.0, you can check your package.json to ensure that the <code>shopify-buy</code> dependency is now at 3.0.0. In addition you can check that the client is using the Cart API  by monitoring the network tab of your preferred developer tools when adding a line item to the cart. If you see that the operation performed was <code>cartLinesAdd</code> rather than <code>checkoutCreate</code>, then you have switched to v3.0 successfully. <a href="https://github.com/Shopify/js-buy-sdk#how-validate-that-i-am-using-v30">More information</a></p>
+</details>
+<details>
+<summary>I’m debating if I should migrate to the Storefront API Client. What are the benefits?</summary>
+Migrating to the Storefront API Client is a great way to future-proof your e-commerce experience by gaining full control on how your store interacts with Shopify APIs. You will get access to [globally-deployed Carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage), offering improved performance, scalability, and a richer feature set including subscriptions, product bundles, contextual pricing, Shopify Functions, and UI extensions, and more. In addition, we have other solutions available that might better fit your needs like Hydrogen, Storefront Web Components or Online Store Editor.
+</details>
+<details>
+<summary>Where can I find the Checkout interface documentation? </summary>
+<p>The Checkout API is deprecated. To find the legacy documentation, you can visit this <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CHECKOUT_DOCS.md">page</a></p>
+</details>
+<hr>
+<p><img src="https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg" alt="Build"></p>
+<p><strong>Note</strong>: For help with migrating from v0 of JS Buy SDK to v1 check out the
+<a href="https://github.com/Shopify/js-buy-sdk/blob/main/tutorials/MIGRATION_GUIDE.md">Migration Guide</a>.</p>
 <p>The JS Buy SDK is a lightweight library that allows you to build ecommerce into
 any website. It's based on Shopify's <a href="https://help.shopify.com/api/storefront-api/getting-started">Storefront API</a>
 and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.</p>
@@ -74,16 +301,6 @@ and provides the ability to retrieve products and collections from your shop, ad
 <li><a href="#initializing-the-client">Initializing the Client</a></li>
 <li><a href="#fetching-products">Fetching Products</a></li>
 <li><a href="#fetching-collections">Fetching Collections</a></li>
-<li><a href="#creating-a-checkout">Creating a Checkout</a></li>
-<li><a href="#updating-checkout-attributes">Updating Checkout Attributes</a></li>
-<li><a href="#adding-line-items">Adding Line Items</a></li>
-<li><a href="#updating-line-items">Updating Line Items</a></li>
-<li><a href="#removing-line-items">Removing Line Items</a></li>
-<li><a href="#fetching-a-checkout">Fetching a Checkout</a></li>
-<li><a href="#adding-a-discount">Adding a Discount</a></li>
-<li><a href="#removing-a-discount">Removing a Discount</a></li>
-<li><a href="#updating-a-shipping-address">Updating a Shipping Address</a></li>
-<li><a href="#completing-a-checkout">Completing a checkout</a></li>
 </ul>
 </li>
 <li><a href="#expanding-the-sdk">Expanding the SDK</a>
@@ -100,10 +317,10 @@ and provides the ability to retrieve products and collections from your shop, ad
 </ul>
 <h2 id="installation">Installation</h2>
 <p><strong>With Yarn:</strong></p>
-<pre class="prettyprint source lang-bash"><code>$ yarn add shopify-buy
+<pre class="prettyprint source lang-bash"><code>yarn add shopify-buy
 </code></pre>
 <p><strong>With NPM:</strong></p>
-<pre class="prettyprint source lang-bash"><code>$ npm install shopify-buy
+<pre class="prettyprint source lang-bash"><code>npm install shopify-buy
 </code></pre>
 <p><strong>CDN:</strong></p>
 <p>There is a minified UMD build of the latest release available via CDN (see the <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CHANGELOG.md">Changelog</a> for details about the latest release):</p>
@@ -189,111 +406,6 @@ client.collection.fetchWithProducts(collectionId, {productsFirst: 10}).then((col
   console.log(collection.products);
 });
 </code></pre>
-<h3 id="creating-a-checkout">Creating a Checkout</h3>
-<pre class="prettyprint source lang-javascript"><code>// Create an empty checkout
-client.checkout.create().then((checkout) => {
-  // Do something with the checkout
-  console.log(checkout);
-});
-</code></pre>
-<h3 id="updating-checkout-attributes">Updating checkout attributes</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8';
-const input = {customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]};
-
-client.checkout.updateAttributes(checkoutId, input).then((checkout) => {
-  // Do something with the updated checkout
-});
-</code></pre>
-<h3 id="adding-line-items">Adding Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemsToAdd = [
-  {
-    variantId: 'gid://shopify/ProductVariant/29106064584',
-    quantity: 5,
-    customAttributes: [{key: &quot;MyKey&quot;, value: &quot;MyValue&quot;}]
-  }
-];
-
-// Add an item to the checkout
-client.checkout.addLineItems(checkoutId, lineItemsToAdd).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Array with one additional line item
-});
-</code></pre>
-<h3 id="updating-line-items">Updating Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemsToUpdate = [
-  {id: 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef', quantity: 2}
-];
-
-// Update the line item on the checkout (change the quantity or variant)
-client.checkout.updateLineItems(checkoutId, lineItemsToUpdate).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Quantity of line item 'gid://shopify/Product/7857989384' updated to 2
-});
-</code></pre>
-<h3 id="removing-line-items">Removing Line Items</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const lineItemIdsToRemove = [
-  'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef'
-];
-
-// Remove an item from the checkout
-client.checkout.removeLineItems(checkoutId, lineItemIdsToRemove).then((checkout) => {
-  // Do something with the updated checkout
-  console.log(checkout.lineItems); // Checkout with line item 'gid://shopify/CheckoutLineItem/194677729198640?checkout=e3bd71f7248c806f33725a53e33931ef' removed
-});
-</code></pre>
-<h3 id="fetching-a-checkout">Fetching a Checkout</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'
-
-client.checkout.fetch(checkoutId).then((checkout) => {
-  // Do something with the checkout
-  console.log(checkout);
-});
-</code></pre>
-<h3 id="adding-a-discount">Adding a Discount</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-const discountCode = 'best-discount-ever';
-
-// Add a discount code to the checkout
-client.checkout.addDiscount(checkoutId, discountCode).then(checkout => {
-  // Do something with the updated checkout
-  console.log(checkout);
-});
-</code></pre>
-<h3 id="removing-a-discount">Removing a Discount</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-
-// Removes the applied discount from an existing checkout.
-client.checkout.removeDiscount(checkoutId).then(checkout => {
-  // Do something with the updated checkout
-  console.log(checkout);
-});
-</code></pre>
-<h3 id="updating-a-shipping-address">Updating a Shipping Address</h3>
-<pre class="prettyprint source lang-javascript"><code>const checkoutId = 'gid://shopify/Checkout/e3bd71f7248c806f33725a53e33931ef?key=47092e448529068d1be52e5051603af8'; // ID of an existing checkout
-
-const shippingAddress = {
-   address1: 'Chestnut Street 92',
-   address2: 'Apartment 2',
-   city: 'Louisville',
-   company: null,
-   country: 'United States',
-   firstName: 'Bob',
-   lastName: 'Norman',
-   phone: '555-625-1199',
-   province: 'Kentucky',
-   zip: '40202'
- };
-
-// Update the shipping address for an existing checkout.
-client.checkout.updateShippingAddress(checkoutId, shippingAddress).then(checkout => {
-  // Do something with the updated checkout
-});
-</code></pre>
-<h3 id="completing-a-checkout">Completing a checkout</h3>
-<p>The simplest way to complete a checkout is to use the <a href="https://help.shopify.com/en/api/storefront-api/reference/object/checkout">webUrl</a> property that is returned when creating a checkout. This URL redirects the customer to Shopify's <a href="https://help.shopify.com/en/manual/checkout-settings">online checkout</a> to complete the purchase.</p>
 <h2 id="expanding-the-sdk">Expanding the SDK</h2>
 <p>Not all fields that are available on the <a href="https://help.shopify.com/en/api/custom-storefronts/storefront-api/reference">Storefront API</a> are exposed through the SDK. If you use the unoptimized version of the SDK, you can easily build your own queries. In order to do this, use the UMD Unoptimized build.</p>
 <h3 id="initializing-the-client-2">Initializing the Client</h3>
@@ -337,8 +449,7 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING
 <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a>.</p>
 <h2 id="license">License</h2>
 <p>MIT, see <a href="https://github.com/Shopify/js-buy-sdk/blob/main/LICENSE.txt">LICENSE.md</a> for details.</p>
-<img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" />
-</article>
+<img src="https://cdn.shopify.com/shopify-marketing_assets/builds/19.0.0/shopify-full-color-black.svg" width="200" /></article>
     </section>
 
 
@@ -349,13 +460,13 @@ please see <a href="https://github.com/Shopify/js-buy-sdk/blob/main/CONTRIBUTING
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="ImageHelpers.html">ImageHelpers</a></li><li><a href="ProductHelpers.html">ProductHelpers</a></li></ul><h3>Classes</h3><ul><li><a href="CheckoutResource.html">CheckoutResource</a></li><li><a href="Client.html">Client</a></li><li><a href="CollectionResource.html">CollectionResource</a></li><li><a href="Config.html">Config</a></li><li><a href="ImageResource.html">ImageResource</a></li><li><a href="ProductResource.html">ProductResource</a></li><li><a href="ShopResource.html">ShopResource</a></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-MIGRATION_GUIDE.html">MIGRATION_GUIDE</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Tue Dec 03 2024 13:47:23 GMT-0500 (Eastern Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Mar 03 2025 19:39:39 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
