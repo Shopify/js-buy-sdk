@@ -29,15 +29,15 @@ suite('client-checkout-giftcards-integration-test', () => {
         return client.checkout.addGiftCards(checkout.id, input.giftCardCodes).then((updatedCheckout) => {
           assert.equal(updatedCheckout.appliedGiftCards.length, 1);
           assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'XXX');
+          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
           assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'XXX');
+          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
           assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
           assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
           assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
           assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
           assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'XXX');
+          assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
           assert.ok(updatedCheckout.appliedGiftCards[0].id);
           assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
           assert.ok(updatedCheckout.appliedGiftCards[0].type);
@@ -57,15 +57,15 @@ suite('client-checkout-giftcards-integration-test', () => {
 
           // first gift card
         assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'XXX');
+        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
         assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'XXX');
+        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
         assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
         assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
         assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
         assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'XXX');
+        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[0].id);
         assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[0].type);
