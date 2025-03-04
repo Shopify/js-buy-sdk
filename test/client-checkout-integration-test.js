@@ -158,7 +158,7 @@ suite('client-checkout-integration-test', () => {
 
     // NOTE: if we don't pass an item, the updatedCheckout won't respect the countryCode and set the currencyCode to XXX
     // this is a known Cart limitation tracked as Sev3
-    test('it does not resolve a localized empty checkout created with buyerIdentity.countryCode', () => {
+    test("a localized empty checkout created with buyerIdentity.countryCode will default to the shop's currency", () => {
       const input = {
         buyerIdentity: {
           countryCode: 'ES'
@@ -166,7 +166,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.paymentDueV2.currencyCode, 'XXX');
+        assert.equal(checkout.paymentDueV2.currencyCode, 'CAD');
       });
     });
 
