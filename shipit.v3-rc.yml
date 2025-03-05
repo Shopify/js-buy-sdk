@@ -3,6 +3,8 @@ deploy:
     - rm -rf node_modules
     - yarn install
     - yarn run test
+    - yarn run build
+    - test -f index.js || (echo "Error: index.js missing!" && exit 1)
     - npm publish
     - ejson decrypt -o secrets.json secrets.ejson
     - node scripts/upload-to-cdn.js
