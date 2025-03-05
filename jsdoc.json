@@ -5,21 +5,15 @@
   "opts": {
     "destination": "docs",
     "recurse": true,
-    "readme": "./README.md"
+    "readme": "./README.md",
+    "tutorials": "./tutorials"
   },
   "plugins": [
     "plugins/markdown",
     "./node_modules/jsdoc-export-default-interop/dist/index"
   ],
   "source": {
-    "include": [
-      "src"
-    ]
+    "include": ["src"]
   },
-  "sourceType": "module",
-  "templates": {
-    "default": {
-      "layoutFile": "./layout.tmpl"
-    }
-  }
+  "sourceType": "module"
 }

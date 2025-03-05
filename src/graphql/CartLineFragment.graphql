@@ -1,0 +1,99 @@
+fragment CartLineFragment on CartLine {
+  id
+  merchandise {
+    ... on ProductVariant {
+      id
+      title
+      image {
+        id
+        src: url
+        altText
+        width
+        height
+      }
+      product {
+        id
+        handle
+        title
+      }
+      weight
+      available: availableForSale
+      sku
+      selectedOptions {
+        name
+        value
+      }
+      compareAtPrice {
+        amount
+        currencyCode
+      }
+      price {
+        amount
+        currencyCode
+      }
+      unitPrice {
+        amount
+        currencyCode
+      }
+      unitPriceMeasurement {
+        measuredType
+        quantityUnit
+        quantityValue
+        referenceUnit
+        referenceValue
+      }
+    }
+  }
+  quantity
+  attributes {
+    key
+    value
+  }
+  cost {
+    totalAmount {
+      amount
+      currencyCode
+    }
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    amountPerQuantity {
+      amount
+      currencyCode
+    }
+    compareAtAmountPerQuantity {
+      amount
+      currencyCode
+    }
+  }
+  discountAllocations {
+    discountedAmount {
+      amount
+      currencyCode
+    }
+    discountApplication {
+      targetType
+      allocationMethod
+      targetSelection
+      value {
+        ... on PricingPercentageValue {
+          percentage
+        }
+        ... on MoneyV2 {
+          amount
+          currencyCode
+        }
+      }
+    }
+    ... on CartCodeDiscountAllocation {
+      code
+    }
+    ... on CartAutomaticDiscountAllocation {
+      title
+    }
+    ... on CartCustomDiscountAllocation {
+      title
+    }
+  }
+}
