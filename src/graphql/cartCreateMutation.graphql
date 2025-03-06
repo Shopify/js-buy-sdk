@@ -1,0 +1,13 @@
+mutation ($input: CartInput!) {
+  cartCreate(input: $input) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
+  }
+}

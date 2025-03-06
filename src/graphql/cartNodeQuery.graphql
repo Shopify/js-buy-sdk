@@ -1,0 +1,5 @@
+query ($id: ID!) {
+  cart(id: $id) {
+    ...CartFragment
+  }
+}

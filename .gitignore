@@ -21,3 +21,6 @@ secrets.json
 
 # VSCode settings
 .vscode
+
+# API URL param
+api-url-param.js

@@ -1,0 +1,119 @@
+fragment CartFragment on Cart {
+  id
+  createdAt
+  updatedAt
+  lines(first: 10) {
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+    }
+    edges {
+      node {
+        ...CartLineFragment
+      }
+    }
+  }
+  attributes {
+    key
+    value
+  }
+  cost {
+    totalAmount {
+      amount
+      currencyCode
+    }
+    subtotalAmount {
+      amount
+      currencyCode
+    }
+    totalTaxAmount {
+      amount
+      currencyCode
+    }
+    totalDutyAmount {
+      amount
+      currencyCode
+    }
+  }
+  checkoutUrl
+  discountCodes {
+    applicable
+    code
+  }
+  discountAllocations {
+    discountedAmount {
+      amount
+      currencyCode
+    }
+    discountApplication {
+      targetType
+      allocationMethod
+      targetSelection
+      value {
+        ... on PricingPercentageValue {
+          percentage
+        }
+        ... on MoneyV2 {
+          amount
+          currencyCode
+        }
+      }
+    }
+    ... on CartCodeDiscountAllocation {
+      code
+    }
+    ... on CartAutomaticDiscountAllocation {
+      title
+    }
+    ... on CartCustomDiscountAllocation {
+      title
+    }
+  }
+  buyerIdentity {
+    countryCode
+    preferences {
+      delivery {
+        coordinates {
+          latitude
+          longitude
+          countryCode
+        }
+        deliveryMethod
+        pickupHandle
+      }
+      wallet
+    }
+    email
+    phone
+    customer {
+      email
+    }
+  }
+  delivery {
+    addresses {
+      address {
+        ... on CartDeliveryAddress {
+          address2
+          address1
+          city
+          company
+          countryCode
+          firstName
+          formatted
+          formattedArea
+          lastName
+          latitude
+          longitude
+          name
+          phone
+          provinceCode
+          zip
+        }
+      }
+    }
+  }
+  appliedGiftCards {
+    ...AppliedGiftCardFragment
+  }
+  note
+}

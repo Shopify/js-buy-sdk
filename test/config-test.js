@@ -1,7 +1,6 @@
 import assert from 'assert';
 import Config from '../src/config';
 
-
 suite('config-test', () => {
   test('it throws an error on no params', () => {
     assert.throws(() => {

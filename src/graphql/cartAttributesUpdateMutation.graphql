@@ -1,0 +1,13 @@
+mutation cartAttributesUpdate($attributes: [AttributeInput!]!, $cartId: ID!) {
+  cartAttributesUpdate(attributes: $attributes, cartId: $cartId) {
+    cart {
+      ...CartFragment
+    }
+    userErrors {
+      ...CartUserErrorFragment
+    }
+    warnings {
+      ...CartWarningFragment
+    }
+  }
+}
