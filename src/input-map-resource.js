@@ -8,7 +8,7 @@ export default class InputMapper {
     }
 
     // SDK checkout input fields we can map:
-    if (input.lineItems) {
+    if (input.lineItems && input.lineItems.length) {
       cartInput.lines = input.lineItems.map((lineItem) => {
         lineItem.merchandiseId = lineItem.variantId;
         delete lineItem.variantId;
@@ -84,26 +84,13 @@ export default class InputMapper {
     return cartBuyerIdentityInput;
   }
 
+
   addLineItems(checkoutId, lineItems) {
+    const lines = Array.isArray(lineItems) ? lineItems : [lineItems];
+
     return {
       cartId: checkoutId,
-      lines: lineItems.map((lineItem) => {
-        const line = {};
-
-        if (lineItem.customAttributes) {
-          line.attributes = lineItem.customAttributes;
-        }
-
-        if (typeof lineItem.quantity !== 'undefined') {
-          line.quantity = lineItem.quantity;
-        }
-
-        if (lineItem.variantId) {
-          line.merchandiseId = lineItem.variantId;
-        }
-
-        return line;
-      })
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
@@ -136,59 +123,29 @@ export default class InputMapper {
   }
 
   removeLineItems(checkoutId, lineItemIds) {
+    const lineIds = Array.isArray(lineItemIds) ? lineItemIds : [lineItemIds];
+
     return {
       cartId: checkoutId,
-      lineIds: lineItemIds ? lineItemIds : []
+      lineIds
     };
   }
 
   replaceLineItems(checkoutId, lineItems) {
+    const lines = Array.isArray(lineItems) ? lineItems : [lineItems];
+
     return {
       cartId: checkoutId,
-      lines: lineItems.map((lineItem) => {
-        const line = {};
-
-        if (typeof lineItem.quantity !== 'undefined') {
-          line.quantity = lineItem.quantity;
-        }
-
-        if (lineItem.variantId) {
-          line.merchandiseId = lineItem.variantId;
-        }
-
-        if (lineItem.customAttributes) {
-          line.attributes = lineItem.customAttributes;
-        }
-
-        return line;
-      })
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
   updateLineItems(checkoutId, lineItems) {
+    const lines = Array.isArray(lineItems) ? lineItems : [lineItems];
+
     return {
       cartId: checkoutId,
-      lines: lineItems.map((lineItem) => {
-        if (!lineItem.id) {
-          return null;
-        }
-
-        const line = {id: lineItem.id};
-
-        if (typeof lineItem.quantity !== 'undefined') {
-          line.quantity = lineItem.quantity;
-        }
-
-        if (lineItem.variantId) {
-          line.merchandiseId = lineItem.variantId;
-        }
-
-        if (lineItem.customAttributes) {
-          line.attributes = lineItem.customAttributes;
-        }
-
-        return line;
-      }).filter(Boolean)
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
@@ -244,4 +201,30 @@ export default class InputMapper {
       }
     };
   }
+}
+
+function mapLineItemToLine(lineItem) {
+  const line = {};
+
+  if (typeof lineItem.id !== 'undefined') {
+    line.id = lineItem.id;
+  }
+
+  if (typeof lineItem.customAttributes !== 'undefined') {
+    line.attributes = lineItem.customAttributes;
+  }
+
+  if (typeof lineItem.quantity !== 'undefined') {
+    line.quantity = lineItem.quantity;
+  }
+
+  if (typeof lineItem.variantId !== 'undefined') {
+    line.merchandiseId = lineItem.variantId;
+  }
+
+  if (Object.keys(line).length === 0) {
+    return null;
+  }
+
+  return line;
 }
