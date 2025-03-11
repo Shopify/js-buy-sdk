@@ -37,9 +37,9 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.customAttributes.length, 1);
-        assert.equal(checkout.customAttributes[0].value, 'my-value');
-        assert.equal(checkout.customAttributes[0].key, 'my-key');
+        assert.strictEqual(checkout.customAttributes.length, 1);
+        assert.strictEqual(checkout.customAttributes[0].value, 'my-value');
+        assert.strictEqual(checkout.customAttributes[0].key, 'my-key');
       });
     });
 
@@ -50,7 +50,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.email, input.email);
+        assert.strictEqual(checkout.email, input.email);
       });
     });
 
@@ -65,7 +65,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.lineItems.length, 1);
+        assert.strictEqual(checkout.lineItems.length, 1);
       });
     });
 
@@ -84,7 +84,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.lineItems.length, 2);
+        assert.strictEqual(checkout.lineItems.length, 2);
       });
     });
 
@@ -105,11 +105,11 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.shippingAddress.address1, input.shippingAddress.address1);
-        assert.equal(checkout.shippingAddress.city, input.shippingAddress.city);
-        assert.equal(checkout.shippingAddress.province, input.shippingAddress.province);
-        assert.equal(checkout.shippingAddress.country, input.shippingAddress.country);
-        assert.equal(checkout.shippingAddress.zip, input.shippingAddress.zip);
+        assert.strictEqual(checkout.shippingAddress.address1, input.shippingAddress.address1);
+        assert.strictEqual(checkout.shippingAddress.city, input.shippingAddress.city);
+        assert.strictEqual(checkout.shippingAddress.province, input.shippingAddress.province);
+        assert.strictEqual(checkout.shippingAddress.country, input.shippingAddress.country);
+        assert.strictEqual(checkout.shippingAddress.zip, input.shippingAddress.zip);
       });
     });
 
@@ -119,7 +119,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.note, input.note);
+        assert.strictEqual(checkout.note, input.note);
       });
     });
 
@@ -138,9 +138,9 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.lineItems.length, 1);
-        assert.equal(checkout.buyerIdentity.countryCode, 'US');
-        assert.equal(checkout.currencyCode, 'USD');
+        assert.strictEqual(checkout.lineItems.length, 1);
+        assert.strictEqual(checkout.buyerIdentity.countryCode, 'US');
+        assert.strictEqual(checkout.currencyCode, 'USD');
       });
     });
   });
@@ -166,7 +166,7 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        assert.equal(checkout.paymentDueV2.currencyCode, 'CAD');
+        assert.strictEqual(checkout.paymentDueV2.currencyCode, 'CAD');
       });
     });
 
@@ -175,7 +175,7 @@ suite('client-checkout-integration-test', () => {
   suite('fetch', () => {
     test('it returns a null checkout for an invalid checkoutId', () => {
       return client.checkout.fetch('gid://shopify/Cart/invalid').then((checkout) => {
-        assert.equal(checkout, null);
+        assert.strictEqual(checkout, null);
       });
     });
 
@@ -183,7 +183,7 @@ suite('client-checkout-integration-test', () => {
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.fetch(checkout.id).then((updatedCheckout) => {
           assert.ok(typeof updatedCheckout.checkoutUrl === 'undefined');
-          assert.equal(updatedCheckout.webUrl, checkout.webUrl);
+          assert.strictEqual(updatedCheckout.webUrl, checkout.webUrl);
         });
       });
     });
@@ -197,7 +197,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.note, input.note);
+          assert.strictEqual(updatedCheckout.note, input.note);
         });
       });
     });
@@ -223,8 +223,8 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.customAttributes[0].key, output.customAttributes[0].key);
-          assert.equal(updatedCheckout.customAttributes[0].value, output.customAttributes[0].value);
+          assert.strictEqual(updatedCheckout.customAttributes[0].key, output.customAttributes[0].key);
+          assert.strictEqual(updatedCheckout.customAttributes[0].value, output.customAttributes[0].value);
         });
       });
     });
@@ -260,9 +260,9 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.customAttributes[0].value, output.customAttributes[0].value);
-          assert.equal(updatedCheckout.customAttributes[1].value, output.customAttributes[1].value);
-          assert.equal(updatedCheckout.note, input.note);
+          assert.strictEqual(updatedCheckout.customAttributes[0].value, output.customAttributes[0].value);
+          assert.strictEqual(updatedCheckout.customAttributes[1].value, output.customAttributes[1].value);
+          assert.strictEqual(updatedCheckout.note, input.note);
         });
       });
     });
@@ -276,7 +276,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateAttributes(checkout.id, input).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.id, checkout.id);
+          assert.strictEqual(updatedCheckout.id, checkout.id);
         });
       });
     });
@@ -288,7 +288,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateEmail(checkout.id, email).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.email, email);
+          assert.strictEqual(updatedCheckout.email, email);
         });
       });
     });
@@ -307,7 +307,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addLineItems(checkout.id, input.lineItems).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems.length, 1);
+          assert.strictEqual(updatedCheckout.lineItems.length, 1);
         });
       });
     });
@@ -328,7 +328,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addLineItems(checkout.id, input.lineItems).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems.length, 2);
+          assert.strictEqual(updatedCheckout.lineItems.length, 2);
         });
       });
     });
@@ -347,7 +347,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create(input).then((checkout) => {
         return client.checkout.removeLineItems(checkout.id, checkout.lineItems[0].id).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems.length, 0);
+          assert.strictEqual(updatedCheckout.lineItems.length, 0);
         });
       });
     });
@@ -368,8 +368,8 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create(input).then((checkout) => {
         return client.checkout.removeLineItems(checkout.id, checkout.lineItems[0].id).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems.length, 1);
-          assert.equal(updatedCheckout.lineItems[0].variant.Id, input.lineItems[1].variantId);
+          assert.strictEqual(updatedCheckout.lineItems.length, 1);
+          assert.strictEqual(updatedCheckout.lineItems[0].variant.Id, input.lineItems[1].variantId);
         });
       });
     });
@@ -398,7 +398,7 @@ suite('client-checkout-integration-test', () => {
       return client.checkout.create(input).then((checkout) => {
         return client.checkout.replaceLineItems(checkout.id, replacement.lineItems).then((updatedCheckout) => {
 
-          assert.equal(updatedCheckout.lineItems[0].variant.id, replacement.lineItems[0].variantId);
+          assert.strictEqual(updatedCheckout.lineItems[0].variant.id, replacement.lineItems[0].variantId);
         });
       });
     }).timeout(3000);
@@ -419,7 +419,7 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create(input).then((checkout) => {
         return client.checkout.updateLineItems(checkout.id, [{id: checkout.lineItems[0].id, quantity: updatedQuantity}]).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems[0].quantity, updatedQuantity);
+          assert.strictEqual(updatedCheckout.lineItems[0].quantity, updatedQuantity);
         });
       });
     });
@@ -443,10 +443,10 @@ suite('client-checkout-integration-test', () => {
         });
 
         return client.checkout.updateLineItems(checkout.id, updateLines).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.lineItems[0].quantity, 1);
-          assert.equal(updatedCheckout.lineItems[1].quantity, 1);
-          assert.equal(updatedCheckout.lineItems[0].customAttributes[0].key, customAttributes[0].key);
-          assert.equal(updatedCheckout.lineItems[1].customAttributes[0].value, customAttributes[0].value);
+          assert.strictEqual(updatedCheckout.lineItems[0].quantity, 1);
+          assert.strictEqual(updatedCheckout.lineItems[1].quantity, 1);
+          assert.strictEqual(updatedCheckout.lineItems[0].customAttributes[0].key, customAttributes[0].key);
+          assert.strictEqual(updatedCheckout.lineItems[1].customAttributes[0].value, customAttributes[0].value);
         });
       });
     });
@@ -471,16 +471,16 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.updateShippingAddress(checkout.id, input.shippingAddress).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.shippingAddress.address1, input.shippingAddress.address1);
-          assert.equal(updatedCheckout.shippingAddress.address2, input.shippingAddress.address2);
-          assert.equal(updatedCheckout.shippingAddress.city, input.shippingAddress.city);
-          assert.equal(updatedCheckout.shippingAddress.company, input.shippingAddress.company);
-          assert.equal(updatedCheckout.shippingAddress.country, input.shippingAddress.country);
-          assert.equal(updatedCheckout.shippingAddress.firstName, input.shippingAddress.firstName);
-          assert.equal(updatedCheckout.shippingAddress.lastName, input.shippingAddress.lastName);
-          assert.equal(updatedCheckout.shippingAddress.phone, input.shippingAddress.phone);
-          assert.equal(updatedCheckout.shippingAddress.province, input.shippingAddress.province);
-          assert.equal(updatedCheckout.shippingAddress.zip, input.shippingAddress.zip);
+          assert.strictEqual(updatedCheckout.shippingAddress.address1, input.shippingAddress.address1);
+          assert.strictEqual(updatedCheckout.shippingAddress.address2, input.shippingAddress.address2);
+          assert.strictEqual(updatedCheckout.shippingAddress.city, input.shippingAddress.city);
+          assert.strictEqual(updatedCheckout.shippingAddress.company, input.shippingAddress.company);
+          assert.strictEqual(updatedCheckout.shippingAddress.country, input.shippingAddress.country);
+          assert.strictEqual(updatedCheckout.shippingAddress.firstName, input.shippingAddress.firstName);
+          assert.strictEqual(updatedCheckout.shippingAddress.lastName, input.shippingAddress.lastName);
+          assert.strictEqual(updatedCheckout.shippingAddress.phone, input.shippingAddress.phone);
+          assert.strictEqual(updatedCheckout.shippingAddress.province, input.shippingAddress.province);
+          assert.strictEqual(updatedCheckout.shippingAddress.zip, input.shippingAddress.zip);
         });
       });
     });

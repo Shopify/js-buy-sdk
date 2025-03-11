@@ -50,9 +50,9 @@ function comparableDiscountApplication(discountApp) {
 function assertActualDiscountApplicationIsExpected(actual, expected) {
   // These two fields are different between cart and checkout, so we aren't comparing them below
   // but still want to assert that they exist
-  assert.equal(actual.__typename, 'DiscountApplication');
-  assert.equal(actual.type.name, 'DiscountApplication');
-  assert.deepEqual(comparableDiscountApplication(actual), comparableDiscountApplication(expected));
+  assert.strictEqual(actual.__typename, 'DiscountApplication');
+  assert.strictEqual(actual.type.name, 'DiscountApplication');
+  assert.deepStrictEqual(comparableDiscountApplication(actual), comparableDiscountApplication(expected));
 }
 
 function assertActualDiscountAllocationIsExpected(actual, expected) {
@@ -69,7 +69,7 @@ function assertActualDiscountAllocationIsExpected(actual, expected) {
   delete cleanedExpectedWithoutApplication.discountApplication;
   delete cleanedExpectedWithoutApplication.allocatedAmount;
 
-  assert.deepEqual(cleanedActualWithoutApplication, cleanedExpectedWithoutApplication);
+  assert.deepStrictEqual(cleanedActualWithoutApplication, cleanedExpectedWithoutApplication);
 }
 
 // NOTE:
@@ -115,8 +115,8 @@ suite('client-checkout-discounts-integration-test', () => {
         }).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
             // In this case, the SF API doesn't return any user errors or throw an error
-            assert.equal(updatedCheckout.discountApplications.length, 0);
-            assert.equal(updatedCheckout.lineItems.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 0);
+            assert.strictEqual(updatedCheckout.lineItems.length, 1);
           });
         });
       });
@@ -148,8 +148,8 @@ suite('client-checkout-discounts-integration-test', () => {
           ]
         }).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, '10OFF').then((updatedCheckout) => {
-            assert.equal(updatedCheckout.discountApplications.length, 1);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
 
             const expectedRootDiscountApplications = [
               {
@@ -236,10 +236,10 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
-            assert.equal(updatedCheckout.lineItems.length, 1);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
@@ -257,7 +257,7 @@ suite('client-checkout-discounts-integration-test', () => {
           ]
         }).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
 
             const expectedRootDiscountApplications = [
               {
@@ -343,10 +343,10 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
-            assert.equal(updatedCheckout.lineItems.length, 1);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
@@ -450,10 +450,10 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
-            assert.equal(updatedCheckout.lineItems.length, 1);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
         });
@@ -504,7 +504,7 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
           });
         });
@@ -659,15 +659,15 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
 
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
             assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(updatedCheckout.lineItems.length, 2);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 2);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[1].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
           });
@@ -822,15 +822,15 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
 
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
             assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(updatedCheckout.lineItems.length, 2);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 2);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[1].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
@@ -988,15 +988,15 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
 
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
             assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(updatedCheckout.lineItems.length, 2);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 2);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[1].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
@@ -1156,15 +1156,15 @@ suite('client-checkout-discounts-integration-test', () => {
               }
             ];
 
-            assert.equal(updatedCheckout.discountApplications.length, 1);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 1);
 
             const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
             const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
 
             assertActualDiscountApplicationIsExpected(actualRootDiscountApplication, expectedRootDiscountApplication);
-            assert.equal(updatedCheckout.lineItems.length, 2);
-            assert.equal(updatedCheckout.lineItems[0].discountAllocations.length, 1);
-            assert.equal(updatedCheckout.lineItems[1].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems.length, 2);
+            assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
+            assert.strictEqual(updatedCheckout.lineItems[1].discountAllocations.length, 1);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[0].discountAllocations[0], expectedLineItemDiscountAllocations[1]);
             assertActualDiscountAllocationIsExpected(updatedCheckout.lineItems[1].discountAllocations[0], expectedLineItemDiscountAllocations[0]);
           });
@@ -1183,7 +1183,7 @@ suite('client-checkout-discounts-integration-test', () => {
 
         return client.checkout.create({}).then((checkout) => {
           return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-            assert.equal(updatedCheckout.discountApplications.length, 0);
+            assert.strictEqual(updatedCheckout.discountApplications.length, 0);
           });
         });
       });
@@ -1194,7 +1194,7 @@ suite('client-checkout-discounts-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addDiscount(checkout.id, discountCode).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.discountApplications.length, 0);
+          assert.strictEqual(updatedCheckout.discountApplications.length, 0);
         });
       });
     });
@@ -1214,9 +1214,9 @@ suite('client-checkout-discounts-integration-test', () => {
       }).then((checkout) => {
         return client.checkout.addDiscount(checkout.id, discountCode).then((checkoutWithDiscount) => {
           return client.checkout.removeDiscount(checkoutWithDiscount.id).then((checkoutWithoutDiscount) => {
-            assert.equal(checkoutWithoutDiscount.discountApplications.length, 0);
-            assert.equal(checkoutWithoutDiscount.lineItems.length, 1);
-            assert.equal(checkoutWithoutDiscount.lineItems[0].discountAllocations.length, 0);
+            assert.strictEqual(checkoutWithoutDiscount.discountApplications.length, 0);
+            assert.strictEqual(checkoutWithoutDiscount.lineItems.length, 1);
+            assert.strictEqual(checkoutWithoutDiscount.lineItems[0].discountAllocations.length, 0);
           });
         });
       });

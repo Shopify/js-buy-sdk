@@ -27,19 +27,19 @@ suite('client-checkout-giftcards-integration-test', () => {
 
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addGiftCards(checkout.id, input.giftCardCodes).then((updatedCheckout) => {
-          assert.equal(updatedCheckout.appliedGiftCards.length, 1);
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
-          assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
-          assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
-          assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
-          assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
+          assert.strictEqual(updatedCheckout.appliedGiftCards.length, 1);
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
           assert.ok(updatedCheckout.appliedGiftCards[0].id);
-          assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
+          assert.strictEqual(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
           assert.ok(updatedCheckout.appliedGiftCards[0].type);
         });
       });
@@ -53,28 +53,28 @@ suite('client-checkout-giftcards-integration-test', () => {
 
     return client.checkout.create({}).then((checkout) => {
       return client.checkout.addGiftCards(checkout.id, input.giftCardCodes).then((updatedCheckout) => {
-        assert.equal(updatedCheckout.appliedGiftCards.length, 2);
+        assert.strictEqual(updatedCheckout.appliedGiftCards.length, 2);
 
           // first gift card
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.amount, '100.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '100.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[0].id);
-        assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[0].type);
 
           // second gift card
-        assert.equal(updatedCheckout.appliedGiftCards[1].balance.amount, '50.0');
-        assert.equal(updatedCheckout.appliedGiftCards[1].balance.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].balance.amount, '50.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].balance.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[1].id);
-        assert.equal(updatedCheckout.appliedGiftCards[1].lastCharacters, 'card');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[1].type);
       });
     });
@@ -93,19 +93,19 @@ suite('client-checkout-giftcards-integration-test', () => {
 
     return client.checkout.create(createInput).then((checkout) => {
       return client.checkout.addGiftCards(checkout.id, giftCardCodes).then((updatedCheckout) => {
-        assert.equal(updatedCheckout.appliedGiftCards.length, giftCardCodes.length);
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '70.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '70.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '30.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '30.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '70.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards.length, giftCardCodes.length);
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '70.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '70.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.amount, '30.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '30.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '70.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[0].id);
-        assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[0].type);
 
         assert.deepEqual(updatedCheckout.paymentDue, {
@@ -142,28 +142,28 @@ suite('client-checkout-giftcards-integration-test', () => {
 
     return client.checkout.create(createInput).then((checkout) => {
       return client.checkout.addGiftCards(checkout.id, giftCardCodes).then((updatedCheckout) => {
-        assert.equal(updatedCheckout.appliedGiftCards.length, 2);
+        assert.strictEqual(updatedCheckout.appliedGiftCards.length, 2);
 
           // first gift card
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '100.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '100.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '100.0');
-        assert.equal(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.amount, '100.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsed.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.amount, '100.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].amountUsedV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balance.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].balanceV2.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.amount, '100.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].presentmentAmountUsed.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[0].id);
-        assert.equal(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[0].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[0].type);
 
           // second gift card
-        assert.equal(updatedCheckout.appliedGiftCards[1].balance.amount, '0.0');
-        assert.equal(updatedCheckout.appliedGiftCards[1].balance.currencyCode, 'CAD');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].balance.amount, '0.0');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].balance.currencyCode, 'CAD');
         assert.ok(updatedCheckout.appliedGiftCards[1].id);
-        assert.equal(updatedCheckout.appliedGiftCards[1].lastCharacters, 'card');
+        assert.strictEqual(updatedCheckout.appliedGiftCards[1].lastCharacters, 'card');
         assert.ok(updatedCheckout.appliedGiftCards[1].type);
       });
     });
@@ -178,7 +178,7 @@ suite('client-checkout-giftcards-integration-test', () => {
       return client.checkout.create({}).then((checkout) => {
         return client.checkout.addGiftCards(checkout.id, input.giftCardCodes).then((updatedCheckout) => {
           return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckoutTwo) => {
-            assert.equal(updatedCheckoutTwo.appliedGiftCards.length, 0);
+            assert.strictEqual(updatedCheckoutTwo.appliedGiftCards.length, 0);
           });
         });
       });
@@ -198,7 +198,7 @@ suite('client-checkout-giftcards-integration-test', () => {
       return client.checkout.create(createInput).then((checkout) => {
         return client.checkout.addGiftCards(checkout.id, giftCardCodes).then((updatedCheckout) => {
           return client.checkout.removeGiftCard(updatedCheckout.id, updatedCheckout.appliedGiftCards[0].id).then((updatedCheckoutTwo) => {
-            assert.equal(updatedCheckoutTwo.appliedGiftCards.length, 0);
+            assert.strictEqual(updatedCheckoutTwo.appliedGiftCards.length, 0);
           });
         });
       });
