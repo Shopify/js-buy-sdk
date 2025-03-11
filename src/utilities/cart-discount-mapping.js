@@ -237,7 +237,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
         // if existingDiscountApplication.value is an amount rather than a percentage discount
         if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
           existingDiscountApplication.value = {
-            amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(1),
+            amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(2),
             currencyCode: existingDiscountApplication.value.currencyCode,
             type: existingDiscountApplication.value.type
           };

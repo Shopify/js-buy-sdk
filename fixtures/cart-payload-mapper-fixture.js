@@ -27,7 +27,7 @@ export const MOCK_CART_ATTRIBUTES = [{
 ];
 export const MOCK_CART_COST = {
   checkoutChargeAmount: {
-    amount: 45,
+    amount: '45.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -40,7 +40,7 @@ export const MOCK_CART_COST = {
     }
   },
   subtotalAmount: {
-    amount: 39,
+    amount: '39.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -54,7 +54,7 @@ export const MOCK_CART_COST = {
   },
   subtotalAmountEstimated: false,
   totalAmount: {
-    amount: 317,
+    amount: '317.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -68,7 +68,7 @@ export const MOCK_CART_COST = {
   },
   totalAmountEstimated: false,
   totalDutyAmount: {
-    amount: 10,
+    amount: '10.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -82,7 +82,7 @@ export const MOCK_CART_COST = {
   },
   totalDutyAmountEstimated: false,
   totalTaxAmount: {
-    amount: 15,
+    amount: '15.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -99,7 +99,7 @@ export const MOCK_CART_COST = {
 export const MOCK_DATE = '2017-03-28T16:58:31Z';
 export const MOCK_10_CAD_GIFT_CARD = {
   amountUsed: {
-    amount: 10,
+    amount: '10.0',
     currencyCode: 'CAD',
     type: {
       name: 'MoneyV2',
@@ -112,7 +112,7 @@ export const MOCK_10_CAD_GIFT_CARD = {
     }
   },
   amountUsedV2: {
-    amount: 10,
+    amount: '10.0',
     currencyCode: 'CAD',
     type: {
       name: 'MoneyV2',
@@ -125,7 +125,7 @@ export const MOCK_10_CAD_GIFT_CARD = {
     }
   },
   balance: {
-    amount: 0,
+    amount: '0.0',
     currencyCode: 'CAD',
     type: {
       name: 'MoneyV2',
@@ -138,7 +138,7 @@ export const MOCK_10_CAD_GIFT_CARD = {
     }
   },
   balanceV2: {
-    amount: 0,
+    amount: '0.0',
     currencyCode: 'CAD',
     type: {
       name: 'MoneyV2',
@@ -153,7 +153,7 @@ export const MOCK_10_CAD_GIFT_CARD = {
   id: 'gid://shopify/AppliedGiftCard/123',
   lastCharacters: '123',
   presentmentAmountUsed: {
-    amount: 7.18,
+    amount: '7.18',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -180,7 +180,7 @@ export const MOCK_10_CAD_GIFT_CARD = {
 };
 export const MOCK_15_USD_GIFT_CARD = {
   amountUsed: {
-    amount: 15,
+    amount: '15.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -193,7 +193,7 @@ export const MOCK_15_USD_GIFT_CARD = {
     }
   },
   amountUsedV2: {
-    amount: 15,
+    amount: '15.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -206,7 +206,7 @@ export const MOCK_15_USD_GIFT_CARD = {
     }
   },
   balance: {
-    amount: 0,
+    amount: '0.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -219,7 +219,7 @@ export const MOCK_15_USD_GIFT_CARD = {
     }
   },
   balanceV2: {
-    amount: 0,
+    amount: '0.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',
@@ -234,7 +234,7 @@ export const MOCK_15_USD_GIFT_CARD = {
   id: 'gid://shopify/AppliedGiftCard/456',
   lastCharacters: '456',
   presentmentAmountUsed: {
-    amount: 15,
+    amount: '15.0',
     currencyCode: 'USD',
     type: {
       name: 'MoneyV2',

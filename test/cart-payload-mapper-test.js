@@ -350,7 +350,7 @@ suite('cart-payload-mapper-test', () => {
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.subtotalPrice, withType({
-        amount: 292,
+        amount: '292.0',
         currencyCode: 'USD'
       }, 'MoneyV2'));
     });
@@ -364,7 +364,7 @@ suite('cart-payload-mapper-test', () => {
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.subtotalPrice, withType({
-        amount: 269.82,
+        amount: '269.82',
         currencyCode: 'USD'
       }, 'MoneyV2'));
     });
@@ -378,7 +378,7 @@ suite('cart-payload-mapper-test', () => {
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.subtotalPrice, withType({
-        amount: 317,
+        amount: '317.0',
         currencyCode: 'USD'
       }, 'MoneyV2'));
     });
@@ -425,7 +425,7 @@ suite('cart-payload-mapper-test', () => {
       assert.deepStrictEqual(
         result.totalPrice,
         withType({
-          amount: 294.82,
+          amount: '294.82',
           currencyCode: 'USD'
         }, 'MoneyV2')
       );
@@ -452,7 +452,7 @@ suite('cart-payload-mapper-test', () => {
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.totalTax, withType({
-        amount: 0,
+        amount: '0.0',
         currencyCode: 'USD'
       }, 'MoneyV2'));
     });
