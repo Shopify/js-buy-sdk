@@ -219,7 +219,7 @@ function calculateTotalPrice(cart, totalAmount) {
   }
 
   return {
-    amount: (parseFloat(totalAmount.amount) - giftCardTotal).toFixed(2),
+    amount: (parseFloat(totalAmount.amount) + giftCardTotal).toFixed(2),
     currencyCode: totalAmount.currencyCode,
     type: totalAmount.type
   };

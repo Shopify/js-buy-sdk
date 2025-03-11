@@ -151,6 +151,36 @@ suite('client-checkout-discounts-integration-test', () => {
             assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 1);
 
+            // Add assertions for previously missing price fields
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice, 'lineItemsSubtotalPrice exists');
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice.amount, 'lineItemsSubtotalPrice amount exists');
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice.currencyCode, 'lineItemsSubtotalPrice currencyCode exists');
+
+            assert.ok(updatedCheckout.subtotalPrice, 'subtotalPrice exists');
+            assert.ok(updatedCheckout.subtotalPriceV2, 'subtotalPriceV2 exists');
+            assert.strictEqual(updatedCheckout.subtotalPrice.amount, updatedCheckout.subtotalPriceV2.amount, 'subtotalPrice amount matches V2');
+
+            assert.ok(updatedCheckout.totalPrice, 'totalPrice exists');
+            assert.ok(updatedCheckout.totalPriceV2, 'totalPriceV2 exists');
+            // Total price should be less than original due to discount
+            const totalPriceNum = parseFloat(updatedCheckout.totalPrice.amount);
+            const lineItemPrice = parseFloat(updatedCheckout.lineItems[0].variant.price.amount);
+
+            assert.ok(totalPriceNum < lineItemPrice, 'totalPrice reflects discount');
+
+            assert.ok(updatedCheckout.totalTax, 'totalTax exists');
+            assert.ok(updatedCheckout.totalTaxV2, 'totalTaxV2 exists');
+
+            // Verify UNSUPPORTED_FIELDS maintain expected values with discounts applied
+            assert.strictEqual(updatedCheckout.completedAt, null, 'completedAt is null');
+            assert.strictEqual(updatedCheckout.order, null, 'order is null');
+            assert.strictEqual(updatedCheckout.orderStatusUrl, null, 'orderStatusUrl is null');
+            assert.strictEqual(updatedCheckout.ready, false, 'ready is false');
+            assert.strictEqual(updatedCheckout.requiresShipping, true, 'requiresShipping is true');
+            assert.strictEqual(updatedCheckout.shippingLine, null, 'shippingLine is null');
+            assert.strictEqual(updatedCheckout.taxExempt, false, 'taxExempt is false');
+            assert.strictEqual(updatedCheckout.taxesIncluded, false, 'taxesIncluded is false');
+
             const expectedRootDiscountApplications = [
               {
                 __typename: 'DiscountCodeApplication',
@@ -506,6 +536,35 @@ suite('client-checkout-discounts-integration-test', () => {
 
             assert.strictEqual(updatedCheckout.discountApplications.length, 1);
             assertActualDiscountApplicationIsExpected(updatedCheckout.discountApplications[0], expectedRootDiscountApplications[0]);
+
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice, 'lineItemsSubtotalPrice exists');
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice.amount, 'lineItemsSubtotalPrice amount exists');
+            assert.ok(updatedCheckout.lineItemsSubtotalPrice.currencyCode, 'lineItemsSubtotalPrice currencyCode exists');
+
+            assert.ok(updatedCheckout.subtotalPrice, 'subtotalPrice exists');
+            assert.ok(updatedCheckout.subtotalPriceV2, 'subtotalPriceV2 exists');
+            assert.strictEqual(updatedCheckout.subtotalPrice.amount, updatedCheckout.subtotalPriceV2.amount, 'subtotalPrice amount matches V2');
+
+            assert.ok(updatedCheckout.totalPrice, 'totalPrice exists');
+            assert.ok(updatedCheckout.totalPriceV2, 'totalPriceV2 exists');
+            // Total price should be less than original due to discount
+            const totalPriceNum = parseFloat(updatedCheckout.totalPrice.amount);
+            const lineItemPrice = parseFloat(updatedCheckout.lineItems[0].variant.price.amount);
+
+            assert.ok(totalPriceNum < lineItemPrice, 'totalPrice reflects discount');
+
+            assert.ok(updatedCheckout.totalTax, 'totalTax exists');
+            assert.ok(updatedCheckout.totalTaxV2, 'totalTaxV2 exists');
+
+            // Verify UNSUPPORTED_FIELDS maintain expected values with discounts applied
+            assert.strictEqual(updatedCheckout.completedAt, null, 'completedAt is null');
+            assert.strictEqual(updatedCheckout.order, null, 'order is null');
+            assert.strictEqual(updatedCheckout.orderStatusUrl, null, 'orderStatusUrl is null');
+            assert.strictEqual(updatedCheckout.ready, false, 'ready is false');
+            assert.strictEqual(updatedCheckout.requiresShipping, true, 'requiresShipping is true');
+            assert.strictEqual(updatedCheckout.shippingLine, null, 'shippingLine is null');
+            assert.strictEqual(updatedCheckout.taxExempt, false, 'taxExempt is false');
+            assert.strictEqual(updatedCheckout.taxesIncluded, false, 'taxesIncluded is false');
           });
         });
       });

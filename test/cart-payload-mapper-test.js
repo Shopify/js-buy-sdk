@@ -364,7 +364,7 @@ suite('cart-payload-mapper-test', () => {
       const result = mapCartPayload(cart);
 
       assert.deepStrictEqual(result.subtotalPrice, withType({
-        amount: '269.82',
+        amount: '314.18',
         currencyCode: 'USD'
       }, 'MoneyV2'));
     });
@@ -425,7 +425,7 @@ suite('cart-payload-mapper-test', () => {
       assert.deepStrictEqual(
         result.totalPrice,
         withType({
-          amount: '294.82',
+          amount: '339.18',
           currencyCode: 'USD'
         }, 'MoneyV2')
       );

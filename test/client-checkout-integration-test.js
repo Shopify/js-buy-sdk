@@ -189,6 +189,50 @@ suite('client-checkout-integration-test', () => {
     });
   });
 
+  suite('payload fields verification', () => {
+    test('it returns all expected fields including price fields in a checkout with items', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/50850334310456',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).then((checkout) => {
+        assert.ok(checkout.lineItemsSubtotalPrice, 'lineItemsSubtotalPrice exists');
+        assert.ok(checkout.lineItemsSubtotalPrice.amount, 'lineItemsSubtotalPrice.amount exists');
+        assert.ok(checkout.lineItemsSubtotalPrice.currencyCode, 'lineItemsSubtotalPrice.currencyCode exists');
+
+        assert.ok(checkout.subtotalPrice, 'subtotalPrice exists');
+        assert.ok(checkout.subtotalPriceV2, 'subtotalPriceV2 exists');
+        assert.strictEqual(checkout.subtotalPrice.amount, checkout.subtotalPriceV2.amount, 'subtotalPrice amount matches V2');
+        assert.strictEqual(checkout.subtotalPrice.currencyCode, checkout.subtotalPriceV2.currencyCode, 'subtotalPrice currency matches V2');
+
+        assert.ok(checkout.totalPrice, 'totalPrice exists');
+        assert.ok(checkout.totalPriceV2, 'totalPriceV2 exists');
+        assert.strictEqual(checkout.totalPrice.amount, checkout.totalPriceV2.amount, 'totalPrice amount matches V2');
+        assert.strictEqual(checkout.totalPrice.currencyCode, checkout.totalPriceV2.currencyCode, 'totalPrice currency matches V2');
+
+        assert.ok(checkout.totalTax, 'totalTax exists');
+        assert.ok(checkout.totalTaxV2, 'totalTaxV2 exists');
+        assert.strictEqual(checkout.totalTax.amount, checkout.totalTaxV2.amount, 'totalTax amount matches V2');
+        assert.strictEqual(checkout.totalTax.currencyCode, checkout.totalTaxV2.currencyCode, 'totalTax currency matches V2');
+
+        // Verify the UNSUPPORTED_FIELDS have expected values
+        assert.strictEqual(checkout.completedAt, null, 'completedAt is null');
+        assert.strictEqual(checkout.order, null, 'order is null');
+        assert.strictEqual(checkout.orderStatusUrl, null, 'orderStatusUrl is null');
+        assert.strictEqual(checkout.ready, false, 'ready is false');
+        assert.strictEqual(checkout.requiresShipping, true, 'requiresShipping is true');
+        assert.strictEqual(checkout.shippingLine, null, 'shippingLine is null');
+        assert.strictEqual(checkout.taxExempt, false, 'taxExempt is false');
+        assert.strictEqual(checkout.taxesIncluded, false, 'taxesIncluded is false');
+      });
+    });
+  });
+
   suite('updateAttributes', () => {
     test('it updates a checkout note via updateAttributes', () => {
       const input = {
