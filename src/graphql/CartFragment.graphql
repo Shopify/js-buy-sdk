@@ -18,6 +18,10 @@ fragment CartFragment on Cart {
     value
   }
   cost {
+    checkoutChargeAmount {
+      amount
+      currencyCode
+    }
     totalAmount {
       amount
       currencyCode
