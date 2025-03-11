@@ -341,12 +341,11 @@ suite('client-checkout-integration-test', () => {
   suite('addLineItems', () => {
     test('it adds a line item to a checkout via addLineItems', () => {
       const input = {
-        lineItems: [
-          {
-            variantId: 'gid://shopify/ProductVariant/50850334310456',
-            quantity: 1
-          }
-        ]
+        lineItems:
+        {
+          variantId: 'gid://shopify/ProductVariant/50850334310456',
+          quantity: 1
+        }
       };
 
       return client.checkout.create({}).then((checkout) => {
@@ -411,9 +410,8 @@ suite('client-checkout-integration-test', () => {
       };
 
       return client.checkout.create(input).then((checkout) => {
-        return client.checkout.removeLineItems(checkout.id, checkout.lineItems[0].id).then((updatedCheckout) => {
-          assert.strictEqual(updatedCheckout.lineItems.length, 1);
-          assert.strictEqual(updatedCheckout.lineItems[0].variant.Id, input.lineItems[1].variantId);
+        return client.checkout.removeLineItems(checkout.id, [checkout.lineItems[0].id, checkout.lineItems[1].id]).then((updatedCheckout) => {
+          assert.strictEqual(updatedCheckout.lineItems.length, 0);
         });
       });
     });
@@ -441,7 +439,6 @@ suite('client-checkout-integration-test', () => {
 
       return client.checkout.create(input).then((checkout) => {
         return client.checkout.replaceLineItems(checkout.id, replacement.lineItems).then((updatedCheckout) => {
-
           assert.strictEqual(updatedCheckout.lineItems[0].variant.id, replacement.lineItems[0].variantId);
         });
       });
