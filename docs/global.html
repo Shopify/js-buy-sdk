@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: ImageHelpers</title>
+    <title>JSDoc: Global</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: ImageHelpers</h1>
+    <h1 class="page-title">Global</h1>
 
     
 
@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2>ImageHelpers</h2>
+        <h2></h2>
         
     
 </header>
@@ -68,11 +68,6 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="image-helpers.js.html">image-helpers.js</a>, <a href="image-helpers.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
 
     
 
@@ -109,7 +104,7 @@
     
 
     
-    <h4 class="name" id=".imageForSize"><span class="type-signature">(static) </span>imageForSize<span class="signature">(image, options)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    <h4 class="name" id="normalizeCartMoneyFieldDecimalPlaces"><span class="type-signature"></span>normalizeCartMoneyFieldDecimalPlaces<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -117,8 +112,103 @@
 
 
 <div class="description">
-    <p>Generates the image src for a resized image with maximum dimensions <code>maxWidth</code> and <code>maxHeight</code>.
-Images do not scale up.</p>
+    <p>Normalize all currency fields in the checkout payload to contain
+the same number of decimal places that would be returned by the storefront API.</p>
+<p>In the storefront API, currency amounts are returned as a string that contains
+1 decimal place (if the 2nd decimal place is 0) or else 2 decimal places.</p>
+<p>In our mapping functions, we are typically converting to strings with 2 decimal
+places. In case any clients of the JS Buy SDK are relying only a single decimal
+place being returned in some cases, we want to normalize the decimal places.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="cart-payload-mapper.js.html">cart-payload-mapper.js</a>, <a href="cart-payload-mapper.js.html#line121">line 121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="shouldReturnWithOneDecimalPlace"><span class="type-signature"></span>shouldReturnWithOneDecimalPlace<span class="signature">(currency)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Whether the SF API would return this amount with 1 decimal place
+(as opposed to 2 decimal places). See normalizeCartMoneyFieldDecimalPlaces
+for more information.</p>
 </div>
 
 
@@ -154,13 +244,13 @@ Images do not scale up.</p>
 
         <tr>
             
-                <td class="name"><code>image</code></td>
+                <td class="name"><code>currency</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Object</span>
+<span class="param-type">string</span>
 
 
             
@@ -170,102 +260,7 @@ Images do not scale up.</p>
 
             
 
-            <td class="description last"><p>The original image model to generate the image src for.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>An options object containing:</p>
-                <h6>Properties</h6>
-                
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>maxWidth</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The maximum width for the image.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>maxHeight</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Integer</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The maximum height for the image.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-            </td>
+            <td class="description last"><p>field to check</p></td>
         </tr>
 
     
@@ -306,7 +301,7 @@ Images do not scale up.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="image-helpers.js.html">image-helpers.js</a>, <a href="image-helpers.js.html#line6">line 6</a>
+        <a href="cart-payload-mapper.js.html">cart-payload-mapper.js</a>, <a href="cart-payload-mapper.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -335,7 +330,7 @@ Images do not scale up.</p>
 
         
 <div class="param-desc">
-    <p>The image src for the resized image.</p>
+    <p>whether the SF API would return this amount with 1 decimal place</p>
 </div>
 
 
@@ -346,7 +341,7 @@ Images do not scale up.</p>
     </dt>
     <dd>
         
-<span class="param-type">String</span>
+<span class="param-type">boolean</span>
 
 
     </dd>
@@ -355,11 +350,6 @@ Images do not scale up.</p>
     
 
 
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const url = client.image.helpers.imageForSize(product.variants[0].image, {maxWidth: 50, maxHeight: 50});</code></pre>
 
 
 
