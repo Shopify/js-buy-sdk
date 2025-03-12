@@ -1,6 +1,6 @@
 {
   "name": "shopify-buy",
-  "version": "2.22.0",
+  "version": "3.0.0",
   "description": "The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website. It is based on Shopify's API and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.",
   "main": "index.js",
   "jsnext:main": "index.es.js",
@@ -28,7 +28,7 @@
     "lint": "eslint --max-warnings 0 -c .eslintrc.json $(yarn run lint:reporter-args 2>&1 >/dev/null) src/ test/",
     "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
-    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/2024-04/graphql.json' --header 'X-Shopify-Storefront-Access-Token: 595005d0c565f6969eece280de85edb5' | jq '.' > schema.json",
+    "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/2025-01/graphql.json' --header 'X-Shopify-Storefront-Access-Token: 595005d0c565f6969eece280de85edb5' | jq '.' > schema.json",
     "minify-umd:optimized": "babel-minify index.umd.js > index.umd.min.js",
     "minify-umd:unoptimized": "babel-minify index.unoptimized.umd.js > index.unoptimized.umd.min.js"
   },

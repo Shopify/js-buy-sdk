@@ -4,11 +4,11 @@ The JS Buy SDK is deprecated as of January, 2025. We recommend transitioning to 
 
 ## Key differences
 
-* The JS Buy SDK includes helper methods (like `fetchByHandle`), which fetch a comprehensive list of fields. Conversely, the Storefront API Client returns only the precise data queried for.
-* Both libraries utilize Shopify’s GraphQL Storefront API. However, the JS Buy SDK presents a RESTful-like response, while the Storefront API Client returns a raw `data` object directly derived from the Storefront API itself.
-* For pagination, the JS Buy SDK provides helper methods such as `fetchNextPage` and automatically fetches all available product images and variant connections by default. The Storefront API Client requires manual pagination.
-* **The JS Buy SDK is deprecated.** The Storefront API Client enables access to globally-deployed [Carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage), offering improved performance, scalability, and a richer feature set including subscriptions, product bundles, contextual pricing, Shopify Functions, and UI extensions.
-* The `imageForSize` helper from JS Buy SDK can be substituted with [image.url transform parameters](https://shopify.dev/docs/api/storefront/2025-01/objects/Image#field-image-url) from the Storefront API Client.
+- The JS Buy SDK includes helper methods (like `fetchByHandle`), which fetch a comprehensive list of fields. Conversely, the Storefront API Client returns only the precise data queried for.
+- Both libraries utilize Shopify’s GraphQL Storefront API. However, the JS Buy SDK presents a RESTful-like response, while the Storefront API Client returns a raw `data` object directly derived from the Storefront API itself.
+- For pagination, the JS Buy SDK provides helper methods such as `fetchNextPage` and automatically fetches all available product images and variant connections by default. The Storefront API Client requires manual pagination.
+- **The JS Buy SDK is deprecated.** The Storefront API Client enables access to globally-deployed [Carts](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage), offering improved performance, scalability, and a richer feature set including subscriptions, product bundles, contextual pricing, Shopify Functions, and UI extensions.
+- The `imageForSize` helper from JS Buy SDK can be substituted with [image.url transform parameters](https://shopify.dev/docs/api/storefront/2025-01/objects/Image#field-image-url) from the Storefront API Client.
 
 ## Migrating
 
@@ -27,23 +27,23 @@ npm install @shopify/storefront-api-client
 Transition from the old initialization of the JS Buy SDK:
 
 ```js
-import Client from 'shopify-buy';
+import Client from "shopify-buy";
 
 const client = Client.buildClient({
-  domain: 'your-shop-name.myshopify.com',
-  storefrontAccessToken: 'your-storefront-access-token'
+  domain: "your-shop-name.myshopify.com",
+  storefrontAccessToken: "your-storefront-access-token",
 });
 ```
 
 To the new initialization with the Storefront API Client:
 
 ```js
-import {createStorefrontApiClient} from '@shopify/storefront-api-client';
+import { createStorefrontApiClient } from "@shopify/storefront-api-client";
 
 const client = createStorefrontApiClient({
-  storeDomain: 'your-shop-name.myshopify.com',
-  apiVersion: '2024-04',
-  publicAccessToken: 'your-storefront-public-access-token',
+  storeDomain: "your-shop-name.myshopify.com",
+  publicAccessToken: "your-storefront-public-access-token",
+  // apiVersion: '2025-01',
 });
 ```
 
@@ -65,7 +65,7 @@ client.product.fetchAll().then((products) => {
 **Storefront API Client: Fetching Products**
 
 ```js
-const operation = `
+const productsQuery = `
   query {
     products(first: 10) {
       edges {
@@ -73,13 +73,14 @@ const operation = `
           id
           handle
           title
+          # any other product object fields
         }
       }
     }
   }
 `;
 
-const {data, errors, extensions} = await client.request(operation);
+const { data, errors, extensions } = await client.request(productsQuery);
 console.log(data.products);
 ```
 
@@ -90,7 +91,7 @@ Note that with the Storefront Client, you'll be crafting GraphQL operations dire
 With the Storefront API Client, you can use the Cart API to create carts and send customers to checkout. [Learn more](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart/manage).
 
 ```js
-const operation = `mutation createCart($cartInput: CartInput) {
+const createCartMutation = `mutation createCart($cartInput: CartInput) {
   cartCreate(input: $cartInput) {
     cart {
       id
@@ -114,22 +115,23 @@ const operation = `mutation createCart($cartInput: CartInput) {
           currencyCode
         }
       }
+      # any other cart object fields
     }
   }
 }`;
 
-const {data, errors} = await client.request(operation, {
+const { data, errors } = await client.request(createCartMutation, {
   variables: {
-    "cartInput": {
-      "lines": [
+    cartInput: {
+      lines: [
         {
-          "quantity": 1,
-          "merchandiseId": "gid://shopify/ProductVariant/43162292814051"
-        }
-      ]
-    }
-  }
-})
+          quantity: 1,
+          merchandiseId: "gid://shopify/ProductVariant/43162292814051",
+        },
+      ],
+    },
+  },
+});
 
 console.log("Checkout URL: ", data.cartCreate.cart.checkoutUrl);
 ```
@@ -153,14 +155,15 @@ const productQuery = `query Products ($numProducts: Int!, $afterCursor: String){
 }`;
 
 async function paginateThroughProducts() {
-  let hasNextPage = true, afterCursor = null;
+  let hasNextPage = true,
+    afterCursor = null;
 
   while (hasNextPage) {
     const {
-      data: {products},
+      data: { products },
       errors,
     } = await client.request(productQuery, {
-      variables: {numProducts: 250, afterCursor},
+      variables: { numProducts: 250, afterCursor },
     });
 
     products.nodes.forEach((product) => {
@@ -202,7 +205,7 @@ console.log(data.productByHandle.thumbnail.url);
 You may encounter network or GraphQL errors. Be prepared to handle these gracefully:
 
 ```js
-const { data, errors } = await client.request(query)
+const { data, errors } = await client.request(query);
 
 if (errors) {
   console.error(errors.message);

@@ -12,14 +12,7 @@
     "./node_modules/jsdoc-export-default-interop/dist/index"
   ],
   "source": {
-    "include": [
-      "src"
-    ]
+    "include": ["src"]
   },
-  "sourceType": "module",
-  "templates": {
-    "default": {
-      "layoutFile": "./layout.tmpl"
-    }
-  }
+  "sourceType": "module"
 }
