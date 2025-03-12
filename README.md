@@ -125,7 +125,7 @@ If you are experiencing issues, we recommend you check if you are using any [fie
 
 <summary>What if I run into issues upgrading?</summary>
 
-You may be using one of the [fields that are no longer supported in JS Buy SDK v3.0](https://github.com/Shopify/js-buy-sdk/tree/main?tab=readme-ov-file#updated-checkout-methods). If you are not a developer, we recommend contacting the people who last worked on your store, whether that was to initially build it or help maintain it over time. If you are looking to work with an agency, check out our [partner directory](https://www.shopify.com/partners/directory) for more information.
+You may be using one of the [fields that are no longer supported in JS Buy SDK v3.0](https://github.com/Shopify/js-buy-sdk/tree/main?tab=readme-ov-file#fields-no-longer-supported). If you are not a developer, we recommend contacting the people who last worked on your store, whether that was to initially build it or help maintain it over time. If you are looking to work with an agency, check out our [partner directory](https://www.shopify.com/partners/directory) for more information.
 
 </details>
 
