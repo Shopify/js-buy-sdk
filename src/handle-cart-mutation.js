@@ -9,13 +9,15 @@ export default function handleCartMutation(mutationRootKey, client) {
     if (rootData && rootData.cart) {
       return client.fetchAllPages(rootModel.cart.lines, {pageSize: 250}).then((lines) => {
         rootModel.cart.attrs.lines = lines;
-        rootModel.cart.errors = errors;
-        rootModel.cart.userErrors = rootData.userErrors;
+        const checkoutUserErrors = checkoutUserErrorsMapper(rootData.userErrors, rootData.warnings);
 
         try {
-          return mapCartPayload(rootModel.cart, mutationRootKey);
+          return Object.assign({},
+            mapCartPayload(rootModel.cart, mutationRootKey),
+            {userErrors: checkoutUserErrors, errors: rootModel.cart.errors}
+          );
         } catch (error) {
-          return Promise.reject(new Error(JSON.stringify(error.message)));
+          return Promise.reject(error);
         }
       });
     }
@@ -24,10 +26,10 @@ export default function handleCartMutation(mutationRootKey, client) {
       return Promise.reject(new Error(JSON.stringify(errors)));
     }
 
-    if (rootData && (rootData.userErrors || rootData.warnings)) {
+    if (rootData && (rootData.userErrors.length || rootData.warnings.length)) {
       const checkoutUserErrors = checkoutUserErrorsMapper(rootData.userErrors, rootData.warnings);
 
-      return Promise.reject(new Error(JSON.stringify(checkoutUserErrors)));
+      return Promise.reject(checkoutUserErrors);
     }
 
     return Promise.reject(new Error(`The ${mutationRootKey} mutation failed due to an unknown error.`));

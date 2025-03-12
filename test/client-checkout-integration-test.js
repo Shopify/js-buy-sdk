@@ -123,6 +123,36 @@ suite('client-checkout-integration-test', () => {
       });
     });
 
+    test('it rejects the promise if there is an error with the input', () => {
+      const input = {
+        lineItems: [
+          {
+            variantId: 'gid://shopify/ProductVariant/50850334310456',
+            quantity: 99999999
+          },
+          {
+            variantId: 'gid://shopify/ProductVariant/50850336211000',
+            quantity: 1
+          }
+        ]
+      };
+
+      return client.checkout.create(input).catch((error) => {
+        assert.deepStrictEqual(error, [
+          {
+            code: 'INVALID',
+            field: [
+              'input',
+              'lines',
+              '0',
+              'quantity'
+            ],
+            message: 'The quantity for merchandise with id gid://shopify/ProductVariant/50850334310456 must be greater than zero but less than 1000000.'
+          }
+        ]);
+      });
+    });
+
     test('it resolves a localized non-empty checkout created with buyerIdentity.countryCode', () => {
       const input = {
         buyerIdentity: {
@@ -522,6 +552,42 @@ suite('client-checkout-integration-test', () => {
           assert.strictEqual(updatedCheckout.shippingAddress.phone, input.shippingAddress.phone);
           assert.strictEqual(updatedCheckout.shippingAddress.province, input.shippingAddress.province);
           assert.strictEqual(updatedCheckout.shippingAddress.zip, input.shippingAddress.zip);
+        });
+      });
+    });
+
+    test('it returns any user errors', () => {
+      const inputWithHtmlTags = {
+        shippingAddress: {
+          address1: '<html>123 Oak St</html>',
+          address2: '<script>Unit 2</script>',
+          city: '<script>Ottawa</script>',
+          company: '<script>Shopify</script>',
+          country: '<script>Canada</script>',
+          firstName: 'John',
+          lastName: 'Doe',
+          phone: '+16135551111',
+          province: 'ON',
+          zip: '123 ABC'
+        }
+      };
+
+      return client.checkout.create({}).then((checkout) => {
+
+        return client.checkout.updateShippingAddress(checkout.id, inputWithHtmlTags.shippingAddress).then((updatedCheckout) => {
+          assert.deepStrictEqual(updatedCheckout.userErrors, [
+            {
+              code: 'INVALID',
+              field: [
+                'buyerIdentity',
+                'deliveryAddressPreferences',
+                '0',
+                'deliveryAddress',
+                'country'
+              ],
+              message: 'invalid value'
+            }
+          ]);
         });
       });
     });
