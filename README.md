@@ -131,9 +131,16 @@ You may be using one of the [fields that are no longer supported in JS Buy SDK v
 
 <details>
 
+<summary>What will happen to the Buy Button and the Buy Button JS library?</summary>
+
+Buy Buttons that were created through the Shopify Admin [Buy Button channel](https://apps.shopify.com/buy-button) will work without any intervention and there is no action required. The [Buy Button JS](https://shopify.dev/docs/storefronts/headless/additional-sdks/buy-button) library will be updated to use v3.0 of JS Buy SDK and users of the library will need to upgrade their version of Buy Button JS.
+</details>
+
+<details>
+
 <summary>How do I find out if my store is using JS Buy SDK?</summary>
 
-If your store is affected, you will receive an email from us. Another way to verify is to search for `shopify-buy` in your codebase or the snippets you embedded into your site. If this is not possible, then we recommend contacting a third-party provider or search our [partner directory](https://www.shopify.com/partners/directory) for support.
+If your store is affected, you will have received an email from us. Another way to verify is to search for `shopify-buy` in your codebase or the snippets you embedded into your site. If this is not possible, then we recommend contacting a third-party provider or search our [partner directory](https://www.shopify.com/partners/directory) for support.
 
 </details>
 
