@@ -15,7 +15,9 @@
 
 # [Shopify](https://www.shopify.com) JavaScript Buy SDK
 
-## How to upgrade to v3.0?
+## 2.x -> 3.0 Migration guide
+
+### How to upgrade to v3.0?
 
 To upgrade simply run either of the following commands
 
@@ -43,15 +45,13 @@ You can also fetch the unoptimized release. This will be larger than the optimiz
 <script src="https://sdks.shopifycdn.com/js-buy-sdk/v3/latest/index.unoptimized.umd.min.js"></script>
 ```
 
-## How to validate that I am using v3.0?
+### How to validate that I am using v3.0?
 
 To validate that the upgrade was successful or that your are using v3.0, open your `package.json` and make sure the `shopify-buy` dependency is set to `3.0.0` or higher.
 
 In addition, you can check that the client is using the Cart API by monitoring the network tab on your preferred developer tools when adding an item to the cart. If you see that the operation performed was `cartCreate`, `cartLinesUpdate`, or `cartLinesAdd` rather than `checkoutCreate`, then you are using v3.0.
 
-### 2.x -> 3.0 Migration guide
-
-**How will I know my e-commerce experience will still work after I take action?**
+### How will I know my ecommerce experience will still work after I take action?
 
 If you migrate to Storefront API Client, there is virtually no use case that can’t be addressed with the right technical implementation. Upfront planning and following the migration guide will be critical to a smooth successful migration. If you decide to switch to JS Buy SDK v3.0, the majority of use cases should still work successfully, but there's no guarantee it will work with future Shopify features. Additionally, there are several fields that are no longer compatible:
 
@@ -91,7 +91,7 @@ The updated checkout interface supports all existing methods with some limitatio
 | removeGiftCard        | ✅            |                                                                                                                                                                                                    |
 | updateShippingAddress | ✅            |                                                                                                                                                                                                    |
 
-## FAQ
+### FAQ
 
 <details>
 
