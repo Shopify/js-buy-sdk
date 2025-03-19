@@ -1,0 +1,46 @@
+name: Upload release to AWS S3
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+concurrency:
+  group: changeset-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build package
+        run: npm run build
+
+      - name: Decrypt secrets
+        run: |
+          echo "EJSON decrypt key is: ${{ secrets.EJSON_SECRET }}" # > ejson_secret.txt
+          npx ejson decrypt -o secrets.json secrets.ejson
+        env:
+          EJSON_SECRET: ${{ secrets.EJSON_SECRET }} # Your secret key for decryption
+
+      # - name: Upload built assets
+      #   run: node scripts/upload-to-cdn.js
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
