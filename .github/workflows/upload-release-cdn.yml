@@ -1,4 +1,4 @@
-name: Upload release to AWS S3
+name: Upload release to CDN (AWS S3)
 
 on:
   pull_request:

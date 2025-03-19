@@ -1,4 +1,4 @@
-name: Release new NPM version when merging a PR into main
+name: Release new NPM version
 
 on:
   pull_request:
@@ -22,7 +22,7 @@ jobs:
       - name: Checkout the repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
