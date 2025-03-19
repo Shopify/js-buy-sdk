@@ -34,12 +34,15 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Check that we have changesets 
+      - name: Check for changesets
         id: check_changesets
         run: |
           if [ -z "$(ls -A .changeset)" ]; then
             echo "No changesets found. Exiting."
+            echo "::set-output name=changesets_found::false"
             exit 0
+          else
+            echo "::set-output name=changesets_found::true"
           fi
 
       - name: Build package
