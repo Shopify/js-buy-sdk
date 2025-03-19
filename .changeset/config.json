@@ -1,11 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
-  "changelog": [
-    "",
-    {
-      "repo": "shopify/js-buy-sdk"
-    }
-  ],
+  "changelog": false,
   "commit": false,
   "fixed": [],
   "linked": [],
