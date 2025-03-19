@@ -21,3 +21,5 @@ secrets.json
 
 # VSCode settings
 .vscode
+
+.DS_Store

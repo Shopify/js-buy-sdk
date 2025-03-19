@@ -1,0 +1,60 @@
+name: Release new NPM version
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+concurrency:
+  group: changeset-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  npm:
+    name: Changeset release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check for changesets
+        id: check_changesets
+        run: |
+          if [ -z "$(ls -A .changeset)" ]; then
+            echo "No changesets found. Exiting."
+            echo "::set-output name=changesets_found::false"
+            exit 0
+          else
+            echo "::set-output name=changesets_found::true"
+          fi
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to NPM
+        if: steps.check_changesets.outputs.changesets_found == 'true'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npm run changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true
