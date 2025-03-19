@@ -1,4 +1,4 @@
-name: Run Ce tests
+name: Run CI tests
 
 on:
   push:
