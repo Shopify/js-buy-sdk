@@ -39,21 +39,22 @@ jobs:
         run: |
           if [ -z "$(ls -A .changeset)" ]; then
             echo "No changesets found. Exiting."
-            echo "::set-output name=changesets_found::false"
+            echo "changesets_found=false" >> $GITHUB_ENV
             exit 0
           else
-            echo "::set-output name=changesets_found::true"
+            echo "changesets_found=true" >> $GITHUB_ENV
           fi
 
-      - name: Build package
-        run: npm run build
+      - name: Run Changeset Version
+        if: env.changesets_found == 'true'
+        run: npx changeset version
 
       - name: Publish to NPM
-        if: steps.check_changesets.outputs.changesets_found == 'true'
+        if: env.changesets_found == 'true'
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: npm run changeset publish
+          publish: npx changeset publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
