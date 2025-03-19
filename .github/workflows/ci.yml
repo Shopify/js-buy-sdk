@@ -15,9 +15,9 @@ jobs:
     - name: Setup node and yarn
       uses: actions/setup-node@v3
       with:
-        cache: yarn
-    - name: Yarn install
-      run: yarn install --frozen-lockfile
+        cache: npm
+    - name: NPM install
+      run: npm install --frozen-lockfile
       shell: bash
-    - run: yarn test
+    - run: npm test
 
