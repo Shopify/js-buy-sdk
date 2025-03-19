@@ -1,5 +1,5 @@
 /* eslint-env node */
-import {readFileSync} from 'fs';
+import { readFileSync } from 'fs';
 import graphqlCompiler from 'rollup-plugin-graphql-js-client-compiler';
 import generateBaseRollupConfig from './rollup-common.config';
 
@@ -14,13 +14,13 @@ config.plugins.unshift(
 );
 
 config.targets = [
-  {format: 'cjs', suffix: ''},
-  {format: 'amd', suffix: '.amd'},
-  {format: 'es', suffix: '.es'},
-  {format: 'umd', suffix: '.umd'}
+  { format: 'cjs', suffix: '' },
+  { format: 'amd', suffix: '.amd' },
+  { format: 'es', suffix: '.es' },
+  { format: 'umd', suffix: '.umd' }
 ].map((c) => {
   return {
-    dest: `index${c.suffix}.js`,
+    dest: `./build/index${c.suffix}.js`,
     banner: `/*
 @license
 ${readFileSync('LICENSE.txt')}

@@ -7,7 +7,7 @@ import babel from 'rollup-plugin-babel';
 import remap from 'rollup-plugin-remap';
 import baseConfig from './rollup-tests-common.config';
 
-const {livereloadPort} = require('./package.json');
+const { livereloadPort } = require('./package.json');
 
 const reloadUri = `http://localhost:${livereloadPort}/changed?files=tests.js,index.html`;
 

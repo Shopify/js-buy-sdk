@@ -2,8 +2,8 @@
   "name": "shopify-buy",
   "version": "3.0.0",
   "description": "The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website. It is based on Shopify's API and provides the ability to retrieve products and collections from your shop, add products to a cart, and checkout.",
-  "main": "index.js",
-  "jsnext:main": "index.es.js",
+  "main": "build/index.js",
+  "jsnext:main": "build/index.es.js",
   "repository": {
     "url": "git+https://github.com/Shopify/js-buy-sdk.git",
     "type": "git"
@@ -16,10 +16,11 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "npm run build:optimized && npm run build:unoptimized",
+    "build:preupload": "ejson decrypt -o secrets.json secrets.ejson",
     "build:optimized": "rollup -c && npm run minify-umd:optimized",
     "build:unoptimized": "rollup -c rollup-unoptimized.config.js && npm run minify-umd:unoptimized",
     "start": "npm run clean && npm run setup-paths && concurrently --names DEPS,LIVERELOAD,ROLLUP,HTTP,NOTIFIER 'npm run test:web-deps' 'npm run test:livereload-server' 'npm run test:watch' 'http-server -p 4200 .tmp/test' 'npm run print-start-message'",
-    "clean": "rimraf .tmp index.*",
+    "clean": "rimraf .tmp index.* build",
     "doc:build": "jsdoc -c jsdoc.json",
     "doc:serve": "http-server -p 4201 ./docs",
     "setup-paths": "mkdir -p .tmp/test",
@@ -33,8 +34,8 @@
     "lint:reporter-args": "test -n \"${CI}\" && >&2 echo -o $CIRCLE_TEST_REPORTS/junit/eslint.xml -f junit",
     "print-start-message": "wait-on file:.tmp/test/index.html file:.tmp/test/tests.js tcp:35729 tcp:4200 && echo \"\n\n⚡️⚡️⚡️  Good to go at http://localhost:4200 ⚡️⚡️⚡️\"",
     "schema:fetch": "graphql-js-schema-fetch --url 'https://graphql.myshopify.com/api/2025-01/graphql.json' --header 'X-Shopify-Storefront-Access-Token: 595005d0c565f6969eece280de85edb5' | jq '.' > schema.json",
-    "minify-umd:optimized": "babel-minify index.umd.js > index.umd.min.js",
-    "minify-umd:unoptimized": "babel-minify index.unoptimized.umd.js > index.unoptimized.umd.min.js"
+    "minify-umd:optimized": "babel-minify build/index.umd.js > build/index.umd.min.js",
+    "minify-umd:unoptimized": "babel-minify build/index.unoptimized.umd.js > build/index.unoptimized.umd.min.js"
   },
   "author": "Shopify Inc.",
   "license": "MIT",
@@ -47,6 +48,7 @@
     "babel-plugin-external-helpers": "6.22.0",
     "babel-preset-env": "1.6.0",
     "concurrently": "3.5.0",
+    "ejson": "^2.2.3",
     "eslint": "^3.3.0",
     "eslint-plugin-shopify": "14.0.0",
     "eslint-test-generator": "1.0.5",

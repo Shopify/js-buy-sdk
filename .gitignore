@@ -14,10 +14,14 @@ optimized-types.js
 # Build artifacts
 index.*
 !docs/index.html
+build
 
 # Decrypted secrets
 secrets.json
 .nvmrc
 
+.DS_Store
+
 # VSCode settings
 .vscode
+
