@@ -131,13 +131,10 @@ class Uploader {
 
       const outputVersion = s3PathForFile(VERSION, file)
       const outputLatest = s3PathForFile(`/v${major}/latest`, file)
+      const s3 = this.s3;
+      const bucket = this.secrets.bucket;
 
-      console.log({
-        major,
-        filePath,
-        outputVersion,
-        outputLatest
-      })
+      console.log({ s3, bucket, major, filePath, outputVersion, outputLatest })
 
       // uploadFile(this.s3, this.secrets.bucket, filePath, s3PathForFile(VERSION, file));
       // uploadFile(this.s3, this.secrets.bucket, filePath, s3PathForFile(`/v${major}/latest`, file));

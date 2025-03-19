@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release:
+  npm:
     name: Changeset release
     runs-on: ubuntu-latest
     permissions:
@@ -37,13 +37,13 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Publish to NPM
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          version: npm run version
-          publish: npm run changeset publish
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+      # - name: Publish to NPM
+      #   id: changesets
+      #   uses: changesets/action@v1
+      #   with:
+      #     version: npm run version
+      #     publish: npm run changeset publish
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #     NPM_CONFIG_PROVENANCE: true

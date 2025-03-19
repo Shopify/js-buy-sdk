@@ -12,12 +12,12 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
-    - name: Setup node and yarn
+    - name: Setup node and npm
       uses: actions/setup-node@v3
       with:
         cache: npm
     - name: NPM install
-      run: npm ci
+      run: npm ci --legacy-peer-deps
       shell: bash
     - run: npm test
 
