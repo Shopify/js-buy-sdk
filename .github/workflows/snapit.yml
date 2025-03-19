@@ -19,9 +19,9 @@ jobs:
       - name: Checkout current branch
         uses: actions/checkout@v4
 
-      - name: Force snapshot changeset
+      - name: Force snapshot
         run: |
-          printf -- "---\n'shopify-buy': patch\n'"
+          printf -- "---\n'shopify-buy': patch\n
 
       - name: Create snapshot version
         uses: Shopify/snapit@0c0d2dd62c9b0c94b7d03e1f54e72f18548e7752 # pin to a specific commit
