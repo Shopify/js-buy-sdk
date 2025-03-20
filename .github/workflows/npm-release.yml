@@ -45,9 +45,18 @@ jobs:
             echo "changesets_found=true" >> $GITHUB_ENV
           fi
 
-      - name: Run Changeset Version
+      - name: Update package version and remove changesets
         if: env.changesets_found == 'true'
         run: npx changeset version
+
+      - name: Commit and push changes
+        if: env.changesets_found == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add package.json .changeset
+          git commit -m "Update package version & delete changesets"
+          git push
 
       - name: Publish to NPM
         if: env.changesets_found == 'true'
