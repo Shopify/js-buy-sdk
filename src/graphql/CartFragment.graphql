@@ -163,12 +163,13 @@ fragment CartFragment on Cart {
           handle
           title
         }
-        cartLines(first: 10) {
+        cartLines(first: 250) {
           pageInfo {
             hasNextPage
             hasPreviousPage
           }
           edges {
+            cursor
             node {
               id
             }
