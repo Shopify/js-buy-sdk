@@ -4,7 +4,7 @@ export default class InputMapper {
 
     if (input.presentmentCurrencyCode) {
       // eslint-disable-next-line no-console
-      console.warn("presentmentCurrencyCode is not supported by the Cart API");
+      console.warn('presentmentCurrencyCode is not supported by the Cart API');
     }
 
     // SDK checkout input fields we can map:
@@ -22,7 +22,7 @@ export default class InputMapper {
     }
 
     if (input.email) {
-      cartInput.buyerIdentity = { email: input.email };
+      cartInput.buyerIdentity = {email: input.email};
     }
 
     if (input.shippingAddress) {
@@ -30,7 +30,7 @@ export default class InputMapper {
         cartInput.buyerIdentity = {};
       }
       cartInput.buyerIdentity.deliveryAddressPreferences = [
-        { deliveryAddress: input.shippingAddress },
+        {deliveryAddress: input.shippingAddress}
       ];
     }
 
@@ -48,7 +48,7 @@ export default class InputMapper {
 
     if (input.allowPartialAddresses) {
       // eslint-disable-next-line no-console
-      console.warn("allowPartialAddresses is not supported by the Cart API");
+      console.warn('allowPartialAddresses is not supported by the Cart API');
     }
 
     return cartInput;
@@ -57,12 +57,12 @@ export default class InputMapper {
   updateAttributes(checkoutId, input) {
     const cartAttributesUpdateInput = {
       attributes: [],
-      cartId: "",
+      cartId: ''
     };
 
     const cartNoteUpdateInput = {
-      cartId: "",
-      note: "",
+      cartId: '',
+      note: ''
     };
 
     if (checkoutId) {
@@ -80,17 +80,17 @@ export default class InputMapper {
 
     if (input.allowPartialAddresses) {
       // eslint-disable-next-line no-console
-      console.warn("allowPartialAddresses is not supported by the Cart API");
+      console.warn('allowPartialAddresses is not supported by the Cart API');
     }
 
     // With cart, we will need to execute two separate mutations (one for attributes and one for note)
-    return { cartAttributesUpdateInput, cartNoteUpdateInput };
+    return {cartAttributesUpdateInput, cartNoteUpdateInput};
   }
 
   updateEmail(checkoutId, email) {
     const cartBuyerIdentityInput = {
-      buyerIdentity: { email },
-      cartId: checkoutId,
+      buyerIdentity: {email},
+      cartId: checkoutId
     };
 
     return cartBuyerIdentityInput;
@@ -101,35 +101,35 @@ export default class InputMapper {
 
     return {
       cartId: checkoutId,
-      lines: lines.map(mapLineItemToLine).filter(Boolean),
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
   addDiscount(checkoutId, discountCodes) {
     return {
       cartId: checkoutId,
-      discountCodes: Array.isArray(discountCodes) ? discountCodes.flat() : [],
+      discountCodes: Array.isArray(discountCodes) ? discountCodes.flat() : []
     };
   }
 
   removeDiscount(checkoutId) {
     return {
       cartId: checkoutId,
-      discountCodes: [],
+      discountCodes: []
     };
   }
 
   addGiftCards(checkoutId, giftCardCodes) {
     return {
       cartId: checkoutId,
-      giftCardCodes: giftCardCodes || [],
+      giftCardCodes: giftCardCodes || []
     };
   }
 
   removeGiftCard(checkoutId, appliedGiftCardId) {
     return {
       cartId: checkoutId,
-      appliedGiftCardIds: appliedGiftCardId ? [appliedGiftCardId] : [],
+      appliedGiftCardIds: appliedGiftCardId ? [appliedGiftCardId] : []
     };
   }
 
@@ -138,7 +138,7 @@ export default class InputMapper {
 
     return {
       cartId: checkoutId,
-      lineIds,
+      lineIds
     };
   }
 
@@ -147,7 +147,7 @@ export default class InputMapper {
 
     return {
       cartId: checkoutId,
-      lines: lines.map(mapLineItemToLine).filter(Boolean),
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
@@ -156,7 +156,7 @@ export default class InputMapper {
 
     return {
       cartId: checkoutId,
-      lines: lines.map(mapLineItemToLine).filter(Boolean),
+      lines: lines.map(mapLineItemToLine).filter(Boolean)
     };
   }
 
@@ -210,9 +210,9 @@ export default class InputMapper {
       cartId: checkoutId,
       buyerIdentity: {
         deliveryAddressPreferences: withDeliveryAddress
-          ? [{ deliveryAddress }]
-          : [],
-      },
+          ? [{deliveryAddress}]
+          : []
+      }
     };
   }
 }
@@ -220,19 +220,19 @@ export default class InputMapper {
 function mapLineItemToLine(lineItem) {
   const line = {};
 
-  if (typeof lineItem.id !== "undefined") {
+  if (typeof lineItem.id !== 'undefined') {
     line.id = lineItem.id;
   }
 
-  if (typeof lineItem.customAttributes !== "undefined") {
+  if (typeof lineItem.customAttributes !== 'undefined') {
     line.attributes = lineItem.customAttributes;
   }
 
-  if (typeof lineItem.quantity !== "undefined") {
+  if (typeof lineItem.quantity !== 'undefined') {
     line.quantity = lineItem.quantity;
   }
 
-  if (typeof lineItem.variantId !== "undefined") {
+  if (typeof lineItem.variantId !== 'undefined') {
     line.merchandiseId = lineItem.variantId;
   }
 
