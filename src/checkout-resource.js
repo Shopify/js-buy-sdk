@@ -206,7 +206,7 @@ class CheckoutResource extends Resource {
         (discountApplication) => discountApplication.code
       );
 
-      const existtingLineCodes = checkout.lineItems.map((lineItem) => {
+      const existingLineCodes = checkout.lineItems.map((lineItem) => {
         return lineItem.discountAllocations.map(
           ({discountApplication}) => discountApplication.code
         );
@@ -214,7 +214,7 @@ class CheckoutResource extends Resource {
 
       // get unique applied codes
       const existingCodes = Array.from(
-        new Set([...existingRootCodes, ...existtingLineCodes.flat()])
+        new Set([...existingRootCodes, ...existingLineCodes.flat()])
       );
 
       const variables = this.inputMapper.addDiscount(
