@@ -22,7 +22,7 @@ export default class InputMapper {
     }
 
     if (input.email) {
-      cartInput.buyerIdentity = {email: input.email};
+      cartInput.buyerIdentity = { email: input.email };
     }
 
     if (input.shippingAddress) {
@@ -30,7 +30,7 @@ export default class InputMapper {
         cartInput.buyerIdentity = {};
       }
       cartInput.buyerIdentity.deliveryAddressPreferences = [
-        {deliveryAddress: input.shippingAddress}
+        { deliveryAddress: input.shippingAddress }
       ];
     }
 
@@ -84,12 +84,12 @@ export default class InputMapper {
     }
 
     // With cart, we will need to execute two separate mutations (one for attributes and one for note)
-    return {cartAttributesUpdateInput, cartNoteUpdateInput};
+    return { cartAttributesUpdateInput, cartNoteUpdateInput };
   }
 
   updateEmail(checkoutId, email) {
     const cartBuyerIdentityInput = {
-      buyerIdentity: {email},
+      buyerIdentity: { email },
       cartId: checkoutId
     };
 
@@ -204,13 +204,13 @@ export default class InputMapper {
     }
 
     const withDeliveryAddress =
-      deliveryAddress && Object.keys(deliveryAddress).length > 0;
+      deliveryAddress && (Object.keys(deliveryAddress).length > 0);
 
     return {
       cartId: checkoutId,
       buyerIdentity: {
         deliveryAddressPreferences: withDeliveryAddress
-          ? [{deliveryAddress}]
+          ? [{ deliveryAddress }]
           : []
       }
     };
