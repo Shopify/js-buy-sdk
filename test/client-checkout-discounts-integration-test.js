@@ -1545,170 +1545,223 @@ suite('client-checkout-discounts-integration-test', () => {
           });
       });
 
-      // FREESHIPPINGALLCOUNTRIES
-      test.only('adds a free shipping discount to a checkout with multiple line items via addDiscount', () => {
-        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+      test(
+        'adds a free shipping discount to a checkout when shippingAddress is set via addDiscount',
+        () => {
+          const discountCode = 'FREESHIPPINGALLCOUNTRIES';
 
-        return client.checkout
-          .create({
-            lineItems: [
-              {
-                variantId: 'gid://shopify/ProductVariant/50850334310456',
-                quantity: 1
-              },
-              {
-                variantId: 'gid://shopify/ProductVariant/50850336211000',
-                quantity: 1
-              }
-            ]
-          })
-          .then((checkout) => {
-            return client.checkout
-              .addDiscount(checkout.id, discountCode)
-              .then((updatedCheckout) => {
-                const expectedRootDiscountApplications = [
-                  {
-                    __typename: 'DiscountCodeApplication',
-                    targetSelection: 'ALL',
-                    allocationMethod: 'EACH',
-                    targetType: 'SHIPPING_LINE',
-                    value: {
-                      percentage: 100,
-                      type: {
-                        name: 'PricingValue',
-                        kind: 'UNION'
-                      }
-                    },
-                    code: 'FREESHIPPINGALLCOUNTRIES',
-                    applicable: true,
-                    type: {
-                      name: 'DiscountCodeApplication',
-                      kind: 'OBJECT',
-                      fieldBaseTypes: {
-                        applicable: 'Boolean',
-                        code: 'String'
-                      },
-                      implementsNode: false
-                    },
-                    hasNextPage: false,
-                    hasPreviousPage: false,
-                    variableValues: {
-                      checkoutId:
-                        'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
-                      discountCode: 'FREESHIPPINGALLCOUNTRIES'
-                    }
-                  }
-                ];
-
-                assert.strictEqual(
-                  updatedCheckout.discountApplications.length,
-                  1
-                );
-
-                const expectedRootDiscountApplication =
-                  expectedRootDiscountApplications[0];
-                const actualRootDiscountApplication =
-                  updatedCheckout.discountApplications[0];
-
-                assertActualDiscountApplicationIsExpected(
-                  actualRootDiscountApplication,
-                  expectedRootDiscountApplication
-                );
-                assert.strictEqual(updatedCheckout.lineItems.length, 2);
-                assert.strictEqual(
-                  updatedCheckout.lineItems[0].discountAllocations.length,
-                  0
-                );
-                assert.strictEqual(
-                  updatedCheckout.lineItems[1].discountAllocations.length,
-                  0
-                );
-              });
-          });
-      });
-    });
-  });
-
-  suite('addDiscount / not supported', () => {
-    suite('empty checkout', () => {
-      // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
-      // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDERFIXED50OFF" } ]
-      // Therefore we decided to just return an empty array for discountApplications
-      test('it adds an order-level fixed amount discount to an empty checkout via addDiscount', () => {
-        const discountCode = 'ORDERFIXED50OFF';
-
-        return client.checkout.create({}).then((checkout) => {
           return client.checkout
-            .addDiscount(checkout.id, discountCode)
-            .then((updatedCheckout) => {
-              assert.strictEqual(
-                updatedCheckout.discountApplications.length,
-                0
-              );
+            .create({
+              lineItems: [
+                {
+                  variantId: 'gid://shopify/ProductVariant/50850334310456',
+                  quantity: 1
+                }
+              ],
+              shippingAddress: {
+                country: 'United States',
+                province: 'New York'
+              }
+            })
+            .then((checkout) => {
+              return client.checkout
+                .addDiscount(checkout.id, discountCode)
+                .then((updatedCheckout) => {
+                  const expectedRootDiscountApplications = [
+                    {
+                      __typename: 'DiscountCodeApplication',
+                      targetSelection: 'ALL',
+                      allocationMethod: 'EACH',
+                      targetType: 'SHIPPING_LINE',
+                      value: {
+                        percentage: 100,
+                        type: {
+                          name: 'PricingValue',
+                          kind: 'UNION'
+                        }
+                      },
+                      code: discountCode,
+                      applicable: true,
+                      type: {
+                        name: 'DiscountCodeApplication',
+                        kind: 'OBJECT',
+                        fieldBaseTypes: {
+                          applicable: 'Boolean',
+                          code: 'String'
+                        },
+                        implementsNode: false
+                      },
+                      hasNextPage: false,
+                      hasPreviousPage: false,
+                      variableValues: {
+                        checkoutId:
+                          'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+                        discountCode
+                      }
+                    }
+                  ];
+
+                  assert.strictEqual(
+                    updatedCheckout.discountApplications.length,
+                    1
+                  );
+
+                  const expectedRootDiscountApplication =
+                    expectedRootDiscountApplications[0];
+                  const actualRootDiscountApplication =
+                    updatedCheckout.discountApplications[0];
+
+                  assertActualDiscountApplicationIsExpected(
+                    actualRootDiscountApplication,
+                    expectedRootDiscountApplication
+                  );
+                });
             });
-        });
-      });
-    });
+        }
+      )
+        .timeout(3000);
 
-    test('it adds an order-level percentage discount to an empty checkout via addDiscount', () => {
-      const discountCode = 'ORDER50PERCENTOFF';
+      test('it adds multiple discounts in one addDiscount transaction', () => {
+        const discountCodes = ['10OFF', 'FREESHIPPINGALLCOUNTRIES'];
 
-      return client.checkout.create({}).then((checkout) => {
-        return client.checkout
-          .addDiscount(checkout.id, discountCode)
-          .then((updatedCheckout) => {
-            assert.strictEqual(updatedCheckout.discountApplications.length, 0);
-          });
-      });
-    });
-  });
-
-  suite('removeDiscount', () => {
-    test('it removes a discount from a checkout via removeDiscount', () => {
-      const discountCode = '10OFF';
-
-      return client.checkout
-        .create({
+        return client.checkout.create({
           lineItems: [
             {
               variantId: 'gid://shopify/ProductVariant/50850334310456',
               quantity: 1
             }
-          ]
-        })
-        .then((checkout) => {
-          return client.checkout
-            .addDiscount(checkout.id, discountCode)
-            .then((checkoutWithDiscount) => {
+
+          ],
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCodes).then((updatedCheckout) => {
+            assert.strictEqual(
+              updatedCheckout.discountApplications.length,
+              2
+            );
+          });
+        });
+      });
+
+
+      test('Adds multiple discounts in multiple transaction', () => {
+        const discountCodeOne = '10OFF';
+        const discountCodeTwo = 'FREESHIPPINGALLCOUNTRIES';
+
+        return client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 1
+            }
+
+          ],
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        }).then((checkout) => {
+          return client.checkout.addDiscount(checkout.id, discountCodeOne).then((updatedCheckout) => {
+            assert.strictEqual(
+              updatedCheckout.discountApplications.length,
+              1
+            );
+
+            return client.checkout.addDiscount(checkout.id, discountCodeTwo).then((updatedCheckoutTwo) => {
+              assert.strictEqual(
+                updatedCheckoutTwo.discountApplications.length,
+                2
+              );
+            });
+          });
+        });
+      }).timeout(3000);
+
+      suite('addDiscount / not supported', () => {
+        suite('empty checkout', () => {
+          // NOTE: We can't map this because updatedCheckout does not create a discountAllocation for the order-level discount on empty carts
+          // all we have to work with is discountCodes: [ { "applicable": false, "code": "ORDERFIXED50OFF" } ]
+          // Therefore we decided to just return an empty array for discountApplications
+          test('it adds an order-level fixed amount discount to an empty checkout via addDiscount', () => {
+            const discountCode = 'ORDERFIXED50OFF';
+
+            return client.checkout.create({}).then((checkout) => {
               return client.checkout
-                .removeDiscount(checkoutWithDiscount.id)
-                .then((checkoutWithoutDiscount) => {
+                .addDiscount(checkout.id, discountCode)
+                .then((updatedCheckout) => {
                   assert.strictEqual(
-                    checkoutWithoutDiscount.discountApplications.length,
-                    0
-                  );
-                  assert.strictEqual(
-                    checkoutWithoutDiscount.lineItems.length,
-                    1
-                  );
-                  assert.strictEqual(
-                    checkoutWithoutDiscount.lineItems[0].discountAllocations
-                      .length,
+                    updatedCheckout.discountApplications.length,
                     0
                   );
                 });
             });
+          });
         });
-    }).timeout(3000);
 
-    test('it returns an error when the checkout ID is invalid', () => {
-      const invalidCheckoutId = 'invalid-checkout-id';
+        test('it adds an order-level percentage discount to an empty checkout via addDiscount', () => {
+          const discountCode = 'ORDER50PERCENTOFF';
 
-      return client.checkout
-        .removeDiscount(invalidCheckoutId)
-        .catch((error) => {
-          assert.ok(error.message.includes('invalid value'));
+          return client.checkout.create({}).then((checkout) => {
+            return client.checkout
+              .addDiscount(checkout.id, discountCode)
+              .then((updatedCheckout) => {
+                assert.strictEqual(updatedCheckout.discountApplications.length, 0);
+              });
+          });
         });
+      });
+
+      suite('removeDiscount', () => {
+        test('it removes a discount from a checkout via removeDiscount', () => {
+          const discountCode = '10OFF';
+
+          return client.checkout
+            .create({
+              lineItems: [
+                {
+                  variantId: 'gid://shopify/ProductVariant/50850334310456',
+                  quantity: 1
+                }
+              ]
+            })
+            .then((checkout) => {
+              return client.checkout
+                .addDiscount(checkout.id, discountCode)
+                .then((checkoutWithDiscount) => {
+                  return client.checkout
+                    .removeDiscount(checkoutWithDiscount.id)
+                    .then((checkoutWithoutDiscount) => {
+                      assert.strictEqual(
+                        checkoutWithoutDiscount.discountApplications.length,
+                        0
+                      );
+                      assert.strictEqual(
+                        checkoutWithoutDiscount.lineItems.length,
+                        1
+                      );
+                      assert.strictEqual(
+                        checkoutWithoutDiscount.lineItems[0].discountAllocations
+                          .length,
+                        0
+                      );
+                    });
+                });
+            });
+        }).timeout(3000);
+
+        test('it returns an error when the checkout ID is invalid', () => {
+          const invalidCheckoutId = 'invalid-checkout-id';
+
+          return client.checkout
+            .removeDiscount(invalidCheckoutId)
+            .catch((error) => {
+              assert.ok(error.message.includes('invalid value'));
+            });
+        });
+      });
     });
   });
 });
