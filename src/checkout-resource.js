@@ -43,11 +43,13 @@ class CheckoutResource extends Resource {
               return resolve(null);
             }
 
-            return this.graphQLClient.fetchAllPages(model.cart.lines, {pageSize: 250}).then((lines) => {
-              model.cart.attrs.lines = lines;
+            return this.graphQLClient
+              .fetchAllPages(model.cart.lines, {pageSize: 250})
+              .then((lines) => {
+                model.cart.attrs.lines = lines;
 
-              return resolve(mapCartPayload(model.cart));
-            });
+                return resolve(mapCartPayload(model.cart));
+              });
           } catch (error) {
             if (error) {
               reject(error);
@@ -110,7 +112,8 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateAttributes(checkoutId, input = {}) {
-    const {cartAttributesUpdateInput, cartNoteUpdateInput} = this.inputMapper.updateAttributes(checkoutId, input);
+    const {cartAttributesUpdateInput, cartNoteUpdateInput} =
+      this.inputMapper.updateAttributes(checkoutId, input);
     let promise = Promise.resolve();
 
     function updateNote() {
@@ -182,7 +185,7 @@ class CheckoutResource extends Resource {
       .then(handleCartMutation('cartLinesAdd', this.graphQLClient));
   }
 
-   /**
+  /**
    * Applies a discount to an existing checkout using a discount code.
    *
    * @example
@@ -198,14 +201,36 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addDiscount(checkoutId, discountCode) {
-    const variables = this.inputMapper.addDiscount(checkoutId, discountCode);
+    return this.fetch(checkoutId).then((checkout) => {
+      const existingRootCodes = checkout.discountApplications.map(
+        (discountApplication) => discountApplication.code
+      );
 
-    return this.graphQLClient
-      .send(cartDiscountCodesUpdateMutation, variables)
-      .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
+      const existingLineCodes = checkout.lineItems.map((lineItem) => {
+        return lineItem.discountAllocations.map(
+          ({discountApplication}) => discountApplication.code
+        );
+      });
+
+      // get unique applied codes
+      const existingCodes = Array.from(
+        new Set([...existingRootCodes, ...existingLineCodes.flat()])
+      );
+
+      const variables = this.inputMapper.addDiscount(
+        checkoutId,
+        existingCodes.concat(discountCode)
+      );
+
+      return this.graphQLClient
+        .send(cartDiscountCodesUpdateMutation, variables)
+        .then(
+          handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient)
+        );
+    });
   }
 
-    /**
+  /**
    * Removes the applied discount from an existing checkout.
    *
    * @example
@@ -226,7 +251,7 @@ class CheckoutResource extends Resource {
       .then(handleCartMutation('cartDiscountCodesUpdate', this.graphQLClient));
   }
 
-    /**
+  /**
    * Applies gift cards to an existing checkout using a list of gift card codes
    *
    * @example
@@ -265,7 +290,10 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   removeGiftCard(checkoutId, appliedGiftCardId) {
-    const variables = this.inputMapper.removeGiftCard(checkoutId, appliedGiftCardId);
+    const variables = this.inputMapper.removeGiftCard(
+      checkoutId,
+      appliedGiftCardId
+    );
 
     return this.graphQLClient
       .send(cartGiftCardCodesRemoveMutation, variables)
@@ -378,7 +406,10 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   updateShippingAddress(checkoutId, shippingAddress) {
-    const variables = this.inputMapper.updateShippingAddress(checkoutId, shippingAddress);
+    const variables = this.inputMapper.updateShippingAddress(
+      checkoutId,
+      shippingAddress
+    );
 
     return this.graphQLClient
       .send(cartBuyerIdentityUpdateMutation, variables)

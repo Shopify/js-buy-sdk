@@ -17,20 +17,32 @@ export default class InputMapper {
       });
     }
 
-    if (input.note) { cartInput.note = input.note; }
-
-    if (input.email) { cartInput.buyerIdentity = {email: input.email}; }
-
-    if (input.shippingAddress) {
-      if (!cartInput.buyerIdentity) { cartInput.buyerIdentity = {}; }
-      cartInput.buyerIdentity.deliveryAddressPreferences = [{deliveryAddress: input.shippingAddress}];
+    if (input.note) {
+      cartInput.note = input.note;
     }
 
-    if (input.customAttributes) { cartInput.attributes = input.customAttributes; }
+    if (input.email) {
+      cartInput.buyerIdentity = {email: input.email};
+    }
+
+    if (input.shippingAddress) {
+      if (!cartInput.buyerIdentity) {
+        cartInput.buyerIdentity = {};
+      }
+      cartInput.buyerIdentity.deliveryAddressPreferences = [
+        {deliveryAddress: input.shippingAddress}
+      ];
+    }
+
+    if (input.customAttributes) {
+      cartInput.attributes = input.customAttributes;
+    }
 
     // Fields that aren't documented in SDK but could still be passed in:
     if (input.buyerIdentity) {
-      if (!cartInput.buyerIdentity) { cartInput.buyerIdentity = {}; }
+      if (!cartInput.buyerIdentity) {
+        cartInput.buyerIdentity = {};
+      }
       cartInput.buyerIdentity.countryCode = input.buyerIdentity.countryCode;
     }
 
@@ -84,7 +96,6 @@ export default class InputMapper {
     return cartBuyerIdentityInput;
   }
 
-
   addLineItems(checkoutId, lineItems) {
     const lines = Array.isArray(lineItems) ? lineItems : [lineItems];
 
@@ -94,10 +105,10 @@ export default class InputMapper {
     };
   }
 
-  addDiscount(checkoutId, discountCode) {
+  addDiscount(checkoutId, discountCodes) {
     return {
       cartId: checkoutId,
-      discountCodes: discountCode ? [discountCode] : []
+      discountCodes: Array.isArray(discountCodes) ? discountCodes.flat() : []
     };
   }
 
@@ -192,12 +203,15 @@ export default class InputMapper {
       deliveryAddress.province = shippingAddress.province;
     }
 
-    const withDeliveryAddress = deliveryAddress && (Object.keys(deliveryAddress).length > 0);
+    const withDeliveryAddress =
+      deliveryAddress && (Object.keys(deliveryAddress).length > 0);
 
     return {
       cartId: checkoutId,
       buyerIdentity: {
-        deliveryAddressPreferences: withDeliveryAddress ? [{deliveryAddress}] : []
+        deliveryAddressPreferences: withDeliveryAddress
+          ? [{deliveryAddress}]
+          : []
       }
     };
   }
