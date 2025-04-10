@@ -1,4 +1,4 @@
-fragment CartLineFragment on CartLine {
+fragment CartLineFragment on BaseCartLine {
   id
   merchandise {
     ... on ProductVariant {
