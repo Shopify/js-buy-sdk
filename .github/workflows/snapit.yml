@@ -1,0 +1,33 @@
+name: Snapit with provenance
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  snapit:
+    name: Snapit
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/snapit' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      # This action can be executed by users with write permission to this repo
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+
+      - name: Force snapshot
+        run: |
+          printf -- "---\n'shopify-buy': patch\n" > snapshot.txt
+      - name: Create snapshot version
+        uses: Shopify/snapit@0c0d2dd62c9b0c94b7d03e1f54e72f18548e7752 # pin to a specific commit
+        with:
+          github_comment_included_packages: 'shopify-buy'
+          build_script: 'npm run build'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

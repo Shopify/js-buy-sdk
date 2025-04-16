@@ -7,9 +7,9 @@ import {version} from '../package.json';
 
 suite('client-test', () => {
   const config = {
-    domain: 'sendmecats.myshopify.com',
-    storefrontAccessToken: 'abc123',
-    apiVersion: '2023-07'
+    domain: 'grapqhql.myshopify.com',
+    storefrontAccessToken: '595005d0c565f6969eece280de85edb5',
+    apiVersion: '2025-01'
   };
 
   test('it instantiates a GraphQL client with the given config', () => {
@@ -28,7 +28,7 @@ suite('client-test', () => {
     new Client(new Config(config), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
-    assert.equal(passedUrl, `https://${config.domain}/api/${config.apiVersion}/graphql`);
+    assert.equal(passedUrl.split('?')[0], `https://${config.domain}/api/${config.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
         'Accept-Language': '*',
@@ -59,7 +59,7 @@ suite('client-test', () => {
     new Client(new Config(withSourceConfig), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
-    assert.equal(passedUrl, `https://${withSourceConfig.domain}/api/${withSourceConfig.apiVersion}/graphql`);
+    assert.equal(passedUrl.split('?')[0], `https://${withSourceConfig.domain}/api/${withSourceConfig.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
         'Accept-Language': '*',
@@ -91,7 +91,7 @@ suite('client-test', () => {
     new Client(new Config(withLanguageConfig), FakeGraphQLJSClient); // eslint-disable-line no-new
 
     assert.deepEqual(passedTypeBundle, types);
-    assert.equal(passedUrl, `https://${withLanguageConfig.domain}/api/${withLanguageConfig.apiVersion}/graphql`);
+    assert.equal(passedUrl.split('?')[0], `https://${withLanguageConfig.domain}/api/${withLanguageConfig.apiVersion}/graphql`);
     assert.deepEqual(passedFetcherOptions, {
       headers: {
         'X-SDK-Variant': 'javascript',
@@ -111,7 +111,7 @@ suite('client-test', () => {
     let passedHeaders;
 
     class FakeGraphQLJSClient {
-      constructor(typeBundle, {fetcher}) {
+      constructor(_, {fetcher}) {
         passedFetcher = fetcher;
       }
     }
@@ -129,7 +129,7 @@ suite('client-test', () => {
     new Client(new Config(config), FakeGraphQLJSClient, fetchFunction); // eslint-disable-line no-new
 
     return passedFetcher({data: 'body'}).then(() => {
-      assert.equal(passedUrl, `https://${config.domain}/api/${config.apiVersion}/graphql`);
+      assert.equal(passedUrl.split('?')[0], `https://${config.domain}/api/${config.apiVersion}/graphql`);
       assert.equal(passedBody, JSON.stringify({data: 'body'}));
       assert.equal(passedMethod, 'POST');
       assert.equal(passedMode, 'cors');

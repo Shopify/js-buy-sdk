@@ -1,0 +1,84 @@
+# product.fetch() - single product query by id
+
+query ($id: ID!) {
+  node(id: $id) {
+    id
+    availableForSale
+    createdAt
+    updatedAt
+    descriptionHtml
+    description
+    handle
+    productType
+    title
+    vendor
+    publishedAt
+    onlineStoreUrl
+    options {
+      name
+      values
+    }
+    images(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+    variants(first: 250) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        cursor
+        node {
+          id
+          title
+          price {
+            amount
+            currencyCode
+          }
+          weight
+          availableForSale
+          sku
+          compareAtPrice {
+            amount
+            currencyCode
+          }
+          image {
+            id
+            url
+            altText
+            width
+            height
+          }
+          selectedOptions {
+            name
+            value
+          }
+          unitPrice {
+            amount
+            currencyCode
+          }
+          unitPriceMeasurement {
+            measuredType
+            quantityUnit
+            quantityValue
+            referenceUnit
+            referenceValue
+          }
+        }
+      }
+    }
+  }
+}

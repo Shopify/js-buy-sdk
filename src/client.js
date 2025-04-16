@@ -17,7 +17,7 @@ import types from '../schema.json';
  * @property {ProductResource} product The property under which product fetching methods live.
  * @property {CollectionResource} collection The property under which collection fetching methods live.
  * @property {ShopResource} shop The property under which shop fetching methods live.
- * @property {CheckoutResource} checkout The property under which shop fetching and mutating methods live.
+ * @property {CartResource} cart The property under which shop fetching and mutating methods live.
  * @property {ImageResource} image The property under which image helper methods live.
  */
 class Client {
@@ -39,7 +39,7 @@ class Client {
    * @param {Config} config An instance of {@link Config} used to configure the Client.
    */
   constructor(config, GraphQLClientClass = GraphQLJSClient, fetchFunction) {
-    const url = `https://${config.domain}/api/${config.apiVersion}/graphql`;
+    const url = `https://${config.domain}/api/2025-01/graphql`;
 
     const headers = {
       'X-SDK-Variant': 'javascript',

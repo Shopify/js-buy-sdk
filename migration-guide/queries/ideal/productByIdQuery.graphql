@@ -1,0 +1,3 @@
+# product.fetch() - single product query by id
+
+# Same as productByIdOrHandleQuery.graphql

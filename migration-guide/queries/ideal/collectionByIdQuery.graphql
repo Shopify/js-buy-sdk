@@ -1,0 +1,20 @@
+# collection.fetch() - query collection by id
+
+# Removed:
+# queryRoot.node (replaced by queryRoot.collection)
+# collection.[descriptionHtml, updatedAt]
+# image.src (replaced by image.url)
+
+query ($id: ID!) {
+  collection(id: $id) {
+    id
+    handle
+    description
+    title
+    image {
+      id
+      url
+      altText
+    }
+  }
+}

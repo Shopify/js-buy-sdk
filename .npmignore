@@ -36,3 +36,4 @@ secrets.ejson
 service.yml
 shipit.yml
 yarn.lock
+package-lock.json

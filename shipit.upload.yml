@@ -1,0 +1,11 @@
+# NPM releases are now managed by a github action
+# This shipit workflow just uploads to the CDN
+
+deploy:
+  override:
+    - rm -rf node_modules
+    - yarn install
+    - yarn run test
+    - yarn run build
+    - ejson decrypt -o secrets.json secrets.ejson
+    - node scripts/upload-to-cdn.js

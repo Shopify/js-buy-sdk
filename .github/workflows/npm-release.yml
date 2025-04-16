@@ -1,0 +1,70 @@
+name: Release new NPM version
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+concurrency:
+  group: changeset-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  npm:
+    name: Changeset release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check for changesets
+        id: check_changesets
+        run: |
+          if [ -z "$(ls -A .changeset)" ]; then
+            echo "No changesets found. Exiting."
+            echo "changesets_found=false" >> $GITHUB_ENV
+            exit 0
+          else
+            echo "changesets_found=true" >> $GITHUB_ENV
+          fi
+
+      - name: Update package version and remove changesets
+        if: env.changesets_found == 'true'
+        run: npx changeset version
+
+      - name: Commit and push changes
+        if: env.changesets_found == 'true'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add package.json .changeset
+          git commit -m "Update package version & delete changesets"
+          git push
+
+      - name: Publish to NPM
+        if: env.changesets_found == 'true'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: npx changeset publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: true

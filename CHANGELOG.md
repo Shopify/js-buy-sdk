@@ -1,5 +1,32 @@
 # Changelog
 
+> [!CAUTION]
+> ## Deprecation notice
+> **Note: The JS Buy SDK is deprecated as of January, 2025.** It will no longer be updated or maintained by Shopify past that point. A final major version, v3.0, has been released to remove the SDK's dependency on the [deprecated Checkout APIs](https://shopify.dev/changelog/deprecation-of-checkout-apis), replacing them with [Cart APIs](https://shopify.dev/docs/storefronts/headless/building-with-the-storefront-api/cart). Updating to this new version will allow the SDK to continue to function for most use cases.
+>
+> If you are using the JS Buy SDK, you have two options:
+>
+> 1. Recommended Option: switch to the [Storefront API Client](https://github.com/Shopify/shopify-app-js/tree/main/packages/api-clients/storefront-api-client#readme)
+>    1. The Storefront API Client manages the API's authentication information and provides various methods that enable devs to interact with the API. This is the preferred and more future-proof solution. See this [migration guide](./migration-guide) to help you transition.
+> 2. Stopgap Option: Upgrade to JS Buy SDK v3.0
+>    1. This allows you to maintain your current setup with minimal changes for use cases that are supported by the Cart API. A migration guide with details on supported use cases will be available soon. If you choose this option, we still recommend that you switch to the Storefront API Client in the future.
+>
+> **Critical Deadline: July 1st, 2025.** You must implement one of these changes by this date, or customers will not be able to complete purchases. Please choose the option that best suits your needs and timelines.
+
+### v3.0.0 (March 12, 2025)
+* Bumps the SDK to use Storefront API version `2025-01`.
+* Removes the dependency on Checkout APIs and replaces them with Cart APIs.
+* For more information, see the [migration guide](https://github.com/Shopify/js-buy-sdk/blob/main/README.md#2x---30-migration-guide).
+
+### v2.22.0 (May 1, 2024)
+* Bumps the SDK to use Storefront API version `2024-04`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2024-04).
+
+### v2.21.1 (October 5, 2023)
+* Bumps the SDK to use Storefront API version `2023-10`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-10).
+
+### v2.20.1 (July 19, 2023)
+* [Update `schema.json`](https://github.com/Shopify/js-buy-sdk/pull/963) to match Storefront API version `2023-07` schema.
+
 ### v2.20.0 (July 5, 2023)
 * Bumps the SDK to use Storefront API version `2023-07`. For more information, see the [Release Notes](https://shopify.dev/api/release-notes/2023-07).
 
