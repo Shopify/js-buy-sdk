@@ -215,6 +215,14 @@ The Checkout API is deprecated. To find the legacy documentation for v2.x, you c
 
 </details>
 
+<details>
+
+<summary>After upgrading to v3, our users are being redirected to a password page when trying to go to the  checkout page</summary>
+
+This happens when [password protection](https://help.shopify.com/en/manual/online-store/themes/password-page) is enabled in your online store. The best course of action is to disable password protection and install the headless [redirect theme](https://github.com/instantcommerce/shopify-headless-theme) to prevent these unwanted redirects.
+
+</details>
+
 ---
 
 ![Build](https://github.com/shopify/js-buy-sdk/actions/workflows/ci.yml/badge.svg)
