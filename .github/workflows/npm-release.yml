@@ -61,7 +61,7 @@ jobs:
       - name: Publish to NPM
         if: env.changesets_found == 'true'
         id: changesets
-        uses: changesets/action@e0538e686673de0265c8a3e2904b8c76beaa43fd # v1.5.2
+        uses: changesets/action@06245a4e0a36c064a573d4150030f5ec548e4fcc # v1.4.10
         with:
           publish: npx changeset publish
         env:
