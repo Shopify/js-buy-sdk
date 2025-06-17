@@ -481,4 +481,132 @@ suite('cart-payload-mapper-test', () => {
       assert.strictEqual(result.webUrl, cart.checkoutUrl);
     });
   });
+
+  suite('discount error handling', () => {
+    test('it returns empty discount applications and preserves line items when discount mapping fails', () => {
+      // Mock console.error to capture output
+      // eslint-disable-next-line no-console
+      const originalConsoleError = console.error;
+      const consoleErrors = [];
+
+      // eslint-disable-next-line no-console
+      console.error = (...args) => {
+        consoleErrors.push(args);
+      };
+
+      // Cart with discount allocation that will trigger error (1 allocation for 2 line items)
+      // This has been reported in a scenario where a discount was applied at checkout via a script, but the user navigated back to the
+      // store (without completing checkout) and JS Buy SDK v3 was erroring when attempting to map the new cart payload
+      // We are going to continue investigating to fix the root cause, but aborting discount mapping in this scenario as a temporary fix
+      // is a better user experience in the meantime
+      const cart = {
+        lines: [
+          {
+            id: 'line1',
+            merchandise: {
+              product: {id: 'prod1', title: 'Product 1'},
+              price: {amount: '10.00', currencyCode: 'USD'},
+              compareAtPrice: null
+            },
+            quantity: 1,
+            attributes: [],
+            discountAllocations: []
+          },
+          {
+            id: 'line2',
+            merchandise: {
+              product: {id: 'prod2', title: 'Product 2'},
+              price: {amount: '20.00', currencyCode: 'USD'},
+              compareAtPrice: null
+            },
+            quantity: 1,
+            attributes: [],
+            discountAllocations: []
+          }
+        ],
+        // This will trigger the error: 1 allocation for 2 line items
+        discountAllocations: [{
+          discountedAmount: {amount: '5.00', currencyCode: 'USD'},
+          discountApplication: {title: 'Shipping Discount'}
+        }],
+        discountCodes: [],
+        cost: MOCK_CART_COST
+      };
+
+      const result = mapCartPayload(cart);
+
+      // Verify discount applications are empty
+      assert.deepStrictEqual(result.discountApplications, []);
+
+      // Verify line items are preserved
+      assert.strictEqual(result.lineItems.length, 2);
+      assert.strictEqual(result.lineItems[0].title, 'Product 1');
+      assert.strictEqual(result.lineItems[1].title, 'Product 2');
+
+      // Verify line items have no discount allocations
+      assert.deepStrictEqual(result.lineItems[0].discountAllocations, []);
+      assert.deepStrictEqual(result.lineItems[1].discountAllocations, []);
+
+      // Verify error was logged
+      assert.strictEqual(consoleErrors.length, 1);
+      assert.strictEqual(consoleErrors[0][0], 'Error mapping discounts:');
+      assert.match(consoleErrors[0][1], /Invalid number of order-level discount allocations/);
+
+      // Restore console.error
+      // eslint-disable-next-line no-console
+      console.error = originalConsoleError;
+    });
+
+    test('it handles missing discount application gracefully', () => {
+      // Mock console.error to capture output
+      // eslint-disable-next-line no-console
+      const originalConsoleError = console.error;
+      const consoleErrors = [];
+
+      // eslint-disable-next-line no-console
+      console.error = (...args) => {
+        consoleErrors.push(args);
+      };
+
+      // Cart with line item discount allocation but no matching discount application
+      const cart = {
+        lines: [
+          {
+            id: 'line1',
+            merchandise: {
+              product: {id: 'prod1', title: 'Product 1'},
+              price: {amount: '10.00', currencyCode: 'USD'},
+              compareAtPrice: null
+            },
+            quantity: 1,
+            attributes: [],
+            discountAllocations: [{
+              discountedAmount: {amount: '2.00', currencyCode: 'USD'},
+              discountApplication: {code: 'MISSING_CODE'}
+            }]
+          }
+        ],
+        discountAllocations: [],
+        discountCodes: [],
+        cost: MOCK_CART_COST
+      };
+
+      const result = mapCartPayload(cart);
+
+      // Verify line items are preserved
+      assert.strictEqual(result.lineItems.length, 1);
+      assert.strictEqual(result.lineItems[0].title, 'Product 1');
+
+      // Verify line item has no discount allocations due to error
+      assert.deepStrictEqual(result.lineItems[0].discountAllocations, []);
+
+      // Verify error was logged (only one error for discount mapping failure)
+      assert.strictEqual(consoleErrors.length, 1);
+      assert.strictEqual(consoleErrors[0][0], 'Error mapping discounts:');
+
+      // Restore console.error
+      // eslint-disable-next-line no-console
+      console.error = originalConsoleError;
+    });
+  });
 });
