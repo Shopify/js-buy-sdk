@@ -30,7 +30,7 @@ npm install shopify-buy@3
 **With Yarn:**
 
 ```bash
-yarn install shopify-buy@3
+yarn add shopify-buy@3
 ```
 
 **CDN:**
