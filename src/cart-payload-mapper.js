@@ -76,6 +76,22 @@ export function mapCartPayload(cart) {
     subtotalPrice = calculateSubtotalPrice(totalPrice, totalDutyAmount, totalTaxAmount);
   }
 
+  let webUrl = cart.checkoutUrl;
+
+  if (webUrl) {
+    try {
+      const url = new URL(webUrl);
+
+      if (!url.searchParams.has('_fd') || url.searchParams.get('_fd') !== '0') {
+        url.searchParams.set('_fd', '0');
+        webUrl = url.toString();
+      }
+    } catch (error) {
+      // If URL parsing fails, return the original URL unchanged
+      // rather than risk breaking the checkout flow
+    }
+  }
+
   const checkoutPayload = Object.assign({
     appliedGiftCards,
     buyerIdentity,
@@ -98,7 +114,7 @@ export function mapCartPayload(cart) {
     totalTax: totalTaxAmount || getDefaultMoneyObject(currencyCode, totalAmount),
     totalTaxV2: totalTaxAmount || getDefaultMoneyObject(currencyCode, totalAmount),
     updatedAt: cart.updatedAt,
-    webUrl: cart.checkoutUrl
+    webUrl
   }, UNSUPPORTED_FIELDS);
 
   normalizeCartMoneyFieldDecimalPlaces(checkoutPayload);

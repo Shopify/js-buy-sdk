@@ -471,9 +471,59 @@ suite('cart-payload-mapper-test', () => {
   });
 
   suite('webUrl', () => {
-    test('it returns checkout URL', () => {
+    test('it returns checkout URL, with _fd=0 appended if not present', () => {
       const cart = {
         checkoutUrl: 'https://shop.com/checkout'
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.strictEqual(result.webUrl, `${cart.checkoutUrl}?_fd=0`);
+    });
+
+    test('it gracefully handles invalid URLs by returning them unchanged', () => {
+      const cart = {
+        checkoutUrl: 'invalid'
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.strictEqual(result.webUrl, cart.checkoutUrl);
+    });
+
+    test('it does not duplicate the query param _fd=0 if it is already present', () => {
+      const cart = {
+        checkoutUrl: 'https://shop.com/checkout?_fd=0'
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.strictEqual(result.webUrl, cart.checkoutUrl);
+    });
+
+    test('it updates the value of _fd to 0 if it is present but with a different value', () => {
+      const cart = {
+        checkoutUrl: 'https://shop.com/checkout?_fd=1'
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.strictEqual(result.webUrl, 'https://shop.com/checkout?_fd=0');
+    });
+
+    test('it adds _fd=0 while preserving other query params', () => {
+      const cart = {
+        checkoutUrl: 'https://shop.com/checkout?foo=bar&baz=qux'
+      };
+
+      const result = mapCartPayload(cart);
+
+      assert.strictEqual(result.webUrl, 'https://shop.com/checkout?foo=bar&baz=qux&_fd=0');
+    });
+
+    test('it returns the original URL unchanged if it contains a _fd=0 query param along with other query params', () => {
+      const cart = {
+        checkoutUrl: 'https://shop.com/checkout?foo=bar&_fd=0&baz=qux'
       };
 
       const result = mapCartPayload(cart);

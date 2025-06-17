@@ -217,6 +217,16 @@ suite('client-checkout-integration-test', () => {
         });
       });
     });
+
+    test('it appends _fd=0 to the checkout URL if it is not present', () => {
+      return client.checkout.create({}).then((checkout) => {
+        return client.checkout.fetch(checkout.id).then((updatedCheckout) => {
+          const checkoutUrl = new URL(updatedCheckout.webUrl);
+
+          assert.strictEqual(checkoutUrl.searchParams.get('_fd'), '0');
+        });
+      });
+    });
   });
 
   suite('payload fields verification', () => {
