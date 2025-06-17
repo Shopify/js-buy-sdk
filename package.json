@@ -67,7 +67,7 @@
     "node-fetch": "1.7.2",
     "node-jq": "0.7.0",
     "rimraf": "2.6.1",
-    "rollup": "0.47.6",
+    "rollup": "2.79.2",
     "rollup-plugin-babel": "3.0.2",
     "rollup-plugin-commonjs": "8.1.0",
     "rollup-plugin-graphql-js-client-compiler": "0.2.0",
