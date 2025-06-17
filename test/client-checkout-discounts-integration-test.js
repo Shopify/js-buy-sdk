@@ -384,6 +384,224 @@ suite('client-checkout-discounts-integration-test', () => {
           });
       });
 
+      test('it adds a fixed amount discount to a checkout with a single line item via addDiscount when the discount is inputted in lowercase but actual discount code is uppercase', () => {
+        return client.checkout
+          .create({
+            lineItems: [
+              {
+                variantId: 'gid://shopify/ProductVariant/50850334310456',
+                quantity: 1
+              }
+            ]
+          })
+          .then((checkout) => {
+            return client.checkout
+              .addDiscount(checkout.id, '10off')
+              .then((updatedCheckout) => {
+                assert.strictEqual(
+                  updatedCheckout.discountApplications.length,
+                  1
+                );
+                assert.strictEqual(
+                  updatedCheckout.lineItems[0].discountAllocations.length,
+                  1
+                );
+
+                // Add assertions for previously missing price fields
+                assert.ok(
+                  updatedCheckout.lineItemsSubtotalPrice,
+                  'lineItemsSubtotalPrice exists'
+                );
+                assert.ok(
+                  updatedCheckout.lineItemsSubtotalPrice.amount,
+                  'lineItemsSubtotalPrice amount exists'
+                );
+                assert.ok(
+                  updatedCheckout.lineItemsSubtotalPrice.currencyCode,
+                  'lineItemsSubtotalPrice currencyCode exists'
+                );
+
+                assert.ok(
+                  updatedCheckout.subtotalPrice,
+                  'subtotalPrice exists'
+                );
+                assert.ok(
+                  updatedCheckout.subtotalPriceV2,
+                  'subtotalPriceV2 exists'
+                );
+                assert.strictEqual(
+                  updatedCheckout.subtotalPrice.amount,
+                  updatedCheckout.subtotalPriceV2.amount,
+                  'subtotalPrice amount matches V2'
+                );
+
+                assert.ok(updatedCheckout.totalPrice, 'totalPrice exists');
+                assert.ok(updatedCheckout.totalPriceV2, 'totalPriceV2 exists');
+                // Total price should be less than original due to discount
+                const totalPriceNum = parseFloat(
+                  updatedCheckout.totalPrice.amount
+                );
+                const lineItemPrice = parseFloat(
+                  updatedCheckout.lineItems[0].variant.price.amount
+                );
+
+                assert.ok(
+                  totalPriceNum < lineItemPrice,
+                  'totalPrice reflects discount'
+                );
+
+                assert.ok(updatedCheckout.totalTax, 'totalTax exists');
+                assert.ok(updatedCheckout.totalTaxV2, 'totalTaxV2 exists');
+
+                // Verify UNSUPPORTED_FIELDS maintain expected values with discounts applied
+                assert.strictEqual(
+                  updatedCheckout.completedAt,
+                  null,
+                  'completedAt is null'
+                );
+                assert.strictEqual(
+                  updatedCheckout.order,
+                  null,
+                  'order is null'
+                );
+                assert.strictEqual(
+                  updatedCheckout.orderStatusUrl,
+                  null,
+                  'orderStatusUrl is null'
+                );
+                assert.strictEqual(
+                  updatedCheckout.ready,
+                  false,
+                  'ready is false'
+                );
+                assert.strictEqual(
+                  updatedCheckout.requiresShipping,
+                  true,
+                  'requiresShipping is true'
+                );
+                assert.strictEqual(
+                  updatedCheckout.shippingLine,
+                  null,
+                  'shippingLine is null'
+                );
+                assert.strictEqual(
+                  updatedCheckout.taxExempt,
+                  false,
+                  'taxExempt is false'
+                );
+                assert.strictEqual(
+                  updatedCheckout.taxesIncluded,
+                  false,
+                  'taxesIncluded is false'
+                );
+
+                const expectedRootDiscountApplications = [
+                  {
+                    __typename: 'DiscountCodeApplication',
+                    targetSelection: 'ENTITLED',
+                    allocationMethod: 'EACH',
+                    targetType: 'LINE_ITEM',
+                    value: {
+                      amount: '10.0',
+                      currencyCode: 'CAD',
+                      type: {
+                        name: 'PricingValue',
+                        kind: 'UNION'
+                      }
+                    },
+                    code: '10OFF',
+                    applicable: true,
+                    type: {
+                      name: 'DiscountCodeApplication',
+                      kind: 'OBJECT',
+                      fieldBaseTypes: {
+                        applicable: 'Boolean',
+                        code: 'String'
+                      },
+                      implementsNode: false
+                    },
+                    hasNextPage: false,
+                    hasPreviousPage: false,
+                    variableValues: {
+                      checkoutId:
+                        'gid://shopify/Checkout/e780a1b5bffd6a9ef530f1718b854e4f?key=f06572e061a9cc7e3b73e9a235239f42',
+                      discountCode: '10OFF'
+                    }
+                  }
+                ];
+                const expectedLineItemDiscountAllocations = [
+                  {
+                    allocatedAmount: {
+                      amount: '10.0',
+                      currencyCode: 'CAD',
+                      type: {
+                        name: 'MoneyV2',
+                        kind: 'OBJECT',
+                        fieldBaseTypes: {
+                          amount: 'Decimal',
+                          currencyCode: 'CurrencyCode'
+                        },
+                        implementsNode: false
+                      }
+                    },
+                    discountApplication: {
+                      __typename: 'DiscountCodeApplication',
+                      targetSelection: 'ENTITLED',
+                      allocationMethod: 'EACH',
+                      targetType: 'LINE_ITEM',
+                      value: {
+                        amount: '10.0',
+                        currencyCode: 'CAD',
+                        type: {
+                          name: 'PricingValue',
+                          kind: 'UNION'
+                        }
+                      },
+                      code: '10OFF',
+                      applicable: true,
+                      type: {
+                        name: 'DiscountCodeApplication',
+                        kind: 'OBJECT',
+                        fieldBaseTypes: {
+                          applicable: 'Boolean',
+                          code: 'String'
+                        },
+                        implementsNode: false
+                      }
+                    },
+                    type: {
+                      name: 'DiscountAllocation',
+                      kind: 'OBJECT',
+                      fieldBaseTypes: {
+                        allocatedAmount: 'MoneyV2',
+                        discountApplication: 'DiscountApplication'
+                      },
+                      implementsNode: false
+                    }
+                  }
+                ];
+
+                assert.strictEqual(
+                  updatedCheckout.discountApplications.length,
+                  1
+                );
+                assertActualDiscountApplicationIsExpected(
+                  updatedCheckout.discountApplications[0],
+                  expectedRootDiscountApplications[0]
+                );
+                assert.strictEqual(updatedCheckout.lineItems.length, 1);
+                assert.strictEqual(
+                  updatedCheckout.lineItems[0].discountAllocations.length,
+                  1
+                );
+                assertActualDiscountAllocationIsExpected(
+                  updatedCheckout.lineItems[0].discountAllocations[0],
+                  expectedLineItemDiscountAllocations[0]
+                );
+              });
+          });
+      });
+
       test('it adds a percentage discount to a checkout with a single line item via addDiscount', () => {
         const discountCode = '10PERCENTOFF';
 
