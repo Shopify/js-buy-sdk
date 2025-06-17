@@ -113,7 +113,7 @@ export function mapDiscountAllocations(discountAllocations, discountApplications
   return result;
 }
 
-export function mapLineItems(lines, discountApplications) {
+export function mapLineItems(lines, discountApplications, skipDiscounts = false) {
   if (!lines || !Array.isArray(lines)) { return []; }
 
   const result = [];
@@ -125,9 +125,21 @@ export function mapLineItems(lines, discountApplications) {
 
     const variant = mapVariant(line.merchandise);
 
+    let discountAllocations = [];
+
+    if (!skipDiscounts) {
+      try {
+        discountAllocations = mapDiscountAllocations(line.discountAllocations || [], discountApplications);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error mapping discount allocations:', error.message);
+        discountAllocations = [];
+      }
+    }
+
     result.push({
       customAttributes: line.attributes,
-      discountAllocations: mapDiscountAllocations(line.discountAllocations || [], discountApplications),
+      discountAllocations,
       id: line.id,
       quantity: line.quantity,
       title: line.merchandise.product.title,
@@ -145,16 +157,44 @@ export function mapLineItems(lines, discountApplications) {
 export function mapDiscountsAndLines(cart) {
   if (!cart) { return {discountApplications: [], cartLinesWithDiscounts: []}; }
 
-  const result = discountMapper({
-    cartLineItems: cart.lines || [],
-    cartDiscountAllocations: cart.discountAllocations || [],
-    cartDiscountCodes: cart.discountCodes || []
-  });
+  let discountMappingResult;
+  let discountMappingFailed = false;
 
-  const mappedLines = mapLineItems(result.cartLinesWithAllDiscountAllocations || [], result.discountApplications || []);
+  try {
+    discountMappingResult = discountMapper({
+      cartLineItems: cart.lines || [],
+      cartDiscountAllocations: cart.discountAllocations || [],
+      cartDiscountCodes: cart.discountCodes || []
+    });
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Error mapping discounts:', error.message);
+    discountMappingFailed = true;
+  }
+
+  let mappedLines;
+
+  if (discountMappingFailed) {
+    // When discount mapping fails, still map the lines but without any discount allocations
+    // eslint-disable-next-line newline-after-var
+    const linesWithClearedDiscounts = (cart.lines || []).map((line) => {
+      const lineCopy = Object.assign({}, line);
+
+      lineCopy.discountAllocations = [];
+
+      return lineCopy;
+    });
+    mappedLines = mapLineItems(linesWithClearedDiscounts, [], true);
+  } else {
+    // Normal path when discount mapping succeeds
+    mappedLines = mapLineItems(
+      discountMappingResult.cartLinesWithAllDiscountAllocations || [],
+      discountMappingResult.discountApplications || []
+    );
+  }
 
   return {
-    discountApplications: result.discountApplications || [],
+    discountApplications: discountMappingFailed ? [] : ((discountMappingResult && discountMappingResult.discountApplications) || []),
     cartLinesWithDiscounts: mappedLines
   };
 }

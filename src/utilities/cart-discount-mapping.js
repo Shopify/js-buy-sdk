@@ -75,8 +75,9 @@ function convertToCheckoutDiscountApplicationType(cartLineItems, cartOrderLevelD
 function groupOrderLevelDiscountAllocationsByDiscountId(cartDiscountAllocations) {
   return cartDiscountAllocations.reduce((acc, discountAllocation) => {
     const id = getDiscountAllocationId(discountAllocation);
+    const key = id.toLowerCase();
 
-    acc.set(id, [...(acc.get(id) || []), discountAllocation]);
+    acc.set(key, [...(acc.get(key) || []), discountAllocation]);
 
     return acc;
   }, new Map());
@@ -168,7 +169,18 @@ export function discountMapper({cartLineItems, cartDiscountAllocations, cartDisc
   );
 
   cartDiscountCodes.forEach(({code, codeIsApplied}) => {
-    if (codeIsApplied && !discountIdToDiscountApplicationMap.has(code)) {
+    if (!codeIsApplied) { return; }
+
+    // Check if the code exists in the map (case-insensitive)
+    let found = false;
+
+    for (const [key] of discountIdToDiscountApplicationMap) {
+      if (key.toLowerCase() === code.toLowerCase()) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
       throw new Error(
         `Discount code ${code} not found in discount application map. 
         Discount application map: ${JSON.stringify(
@@ -230,9 +242,9 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
         );
       }
 
-      if (discountIdToDiscountApplicationMap.has(discountId)) {
+      if (discountIdToDiscountApplicationMap.has(discountId.toLowerCase())) {
         const existingDiscountApplication =
-          discountIdToDiscountApplicationMap.get(discountId);
+          discountIdToDiscountApplicationMap.get(discountId.toLowerCase());
 
         // if existingDiscountApplication.value is an amount rather than a percentage discount
         if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
@@ -255,7 +267,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
 
         if ('code' in discountAllocation.discountApplication) {
           const discountCode = discountCodes.find(
-            ({code}) => code === discountId
+            ({code}) => code.toLowerCase() === discountId.toLowerCase()
           );
 
           if (!discountCode) {
@@ -293,7 +305,7 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
           });
         }
 
-        discountIdToDiscountApplicationMap.set(discountId, discountApplication);
+        discountIdToDiscountApplicationMap.set(discountId.toLowerCase(), discountApplication);
       }
     });
   });
