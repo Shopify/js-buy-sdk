@@ -201,20 +201,41 @@ class CheckoutResource extends Resource {
    * @return {Promise|GraphModel} A promise resolving with the updated checkout.
    */
   addDiscount(checkoutId, discountCode) {
-    return this.fetch(checkoutId).then((checkout) => {
-      const existingRootCodes = checkout.discountApplications.map(
-        (discountApplication) => discountApplication.code
-      );
+    // We want access to Cart's `discountCodes` field, so we can't just use the
+    // existing `fetch` method since that also maps and removes the `discountCodes` field.
+    // We must therefore look at the raw Cart data to be able to see ALL existing discount codes,
+    // whether they are `applied` or not.
 
-      const existingLineCodes = checkout.lineItems.map((lineItem) => {
-        return lineItem.discountAllocations.map(
-          ({discountApplication}) => discountApplication.code
-        );
+    // The query below is identical to the `fetch` method's query EXCEPT we don't call `mapCartPayload` here
+    return this.graphQLClient.send(cartNodeQuery, {id: checkoutId}).then(({model, data}) => {
+      return new Promise((resolve, reject) => {
+        try {
+          const cart = data.cart || data.node;
+
+          if (!cart) {
+            return resolve(null);
+          }
+
+          return this.graphQLClient
+            .fetchAllPages(model.cart.lines, {pageSize: 250})
+            .then((lines) => {
+              model.cart.attrs.lines = lines;
+
+              return resolve(model.cart);
+            });
+        } catch (error) {
+          if (error) {
+            reject(error);
+          } else {
+            reject([{message: 'an unknown error has occurred.'}]);
+          }
+        }
+
+        return resolve(null);
       });
-
-      // get unique applied codes
-      const existingCodes = Array.from(
-        new Set([...existingRootCodes, ...existingLineCodes.flat()])
+    }).then((checkout) => {
+      const existingCodes = checkout.discountCodes.map(
+        (code) => code.code
       );
 
       const variables = this.inputMapper.addDiscount(
