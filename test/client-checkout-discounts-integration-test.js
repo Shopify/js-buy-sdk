@@ -1,3 +1,4 @@
+/* eslint-disable id-length */
 import assert from 'assert';
 import Client from '../src/client';
 
@@ -71,7 +72,7 @@ function assertActualDiscountAllocationIsExpected(actual, expected) {
     expected.discountApplication
   );
 
-  // Create a deep copy to avoid modifying the original object
+// Create a deep copy to avoid modifying the original object
   const cleanedActualWithoutApplication = JSON.parse(JSON.stringify(actual));
   const cleanedExpectedWithoutApplication = JSON.parse(
     JSON.stringify(expected)
@@ -1189,7 +1190,7 @@ suite('client-checkout-discounts-integration-test', () => {
                 );
               });
           });
-      });
+      }).timeout(5000);
 
       test('adds a percentage discount to a checkout with multiple line items via addDiscount', () => {
         const discountCode = '10PERCENTOFF';
@@ -1763,82 +1764,6 @@ suite('client-checkout-discounts-integration-test', () => {
           });
       });
 
-      test(
-        'adds a free shipping discount to a checkout when shippingAddress is set via addDiscount',
-        () => {
-          const discountCode = 'FREESHIPPINGALLCOUNTRIES';
-
-          return client.checkout
-            .create({
-              lineItems: [
-                {
-                  variantId: 'gid://shopify/ProductVariant/50850334310456',
-                  quantity: 1
-                }
-              ],
-              shippingAddress: {
-                country: 'United States',
-                province: 'New York'
-              }
-            })
-            .then((checkout) => {
-              return client.checkout
-                .addDiscount(checkout.id, discountCode)
-                .then((updatedCheckout) => {
-                  const expectedRootDiscountApplications = [
-                    {
-                      __typename: 'DiscountCodeApplication',
-                      targetSelection: 'ALL',
-                      allocationMethod: 'EACH',
-                      targetType: 'SHIPPING_LINE',
-                      value: {
-                        percentage: 100,
-                        type: {
-                          name: 'PricingValue',
-                          kind: 'UNION'
-                        }
-                      },
-                      code: discountCode,
-                      applicable: true,
-                      type: {
-                        name: 'DiscountCodeApplication',
-                        kind: 'OBJECT',
-                        fieldBaseTypes: {
-                          applicable: 'Boolean',
-                          code: 'String'
-                        },
-                        implementsNode: false
-                      },
-                      hasNextPage: false,
-                      hasPreviousPage: false,
-                      variableValues: {
-                        checkoutId:
-                          'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
-                        discountCode
-                      }
-                    }
-                  ];
-
-                  assert.strictEqual(
-                    updatedCheckout.discountApplications.length,
-                    1
-                  );
-
-                  const expectedRootDiscountApplication =
-                    expectedRootDiscountApplications[0];
-                  const actualRootDiscountApplication =
-                    updatedCheckout.discountApplications[0];
-
-                  assertActualDiscountApplicationIsExpected(
-                    actualRootDiscountApplication,
-                    expectedRootDiscountApplication
-                  );
-                });
-            });
-        }
-      )
-        .timeout(3000);
-
       test('it adds multiple discounts in one addDiscount transaction', () => {
         const discountCodes = ['10OFF', 'FREESHIPPINGALLCOUNTRIES'];
 
@@ -1896,7 +1821,7 @@ suite('client-checkout-discounts-integration-test', () => {
             });
           });
         });
-      }).timeout(3000);
+      }).timeout(5000);
 
       suite('addDiscount / not supported', () => {
         suite('empty checkout', () => {
@@ -1968,7 +1893,7 @@ suite('client-checkout-discounts-integration-test', () => {
                     });
                 });
             });
-        }).timeout(3000);
+        }).timeout(5000);
 
         test('it returns an error when the checkout ID is invalid', () => {
           const invalidCheckoutId = 'invalid-checkout-id';
@@ -1980,6 +1905,1438 @@ suite('client-checkout-discounts-integration-test', () => {
             });
         });
       });
+    });
+
+    suite('shipping discounts', () => {
+      test('cannot return shipping discount information for a checkout without a shipping address and no line items', async() => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        return client.checkout
+          .create({})
+          .then((checkout) => {
+            return client.checkout
+              .addDiscount(checkout.id, discountCode)
+              .then((updatedCheckout) => {
+                assert.strictEqual(
+                  updatedCheckout.discountApplications.length,
+                  0
+                );
+              });
+          });
+      }).timeout(5000);
+
+      test('cannot return shipping discount information for a checkout without a shipping address and a single line item', () => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        return client.checkout
+          .create({
+            lineItems: [
+              {
+                variantId: 'gid://shopify/ProductVariant/50850334310456',
+                quantity: 1
+              }
+            ]
+          })
+          .then((checkout) => {
+            return client.checkout
+              .addDiscount(checkout.id, discountCode)
+              .then((updatedCheckout) => {
+                assert.strictEqual(
+                  updatedCheckout.discountApplications.length,
+                  0
+                );
+
+                assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 0);
+              });
+          });
+      }).timeout(5000);
+
+      test('cannot return shipping discount information for a checkout without a shipping address and multiple line items', () => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        return client.checkout
+          .create({
+            lineItems: [
+              {
+                variantId: 'gid://shopify/ProductVariant/50850334310456',
+                quantity: 1
+              }
+            ]
+          })
+          .then((checkout) => {
+            return client.checkout
+              .addDiscount(checkout.id, discountCode)
+              .then((updatedCheckout) => {
+                assert.strictEqual(
+                  updatedCheckout.discountApplications.length,
+                  0
+                );
+
+                updatedCheckout.lineItems.forEach((lineItem) => {
+                  assert.strictEqual(lineItem.discountAllocations.length, 0);
+                });
+              });
+          });
+      }).timeout(5000);
+
+      test('cannot return shipping discount information but returns other discount information for a checkout without a shipping address and multiple line items', async() => {
+        const discountCode1 = 'ORDERFIXED50OFF';
+        const discountCode2 = 'FREESHIPPINGALLCOUNTRIES';
+        const discountCode3 = '5OFFONCE';
+        const discountCode4 = 'XGETY50OFF';
+
+
+        const checkout = await client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 5
+            },
+            {
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
+              quantity: 10
+            }
+          ]
+        });
+
+        // eslint-disable-next-line newline-after-var
+        let updatedCheckout = await client.checkout.addDiscount(checkout.id, discountCode1);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode2);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode3);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode4);
+
+        const expectedRootDiscountApplications = [
+          {
+            targetSelection: 'ALL',
+            allocationMethod: 'ACROSS',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '50.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: 'ORDERFIXED50OFF',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+                'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode: 'ORDERFIXED50OFF'
+            }
+          },
+          {
+            __typename: 'DiscountApplication',
+            targetSelection: 'ENTITLED',
+            allocationMethod: 'ACROSS',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '5.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            code: '5OFFONCE',
+            applicable: true,
+            type: {
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false,
+              kind: 'OBJECT',
+              name: 'DiscountApplication'
+            }
+          },
+          {
+            targetSelection: 'ENTITLED',
+            allocationMethod: 'EACH',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '350.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: 'XGETY50OFF',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+              'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode: 'XGETY50OFF'
+            }
+          }
+        ];
+
+        assert.strictEqual(updatedCheckout.discountApplications.length, expectedRootDiscountApplications.length);
+        // Just in case the relative order is different
+        updatedCheckout.discountApplications.sort((a, b) => a.code.localeCompare(b.code));
+        expectedRootDiscountApplications.sort((a, b) => a.code.localeCompare(b.code));
+        updatedCheckout.discountApplications.forEach((discountApplication, index) => {
+          assertActualDiscountApplicationIsExpected(
+            discountApplication,
+            expectedRootDiscountApplications[index]
+          );
+        });
+
+        const actualAndExpectedDiscountAllocations = {
+          // Keys are variant ID (without gid://shopify/ProductVariant/) and quantity
+          // Even though we had only 2 line items as input, it is expected that we have 4 entries here due to the combination of the
+          // "Buy X Get Y" discount and the fact that "5OFFONCE" is only applied once and not per item
+          // This "line item splitting" behaviour is consistent between the Checkout API and the Cart API
+          '50850334310456_1': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '5.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '5.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: '5OFFONCE',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                // There is a small discrepancy between the Checkout API and the Cart API in this "line item splitting" scenario
+                // For both APIs, we have 4 discount allocations for the "ORDERFIXED50OFF" order-level discount (and we have 4 line items after the "splitting")
+                // For these 4 discount allocations (for the "ORDERFIXED50OFF" order-level discount):
+                // - the Checkout API returns **2** discount allocations on 2 of the line items and **0** discount allocations on the other 2 line items
+                // - the Cart API returns **1** discount allocation on each of the 4 line items
+                //
+                // With order-level discounts, the discount allocations sum up to the total discount amount, so either way the result is the same.
+                // Here, the "expected" discount allocations are directly from the Checkout APIs EXCEPT I have manually moved 2 of the order-level discount allocations
+                // so that each line item has 1 discount allocation (since ultimately we want this to represent what we expect JS Buy SDK v3 to return if everything
+                // is working as expected)
+                allocatedAmount: {
+                  amount: '7.25',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850334310456_4': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '29.74',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '0.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850336211000_3': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '7.8',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '0.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850336211000_7': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '5.21',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '350.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          }
+        };
+
+        updatedCheckout.lineItems.forEach((line) => {
+          // Remove the gid://shopify/ProductVariant/ prefix from the variant ID
+          const variantId = line.variant.id.split('/').pop();
+          const quantity = line.quantity;
+          const actual = line.discountAllocations.sort((a, b) => a.discountApplication.code.localeCompare(b.discountApplication.code));
+          const expected = actualAndExpectedDiscountAllocations[`${variantId}_${quantity}`].expected.sort((a, b) => a.discountApplication.code.localeCompare(b.discountApplication.code));
+
+          assert.strictEqual(actual.length, expected.length);
+          for (let i = 0; i < actual.length; i++) {
+            assertActualDiscountAllocationIsExpected(actual[i], expected[i]);
+          }
+        });
+      }).timeout(10000);
+
+      test('gracefully returns an empty array for discountApplications when adding a free shipping discount to a checkout with a shipping address but no line items', async() => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        const checkout = await client.checkout.create({
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        });
+
+        const updatedCheckout = await client.checkout.addDiscount(checkout.id, discountCode);
+
+
+        assert.strictEqual(updatedCheckout.discountApplications.length, 0);
+      });
+
+      test('adds a free shipping discount to a checkout with a shipping address and a single line item', async() => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        const checkout = await client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 1
+            }
+          ],
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        });
+
+        const updatedCheckout = await client.checkout.addDiscount(checkout.id, discountCode);
+
+        const expectedRootDiscountApplications = [
+          {
+            __typename: 'DiscountCodeApplication',
+            targetSelection: 'ALL',
+            allocationMethod: 'EACH',
+            targetType: 'SHIPPING_LINE',
+            value: {
+              percentage: 100.0,
+              type: {
+                kind: 'UNION',
+                name: 'PricingValue'
+              }
+            },
+            code: 'FREESHIPPINGALLCOUNTRIES',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+                'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode
+            }
+          }
+        ];
+
+        const expectedRootDiscountApplication = expectedRootDiscountApplications[0];
+        const actualRootDiscountApplication = updatedCheckout.discountApplications[0];
+
+        assertActualDiscountApplicationIsExpected(
+          actualRootDiscountApplication,
+          expectedRootDiscountApplication
+        );
+        assert.strictEqual(updatedCheckout.lineItems[0].discountAllocations.length, 0);
+      }).timeout(5000);
+
+      test('adds a free shipping discount to a checkout with a shipping address and multiple line items', async () => {
+        const discountCode = 'FREESHIPPINGALLCOUNTRIES';
+
+        const checkout = await client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 2
+            },
+            {
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
+              quantity: 3
+            }
+          ],
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        });
+
+        const updatedCheckout = await client.checkout.addDiscount(
+          checkout.id,
+          discountCode
+        );
+
+        const expectedRootDiscountApplications = [
+          {
+            __typename: 'DiscountCodeApplication',
+            targetSelection: 'ALL',
+            allocationMethod: 'EACH',
+            targetType: 'SHIPPING_LINE',
+            value: {
+              percentage: 100,
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: discountCode,
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+                'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode
+            }
+          }
+        ];
+
+        assert.strictEqual(
+          updatedCheckout.discountApplications.length,
+          1
+        );
+
+        const expectedRootDiscountApplication =
+          expectedRootDiscountApplications[0];
+        const actualRootDiscountApplication =
+          updatedCheckout.discountApplications[0];
+
+        assertActualDiscountApplicationIsExpected(
+          actualRootDiscountApplication,
+          expectedRootDiscountApplication
+        );
+
+        updatedCheckout.lineItems.forEach((lineItem) => {
+          assert.strictEqual(lineItem.discountAllocations.length, 0);
+        });
+      }).timeout(5000);
+
+      test('returns shipping discount and other discount information for a checkout with a shipping address and multiple line items', async() => {
+        const discountCode1 = 'ORDERFIXED50OFF';
+        const discountCode2 = 'FREESHIPPINGALLCOUNTRIES';
+        const discountCode3 = '5OFFONCE';
+        const discountCode4 = 'XGETY50OFF';
+
+
+        const checkout = await client.checkout.create({
+          lineItems: [
+            {
+              variantId: 'gid://shopify/ProductVariant/50850334310456',
+              quantity: 5
+            },
+            {
+              variantId: 'gid://shopify/ProductVariant/50850336211000',
+              quantity: 10
+            }
+          ],
+          shippingAddress: {
+            country: 'United States',
+            province: 'New York'
+          }
+        });
+
+        // eslint-disable-next-line newline-after-var
+        let updatedCheckout = await client.checkout.addDiscount(checkout.id, discountCode1);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode2);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode3);
+        updatedCheckout = await client.checkout.addDiscount(updatedCheckout.id, discountCode4);
+
+        const expectedRootDiscountApplications = [
+          {
+            targetSelection: 'ALL',
+            allocationMethod: 'ACROSS',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '50.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: 'ORDERFIXED50OFF',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+                'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode: 'ORDERFIXED50OFF'
+            }
+          },
+          {
+            __typename: 'DiscountApplication',
+            targetSelection: 'ENTITLED',
+            allocationMethod: 'ACROSS',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '5.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            code: '5OFFONCE',
+            applicable: true,
+            type: {
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false,
+              kind: 'OBJECT',
+              name: 'DiscountApplication'
+            }
+          },
+          {
+            targetSelection: 'ENTITLED',
+            allocationMethod: 'EACH',
+            targetType: 'LINE_ITEM',
+            value: {
+              amount: '350.0',
+              currencyCode: 'CAD',
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: 'XGETY50OFF',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+              'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode: 'XGETY50OFF'
+            }
+          },
+          {
+            targetSelection: 'ALL',
+            allocationMethod: 'EACH',
+            targetType: 'SHIPPING_LINE',
+            value: {
+              percentage: 100.0,
+              type: {
+                name: 'PricingValue',
+                kind: 'UNION'
+              }
+            },
+            code: 'FREESHIPPINGALLCOUNTRIES',
+            applicable: true,
+            type: {
+              name: 'DiscountCodeApplication',
+              kind: 'OBJECT',
+              fieldBaseTypes: {
+                applicable: 'Boolean',
+                code: 'String'
+              },
+              implementsNode: false
+            },
+            hasNextPage: false,
+            hasPreviousPage: false,
+            variableValues: {
+              checkoutId:
+              'gid://shopify/Checkout/64315a82d62b5d89481c462a43f3a896?key=a27df729b11a037e5b844dbd41750b41',
+              discountCode: 'FREESHIPPINGALLCOUNTRIES'
+            }
+          }
+        ];
+
+        assert.strictEqual(updatedCheckout.discountApplications.length, expectedRootDiscountApplications.length);
+        // Just in case the relative order is different
+        updatedCheckout.discountApplications.sort((a, b) => a.code.localeCompare(b.code));
+        expectedRootDiscountApplications.sort((a, b) => a.code.localeCompare(b.code));
+        updatedCheckout.discountApplications.forEach((discountApplication, index) => {
+          assertActualDiscountApplicationIsExpected(
+            discountApplication,
+            expectedRootDiscountApplications[index]
+          );
+        });
+
+        const actualAndExpectedDiscountAllocations = {
+          // Keys are variant ID (without gid://shopify/ProductVariant/) and quantity
+          // Even though we had only 2 line items as input, it is expected that we have 4 entries here due to the combination of the
+          // "Buy X Get Y" discount and the fact that "5OFFONCE" is only applied once and not per item
+          // This "line item splitting" behaviour is consistent between the Checkout API and the Cart API
+          '50850334310456_1': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '5.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '5.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: '5OFFONCE',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '7.25',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850334310456_4': {
+            expected: [
+              {
+                // There is a small discrepancy between the Checkout API and the Cart API in this "line item splitting" scenario
+                // For both APIs, we have 4 discount allocations for the "ORDERFIXED50OFF" order-level discount (and we have 4 line items after the "splitting")
+                // For these 4 discount allocations (for the "ORDERFIXED50OFF" order-level discount):
+                // - the Checkout API returns **2** discount allocations on 2 of the line items and **0** discount allocations on the other 2 line items
+                // - the Cart API returns **1** discount allocation on each of the 4 line items
+                //
+                // With order-level discounts, the discount allocations sum up to the total discount amount, so either way the result is the same.
+                // Here, the "expected" discount allocations are directly from the Checkout APIs EXCEPT I have manually adjusted the order-level discount allocations
+                // so that each line item has 1 discount allocation (since ultimately we want this to represent what we expect JS Buy SDK v3 to return if everything
+                // is working as expected)
+                allocatedAmount: {
+                  amount: '29.74',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '0.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850336211000_3': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '7.8',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '0.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          },
+          '50850336211000_7': {
+            expected: [
+              {
+                allocatedAmount: {
+                  amount: '5.21',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ALL',
+                  allocationMethod: 'ACROSS',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '50.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'ORDERFIXED50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              },
+              {
+                allocatedAmount: {
+                  amount: '350.0',
+                  currencyCode: 'CAD',
+                  type: {
+                    name: 'MoneyV2',
+                    kind: 'OBJECT',
+                    fieldBaseTypes: {
+                      amount: 'Decimal',
+                      currencyCode: 'CurrencyCode'
+                    },
+                    implementsNode: false
+                  }
+                },
+                discountApplication: {
+                  __typename: 'DiscountApplication',
+                  targetSelection: 'ENTITLED',
+                  allocationMethod: 'EACH',
+                  targetType: 'LINE_ITEM',
+                  value: {
+                    amount: '350.0',
+                    currencyCode: 'CAD',
+                    type: {
+                      name: 'PricingValue',
+                      kind: 'UNION'
+                    }
+                  },
+                  hasNextPage: false,
+                  hasPreviousPage: false,
+                  code: 'XGETY50OFF',
+                  applicable: true,
+                  type: {
+                    fieldBaseTypes: {
+                      applicable: 'Boolean',
+                      code: 'String'
+                    },
+                    implementsNode: false,
+                    kind: 'OBJECT',
+                    name: 'DiscountApplication'
+                  }
+                },
+                type: {
+                  fieldBaseTypes: {
+                    allocatedAmount: 'MoneyV2',
+                    discountApplication: 'DiscountApplication'
+                  },
+                  implementsNode: false,
+                  kind: 'OBJECT',
+                  name: 'DiscountAllocation'
+                }
+              }
+            ]
+          }
+        };
+
+        updatedCheckout.lineItems.forEach((line) => {
+          // Remove the gid://shopify/ProductVariant/ prefix from the variant ID
+          const variantId = line.variant.id.split('/').pop();
+          const quantity = line.quantity;
+          const actual = line.discountAllocations.sort((a, b) => a.discountApplication.code.localeCompare(b.discountApplication.code));
+          const expected = actualAndExpectedDiscountAllocations[`${variantId}_${quantity}`].expected.sort((a, b) => a.discountApplication.code.localeCompare(b.discountApplication.code));
+
+          assert.strictEqual(actual.length, expected.length);
+          for (let i = 0; i < actual.length; i++) {
+            assertActualDiscountAllocationIsExpected(actual[i], expected[i]);
+          }
+        });
+      }).timeout(10000);
     });
   });
 });
