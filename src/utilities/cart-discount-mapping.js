@@ -231,86 +231,90 @@ function generateDiscountApplications(cartLinesWithAllDiscountAllocations, disco
     if (!discountAllocations) { return; }
 
     discountAllocations.forEach((discountAllocation) => {
-      const discountApp = discountAllocation.discountApplication;
-      const discountId = getDiscountAllocationId(discountAllocation);
-
-      if (!discountId) {
-        throw new Error(
-          `Discount allocation must have either code or title in discountApplication: ${JSON.stringify(
-            discountAllocation
-          )}`
-        );
-      }
-
-      if (discountIdToDiscountApplicationMap.has(discountId.toLowerCase())) {
-        const existingDiscountApplication =
-          discountIdToDiscountApplicationMap.get(discountId.toLowerCase());
-
-        // if existingDiscountApplication.value is an amount rather than a percentage discount
-        if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
-          existingDiscountApplication.value = {
-            amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(2),
-            currencyCode: existingDiscountApplication.value.currencyCode,
-            type: existingDiscountApplication.value.type
-          };
-        }
-      } else {
-        let discountApplication = {
-          __typename: 'DiscountApplication',
-          targetSelection: discountApp.targetSelection,
-          allocationMethod: discountApp.allocationMethod,
-          targetType: discountApp.targetType,
-          value: discountApp.value,
-          hasNextPage: false,
-          hasPreviousPage: false
-        };
-
-        if ('code' in discountAllocation.discountApplication) {
-          const discountCode = discountCodes.find(
-            ({code}) => code.toLowerCase() === discountId.toLowerCase()
-          );
-
-          if (!discountCode) {
-            throw new Error(
-              `Discount code ${discountId} not found in cart discount codes. Discount codes: ${JSON.stringify(
-                discountCodes
-              )}`
-            );
-          }
-          discountApplication = Object.assign({}, discountApplication, {
-            code: discountAllocation.discountApplication.code,
-            applicable: discountCode.applicable,
-            type: {
-              fieldBaseTypes: {
-                applicable: 'Boolean',
-                code: 'String'
-              },
-              implementsNode: false,
-              kind: 'OBJECT',
-              name: 'DiscountApplication'
-            }
-          });
-        } else {
-          discountApplication = Object.assign({}, discountApplication, {
-            title: discountAllocation.discountApplication.title,
-            type: {
-              fieldBaseTypes: {
-                applicable: 'Boolean',
-                title: 'String'
-              },
-              implementsNode: false,
-              kind: 'OBJECT',
-              name: 'DiscountApplication'
-            }
-          });
-        }
-
-        discountIdToDiscountApplicationMap.set(discountId.toLowerCase(), discountApplication);
-      }
+      createCheckoutDiscountApplicationFromCartDiscountAllocation(discountAllocation, discountIdToDiscountApplicationMap, discountCodes);
     });
   });
 
   return discountIdToDiscountApplicationMap;
+}
+
+function createCheckoutDiscountApplicationFromCartDiscountAllocation(discountAllocation, discountIdToDiscountApplicationMap, discountCodes) {
+  const discountApp = discountAllocation.discountApplication;
+  const discountId = getDiscountAllocationId(discountAllocation);
+
+  if (!discountId) {
+    throw new Error(
+      `Discount allocation must have either code or title in discountApplication: ${JSON.stringify(
+        discountAllocation
+      )}`
+    );
+  }
+
+  if (discountIdToDiscountApplicationMap.has(discountId.toLowerCase())) {
+    const existingDiscountApplication =
+      discountIdToDiscountApplicationMap.get(discountId.toLowerCase());
+
+    // if existingDiscountApplication.value is an amount rather than a percentage discount
+    if (existingDiscountApplication.value && 'amount' in existingDiscountApplication.value) {
+      existingDiscountApplication.value = {
+        amount: (Number(existingDiscountApplication.value.amount) + Number(discountAllocation.discountedAmount.amount)).toFixed(2),
+        currencyCode: existingDiscountApplication.value.currencyCode,
+        type: existingDiscountApplication.value.type
+      };
+    }
+  } else {
+    let discountApplication = {
+      __typename: 'DiscountApplication',
+      targetSelection: discountApp.targetSelection,
+      allocationMethod: discountApp.allocationMethod,
+      targetType: discountApp.targetType,
+      value: discountApp.value,
+      hasNextPage: false,
+      hasPreviousPage: false
+    };
+
+    if ('code' in discountAllocation.discountApplication) {
+      const discountCode = discountCodes.find(
+        ({code}) => code.toLowerCase() === discountId.toLowerCase()
+      );
+
+      if (!discountCode) {
+        throw new Error(
+          `Discount code ${discountId} not found in cart discount codes. Discount codes: ${JSON.stringify(
+            discountCodes
+          )}`
+        );
+      }
+      discountApplication = Object.assign({}, discountApplication, {
+        code: discountAllocation.discountApplication.code,
+        applicable: discountCode.applicable,
+        type: {
+          fieldBaseTypes: {
+            applicable: 'Boolean',
+            code: 'String'
+          },
+          implementsNode: false,
+          kind: 'OBJECT',
+          name: 'DiscountApplication'
+        }
+      });
+    } else {
+      discountApplication = Object.assign({}, discountApplication, {
+        title: discountAllocation.discountApplication.title,
+        type: {
+          fieldBaseTypes: {
+            applicable: 'Boolean',
+            title: 'String'
+          },
+          implementsNode: false,
+          kind: 'OBJECT',
+          name: 'DiscountApplication'
+        }
+      });
+    }
+
+    discountIdToDiscountApplicationMap.set(discountId.toLowerCase(), discountApplication);
+  }
 }
 
 export function deepSortLines(lineItems) {
