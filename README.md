@@ -70,6 +70,7 @@ If you migrate to Storefront API Client, there is virtually no use case that can
 | shippingLine     | ⚠️            | Not supported. Defaults to `null`  | Same as above                                                                                                                                                                                                           |
 | taxExempt        | ⚠️            | Not supported. Defaults to `false` | The [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) is not tax aware, as taxes are currently handled in the Checkout flow. Remove any existing code depending on this field.               |
 | taxesIncluded    | ⚠️            | Not supported. Defaults to `false` | Same as above                                                                                                                                                                                                           |
+| discountApplications | ✅⚠️          | If a buyer's shipping address is unknown and a shipping discount is applied, shipping discount information is **no longer** returned | In this situation, the [Cart API](https://shopify.dev/docs/api/storefront/2025-01/objects/cart) does not return any information about the value of the shipping discount (eg: whether it's a 100% discount or a $5 off discount)
 
 #### Updated `.checkout` methods
 
