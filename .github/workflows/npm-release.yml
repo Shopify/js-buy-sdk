@@ -14,6 +14,7 @@ jobs:
   npm:
     name: Changeset release
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && !contains(github.event.pull_request.title, '[DOCS]')
     permissions:
       contents: write # to be able to publish a GitHub release
       pull-requests: write # to be able to comment on released pull requests
