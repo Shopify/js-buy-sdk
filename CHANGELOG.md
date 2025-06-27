@@ -13,6 +13,36 @@
 >
 > **Critical Deadline: July 1st, 2025.** You must implement one of these changes by this date, or customers will not be able to complete purchases. Please choose the option that best suits your needs and timelines.
 
+### v3.0.7 (June 24, 2025)
+* Fix bug where discount codes that were previously added (but not applicable) would be removed
+    * Now, all discount codes (applicable or not) are preserved when adding other discount codes
+* Fix bug where a shipping discount could appear as a line item discount
+
+### v3.0.6 (June 17, 2025)
+* Update `checkout.webUrl` to use the same domain as JS Buy SDK v2
+    * Without this change, if the shop's Online Store primary domain isn't configured correctly and pointing to Shopify, some buyers are unable to checkout successfully.
+
+### Internal fix for behaviour of all `webUrl`s returned by JS Buy SDK (June 17, 2025)
+* Buyers will no longer be blocked from checkout and redirected to the shop's password page when clicking on the checkout's `webUrl` with JS Buy SDK v3, even if the shop's Online Store is password protected (to match behaviour of v2)
+
+### v3.0.5 (June 17, 2025)
+* Gracefully abort discount mapping if errors occur
+    * An error has been reported in a scenario where a discount was applied at checkout via a script, but the user navigated back to the store (without completing checkout) and JS Buy SDK v3 was erroring when attempting to map the new cart payload.
+    * We are going to continue investigating to fix the root cause, but aborting discount mapping in this scenario as a temporary fix is a better user experience in the meantime
+* Fix bug where discount code acceptance was case sensitive; now is case-insensitive
+
+### v3.0.4 (April 14, 2025)
+* Checkout resource now supports [ComponentizableCartLine type](https://shopify.dev/docs/api/storefront/2024-07/objects/ComponentizableCartLine) (to match behaviour of v2)
+
+### v3.0.3 (April 1, 2025)
+* Updated `checkout.addDiscount` to support adding multiple discount codes (to match behaviour of v2)
+
+### v3.0.2 (March 25, 2025)
+* Fix bug where the checkout resource would only return the first 10 line items; now returns the first 250 line items
+
+### v3.0.1 (March 20, 2025)
+* Same as v3.0.0 but published on npm with provenance
+
 ### v3.0.0 (March 12, 2025)
 * Bumps the SDK to use Storefront API version `2025-01`.
 * Removes the dependency on Checkout APIs and replaces them with Cart APIs.
