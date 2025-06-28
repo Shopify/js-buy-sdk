@@ -82,7 +82,7 @@
     "rollup-watch": "4.3.1",
     "selenium-standalone": "5.5.0",
     "tiny-lr": "1.0.5",
-    "wait-on": "2.0.2",
+    "wait-on": "8.0.3",
     "whatwg-fetch": "2.0.3"
   },
   "livereloadPort": 35729
